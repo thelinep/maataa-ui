@@ -14,7 +14,16 @@
     "INFO": 11,
     "publishable": true,
     "compilerConsumable": true,
-    "compilerReady": true,
+    "registryCompilerReady": true,
+    "compilerReady": false,
+    "schemaCompilerReadiness": {
+      "status": "SCHEMA_INCOMPLETE",
+      "total": 352,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 352,
+      "reason": "Registry package validity does not imply database schema readiness; incomplete contracts fail closed."
+    },
     "domainRegistry": {
       "valid": true,
       "blockers": 0,
@@ -318,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "7d13f7728fd87de8f895b4f4b2c4492843fe887fed7fdb724c996889da4e2816",
+    "registryHash": "b21c980c67db71a207e3795d12f964c89d947ab2b435f7b49eae676ea4807ce4",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -326,43 +335,43 @@
       },
       {
         "path": "./applications/campaign-os-reference.ir.json",
-        "sha256": "569bd450476e626b7d561c76ab7af2b16099a8406cee415567d2694fe3c8bf87"
+        "sha256": "e744a5a585f8d28b14babe49505ecdcbd470c9f445e86cd0d617863a93646f93"
       },
       {
         "path": "./applications/campaign-os-reference.schema-preview.json",
-        "sha256": "1612b3e61efd2817a09a200c7ef5fa85e72588d478952ea2c42148772fc8172e"
+        "sha256": "37393ec52f3100113da1741b6c19a3f7db89570ac7ce411e1d0ee517be11eaf2"
       },
       {
         "path": "./applications/casting-pipeline-demo.ir.json",
-        "sha256": "5ddfa669f4e9037d691f433c600438fc31b36e638d843461f6fc89fefb92d0b0"
+        "sha256": "0db8deb9d01680e21ab8d46b1679cb19453682a596bae8f21f42456884f127c3"
       },
       {
         "path": "./applications/casting-pipeline-demo.schema-preview.json",
-        "sha256": "6caa71fae4f4d51aa3f1ad7e77f55a38efe057239218b6dca83cc23184a90505"
+        "sha256": "03c0bfd4e98d2b0f18047bbdf83307282da7434b3e0ef58d7408715e9fce5d7c"
       },
       {
         "path": "./applications/casting-pipeline.explainability.json",
-        "sha256": "b117690cf178241cbf0c5bcd778f25aac8321473b71647193eda10400b52f7e5"
+        "sha256": "4364c4ddfbaeda8f61c1bc59d77e348d9204faff7883fc56aa220b4b1f782f41"
       },
       {
         "path": "./applications/events-wedding-spatial-reference.ir.json",
-        "sha256": "8be8160a349e6576d14ea69863bae7d78d0395a24ab5f25592fd99056b43a377"
+        "sha256": "196414608f78340306dbeef5be0811c28edca508de01ae8372ea4270cde97bd2"
       },
       {
         "path": "./applications/events-wedding-spatial-reference.schema-preview.json",
-        "sha256": "e9308f6da15338bff638dcc5bbc8ca0568dc09dcb8a18579721cc5caa158f636"
+        "sha256": "30e9b2e713278fe89a0e4028781310a2659b2371843bf50cffd9f80187c25219"
       },
       {
         "path": "./applications/investorhub-reference.ir.json",
-        "sha256": "7aafc0ee88f612caa029cd3bdc974f33006d523f1f81ff7f553f45f08d211d87"
+        "sha256": "58d5dd6651eca79087b583b0031bd21e056955d268d898547582bf4a97a362b8"
       },
       {
         "path": "./applications/investorhub-reference.schema-preview.json",
-        "sha256": "a24db009d4cd8d9ccbb1536c2c8b2cc880083d075e433a2ab02d0287539436af"
+        "sha256": "27c2011dca61d17a70f40a69a9c6bbabe47272ef7ca79e3c0595a042ca368850"
       },
       {
         "path": "./applications/registry.json",
-        "sha256": "53cd7a4e787e02091859e6c2292de07ffacb81bf31543020a9d530f654cbb356"
+        "sha256": "1206c8240b91eec3ba7a37d1f0ddae7aacbbbb67a5b8d64a1cd0bec9ee717d02"
       },
       {
         "path": "./catalog/future-production-tables.json",
@@ -485,12 +494,20 @@
         "sha256": "37b175fc62039fc893469284a52958e0ae8c5745d484e50a47c1be1d8b0490b5"
       },
       {
+        "path": "./data/scalar-types.json",
+        "sha256": "77a9a92fe4fa787edf8ad3bd6d2431881c477e11c0dac450692431f753cc702a"
+      },
+      {
         "path": "./data/slice-map.json",
         "sha256": "5dd888bc935a3c135c30e4d14d9a5d2cd0ca38ffcb100c999dc1cdf4e1dc1dc1"
       },
       {
         "path": "./data/spine.json",
         "sha256": "f0181e2358932e06c3a0104c3b74aaab7d34f7210e051b8777f9da60a1a228be"
+      },
+      {
+        "path": "./data/table-contracts.json",
+        "sha256": "ed767eaa4b3112af6e93febaa79061d399d50a90028150d10ce34756c4700955"
       },
       {
         "path": "./flows/flow-classifications.json",
@@ -542,11 +559,11 @@
       },
       {
         "path": "./schemas/application-ir.schema.json",
-        "sha256": "59d5952100787ec71ca3745316e4aec6358e116852ed130c5cfb7e24cec075a7"
+        "sha256": "66418f5f430b1bf1352a59c1bea0a9a8b7a965ac2c113d1fe9f1adb1a74bd59f"
       },
       {
         "path": "./schemas/application-record.schema.json",
-        "sha256": "44a5d01fc1fa9ffdc55816f18251df6414753159fa01d78296104063bc95d688"
+        "sha256": "6c3543d8ae785a7733f732db7a42ddaa287da9ab7b9c37e187d8ff099e06764a"
       },
       {
         "path": "./schemas/compilation-plan.schema.json",
@@ -583,6 +600,10 @@
       {
         "path": "./schemas/route-resolution.schema.json",
         "sha256": "347760c4b085adb504cf7a936b11211976eaad41511caa42867c03a485c36e24"
+      },
+      {
+        "path": "./schemas/table-contract.schema.json",
+        "sha256": "8a961e830e57b1d204424a36104724198d4dad33ec5fa8399de5b3f4d212a83c"
       },
       {
         "path": "./schemas/table.schema.json",
@@ -786,6 +807,127 @@
       "records": 4,
       "resolverVersion": "1.0.0"
     },
+    "tableContracts": {
+      "path": "./data/table-contracts.json",
+      "version": "1.0.0",
+      "status": "authoring-required",
+      "records": 0,
+      "catalogTables": 352,
+      "total": 352,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 352,
+      "byContext": {
+        "campaign": {
+          "total": 22,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 22
+        },
+        "communications": {
+          "total": 9,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 9
+        },
+        "creative": {
+          "total": 20,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 20
+        },
+        "eventsspatial": {
+          "total": 25,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 25
+        },
+        "evidence": {
+          "total": 23,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 23
+        },
+        "finance": {
+          "total": 22,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 22
+        },
+        "identity": {
+          "total": 25,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 25
+        },
+        "intelligence": {
+          "total": 22,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 22
+        },
+        "investor": {
+          "total": 21,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 21
+        },
+        "logistics": {
+          "total": 26,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 26
+        },
+        "marketplace": {
+          "total": 22,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 22
+        },
+        "organisation": {
+          "total": 10,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 10
+        },
+        "people": {
+          "total": 32,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 32
+        },
+        "platform": {
+          "total": 25,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 25
+        },
+        "production": {
+          "total": 19,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 19
+        },
+        "project": {
+          "total": 17,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 17
+        },
+        "public": {
+          "total": 12,
+          "complete": 0,
+          "partial": 0,
+          "nameOnly": 12
+        }
+      }
+    },
+    "scalarTypes": {
+      "path": "./data/scalar-types.json",
+      "version": "1.0.0",
+      "status": "canonical-vocabulary",
+      "records": 12
+    },
     "compositionArtifacts": {
       "path": "./composition/route-impact-indexes.json",
       "version": "1.0.0",
@@ -957,7 +1099,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "7d13f7728fd87de8f895b4f4b2c4492843fe887fed7fdb724c996889da4e2816",
+    "packageHash": "b21c980c67db71a207e3795d12f964c89d947ab2b435f7b49eae676ea4807ce4",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

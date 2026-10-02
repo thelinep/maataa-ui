@@ -18,8 +18,11 @@ import routeFindings from "../routes/findings.json" with { type: "json" };
 import flowRouteReferences from "../routes/flow-references.json" with { type: "json" };
 import deferredRoutes from "../routes/deferred.json" with { type: "json" };
 import routePatternPolicy from "../routes/pattern-derivation-policy.json" with { type: "json" };
+import scalarTypes from "../data/scalar-types.json" with { type: "json" };
+import tableContracts from "../data/table-contracts.json" with { type: "json" };
+import { validateTableContract } from "./contracts.mjs";
 
-export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine });
+export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts });
 
 const uniqueBy = (items, field) => new Map(items.map((item) => [item[field], item]));
 const compositionProducts = (source) => source.products.products ?? [];
@@ -356,11 +359,20 @@ export function getRegistryGate(source = registry) {
   const domainValid = !domainFindings.some((item) => item.severity === "BLOCKER" || item.severity === "ERROR");
   const routeValid = !routeFindings.some((item) => item.severity === "BLOCKER" || item.severity === "ERROR");
   const publishable = (counts.BLOCKER ?? 0) === 0 && (counts.ERROR ?? 0) === 0;
+  const tableIds = (source.domains.tables ?? []).map((item) => item.id);
+  const contracts = source.tableContracts?.contracts ?? [];
+  const contractsById = new Map(contracts.map((item) => [item.id, item]));
+  const schemaCompilerReady = tableIds.length > 0 && contracts.length === tableIds.length && contractsById.size === tableIds.length && tableIds.every((id) => {
+    const contract = contractsById.get(id);
+    return contract && validateTableContract(contract, source).valid;
+  });
   return {
     draftInspectable: true,
     publishable,
     compilerConsumable: publishable,
-    compilerReady: publishable,
+    registryCompilerReady: publishable,
+    schemaCompilerReady,
+    compilerReady: schemaCompilerReady,
     domainRegistry: { valid: domainValid, blockers: domainFindings.filter((item) => item.severity === "BLOCKER").length, errors: domainFindings.filter((item) => item.severity === "ERROR").length },
     routeRegistry: {
       valid: routeValid,

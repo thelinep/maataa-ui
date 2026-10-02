@@ -64,7 +64,7 @@ for (const context of aggregateContexts.contexts) {
 const hashOk = registryHash === manifest.integrity?.registryHash && JSON.stringify(contentHashes) === JSON.stringify(manifest.integrity?.contentHashes) && projectionsOk;
 const gate = getRegistryGate(registry);
 console.log(`Registry ${manifest.registryId}@${manifest.version}: ${gate.counts.BLOCKER ?? 0} blocker(s), ${gate.counts.ERROR ?? 0} error(s), ${gate.counts.WARNING ?? 0} warning(s), ${gate.counts.INFO ?? 0} info.`);
-console.log(`Domain registry: ${gate.domainRegistry.valid ? "VALID" : "INVALID"} · Route registry: ${gate.routeRegistry.valid ? "VALID" : "INVALID"} · Compiler ready: ${gate.compilerReady ? "YES" : "NO"}`);
+console.log(`Domain registry: ${gate.domainRegistry.valid ? "VALID" : "INVALID"} · Route registry: ${gate.routeRegistry.valid ? "VALID" : "INVALID"} · Registry publishable: ${gate.publishable ? "YES" : "NO"} · Schema compiler ready: ${gate.schemaCompilerReady ? "YES" : "NO"}`);
 console.log(`Routes: ${gate.routeRegistry.registeredStatic} registered static, ${gate.routeRegistry.registeredDynamic} registered dynamic, ${gate.routeRegistry.declaredUnregistered} declared only, ${gate.routeRegistry.approvedAliases} approved aliases, ${gate.routeRegistry.unresolved} unresolved.`);
 console.log(`Application IR artifacts: ${applicationArtifactsOk ? "PASS" : "FAIL"} · ${applicationRegistry.records.length} records pinned to M1`);
 console.log(`Reproducible package hash: ${hashOk ? "PASS" : "FAIL"}${hashOk ? ` · ${registryHash}` : ""}`);

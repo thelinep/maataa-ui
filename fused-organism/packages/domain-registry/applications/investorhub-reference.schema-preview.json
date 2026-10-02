@@ -1,8 +1,115 @@
 {
   "schemaVersion": "1.0.0",
   "applicationId": "investorhub-reference",
-  "sourceIrHash": "b9717315e953cf260b2621d21ce3f4385cf9351c5b7e562abe85758b153d18ee",
-  "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS",
+  "sourceIrHash": "87034a57ac9ad442cf220bcb3a13d88c85db89ee2fb8152eddfbf698444858ce",
+  "status": "SCHEMA_INCOMPLETE",
+  "schemaReadiness": {
+    "status": "SCHEMA_INCOMPLETE",
+    "counts": {
+      "total": 340,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 340
+    },
+    "byContext": {
+      "campaign": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "communications": {
+        "total": 9,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 9
+      },
+      "creative": {
+        "total": 20,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 20
+      },
+      "eventsspatial": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "evidence": {
+        "total": 23,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 23
+      },
+      "finance": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "identity": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "intelligence": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "investor": {
+        "total": 21,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 21
+      },
+      "logistics": {
+        "total": 26,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 26
+      },
+      "marketplace": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "organisation": {
+        "total": 10,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 10
+      },
+      "people": {
+        "total": 32,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 32
+      },
+      "platform": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "production": {
+        "total": 19,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 19
+      },
+      "project": {
+        "total": 17,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 17
+      }
+    }
+  },
   "contextBoundaries": [
     {
       "contextId": "campaign",
@@ -458,8 +565,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignActivationFeedEvents",
@@ -477,8 +586,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignActivations",
@@ -496,8 +607,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignAtlPlans",
@@ -515,8 +628,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignBtlPlans",
@@ -534,8 +649,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCampaignBriefs",
@@ -553,8 +670,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCampaignMarkets",
@@ -572,8 +691,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCampaignMetrics",
@@ -591,8 +712,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCampaignResults",
@@ -610,8 +733,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCampaignStrategies",
@@ -629,8 +754,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCampaigns",
@@ -648,8 +775,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignCities",
@@ -667,8 +796,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignDoohSchedules",
@@ -686,8 +817,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignDoohScreens",
@@ -705,8 +838,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignLeadEvents",
@@ -724,8 +859,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignLeads",
@@ -743,8 +880,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignMarkets",
@@ -762,8 +901,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignMediaPlanItems",
@@ -781,8 +922,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignMediaPlans",
@@ -800,8 +943,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignOohSiteBookings",
@@ -819,8 +964,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignOohSites",
@@ -838,8 +985,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CampaignSiteCheckins",
@@ -857,8 +1006,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsAnnouncements",
@@ -876,8 +1027,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsCommunicationThreads",
@@ -895,8 +1048,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsDirectMessageThreads",
@@ -914,8 +1069,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsMessageAttachments",
@@ -933,8 +1090,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsMessages",
@@ -952,8 +1111,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsNotificationDeliveries",
@@ -971,8 +1132,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsNotificationPreferences",
@@ -990,8 +1153,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsNotifications",
@@ -1009,8 +1174,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CommunicationsThreadMembers",
@@ -1028,8 +1195,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeAssetVersions",
@@ -1047,8 +1216,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeCharacterSceneLinks",
@@ -1066,8 +1237,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeCharacters",
@@ -1085,8 +1258,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeCreativeApprovals",
@@ -1104,8 +1279,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeCreativeAssets",
@@ -1123,8 +1300,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeCreativeReferences",
@@ -1142,8 +1321,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeIdeas",
@@ -1161,8 +1342,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeProductionElements",
@@ -1180,8 +1363,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeResearchItems",
@@ -1199,8 +1384,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeSceneElements",
@@ -1218,8 +1405,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeSceneVersions",
@@ -1237,8 +1426,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeScenes",
@@ -1256,8 +1447,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeScriptBreakdowns",
@@ -1275,8 +1468,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeScriptVersions",
@@ -1294,8 +1489,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeScripts",
@@ -1313,8 +1510,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeShotLists",
@@ -1332,8 +1531,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeShots",
@@ -1351,8 +1552,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeStoryboardFrames",
@@ -1370,8 +1573,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeStoryboards",
@@ -1389,8 +1594,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "CreativeTreatments",
@@ -1408,8 +1615,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialBoardItems",
@@ -1427,8 +1636,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialBoards",
@@ -1446,8 +1657,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialCadModels",
@@ -1465,8 +1678,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialDecisionGraphEdges",
@@ -1484,8 +1699,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialDecisionGraphNodes",
@@ -1503,8 +1720,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialDecisionGraphs",
@@ -1522,8 +1741,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialEventJourneys",
@@ -1541,8 +1762,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialEventTimelineItems",
@@ -1560,8 +1783,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialEvents",
@@ -1579,8 +1804,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialExhibitionLayouts",
@@ -1598,8 +1825,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialFilmTwins",
@@ -1617,8 +1846,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialPresentationSlides",
@@ -1636,8 +1867,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialPresentations",
@@ -1655,8 +1888,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialRunOfShowItems",
@@ -1674,8 +1909,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialSimulations",
@@ -1693,8 +1930,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialSpatialLayers",
@@ -1712,8 +1951,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialSpatialLayouts",
@@ -1731,8 +1972,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialSpatialObjects",
@@ -1750,8 +1993,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialSpatialOperations",
@@ -1769,8 +2014,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialSpatialProjects",
@@ -1788,8 +2035,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialVenueBookings",
@@ -1807,8 +2056,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialVenues",
@@ -1826,8 +2077,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialWeddingEvents",
@@ -1845,8 +2098,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialWeddingJourneys",
@@ -1864,8 +2119,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EventsspatialWeddings",
@@ -1883,8 +2140,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceApprovalComments",
@@ -1902,8 +2161,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceApprovalDecisions",
@@ -1921,8 +2182,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceApprovalSteps",
@@ -1940,8 +2203,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceApprovals",
@@ -1959,8 +2224,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceAuditEvents",
@@ -1978,8 +2245,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceBeforeAfterProofs",
@@ -1997,8 +2266,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceChainOfCustodyEvents",
@@ -2016,8 +2287,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceChangeRequests",
@@ -2035,8 +2308,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceDocumentLinks",
@@ -2054,8 +2329,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceDocumentVersions",
@@ -2073,8 +2350,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceDocuments",
@@ -2092,8 +2371,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceGps",
@@ -2111,8 +2392,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceItems",
@@ -2130,8 +2413,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceLinks",
@@ -2149,8 +2434,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceMedia",
@@ -2168,8 +2455,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceMetadata",
@@ -2187,8 +2476,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceTimelineEvents",
@@ -2206,8 +2497,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceTimestamps",
@@ -2225,8 +2518,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceEvidenceVerifications",
@@ -2244,8 +2539,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceLegalHolds",
@@ -2263,8 +2560,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceRiskMitigations",
@@ -2282,8 +2581,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceRisks",
@@ -2301,8 +2602,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "EvidenceTrustedTimestamps",
@@ -2320,8 +2623,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceBudgetCategories",
@@ -2339,8 +2644,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceBudgetLines",
@@ -2358,8 +2665,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceBudgets",
@@ -2377,8 +2686,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceCashflowEntries",
@@ -2396,8 +2707,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceCommitments",
@@ -2415,8 +2728,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceCostSheetLines",
@@ -2434,8 +2749,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceCostSheets",
@@ -2453,8 +2770,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceCurrencies",
@@ -2472,8 +2791,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceEstimateLines",
@@ -2491,8 +2812,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceEstimates",
@@ -2510,8 +2833,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceExchangeRates",
@@ -2529,8 +2854,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceExpenseApprovals",
@@ -2548,8 +2875,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceExpenseLines",
@@ -2567,8 +2896,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceExpenses",
@@ -2586,8 +2917,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceInvoiceApprovals",
@@ -2605,8 +2938,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceInvoiceLines",
@@ -2624,8 +2959,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinancePaymentAllocations",
@@ -2643,8 +2980,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinancePaymentVerifications",
@@ -2662,8 +3001,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinancePayments",
@@ -2681,8 +3022,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceProfitabilitySnapshots",
@@ -2700,8 +3043,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceTaxCodes",
@@ -2719,8 +3064,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "FinanceVendorInvoices",
@@ -2738,8 +3085,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityAccessPolicies",
@@ -2757,8 +3106,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityAccessReviews",
@@ -2776,8 +3127,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityAuthAccounts",
@@ -2795,8 +3148,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityAuthChallenges",
@@ -2814,8 +3169,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityAuthCredentials",
@@ -2833,8 +3190,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityDelegations",
@@ -2852,8 +3211,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityDeviceVerifications",
@@ -2871,8 +3232,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityDevices",
@@ -2890,8 +3253,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityInvitations",
@@ -2909,8 +3274,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityLocationVerifications",
@@ -2928,8 +3295,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityNdaAcceptances",
@@ -2947,8 +3316,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityNdaVersions",
@@ -2966,8 +3337,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityNdas",
@@ -2985,8 +3358,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityOtpChallenges",
@@ -3004,8 +3379,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityPasswordResetTokens",
@@ -3023,8 +3400,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityPermissions",
@@ -3042,8 +3421,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityRolePermissions",
@@ -3061,8 +3442,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityRoles",
@@ -3080,8 +3463,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentitySignatures",
@@ -3099,8 +3484,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityUserEmails",
@@ -3118,8 +3505,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityUserPhones",
@@ -3137,8 +3526,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityUserProfiles",
@@ -3156,8 +3547,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityUserRoles",
@@ -3175,8 +3568,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityUserSessions",
@@ -3194,8 +3589,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IdentityUsers",
@@ -3213,8 +3610,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceAiCitations",
@@ -3232,8 +3631,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceAiContexts",
@@ -3251,8 +3652,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceAiConversations",
@@ -3270,8 +3673,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceAiMessages",
@@ -3289,8 +3694,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceAiSuggestions",
@@ -3308,8 +3715,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceAnalyticsEvents",
@@ -3327,8 +3736,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceEvidenceAwareAnswers",
@@ -3346,8 +3757,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceForecastRuns",
@@ -3365,8 +3778,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceForecastScenarios",
@@ -3384,8 +3799,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceGenerationJobs",
@@ -3403,8 +3820,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceIntelligenceRuns",
@@ -3422,8 +3841,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceIntelligenceSignals",
@@ -3441,8 +3862,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceKnowledgeChunks",
@@ -3460,8 +3883,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceKnowledgeDocuments",
@@ -3479,8 +3904,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceKpiDefinitions",
@@ -3498,8 +3925,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceKpiMeasurements",
@@ -3517,8 +3946,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceModelRegistry",
@@ -3536,8 +3967,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceModelRuns",
@@ -3555,8 +3988,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligencePromptTemplates",
@@ -3574,8 +4009,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceResearchSessions",
@@ -3593,8 +4030,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceResearchSources",
@@ -3612,8 +4051,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "IntelligenceSavedInsights",
@@ -3631,8 +4072,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorDealRoomMembers",
@@ -3650,8 +4093,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorDealRooms",
@@ -3669,8 +4114,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorDisclosures",
@@ -3688,8 +4135,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorDistributionChannels",
@@ -3707,8 +4156,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorDistributionDeals",
@@ -3726,8 +4177,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorDueDiligenceItems",
@@ -3745,8 +4198,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorFundingRequirements",
@@ -3764,8 +4219,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestmentOpportunities",
@@ -3783,8 +4240,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestmentProfiles",
@@ -3802,8 +4261,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestmentTranches",
@@ -3821,8 +4282,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestorAccounts",
@@ -3840,8 +4303,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestorCommitments",
@@ -3859,8 +4324,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestorEvidenceLinks",
@@ -3878,8 +4345,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestorProgressReports",
@@ -3897,8 +4366,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorInvestorReturns",
@@ -3916,8 +4387,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorPitchDecks",
@@ -3935,8 +4408,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorRecoupmentModels",
@@ -3954,8 +4429,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorRecoupmentTiers",
@@ -3973,8 +4450,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorRevenueEntries",
@@ -3992,8 +4471,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorRights",
@@ -4011,8 +4492,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "InvestorRightsWindows",
@@ -4030,8 +4513,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsAccommodations",
@@ -4049,8 +4534,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsDrivers",
@@ -4068,8 +4555,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentBookings",
@@ -4087,8 +4576,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentCategories",
@@ -4106,8 +4597,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentCheckouts",
@@ -4125,8 +4618,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentInventoryEvents",
@@ -4144,8 +4639,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentItems",
@@ -4163,8 +4660,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentKits",
@@ -4182,8 +4681,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentMaintenance",
@@ -4201,8 +4702,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsEquipmentReturns",
@@ -4220,8 +4723,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsLocationBookings",
@@ -4239,8 +4744,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsLocationComparisons",
@@ -4258,8 +4765,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsLocationMedia",
@@ -4277,8 +4786,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsLocations",
@@ -4296,8 +4807,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsLogisticsTasks",
@@ -4315,8 +4828,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsPermitDocuments",
@@ -4334,8 +4849,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsPermits",
@@ -4353,8 +4870,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsRecceMedia",
@@ -4372,8 +4891,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsRecces",
@@ -4391,8 +4912,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsRoomAllocations",
@@ -4410,8 +4933,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsShipments",
@@ -4429,8 +4954,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsTransportPlans",
@@ -4448,8 +4975,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsTravelLegs",
@@ -4467,8 +4996,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsTravelPlans",
@@ -4486,8 +5017,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsVehicleAssignments",
@@ -4505,8 +5038,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "LogisticsVehicles",
@@ -4524,8 +5059,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceCapabilityPacks",
@@ -4543,8 +5080,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceDeliveries",
@@ -4562,8 +5101,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceMarketplaceCategories",
@@ -4581,8 +5122,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceMarketplaceServices",
@@ -4600,8 +5143,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceProcurementAwards",
@@ -4619,8 +5164,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplacePurchaseOrderItems",
@@ -4638,8 +5185,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplacePurchaseOrders",
@@ -4657,8 +5206,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceQuoteComparisons",
@@ -4676,8 +5227,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceQuoteItems",
@@ -4695,8 +5248,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceQuotes",
@@ -4714,8 +5269,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceRfqItems",
@@ -4733,8 +5290,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceRfqRecipients",
@@ -4752,8 +5311,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceRfqs",
@@ -4771,8 +5332,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceServiceDeliveries",
@@ -4790,8 +5353,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceServiceSkus",
@@ -4809,8 +5374,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendorAvailability",
@@ -4828,8 +5395,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendorCapabilities",
@@ -4847,8 +5416,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendorPerformance",
@@ -4866,8 +5437,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendorPortfolios",
@@ -4885,8 +5458,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendorProfiles",
@@ -4904,8 +5479,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendorRatings",
@@ -4923,8 +5500,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "MarketplaceVendors",
@@ -4942,8 +5521,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationOrganisationMemberships",
@@ -4961,8 +5542,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationOrganisationSettings",
@@ -4980,8 +5563,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationOrganisations",
@@ -4999,8 +5584,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaceActivity",
@@ -5018,8 +5605,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaceFavourites",
@@ -5037,8 +5626,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaceInvites",
@@ -5056,8 +5647,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaceMemberships",
@@ -5075,8 +5668,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaceRoles",
@@ -5094,8 +5689,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaceSettings",
@@ -5113,8 +5710,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "OrganisationWorkspaces",
@@ -5132,8 +5731,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleAttendanceRecords",
@@ -5151,8 +5752,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleAuditionMedia",
@@ -5170,8 +5773,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleAuditionSubmissions",
@@ -5189,8 +5794,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCastAssignments",
@@ -5208,8 +5815,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCastMessages",
@@ -5227,8 +5836,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCastScheduleEntries",
@@ -5246,8 +5857,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCastingApprovals",
@@ -5265,8 +5878,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCastingCallRoles",
@@ -5284,8 +5899,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCastingCalls",
@@ -5303,8 +5920,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewAssignments",
@@ -5322,8 +5941,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewAvailability",
@@ -5341,8 +5962,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewContracts",
@@ -5360,8 +5983,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewHiringRequests",
@@ -5379,8 +6004,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewMessages",
@@ -5398,8 +6025,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewProfiles",
@@ -5417,8 +6046,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewShortlistItems",
@@ -5436,8 +6067,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewShortlists",
@@ -5455,8 +6088,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleCrewSkills",
@@ -5474,8 +6109,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleDepartmentMembers",
@@ -5493,8 +6130,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleDepartments",
@@ -5512,8 +6151,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleHodAssignments",
@@ -5531,8 +6172,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeoplePerformanceReviews",
@@ -5550,8 +6193,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentAvailability",
@@ -5569,8 +6214,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentComparisons",
@@ -5588,8 +6235,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentContracts",
@@ -5607,8 +6256,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentMedia",
@@ -5626,8 +6277,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentOffers",
@@ -5645,8 +6298,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentPortfolios",
@@ -5664,8 +6319,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentProfiles",
@@ -5683,8 +6340,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentShortlistItems",
@@ -5702,8 +6361,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTalentShortlists",
@@ -5721,8 +6382,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PeopleTimesheets",
@@ -5740,8 +6403,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformApiKeys",
@@ -5759,8 +6424,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformBackupJobs",
@@ -5778,8 +6445,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformDataRetentionPolicies",
@@ -5797,8 +6466,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformExportJobs",
@@ -5816,8 +6487,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformExports",
@@ -5835,8 +6508,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformFeatureFlagAssignments",
@@ -5854,8 +6529,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformFeatureFlags",
@@ -5873,8 +6550,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformIntegrationConnections",
@@ -5892,8 +6571,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformIntegrationEvents",
@@ -5911,8 +6592,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformIntegrations",
@@ -5930,8 +6613,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformRestoreJobs",
@@ -5949,8 +6634,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformRuntimeObservations",
@@ -5968,8 +6655,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformShareLinks",
@@ -5987,8 +6676,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformStatusEvents",
@@ -6006,8 +6697,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformSupportComments",
@@ -6025,8 +6718,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformSupportTickets",
@@ -6044,8 +6739,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformSyncConflicts",
@@ -6063,8 +6760,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformSyncJobs",
@@ -6082,8 +6781,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformSyncQueueItems",
@@ -6101,8 +6802,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformSystemIncidents",
@@ -6120,8 +6823,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformUserPreferences",
@@ -6139,8 +6844,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformWebhookDeliveries",
@@ -6158,8 +6865,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformWebhookSubscriptions",
@@ -6177,8 +6886,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformWebhooks",
@@ -6196,8 +6907,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "PlatformWorkspacePreferences",
@@ -6215,8 +6928,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionCallSheetAcknowledgements",
@@ -6234,8 +6949,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionCallSheetRecipients",
@@ -6253,8 +6970,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionCallSheetVersions",
@@ -6272,8 +6991,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionCallSheets",
@@ -6291,8 +7012,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionDailyProductionReports",
@@ -6310,8 +7033,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionDelays",
@@ -6329,8 +7054,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionIncidents",
@@ -6348,8 +7075,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionLiveAttendance",
@@ -6367,8 +7096,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionProductionCalendars",
@@ -6386,8 +7117,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionProductionDays",
@@ -6405,8 +7138,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionSceneProgress",
@@ -6424,8 +7159,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionScheduleItems",
@@ -6443,8 +7180,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionScheduleVersions",
@@ -6462,8 +7201,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionSchedules",
@@ -6481,8 +7222,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionShootDays",
@@ -6500,8 +7243,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionShotProgress",
@@ -6519,8 +7264,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionStripboards",
@@ -6538,8 +7285,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionStrips",
@@ -6557,8 +7306,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProductionWrapReports",
@@ -6576,8 +7327,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectActivity",
@@ -6595,8 +7348,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectBlockers",
@@ -6614,8 +7369,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectBriefs",
@@ -6633,8 +7390,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectCloseouts",
@@ -6652,8 +7411,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectHealthSnapshots",
@@ -6671,8 +7432,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectIntakes",
@@ -6690,8 +7453,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectMembers",
@@ -6709,8 +7474,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectMilestones",
@@ -6728,8 +7495,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectNotes",
@@ -6747,8 +7516,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectStatusHistory",
@@ -6766,8 +7537,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectTagLinks",
@@ -6785,8 +7558,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectTags",
@@ -6804,8 +7579,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectTasks",
@@ -6823,8 +7600,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjectTypes",
@@ -6842,8 +7621,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectProjects",
@@ -6861,8 +7642,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectTaskChecklists",
@@ -6880,8 +7663,10 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     },
     {
       "modelName": "ProjectTaskDependencies",
@@ -6899,362 +7684,26 @@
           "rule": "future-production-set@1"
         }
       },
+      "contractVersion": null,
       "fields": [],
-      "relations": []
+      "relations": [],
+      "primaryKey": null
     }
   ],
   "relations": [],
   "prismaPreview": {
-    "status": "NOT_COMPILABLE_FIELD_DEFINITIONS_MISSING",
-    "models": [
-      "CampaignActivationCalendarItems",
-      "CampaignActivationFeedEvents",
-      "CampaignActivations",
-      "CampaignAtlPlans",
-      "CampaignBtlPlans",
-      "CampaignCampaignBriefs",
-      "CampaignCampaignMarkets",
-      "CampaignCampaignMetrics",
-      "CampaignCampaignResults",
-      "CampaignCampaignStrategies",
-      "CampaignCampaigns",
-      "CampaignCities",
-      "CampaignDoohSchedules",
-      "CampaignDoohScreens",
-      "CampaignLeadEvents",
-      "CampaignLeads",
-      "CampaignMarkets",
-      "CampaignMediaPlanItems",
-      "CampaignMediaPlans",
-      "CampaignOohSiteBookings",
-      "CampaignOohSites",
-      "CampaignSiteCheckins",
-      "CommunicationsAnnouncements",
-      "CommunicationsCommunicationThreads",
-      "CommunicationsDirectMessageThreads",
-      "CommunicationsMessageAttachments",
-      "CommunicationsMessages",
-      "CommunicationsNotificationDeliveries",
-      "CommunicationsNotificationPreferences",
-      "CommunicationsNotifications",
-      "CommunicationsThreadMembers",
-      "CreativeAssetVersions",
-      "CreativeCharacterSceneLinks",
-      "CreativeCharacters",
-      "CreativeCreativeApprovals",
-      "CreativeCreativeAssets",
-      "CreativeCreativeReferences",
-      "CreativeIdeas",
-      "CreativeProductionElements",
-      "CreativeResearchItems",
-      "CreativeSceneElements",
-      "CreativeSceneVersions",
-      "CreativeScenes",
-      "CreativeScriptBreakdowns",
-      "CreativeScriptVersions",
-      "CreativeScripts",
-      "CreativeShotLists",
-      "CreativeShots",
-      "CreativeStoryboardFrames",
-      "CreativeStoryboards",
-      "CreativeTreatments",
-      "EventsspatialBoardItems",
-      "EventsspatialBoards",
-      "EventsspatialCadModels",
-      "EventsspatialDecisionGraphEdges",
-      "EventsspatialDecisionGraphNodes",
-      "EventsspatialDecisionGraphs",
-      "EventsspatialEventJourneys",
-      "EventsspatialEventTimelineItems",
-      "EventsspatialEvents",
-      "EventsspatialExhibitionLayouts",
-      "EventsspatialFilmTwins",
-      "EventsspatialPresentationSlides",
-      "EventsspatialPresentations",
-      "EventsspatialRunOfShowItems",
-      "EventsspatialSimulations",
-      "EventsspatialSpatialLayers",
-      "EventsspatialSpatialLayouts",
-      "EventsspatialSpatialObjects",
-      "EventsspatialSpatialOperations",
-      "EventsspatialSpatialProjects",
-      "EventsspatialVenueBookings",
-      "EventsspatialVenues",
-      "EventsspatialWeddingEvents",
-      "EventsspatialWeddingJourneys",
-      "EventsspatialWeddings",
-      "EvidenceApprovalComments",
-      "EvidenceApprovalDecisions",
-      "EvidenceApprovalSteps",
-      "EvidenceApprovals",
-      "EvidenceAuditEvents",
-      "EvidenceBeforeAfterProofs",
-      "EvidenceChainOfCustodyEvents",
-      "EvidenceChangeRequests",
-      "EvidenceDocumentLinks",
-      "EvidenceDocumentVersions",
-      "EvidenceDocuments",
-      "EvidenceEvidenceGps",
-      "EvidenceEvidenceItems",
-      "EvidenceEvidenceLinks",
-      "EvidenceEvidenceMedia",
-      "EvidenceEvidenceMetadata",
-      "EvidenceEvidenceTimelineEvents",
-      "EvidenceEvidenceTimestamps",
-      "EvidenceEvidenceVerifications",
-      "EvidenceLegalHolds",
-      "EvidenceRiskMitigations",
-      "EvidenceRisks",
-      "EvidenceTrustedTimestamps",
-      "FinanceBudgetCategories",
-      "FinanceBudgetLines",
-      "FinanceBudgets",
-      "FinanceCashflowEntries",
-      "FinanceCommitments",
-      "FinanceCostSheetLines",
-      "FinanceCostSheets",
-      "FinanceCurrencies",
-      "FinanceEstimateLines",
-      "FinanceEstimates",
-      "FinanceExchangeRates",
-      "FinanceExpenseApprovals",
-      "FinanceExpenseLines",
-      "FinanceExpenses",
-      "FinanceInvoiceApprovals",
-      "FinanceInvoiceLines",
-      "FinancePaymentAllocations",
-      "FinancePaymentVerifications",
-      "FinancePayments",
-      "FinanceProfitabilitySnapshots",
-      "FinanceTaxCodes",
-      "FinanceVendorInvoices",
-      "IdentityAccessPolicies",
-      "IdentityAccessReviews",
-      "IdentityAuthAccounts",
-      "IdentityAuthChallenges",
-      "IdentityAuthCredentials",
-      "IdentityDelegations",
-      "IdentityDeviceVerifications",
-      "IdentityDevices",
-      "IdentityInvitations",
-      "IdentityLocationVerifications",
-      "IdentityNdaAcceptances",
-      "IdentityNdaVersions",
-      "IdentityNdas",
-      "IdentityOtpChallenges",
-      "IdentityPasswordResetTokens",
-      "IdentityPermissions",
-      "IdentityRolePermissions",
-      "IdentityRoles",
-      "IdentitySignatures",
-      "IdentityUserEmails",
-      "IdentityUserPhones",
-      "IdentityUserProfiles",
-      "IdentityUserRoles",
-      "IdentityUserSessions",
-      "IdentityUsers",
-      "IntelligenceAiCitations",
-      "IntelligenceAiContexts",
-      "IntelligenceAiConversations",
-      "IntelligenceAiMessages",
-      "IntelligenceAiSuggestions",
-      "IntelligenceAnalyticsEvents",
-      "IntelligenceEvidenceAwareAnswers",
-      "IntelligenceForecastRuns",
-      "IntelligenceForecastScenarios",
-      "IntelligenceGenerationJobs",
-      "IntelligenceIntelligenceRuns",
-      "IntelligenceIntelligenceSignals",
-      "IntelligenceKnowledgeChunks",
-      "IntelligenceKnowledgeDocuments",
-      "IntelligenceKpiDefinitions",
-      "IntelligenceKpiMeasurements",
-      "IntelligenceModelRegistry",
-      "IntelligenceModelRuns",
-      "IntelligencePromptTemplates",
-      "IntelligenceResearchSessions",
-      "IntelligenceResearchSources",
-      "IntelligenceSavedInsights",
-      "InvestorDealRoomMembers",
-      "InvestorDealRooms",
-      "InvestorDisclosures",
-      "InvestorDistributionChannels",
-      "InvestorDistributionDeals",
-      "InvestorDueDiligenceItems",
-      "InvestorFundingRequirements",
-      "InvestorInvestmentOpportunities",
-      "InvestorInvestmentProfiles",
-      "InvestorInvestmentTranches",
-      "InvestorInvestorAccounts",
-      "InvestorInvestorCommitments",
-      "InvestorInvestorEvidenceLinks",
-      "InvestorInvestorProgressReports",
-      "InvestorInvestorReturns",
-      "InvestorPitchDecks",
-      "InvestorRecoupmentModels",
-      "InvestorRecoupmentTiers",
-      "InvestorRevenueEntries",
-      "InvestorRights",
-      "InvestorRightsWindows",
-      "LogisticsAccommodations",
-      "LogisticsDrivers",
-      "LogisticsEquipmentBookings",
-      "LogisticsEquipmentCategories",
-      "LogisticsEquipmentCheckouts",
-      "LogisticsEquipmentInventoryEvents",
-      "LogisticsEquipmentItems",
-      "LogisticsEquipmentKits",
-      "LogisticsEquipmentMaintenance",
-      "LogisticsEquipmentReturns",
-      "LogisticsLocationBookings",
-      "LogisticsLocationComparisons",
-      "LogisticsLocationMedia",
-      "LogisticsLocations",
-      "LogisticsLogisticsTasks",
-      "LogisticsPermitDocuments",
-      "LogisticsPermits",
-      "LogisticsRecceMedia",
-      "LogisticsRecces",
-      "LogisticsRoomAllocations",
-      "LogisticsShipments",
-      "LogisticsTransportPlans",
-      "LogisticsTravelLegs",
-      "LogisticsTravelPlans",
-      "LogisticsVehicleAssignments",
-      "LogisticsVehicles",
-      "MarketplaceCapabilityPacks",
-      "MarketplaceDeliveries",
-      "MarketplaceMarketplaceCategories",
-      "MarketplaceMarketplaceServices",
-      "MarketplaceProcurementAwards",
-      "MarketplacePurchaseOrderItems",
-      "MarketplacePurchaseOrders",
-      "MarketplaceQuoteComparisons",
-      "MarketplaceQuoteItems",
-      "MarketplaceQuotes",
-      "MarketplaceRfqItems",
-      "MarketplaceRfqRecipients",
-      "MarketplaceRfqs",
-      "MarketplaceServiceDeliveries",
-      "MarketplaceServiceSkus",
-      "MarketplaceVendorAvailability",
-      "MarketplaceVendorCapabilities",
-      "MarketplaceVendorPerformance",
-      "MarketplaceVendorPortfolios",
-      "MarketplaceVendorProfiles",
-      "MarketplaceVendorRatings",
-      "MarketplaceVendors",
-      "OrganisationOrganisationMemberships",
-      "OrganisationOrganisationSettings",
-      "OrganisationOrganisations",
-      "OrganisationWorkspaceActivity",
-      "OrganisationWorkspaceFavourites",
-      "OrganisationWorkspaceInvites",
-      "OrganisationWorkspaceMemberships",
-      "OrganisationWorkspaceRoles",
-      "OrganisationWorkspaceSettings",
-      "OrganisationWorkspaces",
-      "PeopleAttendanceRecords",
-      "PeopleAuditionMedia",
-      "PeopleAuditionSubmissions",
-      "PeopleCastAssignments",
-      "PeopleCastMessages",
-      "PeopleCastScheduleEntries",
-      "PeopleCastingApprovals",
-      "PeopleCastingCallRoles",
-      "PeopleCastingCalls",
-      "PeopleCrewAssignments",
-      "PeopleCrewAvailability",
-      "PeopleCrewContracts",
-      "PeopleCrewHiringRequests",
-      "PeopleCrewMessages",
-      "PeopleCrewProfiles",
-      "PeopleCrewShortlistItems",
-      "PeopleCrewShortlists",
-      "PeopleCrewSkills",
-      "PeopleDepartmentMembers",
-      "PeopleDepartments",
-      "PeopleHodAssignments",
-      "PeoplePerformanceReviews",
-      "PeopleTalentAvailability",
-      "PeopleTalentComparisons",
-      "PeopleTalentContracts",
-      "PeopleTalentMedia",
-      "PeopleTalentOffers",
-      "PeopleTalentPortfolios",
-      "PeopleTalentProfiles",
-      "PeopleTalentShortlistItems",
-      "PeopleTalentShortlists",
-      "PeopleTimesheets",
-      "PlatformApiKeys",
-      "PlatformBackupJobs",
-      "PlatformDataRetentionPolicies",
-      "PlatformExportJobs",
-      "PlatformExports",
-      "PlatformFeatureFlagAssignments",
-      "PlatformFeatureFlags",
-      "PlatformIntegrationConnections",
-      "PlatformIntegrationEvents",
-      "PlatformIntegrations",
-      "PlatformRestoreJobs",
-      "PlatformRuntimeObservations",
-      "PlatformShareLinks",
-      "PlatformStatusEvents",
-      "PlatformSupportComments",
-      "PlatformSupportTickets",
-      "PlatformSyncConflicts",
-      "PlatformSyncJobs",
-      "PlatformSyncQueueItems",
-      "PlatformSystemIncidents",
-      "PlatformUserPreferences",
-      "PlatformWebhookDeliveries",
-      "PlatformWebhookSubscriptions",
-      "PlatformWebhooks",
-      "PlatformWorkspacePreferences",
-      "ProductionCallSheetAcknowledgements",
-      "ProductionCallSheetRecipients",
-      "ProductionCallSheetVersions",
-      "ProductionCallSheets",
-      "ProductionDailyProductionReports",
-      "ProductionDelays",
-      "ProductionIncidents",
-      "ProductionLiveAttendance",
-      "ProductionProductionCalendars",
-      "ProductionProductionDays",
-      "ProductionSceneProgress",
-      "ProductionScheduleItems",
-      "ProductionScheduleVersions",
-      "ProductionSchedules",
-      "ProductionShootDays",
-      "ProductionShotProgress",
-      "ProductionStripboards",
-      "ProductionStrips",
-      "ProductionWrapReports",
-      "ProjectProjectActivity",
-      "ProjectProjectBlockers",
-      "ProjectProjectBriefs",
-      "ProjectProjectCloseouts",
-      "ProjectProjectHealthSnapshots",
-      "ProjectProjectIntakes",
-      "ProjectProjectMembers",
-      "ProjectProjectMilestones",
-      "ProjectProjectNotes",
-      "ProjectProjectStatusHistory",
-      "ProjectProjectTagLinks",
-      "ProjectProjectTags",
-      "ProjectProjectTasks",
-      "ProjectProjectTypes",
-      "ProjectProjects",
-      "ProjectTaskChecklists",
-      "ProjectTaskDependencies"
-    ],
-    "text": "// campaign · stubbed · campaign.activation_calendar_items · field schema not supplied\n// campaign · stubbed · campaign.activation_feed_events · field schema not supplied\n// campaign · stubbed · campaign.activations · field schema not supplied\n// campaign · stubbed · campaign.atl_plans · field schema not supplied\n// campaign · stubbed · campaign.btl_plans · field schema not supplied\n// campaign · stubbed · campaign.campaign_briefs · field schema not supplied\n// campaign · stubbed · campaign.campaign_markets · field schema not supplied\n// campaign · stubbed · campaign.campaign_metrics · field schema not supplied\n// campaign · stubbed · campaign.campaign_results · field schema not supplied\n// campaign · stubbed · campaign.campaign_strategies · field schema not supplied\n// campaign · stubbed · campaign.campaigns · field schema not supplied\n// campaign · stubbed · campaign.cities · field schema not supplied\n// campaign · stubbed · campaign.dooh_schedules · field schema not supplied\n// campaign · stubbed · campaign.dooh_screens · field schema not supplied\n// campaign · stubbed · campaign.lead_events · field schema not supplied\n// campaign · stubbed · campaign.leads · field schema not supplied\n// campaign · stubbed · campaign.markets · field schema not supplied\n// campaign · stubbed · campaign.media_plan_items · field schema not supplied\n// campaign · stubbed · campaign.media_plans · field schema not supplied\n// campaign · stubbed · campaign.ooh_site_bookings · field schema not supplied\n// campaign · stubbed · campaign.ooh_sites · field schema not supplied\n// campaign · stubbed · campaign.site_checkins · field schema not supplied\n// communications · stubbed · communications.announcements · field schema not supplied\n// communications · stubbed · communications.communication_threads · field schema not supplied\n// communications · stubbed · communications.direct_message_threads · field schema not supplied\n// communications · stubbed · communications.message_attachments · field schema not supplied\n// communications · stubbed · communications.messages · field schema not supplied\n// communications · stubbed · communications.notification_deliveries · field schema not supplied\n// communications · stubbed · communications.notification_preferences · field schema not supplied\n// communications · stubbed · communications.notifications · field schema not supplied\n// communications · stubbed · communications.thread_members · field schema not supplied\n// creative · stubbed · creative.asset_versions · field schema not supplied\n// creative · stubbed · creative.character_scene_links · field schema not supplied\n// creative · stubbed · creative.characters · field schema not supplied\n// creative · stubbed · creative.creative_approvals · field schema not supplied\n// creative · stubbed · creative.creative_assets · field schema not supplied\n// creative · stubbed · creative.creative_references · field schema not supplied\n// creative · stubbed · creative.ideas · field schema not supplied\n// creative · stubbed · creative.production_elements · field schema not supplied\n// creative · stubbed · creative.research_items · field schema not supplied\n// creative · stubbed · creative.scene_elements · field schema not supplied\n// creative · stubbed · creative.scene_versions · field schema not supplied\n// creative · stubbed · creative.scenes · field schema not supplied\n// creative · stubbed · creative.script_breakdowns · field schema not supplied\n// creative · stubbed · creative.script_versions · field schema not supplied\n// creative · stubbed · creative.scripts · field schema not supplied\n// creative · stubbed · creative.shot_lists · field schema not supplied\n// creative · stubbed · creative.shots · field schema not supplied\n// creative · stubbed · creative.storyboard_frames · field schema not supplied\n// creative · stubbed · creative.storyboards · field schema not supplied\n// creative · stubbed · creative.treatments · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.board_items · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.boards · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.cad_models · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.decision_graph_edges · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.decision_graph_nodes · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.decision_graphs · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.event_journeys · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.event_timeline_items · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.events · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.exhibition_layouts · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.film_twins · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.presentation_slides · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.presentations · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.run_of_show_items · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.simulations · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.spatial_layers · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.spatial_layouts · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.spatial_objects · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.spatial_operations · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.spatial_projects · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.venue_bookings · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.venues · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.wedding_events · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.wedding_journeys · field schema not supplied\n// eventsSpatial · stubbed · eventsspatial.weddings · field schema not supplied\n// evidence · stubbed · evidence.approval_comments · field schema not supplied\n// evidence · stubbed · evidence.approval_decisions · field schema not supplied\n// evidence · stubbed · evidence.approval_steps · field schema not supplied\n// evidence · stubbed · evidence.approvals · field schema not supplied\n// evidence · stubbed · evidence.audit_events · field schema not supplied\n// evidence · stubbed · evidence.before_after_proofs · field schema not supplied\n// evidence · planned · evidence.chain_of_custody_events · field schema not supplied\n// evidence · stubbed · evidence.change_requests · field schema not supplied\n// evidence · stubbed · evidence.document_links · field schema not supplied\n// evidence · stubbed · evidence.document_versions · field schema not supplied\n// evidence · stubbed · evidence.documents · field schema not supplied\n// evidence · stubbed · evidence.evidence_gps · field schema not supplied\n// evidence · stubbed · evidence.evidence_items · field schema not supplied\n// evidence · stubbed · evidence.evidence_links · field schema not supplied\n// evidence · stubbed · evidence.evidence_media · field schema not supplied\n// evidence · stubbed · evidence.evidence_metadata · field schema not supplied\n// evidence · stubbed · evidence.evidence_timeline_events · field schema not supplied\n// evidence · stubbed · evidence.evidence_timestamps · field schema not supplied\n// evidence · stubbed · evidence.evidence_verifications · field schema not supplied\n// evidence · stubbed · evidence.legal_holds · field schema not supplied\n// evidence · stubbed · evidence.risk_mitigations · field schema not supplied\n// evidence · stubbed · evidence.risks · field schema not supplied\n// evidence · planned · evidence.trusted_timestamps · field schema not supplied\n// finance · stubbed · finance.budget_categories · field schema not supplied\n// finance · stubbed · finance.budget_lines · field schema not supplied\n// finance · stubbed · finance.budgets · field schema not supplied\n// finance · stubbed · finance.cashflow_entries · field schema not supplied\n// finance · stubbed · finance.commitments · field schema not supplied\n// finance · stubbed · finance.cost_sheet_lines · field schema not supplied\n// finance · stubbed · finance.cost_sheets · field schema not supplied\n// finance · stubbed · finance.currencies · field schema not supplied\n// finance · stubbed · finance.estimate_lines · field schema not supplied\n// finance · stubbed · finance.estimates · field schema not supplied\n// finance · planned · finance.exchange_rates · field schema not supplied\n// finance · stubbed · finance.expense_approvals · field schema not supplied\n// finance · stubbed · finance.expense_lines · field schema not supplied\n// finance · stubbed · finance.expenses · field schema not supplied\n// finance · stubbed · finance.invoice_approvals · field schema not supplied\n// finance · stubbed · finance.invoice_lines · field schema not supplied\n// finance · planned · finance.payment_allocations · field schema not supplied\n// finance · planned · finance.payment_verifications · field schema not supplied\n// finance · stubbed · finance.payments · field schema not supplied\n// finance · stubbed · finance.profitability_snapshots · field schema not supplied\n// finance · stubbed · finance.tax_codes · field schema not supplied\n// finance · stubbed · finance.vendor_invoices · field schema not supplied\n// identity · planned · identity.access_policies · field schema not supplied\n// identity · planned · identity.access_reviews · field schema not supplied\n// identity · stubbed · identity.auth_accounts · field schema not supplied\n// identity · planned · identity.auth_challenges · field schema not supplied\n// identity · planned · identity.auth_credentials · field schema not supplied\n// identity · stubbed · identity.delegations · field schema not supplied\n// identity · stubbed · identity.device_verifications · field schema not supplied\n// identity · stubbed · identity.devices · field schema not supplied\n// identity · stubbed · identity.invitations · field schema not supplied\n// identity · stubbed · identity.location_verifications · field schema not supplied\n// identity · stubbed · identity.nda_acceptances · field schema not supplied\n// identity · stubbed · identity.nda_versions · field schema not supplied\n// identity · stubbed · identity.ndas · field schema not supplied\n// identity · stubbed · identity.otp_challenges · field schema not supplied\n// identity · stubbed · identity.password_reset_tokens · field schema not supplied\n// identity · stubbed · identity.permissions · field schema not supplied\n// identity · stubbed · identity.role_permissions · field schema not supplied\n// identity · stubbed · identity.roles · field schema not supplied\n// identity · stubbed · identity.signatures · field schema not supplied\n// identity · stubbed · identity.user_emails · field schema not supplied\n// identity · stubbed · identity.user_phones · field schema not supplied\n// identity · stubbed · identity.user_profiles · field schema not supplied\n// identity · stubbed · identity.user_roles · field schema not supplied\n// identity · planned · identity.user_sessions · field schema not supplied\n// identity · stubbed · identity.users · field schema not supplied\n// intelligence · stubbed · intelligence.ai_citations · field schema not supplied\n// intelligence · stubbed · intelligence.ai_contexts · field schema not supplied\n// intelligence · stubbed · intelligence.ai_conversations · field schema not supplied\n// intelligence · stubbed · intelligence.ai_messages · field schema not supplied\n// intelligence · stubbed · intelligence.ai_suggestions · field schema not supplied\n// intelligence · stubbed · intelligence.analytics_events · field schema not supplied\n// intelligence · stubbed · intelligence.evidence_aware_answers · field schema not supplied\n// intelligence · stubbed · intelligence.forecast_runs · field schema not supplied\n// intelligence · stubbed · intelligence.forecast_scenarios · field schema not supplied\n// intelligence · stubbed · intelligence.generation_jobs · field schema not supplied\n// intelligence · stubbed · intelligence.intelligence_runs · field schema not supplied\n// intelligence · stubbed · intelligence.intelligence_signals · field schema not supplied\n// intelligence · planned · intelligence.knowledge_chunks · field schema not supplied\n// intelligence · planned · intelligence.knowledge_documents · field schema not supplied\n// intelligence · stubbed · intelligence.kpi_definitions · field schema not supplied\n// intelligence · stubbed · intelligence.kpi_measurements · field schema not supplied\n// intelligence · planned · intelligence.model_registry · field schema not supplied\n// intelligence · planned · intelligence.model_runs · field schema not supplied\n// intelligence · stubbed · intelligence.prompt_templates · field schema not supplied\n// intelligence · stubbed · intelligence.research_sessions · field schema not supplied\n// intelligence · stubbed · intelligence.research_sources · field schema not supplied\n// intelligence · stubbed · intelligence.saved_insights · field schema not supplied\n// investor · stubbed · investor.deal_room_members · field schema not supplied\n// investor · stubbed · investor.deal_rooms · field schema not supplied\n// investor · stubbed · investor.disclosures · field schema not supplied\n// investor · stubbed · investor.distribution_channels · field schema not supplied\n// investor · stubbed · investor.distribution_deals · field schema not supplied\n// investor · stubbed · investor.due_diligence_items · field schema not supplied\n// investor · stubbed · investor.funding_requirements · field schema not supplied\n// investor · stubbed · investor.investment_opportunities · field schema not supplied\n// investor · stubbed · investor.investment_profiles · field schema not supplied\n// investor · stubbed · investor.investment_tranches · field schema not supplied\n// investor · stubbed · investor.investor_accounts · field schema not supplied\n// investor · stubbed · investor.investor_commitments · field schema not supplied\n// investor · stubbed · investor.investor_evidence_links · field schema not supplied\n// investor · stubbed · investor.investor_progress_reports · field schema not supplied\n// investor · stubbed · investor.investor_returns · field schema not supplied\n// investor · stubbed · investor.pitch_decks · field schema not supplied\n// investor · stubbed · investor.recoupment_models · field schema not supplied\n// investor · stubbed · investor.recoupment_tiers · field schema not supplied\n// investor · stubbed · investor.revenue_entries · field schema not supplied\n// investor · stubbed · investor.rights · field schema not supplied\n// investor · stubbed · investor.rights_windows · field schema not supplied\n// logistics · stubbed · logistics.accommodations · field schema not supplied\n// logistics · stubbed · logistics.drivers · field schema not supplied\n// logistics · stubbed · logistics.equipment_bookings · field schema not supplied\n// logistics · stubbed · logistics.equipment_categories · field schema not supplied\n// logistics · stubbed · logistics.equipment_checkouts · field schema not supplied\n// logistics · stubbed · logistics.equipment_inventory_events · field schema not supplied\n// logistics · stubbed · logistics.equipment_items · field schema not supplied\n// logistics · stubbed · logistics.equipment_kits · field schema not supplied\n// logistics · stubbed · logistics.equipment_maintenance · field schema not supplied\n// logistics · stubbed · logistics.equipment_returns · field schema not supplied\n// logistics · stubbed · logistics.location_bookings · field schema not supplied\n// logistics · stubbed · logistics.location_comparisons · field schema not supplied\n// logistics · stubbed · logistics.location_media · field schema not supplied\n// logistics · stubbed · logistics.locations · field schema not supplied\n// logistics · stubbed · logistics.logistics_tasks · field schema not supplied\n// logistics · stubbed · logistics.permit_documents · field schema not supplied\n// logistics · stubbed · logistics.permits · field schema not supplied\n// logistics · stubbed · logistics.recce_media · field schema not supplied\n// logistics · stubbed · logistics.recces · field schema not supplied\n// logistics · stubbed · logistics.room_allocations · field schema not supplied\n// logistics · stubbed · logistics.shipments · field schema not supplied\n// logistics · stubbed · logistics.transport_plans · field schema not supplied\n// logistics · stubbed · logistics.travel_legs · field schema not supplied\n// logistics · stubbed · logistics.travel_plans · field schema not supplied\n// logistics · stubbed · logistics.vehicle_assignments · field schema not supplied\n// logistics · stubbed · logistics.vehicles · field schema not supplied\n// marketplace · stubbed · marketplace.capability_packs · field schema not supplied\n// marketplace · stubbed · marketplace.deliveries · field schema not supplied\n// marketplace · stubbed · marketplace.marketplace_categories · field schema not supplied\n// marketplace · stubbed · marketplace.marketplace_services · field schema not supplied\n// marketplace · stubbed · marketplace.procurement_awards · field schema not supplied\n// marketplace · stubbed · marketplace.purchase_order_items · field schema not supplied\n// marketplace · stubbed · marketplace.purchase_orders · field schema not supplied\n// marketplace · stubbed · marketplace.quote_comparisons · field schema not supplied\n// marketplace · stubbed · marketplace.quote_items · field schema not supplied\n// marketplace · stubbed · marketplace.quotes · field schema not supplied\n// marketplace · stubbed · marketplace.rfq_items · field schema not supplied\n// marketplace · stubbed · marketplace.rfq_recipients · field schema not supplied\n// marketplace · stubbed · marketplace.rfqs · field schema not supplied\n// marketplace · stubbed · marketplace.service_deliveries · field schema not supplied\n// marketplace · stubbed · marketplace.service_skus · field schema not supplied\n// marketplace · stubbed · marketplace.vendor_availability · field schema not supplied\n// marketplace · stubbed · marketplace.vendor_capabilities · field schema not supplied\n// marketplace · stubbed · marketplace.vendor_performance · field schema not supplied\n// marketplace · stubbed · marketplace.vendor_portfolios · field schema not supplied\n// marketplace · stubbed · marketplace.vendor_profiles · field schema not supplied\n// marketplace · stubbed · marketplace.vendor_ratings · field schema not supplied\n// marketplace · stubbed · marketplace.vendors · field schema not supplied\n// organisation · stubbed · organisation.organisation_memberships · field schema not supplied\n// organisation · stubbed · organisation.organisation_settings · field schema not supplied\n// organisation · stubbed · organisation.organisations · field schema not supplied\n// organisation · stubbed · organisation.workspace_activity · field schema not supplied\n// organisation · stubbed · organisation.workspace_favourites · field schema not supplied\n// organisation · stubbed · organisation.workspace_invites · field schema not supplied\n// organisation · stubbed · organisation.workspace_memberships · field schema not supplied\n// organisation · stubbed · organisation.workspace_roles · field schema not supplied\n// organisation · stubbed · organisation.workspace_settings · field schema not supplied\n// organisation · stubbed · organisation.workspaces · field schema not supplied\n// people · stubbed · people.attendance_records · field schema not supplied\n// people · stubbed · people.audition_media · field schema not supplied\n// people · stubbed · people.audition_submissions · field schema not supplied\n// people · stubbed · people.cast_assignments · field schema not supplied\n// people · stubbed · people.cast_messages · field schema not supplied\n// people · stubbed · people.cast_schedule_entries · field schema not supplied\n// people · stubbed · people.casting_approvals · field schema not supplied\n// people · stubbed · people.casting_call_roles · field schema not supplied\n// people · stubbed · people.casting_calls · field schema not supplied\n// people · stubbed · people.crew_assignments · field schema not supplied\n// people · stubbed · people.crew_availability · field schema not supplied\n// people · stubbed · people.crew_contracts · field schema not supplied\n// people · stubbed · people.crew_hiring_requests · field schema not supplied\n// people · stubbed · people.crew_messages · field schema not supplied\n// people · stubbed · people.crew_profiles · field schema not supplied\n// people · stubbed · people.crew_shortlist_items · field schema not supplied\n// people · stubbed · people.crew_shortlists · field schema not supplied\n// people · stubbed · people.crew_skills · field schema not supplied\n// people · stubbed · people.department_members · field schema not supplied\n// people · stubbed · people.departments · field schema not supplied\n// people · stubbed · people.hod_assignments · field schema not supplied\n// people · stubbed · people.performance_reviews · field schema not supplied\n// people · stubbed · people.talent_availability · field schema not supplied\n// people · stubbed · people.talent_comparisons · field schema not supplied\n// people · stubbed · people.talent_contracts · field schema not supplied\n// people · stubbed · people.talent_media · field schema not supplied\n// people · stubbed · people.talent_offers · field schema not supplied\n// people · stubbed · people.talent_portfolios · field schema not supplied\n// people · stubbed · people.talent_profiles · field schema not supplied\n// people · stubbed · people.talent_shortlist_items · field schema not supplied\n// people · stubbed · people.talent_shortlists · field schema not supplied\n// people · stubbed · people.timesheets · field schema not supplied\n// platform · stubbed · platform.api_keys · field schema not supplied\n// platform · planned · platform.backup_jobs · field schema not supplied\n// platform · stubbed · platform.data_retention_policies · field schema not supplied\n// platform · stubbed · platform.export_jobs · field schema not supplied\n// platform · stubbed · platform.exports · field schema not supplied\n// platform · stubbed · platform.feature_flag_assignments · field schema not supplied\n// platform · stubbed · platform.feature_flags · field schema not supplied\n// platform · stubbed · platform.integration_connections · field schema not supplied\n// platform · stubbed · platform.integration_events · field schema not supplied\n// platform · stubbed · platform.integrations · field schema not supplied\n// platform · planned · platform.restore_jobs · field schema not supplied\n// platform · stubbed · platform.runtime_observations · field schema not supplied\n// platform · stubbed · platform.share_links · field schema not supplied\n// platform · stubbed · platform.status_events · field schema not supplied\n// platform · stubbed · platform.support_comments · field schema not supplied\n// platform · stubbed · platform.support_tickets · field schema not supplied\n// platform · stubbed · platform.sync_conflicts · field schema not supplied\n// platform · stubbed · platform.sync_jobs · field schema not supplied\n// platform · stubbed · platform.sync_queue_items · field schema not supplied\n// platform · stubbed · platform.system_incidents · field schema not supplied\n// platform · stubbed · platform.user_preferences · field schema not supplied\n// platform · planned · platform.webhook_deliveries · field schema not supplied\n// platform · stubbed · platform.webhook_subscriptions · field schema not supplied\n// platform · stubbed · platform.webhooks · field schema not supplied\n// platform · stubbed · platform.workspace_preferences · field schema not supplied\n// production · stubbed · production.call_sheet_acknowledgements · field schema not supplied\n// production · stubbed · production.call_sheet_recipients · field schema not supplied\n// production · stubbed · production.call_sheet_versions · field schema not supplied\n// production · stubbed · production.call_sheets · field schema not supplied\n// production · stubbed · production.daily_production_reports · field schema not supplied\n// production · stubbed · production.delays · field schema not supplied\n// production · stubbed · production.incidents · field schema not supplied\n// production · stubbed · production.live_attendance · field schema not supplied\n// production · stubbed · production.production_calendars · field schema not supplied\n// production · stubbed · production.production_days · field schema not supplied\n// production · stubbed · production.scene_progress · field schema not supplied\n// production · stubbed · production.schedule_items · field schema not supplied\n// production · stubbed · production.schedule_versions · field schema not supplied\n// production · stubbed · production.schedules · field schema not supplied\n// production · stubbed · production.shoot_days · field schema not supplied\n// production · stubbed · production.shot_progress · field schema not supplied\n// production · stubbed · production.stripboards · field schema not supplied\n// production · stubbed · production.strips · field schema not supplied\n// production · stubbed · production.wrap_reports · field schema not supplied\n// project · stubbed · project.project_activity · field schema not supplied\n// project · stubbed · project.project_blockers · field schema not supplied\n// project · stubbed · project.project_briefs · field schema not supplied\n// project · stubbed · project.project_closeouts · field schema not supplied\n// project · stubbed · project.project_health_snapshots · field schema not supplied\n// project · stubbed · project.project_intakes · field schema not supplied\n// project · stubbed · project.project_members · field schema not supplied\n// project · stubbed · project.project_milestones · field schema not supplied\n// project · stubbed · project.project_notes · field schema not supplied\n// project · stubbed · project.project_status_history · field schema not supplied\n// project · stubbed · project.project_tag_links · field schema not supplied\n// project · stubbed · project.project_tags · field schema not supplied\n// project · stubbed · project.project_tasks · field schema not supplied\n// project · stubbed · project.project_types · field schema not supplied\n// project · stubbed · project.projects · field schema not supplied\n// project · stubbed · project.task_checklists · field schema not supplied\n// project · stubbed · project.task_dependencies · field schema not supplied",
-    "limitation": "The M1 catalog defines table identity and ownership only; it does not define columns, keys, or relations. No Prisma model fields or relations are fabricated."
+    "status": "SCHEMA_INCOMPLETE",
+    "models": [],
+    "text": "",
+    "limitation": "340 of 340 tables lack complete field, key, relation, ownership, or lifecycle definitions. Prisma output is withheld; no fields or relations are inferred."
   },
   "counts": {
     "contexts": 16,
     "models": 340,
     "relations": 0,
+    "complete": 0,
+    "partial": 0,
+    "nameOnly": 340,
     "stubbed": 323,
     "planned": 17
   }

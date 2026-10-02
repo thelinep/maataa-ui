@@ -301,6 +301,7 @@ async function onClick(event) {
     return;
   }
   if (action === "studio-preview-tab") { state.dataStudioPreviewView = value; renderScreen(); return; }
+  if (action === "studio-compose-tab") { state.dataStudioComposeTab = value; renderScreen(); return; }
   if (action === "studio-contract-select") { state.dataStudioContract = value; renderScreen(); return; }
   if (action === "studio-resolve") {
     state.dataStudioIntent = app.querySelector("[data-studio-intent]")?.value ?? state.dataStudioIntent;

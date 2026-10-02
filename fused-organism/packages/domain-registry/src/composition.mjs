@@ -1,4 +1,5 @@
 import { registry as defaultRegistry } from "./index.mjs";
+import { assessContractCoverage } from "./contracts.mjs";
 
 export const RESOLVER_VERSION = "1.0.0";
 const stable = (value) => {
@@ -155,10 +156,13 @@ export function resolveComposition(intent, source = defaultRegistry) {
   const routeBlockers = routes.filter((route) => !route.executable).map((route) => ({ path: route.path, status: route.status, flowIds: route.flowIds, ...(route.deferral ? { deferredTo: route.deferral.targetVersion, category: route.deferral.category } : { reason: "No executable route resolution exists." }) }));
   const readiness = routeBlockers.length ? "BLOCKED" : "READY";
   const plannedTableIds = tableIds.filter((id) => tableRecords.get(id).status === "planned");
+  const contractCoverage = assessContractCoverage(tableIds, source);
+  const schemaReadiness = { status: contractCoverage.status, counts: contractCoverage.counts, byContext: contractCoverage.byContext };
   const allowPlanned = intent.overrides?.allowPlanned === true;
   const compilerBlockers = [
     ...routeBlockers.map((item) => ({ kind: "route", ...item })),
     ...(!allowPlanned ? plannedTableIds.map((tableId) => ({ kind: "planned-table", tableId, reason: "Planned tables require the explicit application-local allowPlanned override." })) : []),
+    ...(contractCoverage.status !== "SCHEMA_READY" ? [{ kind: "schema-contract", code: "SCHEMA_INCOMPLETE", reason: `${contractCoverage.counts.total - contractCoverage.counts.complete} of ${contractCoverage.counts.total} tables lack complete schema contracts.` }] : []),
   ];
 
   const whyIncluded = [];
@@ -187,10 +191,12 @@ export function resolveComposition(intent, source = defaultRegistry) {
     tableIds,
     tables: tableIds.map((id) => { const table = tableRecords.get(id); return { id, contextId: table.context, domainId: table.domain, status: table.status, provenance: table.provenance }; }),
     routeReadiness: { status: readiness, total: routes.length, executable: routes.length - routeBlockers.length, blocked: routeBlockers.length, routes, blockers: routeBlockers },
+    schemaReadiness,
     policies: { coreSpine: [...source.spine.contexts], spineAlwaysIncluded: true, defaultSharedServices: (source.products.services ?? []).filter((item) => item.defaultIncluded).map((item) => item.id).sort(), requestedSharedServices: requestedServices, optionalSharedServices: requestedServices.filter((id) => !(source.products.services ?? []).find((item) => item.id === id)?.defaultIncluded), publicContextOptIn: intent.includePublicContext === true },
     overrides: stable(intent.overrides ?? {}),
     seedProfile: intent.seedProfile ?? "demo-casting",
-    compilerStatus: compilerBlockers.length ? "BLOCKED" : "READY_FOR_SCHEMA_PREVIEW",
+    lifecycleState: "RESOLVED",
+    compilerStatus: routeBlockers.length || (!allowPlanned && plannedTableIds.length) ? "BLOCKED" : schemaReadiness.status,
     compilerBlockers,
     whyIncluded,
   };
@@ -201,7 +207,7 @@ export function resolveComposition(intent, source = defaultRegistry) {
 export function validateApplicationIR(ir, source = defaultRegistry) {
   const errors = [];
   if (!ir || typeof ir !== "object" || Array.isArray(ir)) return { valid: false, errors: ["Application IR must be an object."] };
-  for (const key of ["schemaVersion", "irVersion", "application", "registry", "resolverVersion", "productComposition", "flowSelection", "flowIds", "contextVersions", "tableIds", "routeReadiness", "policies", "overrides", "seedProfile", "compilerStatus", "compilerBlockers", "whyIncluded", "irHash"]) {
+  for (const key of ["schemaVersion", "irVersion", "application", "registry", "resolverVersion", "productComposition", "flowSelection", "flowIds", "contextVersions", "tableIds", "routeReadiness", "schemaReadiness", "lifecycleState", "policies", "overrides", "seedProfile", "compilerStatus", "compilerBlockers", "whyIncluded", "irHash"]) {
     if (!(key in ir)) errors.push(`Missing required field: ${key}.`);
   }
   if (ir.schemaVersion !== "1.0.0" || ir.irVersion !== "1.0.0") errors.push("Unsupported Application IR schema or version.");
@@ -212,8 +218,10 @@ export function validateApplicationIR(ir, source = defaultRegistry) {
   if (ir.routeReadiness && (!Array.isArray(ir.routeReadiness.routes) || !Array.isArray(ir.routeReadiness.blockers) || ir.routeReadiness.blocked !== ir.routeReadiness.blockers.length || ir.routeReadiness.executable + ir.routeReadiness.blocked !== ir.routeReadiness.total)) errors.push("Route readiness counts and route/blocker arrays are inconsistent.");
   if (Array.isArray(ir.flowIds) && Array.isArray(ir.selectedFlows) && canonicalJson(ir.flowIds) !== canonicalJson(ir.selectedFlows.map((flow) => flow.id))) errors.push("Selected flow records do not match flowIds.");
   if (Array.isArray(ir.tableIds) && Array.isArray(ir.tables) && canonicalJson(ir.tableIds) !== canonicalJson(ir.tables.map((table) => table.id))) errors.push("Table records do not match tableIds.");
-  if (ir.compilerStatus === "READY_FOR_SCHEMA_PREVIEW" && ir.compilerBlockers?.length) errors.push("A blocked Application IR cannot be marked ready for schema preview.");
-  if (ir.compilerStatus === "BLOCKED" && !ir.compilerBlockers?.length) errors.push("A blocked Application IR must include at least one compiler blocker.");
+  if (ir.lifecycleState !== "RESOLVED") errors.push("Composition proof applications must remain RESOLVED until schema contracts are complete.");
+  if (ir.compilerStatus === "SCHEMA_READY" && ir.schemaReadiness?.status !== "SCHEMA_READY") errors.push("Schema readiness cannot be asserted without complete table contracts.");
+  if (ir.compilerStatus === "SCHEMA_INCOMPLETE" && ir.schemaReadiness?.status !== "SCHEMA_INCOMPLETE") errors.push("SCHEMA_INCOMPLETE must be supported by the derived contract assessment.");
+  if (ir.compilerStatus === "BLOCKED" && !ir.compilerBlockers?.some((item) => item.kind === "route" || item.kind === "planned-table")) errors.push("BLOCKED requires route or planned-table blockers; schema gaps use SCHEMA_INCOMPLETE.");
   if (ir.registry?.hash !== (source.manifest.milestones?.M1?.registryHash ?? source.manifest.integrity.registryHash)) errors.push("Application IR is not pinned to this registry's frozen M1 snapshot.");
   if (Array.isArray(ir.contextVersions)) for (const context of ir.contextVersions) {
     const registered = findContext(context.contextId, source);
@@ -236,7 +244,7 @@ export function validateApplicationIR(ir, source = defaultRegistry) {
         overrides: ir.overrides,
         seedProfile: ir.seedProfile,
       }, source);
-      for (const key of ["registry", "resolverVersion", "productComposition", "flowSelection", "selectedFlows", "flowIds", "contextVersions", "tableIds", "tables", "routeReadiness", "policies", "overrides", "seedProfile", "compilerStatus", "compilerBlockers", "whyIncluded"]) {
+      for (const key of ["registry", "resolverVersion", "productComposition", "flowSelection", "selectedFlows", "flowIds", "contextVersions", "tableIds", "tables", "routeReadiness", "schemaReadiness", "lifecycleState", "policies", "overrides", "seedProfile", "compilerStatus", "compilerBlockers", "whyIncluded"]) {
         if (canonicalJson(expected[key]) !== canonicalJson(ir[key])) errors.push(`Application IR ${key} does not match deterministic resolution.`);
       }
     } catch (error) { errors.push(`Application IR cannot be resolved against the pinned registry: ${error?.message ?? "invalid composition"}`); }
@@ -285,20 +293,27 @@ function parseQuestion(question) {
 
 export function previewLogicalSchema(ir, source = defaultRegistry) {
   const tables = new Map(source.domains.tables.map((item) => [item.id, item]));
+  const contracts = new Map((source.tableContracts?.contracts ?? []).map((item) => [item.id, item]));
   const models = ir.tableIds.map((tableId) => {
     const table = tables.get(tableId);
+    const contract = contracts.get(tableId);
     const modelName = tableId.split(".").map((segment) => segment.replace(/(^|[^A-Za-z0-9])([A-Za-z0-9])/g, (_, __, char) => char.toUpperCase())).join("").replace(/[^A-Za-z0-9]/g, "");
-    return { modelName, tableId, contextId: table.context, domainId: table.domain, status: table.status, provenance: table.provenance, fields: [], relations: [] };
+    return { modelName, tableId, contextId: table.context, domainId: table.domain, status: table.status, provenance: table.provenance, contractVersion: contract?.version ?? null, fields: Object.entries(contract?.fields ?? {}).map(([name, field]) => ({ name, ...field })), relations: contract?.relations ?? [], primaryKey: contract?.primaryKey ?? null };
   });
   const contexts = ir.contextVersions.map((context) => ({ contextId: context.contextId, version: context.version, models: models.filter((model) => model.contextId === context.contextId).map((model) => model.modelName) }));
+  const schemaReadiness = assessContractCoverage(ir.tableIds, source);
+  const schemaReadinessSummary = { status: schemaReadiness.status, counts: schemaReadiness.counts, byContext: schemaReadiness.byContext };
+  const relations = models.flatMap((model) => model.relations.map((relation) => ({ fromTableId: model.tableId, ...relation })));
+  const complete = schemaReadiness.status === "SCHEMA_READY";
   return {
     schemaVersion: "1.0.0", applicationId: ir.application.appId, sourceIrHash: ir.irHash,
-    status: "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS",
+    status: schemaReadiness.status,
+    schemaReadiness: schemaReadinessSummary,
     contextBoundaries: contexts,
     models,
-    relations: [],
-    prismaPreview: { status: "NOT_COMPILABLE_FIELD_DEFINITIONS_MISSING", models: models.map((model) => model.modelName), text: models.map((model) => `// ${model.contextId} · ${model.status} · ${model.tableId} · field schema not supplied`).join("\n"), limitation: "The M1 catalog defines table identity and ownership only; it does not define columns, keys, or relations. No Prisma model fields or relations are fabricated." },
-    counts: { contexts: contexts.length, models: models.length, relations: 0, stubbed: models.filter((model) => model.status === "stubbed").length, planned: models.filter((model) => model.status === "planned").length },
+    relations,
+    prismaPreview: { status: complete ? "READY_FOR_PRISMA_ADAPTER" : "SCHEMA_INCOMPLETE", models: complete ? models.map((model) => model.modelName) : [], text: "", limitation: complete ? "Contracts are complete; Prisma generation remains a separate downstream adapter and has not run." : `${schemaReadiness.counts.total - schemaReadiness.counts.complete} of ${schemaReadiness.counts.total} tables lack complete field, key, relation, ownership, or lifecycle definitions. Prisma output is withheld; no fields or relations are inferred.` },
+    counts: { contexts: contexts.length, models: models.length, relations: relations.length, complete: schemaReadiness.counts.complete, partial: schemaReadiness.counts.partial, nameOnly: schemaReadiness.counts.nameOnly, stubbed: models.filter((model) => model.status === "stubbed").length, planned: models.filter((model) => model.status === "planned").length },
   };
 }
 

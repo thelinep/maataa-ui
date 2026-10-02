@@ -960,6 +960,18 @@ td strong { color: var(--ink); font-size: 9px; }
 .studio-tabs button { display: flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 9px; border: 0; border-bottom: 2px solid transparent; color: var(--muted); background: transparent; font: inherit; font-size: 9px; cursor: pointer; white-space: nowrap; }
 .studio-tabs button.is-active { border-color: var(--accent); color: var(--ink); font-weight: 700; }
 .studio-tabs button span { display: grid; place-items: center; min-width: 18px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--surface-soft); font-size: 8px; }
+.studio-contract-panel { margin-top: 18px; }
+.studio-contract-panel > header, .studio-context-coverage > div { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.studio-context-coverage { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px 20px; margin: 18px 0; }
+.studio-context-coverage > div { align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.studio-context-coverage span { color: var(--muted); font-size: 12px; }
+.studio-data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.studio-data-table th, .studio-data-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.studio-data-table th { color: var(--muted); font-weight: 650; }
+.studio-data-table code { white-space: nowrap; }
+.studio-contract-panel details { margin: 16px 0; }
+.studio-contract-panel summary { cursor: pointer; color: var(--accent); font-weight: 650; }
+[hidden] { display: none !important; }
 .studio-catalog-content { min-height: 250px; padding: 14px; }
 .studio-contract-layout { display: grid; grid-template-columns: minmax(220px, .72fr) minmax(0, 1.28fr); min-height: 420px; border: 1px solid var(--line); border-radius: 6px; }
 .studio-contract-list { max-height: 580px; overflow: auto; border-right: 1px solid var(--line); }

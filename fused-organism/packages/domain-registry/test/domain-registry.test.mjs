@@ -6,6 +6,7 @@ import {
   searchRegistry, validateRegistry,
 } from "../src/index.mjs";
 import { buildRouteImpactIndexes, diffApplicationIR, explainComposition, previewLogicalSchema, resolveComposition, sealApplicationIR, validateApplicationIR } from "../src/composition.mjs";
+import { assessContractCoverage, diffTableContracts, validateTableContract } from "../src/contracts.mjs";
 
 const castingIntent = { appId: "casting-pipeline-demo", name: "Casting Pipeline", description: "Casting pipeline for a film production company", productTags: ["film"], flowIds: ["TLPS-FLOW-027", "TLPS-FLOW-028", "TLPS-FLOW-029", "TLPS-FLOW-030", "TLPS-FLOW-031"], seedProfile: "demo-casting" };
 
@@ -71,7 +72,8 @@ test("imports source counts and applies deterministic M1 registry policy", () =>
   assert.ok(registry.deferredRoutes.routes.every((item) => item.category === "missing-source" && item.owner && item.targetVersion === "1.1.0"));
   assert.equal(registry.manifest.integrity.domainRegistry.valid, true);
   assert.equal(registry.manifest.integrity.routeRegistry.valid, true);
-  assert.equal(registry.manifest.integrity.compilerReady, true);
+  assert.equal(registry.manifest.integrity.registryCompilerReady, true);
+  assert.equal(registry.manifest.integrity.compilerReady, false, "catalog publication readiness is separate from schema compilation readiness");
   assert.ok(registry.registeredRoutes.routes.every((route) => route.routeState === "REGISTERED_STATIC" && route.registered && route.executable));
 });
 
@@ -89,7 +91,9 @@ test("unresolved deferred routes remain non-executable while the reviewed regist
   assert.equal(gate.routeRegistry.declaredUnregistered, 0);
   assert.equal(gate.routeRegistry.unresolved, 11);
   assert.equal(gate.routeRegistry.deferred, 11);
-  assert.equal(gate.compilerReady, true);
+  assert.equal(gate.registryCompilerReady, true);
+  assert.equal(gate.schemaCompilerReady, false);
+  assert.equal(gate.compilerReady, false);
   assert.ok(gate.findings.every((item) => /^REG-\d{3}$/.test(item.id) && ["SOURCE_GAP", "SCHEMA_FORMAT_GAP", "DATA_QUALITY_GAP"].includes(item.class) && ["BLOCKER", "ERROR", "WARNING", "INFO"].includes(item.severity) && item.owner && item.problem && item.resolution && item.resolvedWhen));
   assertRegistryPublishable();
   assert.throws(() => resolveProductComposition("production-os"), /explicit override required/);
@@ -210,8 +214,11 @@ test("M2 casting resolver is deterministic, pinned, and closes flows over contex
   assert.equal(first.compilerStatus, "BLOCKED", "planned tables remain compiler-blocked without a local override");
   assert.ok(first.compilerBlockers.some((item) => item.kind === "planned-table"));
   const explicitlyAllowed = resolveComposition({ ...castingIntent, overrides: { allowPlanned: true } });
-  assert.equal(explicitlyAllowed.compilerStatus, "READY_FOR_SCHEMA_PREVIEW");
-  assert.deepEqual(explicitlyAllowed.compilerBlockers, []);
+  assert.equal(explicitlyAllowed.compilerStatus, "SCHEMA_INCOMPLETE");
+  assert.equal(explicitlyAllowed.lifecycleState, "RESOLVED");
+  assert.equal(explicitlyAllowed.schemaReadiness.counts.total, 160);
+  assert.equal(explicitlyAllowed.schemaReadiness.counts.nameOnly, 160);
+  assert.ok(explicitlyAllowed.compilerBlockers.some((item) => item.kind === "schema-contract"));
   assert.deepEqual(validateApplicationIR(first), { valid: true, errors: [] });
   assert.equal(JSON.stringify(registry), before, "resolver must not mutate canonical registry data");
 });
@@ -251,10 +258,11 @@ test("M2 explain, logical schema preview, semantic diff, and route impact preser
   assert.ok(evidence.whyIncluded.length > 0);
   const preview = previewLogicalSchema(casting);
   assert.deepEqual(previewLogicalSchema(casting), preview, "logical preview is deterministic for a pinned IR");
-  assert.equal(preview.status, "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS");
+  assert.equal(preview.status, "SCHEMA_INCOMPLETE");
   assert.equal(preview.models.length, 160);
   assert.equal(preview.relations.length, 0);
-  assert.equal(preview.prismaPreview.status, "NOT_COMPILABLE_FIELD_DEFINITIONS_MISSING");
+  assert.equal(preview.prismaPreview.status, "SCHEMA_INCOMPLETE");
+  assert.equal(preview.prismaPreview.text, "");
   assert.ok(preview.models.every((model) => model.fields.length === 0 && model.relations.length === 0));
   const withPublic = resolveComposition({ ...castingIntent, includePublicContext: true });
   const diff = diffApplicationIR(casting, withPublic);
@@ -275,6 +283,38 @@ test("M2 explain, logical schema preview, semantic diff, and route impact preser
   assert.ok(deferred.flowIds.includes("TLPS-FLOW-005"));
   assert.equal(deferred.productIds.length, 0, "unclassified source flow is not assigned to a product by inference");
   assert.equal(impacts.deferredRouteBacklog.length, 11);
+});
+
+test("M2.5 derives casting schema coverage and refuses invented schema", () => {
+  const casting = resolveComposition({ ...castingIntent, overrides: { allowPlanned: true } });
+  const coverage = assessContractCoverage(casting.tableIds, registry);
+  assert.deepEqual(coverage.counts, { total: 160, complete: 0, partial: 0, nameOnly: 160 });
+  assert.equal(coverage.status, "SCHEMA_INCOMPLETE");
+  const preview = previewLogicalSchema(casting);
+  assert.equal(preview.prismaPreview.models.length, 0);
+  assert.equal(preview.models.some((model) => model.fields.length > 0), false);
+});
+
+test("M2.5 validates source-backed table contracts and reports semantic changes", () => {
+  const source = structuredClone(registry);
+  const provenance = { source: "reviewed-schema.sql", reference: "tables.organisations", reviewStatus: "approved", reviewedBy: "schema-steward" };
+  const contract = {
+    schemaVersion: "1.0.0", id: "organisation.organisations", context: "organisation", name: "organisations", version: "1.0.0",
+    fields: { id: { type: "uuid", nullable: false, generated: true, provenance }, label: { type: "string", nullable: false, generated: false, maxLength: 160, provenance }, created_at: { type: "datetime", nullable: false, generated: false, default: "now", timezone: "UTC", provenance }, updated_at: { type: "datetime", nullable: false, generated: false, default: "now", timezone: "UTC", provenance } },
+    enums: [], primaryKey: ["id"], uniqueConstraints: [], foreignKeys: [], relations: [], indexes: [],
+    ownership: { owner: "organisation", steward: "platform", provenance },
+    lifecycle: { createdAt: "created_at", updatedAt: "updated_at", provenance }, provenance,
+  };
+  source.tableContracts.contracts = [contract];
+  assert.deepEqual(validateTableContract(contract, source), { valid: true, errors: [] });
+  const invalid = structuredClone(contract);
+  invalid.primaryKey = ["unknown"];
+  assert.ok(validateTableContract(invalid, source).errors.some((item) => item.includes("unknown field")));
+  const changed = structuredClone(contract);
+  changed.fields.label.maxLength = 200;
+  const diff = diffTableContracts({ contracts: [contract] }, { contracts: [changed] });
+  assert.deepEqual(diff.changed.map((item) => item.tableId), [contract.id]);
+  assert.ok(diff.changed[0].changedPaths.includes("fields.label.maxLength"));
 });
 
 test("Application IR drafts can be resealed and content tampering is detected", () => {

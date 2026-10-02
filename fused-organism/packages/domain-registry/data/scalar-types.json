@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "canonical-vocabulary",
+  "types": [
+    { "id": "uuid", "family": "identifier", "description": "Universally unique identifier." },
+    { "id": "string", "family": "text", "description": "Bounded Unicode string; maxLength is required for a complete contract." },
+    { "id": "text", "family": "text", "description": "Unbounded Unicode text." },
+    { "id": "int", "family": "number", "description": "Signed integer." },
+    { "id": "decimal", "family": "number", "description": "Exact base-10 numeric value; precision and scale are required for a complete contract." },
+    { "id": "float", "family": "number", "description": "Approximate floating-point value." },
+    { "id": "boolean", "family": "boolean", "description": "True or false." },
+    { "id": "date", "family": "temporal", "description": "Calendar date without a time or time zone." },
+    { "id": "datetime", "family": "temporal", "description": "Timestamp; timezone semantics must be explicit." },
+    { "id": "time", "family": "temporal", "description": "Time of day without a calendar date." },
+    { "id": "json", "family": "structured", "description": "JSON value with an explicitly documented shape where needed." },
+    { "id": "bytes", "family": "binary", "description": "Opaque binary data." }
+  ]
+}

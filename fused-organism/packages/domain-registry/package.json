@@ -6,7 +6,8 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.mjs",
-    "./composition": "./src/composition.mjs"
+    "./composition": "./src/composition.mjs",
+    "./contracts": "./src/contracts.mjs"
   },
   "files": [
     "catalog",
@@ -16,6 +17,7 @@
     "products",
     "routes",
     "schemas",
+    "data",
     "sources",
     "applications",
     "composition",

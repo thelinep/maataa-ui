@@ -8,7 +8,13 @@ The generated `applications/` proofs include the casting pipeline (flows 027–0
 
 Route readiness is scoped to selected flows. An unresolved selected route blocks that composition even when the package validator accepts explicitly deferred routes as recorded informational gaps. Planned tables remain compiler-blocking unless the application IR explicitly sets its local `allowPlanned` override. Optional public context requires explicit opt-in. A shared-service entry without a matching context package (currently the optional `ai` service) fails closed.
 
-The schema preview remains logical: M1 provides table identity and context ownership but no field, key, or relation definitions. Prisma preview is therefore marked `NOT_COMPILABLE_FIELD_DEFINITIONS_MISSING`; this milestone does not generate Prisma models, CompilationPlans, migrations, or compiled applications. `schemas/compilation-plan.schema.json` defines only the future contract.
+### M2.5 schema contract authoring
+
+`schemas/table-contract.schema.json` defines the database-neutral table contract. `data/scalar-types.json` is the canonical scalar vocabulary; `data/table-contracts.json` is the versioned contract registry. A table contract can describe fields and enums, primary and unique keys, foreign keys, semantic relations, indexes, ownership, lifecycle, and source/review provenance. `src/contracts.mjs` derives completeness and validates references; completeness cannot be self-asserted. Changes are compared semantically before any migration work.
+
+The supplied registry still contains no authoritative field/key/relation source, so the contracts array is intentionally empty. All 160 casting tables are currently name-only; the four proof applications remain at lifecycle `RESOLVED` and schema readiness `SCHEMA_INCOMPLETE`. Data Studio's Compose → Contracts view reports counts by context and table. Logical schema output includes only authored data. Prisma text is withheld until every selected table has a complete approved contract; no field, key, or relation is inferred. This milestone does not generate Prisma models, CompilationPlans, migrations, or compiled applications.
+
+Registry publication and schema compilation are separate gates. A valid, publishable domain package does not imply schema compiler readiness. `registry.manifest.json` records both values, and its schema compiler gate remains blocked until all canonical tables have valid complete contracts. `schemas/compilation-plan.schema.json` remains a future downstream contract.
 
 This package is the versioned source registry read by Data Studio. It keeps a **Draft Registry** inspectable even when invalid and exposes a fail-closed publish/compiler gate.
 
@@ -27,7 +33,7 @@ The `creative` context explicitly depends on `project` and `people`; `getContext
 
 ## Validation and publish policy
 
-Run `npm run routes:sync --workspace @maataa/domain-registry` after replacing the authoritative manifest source. Run `npm test --workspace @maataa/domain-registry` for integrity and contract tests. Run `npm run validate --workspace @maataa/domain-registry` in CI; it verifies reproducible asset hashes and exits non-zero when blockers or errors remain. Warnings and information findings may be published with their report. `assertRegistryPublishable()` and `resolveProductComposition()` refuse compiler consumption until blockers and errors are zero. Planned tables additionally require the explicit `{ allowPlanned: true }` override; stubbed tables resolve with their status visible.
+Run `npm run routes:sync --workspace @maataa/domain-registry` after replacing the authoritative manifest source. Run `npm test --workspace @maataa/domain-registry` for integrity and contract tests. Run `npm run validate --workspace @maataa/domain-registry` in CI; it verifies reproducible asset hashes and exits non-zero when blockers or errors remain. Warnings and information findings may be published with their report. Registry publication/consumption readiness is separate from schema compilation readiness: the latter requires complete, approved contracts for every selected table. Planned tables additionally require the explicit `{ allowPlanned: true }` override; stubbed tables resolve with their status visible.
 
 Domain validity and route validity are reported separately. `compilerReady` is true only when there are no blockers or errors. An explicitly deferred unresolved route is informational for the package gate; the route itself remains unresolved and non-executable.
 

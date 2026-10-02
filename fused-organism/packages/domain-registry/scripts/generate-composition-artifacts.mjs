@@ -39,6 +39,8 @@ for (const intent of proofs) {
     registryVersion: ir.registry.version,
     registryHash: ir.registry.hash,
     resolverVersion: ir.resolverVersion,
+    lifecycleState: "RESOLVED",
+    schemaReadiness: ir.schemaReadiness.status,
     irVersions: [{ version: ir.irVersion, irHash: ir.irHash, artifact: `./${slug}.ir.json` }],
     pinnedContextVersions: ir.contextVersions,
     selectedFlows: ir.flowIds,

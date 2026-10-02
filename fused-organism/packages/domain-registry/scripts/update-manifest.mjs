@@ -3,6 +3,7 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getRegistryGate } from "../src/index.mjs";
+import { assessContractCoverage } from "../src/contracts.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = async (name) => JSON.parse(await readFile(path.join(root, name), "utf8"));
@@ -22,6 +23,8 @@ const routePatternPolicy = await readJson("routes/pattern-derivation-policy.json
 const actors = await readJson("data/actor-registry.json");
 const sliceMap = await readJson("data/slice-map.json");
 const spine = await readJson("catalog/spine.json");
+const tableContracts = await readJson("data/table-contracts.json");
+const scalarTypes = await readJson("data/scalar-types.json");
 const architectureSource = await readJson("sources/deepseek_json_20261002_2c644e.json");
 const sourceSpine = await readJson("sources/deepseek_json_20261002_104c0f.json");
 const projections = [
@@ -62,6 +65,7 @@ const contentHashes = [];
 for (const file of assetFiles) contentHashes.push({ path: `./${file}`, sha256: createHash("sha256").update(await readFile(path.join(root, file))).digest("hex") });
 const registryHash = createHash("sha256").update(contentHashes.map((item) => `${item.path}\0${item.sha256}\n`).join("")).digest("hex");
 const gate = getRegistryGate();
+const schemaCoverage = assessContractCoverage(domains.tables.map((item) => item.id), { domains, tableContracts, scalarTypes });
 const counts = gate.counts;
 manifest.schemaVersion = "1.1.0";
 manifest.registryId = "tlps-domain-registry";
@@ -95,6 +99,8 @@ manifest.assets = {
   actors: { path: "./data/actor-registry.json", version: "1.0.0", status: actors.status, records: actors.actors.length, unresolved: actors.actors.filter((item) => item.status !== "registered").length },
   sliceMap: { path: "./flows/slice-map.json", version: "1.0.0", status: sliceMap.status, referencedUnique: sliceMap.referencedSliceCount, contextResolved: sliceMap.resolvedCount, explicitSpecial: sliceMap.explicitlyClassifiedCount, unresolved: sliceMap.unresolvedCount },
   applicationRegistry: { path: "./applications/registry.json", version: "1.0.0", status: "local-preview", records: (await readJson("applications/registry.json")).records.length, resolverVersion: "1.0.0" },
+  tableContracts: { path: "./data/table-contracts.json", version: tableContracts.schemaVersion, status: tableContracts.status, records: tableContracts.contracts.length, catalogTables: domains.tables.length, ...schemaCoverage.counts, byContext: schemaCoverage.byContext },
+  scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },
   compositionArtifacts: { path: "./composition/route-impact-indexes.json", version: "1.0.0", status: "generated-preview", routeBacklog: (await readJson("composition/route-impact-indexes.json")).deferredRouteBacklog.length, compiler: "not-implemented" },
 };
 manifest.sources = manifest.sources.filter((source) => source.key !== "m1ArchitectureProposal").map((source) => ({ ...source, snapshot: `./sources/${source.file}` }));
@@ -138,7 +144,9 @@ manifest.integrity = {
   ...counts,
   publishable: gate.publishable,
   compilerConsumable: gate.compilerConsumable,
+  registryCompilerReady: gate.registryCompilerReady,
   compilerReady: gate.compilerReady,
+  schemaCompilerReadiness: { status: schemaCoverage.status, ...schemaCoverage.counts, reason: "Registry package validity does not imply database schema readiness; incomplete contracts fail closed." },
   domainRegistry: gate.domainRegistry,
   routeRegistry: gate.routeRegistry,
   findings: gate.findings,

@@ -2991,6 +2991,65 @@
     ],
     "blockers": []
   },
+  "schemaReadiness": {
+    "status": "SCHEMA_INCOMPLETE",
+    "counts": {
+      "total": 160,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 160
+    },
+    "byContext": {
+      "communications": {
+        "total": 9,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 9
+      },
+      "evidence": {
+        "total": 23,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 23
+      },
+      "identity": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "organisation": {
+        "total": 10,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 10
+      },
+      "people": {
+        "total": 32,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 32
+      },
+      "platform": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "production": {
+        "total": 19,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 19
+      },
+      "project": {
+        "total": 17,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 17
+      }
+    }
+  },
   "policies": {
     "coreSpine": [
       "identity",
@@ -3011,8 +3070,15 @@
     "allowPlanned": true
   },
   "seedProfile": "demo-casting",
-  "compilerStatus": "READY_FOR_SCHEMA_PREVIEW",
-  "compilerBlockers": [],
+  "lifecycleState": "RESOLVED",
+  "compilerStatus": "SCHEMA_INCOMPLETE",
+  "compilerBlockers": [
+    {
+      "kind": "schema-contract",
+      "code": "SCHEMA_INCOMPLETE",
+      "reason": "160 of 160 tables lack complete schema contracts."
+    }
+  ],
   "whyIncluded": [
     {
       "type": "context",
@@ -4642,5 +4708,5 @@
       "flowIds": []
     }
   ],
-  "irHash": "bc6efda44201ef281f560967fc8d4b34d05f62806172df38b8ee0d5a68f1d181"
+  "irHash": "435fe2b13c694495b02c0f74949e521511519edda457cfacd1db7e74a1188930"
 }

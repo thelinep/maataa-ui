@@ -8378,6 +8378,113 @@
     ],
     "blockers": []
   },
+  "schemaReadiness": {
+    "status": "SCHEMA_INCOMPLETE",
+    "counts": {
+      "total": 340,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 340
+    },
+    "byContext": {
+      "campaign": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "communications": {
+        "total": 9,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 9
+      },
+      "creative": {
+        "total": 20,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 20
+      },
+      "eventsspatial": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "evidence": {
+        "total": 23,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 23
+      },
+      "finance": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "identity": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "intelligence": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "investor": {
+        "total": 21,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 21
+      },
+      "logistics": {
+        "total": 26,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 26
+      },
+      "marketplace": {
+        "total": 22,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 22
+      },
+      "organisation": {
+        "total": 10,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 10
+      },
+      "people": {
+        "total": 32,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 32
+      },
+      "platform": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "production": {
+        "total": 19,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 19
+      },
+      "project": {
+        "total": 17,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 17
+      }
+    }
+  },
   "policies": {
     "coreSpine": [
       "identity",
@@ -8398,8 +8505,15 @@
     "allowPlanned": true
   },
   "seedProfile": "demo-campaign",
-  "compilerStatus": "READY_FOR_SCHEMA_PREVIEW",
-  "compilerBlockers": [],
+  "lifecycleState": "RESOLVED",
+  "compilerStatus": "SCHEMA_INCOMPLETE",
+  "compilerBlockers": [
+    {
+      "kind": "schema-contract",
+      "code": "SCHEMA_INCOMPLETE",
+      "reason": "340 of 340 tables lack complete schema contracts."
+    }
+  ],
   "whyIncluded": [
     {
       "type": "context",
@@ -22693,5 +22807,5 @@
       "flowIds": []
     }
   ],
-  "irHash": "26c06e89dce93202148f25e0c214c4d432bc3f56db0bee7b5248b7aafe6c93db"
+  "irHash": "73e1ac5db780306d21a8a399f91eac332ea323a68ac65ea757dbf4086112904a"
 }

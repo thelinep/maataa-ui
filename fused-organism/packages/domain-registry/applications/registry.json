@@ -29,10 +29,12 @@
       "registryVersion": "1.0.0",
       "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
       "resolverVersion": "1.0.0",
+      "lifecycleState": "RESOLVED",
+      "schemaReadiness": "SCHEMA_INCOMPLETE",
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "bc6efda44201ef281f560967fc8d4b34d05f62806172df38b8ee0d5a68f1d181",
+          "irHash": "435fe2b13c694495b02c0f74949e521511519edda457cfacd1db7e74a1188930",
           "artifact": "./casting-pipeline-demo.ir.json"
         }
       ],
@@ -97,7 +99,7 @@
         {
           "kind": "logical-schema-preview",
           "path": "./casting-pipeline-demo.schema-preview.json",
-          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+          "status": "SCHEMA_INCOMPLETE"
         }
       ],
       "environmentAssignments": []
@@ -120,10 +122,12 @@
       "registryVersion": "1.0.0",
       "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
       "resolverVersion": "1.0.0",
+      "lifecycleState": "RESOLVED",
+      "schemaReadiness": "SCHEMA_INCOMPLETE",
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "26c06e89dce93202148f25e0c214c4d432bc3f56db0bee7b5248b7aafe6c93db",
+          "irHash": "73e1ac5db780306d21a8a399f91eac332ea323a68ac65ea757dbf4086112904a",
           "artifact": "./campaign-os-reference.ir.json"
         }
       ],
@@ -312,7 +316,7 @@
         {
           "kind": "logical-schema-preview",
           "path": "./campaign-os-reference.schema-preview.json",
-          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+          "status": "SCHEMA_INCOMPLETE"
         }
       ],
       "environmentAssignments": []
@@ -335,10 +339,12 @@
       "registryVersion": "1.0.0",
       "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
       "resolverVersion": "1.0.0",
+      "lifecycleState": "RESOLVED",
+      "schemaReadiness": "SCHEMA_INCOMPLETE",
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "4ef5ef22108fb4ff108e4dcc91f657e6ac36eb7c64f25241e9c26130346280f0",
+          "irHash": "cd6a5957c8a3debe2b097792d5f1f25f97aeabe7a3fe684a787ba894fdf9a4c5",
           "artifact": "./events-wedding-spatial-reference.ir.json"
         }
       ],
@@ -518,7 +524,7 @@
         {
           "kind": "logical-schema-preview",
           "path": "./events-wedding-spatial-reference.schema-preview.json",
-          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+          "status": "SCHEMA_INCOMPLETE"
         }
       ],
       "environmentAssignments": []
@@ -541,10 +547,12 @@
       "registryVersion": "1.0.0",
       "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
       "resolverVersion": "1.0.0",
+      "lifecycleState": "RESOLVED",
+      "schemaReadiness": "SCHEMA_INCOMPLETE",
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "b9717315e953cf260b2621d21ce3f4385cf9351c5b7e562abe85758b153d18ee",
+          "irHash": "87034a57ac9ad442cf220bcb3a13d88c85db89ee2fb8152eddfbf698444858ce",
           "artifact": "./investorhub-reference.ir.json"
         }
       ],
@@ -702,7 +710,7 @@
         {
           "kind": "logical-schema-preview",
           "path": "./investorhub-reference.schema-preview.json",
-          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+          "status": "SCHEMA_INCOMPLETE"
         }
       ],
       "environmentAssignments": []
