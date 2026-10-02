@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import sourceRegistry from "../schema-sources/registry.json" with { type: "json" };
 import candidate from "../schema-sources/candidates/neroevents-postgres-migrations.json" with { type: "json" };
+import maataaCommunicationsAuthority from "../schema-sources/approved/maataa-communications-v1.json" with { type: "json" };
 import communicationsSource from "../schema-sources/authored/maataa-communications-v1/source.json" with { type: "json" };
 import communicationsSchema from "../schema-sources/authored/maataa-communications-v1/communications-schema.json" with { type: "json" };
 import communicationsReview from "../schema-sources/authored/maataa-communications-v1/review.json" with { type: "json" };
@@ -10,7 +11,7 @@ import { createSqlContractProposal } from "../src/sql-proposal.mjs";
 import { registry, validateRegistry } from "../src/index.mjs";
 
 test("schema source intake pins neroevents migrations as candidates with no canonical table mapping", () => {
-  assert.deepEqual(sourceRegistry.records, ["./candidates/neroevents-postgres-migrations.json"]);
+  assert.deepEqual(sourceRegistry.records, ["./candidates/neroevents-postgres-migrations.json", "./approved/maataa-communications-v1.json"]);
   assert.equal(candidate.classification, "CANDIDATE");
   assert.equal(candidate.adoptionDecision.status, "pending");
   assert.equal(candidate.files.length, 11);
@@ -58,7 +59,14 @@ test("reviewed MAATAA Communications source records all twelve decisions without
     assert.ok(table.primaryKey.every((field) => table.fields[field]), `${table.id} has explicit key fields`);
   }
   assert.equal(registry.tableContracts.contracts.some((item) => item.context === "communications"), false, "review does not create canonical contracts");
-  assert.equal(registry.schemaSources.records.some((item) => item.id === "maataa-communications-v1"), false, "the authority pin is a separate follow-up commit");
+  assert.equal(registry.schemaSources.records.some((item) => item.id === "maataa-communications-v1"), true, "the approved source is published by the separate authority-registry commit");
+  assert.equal(maataaCommunicationsAuthority.classification, "AUTHORITATIVE");
+  assert.equal(maataaCommunicationsAuthority.adoptionDecision.status, "adopted");
+  assert.equal(maataaCommunicationsAuthority.repository.commitSha, "2f3d8b4fa8abcc3cd1576efffb84809b7634e3e2");
+  assert.equal(maataaCommunicationsAuthority.files.length, 6);
+  assert.ok(maataaCommunicationsAuthority.files.every((file) => /^[a-f0-9]{40}$/.test(file.blobSha)));
+  assert.deepEqual(validateRegistry(registry).filter((item) => item.code === "schema-source-invalid"), []);
+  assert.deepEqual(maataaCommunicationsAuthority.coverage.canonicalTableIds.sort(), tableIds);
 });
 
 test("SQL intake emits source-backed proposals without assigning canonical tables or logical relations", () => {

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "maataa-communications-v1",
+  "name": "MAATAA Communications Schema v1",
+  "classification": "AUTHORITATIVE",
+  "sourceKind": "json-schema",
+  "repository": {
+    "url": "https://github.com/thelinep/maataa-ui",
+    "commitSha": "2f3d8b4fa8abcc3cd1576efffb84809b7634e3e2"
+  },
+  "files": [
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-communications-v1/communications-schema.json",
+      "blobSha": "036c5a8fb72261b8a4b5b15ba93a2af8cfdf9407"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-communications-v1/decisions.json",
+      "blobSha": "2c24b91d6d55af979b2ba482d551ca8770054ccf"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-communications-v1/decisions.md",
+      "blobSha": "fdbef415928a7bdc9e38330007f319802c02666d"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-communications-v1/provenance.json",
+      "blobSha": "7319927c4a7701979eb77439b6cf0526a63f28d5"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-communications-v1/review.json",
+      "blobSha": "5a5d6c032ac1f0616de9603b1b08d0b8f5db8748"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-communications-v1/source.json",
+      "blobSha": "7243621d7a2112e49164beb2e0d0cc8725c1d468"
+    }
+  ],
+  "coverage": {
+    "contexts": [
+      "communications"
+    ],
+    "canonicalTableIds": [
+      "communications.notifications",
+      "communications.notification_preferences",
+      "communications.notification_deliveries",
+      "communications.communication_threads",
+      "communications.thread_members",
+      "communications.messages",
+      "communications.message_attachments",
+      "communications.direct_message_threads",
+      "communications.announcements"
+    ],
+    "sourceNativeTables": []
+  },
+  "reviewer": "thelinep",
+  "adoptionDecision": {
+    "status": "adopted",
+    "decidedBy": "thelinep",
+    "rationale": "The MAATAA-authored, reviewed Communications schema and its relational decisions are authoritative for Communications source semantics. No external database lineage is claimed. Retention values are product defaults only; legal/compliance approval, canonical contract authoring/promotion, Prisma, migrations, and production approval remain separate gates.",
+    "decidedAt": "2026-10-03T01:11:54+05:30"
+  },
+  "notes": "This source record pins the complete reviewed source package at commit 2f3d8b4fa8abcc3cd1576efffb84809b7634e3e2. Source authority does not itself populate canonical data/table-contracts.json or grant schema readiness, physical compilation, migration, or production authorization."
+}

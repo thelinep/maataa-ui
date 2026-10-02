@@ -24,8 +24,9 @@ import authoredKernel from "../schema-sources/authored/maataa-core-v1/contracts.
 import { validateTableContract } from "./contracts.mjs";
 import schemaSources from "../schema-sources/registry.json" with { type: "json" };
 import candidateSchemaSources from "../schema-sources/candidates/neroevents-postgres-migrations.json" with { type: "json" };
+import maataaCommunicationsSource from "../schema-sources/approved/maataa-communications-v1.json" with { type: "json" };
 
-export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts, authoredContracts: authoredKernel.contracts, schemaSources: { ...schemaSources, records: [candidateSchemaSources] } });
+export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts, authoredContracts: authoredKernel.contracts, schemaSources: { ...schemaSources, records: [candidateSchemaSources, maataaCommunicationsSource] } });
 
 const uniqueBy = (items, field) => new Map(items.map((item) => [item[field], item]));
 const compositionProducts = (source) => source.products.products ?? [];

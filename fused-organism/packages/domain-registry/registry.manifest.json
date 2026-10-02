@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "b4e63b6beb1e3dca76964eb0b7b7159583eafb2465d2474ce4aebca5cde586ab",
+    "registryHash": "7de2e4390f0499e7be94d343d2a29172da41e948a9126ba750f0e00429e14160",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -595,7 +595,11 @@
       },
       {
         "path": "./schema-sources/approved/README.md",
-        "sha256": "2ef8f162042f677d4e7ae89624cd1e8d452bbfec22415558f5f2ef0b41e419cd"
+        "sha256": "aa343201e7801d11290dbac8346a2a5bd53bc8b11ae18a0a8026b8499516cf08"
+      },
+      {
+        "path": "./schema-sources/approved/maataa-communications-v1.json",
+        "sha256": "6273064ad0c8b5379776172854692e259761dbf4fc7399a440004e5bd7ee54bd"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/communications-schema.json",
@@ -631,7 +635,7 @@
       },
       {
         "path": "./schema-sources/registry.json",
-        "sha256": "6d84d83eeba2f3b7e86c6b46f213f81fb38405ee0fc3027c79f3e20348ae5d92"
+        "sha256": "70cd258ac7f34ba6283e4b791ab29db46d58bee864ea4c10cdb40c8f88cd2b03"
       },
       {
         "path": "./schema-sources/rejected/README.md",
@@ -1023,9 +1027,10 @@
     "schemaSources": {
       "path": "./schema-sources/registry.json",
       "version": "1.0.0",
-      "records": 1,
+      "records": 2,
       "byClassification": {
-        "CANDIDATE": 1
+        "CANDIDATE": 1,
+        "AUTHORITATIVE": 1
       }
     },
     "compositionArtifacts": {
@@ -1199,7 +1204,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "b4e63b6beb1e3dca76964eb0b7b7159583eafb2465d2474ce4aebca5cde586ab",
+    "packageHash": "7de2e4390f0499e7be94d343d2a29172da41e948a9126ba750f0e00429e14160",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

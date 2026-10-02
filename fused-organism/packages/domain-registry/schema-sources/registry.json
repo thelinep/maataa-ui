@@ -1,7 +1,8 @@
 {
   "schemaVersion": "1.0.0",
-  "sourcePolicy": "External material is a candidate until an owner reviews and adopts exact tables into an approved source record. Importers emit proposals only and never write canonical contracts.",
+  "sourcePolicy": "External material is a candidate until an owner reviews and adopts exact tables into an approved source record. MAATAA-authored schema packages may be AUTHORITATIVE after explicit owner review and immutable commit/blob pinning. Importers emit proposals only and never write canonical contracts.",
   "records": [
-    "./candidates/neroevents-postgres-migrations.json"
+    "./candidates/neroevents-postgres-migrations.json",
+    "./approved/maataa-communications-v1.json"
   ]
 }
