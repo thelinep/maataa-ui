@@ -2205,7 +2205,7 @@
   "readiness": {
     "compileTestable": true,
     "fkClosure": "PASS",
-    "schemaReady": true,
+    "schemaReady": false,
     "logicalPreviewValid": true,
     "prismaPreviewValid": true,
     "migrationPreviewValid": false,

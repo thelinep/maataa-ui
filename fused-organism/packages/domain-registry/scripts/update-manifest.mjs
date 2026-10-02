@@ -26,6 +26,10 @@ const spine = await readJson("catalog/spine.json");
 const tableContracts = await readJson("data/table-contracts.json");
 const authoredKernel = await readJson("schema-sources/authored/maataa-core-v1/contracts.json");
 const communicationsDraft = await readJson("schema-sources/authored/maataa-communications-v1/contracts.draft.json");
+const communicationsPrismaPreviews = await Promise.all(["postgresql", "sqlite"].map(async (provider) => ({
+  provider,
+  ...(await readJson(`schema-sources/authored/maataa-communications-v1/prisma-preview.${provider}.draft.metadata.json`)),
+})));
 const scalarTypes = await readJson("data/scalar-types.json");
 const schemaSourceRegistry = await readJson("schema-sources/registry.json");
 const schemaSourceRecords = await Promise.all(schemaSourceRegistry.records.map((relative) => readJson(`schema-sources/${relative.replace(/^\.\//, "")}`)));
@@ -118,12 +122,14 @@ manifest.assets = {
     records: communicationsDraft.contracts.length,
     contractSetHash: communicationsDraft.contractSetHash,
     readiness: communicationsDraft.readiness,
-    prismaPreviews: ["postgresql", "sqlite"].map((provider) => ({
+    prismaPreviews: communicationsPrismaPreviews.map(({ provider, ...preview }) => ({
       provider,
       path: `./schema-sources/authored/maataa-communications-v1/prisma-preview.${provider}.draft.prisma`,
-      validation: "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
-      deployable: false,
-      migrationExecutable: false,
+      validation: preview.validationStatus,
+      validationTool: preview.validationTool,
+      contractSetHash: preview.contractSetHash,
+      deployable: preview.deployable,
+      migrationExecutable: preview.migrationExecutable,
     })),
   },
   scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },

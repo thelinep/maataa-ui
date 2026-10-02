@@ -19,7 +19,9 @@ const draftContracts = JSON.parse(await readFile(path.join(outputRoot, "contract
 draftContracts.readiness = {
   compileTestable: true,
   fkClosure: "PASS",
-  schemaReady: true,
+  // Schema readiness means the slice and all required dependencies are
+  // canonical. A complete DRAFT can still produce non-deployable previews.
+  schemaReady: false,
   logicalPreviewValid: true,
   prismaPreviewValid: false,
   migrationPreviewValid: false,

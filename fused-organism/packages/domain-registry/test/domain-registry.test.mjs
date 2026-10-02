@@ -410,7 +410,9 @@ test("Communications DRAFT contracts close dependencies and emit a provider-labe
   const communicationsIds = registry.domains.tables.filter((table) => table.context === "communications").map((table) => table.id).sort();
   assert.equal(communicationsIds.length, 9);
   assert.equal(registry.draftContracts.length, 9);
-  assert.match(JSON.parse(readFileSync(new URL("../schema-sources/authored/maataa-communications-v1/contracts.draft.json", import.meta.url), "utf8")).contractSetHash, /^[a-f0-9]{64}$/);
+  const communicationsDraft = JSON.parse(readFileSync(new URL("../schema-sources/authored/maataa-communications-v1/contracts.draft.json", import.meta.url), "utf8"));
+  assert.match(communicationsDraft.contractSetHash, /^[a-f0-9]{64}$/);
+  assert.equal(communicationsDraft.readiness.schemaReady, false, "a DRAFT is not canonically schema-ready");
   assert.ok(registry.draftContracts.every((contract) => contract.schemaLifecycle === "DRAFT" && contract.provenance.kind === "MAATAA_AUTHORED"));
   const readiness = assessDraftCompileTestability(communicationsIds, registry);
   assert.equal(readiness.status, "DRAFT_COMPILE_TESTABLE");

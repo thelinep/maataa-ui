@@ -51,7 +51,7 @@
   ],
   "unresolvedPolicyQuestions": [
     "The nine retention periods and lifecycle anchors are explicit MAATAA policy proposals, not approved retention policy or statutory requirements; legal/compliance review remains required.",
-    "identity.users is still authored-only; draft structural closure may use it, but canonical readiness and Prisma remain blocked until Identity is approved and canonical.",
+    "identity.users is still authored-only; an explicitly labelled non-deployable DRAFT Prisma preview may include it, but canonical readiness and deployable Prisma remain blocked until Identity is approved and canonical.",
     "Workspace membership status and parent-thread membership are action-time policies; a static FK proves row identity only, not active authorization.",
     "Target database support for composite/null-aware FKs, canonical membership-pair check constraints, JSON-free audience modeling, and immutable delivery evidence must be reviewed before physical compilation.",
     "Announcement acknowledgement and per-recipient audience snapshots would require a new canonical table; they are excluded and recorded as future scope rather than fabricated."

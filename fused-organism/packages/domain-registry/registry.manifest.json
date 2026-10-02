@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "cb2982c9fb426819f3dd0c4e681afb0c410cbeec975613e8051c94a0e80bcde2",
+    "registryHash": "8ae9955f7e6ae66790c711e3222d65257850831e13f9ee2ecdf6536f3ed7daf5",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -607,11 +607,11 @@
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
-        "sha256": "eb3191dd59880b5b09c59baa20e22a77492fe0cfa6a466076fd6a30692795379"
+        "sha256": "9e7a73ebd8b305bdadf6a956c3db26874643b0faab8dd52bc6bebd8752a707a7"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/decisions.json",
-        "sha256": "45a46ec6b73b9b446466702a8883a14a3360e27c61d4463c27759274b0b9d296"
+        "sha256": "13507ed8050758953a3cc812be85f6aef2d983c083ff0f26314574e88b3de8df"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/decisions.md",
@@ -1054,7 +1054,7 @@
       "readiness": {
         "compileTestable": true,
         "fkClosure": "PASS",
-        "schemaReady": true,
+        "schemaReady": false,
         "logicalPreviewValid": true,
         "prismaPreviewValid": true,
         "migrationPreviewValid": false,
@@ -1084,14 +1084,18 @@
         {
           "provider": "postgresql",
           "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
-          "validation": "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
+          "validation": "PASS",
+          "validationTool": "Prisma CLI 7.9.1",
+          "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
           "deployable": false,
           "migrationExecutable": false
         },
         {
           "provider": "sqlite",
           "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
-          "validation": "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
+          "validation": "PASS",
+          "validationTool": "Prisma CLI 7.9.1",
+          "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
           "deployable": false,
           "migrationExecutable": false
         }
@@ -1283,7 +1287,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "cb2982c9fb426819f3dd0c4e681afb0c410cbeec975613e8051c94a0e80bcde2",
+    "packageHash": "8ae9955f7e6ae66790c711e3222d65257850831e13f9ee2ecdf6536f3ed7daf5",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {
