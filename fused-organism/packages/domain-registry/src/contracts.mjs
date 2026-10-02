@@ -1,13 +1,18 @@
+import { createHash } from "node:crypto";
+
 const REQUIRED_SECTIONS = ["fields", "enums", "primaryKey", "uniqueConstraints", "foreignKeys", "relations", "indexes", "ownership", "lifecycle"];
 const REQUIRED_REVIEW = "approved";
 const sorted = (items) => [...items].sort((a, b) => String(a).localeCompare(String(b)));
 const has = (value, key) => Object.hasOwn(value ?? {}, key);
 
-function provenanceApproved(value) {
-  return value?.reviewStatus === REQUIRED_REVIEW && typeof value.source === "string" && value.source.trim() && typeof value.reference === "string" && value.reference.trim();
+function provenanceValid(value, requireApproval) {
+  const statusValid = requireApproval
+    ? value?.reviewStatus === REQUIRED_REVIEW
+    : ["unreviewed", "reviewed", REQUIRED_REVIEW].includes(value?.reviewStatus);
+  return statusValid && typeof value.source === "string" && value.source.trim() && typeof value.reference === "string" && value.reference.trim();
 }
 
-export function validateTableContract(contract, source) {
+function validateContract(contract, source, { requireApproval }) {
   const errors = [];
   if (!contract || typeof contract !== "object" || Array.isArray(contract)) return { valid: false, errors: ["Contract must be an object."] };
   const table = (source.domains.tables ?? []).find((item) => item.id === contract.id);
@@ -15,7 +20,7 @@ export function validateTableContract(contract, source) {
   else if (contract.context !== table.context || contract.name !== table.name) errors.push(`Contract identity does not match canonical table ${table.id}.`);
   const scalarIds = new Set((source.scalarTypes?.types ?? []).map((item) => item.id));
   const enumIds = new Set((contract.enums ?? []).map((item) => item.id));
-  if (!provenanceApproved(contract.provenance)) errors.push("Table provenance must cite a source and reference and be approved.");
+  if (!provenanceValid(contract.provenance, requireApproval)) errors.push(requireApproval ? "Table provenance must cite a source and reference and be approved." : "Table provenance must cite a source, reference, and valid review status.");
   if (!contract.version || !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(contract.version)) errors.push("Contract must have a semantic version.");
   const fields = contract.fields && typeof contract.fields === "object" && !Array.isArray(contract.fields) ? contract.fields : {};
   for (const [fieldName, field] of Object.entries(fields)) {
@@ -24,7 +29,7 @@ export function validateTableContract(contract, source) {
     if (type !== "enum" && !scalarIds.has(type)) errors.push(`Field ${fieldName} uses unknown scalar type ${field.type ?? "<missing>"}.`);
     if (typeof field.nullable !== "boolean") errors.push(`Field ${fieldName} must declare nullability.`);
     if (typeof field.generated !== "boolean") errors.push(`Field ${fieldName} must declare whether it is generated.`);
-    if (!provenanceApproved(field.provenance)) errors.push(`Field ${fieldName} provenance must be approved and source-backed.`);
+    if (!provenanceValid(field.provenance, requireApproval)) errors.push(requireApproval ? `Field ${fieldName} provenance must be approved and source-backed.` : `Field ${fieldName} provenance must be source-backed with a valid review status.`);
     if (field.type === "string" && !Number.isInteger(field.maxLength)) errors.push(`Field ${fieldName} needs maxLength for bounded string semantics.`);
     if (field.type === "decimal" && (!Number.isInteger(field.precision) || !Number.isInteger(field.scale) || field.scale > field.precision)) errors.push(`Field ${fieldName} needs valid decimal precision and scale.`);
     if (field.type === "datetime" && !field.timezone) errors.push(`Field ${fieldName} must declare timezone semantics.`);
@@ -32,11 +37,12 @@ export function validateTableContract(contract, source) {
     if (has(field, "defaultLiteral") && has(field, "defaultExpression")) errors.push(`Field ${fieldName} cannot have both defaultLiteral and defaultExpression; their meanings are distinct.`);
     if (field.defaultExpression && !["current-timestamp", "uuid-v4", "database-native"].includes(field.defaultExpression.kind)) errors.push(`Field ${fieldName} has an unsupported default expression kind.`);
     if (field.defaultExpression?.kind === "database-native" && (!field.defaultExpression.expression?.trim() || !field.defaultExpression.dialect?.trim())) errors.push(`Field ${fieldName} database-native default must preserve its expression and dialect explicitly.`);
-    if (field.generated === true && (has(field, "defaultLiteral") || has(field, "defaultExpression"))) errors.push(`Field ${fieldName} cannot declare generated behavior and a default without an explicit generation rule.`);
+    const explicitUuidGeneration = field.defaultExpression?.kind === "uuid-v4";
+    if (field.generated === true && (has(field, "defaultLiteral") || (has(field, "defaultExpression") && !explicitUuidGeneration))) errors.push(`Field ${fieldName} cannot declare generated behavior and a default without an explicit generation rule.`);
   }
   for (const enumDefinition of contract.enums ?? []) {
     if (!enumDefinition.id || !Array.isArray(enumDefinition.values) || !enumDefinition.values.length || new Set(enumDefinition.values).size !== enumDefinition.values.length) errors.push(`Enum ${enumDefinition.id ?? "<missing>"} must have a unique, non-empty value list.`);
-    if (!provenanceApproved(enumDefinition.provenance)) errors.push(`Enum ${enumDefinition.id ?? "<missing>"} provenance must be approved and source-backed.`);
+    if (!provenanceValid(enumDefinition.provenance, requireApproval)) errors.push(requireApproval ? `Enum ${enumDefinition.id ?? "<missing>"} provenance must be approved and source-backed.` : `Enum ${enumDefinition.id ?? "<missing>"} provenance must be source-backed with a valid review status.`);
   }
   const fieldNames = new Set(Object.keys(fields));
   const checkFields = (owner, names) => {
@@ -45,11 +51,11 @@ export function validateTableContract(contract, source) {
   checkFields("primaryKey", contract.primaryKey);
   for (const constraint of contract.uniqueConstraints ?? []) {
     checkFields(`unique constraint ${constraint.name}`, constraint.fields);
-    if (!provenanceApproved(constraint.provenance)) errors.push(`Unique constraint ${constraint.name} provenance must be approved and source-backed.`);
+    if (!provenanceValid(constraint.provenance, requireApproval)) errors.push(requireApproval ? `Unique constraint ${constraint.name} provenance must be approved and source-backed.` : `Unique constraint ${constraint.name} provenance must be source-backed with a valid review status.`);
   }
   for (const index of contract.indexes ?? []) {
     checkFields(`index ${index.name}`, index.fields);
-    if (!provenanceApproved(index.provenance)) errors.push(`Index ${index.name} provenance must be approved and source-backed.`);
+    if (!provenanceValid(index.provenance, requireApproval)) errors.push(requireApproval ? `Index ${index.name} provenance must be approved and source-backed.` : `Index ${index.name} provenance must be source-backed with a valid review status.`);
   }
   for (const key of contract.foreignKeys ?? []) {
     checkFields(`foreign key ${key.name}`, key.fields);
@@ -70,11 +76,11 @@ export function validateTableContract(contract, source) {
     if ((key.fields ?? []).length !== (key.referencedFields ?? []).length) errors.push(`Foreign key ${key.name} source and target field counts differ.`);
     if ([key.onDelete, key.onUpdate].includes("set-null") && (key.fields ?? []).some((name) => fields[name]?.nullable !== true)) errors.push(`Foreign key ${key.name} uses set-null on a non-nullable field.`);
     if ([key.onDelete, key.onUpdate].includes("set-default") && (key.fields ?? []).some((name) => !has(fields[name], "defaultLiteral") && !has(fields[name], "defaultExpression"))) errors.push(`Foreign key ${key.name} uses set-default without a declared field default.`);
-    if (!provenanceApproved(key.provenance)) errors.push(`Foreign key ${key.name} provenance must be approved and source-backed.`);
+    if (!provenanceValid(key.provenance, requireApproval)) errors.push(requireApproval ? `Foreign key ${key.name} provenance must be approved and source-backed.` : `Foreign key ${key.name} provenance must be source-backed with a valid review status.`);
   }
   for (const relation of contract.relations ?? []) {
     checkFields(`relation ${relation.name}`, relation.from);
-    if (!provenanceApproved(relation.provenance)) errors.push(`Relation ${relation.name} provenance must be approved and source-backed.`);
+    if (!provenanceValid(relation.provenance, requireApproval)) errors.push(requireApproval ? `Relation ${relation.name} provenance must be approved and source-backed.` : `Relation ${relation.name} provenance must be source-backed with a valid review status.`);
     const target = (source.domains.tables ?? []).find((item) => item.id === relation.to);
     if (!target) errors.push(`Relation ${relation.name} targets unknown table ${relation.to}.`);
     const targetContract = (source.tableContracts?.contracts ?? []).find((item) => item.id === relation.to);
@@ -104,6 +110,10 @@ export function validateTableContract(contract, source) {
     if (contract.primaryKey.some((name) => fields[name]?.nullable === true)) errors.push("Primary key fields cannot be nullable.");
   }
   for (const section of REQUIRED_SECTIONS) if (!has(contract, section)) errors.push(`Missing required section: ${section}.`);
+  const retentionPolicy = contract.lifecycle?.retentionPolicy;
+  const retentionDefined = typeof retentionPolicy === "string" && retentionPolicy.trim().length > 0;
+  const retentionResolved = retentionDefined && (!requireApproval || !/^(?:PENDING_REVIEW|UNRESOLVED|TBD|TODO|PROPOSED)(?:\b|:)/i.test(retentionPolicy.trim()));
+  if (!retentionResolved) errors.push(requireApproval ? "Lifecycle must declare a concrete retention policy or an explicit approved no-retention policy." : "Lifecycle must declare a retention policy for compiler modeling.");
   const sectionValues = {
     fields: Object.keys(fields).length > 0,
     primaryKey: Array.isArray(contract.primaryKey) && contract.primaryKey.length > 0,
@@ -112,16 +122,24 @@ export function validateTableContract(contract, source) {
     relations: Array.isArray(contract.relations),
     indexes: Array.isArray(contract.indexes),
     ownership: Boolean(contract.ownership?.owner && contract.ownership?.steward),
-    lifecycle: Boolean(contract.lifecycle?.createdAt && contract.lifecycle?.updatedAt),
+    lifecycle: Boolean(contract.lifecycle?.createdAt && contract.lifecycle?.updatedAt && retentionResolved),
   };
   for (const [section, complete] of Object.entries(sectionValues)) if (!complete) errors.push(`Section ${section} is not complete.`);
-  if (!provenanceApproved(contract.ownership?.provenance)) errors.push("Ownership must have approved provenance.");
-  if (!provenanceApproved(contract.lifecycle?.provenance)) errors.push("Lifecycle must have approved provenance.");
+  if (!provenanceValid(contract.ownership?.provenance, requireApproval)) errors.push(requireApproval ? "Ownership must have approved provenance." : "Ownership must have source-backed provenance with a valid review status.");
+  if (!provenanceValid(contract.lifecycle?.provenance, requireApproval)) errors.push(requireApproval ? "Lifecycle must have approved provenance." : "Lifecycle must have source-backed provenance with a valid review status.");
   for (const fieldName of [contract.lifecycle?.createdAt, contract.lifecycle?.updatedAt, contract.lifecycle?.softDeleteField].filter(Boolean)) {
     if (!fieldNames.has(fieldName)) errors.push(`Lifecycle references unknown field ${fieldName}.`);
   }
   if (contract.ownership?.tenantKey && !fieldNames.has(contract.ownership.tenantKey)) errors.push(`Ownership references unknown tenant key field ${contract.ownership.tenantKey}.`);
   return { valid: errors.length === 0, errors: [...new Set(errors)] };
+}
+
+export function validateTableContract(contract, source) {
+  return validateContract(contract, source, { requireApproval: true });
+}
+
+export function validateTableContractStructure(contract, source) {
+  return validateContract(contract, source, { requireApproval: false });
 }
 
 export function assessContractCoverage(tableIds, source) {
@@ -139,6 +157,88 @@ export function assessContractCoverage(tableIds, source) {
     return [contextId, { total: rows.length, complete: rows.filter((item) => item.status === "COMPLETE").length, partial: rows.filter((item) => item.status === "PARTIAL").length, nameOnly: rows.filter((item) => item.status === "NAME_ONLY").length }];
   }));
   return { status: counts.complete === counts.total && counts.total > 0 ? "SCHEMA_READY" : "SCHEMA_INCOMPLETE", counts, byContext, entries };
+}
+
+function validateStructuralClosure(root, source) {
+  const rows = source.tableContracts?.contracts ?? [];
+  const contracts = new Map(rows.map((item) => [item.id, item]));
+  const counts = new Map();
+  for (const item of rows) counts.set(item.id, (counts.get(item.id) ?? 0) + 1);
+  const visited = new Set();
+  const errors = [];
+  const visit = (contract) => {
+    if (!contract || visited.has(contract.id)) return;
+    visited.add(contract.id);
+    if (counts.get(contract.id) > 1) errors.push(`${contract.id}: duplicate authored contract ID.`);
+    const validation = validateTableContractStructure(contract, source);
+    errors.push(...validation.errors.map((error) => `${contract.id}: ${error}`));
+    const dependencies = [
+      ...(contract.foreignKeys ?? []).map((item) => item.references),
+      ...(contract.relations ?? []).map((item) => item.to),
+      ...(contract.relations ?? []).filter((item) => item.cardinality === "many-to-many").map((item) => item.through?.tableId),
+    ].filter(Boolean);
+    for (const id of dependencies) {
+      const target = contracts.get(id);
+      if (!target) errors.push(`${contract.id}: schema dependency has no authored contract: ${id}.`);
+      else visit(target);
+    }
+  };
+  visit(root);
+  return [...new Set(errors)];
+}
+
+export function assessCompileTestability(tableIds, source) {
+  const contracts = new Map((source.tableContracts?.contracts ?? []).map((item) => [item.id, item]));
+  const entries = sorted(tableIds).map((tableId) => {
+    const contract = contracts.get(tableId);
+    if (!contract) return { tableId, status: "NAME_ONLY", fieldCount: 0, errors: ["No table contract is authored."] };
+    const errors = validateStructuralClosure(contract, source);
+    return { tableId, status: errors.length ? "PARTIAL" : "STRUCTURALLY_COMPLETE", fieldCount: Object.keys(contract.fields ?? {}).length, errors };
+  });
+  const counts = {
+    total: entries.length,
+    structurallyComplete: entries.filter((item) => item.status === "STRUCTURALLY_COMPLETE").length,
+    partial: entries.filter((item) => item.status === "PARTIAL").length,
+    nameOnly: entries.filter((item) => item.status === "NAME_ONLY").length,
+  };
+  return { status: counts.total > 0 && counts.structurallyComplete === counts.total ? "COMPILE_TESTABLE" : "SCHEMA_INCOMPLETE", counts, entries };
+}
+
+export function compileLogicalSchema(tableIds, source) {
+  const readiness = assessCompileTestability(tableIds, source);
+  if (readiness.status !== "COMPILE_TESTABLE") return { status: "BLOCKED", readiness, blockers: readiness.entries.flatMap((entry) => entry.errors.map((reason) => ({ tableId: entry.tableId, reason }))) };
+  const contracts = new Map((source.tableContracts?.contracts ?? []).map((item) => [item.id, item]));
+  const closure = new Set();
+  const visit = (id) => {
+    if (closure.has(id)) return;
+    const contract = contracts.get(id);
+    if (!contract) return;
+    closure.add(id);
+    for (const dependency of [
+      ...(contract.foreignKeys ?? []).map((item) => item.references),
+      ...(contract.relations ?? []).map((item) => item.to),
+      ...(contract.relations ?? []).filter((item) => item.cardinality === "many-to-many").map((item) => item.through?.tableId),
+    ].filter(Boolean)) visit(dependency);
+  };
+  for (const id of tableIds) visit(id);
+  const stable = (value) => Array.isArray(value) ? value.map(stable) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stable(value[key])])) : value;
+  const model = {
+    schemaVersion: "1.0.0",
+    modelKind: "logical-relational-v1",
+    tables: [...closure].sort().map((id) => {
+      const { context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance } = contracts.get(id);
+      return stable({ id, context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance });
+    }),
+  };
+  const serialized = JSON.stringify(stable(model));
+  return {
+    status: "LOGICAL_SCHEMA_READY",
+    compileTestability: { status: readiness.status, counts: readiness.counts },
+    requestedTableIds: [...new Set(tableIds)].sort(),
+    dependencyTableIds: [...closure].filter((id) => !tableIds.includes(id)).sort(),
+    model,
+    schemaHash: createHash("sha256").update(serialized).digest("hex"),
+  };
 }
 
 export function diffTableContracts(before, after) {

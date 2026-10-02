@@ -6,7 +6,7 @@ import {
   searchRegistry, validateRegistry,
 } from "../src/index.mjs";
 import { buildRouteImpactIndexes, diffApplicationIR, explainComposition, previewLogicalSchema, resolveComposition, sealApplicationIR, validateApplicationIR } from "../src/composition.mjs";
-import { assessContractCoverage, diffTableContracts, validateTableContract } from "../src/contracts.mjs";
+import { assessCompileTestability, assessContractCoverage, compileLogicalSchema, diffTableContracts, validateTableContract, validateTableContractStructure } from "../src/contracts.mjs";
 
 const castingIntent = { appId: "casting-pipeline-demo", name: "Casting Pipeline", description: "Casting pipeline for a film production company", productTags: ["film"], flowIds: ["TLPS-FLOW-027", "TLPS-FLOW-028", "TLPS-FLOW-029", "TLPS-FLOW-030", "TLPS-FLOW-031"], seedProfile: "demo-casting" };
 
@@ -303,10 +303,13 @@ test("M2.5 validates source-backed table contracts and reports semantic changes"
     fields: { id: { type: "uuid", nullable: false, generated: true, provenance }, label: { type: "string", nullable: false, generated: false, maxLength: 160, provenance }, created_at: { type: "datetime", nullable: false, generated: false, defaultExpression: { kind: "current-timestamp" }, timezone: "UTC", provenance }, updated_at: { type: "datetime", nullable: false, generated: false, defaultExpression: { kind: "current-timestamp" }, timezone: "UTC", provenance } },
     enums: [], primaryKey: ["id"], uniqueConstraints: [], foreignKeys: [], relations: [], indexes: [],
     ownership: { owner: "organisation", steward: "platform", provenance },
-    lifecycle: { createdAt: "created_at", updatedAt: "updated_at", provenance }, provenance,
+    lifecycle: { createdAt: "created_at", updatedAt: "updated_at", retentionPolicy: "approved:test-retention-v1", provenance }, provenance,
   };
   source.tableContracts.contracts = [contract];
   assert.deepEqual(validateTableContract(contract, source), { valid: true, errors: [] });
+  const explicitUuidGeneration = structuredClone(contract);
+  explicitUuidGeneration.fields.id.defaultExpression = { kind: "uuid-v4" };
+  assert.deepEqual(validateTableContract(explicitUuidGeneration, source), { valid: true, errors: [] }, "uuid-v4 is an explicit generation rule for generated UUIDs");
   const invalid = structuredClone(contract);
   invalid.primaryKey = ["unknown"];
   assert.ok(validateTableContract(invalid, source).errors.some((item) => item.includes("unknown field")));
@@ -325,6 +328,39 @@ test("M2.5 validates source-backed table contracts and reports semantic changes"
   const diff = diffTableContracts({ contracts: [contract] }, { contracts: [changed] });
   assert.deepEqual(diff.changed.map((item) => item.tableId), [contract.id]);
   assert.ok(diff.changed[0].changedPaths.includes("fields.label.maxLength"));
+});
+
+test("COMPILE_TESTABLE is separate from SCHEMA_READY and emits deterministic logical schema", () => {
+  const source = structuredClone(registry);
+  const provenance = { source: "communications-design", reference: "communications.notifications#table", reviewStatus: "unreviewed" };
+  const contract = {
+    schemaVersion: "1.0.0", id: "communications.notifications", context: "communications", name: "notifications", version: "1.0.0",
+    fields: {
+      id: { type: "uuid", nullable: false, generated: true, provenance },
+      created_at: { type: "datetime", nullable: false, generated: false, defaultExpression: { kind: "current-timestamp" }, timezone: "UTC", provenance },
+      updated_at: { type: "datetime", nullable: false, generated: false, defaultExpression: { kind: "current-timestamp" }, timezone: "UTC", provenance },
+    },
+    enums: [], primaryKey: ["id"], uniqueConstraints: [], foreignKeys: [], relations: [], indexes: [],
+    ownership: { owner: "communications", steward: "platform", provenance },
+    lifecycle: { createdAt: "created_at", updatedAt: "updated_at", retentionPolicy: "proposed:retention-v1", provenance }, provenance,
+  };
+  source.tableContracts.contracts = [contract];
+  assert.deepEqual(validateTableContractStructure(contract, source), { valid: true, errors: [] });
+  assert.ok(validateTableContract(contract, source).errors.some((item) => item.includes("must cite a source and reference and be approved")));
+  assert.deepEqual(assessCompileTestability([contract.id], source), {
+    status: "COMPILE_TESTABLE", counts: { total: 1, structurallyComplete: 1, partial: 0, nameOnly: 0 },
+    entries: [{ tableId: contract.id, status: "STRUCTURALLY_COMPLETE", fieldCount: 3, errors: [] }],
+  });
+  const first = compileLogicalSchema([contract.id], source);
+  const second = compileLogicalSchema([contract.id], source);
+  assert.equal(first.status, "LOGICAL_SCHEMA_READY");
+  assert.deepEqual(first, second);
+  assert.match(first.schemaHash, /^[a-f0-9]{64}$/);
+  assert.equal(assessCompileTestability(["communications.announcements"], source).status, "SCHEMA_INCOMPLETE");
+  source.tableContracts.contracts = [contract, structuredClone(contract)];
+  const duplicate = assessCompileTestability([contract.id], source);
+  assert.equal(duplicate.status, "SCHEMA_INCOMPLETE");
+  assert.ok(duplicate.entries[0].errors.some((item) => item.includes("duplicate authored contract ID")));
 });
 
 test("Application IR drafts can be resealed and content tampering is detected", () => {

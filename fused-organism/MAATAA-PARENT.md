@@ -1,6 +1,6 @@
 # MAATAA UI parent relationship
 
-This directory is the fused application workspace owned by the MAATAA UI repository. The parent app lives at `..`; this child keeps its own `package.json`, lockfile, build graph, and validation commands because it coordinates multiple independently versioned packages and applications.
+This directory is the fused application workspace owned by the MAATAA UI project at `..`. MAATAA UI is the repository/product parent; `fused-organism/` is its independently managed application workspace. It keeps its own `package.json`, lockfile, build graph, and validation commands because it coordinates multiple packages and applications.
 
 ## Ownership
 
@@ -9,8 +9,8 @@ This directory is the fused application workspace owned by the MAATAA UI reposit
 - `apps/admin-template` is the operator console that reads and edits local registry drafts.
 - `apps/tlps-application` is a registered application in the fused workspace.
 
-The child project is nested under the MAATAA UI repository for ownership and discovery. It is not an npm workspace of the root app; install, build, and validate it from this directory using its own scripts. Generated `dist`, dependency-install, and nested Git metadata are not vendored here.
+The child project is nested under the MAATAA UI source tree for ownership and discovery. It is not an npm workspace of the parent component package; install, build, and validate it from this directory using its own scripts. Generated `dist`, dependency-install, and nested Git metadata are not vendored here.
 
 ## Integration source
 
-The workspace was copied from the M2 closeout working tree. The domain-registry source contained uncommitted M2 composition work at integration time; its source files are included here, while its separate `.git` metadata remains in the original working tree.
+The domain-registry package is the current versioned source for composition, schema contracts, and source intake. The parent workspace consumes it directly; application navigation and Data Studio read the registry package rather than maintaining a parallel catalog. Keep registry publication readiness separate from schema compiler readiness. Git metadata belongs to the parent repository; the child workspace does not carry a nested `.git` directory.
