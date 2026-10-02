@@ -35,6 +35,7 @@ jobs:
       - run: npm test --workspace @maataa/domain-registry
       - run: npm run validate --workspace @maataa/domain-registry
       - run: npm run test:admin
+      - run: npm run build:ui
       - run: npm run build --workspace @maataa-app/admin-template
       - run: node --check apps/admin-template/screens/data-studio.mjs
       - run: node --check apps/admin-template/preview-controller.mjs
