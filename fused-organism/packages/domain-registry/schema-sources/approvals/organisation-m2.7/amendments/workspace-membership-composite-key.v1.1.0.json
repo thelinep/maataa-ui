@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "amendmentId": "organisation-workspace-membership-composite-key-v1.1.0",
+  "targetContractId": "organisation.workspace_memberships",
+  "baseVersion": "1.0.0",
+  "resultVersion": "1.1.0",
+  "baseContractHash": "6eb6ab650c89ccc6baf5df8aede43a1cb02423ff7c5edcb3fff25f3ac6b8f034",
+  "resultContractHash": "4ead47eb9c0a2216e358d6385e09d6ed26c9bf5597cdd76dd9da77146247f4c4",
+  "decision": "APPROVED",
+  "approvedBy": "thelinep",
+  "approvedAt": "2026-10-02T20:53:35.165Z",
+  "addedUniqueConstraint": {
+    "name": "workspace_memberships_id_workspace_organisation_unique",
+    "fields": [
+      "id",
+      "workspace_id",
+      "organisation_id"
+    ],
+    "provenance": {
+      "kind": "MAATAA_AUTHORED",
+      "evidence": [
+        "maataa-communications-v1#tenant-integrity",
+        "organisation.workspace_memberships#composite-candidate-key"
+      ],
+      "reviewedBy": "thelinep"
+    }
+  },
+  "rationale": "Enables Communications foreign keys to prove a workspace-membership ID belongs to the same workspace and organisation, without changing the existing primary key or membership identity.",
+  "productionBoundary": {
+    "migrationApproval": false,
+    "deploymentApproval": false
+  }
+}
