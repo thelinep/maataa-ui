@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "0aec154db73eefeced36dfcc42761bc826fc75980dcd76fdffde1cb860f6c6eb",
+    "registryHash": "b4e63b6beb1e3dca76964eb0b7b7159583eafb2465d2474ce4aebca5cde586ab",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -596,6 +596,30 @@
       {
         "path": "./schema-sources/approved/README.md",
         "sha256": "2ef8f162042f677d4e7ae89624cd1e8d452bbfec22415558f5f2ef0b41e419cd"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/communications-schema.json",
+        "sha256": "6b758b7842da9c64319741a033dbe4dfc5eadbbc264830974c1c7ad328ed9709"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/decisions.json",
+        "sha256": "45a46ec6b73b9b446466702a8883a14a3360e27c61d4463c27759274b0b9d296"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/decisions.md",
+        "sha256": "279158db2ee63eb7d64336ea8f1b7ead613245ab1fd856b4ebcd4f994ef5cbc9"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/provenance.json",
+        "sha256": "126a300f9c46819d7fcb98bd16c314c39e636a97b457ea35bdc720f7c3cade5f"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/review.json",
+        "sha256": "465abcc518be741531fa7709a4b154fdc39706573e447c1626ea23157f3647da"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/source.json",
+        "sha256": "26a923b303dff5fdc853a0e05fea3ccf1b44a8a3fa7753d8554dd544f4e01c6d"
       },
       {
         "path": "./schema-sources/authored/maataa-core-v1/contracts.json",
@@ -1175,7 +1199,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "0aec154db73eefeced36dfcc42761bc826fc75980dcd76fdffde1cb860f6c6eb",
+    "packageHash": "b4e63b6beb1e3dca76964eb0b7b7159583eafb2465d2474ce4aebca5cde586ab",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

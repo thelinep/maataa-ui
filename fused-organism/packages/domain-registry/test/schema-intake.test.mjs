@@ -2,6 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import sourceRegistry from "../schema-sources/registry.json" with { type: "json" };
 import candidate from "../schema-sources/candidates/neroevents-postgres-migrations.json" with { type: "json" };
+import communicationsSource from "../schema-sources/authored/maataa-communications-v1/source.json" with { type: "json" };
+import communicationsSchema from "../schema-sources/authored/maataa-communications-v1/communications-schema.json" with { type: "json" };
+import communicationsReview from "../schema-sources/authored/maataa-communications-v1/review.json" with { type: "json" };
+import communicationsDecisions from "../schema-sources/authored/maataa-communications-v1/decisions.json" with { type: "json" };
 import { createSqlContractProposal } from "../src/sql-proposal.mjs";
 import { registry, validateRegistry } from "../src/index.mjs";
 
@@ -20,6 +24,41 @@ test("source classification and adoption decision must agree before registry pub
   promotedWithoutReview.classification = "AUTHORITATIVE";
   const findings = validateRegistry({ ...registry, schemaSources: { records: [promotedWithoutReview] } });
   assert.ok(findings.some((item) => item.code === "schema-source-invalid"));
+});
+
+test("reviewed MAATAA Communications source records all twelve decisions without promoting contracts", () => {
+  const tableIds = registry.domains.tables.filter((item) => item.context === "communications").map((item) => item.id).sort();
+  assert.equal(communicationsSource.status, "REVIEWED_UNPINNED");
+  assert.equal(communicationsSource.authority, "REVIEWED_MAATAA_SOURCE_PENDING_AUTHORITY_PIN");
+  assert.equal(communicationsSource.sourceKind, "json-schema");
+  assert.equal(communicationsSource.repository.pinStatus, "PENDING_SECOND_AUTHORITY_REGISTRY_COMMIT");
+  assert.deepEqual([...communicationsSource.scope.canonicalTableIds].sort(), tableIds);
+  assert.equal(communicationsSchema.oneOf.length, 9, "reviewed source schema must describe the nine scoped row shapes");
+  assert.equal(communicationsSchema["x-maataa-source"].contractGenerationAllowed, false, "source approval is not canonical contract promotion");
+  assert.equal(communicationsReview.reviewStatus, "APPROVED");
+  assert.equal(communicationsReview.assignedReviewer, "thelinep");
+  assert.equal(communicationsReview.decisionItems.length, 12);
+  assert.ok(communicationsReview.decisionItems.every((item) => item.status === "REVIEWED_APPROVED" && ["APPROVE", "APPROVE_WITH_SCOPE"].includes(item.reviewDecision) && item.rationale));
+  assert.deepEqual(communicationsDecisions.decisionGroups.map((item) => item.id), communicationsReview.decisionItems.map((item) => item.id));
+  assert.ok(communicationsDecisions.decisionGroups.every((item) => item.status === "REVIEWED_APPROVED" && item.reviewedBy === "thelinep"));
+  assert.equal(communicationsDecisions.status, "REVIEWED_APPROVED_PENDING_PIN");
+  assert.equal(communicationsDecisions.authority, "MAATAA_AUTHORED_REVIEWED_SOURCE_PENDING_PIN");
+  assert.equal(communicationsDecisions.contractGenerationAllowed, false);
+  assert.deepEqual(communicationsDecisions.scope.sort(), tableIds);
+  assert.deepEqual(communicationsDecisions.tables.map((item) => item.id).sort(), tableIds);
+  assert.deepEqual(communicationsDecisions.retentionPolicies.map((item) => item.tableId).sort(), tableIds);
+  assert.ok(communicationsDecisions.retentionPolicies.every((item) => item.status === "PRODUCT_DEFAULT_APPROVED_LEGAL_REVIEW_REQUIRED"));
+  assert.match(communicationsDecisions.retentionRule.authorityBoundary, /not a statutory\/legal determination/);
+  assert.match(communicationsReview.approvalRecord.exclusions.join(" "), /legal or statutory retention approval/);
+  assert.equal(communicationsSchema["x-maataa-relational-decisions"].length, 9, "relational semantics accompany JSON record shapes");
+  for (const table of communicationsDecisions.tables) {
+    const shape = communicationsSchema.oneOf.find((item) => item.properties.tableId.const === table.id).properties.row;
+    assert.deepEqual(Object.keys(shape.properties).sort(), Object.keys(table.fields).sort(), `${table.id} schema fields match reviewed decisions`);
+    assert.deepEqual(shape.required.sort(), Object.entries(table.fields).filter(([, field]) => !field.nullable).map(([field]) => field).sort());
+    assert.ok(table.primaryKey.every((field) => table.fields[field]), `${table.id} has explicit key fields`);
+  }
+  assert.equal(registry.tableContracts.contracts.some((item) => item.context === "communications"), false, "review does not create canonical contracts");
+  assert.equal(registry.schemaSources.records.some((item) => item.id === "maataa-communications-v1"), false, "the authority pin is a separate follow-up commit");
 });
 
 test("SQL intake emits source-backed proposals without assigning canonical tables or logical relations", () => {

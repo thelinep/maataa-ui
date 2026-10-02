@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "maataa-communications-v1",
+  "name": "MAATAA Communications Schema v1",
+  "status": "REVIEWED_UNPINNED",
+  "authority": "REVIEWED_MAATAA_SOURCE_PENDING_AUTHORITY_PIN",
+  "sourceKind": "json-schema",
+  "repository": {
+    "url": "https://github.com/thelinep/maataa-ui",
+    "proposalCommit": null,
+    "proposalBlobSha": null,
+    "pinStatus": "PENDING_SECOND_AUTHORITY_REGISTRY_COMMIT"
+  },
+  "artifact": "communications-schema.json",
+  "proposalArtifacts": [
+    "communications-schema.json",
+    "decisions.json",
+    "decisions.md",
+    "provenance.json",
+    "review.json"
+  ],
+  "scope": {
+    "contextId": "communications",
+    "canonicalTableIds": [
+      "communications.notifications",
+      "communications.notification_preferences",
+      "communications.notification_deliveries",
+      "communications.communication_threads",
+      "communications.thread_members",
+      "communications.messages",
+      "communications.message_attachments",
+      "communications.direct_message_threads",
+      "communications.announcements"
+    ]
+  },
+  "review": {
+    "assignedReviewer": "thelinep",
+    "status": "APPROVED",
+    "decision": "ACCEPTED_WITH_SCOPE",
+    "reviewedAt": "2026-10-03T01:11:54+05:30",
+    "reviewer": "thelinep"
+  },
+  "authorityBoundary": "MAATAA-authored and reviewed design authority for Communications semantics, with no external database lineage. The reviewed package is not yet registered/pinned. It does not create canonical table contracts, approve legal retention, or authorize Prisma, migrations, or production.",
+  "nextGate": "Commit the reviewed package, capture its actual commit and blob SHAs, and pin those exact values in a separate approved-source authority-registry commit."
+}

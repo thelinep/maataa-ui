@@ -8,7 +8,7 @@ import {
   searchRegistry, validateRegistry,
 } from "../src/index.mjs";
 import { buildRouteImpactIndexes, diffApplicationIR, explainComposition, previewLogicalSchema, resolveComposition, sealApplicationIR, validateApplicationIR } from "../src/composition.mjs";
-import { assessCompileTestability, assessContractCoverage, compileLogicalSchema, diffTableContracts, validateTableContract, validateTableContractStructure } from "../src/contracts.mjs";
+import { assessDraftCompileTestability, assessContractCoverage, compileDraftLogicalSchema, compileLogicalSchema, diffTableContracts, validateTableContract, validateTableContractStructure } from "../src/contracts.mjs";
 import recoveredKernel from "../schema-sources/authored/maataa-core-v1/contracts.json" with { type: "json" };
 import organisationApproval from "../schema-sources/approvals/organisation-m2.7/approval-record.json" with { type: "json" };
 import organisationClosure from "../schema-sources/approvals/organisation-m2.7/fk-closure.json" with { type: "json" };
@@ -342,7 +342,7 @@ test("M2.5 validates source-backed table contracts and reports semantic changes"
   assert.ok(diff.changed[0].changedPaths.includes("fields.label.maxLength"));
 });
 
-test("COMPILE_TESTABLE is separate from SCHEMA_READY and emits deterministic logical schema", () => {
+test("draft compilation is explicit and cannot cross the canonical compiler boundary", () => {
   const source = structuredClone(registry);
   const provenance = { source: "communications-design", reference: "communications.notifications#table", reviewStatus: "unreviewed" };
   const contract = {
@@ -356,25 +356,50 @@ test("COMPILE_TESTABLE is separate from SCHEMA_READY and emits deterministic log
     ownership: { owner: "communications", steward: "platform", provenance },
     lifecycle: { createdAt: "created_at", updatedAt: "updated_at", retentionPolicy: "proposed:retention-v1", provenance }, provenance,
   };
-  source.tableContracts.contracts = [contract];
+  source.authoredContracts = [contract];
+  source.tableContracts.contracts = [];
   assert.deepEqual(validateTableContractStructure(contract, source), { valid: true, errors: [] });
   assert.ok(validateTableContract(contract, source).errors.some((item) => item.includes("must cite a source and reference and be approved")));
-  assert.deepEqual(assessCompileTestability([contract.id], source), {
-    status: "COMPILE_TESTABLE", counts: { total: 1, structurallyComplete: 1, partial: 0, nameOnly: 0 },
+  assert.deepEqual(assessDraftCompileTestability([contract.id], source), {
+    status: "DRAFT_COMPILE_TESTABLE", counts: { total: 1, structurallyComplete: 1, partial: 0, nameOnly: 0 },
     entries: [{ tableId: contract.id, status: "STRUCTURALLY_COMPLETE", fieldCount: 3, errors: [] }],
   });
-  const first = compileLogicalSchema([contract.id], source);
-  const second = compileLogicalSchema([contract.id], source);
-  assert.equal(first.status, "LOGICAL_SCHEMA_READY");
+  const first = compileDraftLogicalSchema([contract.id], source);
+  const second = compileDraftLogicalSchema([contract.id], source);
+  assert.equal(first.status, "DRAFT_LOGICAL_SCHEMA_READY");
+  assert.equal(first.authority, "DRAFT_OR_MIXED");
+  assert.equal(first.prismaEligible, false);
+  assert.equal(first.model.tables[0].sourceAuthority, "AUTHORED_NONCANONICAL");
   assert.deepEqual(first, second);
   assert.match(first.schemaHash, /^[a-f0-9]{64}$/);
-  source.tableContracts.contracts = [];
+  const canonicalAttempt = compileLogicalSchema([contract.id], source);
+  assert.equal(canonicalAttempt.status, "BLOCKED");
+  assert.equal(canonicalAttempt.authority, "CANONICAL_APPROVED_ONLY");
+  assert.equal(canonicalAttempt.prismaEligible, false);
+  assert.ok(canonicalAttempt.blockers.some((item) => item.reason.includes("No approved canonical table contract")));
   assert.equal(assessContractCoverage(["communications.notifications"], source).entries[0].status, "NAME_ONLY", "draft contracts are excluded from canonical coverage");
-  assert.equal(assessCompileTestability(["communications.notifications"], source).status, "COMPILE_TESTABLE", "draft contracts remain usable for explicit structural test compilation");
-  source.tableContracts.contracts = [contract, structuredClone(contract)];
-  const duplicate = assessCompileTestability([contract.id], source);
+  assert.equal(assessDraftCompileTestability(["communications.notifications"], source).status, "DRAFT_COMPILE_TESTABLE", "draft contracts remain usable only through the explicitly draft structural gate");
+  source.authoredContracts = [contract, structuredClone(contract)];
+  const duplicate = assessDraftCompileTestability([contract.id], source);
   assert.equal(duplicate.status, "SCHEMA_INCOMPLETE");
   assert.ok(duplicate.entries[0].errors.some((item) => item.includes("duplicate authored contract ID")));
+  source.authoredContracts = [];
+  source.tableContracts.contracts = [structuredClone(contract), structuredClone(contract)];
+  const canonicalDuplicate = compileLogicalSchema([contract.id], source);
+  assert.equal(canonicalDuplicate.status, "BLOCKED");
+  assert.ok(canonicalDuplicate.blockers.some((item) => item.reason.includes("duplicate canonical contract ID")));
+
+  const missingDependency = structuredClone(contract);
+  missingDependency.foreignKeys = [{ name: "missing_target_fk", fields: ["id"], references: "communications.missing", referencedFields: ["id"], onDelete: "restrict", onUpdate: "no-action", provenance }];
+  missingDependency.relations = [{ name: "missingTarget", from: ["id"], to: "communications.missing", toFields: ["id"], cardinality: "many-to-one", provenance }];
+  source.authoredContracts = [missingDependency];
+  source.tableContracts.contracts = [];
+  const draftMissing = assessDraftCompileTestability([contract.id], source);
+  assert.equal(draftMissing.status, "SCHEMA_INCOMPLETE", "draft structural closure must block an unresolved FK/relation target");
+  const canonicalMissing = compileLogicalSchema([contract.id], { ...source, tableContracts: { contracts: [missingDependency] } });
+  assert.equal(canonicalMissing.status, "BLOCKED");
+  assert.equal(canonicalMissing.prismaEligible, false);
+  assert.ok(canonicalMissing.blockers.some((item) => item.reason.includes("dependency communications.missing is not in the approved canonical contract registry")));
 });
 
 test("M2.7 Organisation approval is complete, closed, and scoped to registry readiness", () => {
@@ -424,12 +449,24 @@ test("M2.7 Organisation approval is complete, closed, and scoped to registry rea
   const coverage = assessContractCoverage(tableIds, registry);
   assert.equal(coverage.status, "SCHEMA_READY");
   assert.deepEqual(coverage.counts, { total: 10, complete: 10, partial: 0, nameOnly: 0 });
-  const structural = assessCompileTestability(tableIds, registry);
-  assert.equal(structural.status, "COMPILE_TESTABLE");
+  const structural = assessDraftCompileTestability(tableIds, registry);
+  assert.equal(structural.status, "DRAFT_COMPILE_TESTABLE");
   assert.deepEqual(structural.counts, { total: 10, structurallyComplete: 10, partial: 0, nameOnly: 0 });
-  const logical = compileLogicalSchema(tableIds, registry);
-  assert.equal(logical.status, "LOGICAL_SCHEMA_READY");
+  const logical = compileDraftLogicalSchema(tableIds, registry);
+  assert.equal(logical.status, "DRAFT_LOGICAL_SCHEMA_READY");
+  assert.equal(logical.authority, "DRAFT_OR_MIXED");
+  assert.equal(logical.prismaEligible, false);
   assert.equal(logical.model.tables.length, 11, "Organisation closure includes identity.users");
+  assert.equal(logical.model.tables.find((item) => item.id === "identity.users").sourceAuthority, "AUTHORED_NONCANONICAL");
+  const canonicalLogical = compileLogicalSchema(tableIds, registry);
+  assert.equal(canonicalLogical.status, "BLOCKED", "canonical compilation must not silently absorb identity.users from authored proposals");
+  assert.equal(canonicalLogical.authority, "CANONICAL_APPROVED_ONLY");
+  assert.ok(canonicalLogical.blockers.some((item) => item.reason.includes("identity.users") && item.reason.includes("not in the approved canonical contract registry")));
+  const promotedWithoutApproval = structuredClone(registry);
+  promotedWithoutApproval.tableContracts.contracts.push(structuredClone(registry.authoredContracts.find((item) => item.id === "identity.users")));
+  const unapprovedDependency = compileLogicalSchema(tableIds, promotedWithoutApproval);
+  assert.equal(unapprovedDependency.status, "BLOCKED", "a dependency copied into the canonical array without approval must not become compiler input");
+  assert.ok(unapprovedDependency.blockers.some((item) => item.reason.includes("identity.users") && item.reason.includes("must cite a source and reference and be approved")));
 
   const newEdges = registry.tableContracts.contracts
     .filter((contract) => organisationApproval.newlyAuthoredContracts.includes(contract.id))

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "proposalId": "maataa-communications-v1",
+  "repositoryUrl": "https://github.com/thelinep/maataa-ui",
+  "evidence": [
+    {
+      "path": "fused-organism/packages/domain-registry/contexts/communications/context.json",
+      "commitSha": "7b95e87f6b6d4c39991505be627b37ab452314f4",
+      "blobSha": "3abee70c25468b06c08e9ad23d6fbbe999afabc6",
+      "sha256": "bb3f9e94791ec4c948f1711114dba14f634facc3ac385abd417b52fafcbf1c4e",
+      "supports": "communications context identity, version, scope, and canonical table IDs only"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/data/domain-catalog.json",
+      "commitSha": "7b95e87f6b6d4c39991505be627b37ab452314f4",
+      "blobSha": "06276484ee69fa43a236215db43f7b504c0d12c6",
+      "sha256": "9eb42ee9f65a5226416482635d983476017561e2cf78f537806460f748725771",
+      "supports": "canonical Communications table identities and catalog grouping only"
+    },
+    {
+      "path": "fused-organism/packages/domain-registry/schema-sources/authored/maataa-core-v1/contracts.json",
+      "commitSha": "7b95e87f6b6d4c39991505be627b37ab452314f4",
+      "blobSha": "f1867c5965633ac7cb796029e24d37937e4cff04",
+      "sha256": "b1023d82cc7b3f14876c14f7b69a5789e70b80c7f3b945841010dc8ed5d5a3c0",
+      "supports": "existence of an unreviewed notifications proposal only; not approved field or relational authority"
+    }
+  ],
+  "externalDatabaseLineage": "NONE",
+  "claims": [],
+  "nonClaims": [
+    "No Communications field, primary key, unique constraint, foreign key, relation, index, ownership, lifecycle, or retention decision is approved by this provenance record.",
+    "No Communications semantics are claimed to originate in another product's database."
+  ]
+}

@@ -198,7 +198,7 @@ function validateStructuralClosure(root, source) {
   return [...new Set(errors)];
 }
 
-export function assessCompileTestability(tableIds, source) {
+export function assessDraftCompileTestability(tableIds, source) {
   const contracts = new Map(allContracts(source).map((item) => [item.id, item]));
   const entries = sorted(tableIds).map((tableId) => {
     const contract = contracts.get(tableId);
@@ -212,13 +212,10 @@ export function assessCompileTestability(tableIds, source) {
     partial: entries.filter((item) => item.status === "PARTIAL").length,
     nameOnly: entries.filter((item) => item.status === "NAME_ONLY").length,
   };
-  return { status: counts.total > 0 && counts.structurallyComplete === counts.total ? "COMPILE_TESTABLE" : "SCHEMA_INCOMPLETE", counts, entries };
+  return { status: counts.total > 0 && counts.structurallyComplete === counts.total ? "DRAFT_COMPILE_TESTABLE" : "SCHEMA_INCOMPLETE", counts, entries };
 }
 
-export function compileLogicalSchema(tableIds, source) {
-  const readiness = assessCompileTestability(tableIds, source);
-  if (readiness.status !== "COMPILE_TESTABLE") return { status: "BLOCKED", readiness, blockers: readiness.entries.flatMap((entry) => entry.errors.map((reason) => ({ tableId: entry.tableId, reason }))) };
-  const contracts = new Map(allContracts(source).map((item) => [item.id, item]));
+function createLogicalModel(tableIds, contracts, source, readiness, { authority, prismaEligible }) {
   const closure = new Set();
   const visit = (id) => {
     if (closure.has(id)) return;
@@ -233,23 +230,72 @@ export function compileLogicalSchema(tableIds, source) {
   };
   for (const id of tableIds) visit(id);
   const stable = (value) => Array.isArray(value) ? value.map(stable) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stable(value[key])])) : value;
+  const canonicalIds = new Set((source.tableContracts?.contracts ?? []).map((item) => item.id));
   const model = {
     schemaVersion: "1.0.0",
     modelKind: "logical-relational-v1",
+    authority,
+    prismaEligible,
     tables: [...closure].sort().map((id) => {
       const { context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance } = contracts.get(id);
-      return stable({ id, context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance });
+      return stable({ id, context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance, sourceAuthority: canonicalIds.has(id) ? "CANONICAL_APPROVED" : "AUTHORED_NONCANONICAL" });
     }),
   };
   const serialized = JSON.stringify(stable(model));
   return {
-    status: "LOGICAL_SCHEMA_READY",
+    status: authority === "CANONICAL_APPROVED_ONLY" ? "LOGICAL_SCHEMA_READY" : "DRAFT_LOGICAL_SCHEMA_READY",
+    authority,
+    prismaEligible,
     compileTestability: { status: readiness.status, counts: readiness.counts },
     requestedTableIds: [...new Set(tableIds)].sort(),
     dependencyTableIds: [...closure].filter((id) => !tableIds.includes(id)).sort(),
     model,
     schemaHash: createHash("sha256").update(serialized).digest("hex"),
   };
+}
+
+/** Structural-only logical proof. May include authored proposals; output is never Prisma eligible. */
+export function compileDraftLogicalSchema(tableIds, source) {
+  const readiness = assessDraftCompileTestability(tableIds, source);
+  if (readiness.status !== "DRAFT_COMPILE_TESTABLE") return { status: "BLOCKED", authority: "DRAFT_OR_MIXED", prismaEligible: false, readiness, blockers: readiness.entries.flatMap((entry) => entry.errors.map((reason) => ({ tableId: entry.tableId, reason }))) };
+  return createLogicalModel(tableIds, new Map(allContracts(source).map((item) => [item.id, item])), source, readiness, { authority: "DRAFT_OR_MIXED", prismaEligible: false });
+}
+
+/** Canonical compiler boundary. Only approved registry rows may enter the logical schema. */
+export function compileLogicalSchema(tableIds, source) {
+  const canonicalRows = source.tableContracts?.contracts ?? [];
+  const contracts = new Map(canonicalRows.map((item) => [item.id, item]));
+  const canonicalCounts = new Map();
+  for (const item of canonicalRows) canonicalCounts.set(item.id, (canonicalCounts.get(item.id) ?? 0) + 1);
+  const entries = sorted(tableIds).map((tableId) => {
+    const contract = contracts.get(tableId);
+    if (!contract) return { tableId, status: "NONCANONICAL_OR_NAME_ONLY", fieldCount: 0, errors: ["No approved canonical table contract exists."] };
+    const errors = [];
+    const visited = new Set();
+    const visit = (id, owner) => {
+      if (visited.has(id)) return;
+      visited.add(id);
+      const current = contracts.get(id);
+      if (!current) {
+        errors.push(`${owner}: dependency ${id} is not in the approved canonical contract registry.`);
+        return;
+      }
+      if (canonicalCounts.get(id) > 1) errors.push(`${id}: duplicate canonical contract ID.`);
+      errors.push(...validateTableContract(current, source).errors.map((error) => `${id}: ${error}`));
+      for (const dependency of [
+        ...(current.foreignKeys ?? []).map((item) => item.references),
+        ...(current.relations ?? []).map((item) => item.to),
+        ...(current.relations ?? []).filter((item) => item.cardinality === "many-to-many").map((item) => item.through?.tableId),
+      ].filter(Boolean)) visit(dependency, current.id);
+    };
+    visit(tableId, tableId);
+    if (new Set(tableIds).size !== tableIds.length) errors.push("Requested table IDs contain duplicates.");
+    return { tableId, status: errors.length ? "BLOCKED" : "CANONICAL_COMPLETE", fieldCount: Object.keys(contract.fields ?? {}).length, errors: [...new Set(errors)] };
+  });
+  const counts = { total: entries.length, canonicalComplete: entries.filter((item) => item.status === "CANONICAL_COMPLETE").length, blocked: entries.filter((item) => item.status !== "CANONICAL_COMPLETE").length };
+  const readiness = { status: counts.total > 0 && counts.blocked === 0 ? "CANONICAL_COMPILE_READY" : "SOURCE_BOUNDARY_BLOCKED", counts, entries };
+  if (readiness.status !== "CANONICAL_COMPILE_READY") return { status: "BLOCKED", authority: "CANONICAL_APPROVED_ONLY", prismaEligible: false, readiness, blockers: entries.flatMap((entry) => entry.errors.map((reason) => ({ tableId: entry.tableId, reason }))) };
+  return createLogicalModel(tableIds, contracts, source, { status: "CANONICAL_COMPILE_READY", counts: { total: counts.total, structurallyComplete: counts.canonicalComplete, partial: 0, nameOnly: 0 } }, { authority: "CANONICAL_APPROVED_ONLY", prismaEligible: true });
 }
 
 export function diffTableContracts(before, after) {
