@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "idPolicy": "context-dot-name@1",
+  "status": "authored-from-source-futureProduction",
+  "source": "deepseek_json_20261002_86f716.json",
+  "tableIds": [
+    "evidence.chain_of_custody_events",
+    "evidence.trusted_timestamps",
+    "finance.exchange_rates",
+    "finance.payment_allocations",
+    "finance.payment_verifications",
+    "identity.access_policies",
+    "identity.access_reviews",
+    "identity.auth_challenges",
+    "identity.auth_credentials",
+    "identity.user_sessions",
+    "intelligence.knowledge_chunks",
+    "intelligence.knowledge_documents",
+    "intelligence.model_registry",
+    "intelligence.model_runs",
+    "platform.backup_jobs",
+    "platform.restore_jobs",
+    "platform.webhook_deliveries"
+  ]
+}

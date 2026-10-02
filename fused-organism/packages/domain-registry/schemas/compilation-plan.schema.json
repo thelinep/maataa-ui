@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/compilation-plan.schema.json",
+  "title": "MAATAA Compilation Plan contract",
+  "description": "A validated Application IR compiles first to an inspectable plan. This contract does not authorize file generation or migrations.",
+  "type": "object",
+  "required": ["schemaVersion", "applicationId", "sourceIrHash", "registryVersion", "resolverVersion", "status", "outputs", "warnings", "blockedItems"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "applicationId": { "type": "string" },
+    "sourceIrHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "registryVersion": { "type": "string" },
+    "resolverVersion": { "type": "string" },
+    "status": { "enum": ["READY", "BLOCKED"] },
+    "outputs": { "type": "object", "required": ["prismaModels", "apiResources", "permissions", "seedFixtures", "routes", "formsAndLists", "migrations"], "properties": { "prismaModels": { "type": "array" }, "apiResources": { "type": "array" }, "permissions": { "type": "array" }, "seedFixtures": { "type": "array" }, "routes": { "type": "array" }, "formsAndLists": { "type": "array" }, "migrations": { "type": "array" } }, "additionalProperties": false },
+    "warnings": { "type": "array", "items": { "type": "object" } },
+    "blockedItems": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": false
+}

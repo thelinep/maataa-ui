@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/incident.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "Incident",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "incidentId": {
+      "type": "string",
+      "description": "Incident ID"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "critical"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "acknowledged",
+        "resolved"
+      ]
+    },
+    "entityRef": {
+      "type": "string",
+      "description": "Affected entity"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Summary"
+    },
+    "openedAt": {
+      "type": "string",
+      "description": "ISO time"
+    }
+  },
+  "required": [
+    "incidentId",
+    "severity",
+    "status",
+    "entityRef",
+    "summary",
+    "openedAt"
+  ]
+}

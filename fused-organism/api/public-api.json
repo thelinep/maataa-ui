@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "generated": true,
+  "productVersion": "0.4.1",
+  "packages": [
+    {
+      "name": "@maataa/adapter-sdk",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "createCameraSimulatorAdapter",
+        "defineAdapter"
+      ]
+    },
+    {
+      "name": "@maataa/ai",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "agentStep",
+        "createHeadlessComponent",
+        "recommendationViewModel",
+        "usageSnapshot"
+      ]
+    },
+    {
+      "name": "@maataa/contracts",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "assertContract",
+        "schemas",
+        "validateContract"
+      ]
+    },
+    {
+      "name": "@maataa/control",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "acquireLease",
+        "controlComponent",
+        "controlComponents",
+        "controlledStopRequest",
+        "createCommand",
+        "createHeadlessComponent",
+        "evaluateSafety",
+        "executeGovernedCommand",
+        "isTerminal",
+        "releaseLease",
+        "renewLease",
+        "revokeLease",
+        "terminalStates",
+        "transition"
+      ]
+    },
+    {
+      "name": "@maataa/core",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "accessibleName",
+        "assertInteractiveA11y",
+        "createHeadlessComponent",
+        "liveRegionPoliteness",
+        "primitive",
+        "primitiveNames",
+        "semanticTokens"
+      ]
+    },
+    {
+      "name": "@maataa/governance",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "canDispatch",
+        "createHeadlessComponent",
+        "evidenceReceipt",
+        "policyOutcomes"
+      ]
+    },
+    {
+      "name": "@maataa/react",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "REACT_ADAPTER_CONTRACT_VERSION",
+        "REACT_PEER_RANGE",
+        "createMaataaReact",
+        "validateReactHost"
+      ]
+    },
+    {
+      "name": "@maataa/recipes",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "governedCameraControlRecipe"
+      ]
+    },
+    {
+      "name": "@maataa/registry",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "getRegistryEntry",
+        "isRegisteredComponent",
+        "registry"
+      ]
+    },
+    {
+      "name": "@maataa/renderer",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "createRenderPlan",
+        "renderText"
+      ]
+    },
+    {
+      "name": "@maataa/testing",
+      "version": "0.4.1",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "approvedApproval",
+        "approvedPolicy",
+        "assertTerminal",
+        "connectedCameraSimulator"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/registered-route.schema.json",
+  "title": "Registered application route",
+  "type": "object",
+  "required": ["id", "route", "path", "routeState", "kind", "declared", "registered", "executable", "source"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "route": { "type": "string", "pattern": "^/" },
+    "path": { "type": "string", "pattern": "^/" },
+    "routeState": { "enum": ["REGISTERED_STATIC", "REGISTERED_DYNAMIC"] },
+    "kind": { "enum": ["static", "dynamic"] },
+    "declared": { "const": true },
+    "registered": { "const": true },
+    "executable": { "const": true },
+    "source": { "const": "manifest.pages" },
+    "name": { "type": "string" },
+    "family": { "type": "string" },
+    "access": { "type": "string" }
+  },
+  "additionalProperties": true
+}

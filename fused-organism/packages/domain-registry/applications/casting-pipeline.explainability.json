@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.0.0",
+  "applicationId": "casting-pipeline-demo",
+  "irHash": "bc6efda44201ef281f560967fc8d4b34d05f62806172df38b8ee0d5a68f1d181",
+  "examples": [
+    {
+      "question": "Why is people.talent_profiles here?",
+      "answer": "table people.talent_profiles is included because All catalog tables owned by included context people are included. Required by the flow's authored context binding. Required by the flow's authored context binding. Required by the flow's authored context binding. Required by the flow's authored context binding. Required by the flow's authored context binding.",
+      "whyIncluded": [
+        {
+          "type": "table",
+          "id": "people.talent_profiles",
+          "via": "context:people",
+          "reason": "All catalog tables owned by included context people are included.",
+          "flowIds": []
+        },
+        {
+          "type": "context-reason",
+          "id": "people",
+          "via": "flow:TLPS-FLOW-027",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-027"
+          ]
+        },
+        {
+          "type": "context-reason",
+          "id": "people",
+          "via": "flow:TLPS-FLOW-028",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-028"
+          ]
+        },
+        {
+          "type": "context-reason",
+          "id": "people",
+          "via": "flow:TLPS-FLOW-029",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-029"
+          ]
+        },
+        {
+          "type": "context-reason",
+          "id": "people",
+          "via": "flow:TLPS-FLOW-030",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-030"
+          ]
+        },
+        {
+          "type": "context-reason",
+          "id": "people",
+          "via": "flow:TLPS-FLOW-031",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-031"
+          ]
+        }
+      ],
+      "flowIds": [
+        "TLPS-FLOW-027",
+        "TLPS-FLOW-028",
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-030",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "question": "Which flow required Finance?",
+      "answer": "context Finance is not included in this Application IR.",
+      "whyIncluded": [],
+      "flowIds": []
+    },
+    {
+      "question": "Why was Evidence added?",
+      "answer": "Evidence is included by the registry's default shared-service rule.",
+      "whyIncluded": [
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-027",
+          "reason": "Flow binding references evidence.approvals.",
+          "flowIds": [
+            "TLPS-FLOW-027"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-027",
+          "reason": "Flow binding references evidence.documents.",
+          "flowIds": [
+            "TLPS-FLOW-027"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-028",
+          "reason": "Flow binding references evidence.approvals.",
+          "flowIds": [
+            "TLPS-FLOW-028"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-028",
+          "reason": "Flow binding references evidence.documents.",
+          "flowIds": [
+            "TLPS-FLOW-028"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-029",
+          "reason": "Flow binding references evidence.approvals.",
+          "flowIds": [
+            "TLPS-FLOW-029"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-029",
+          "reason": "Flow binding references evidence.documents.",
+          "flowIds": [
+            "TLPS-FLOW-029"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-030",
+          "reason": "Flow binding references evidence.approvals.",
+          "flowIds": [
+            "TLPS-FLOW-030"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-030",
+          "reason": "Flow binding references evidence.documents.",
+          "flowIds": [
+            "TLPS-FLOW-030"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-031",
+          "reason": "Flow binding references evidence.approvals.",
+          "flowIds": [
+            "TLPS-FLOW-031"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow-table:TLPS-FLOW-031",
+          "reason": "Flow binding references evidence.documents.",
+          "flowIds": [
+            "TLPS-FLOW-031"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow:TLPS-FLOW-027",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-027"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow:TLPS-FLOW-028",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-028"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow:TLPS-FLOW-029",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-029"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow:TLPS-FLOW-030",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-030"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "flow:TLPS-FLOW-031",
+          "reason": "Required by the flow's authored context binding.",
+          "flowIds": [
+            "TLPS-FLOW-031"
+          ]
+        },
+        {
+          "type": "context",
+          "id": "evidence",
+          "via": "shared-service:evidence",
+          "reason": "Included by the registry's default shared-service rule.",
+          "flowIds": []
+        }
+      ]
+    },
+    {
+      "question": "Which route blocks compilation?",
+      "answer": "No route blocks schema preview.",
+      "blockers": []
+    }
+  ],
+  "semanticDiff": {
+    "schemaVersion": "1.0.0",
+    "levels": {
+      "contextVersions": {
+        "added": [],
+        "removed": []
+      },
+      "tablesAndRelations": {
+        "tables": {
+          "added": [],
+          "removed": []
+        },
+        "relations": {
+          "added": [],
+          "removed": []
+        }
+      },
+      "routesAndFlows": {
+        "routes": {
+          "added": [],
+          "removed": [],
+          "changed": [],
+          "blockedAdded": [],
+          "blockedRemoved": [],
+          "affectedFlowIds": []
+        },
+        "flows": {
+          "added": [],
+          "removed": []
+        }
+      },
+      "downstreamArtifacts": {
+        "schemaChanged": false,
+        "generatedArtifacts": "not-connected",
+        "currentIrHash": "bc6efda44201ef281f560967fc8d4b34d05f62806172df38b8ee0d5a68f1d181",
+        "draftIrHash": "bc6efda44201ef281f560967fc8d4b34d05f62806172df38b8ee0d5a68f1d181"
+      }
+    },
+    "summary": {
+      "contextVersionsChanged": 0,
+      "tablesAdded": 0,
+      "tablesRemoved": 0,
+      "relationsAdded": 0,
+      "relationsRemoved": 0,
+      "flowsAdded": 0,
+      "flowsRemoved": 0,
+      "routesAdded": 0,
+      "routesRemoved": 0,
+      "routesChanged": 0,
+      "affectedFlows": 0,
+      "deferredRoutes": 0
+    }
+  }
+}

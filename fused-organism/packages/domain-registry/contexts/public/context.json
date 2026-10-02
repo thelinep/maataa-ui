@@ -1,0 +1,49 @@
+{
+  "id": "public",
+  "version": "1.0.0",
+  "versionStatus": "authored",
+  "status": "stubbed",
+  "dependencyStatus": "authored",
+  "dependencies": [],
+  "tableIds": [
+    "public.product_pages",
+    "public.solution_pages",
+    "public.industry_pages",
+    "public.case_studies",
+    "public.pricing_plans",
+    "public.documentation_pages",
+    "public.legal_documents",
+    "public.cookie_consents",
+    "public.contact_requests",
+    "public.demo_requests",
+    "public.marketing_leads",
+    "public.marketing_events"
+  ],
+  "coreSpineCandidates": [
+    "registry-architecture.json"
+  ],
+  "stability": "experimental",
+  "dependsOn": [],
+  "provides": [],
+  "contracts": [],
+  "tables": [
+    "public.product_pages",
+    "public.solution_pages",
+    "public.industry_pages",
+    "public.case_studies",
+    "public.pricing_plans",
+    "public.documentation_pages",
+    "public.legal_documents",
+    "public.cookie_consents",
+    "public.contact_requests",
+    "public.demo_requests",
+    "public.marketing_leads",
+    "public.marketing_events"
+  ],
+  "provenance": {
+    "source": "domain-registry-m1",
+    "authored": true
+  },
+  "coreSpine": false,
+  "defaultIncludedService": false
+}

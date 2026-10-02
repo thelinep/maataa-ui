@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "authored",
+  "source": "flow product tags",
+  "resolutions": {
+    "core": {
+      "classification": "spine",
+      "canonicalProductId": null
+    },
+    "evidence": {
+      "classification": "shared-service",
+      "serviceId": "evidence"
+    },
+    "ai": {
+      "classification": "optional-service",
+      "serviceId": "ai"
+    },
+    "film": {
+      "classification": "canonical-product",
+      "canonicalProductId": "production-os"
+    },
+    "production": {
+      "classification": "canonical-product",
+      "canonicalProductId": "production-os"
+    },
+    "campaign": {
+      "classification": "canonical-product",
+      "canonicalProductId": "campaign-os"
+    },
+    "atl": {
+      "classification": "canonical-product",
+      "canonicalProductId": "campaign-os"
+    },
+    "btl": {
+      "classification": "canonical-product",
+      "canonicalProductId": "campaign-os"
+    },
+    "ooh": {
+      "classification": "canonical-product",
+      "canonicalProductId": "campaign-os"
+    },
+    "analytics": {
+      "classification": "canonical-product",
+      "canonicalProductId": "campaign-os"
+    },
+    "marketplace": {
+      "classification": "canonical-product",
+      "canonicalProductId": "marketplace"
+    },
+    "finance": {
+      "classification": "canonical-product",
+      "canonicalProductId": "finance-commerce"
+    },
+    "investor": {
+      "classification": "canonical-product",
+      "canonicalProductId": "investorhub"
+    },
+    "event": {
+      "classification": "canonical-product",
+      "canonicalProductId": "events-wedding-spatial"
+    },
+    "wedding": {
+      "classification": "canonical-product",
+      "canonicalProductId": "events-wedding-spatial"
+    },
+    "spatial": {
+      "classification": "canonical-product",
+      "canonicalProductId": "events-wedding-spatial"
+    },
+    "public": {
+      "classification": "opt-in-context",
+      "contextId": "public",
+      "provenance": "canonical-spine-policy@1.0.0"
+    }
+  }
+}

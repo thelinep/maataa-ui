@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/audit-event.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "AuditEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Audit ID"
+    },
+    "actorRef": {
+      "type": "string",
+      "description": "Actor"
+    },
+    "action": {
+      "type": "string",
+      "description": "Action"
+    },
+    "entityRef": {
+      "type": "string",
+      "description": "Entity"
+    },
+    "authorityClass": {
+      "type": "string",
+      "enum": [
+        "advisory",
+        "proposal",
+        "approval",
+        "execution",
+        "authoritative"
+      ]
+    },
+    "occurredAt": {
+      "type": "string",
+      "description": "ISO time"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Evidence ID"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "actorRef",
+    "action",
+    "entityRef",
+    "authorityClass",
+    "occurredAt"
+  ]
+}

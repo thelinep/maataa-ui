@@ -1,0 +1,214 @@
+import { registry as componentRegistry } from "../../../packages/registry/src/index.mjs";
+import { getRegistryGate, getRegistryHeatmap, lookupDependencies, registry as domainRegistry, searchRegistry } from "../../../packages/domain-registry/src/index.mjs";
+import { explainComposition, previewLogicalSchema, resolveComposition } from "../../../packages/domain-registry/src/composition.mjs";
+import applicationRegistry from "../../../packages/domain-registry/applications/registry.json";
+import { escapeHtml, icon, pageHeading, tag } from "../shared.mjs";
+
+const contractFiles = import.meta.glob("../../../schemas/*.schema.json", { eager: true, import: "default" });
+const contracts = Object.entries(contractFiles).map(([path, schema]) => ({
+  file: path.split("/").at(-1),
+  name: schema.title ?? path.split("/").at(-1),
+  version: schema["x-maataa-contract-version"] ?? "unversioned",
+  id: schema.$id ?? "",
+  required: schema.required ?? [],
+  properties: Object.entries(schema.properties ?? {}).map(([name, value]) => ({ name, type: value.type ?? "any", description: value.description ?? "" })),
+  additionalProperties: schema.additionalProperties,
+})).sort((a, b) => a.name.localeCompare(b.name));
+
+const componentCategories = Object.entries(componentRegistry.reduce((counts, item) => {
+  counts[item.category] = (counts[item.category] ?? 0) + 1;
+  return counts;
+}, {})).sort(([a], [b]) => a.localeCompare(b));
+
+const exampleTable = {
+  name: "talent_profiles",
+  id: "people.talent_profiles",
+  domain: "casting-talent",
+  context: "people@1.0.0",
+  status: "STUBBED",
+  stability: "EXPERIMENTAL · DERIVED STATUS",
+  flows: ["TLPS-FLOW-027 Casting Call", "TLPS-FLOW-028 Audition", "TLPS-FLOW-029 Talent Selection", "TLPS-FLOW-030 Talent Contract", "TLPS-FLOW-031 Casting Decision"],
+  products: ["production-os"],
+  relations: ["No table-level relations asserted in the supplied catalog"],
+  contract: "Not supplied",
+};
+
+const views = {
+  "data-studio": ["Overview", "data-studio"],
+  "data-studio/catalog": ["Catalog", "data-studio/catalog"],
+  "data-studio/compose": ["Compose", "data-studio/compose"],
+  "data-studio/apps": ["Generated applications", "data-studio/apps"],
+  "data-studio/governance": ["Governance", "data-studio/governance"],
+  "data-studio/system": ["System", "data-studio/system"],
+};
+
+function subnav(active) {
+  return `<nav class="studio-subnav" aria-label="Data Studio workspaces">${Object.entries(views).map(([id, [label]]) => `<a href="#${id}" data-route="${id}"${id === active ? ' aria-current="page" class="is-active"' : ""}>${escapeHtml(label)}</a>`).join("")}</nav>`;
+}
+
+function boundaryStrip(label = "Preview only") {
+  return `<div class="studio-boundary"><span class="studio-boundary-dot"></span><strong>${escapeHtml(label)}</strong><span>Data Studio reads the versioned local registry package. Registry APIs, mutation, and publish adapters are not connected.</span></div>`;
+}
+
+function chain(steps = ["Intent", "Resolver", "Products", "Flows", "Contexts", "Tables", "Contracts", "IR", "Plan", "Compile", "Application"]) {
+  return `<div class="studio-chain" aria-label="Architecture resolution chain">${steps.map((step, index) => `<div class="studio-chain-step"><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(step)}</strong></div>`).join('<span class="studio-chain-arrow" aria-hidden="true">→</span>')}</div>`;
+}
+
+function architectureExample() {
+  return `<article class="studio-example-card"><div class="studio-example-head"><div><h3>${escapeHtml(exampleTable.id)}</h3><small class="studio-source-caveat">Catalog record · status derived by the M1 rule.</small></div>${tag(exampleTable.status, "gold")}</div>
+    <div class="studio-example-grid"><div><small>Domain</small><strong>${escapeHtml(exampleTable.domain)}</strong></div><div><small>Context</small><strong>${escapeHtml(exampleTable.context)}</strong></div><div><small>Contract</small><strong>${escapeHtml(exampleTable.contract)}</strong></div><div><small>Product</small><strong>${escapeHtml(exampleTable.products.join(", "))}</strong></div></div>
+    <div class="studio-relations"><div><small>Production OS flows · table-level binding not asserted</small>${exampleTable.flows.map((flow) => `<span>${escapeHtml(flow)}</span>`).join("")}</div><div><small>Relationship evidence</small>${exampleTable.relations.map((relation) => `<span>${escapeHtml(relation)}</span>`).join("")}</div></div>
+    <div class="studio-lineage"><span>Intent</span><b>›</b><span>production-os</span><b>›</b><span>film-tagged flows</span><b>›</b><span>people@1.0.0</span><b>›</b><strong>people.talent_profiles</strong></div></article>`;
+}
+
+function overview() {
+  return `<div class="studio-screen">${boundaryStrip("Read-only architecture preview")}${pageHeading("MAATAA Data Studio", "Make every generated application explainable from intent back to governed architecture.")}${subnav("data-studio")}
+    <section class="studio-hero"><div><h2>Architecture, with its reasoning visible.</h2><p>Author and inspect registry metadata, resolve an application composition, then review its intermediate representation and compilation plan. Generated databases remain downstream outputs; production records stay outside Data Studio.</p><div class="studio-hero-actions"><a class="button button-primary" data-route="data-studio/catalog" href="#data-studio/catalog">Explore architecture ${icon("arrow", 15)}</a><a class="button button-secondary" data-route="data-studio/compose" href="#data-studio/compose">Open composition</a></div></div><div class="studio-hero-diagram"><div class="studio-diagram-node studio-node-intent">Intent</div><span>${icon("down", 14)}</span><div class="studio-diagram-node">Resolver · Products · Flows</div><span>${icon("down", 14)}</span><div class="studio-diagram-node">Contexts · Tables · Contracts</div><span>${icon("down", 14)}</span><div class="studio-diagram-node studio-node-output">Versioned IR → Compile plan</div></div></section>
+    <div class="studio-facts-strip"><span><strong>${domainRegistry.manifest.counts.flows} flows</strong> imported in registry v${escapeHtml(domainRegistry.manifest.assets.flows.version)}</span><span><strong>${domainRegistry.manifest.counts.productCompositions} / ${domainRegistry.manifest.counts.expectedProducts} canonical compositions</strong> · ${domainRegistry.manifest.counts.applicationProducts} app products mapped separately</span><span><strong>${domainRegistry.manifest.counts.tables} / ${domainRegistry.manifest.counts.expectedTables} tables</strong> · ${domainRegistry.manifest.counts.stubbedTables} STUBBED · ${domainRegistry.manifest.counts.plannedTables} PLANNED by rule</span><span><strong>${domainRegistry.manifest.counts.contexts} / ${domainRegistry.manifest.counts.expectedContexts} contexts</strong> versioned · dependency graph checked</span></div>
+    <div class="studio-overview-grid"><section class="studio-panel"><header><div><h2>Explainability chain</h2><p>Every generated object should trace in both directions.</p></div>${tag("Versioned local registry", "blue")}</header>${chain()}<p class="studio-panel-note">Domain integrity passes. Eleven unresolved flow routes are explicitly deferred to v1.1.0, so package validation passes while those individual paths remain non-executable. Any unclassified route gap still blocks the gate.</p></section><section class="studio-panel"><header><div><h2>Boundary rules</h2><p>What Data Studio owns and what it observes.</p></div></header><div class="studio-boundary-list"><div><strong>Author</strong><span>Catalog metadata, contexts, flows, products, contracts, application IR.</span></div><div><strong>Observe</strong><span>Generated schemas, migration plans, seed state, compilation output.</span></div><div><strong>Never administer</strong><span>Production business records or unrestricted production SQL.</span></div></div></section></div>${architectureExample()}</div>`;
+}
+
+function catalog(state) {
+  const selected = state.dataStudioCatalogView ?? "domains";
+  const tabs = [["domains", "Domains"], ["tables", "Tables"], ["contexts", "Contexts"], ["flows", "Flows"], ["products", "Products"], ["routes", "Routes"], ["actors", "Actors"], ["contracts", "Contracts"], ["spine", "Core spine"]];
+  const tabbar = `<div class="studio-tabs" role="tablist" aria-label="Catalog type">${tabs.map(([id, label]) => `<button type="button" role="tab" aria-selected="${selected === id}" class="${selected === id ? "is-active" : ""}" data-action="studio-catalog-tab" data-value="${id}">${label}${id === "contracts" ? `<span>${contracts.length}</span>` : ""}</button>`).join("")}</div>`;
+  let content = "";
+  if (selected === "contracts") {
+    content = `<div class="studio-contract-layout"><div class="studio-contract-list">${contracts.map((contract) => `<button type="button" class="studio-contract-row ${state.dataStudioContract === contract.file ? "is-selected" : ""}" data-action="studio-contract-select" data-value="${escapeHtml(contract.file)}"><span class="studio-file-mark">${icon("note", 14)}</span><span><strong>${escapeHtml(contract.name)}</strong><small>${escapeHtml(contract.file)}</small></span><span class="studio-version">v${escapeHtml(contract.version)}</span></button>`).join("")}</div>${contractDetail(state.dataStudioContract ?? contracts[0]?.file)}</div>`;
+  } else if (["domains", "tables", "contexts", "flows", "products", "routes", "actors", "spine"].includes(selected)) {
+    content = registryCatalogView(selected, state);
+  }
+  const blockers = validateRegistry();
+  return `<div class="studio-screen">${boundaryStrip(`Registry v${escapeHtml(domainRegistry.manifest.version)} · ${escapeHtml(domainRegistry.manifest.status.toUpperCase())}`)}${pageHeading("Architecture catalog", "Search and inspect the versioned registry. Source gaps and unresolved edges stay visible.")}${subnav("data-studio/catalog")}<section class="studio-panel studio-catalog-panel"><header class="studio-catalog-header"><div><h2>Registry atlas</h2><p>Canonical package · ${domainRegistry.manifest.counts.tables} tables · ${domainRegistry.manifest.counts.contexts} contexts · ${domainRegistry.manifest.counts.flows} flows · ${blockers.length} integrity findings</p></div><label class="studio-search studio-global-search"><span>Global registry search</span><input type="search" data-studio-search placeholder="Search domains, tables, contexts, flows…" aria-label="Global registry search" autocomplete="off"/></label></header><div class="studio-global-results" data-studio-global-results aria-live="polite" hidden></div>${registryHeatmap()}${tabbar}<div class="studio-catalog-content">${content}</div></section></div>`;
+}
+
+function registryHeatmap() {
+  const descriptions = { domains: "Domains", tables: "Tables", contexts: "Contexts", products: "Compositions", applicationProducts: "App products", flows: "Flows", routes: "Routes", actors: "Actors" };
+  return `<section class="studio-heatmap" aria-label="Registry status heatmap">${getRegistryHeatmap().map((row) => {
+    const expected = row.type === "tables" ? domainRegistry.manifest.counts.expectedTables : row.type === "contexts" ? domainRegistry.manifest.counts.expectedContexts : row.type === "products" ? domainRegistry.manifest.counts.expectedProducts : row.type === "applicationProducts" ? domainRegistry.manifest.counts.applicationProducts : null;
+    const status = row.type === "applicationProducts" ? "imported" : row.sourceStatus ?? "unknown";
+    return `<div class="studio-heatmap-cell studio-heatmap-${status === "imported" || status === "complete" ? "ready" : status === "partial" ? "partial" : "blocked"}"><small>${descriptions[row.type]}</small><strong>${row.total}${expected ? ` / ${expected}` : ""}</strong><span>${escapeHtml(status)}${Object.entries(row.countByStatus).length ? ` · ${Object.entries(row.countByStatus).map(([key, count]) => `${escapeHtml(key)} ${count}`).join(" · ")}` : ""}</span></div>`;
+  }).join("")}</section>`;
+}
+
+function registryCatalogView(kind, state) {
+  const routeRows = [
+    ...domainRegistry.registeredRoutes.routes,
+    ...domainRegistry.declaredPatterns.patterns.map((item) => ({ ...item, id: item.path, route: item.path, name: item.path, family: "Declared pattern" })),
+    ...domainRegistry.routeAliases.aliases.map((item) => ({ id: item.requested, path: item.requested, route: item.requested, name: item.requested, family: `Alias → ${item.target}`, kind: "alias", declared: true, registered: true, executable: true, routeState: "APPROVED_ALIAS", source: item.provenance, target: item.target, approvedBy: item.approvedBy })),
+    ...domainRegistry.routeResolutionRegistry.resolutions.filter((item) => item.resolution.status === "UNRESOLVED").map((item) => {
+      const deferred = domainRegistry.deferredRoutes.routes.find((route) => route.path === item.requested);
+      return { id: item.requested, path: item.requested, route: item.requested, name: deferred ? `Deferred · ${deferred.category}` : "Unresolved flow route", family: deferred ? `Target ${deferred.targetVersion}` : "Flow reference", kind: "unresolved", declared: false, registered: false, executable: false, routeState: "UNRESOLVED", source: deferred ? `Owner ${deferred.owner}` : "flow references", flowIds: item.flowIds, deferred };
+    }),
+  ];
+  const list = {
+    domains: domainRegistry.domains.domains,
+    tables: domainRegistry.domains.tables,
+    contexts: domainRegistry.contexts.contexts,
+    flows: domainRegistry.flows.flows,
+    products: domainRegistry.products.products.length ? domainRegistry.products.products : domainRegistry.products.applicationProducts,
+    routes: routeRows,
+    actors: domainRegistry.actors.actors,
+    spine: domainRegistry.contexts.contexts.filter((item) => item.coreSpine),
+  }[kind] ?? [];
+  if (!list.length) {
+    const empty = kind === "tables" || kind === "domains"
+      ? `The Domain Catalog contains ${domainRegistry.manifest.counts.tables} imported tables across ${domainRegistry.manifest.counts.domains} domains.`
+      : kind === "contexts" || kind === "spine"
+        ? `The context registry expects ${domainRegistry.manifest.counts.expectedContexts} contexts. Source IDs are imported, while versions, dependencies, and the conflicting core-spine definitions remain unresolved.`
+        : `There are no ${kind} registered in this source.`;
+    return `<div class="studio-source-empty"><span class="studio-empty-icon">${icon(kind === "tables" ? "table" : "grid", 20)}</span><h3>${kind === "spine" ? "Core-spine registry pending" : `${escapeHtml(kind[0].toUpperCase() + kind.slice(1))} source pending`}</h3><p>${escapeHtml(empty)}</p><div class="studio-source-facts"><span>Asset <strong>${escapeHtml(domainRegistry.manifest.assets[kind === "tables" || kind === "domains" ? "domainCatalog" : "contextRegistry"].status)}</strong></span><span>Registry <strong>v${escapeHtml(domainRegistry.manifest.version)}</strong></span><span>Integrity <strong>BLOCKED</strong></span></div></div>`;
+  }
+  const selected = state.dataStudioSelection ?? {};
+  const activeItem = list.find((item) => (kind === "routes" ? (item.path ?? item.route) : (item.id ?? item.path)) === selected.id && selected.type === kind);
+  const rows = list.map((item) => {
+    const id = kind === "routes" ? (item.path ?? item.route) : (item.id ?? item.path);
+    const title = item.name ?? item.title ?? item.label ?? id;
+    const status = item.routeState ?? item.status ?? item.maturity?.stage ?? item.stability ?? item.compositionStatus ?? (kind === "products" && !domainRegistry.products.products.length ? "composition pending" : "unrated");
+    const sub = kind === "flow" || kind === "flows" ? `${item.category ?? "Unclassified"} · ${(item.products ?? []).length} products · ${(item.actors ?? []).length} actors · ${item.routeCount ?? 0} routes`
+      : kind === "product" || kind === "products" ? `${item.flowIds?.length ?? 0} connected flows · ${item.compositionStatus ?? "application product · composition source pending"}`
+          : kind === "route" || kind === "routes" ? `${item.pageId ? `Page ${item.pageId}` : "No app page"} · ${item.kind ?? "static"} · ${item.registered ? "executable" : "not executable"} · ${item.deferred ? `${item.deferred.category} · owner ${item.deferred.owner} · target ${item.deferred.targetVersion}` : item.family ?? item.source}`
+          : kind === "actor" || kind === "actors" ? item.source
+            : kind === "tables" ? `${item.domain ?? "domain unresolved"} · ${item.context ?? "context unresolved"} · ${item.status ?? "source status missing"}`
+              : kind === "domains" ? `${(item.tableIds ?? []).length} tables · context ${item.contextId ?? "unresolved"}`
+                : `${(item.tableIds ?? []).length} tables · ${(item.dependencies ?? []).length} dependencies`;
+    const registeredState = status === "registered" || status === "source-backed" || status === "REGISTERED_STATIC" || status === "REGISTERED_DYNAMIC" || status === "APPROVED_ALIAS";
+    return `<button class="studio-registry-row ${activeItem === item ? "is-selected" : ""}" type="button" data-action="studio-registry-select" data-kind="${escapeHtml(kind)}" data-id="${escapeHtml(id)}"><span class="studio-registry-id">${escapeHtml(id)}</span><span class="studio-registry-primary"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(sub)}</small></span>${tag(escapeHtml(status.toUpperCase()), registeredState ? "sage" : status === "DECLARED_UNREGISTERED" || status === "UNRESOLVED" ? "gold" : "blue")}</button>`;
+  }).join("");
+  const detail = activeItem ? registryEntityDetail(kind === "flows" ? "flow" : kind === "products" ? "product" : kind === "contexts" || kind === "spine" ? "context" : kind === "routes" ? "route" : kind === "actors" ? "actor" : kind.slice(0, -1), activeItem) : "";
+  return `<div class="studio-registry-browser"><div class="studio-registry-list" aria-label="${escapeHtml(kind)} records">${rows}</div>${detail || `<div class="studio-registry-detail"><span class="studio-empty-icon">${icon("grid", 18)}</span><h3>Select a ${escapeHtml(kind === "flows" ? "flow" : kind === "products" ? "product" : kind === "routes" ? "route" : kind === "actors" ? "actor" : kind === "spine" ? "context" : kind.slice(0, -1))}</h3><p>Inspect source metadata and both directions of its registered dependencies.</p></div>`}</div>`;
+}
+
+function registryEntityDetail(type, item) {
+  const id = type === "route" ? (item.path ?? item.route) : (item.id ?? item.path);
+  const links = lookupDependencies(type, id);
+  const depends = links.dependsOn.map((link) => `<span><small>${escapeHtml(link.type)}</small><strong>${escapeHtml(link.id)}${link.version ? `@${escapeHtml(link.version)}` : ""}</strong></span>`).join("") || `<small>No declared dependencies</small>`;
+  const consumers = links.usedBy.map((link) => `<span><small>${escapeHtml(link.type)}</small><strong>${escapeHtml(link.id)}</strong></span>`).join("") || `<small>No registered consumers</small>`;
+  const metadata = type === "flow" ? { maturity: item.maturity, objective: item.objective, sourceBasis: item.sourceBasis, routeCount: item.routeCount, knownLimitations: item.knownLimitations }
+    : type === "product" ? { compositionStatus: item.compositionStatus ?? "composition source pending", families: item.families, flowCount: item.flowIds?.length ?? 0, contextIds: item.contexts ?? [] }
+      : type === "context" ? { version: item.version, versionStatus: item.versionStatus, status: item.status, dependencyStatus: item.dependencyStatus, tableIds: item.tableIds, dependencies: item.dependencies, coreSpineCandidates: item.coreSpineCandidates }
+        : type === "table" ? { domain: item.domain, context: item.context, status: item.status ?? "source status missing", futureProduction: item.futureProduction }
+          : type === "domain" ? { context: item.contextId, tableCount: item.tableIds?.length ?? 0, tableIds: item.tableIds }
+      : { status: item.status, routeState: item.routeState, kind: item.kind, declared: item.declared, registered: item.registered, executable: item.executable, source: item.source, path: item.path, target: item.target, approvedBy: item.approvedBy, flowIds: item.flowIds, deferred: item.deferred };
+  return `<article class="studio-registry-detail"><div class="studio-registry-detail-title"><div><small>${escapeHtml(type)} · ${escapeHtml(id)}</small><h3>${escapeHtml(item.name ?? item.title ?? item.label ?? id)}</h3></div>${tag(escapeHtml(item.status ?? item.maturity?.stage ?? item.compositionStatus ?? "unrated").toUpperCase(), item.status === "registered" || item.maturity?.stage === "source-backed" ? "sage" : "gold")}</div><p>${escapeHtml(item.objective ?? item.description ?? item.source ?? "Versioned source record.")}</p><div class="studio-dependency-columns"><section><h4>Depends on</h4>${depends}</section><section><h4>Used by</h4>${consumers}</section></div><details class="studio-json-preview" open><summary>Source metadata</summary><pre>${escapeHtml(JSON.stringify(metadata, null, 2))}</pre></details></article>`;
+}
+
+function contractDetail(filename) {
+  const contract = contracts.find((item) => item.file === filename) ?? contracts[0];
+  if (!contract) return `<div class="studio-contract-detail"><p>No contracts found.</p></div>`;
+  return `<article class="studio-contract-detail"><div class="studio-contract-title"><div><h3>${escapeHtml(contract.name)}</h3><p>${escapeHtml(contract.id)}</p></div>${tag(`JSON Schema · ${contract.version}`, "sage")}</div><div class="studio-contract-meta"><span>${contract.properties.length} properties</span><span>${contract.required.length} required</span><span>Additional properties ${contract.additionalProperties === false ? "blocked" : "allowed"}</span></div><div class="studio-property-list">${contract.properties.map((property) => `<div class="studio-property"><code>${escapeHtml(property.name)}</code><span>${escapeHtml(property.type)}</span>${contract.required.includes(property.name) ? tag("REQUIRED", "gold") : ""}<small>${escapeHtml(property.description)}</small></div>`).join("")}</div><details class="studio-json-preview"><summary>View source schema metadata</summary><pre>${escapeHtml(JSON.stringify({ file: contract.file, id: contract.id, required: contract.required, properties: contract.properties }, null, 2))}</pre></details></article>`;
+}
+
+const castingIntent = { appId: "casting-pipeline-demo", name: "Casting Pipeline", description: "Casting pipeline for a film production company", productTags: ["film"], flowIds: ["TLPS-FLOW-027", "TLPS-FLOW-028", "TLPS-FLOW-029", "TLPS-FLOW-030", "TLPS-FLOW-031"], overrides: { allowPlanned: true }, seedProfile: "demo-casting" };
+const defaultComposition = resolveComposition(castingIntent);
+export const defaultIr = JSON.stringify(defaultComposition, null, 2);
+
+function compose(state) {
+  const result = state.dataStudioResolution ?? defaultComposition;
+  const draft = state.dataStudioIrDraft ?? JSON.stringify(result, null, 2);
+  const preview = previewLogicalSchema(result);
+  const contextRows = result.contextVersions.map((item) => `<span>${escapeHtml(item.contextId)}@${escapeHtml(item.version)} · ${escapeHtml(item.status)}</span>`).join("");
+  const routeLabel = result.routeReadiness.status === "READY" ? `${result.routeReadiness.executable}/${result.routeReadiness.total} executable` : `${result.routeReadiness.blocked} blocking routes`;
+  const explanation = state.dataStudioExplanation ?? explainComposition(result, "Why was Evidence added?");
+  const compilerBlockersMarkup = result.compilerBlockers?.length ? `<div class="studio-resolution-block"><small>Compilation blockers · ${result.compilerBlockers.length}</small>${result.compilerBlockers.slice(0, 6).map((item) => `<p>${escapeHtml(item.kind)}${item.tableId ? ` · ${escapeHtml(item.tableId)}` : item.path ? ` · ${escapeHtml(item.path)}` : ""} · ${escapeHtml(item.reason)}</p>`).join("")}${result.compilerBlockers.length > 6 ? `<p>and ${result.compilerBlockers.length - 6} more planned tables</p>` : ""}</div>` : "";
+  const explanationMarkup = `<div class="studio-resolution-block"><small>Explain this composition</small><label class="studio-field-label" for="studio-explain-query">Question</label><select id="studio-explain-query" data-studio-explain-query><option>Why was Evidence added?</option><option>Why is people.talent_profiles here?</option><option>Which flow required Finance?</option><option>Which route blocks compilation?</option></select><button class="button button-quiet" type="button" data-action="studio-explain">Explain</button><p aria-live="polite">${escapeHtml(explanation.answer)}</p></div>`;
+  return `<div class="studio-screen">${boundaryStrip("M2 resolver connected · local preview · compiler disabled")}${pageHeading("Composition workspace", "Resolve a registered product into a version-pinned, explainable Application IR.")}${subnav("data-studio/compose")}<div class="studio-compose-layout"><section class="studio-panel studio-intent-panel"><header><div><h2>Composition intent</h2><p>Choose a registered product tag and optional exact flow set.</p></div>${tag("Deterministic resolver", "sage")}</header><label class="studio-field-label" for="studio-intent">Application intent</label><textarea id="studio-intent" data-studio-intent rows="3">${escapeHtml(state.dataStudioIntent ?? castingIntent.description)}</textarea><label class="studio-field-label" for="studio-product-tags">Product tags</label><input id="studio-product-tags" data-studio-product-tags value="${escapeHtml(state.dataStudioProductTags ?? "film")}" aria-describedby="studio-product-hint"/><small id="studio-product-hint">Comma-separated tags must resolve to one canonical product.</small><label class="studio-field-label" for="studio-flow-ids">Selected flow IDs · blank uses the registered product set</label><textarea id="studio-flow-ids" data-studio-flow-ids rows="4">${escapeHtml(state.dataStudioFlowIds ?? castingIntent.flowIds.join("\n"))}</textarea><label class="studio-field-label" for="studio-shared-services">Optional shared services</label><input id="studio-shared-services" data-studio-shared-services value="${escapeHtml(state.dataStudioSharedServices ?? "")}" placeholder="service ID"/><small id="studio-service-hint" class="studio-service-hint">Only services with a registered context package can be included. AI is listed as optional but has no context package yet.</small><label class="studio-checkbox"><input type="checkbox" data-studio-public-context${state.dataStudioIncludePublic ? " checked" : ""}/><span>Include public context (explicit opt-in)</span></label><label class="studio-checkbox"><input type="checkbox" data-studio-allow-planned${state.dataStudioAllowPlanned === false ? "" : " checked"}/><span>Allow planned tables in this application preview</span></label><div class="studio-action-row"><button type="button" class="button button-secondary" data-action="studio-reset-ir">Reset casting example</button><button type="button" class="button button-primary" data-action="studio-resolve">Resolve composition ${icon("arrow", 15)}</button></div>${state.dataStudioResolveError ? `<p class="studio-inline-error" role="alert">${escapeHtml(state.dataStudioResolveError)}</p>` : ""}<p class="studio-disclaimer">Resolution is local and read-only. Overrides belong to this IR only; canonical registry assets are not changed.</p></section><section class="studio-panel studio-resolution"><header><div><h2>Resolved composition</h2><p>${escapeHtml(result.application.appId)} · IR ${escapeHtml(result.irVersion)}</p></div>${tag(result.routeReadiness.status, result.routeReadiness.status === "READY" ? "sage" : "gold")}</header><div class="studio-resolution-metrics"><div><small>Canonical product</small><strong>${escapeHtml(result.productComposition.id)}</strong></div><div><small>Selected flows</small><strong>${result.flowIds.length}</strong></div><div><small>Contexts</small><strong>${result.contextVersions.length}</strong></div><div><small>Planned tables</small><strong>${result.tables.filter((item) => item.status === "planned").length}</strong></div><div><small>Compile gate</small><strong>${escapeHtml(result.compilerStatus)}</strong></div><div><small>Owned tables</small><strong>${result.tableIds.length}</strong></div><div><small>Routes</small><strong>${escapeHtml(routeLabel)}</strong></div><div><small>Registry pin</small><strong>${escapeHtml(result.registry.version)} · ${escapeHtml(result.registry.hash.slice(0, 12))}…</strong></div></div><div class="studio-resolution-columns"><div><small>Selected flows</small>${result.selectedFlows.map((flow) => `<span>${escapeHtml(flow.id)} · ${escapeHtml(flow.title)}</span>`).join("")}</div><div><small>Resolved context versions</small>${contextRows}</div></div>${result.routeReadiness.blockers.length ? `<div class="studio-resolution-block"><small>Route blockers</small>${result.routeReadiness.blockers.map((item) => `<p><code>${escapeHtml(item.path)}</code> · ${escapeHtml(item.status)} · ${escapeHtml(item.reason ?? `deferred to ${item.deferredTo}`)}</p>`).join("")}</div>` : ""}${compilerBlockersMarkup}${explanationMarkup}<div class="studio-resolution-block"><small>Logical schema preview</small><p>${preview.counts.models} table models across ${preview.counts.contexts} contexts · ${preview.counts.relations} relations defined · ${escapeHtml(preview.prismaPreview.status)}</p><p>${escapeHtml(preview.prismaPreview.limitation)}</p></div></section><section class="studio-panel studio-ir-panel"><header><div><h2>Application IR</h2><p>Editable local draft · hash ${escapeHtml(result.irHash.slice(0, 16))}…</p></div><span data-studio-ir-status>${state.dataStudioIrSaved ? "Saved locally" : "Unsaved draft"}</span></header><textarea class="studio-ir-editor" data-studio-ir spellcheck="false" aria-label="Application intermediate representation">${escapeHtml(draft)}</textarea><div class="studio-action-row"><button type="button" class="button button-secondary" data-action="studio-save-ir">Save local IR draft</button><button type="button" class="button button-primary" disabled aria-describedby="studio-compile-status">Compiler not implemented</button></div><p id="studio-compile-status" class="studio-disclaimer">This version stops at logical schema preview. The catalog has no field/key/relation definitions; Prisma output, migration files, and CompilationPlan generation remain disabled.</p></section></div></div>`;
+}
+
+function generatedApps(state) {
+  const apps = applicationRegistry.records ?? [];
+  const previewViews = [["schema", "Schema"], ["seed", "Seed data"], ["migrations", "Migrations"], ["policies", "Policies"], ["compile", "Compilation"], ["query", "Read query"]];
+  const activeView = state.dataStudioPreviewView ?? "schema";
+  const activeLabel = previewViews.find(([id]) => id === activeView)?.[1] ?? "Schema";
+  const queryGuard = activeView === "query" ? `<div class="studio-query-guard"><strong>Read-only query boundary</strong><ol><li>SELECT-only parser</li><li>Single application database</li><li>Allowlisted application schemas</li><li>Statement timeout and row cap</li><li>Block COPY, extensions, and side-effect functions</li><li>Record query audit event</li></ol><label for="studio-query-example">Example only</label><textarea id="studio-query-example" readonly rows="3">SELECT *\nFROM people.talent_profiles\nLIMIT 50;</textarea><button class="button button-secondary" type="button" disabled>Run query · service unavailable</button></div>` : "";
+  return `<div class="studio-screen">${boundaryStrip("Application Registry proofs are local artifacts; generated databases are not connected")}${pageHeading("Registered applications", "Inspect registry pins, selected flows, and generated logical previews.")}${subnav("data-studio/apps")}<div class="studio-panel"><header><div><h2>Application Registry</h2><p>Four version-pinned M2 proof records, including casting.</p></div>${tag(`${apps.length} preview records`, "blue")}</header><div class="studio-app-list">${apps.map((app) => `<article class="studio-app-row"><div class="studio-app-symbol">${escapeHtml(app.name.slice(0, 1))}</div><div><strong>${escapeHtml(app.name)}</strong><small>${escapeHtml(app.appId)} · ${app.selectedFlows.length} selected flows · ${app.pinnedContextVersions.length} contexts</small></div><div class="studio-app-pin"><small>Registry pin</small><strong>${escapeHtml(app.registryVersion)} · ${escapeHtml(app.registryHash.slice(0, 12))}…</strong></div><div class="studio-app-pin"><small>Compilation</small><strong>Not implemented</strong></div></article>`).join("") || `<p class="studio-empty-note">No application records are registered.</p>`}</div></div><section class="studio-panel studio-preview-panel"><header><div><h2>Read-only artifact mirror · ${escapeHtml(activeLabel)}</h2><p>Logical schema previews reflect the current table catalog boundary.</p></div>${tag("PREVIEW ONLY", "sage")}</header><div class="studio-tabs" role="tablist" aria-label="Generated artifact view">${previewViews.map(([id, label]) => `<button type="button" role="tab" aria-selected="${activeView === id}" class="${activeView === id ? "is-active" : ""}" data-action="studio-preview-tab" data-value="${id}">${label}</button>`).join("")}</div><div class="studio-preview-empty"><span class="studio-empty-icon">${icon("grid", 20)}</span><h3>${escapeHtml(activeLabel)} output not connected</h3><p>Application IR and logical table previews are versioned local artifacts. No Prisma schema, migration, seed data, or compiled application is produced.</p>${queryGuard}</div></section><div class="studio-observe-note"><strong>Current boundary</strong><span>All generated application records remain local proof artifacts. Runtime services, deployments, and production data are disconnected.</span></div></div>`;
+}
+
+function governance() {
+  const gate = getRegistryGate();
+  const route = gate.routeRegistry;
+  const domain = gate.domainRegistry;
+  const severityOrder = { BLOCKER: 0, ERROR: 1, WARNING: 2, INFO: 3 };
+  const findings = [...gate.findings].sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity] || a.code.localeCompare(b.code) || a.entity.localeCompare(b.entity));
+  const counts = gate.counts;
+  const pipeline = ["Versioned sources", "Integrity validation", "Dependency impact", "Semantic review", "Approval", "Publish"].map((step, index) => {
+    const blocked = index < 3 && ((counts.BLOCKER ?? 0) > 0 || (counts.ERROR ?? 0) > 0);
+    return `<div class="${blocked ? "is-blocked" : ""}"><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(step)}</strong><small>${blocked ? "Blocked by current findings" : "Governance adapter not connected"}</small></div>`;
+  }).join("");
+  const findingRows = findings.map((finding) => `<article class="studio-finding-row"><span>${escapeHtml(finding.severity)}</span><strong>${escapeHtml(finding.id)} · ${escapeHtml(finding.code)}</strong><small>${escapeHtml(finding.class)} · owner ${escapeHtml(finding.owner)} · ${escapeHtml(finding.subject)}${finding.flowId ? ` · flow ${escapeHtml(finding.flowId)}` : ""}</small><p>${escapeHtml(finding.problem)}</p>${finding.requestedPath ? `<small>Requested path: ${escapeHtml(finding.requestedPath)} · category: ${escapeHtml(finding.category ?? "unclassified")} · target: ${escapeHtml(finding.targetVersion ?? "none")}</small>` : ""}<small>Resolve: ${escapeHtml(finding.resolution)}</small></article>`).join("");
+  const sourcePatternClaim = domainRegistry.declaredPatterns.reviewClaim.dynamicPatterns;
+  return `<div class="studio-screen">${boundaryStrip(`Registry v${escapeHtml(domainRegistry.manifest.version)} · ${gate.publishable ? "validation passes" : "validation blocked"}`)}${pageHeading("Governance", "Domain integrity and route availability are separate checks. A declared or deferred route does not make a route executable.")}${subnav("data-studio/governance")}<div class="studio-governance-grid"><section class="studio-panel"><header><div><h2>Registry change pipeline</h2><p>Passing validation is separate from publish approval.</p></div>${tag(gate.publishable ? "VALIDATION PASSED" : "BLOCKED", gate.publishable ? "sage" : "gold")}</header><div class="studio-governance-steps">${pipeline}</div></section><section class="studio-panel"><header><div><h2>Integrity summary</h2><p>Computed from the loaded versioned package.</p></div></header><div class="studio-integrity-counts"><div><strong>${counts.BLOCKER ?? 0}</strong><span>Blockers</span></div><div><strong>${counts.ERROR ?? 0}</strong><span>Errors</span></div><div><strong>${counts.INFO ?? 0}</strong><span>Informational</span></div></div><div class="studio-route-validity"><article><small>Domain registry</small><strong>${domain.valid ? "VALID" : "INVALID"}</strong><span>${domainRegistry.manifest.counts.tables} tables · ${domainRegistry.manifest.counts.contexts} contexts · ${domainRegistry.manifest.counts.productCompositions} compositions</span></article><article><small>Route registry</small><strong>${route.valid ? "VALID" : "INVALID"}</strong><span>${route.registeredStatic} static · ${route.registeredDynamic} registered dynamic · ${route.declaredUnregistered} declared only · ${route.approvedAliases} aliases · ${route.unresolved} unresolved · ${route.deferred} deferred</span></article><article><small>Compiler gate</small><strong>${gate.compilerReady ? "READY" : "BLOCKED"}</strong><span>${gate.compilerReady ? "Registry checks pass; deferred paths are still non-executable" : "Requires zero blockers and errors"}</span></article></div><p class="studio-governance-note">The application manifest has 284 concrete pages. The flow document reports 307 <code>sourcePages</code> as metadata, while its route index has 293 distinct paths: 282 registered matches and 11 unresolved paths. Those 11 are classified as missing source, assigned to platform, and targeted for v1.1.0. They remain non-executable. The ${sourcePatternClaim}-pattern review claim is unverified; no patterns have been derived.</p></section></div><section class="studio-panel studio-findings-panel"><header><div><h2>Current integrity findings</h2><p>${findings.length} findings · ordered by severity · package version ${escapeHtml(domainRegistry.manifest.version)}</p></div></header><div class="studio-finding-list">${findingRows || `<p class="studio-empty-note">No registry integrity findings.</p>`}</div></section><div class="studio-callout"><strong>Validation and execution</strong><p>Explicitly deferred routes are informational for package validation, not resolved routes. Each remains UNRESOLVED and cannot execute. Unclassified gaps and other blockers still fail validation. Publish approval and compiler service are not connected in this preview.</p></div></div>`;
+}
+
+function system(state) {
+  return `<div class="studio-screen">${boundaryStrip("Versioned registry assets connected · service adapters remain local-only")}${pageHeading("System connections", "See which MAATAA registries and services are available to the Data Studio shell.")}${subnav("data-studio/system")}<div class="studio-system-grid"><article class="studio-panel"><header><div><h2>Design system registry</h2><p>Actual component registry shipped in this workspace.</p></div>${tag("Connected · read-only", "sage")}</header><div class="studio-system-stat"><strong>${componentRegistry.length}</strong><span>registered UI components</span></div><div class="studio-category-list">${componentCategories.map(([category, count]) => `<div><span>${escapeHtml(category)}</span><strong>${count}</strong></div>`).join("")}</div></article><article class="studio-panel"><header><div><h2>Domain Registry package</h2><p>Versioned source assets projected into Catalog.</p></div>${tag(`v${domainRegistry.manifest.version} · ${domainRegistry.manifest.status}`, "gold")}</header><div class="studio-system-status"><strong>${domainRegistry.manifest.counts.tables} tables · ${domainRegistry.manifest.counts.contexts} context IDs · ${domainRegistry.manifest.counts.flows} flows</strong><p>${domainRegistry.manifest.counts.applicationProducts} application product IDs; ${domainRegistry.manifest.counts.productCompositions}/${domainRegistry.manifest.counts.expectedProducts} canonical compositions.</p><small>${domainRegistry.manifest.counts.registeredRoutes} registered routes; ${domainRegistry.manifest.counts.unresolvedRoutes} unresolved routes; ${domainRegistry.manifest.counts.deferredRoutes} deferred to v1.1.0; ${domainRegistry.manifest.counts.missingTableStatuses} missing table statuses.</small></div><a class="text-link" data-route="data-studio/catalog" href="#data-studio/catalog">Open registry catalog</a></article><article class="studio-panel"><header><div><h2>Infrastructure Registry</h2><p>Current application environment assignments.</p></div>${tag(`${state.servers?.length ?? 0} local servers`, "blue")}</header><div class="studio-system-status"><strong>Browser-local draft</strong><p>Server inventory and assignments are preview-only and do not probe hosts.</p><a class="text-link" data-route="platform" href="#platform">Open Domains & Servers</a></div></article><article class="studio-panel"><header><div><h2>Service adapters</h2><p>Shared semantics should sit behind transport adapters.</p></div></header><div class="studio-adapter-list">${[["Domain Registry service", "Local package"], ["Composition resolver", "Validation passes · deferred routes remain non-executable"], ["Compiler API", "Not connected"], ["MCP adapter", "Not connected"], ["Audit recorder", "Not connected"]].map(([name, status]) => `<div><span>${escapeHtml(name)}</span>${tag(status, "gold")}</div>`).join("")}</div></article></div></div>`;
+}
+
+export function renderDataStudio(route, state) {
+  if (route === "data-studio/catalog") return catalog(state);
+  if (route === "data-studio/compose") return compose(state);
+  if (route === "data-studio/apps") return generatedApps(state);
+  if (route === "data-studio/governance") return governance();
+  if (route === "data-studio/system") return system(state);
+  return overview();
+}

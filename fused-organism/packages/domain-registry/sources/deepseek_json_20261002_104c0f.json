@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Always-present core. Every composition includes all six contexts.",
+  "contexts": [
+    { "id": "identity",       "reason": "Auth, sessions, roles, permissions" },
+    { "id": "organisation",   "reason": "Orgs, workspaces, memberships" },
+    { "id": "project",        "reason": "The spine — everything hangs off projects" },
+    { "id": "evidence",       "reason": "Cross-cutting governance: approvals, audit" },
+    { "id": "communications", "reason": "Notifications, threads, messages" },
+    { "id": "platform",       "reason": "Preferences, integrations, feature flags, retention" }
+  ],
+  "rules": [
+    "Feature contexts reference the spine, never each other directly",
+    "Cross-context references go through the spine or an explicit contract",
+    "The spine is never optional and never billed"
+  ]
+}

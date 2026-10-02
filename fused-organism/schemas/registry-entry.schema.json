@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/registry-entry.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "RegistryEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "componentId": {
+      "type": "string",
+      "description": "Stable component ID"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version"
+    },
+    "package": {
+      "type": "string",
+      "description": "Owning package"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category"
+    },
+    "authorityClass": {
+      "type": "string",
+      "enum": [
+        "advisory",
+        "proposal",
+        "approval",
+        "execution",
+        "authoritative"
+      ]
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "State"
+      }
+    },
+    "schemaRef": {
+      "type": "string",
+      "description": "Optional schema ref"
+    },
+    "headless": {
+      "type": "boolean",
+      "description": "Explicitly headless registry entry"
+    },
+    "renderAdapter": {
+      "type": "string",
+      "description": "Optional render adapter identifier"
+    }
+  },
+  "required": [
+    "componentId",
+    "version",
+    "package",
+    "category",
+    "authorityClass",
+    "states",
+    "headless"
+  ]
+}

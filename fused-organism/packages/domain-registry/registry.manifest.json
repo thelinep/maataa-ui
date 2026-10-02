@@ -1,0 +1,971 @@
+{
+  "schemaVersion": "1.1.0",
+  "registryId": "tlps-domain-registry",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02",
+  "status": "validated",
+  "integrity": {
+    "status": "complete",
+    "policy": "BLOCKER > 0 or ERROR > 0 fails validation, publish, and compiler consumption. Explicitly deferred route gaps remain UNRESOLVED and non-executable, require category, owner, and targetVersion, and are informational until that target version.",
+    "blockers": 0,
+    "errors": 0,
+    "warnings": 0,
+    "info": 11,
+    "INFO": 11,
+    "publishable": true,
+    "compilerConsumable": true,
+    "compilerReady": true,
+    "domainRegistry": {
+      "valid": true,
+      "blockers": 0,
+      "errors": 0
+    },
+    "routeRegistry": {
+      "valid": true,
+      "registeredStatic": 284,
+      "registeredDynamic": 0,
+      "declaredUnregistered": 0,
+      "approvedAliases": 0,
+      "unresolved": 11,
+      "deferred": 11,
+      "declaredPatternFlowReferences": 0
+    },
+    "findings": [
+      {
+        "id": "REG-001",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/auth/create-organisation",
+        "entity": "/mobile/auth/create-organisation",
+        "problem": "Flow route /mobile/auth/create-organisation remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/auth/create-organisation remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-005",
+        "requestedPath": "/mobile/auth/create-organisation",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/auth/create-organisation\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-002",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/auth/invite",
+        "entity": "/mobile/auth/invite",
+        "problem": "Flow route /mobile/auth/invite remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/auth/invite remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-006",
+        "requestedPath": "/mobile/auth/invite",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/auth/invite\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-003",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/auth/accept-invite",
+        "entity": "/mobile/auth/accept-invite",
+        "problem": "Flow route /mobile/auth/accept-invite remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/auth/accept-invite remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-006",
+        "requestedPath": "/mobile/auth/accept-invite",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/auth/accept-invite\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-004",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/auth/sign-out",
+        "entity": "/mobile/auth/sign-out",
+        "problem": "Flow route /mobile/auth/sign-out remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/auth/sign-out remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-008",
+        "requestedPath": "/mobile/auth/sign-out",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/auth/sign-out\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-005",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/offline",
+        "entity": "/offline",
+        "problem": "Flow route /offline remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /offline remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-115",
+        "requestedPath": "/offline",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/offline\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-006",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/admin/api-keys",
+        "entity": "/mobile/admin/api-keys",
+        "problem": "Flow route /mobile/admin/api-keys remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/admin/api-keys remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-119",
+        "requestedPath": "/mobile/admin/api-keys",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/admin/api-keys\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-007",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/admin/webhooks",
+        "entity": "/mobile/admin/webhooks",
+        "problem": "Flow route /mobile/admin/webhooks remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/admin/webhooks remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-120",
+        "requestedPath": "/mobile/admin/webhooks",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/admin/webhooks\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-008",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/admin/integrations",
+        "entity": "/mobile/admin/integrations",
+        "problem": "Flow route /mobile/admin/integrations remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/admin/integrations remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-121",
+        "requestedPath": "/mobile/admin/integrations",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/admin/integrations\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-009",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/admin/audit-log",
+        "entity": "/mobile/admin/audit-log",
+        "problem": "Flow route /mobile/admin/audit-log remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/admin/audit-log remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-122",
+        "requestedPath": "/mobile/admin/audit-log",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/admin/audit-log\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-010",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/admin/data-retention",
+        "entity": "/mobile/admin/data-retention",
+        "problem": "Flow route /mobile/admin/data-retention remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/admin/data-retention remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-123",
+        "requestedPath": "/mobile/admin/data-retention",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/admin/data-retention\")",
+          "expected": "no finding"
+        }
+      },
+      {
+        "id": "REG-011",
+        "code": "flow-route-deferred",
+        "class": "DATA_QUALITY_GAP",
+        "severity": "INFO",
+        "owner": "platform",
+        "subject": "/mobile/admin/feature-flags",
+        "entity": "/mobile/admin/feature-flags",
+        "problem": "Flow route /mobile/admin/feature-flags remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "message": "Flow route /mobile/admin/feature-flags remains unresolved and is explicitly deferred to 1.1.0 (missing-source; owner: platform).",
+        "resolution": "Resolve or renew this explicitly deferred route gap before its target registry version.",
+        "flowId": "TLPS-FLOW-124",
+        "requestedPath": "/mobile/admin/feature-flags",
+        "category": "missing-source",
+        "targetVersion": "1.1.0",
+        "sourceEvidence": {
+          "declaredPattern": false,
+          "registeredPage": false,
+          "deferred": true,
+          "targetVersion": "1.1.0"
+        },
+        "resolvedWhen": {
+          "test": "flow-route-deferred(\"/mobile/admin/feature-flags\")",
+          "expected": "no finding"
+        }
+      }
+    ],
+    "registryHash": "7d13f7728fd87de8f895b4f4b2c4492843fe887fed7fdb724c996889da4e2816",
+    "contentHashes": [
+      {
+        "path": "./applications/README.md",
+        "sha256": "ff9ebef54696dc374b12fe64059066181b93922e5c6faf5adb31e3fbe7ea08ff"
+      },
+      {
+        "path": "./applications/campaign-os-reference.ir.json",
+        "sha256": "569bd450476e626b7d561c76ab7af2b16099a8406cee415567d2694fe3c8bf87"
+      },
+      {
+        "path": "./applications/campaign-os-reference.schema-preview.json",
+        "sha256": "1612b3e61efd2817a09a200c7ef5fa85e72588d478952ea2c42148772fc8172e"
+      },
+      {
+        "path": "./applications/casting-pipeline-demo.ir.json",
+        "sha256": "5ddfa669f4e9037d691f433c600438fc31b36e638d843461f6fc89fefb92d0b0"
+      },
+      {
+        "path": "./applications/casting-pipeline-demo.schema-preview.json",
+        "sha256": "6caa71fae4f4d51aa3f1ad7e77f55a38efe057239218b6dca83cc23184a90505"
+      },
+      {
+        "path": "./applications/casting-pipeline.explainability.json",
+        "sha256": "b117690cf178241cbf0c5bcd778f25aac8321473b71647193eda10400b52f7e5"
+      },
+      {
+        "path": "./applications/events-wedding-spatial-reference.ir.json",
+        "sha256": "8be8160a349e6576d14ea69863bae7d78d0395a24ab5f25592fd99056b43a377"
+      },
+      {
+        "path": "./applications/events-wedding-spatial-reference.schema-preview.json",
+        "sha256": "e9308f6da15338bff638dcc5bbc8ca0568dc09dcb8a18579721cc5caa158f636"
+      },
+      {
+        "path": "./applications/investorhub-reference.ir.json",
+        "sha256": "7aafc0ee88f612caa029cd3bdc974f33006d523f1f81ff7f553f45f08d211d87"
+      },
+      {
+        "path": "./applications/investorhub-reference.schema-preview.json",
+        "sha256": "a24db009d4cd8d9ccbb1536c2c8b2cc880083d075e433a2ab02d0287539436af"
+      },
+      {
+        "path": "./applications/registry.json",
+        "sha256": "53cd7a4e787e02091859e6c2292de07ffacb81bf31543020a9d530f654cbb356"
+      },
+      {
+        "path": "./catalog/future-production-tables.json",
+        "sha256": "42455a7acea200b62881c60bf5ba4013f08cc56bac8b556e451cd9ef753b3612"
+      },
+      {
+        "path": "./catalog/spine.json",
+        "sha256": "f0181e2358932e06c3a0104c3b74aaab7d34f7210e051b8777f9da60a1a228be"
+      },
+      {
+        "path": "./composition/route-impact-indexes.json",
+        "sha256": "f7d614f02732f7e3ae6eb9a0ec4b90b0143cdaa9fa53f457cf6cd7c10a2c0f81"
+      },
+      {
+        "path": "./contexts/campaign/context.json",
+        "sha256": "2fedb4cf3b8a29f882daee51b767646f8ccc134d5f10b5412e27f505a63dd997"
+      },
+      {
+        "path": "./contexts/communications/context.json",
+        "sha256": "bb3f9e94791ec4c948f1711114dba14f634facc3ac385abd417b52fafcbf1c4e"
+      },
+      {
+        "path": "./contexts/creative/context.json",
+        "sha256": "f0be6bf7eec615765bf033cbf6693ff859f6ac28829a4b5dcc636ede98e1dee4"
+      },
+      {
+        "path": "./contexts/eventsSpatial/context.json",
+        "sha256": "729dbad2ceb818a5b6e32674c329f872f6b3796c26d99ae9fab87b22d3e17e99"
+      },
+      {
+        "path": "./contexts/evidence/context.json",
+        "sha256": "f82eec750e1b22b0dd409fe52f444569b0d4bd5b4daedbf8d540f4f8258d18ce"
+      },
+      {
+        "path": "./contexts/finance/context.json",
+        "sha256": "3c2677046e2e9a214afe4ef410193ca60fdecb6da57dcb3b640bb10e35e41a41"
+      },
+      {
+        "path": "./contexts/identity/context.json",
+        "sha256": "12f848d74f61c6a4e8e85faaaec38e36ca4b9195c156283c916cbadc9b15f462"
+      },
+      {
+        "path": "./contexts/intelligence/context.json",
+        "sha256": "36f0dee31228c39bdbe07a5d276745b96a2694fec66fc1dc1bf4fc62bbe3e95d"
+      },
+      {
+        "path": "./contexts/investor/context.json",
+        "sha256": "df3f79da00644ffde8b40a58566aa93f4db9577964b397803af37ab4f6d3f38a"
+      },
+      {
+        "path": "./contexts/logistics/context.json",
+        "sha256": "715d4d5dd3580ff7d385266867d938acf561c81bb3e14afbc3b845dcbe3a75eb"
+      },
+      {
+        "path": "./contexts/marketplace/context.json",
+        "sha256": "b52e132ade93ad8379170470b4d0f1a46973c7f7c055a64fbbd93a94f8dc431f"
+      },
+      {
+        "path": "./contexts/organisation/context.json",
+        "sha256": "87dc970c0d28e3f341f609a8f97bc49efb04cbae9b6e7af76479c3fb73ac8b34"
+      },
+      {
+        "path": "./contexts/people/context.json",
+        "sha256": "c24198dd19f076affeefa9ac4d2e8d1df7e34f03fb3a8ca259b980a3e2370836"
+      },
+      {
+        "path": "./contexts/platform/context.json",
+        "sha256": "08f01f53a27d3c32e6e018d8fb54e098cecc9948ab98f6cda4ac2a7d7a0f73d8"
+      },
+      {
+        "path": "./contexts/production/context.json",
+        "sha256": "357ae663ddc27f96c23728f891ce3a979851632d6230eab8bce9b26d25cc9f19"
+      },
+      {
+        "path": "./contexts/project/context.json",
+        "sha256": "4aae63674ff4479af2421a8c505d443f47ce58ec9d97e8110202ea46680f09d7"
+      },
+      {
+        "path": "./contexts/public/context.json",
+        "sha256": "2fe771a6dc667b6d38b87a8c19dce3ea077c966a377aaee4ba87b24a3a3de8dd"
+      },
+      {
+        "path": "./data/actor-registry.json",
+        "sha256": "138d94d425cb90abcb4404f896a133456871dad2f92a605eed2be697adb787cb"
+      },
+      {
+        "path": "./data/context-registry.json",
+        "sha256": "0fe9ec05ccaf03a742195c19474a98b003c45483a89d37ab7512719ff6eed00c"
+      },
+      {
+        "path": "./data/domain-catalog.json",
+        "sha256": "9eb42ee9f65a5226416482635d983476017561e2cf78f537806460f748725771"
+      },
+      {
+        "path": "./data/flow-classifications.json",
+        "sha256": "a2adc82c198588edaa8070fc06370c9e064506e23079ea27690491c328141552"
+      },
+      {
+        "path": "./data/flow-registry.json",
+        "sha256": "eb1163bc1147164f693e43c7ba51d97afa351eca16ef7f88465d35e6c99051a1"
+      },
+      {
+        "path": "./data/future-production-tables.json",
+        "sha256": "42455a7acea200b62881c60bf5ba4013f08cc56bac8b556e451cd9ef753b3612"
+      },
+      {
+        "path": "./data/product-composition-registry.json",
+        "sha256": "e1f417b9cfa559cc18851a54b446c075ea300941ff188aa38627dcbfb26650b3"
+      },
+      {
+        "path": "./data/product-tag-map.json",
+        "sha256": "cde23834a4b58e0352ef28e26aa08b5b2fa5639a3f0b096f820ec6b533b97415"
+      },
+      {
+        "path": "./data/route-registry.json",
+        "sha256": "15b0b09fc0ada8b6047ca9af6fed9c55b721fe5c9767fe5b0246a4c64411d7c9"
+      },
+      {
+        "path": "./data/route-resolutions.json",
+        "sha256": "37b175fc62039fc893469284a52958e0ae8c5745d484e50a47c1be1d8b0490b5"
+      },
+      {
+        "path": "./data/slice-map.json",
+        "sha256": "5dd888bc935a3c135c30e4d14d9a5d2cd0ca38ffcb100c999dc1cdf4e1dc1dc1"
+      },
+      {
+        "path": "./data/spine.json",
+        "sha256": "f0181e2358932e06c3a0104c3b74aaab7d34f7210e051b8777f9da60a1a228be"
+      },
+      {
+        "path": "./flows/flow-classifications.json",
+        "sha256": "a2adc82c198588edaa8070fc06370c9e064506e23079ea27690491c328141552"
+      },
+      {
+        "path": "./flows/route-resolutions.json",
+        "sha256": "37b175fc62039fc893469284a52958e0ae8c5745d484e50a47c1be1d8b0490b5"
+      },
+      {
+        "path": "./flows/slice-map.json",
+        "sha256": "5dd888bc935a3c135c30e4d14d9a5d2cd0ca38ffcb100c999dc1cdf4e1dc1dc1"
+      },
+      {
+        "path": "./products/compositions.json",
+        "sha256": "e1f417b9cfa559cc18851a54b446c075ea300941ff188aa38627dcbfb26650b3"
+      },
+      {
+        "path": "./routes/aliases.json",
+        "sha256": "e8c275052ed4f505f16434ba11a906f034e6305b93b08e5e7ef21eac11fb91b9"
+      },
+      {
+        "path": "./routes/declared-patterns.json",
+        "sha256": "45be374b8c529b245780e861aae2549c1425e6cb62c277a317287ebf4e963337"
+      },
+      {
+        "path": "./routes/deferred.json",
+        "sha256": "6683f255e11c37e1275f4613eb37cc289076eaa4bef651b0523eb612a68fbac8"
+      },
+      {
+        "path": "./routes/findings.json",
+        "sha256": "e5bb92fdaf7a6d731a6654d63e800a860efde6351dab03e54aa1c3c0f5c4b85d"
+      },
+      {
+        "path": "./routes/flow-references.json",
+        "sha256": "994280b50174e0727044775e99d2d93b822e86315300208b17dcf6889200b8c2"
+      },
+      {
+        "path": "./routes/pattern-derivation-policy.json",
+        "sha256": "ee661743550115291055d971433721558b59f95e683f8f97c75640499a96fdb3"
+      },
+      {
+        "path": "./routes/registered.json",
+        "sha256": "6fb352ffb94ee10ec80790d7c5ce483e9a001e717eb187f9f35fafe65344506a"
+      },
+      {
+        "path": "./routes/resolutions.json",
+        "sha256": "9d1b0cfa06fffc6202f3cf03872d6729a9eb72d3fcea0c3c05ce284140b754f6"
+      },
+      {
+        "path": "./schemas/application-ir.schema.json",
+        "sha256": "59d5952100787ec71ca3745316e4aec6358e116852ed130c5cfb7e24cec075a7"
+      },
+      {
+        "path": "./schemas/application-record.schema.json",
+        "sha256": "44a5d01fc1fa9ffdc55816f18251df6414753159fa01d78296104063bc95d688"
+      },
+      {
+        "path": "./schemas/compilation-plan.schema.json",
+        "sha256": "fd6e571252475b63cc1ff99df60f901fce451e53f87343ea76dd244b8b5a25a3"
+      },
+      {
+        "path": "./schemas/context.schema.json",
+        "sha256": "a3105d1141d40289ef4f8bebc4d8f8310b034f44862d66ecb37314fd267e1f5c"
+      },
+      {
+        "path": "./schemas/declared-route-pattern.schema.json",
+        "sha256": "77f7d1752fc18100b8e8128a33c8e89b81bb030a41ad95e6e439afb0a625f021"
+      },
+      {
+        "path": "./schemas/deferred-route.schema.json",
+        "sha256": "abea6261902ecd63fe41f75062aea49f80a42b0765340e98d6e8039abea66857"
+      },
+      {
+        "path": "./schemas/flow-route-reference.schema.json",
+        "sha256": "6e4ba349f4b64741c6bd80efd7af55374f37a4ea682063b20b5807a24030374e"
+      },
+      {
+        "path": "./schemas/registered-route.schema.json",
+        "sha256": "07111bafaf465af7bcde510e28bd6ec413315a09fcd5e8d4e00a725445e5a98c"
+      },
+      {
+        "path": "./schemas/route-alias.schema.json",
+        "sha256": "319d898c56ff0ad0265dd5ea7d0b224b3d39a91df7b97075ff7cc8312ad4fb88"
+      },
+      {
+        "path": "./schemas/route-finding.schema.json",
+        "sha256": "6a79e055c5c4088cb8f48c97eef632ec86dedf08d9e38b63f331c625d7e14b5e"
+      },
+      {
+        "path": "./schemas/route-resolution.schema.json",
+        "sha256": "347760c4b085adb504cf7a936b11211976eaad41511caa42867c03a485c36e24"
+      },
+      {
+        "path": "./schemas/table.schema.json",
+        "sha256": "48f4fc73258dcbb33dadb2610e2d5b05f9f4d497d15bfd3fd729e3a92d24377e"
+      },
+      {
+        "path": "./sources/deepseek_json_20261002_104c0f.json",
+        "sha256": "ec279cce97cb209f8e865fc4170dcc600e880fc542a8d26e5d76583a700e2c04"
+      },
+      {
+        "path": "./sources/deepseek_json_20261002_2c644e.json",
+        "sha256": "34eb824c4ef797713c1bafd5d7a0da2266f4567a94b31cf9139c05700a4d2f08"
+      },
+      {
+        "path": "./sources/deepseek_json_20261002_45090f.json",
+        "sha256": "963693c5313d791917fbcd6ae9af0b4cfa076c626da21eb30895156e14df4775"
+      },
+      {
+        "path": "./sources/deepseek_json_20261002_86f716.json",
+        "sha256": "0b5f9583db3891decf6e739b590e9d15b3ff4e4220c08336bc78efbe71218e1d"
+      },
+      {
+        "path": "./sources/domains.json",
+        "sha256": "3fef7f232f8c81f7e14d5c2c68ac19cff72455c24a56821806546a6808f3a6d6"
+      },
+      {
+        "path": "./sources/m1-registry-architecture-proposal.txt",
+        "sha256": "4a8d3752fcdccd771b39886925b3ea86c72ac07c1f7b949057506bffe3dc1ba4"
+      },
+      {
+        "path": "./sources/registry-architecture.json",
+        "sha256": "fcd2ecfb3ac590125e9eedbe3d699b4acb5f31d998731be39bd69158326a4050"
+      },
+      {
+        "path": "./sources/spine.json",
+        "sha256": "c105acc44b6e3012eca563087aeb7643ee3fadf245be189827b6735a31957fb7"
+      },
+      {
+        "path": "./sources/table.schema.json",
+        "sha256": "689d337e7813beb94934a634f219bab0bb35c4da0fbeed030fba87c33a7f3b6c"
+      },
+      {
+        "path": "./sources/tlps_all_flows_detailed.json",
+        "sha256": "2b47fedd812d6516666c1077efc040dd2826999d0aa232d3b6ea746630bbe1cf"
+      },
+      {
+        "path": "./sources/tlps_full_application_v2_manifest.json",
+        "sha256": "882868b818077ea0dcb9eda07d85a99d64d0ff6afa7986c8f32ab778ca995bf4"
+      }
+    ]
+  },
+  "assets": {
+    "domainCatalog": {
+      "path": "./data/domain-catalog.json",
+      "version": "1.0.0",
+      "status": "status-derived",
+      "expectedRecords": 352,
+      "records": 352,
+      "domains": 18,
+      "stubbed": 335,
+      "planned": 17,
+      "duplicateIds": 0
+    },
+    "spine": {
+      "path": "./catalog/spine.json",
+      "version": "1.0.0",
+      "contexts": [
+        "identity",
+        "organisation",
+        "project",
+        "communications",
+        "platform"
+      ],
+      "sharedServices": {
+        "evidence": {
+          "defaultIncluded": true,
+          "spine": false
+        },
+        "ai": {
+          "defaultIncluded": false,
+          "spine": false
+        }
+      }
+    },
+    "contextRegistry": {
+      "path": "./contexts/",
+      "version": "1.0.0",
+      "status": "authored",
+      "expectedRecords": 17,
+      "records": 17,
+      "spine": [
+        "identity",
+        "organisation",
+        "project",
+        "communications",
+        "platform"
+      ],
+      "creativeDependencies": [
+        "project",
+        "people"
+      ]
+    },
+    "products": {
+      "path": "./products/compositions.json",
+      "version": "1.0.0",
+      "status": "complete",
+      "expectedRecords": 6,
+      "records": 6,
+      "applicationManifestRecords": 16
+    },
+    "flows": {
+      "path": "./data/flow-registry.json",
+      "version": "1.0.0",
+      "status": "imported",
+      "records": 160,
+      "contextBindings": 160
+    },
+    "routes": {
+      "path": "./routes/registered.json",
+      "version": "1.0.0",
+      "status": "source-imported",
+      "records": 284,
+      "registeredStatic": 284,
+      "registeredDynamic": 0
+    },
+    "declaredRoutePatterns": {
+      "path": "./routes/declared-patterns.json",
+      "version": "1.0.0",
+      "status": "source-field-absent",
+      "records": 0,
+      "sourceFieldPresent": false
+    },
+    "routeAliases": {
+      "path": "./routes/aliases.json",
+      "version": "1.0.0",
+      "status": "authored-empty",
+      "records": 0
+    },
+    "deferredRoutes": {
+      "path": "./routes/deferred.json",
+      "version": "1.0.0",
+      "status": "explicitly-deferred",
+      "records": 11,
+      "categories": {
+        "missing-source": 11
+      }
+    },
+    "routePatternPolicy": {
+      "path": "./routes/pattern-derivation-policy.json",
+      "version": "1.0.0",
+      "ruleId": "segment-shape-frequency@1",
+      "minimumConcreteRoutes": 3,
+      "derivedPatterns": 0
+    },
+    "routeResolutions": {
+      "path": "./routes/resolutions.json",
+      "version": "1.0.0",
+      "status": "partial",
+      "flowReferenceOccurrences": 2524,
+      "distinctRequestedPaths": 293,
+      "registeredStatic": 282,
+      "registeredDynamic": 0,
+      "declaredUnregistered": 0,
+      "approvedAliases": 0,
+      "unresolved": 11
+    },
+    "routeFindings": {
+      "path": "./routes/findings.json",
+      "version": "1.0.0",
+      "status": "deferred",
+      "records": 11
+    },
+    "flowRouteReferences": {
+      "path": "./routes/flow-references.json",
+      "version": "1.0.0",
+      "status": "partial",
+      "references": 2524,
+      "distinctPaths": 293,
+      "unresolvedOccurrences": 32
+    },
+    "actors": {
+      "path": "./data/actor-registry.json",
+      "version": "1.0.0",
+      "status": "imported",
+      "records": 20,
+      "unresolved": 0
+    },
+    "sliceMap": {
+      "path": "./flows/slice-map.json",
+      "version": "1.0.0",
+      "status": "authored",
+      "referencedUnique": 72,
+      "contextResolved": 70,
+      "explicitSpecial": 2,
+      "unresolved": 0
+    },
+    "applicationRegistry": {
+      "path": "./applications/registry.json",
+      "version": "1.0.0",
+      "status": "local-preview",
+      "records": 4,
+      "resolverVersion": "1.0.0"
+    },
+    "compositionArtifacts": {
+      "path": "./composition/route-impact-indexes.json",
+      "version": "1.0.0",
+      "status": "generated-preview",
+      "routeBacklog": 11,
+      "compiler": "not-implemented"
+    }
+  },
+  "sources": [
+    {
+      "key": "architecture",
+      "file": "deepseek_json_20261002_2c644e.json",
+      "sha256": "34eb824c4ef797713c1bafd5d7a0da2266f4567a94b31cf9139c05700a4d2f08",
+      "snapshot": "./sources/deepseek_json_20261002_2c644e.json"
+    },
+    {
+      "key": "tableSchema",
+      "file": "deepseek_json_20261002_45090f.json",
+      "sha256": "963693c5313d791917fbcd6ae9af0b4cfa076c626da21eb30895156e14df4775",
+      "snapshot": "./sources/deepseek_json_20261002_45090f.json"
+    },
+    {
+      "key": "domainCatalog",
+      "file": "deepseek_json_20261002_86f716.json",
+      "sha256": "0b5f9583db3891decf6e739b590e9d15b3ff4e4220c08336bc78efbe71218e1d",
+      "snapshot": "./sources/deepseek_json_20261002_86f716.json"
+    },
+    {
+      "key": "spine",
+      "file": "deepseek_json_20261002_104c0f.json",
+      "sha256": "ec279cce97cb209f8e865fc4170dcc600e880fc542a8d26e5d76583a700e2c04",
+      "snapshot": "./sources/deepseek_json_20261002_104c0f.json"
+    },
+    {
+      "key": "flow",
+      "file": "tlps_all_flows_detailed.json",
+      "sha256": "2b47fedd812d6516666c1077efc040dd2826999d0aa232d3b6ea746630bbe1cf",
+      "snapshot": "./sources/tlps_all_flows_detailed.json"
+    },
+    {
+      "key": "app",
+      "file": "tlps_full_application_v2_manifest.json",
+      "sha256": "882868b818077ea0dcb9eda07d85a99d64d0ff6afa7986c8f32ab778ca995bf4",
+      "snapshot": "./sources/tlps_full_application_v2_manifest.json"
+    },
+    {
+      "key": "m1ArchitectureProposal",
+      "file": "m1-registry-architecture-proposal.txt",
+      "snapshot": "./sources/m1-registry-architecture-proposal.txt",
+      "sha256": "4a8d3752fcdccd771b39886925b3ea86c72ac07c1f7b949057506bffe3dc1ba4"
+    }
+  ],
+  "identityPolicy": "Canonical ID derived as lowercased context namespace plus the supplied table name because catalog rows contain no id field. Reconcile if an authoritative ID map is supplied.",
+  "discrepancies": [
+    {
+      "code": "source-spine-reconciled-by-m1-policy",
+      "sourceSpines": {
+        "architecture": [
+          "identity",
+          "organisation",
+          "project",
+          "communications",
+          "platform",
+          "public"
+        ],
+        "spineFile": [
+          "identity",
+          "organisation",
+          "project",
+          "evidence",
+          "communications",
+          "platform"
+        ]
+      },
+      "decision": "Five-context spine per catalog/spine.json; evidence is a default shared service."
+    },
+    {
+      "code": "route-counts-reconciled",
+      "manifestRegisteredPages": 284,
+      "flowSourcePagesMetadata": 307,
+      "distinctFlowRoutePaths": 293,
+      "registeredFlowRoutePaths": 282,
+      "unresolvedFlowRoutePaths": 11,
+      "registeredPagesUnreferencedByFlows": 2,
+      "resolverFallbacks": [
+        "normalized path lookup only; no prefix or fuzzy matching"
+      ],
+      "source": "The detailed flow artifact's counts.sourcePages=307 is metadata, not its unique byRoute index. The index has 293 unique route paths: 282 registered and 11 unresolved. Of 284 manifest pages, two are not referenced by those flows."
+    },
+    {
+      "code": "route-vocabulary-separated",
+      "registeredPages": 284,
+      "registeredStatic": 284,
+      "registeredDynamic": 0,
+      "declaredPatterns": 0,
+      "deferredRoutes": 11,
+      "unresolvedFlowPaths": 11,
+      "claimedPatterns": 17,
+      "source": "The supplied application manifest has 284 pages and no routeParams or pageGroups field. The 17-pattern review claim is retained as unverified metadata; no patterns are synthesized."
+    },
+    {
+      "code": "product-model-separated",
+      "canonicalCompositions": 6,
+      "applicationProducts": 16
+    }
+  ],
+  "counts": {
+    "expectedDomains": 18,
+    "domains": 18,
+    "expectedTables": 352,
+    "tables": 352,
+    "stubbedTables": 335,
+    "plannedTables": 17,
+    "missingTableStatuses": 0,
+    "duplicateTableIds": 0,
+    "expectedContexts": 17,
+    "contexts": 17,
+    "contextsWithTables": 17,
+    "coreSpineEntries": 5,
+    "sourceSpineEntries": 6,
+    "architectureSpineEntries": 6,
+    "expectedProducts": 6,
+    "productCompositions": 6,
+    "applicationProducts": 16,
+    "flows": 160,
+    "flowContextBindings": 160,
+    "flowsWithoutProductTags": 8,
+    "explicitlyClassifiedFlows": 8,
+    "referencedUniqueSlices": 72,
+    "resolvedSlices": 70,
+    "explicitlyClassifiedSlices": 2,
+    "unresolvedSlices": 0,
+    "routes": 284,
+    "registeredRoutes": 284,
+    "registeredStaticRoutes": 284,
+    "registeredDynamicRoutes": 0,
+    "declaredDynamicPatterns": 0,
+    "approvedRouteAliases": 0,
+    "unresolvedRoutes": 11,
+    "deferredRoutes": 11,
+    "requestedFlowRoutePaths": 293,
+    "flowRouteReferenceOccurrences": 2524,
+    "actors": 20,
+    "unresolvedActors": 0
+  },
+  "owner": {
+    "team": "platform",
+    "role": "domain-registry"
+  },
+  "derivations": {
+    "tableStatus": {
+      "version": 1,
+      "default": "stubbed",
+      "plannedSet": "./catalog/future-production-tables.json"
+    },
+    "tableId": {
+      "version": 1,
+      "pattern": "<context>.<name>",
+      "policy": "context-dot-name@1"
+    },
+    "routePattern": {
+      "policy": "segment-shape-frequency@1",
+      "source": "./routes/pattern-derivation-policy.json",
+      "minimumConcreteRoutes": 3,
+      "derivedPatterns": 0
+    }
+  },
+  "provenance": {
+    "m1PoliciesApplied": "2026-10-02",
+    "gitAvailable": true,
+    "gitRepository": "packages/domain-registry",
+    "packageHash": "7d13f7728fd87de8f895b4f4b2c4492843fe887fed7fdb724c996889da4e2816",
+    "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
+  },
+  "milestones": {
+    "M1": {
+      "registryVersion": "1.0.0",
+      "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
+      "frozenAt": "2026-10-02",
+      "acceptedRouteDeferrals": 11
+    }
+  }
+}

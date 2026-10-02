@@ -1,0 +1,711 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryId": "maataa-application-registry",
+  "status": "local-preview",
+  "resolverVersion": "1.0.0",
+  "records": [
+    {
+      "appId": "casting-pipeline-demo",
+      "name": "Casting Pipeline",
+      "intent": {
+        "appId": "casting-pipeline-demo",
+        "name": "Casting Pipeline",
+        "description": "Casting pipeline for a film production company",
+        "productTags": [
+          "film"
+        ],
+        "flowIds": [
+          "TLPS-FLOW-027",
+          "TLPS-FLOW-028",
+          "TLPS-FLOW-029",
+          "TLPS-FLOW-030",
+          "TLPS-FLOW-031"
+        ],
+        "overrides": {
+          "allowPlanned": true
+        },
+        "seedProfile": "demo-casting"
+      },
+      "registryVersion": "1.0.0",
+      "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
+      "resolverVersion": "1.0.0",
+      "irVersions": [
+        {
+          "version": "1.0.0",
+          "irHash": "bc6efda44201ef281f560967fc8d4b34d05f62806172df38b8ee0d5a68f1d181",
+          "artifact": "./casting-pipeline-demo.ir.json"
+        }
+      ],
+      "pinnedContextVersions": [
+        {
+          "contextId": "communications",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "evidence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "identity",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "organisation",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "people",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "platform",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "production",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "project",
+          "version": "1.0.0",
+          "status": "stubbed"
+        }
+      ],
+      "selectedFlows": [
+        "TLPS-FLOW-027",
+        "TLPS-FLOW-028",
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-030",
+        "TLPS-FLOW-031"
+      ],
+      "overrides": {
+        "allowPlanned": true
+      },
+      "compilationPlans": [],
+      "artifactReferences": [
+        {
+          "kind": "application-ir",
+          "path": "./casting-pipeline-demo.ir.json"
+        },
+        {
+          "kind": "logical-schema-preview",
+          "path": "./casting-pipeline-demo.schema-preview.json",
+          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+        }
+      ],
+      "environmentAssignments": []
+    },
+    {
+      "appId": "campaign-os-reference",
+      "name": "Campaign OS Reference",
+      "intent": {
+        "appId": "campaign-os-reference",
+        "name": "Campaign OS Reference",
+        "description": "Cross-channel campaign planning and execution",
+        "productTags": [
+          "campaign"
+        ],
+        "overrides": {
+          "allowPlanned": true
+        },
+        "seedProfile": "demo-campaign"
+      },
+      "registryVersion": "1.0.0",
+      "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
+      "resolverVersion": "1.0.0",
+      "irVersions": [
+        {
+          "version": "1.0.0",
+          "irHash": "26c06e89dce93202148f25e0c214c4d432bc3f56db0bee7b5248b7aafe6c93db",
+          "artifact": "./campaign-os-reference.ir.json"
+        }
+      ],
+      "pinnedContextVersions": [
+        {
+          "contextId": "campaign",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "communications",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "creative",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "eventsSpatial",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "evidence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "finance",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "identity",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "intelligence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "investor",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "logistics",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "marketplace",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "organisation",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "people",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "platform",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "production",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "project",
+          "version": "1.0.0",
+          "status": "stubbed"
+        }
+      ],
+      "selectedFlows": [
+        "TLPS-FLOW-032",
+        "TLPS-FLOW-033",
+        "TLPS-FLOW-034",
+        "TLPS-FLOW-035",
+        "TLPS-FLOW-036",
+        "TLPS-FLOW-044",
+        "TLPS-FLOW-045",
+        "TLPS-FLOW-046",
+        "TLPS-FLOW-047",
+        "TLPS-FLOW-048",
+        "TLPS-FLOW-049",
+        "TLPS-FLOW-050",
+        "TLPS-FLOW-051",
+        "TLPS-FLOW-052",
+        "TLPS-FLOW-053",
+        "TLPS-FLOW-054",
+        "TLPS-FLOW-055",
+        "TLPS-FLOW-056",
+        "TLPS-FLOW-057",
+        "TLPS-FLOW-058",
+        "TLPS-FLOW-059",
+        "TLPS-FLOW-060",
+        "TLPS-FLOW-061",
+        "TLPS-FLOW-062",
+        "TLPS-FLOW-063",
+        "TLPS-FLOW-064",
+        "TLPS-FLOW-065",
+        "TLPS-FLOW-066",
+        "TLPS-FLOW-067",
+        "TLPS-FLOW-068",
+        "TLPS-FLOW-069",
+        "TLPS-FLOW-070",
+        "TLPS-FLOW-071",
+        "TLPS-FLOW-072",
+        "TLPS-FLOW-073",
+        "TLPS-FLOW-074",
+        "TLPS-FLOW-075",
+        "TLPS-FLOW-076",
+        "TLPS-FLOW-077",
+        "TLPS-FLOW-078",
+        "TLPS-FLOW-079",
+        "TLPS-FLOW-080",
+        "TLPS-FLOW-081",
+        "TLPS-FLOW-082",
+        "TLPS-FLOW-097",
+        "TLPS-FLOW-098",
+        "TLPS-FLOW-099",
+        "TLPS-FLOW-100",
+        "TLPS-FLOW-101",
+        "TLPS-FLOW-102",
+        "TLPS-FLOW-103",
+        "TLPS-FLOW-104",
+        "TLPS-FLOW-105",
+        "TLPS-FLOW-106",
+        "TLPS-FLOW-125",
+        "TLPS-FLOW-126",
+        "TLPS-FLOW-127",
+        "TLPS-FLOW-128",
+        "TLPS-FLOW-129",
+        "TLPS-FLOW-130",
+        "TLPS-FLOW-131",
+        "TLPS-FLOW-132",
+        "TLPS-FLOW-133",
+        "TLPS-FLOW-134",
+        "TLPS-FLOW-135",
+        "TLPS-FLOW-136",
+        "TLPS-FLOW-137",
+        "TLPS-FLOW-138",
+        "TLPS-FLOW-139",
+        "TLPS-FLOW-140",
+        "TLPS-FLOW-141",
+        "TLPS-FLOW-142",
+        "TLPS-FLOW-143",
+        "TLPS-FLOW-144",
+        "TLPS-FLOW-145",
+        "TLPS-FLOW-146",
+        "TLPS-FLOW-147",
+        "TLPS-FLOW-148",
+        "TLPS-FLOW-149",
+        "TLPS-FLOW-150",
+        "TLPS-FLOW-151",
+        "TLPS-FLOW-152",
+        "TLPS-FLOW-153",
+        "TLPS-FLOW-154",
+        "TLPS-FLOW-155",
+        "TLPS-FLOW-157",
+        "TLPS-FLOW-158",
+        "TLPS-FLOW-159",
+        "TLPS-FLOW-160"
+      ],
+      "overrides": {
+        "allowPlanned": true
+      },
+      "compilationPlans": [],
+      "artifactReferences": [
+        {
+          "kind": "application-ir",
+          "path": "./campaign-os-reference.ir.json"
+        },
+        {
+          "kind": "logical-schema-preview",
+          "path": "./campaign-os-reference.schema-preview.json",
+          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+        }
+      ],
+      "environmentAssignments": []
+    },
+    {
+      "appId": "events-wedding-spatial-reference",
+      "name": "Events, Wedding & Spatial Reference",
+      "intent": {
+        "appId": "events-wedding-spatial-reference",
+        "name": "Events, Wedding & Spatial Reference",
+        "description": "Event and wedding planning with spatial venue workflows",
+        "productTags": [
+          "event"
+        ],
+        "overrides": {
+          "allowPlanned": true
+        },
+        "seedProfile": "demo-events"
+      },
+      "registryVersion": "1.0.0",
+      "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
+      "resolverVersion": "1.0.0",
+      "irVersions": [
+        {
+          "version": "1.0.0",
+          "irHash": "4ef5ef22108fb4ff108e4dcc91f657e6ac36eb7c64f25241e9c26130346280f0",
+          "artifact": "./events-wedding-spatial-reference.ir.json"
+        }
+      ],
+      "pinnedContextVersions": [
+        {
+          "contextId": "campaign",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "communications",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "creative",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "eventsSpatial",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "evidence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "finance",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "identity",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "intelligence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "investor",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "logistics",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "marketplace",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "organisation",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "people",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "platform",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "production",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "project",
+          "version": "1.0.0",
+          "status": "stubbed"
+        }
+      ],
+      "selectedFlows": [
+        "TLPS-FLOW-032",
+        "TLPS-FLOW-033",
+        "TLPS-FLOW-034",
+        "TLPS-FLOW-035",
+        "TLPS-FLOW-036",
+        "TLPS-FLOW-060",
+        "TLPS-FLOW-061",
+        "TLPS-FLOW-062",
+        "TLPS-FLOW-063",
+        "TLPS-FLOW-064",
+        "TLPS-FLOW-065",
+        "TLPS-FLOW-066",
+        "TLPS-FLOW-067",
+        "TLPS-FLOW-068",
+        "TLPS-FLOW-069",
+        "TLPS-FLOW-070",
+        "TLPS-FLOW-071",
+        "TLPS-FLOW-072",
+        "TLPS-FLOW-073",
+        "TLPS-FLOW-074",
+        "TLPS-FLOW-075",
+        "TLPS-FLOW-076",
+        "TLPS-FLOW-077",
+        "TLPS-FLOW-078",
+        "TLPS-FLOW-079",
+        "TLPS-FLOW-080",
+        "TLPS-FLOW-081",
+        "TLPS-FLOW-082",
+        "TLPS-FLOW-090",
+        "TLPS-FLOW-091",
+        "TLPS-FLOW-092",
+        "TLPS-FLOW-093",
+        "TLPS-FLOW-094",
+        "TLPS-FLOW-095",
+        "TLPS-FLOW-096",
+        "TLPS-FLOW-097",
+        "TLPS-FLOW-098",
+        "TLPS-FLOW-099",
+        "TLPS-FLOW-100",
+        "TLPS-FLOW-101",
+        "TLPS-FLOW-102",
+        "TLPS-FLOW-103",
+        "TLPS-FLOW-104",
+        "TLPS-FLOW-105",
+        "TLPS-FLOW-106",
+        "TLPS-FLOW-125",
+        "TLPS-FLOW-126",
+        "TLPS-FLOW-127",
+        "TLPS-FLOW-128",
+        "TLPS-FLOW-129",
+        "TLPS-FLOW-130",
+        "TLPS-FLOW-131",
+        "TLPS-FLOW-132",
+        "TLPS-FLOW-133",
+        "TLPS-FLOW-134",
+        "TLPS-FLOW-135",
+        "TLPS-FLOW-136",
+        "TLPS-FLOW-137",
+        "TLPS-FLOW-138",
+        "TLPS-FLOW-139",
+        "TLPS-FLOW-140",
+        "TLPS-FLOW-141",
+        "TLPS-FLOW-142",
+        "TLPS-FLOW-143",
+        "TLPS-FLOW-144",
+        "TLPS-FLOW-145",
+        "TLPS-FLOW-146",
+        "TLPS-FLOW-147",
+        "TLPS-FLOW-148",
+        "TLPS-FLOW-149",
+        "TLPS-FLOW-150",
+        "TLPS-FLOW-151",
+        "TLPS-FLOW-152",
+        "TLPS-FLOW-153",
+        "TLPS-FLOW-154",
+        "TLPS-FLOW-155",
+        "TLPS-FLOW-157",
+        "TLPS-FLOW-158",
+        "TLPS-FLOW-159",
+        "TLPS-FLOW-160"
+      ],
+      "overrides": {
+        "allowPlanned": true
+      },
+      "compilationPlans": [],
+      "artifactReferences": [
+        {
+          "kind": "application-ir",
+          "path": "./events-wedding-spatial-reference.ir.json"
+        },
+        {
+          "kind": "logical-schema-preview",
+          "path": "./events-wedding-spatial-reference.schema-preview.json",
+          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+        }
+      ],
+      "environmentAssignments": []
+    },
+    {
+      "appId": "investorhub-reference",
+      "name": "InvestorHub Reference",
+      "intent": {
+        "appId": "investorhub-reference",
+        "name": "InvestorHub Reference",
+        "description": "Investor onboarding, communications, and reporting",
+        "productTags": [
+          "investor"
+        ],
+        "overrides": {
+          "allowPlanned": true
+        },
+        "seedProfile": "demo-investor"
+      },
+      "registryVersion": "1.0.0",
+      "registryHash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da",
+      "resolverVersion": "1.0.0",
+      "irVersions": [
+        {
+          "version": "1.0.0",
+          "irHash": "b9717315e953cf260b2621d21ce3f4385cf9351c5b7e562abe85758b153d18ee",
+          "artifact": "./investorhub-reference.ir.json"
+        }
+      ],
+      "pinnedContextVersions": [
+        {
+          "contextId": "campaign",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "communications",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "creative",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "eventsSpatial",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "evidence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "finance",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "identity",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "intelligence",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "investor",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "logistics",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "marketplace",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "organisation",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "people",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "platform",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "production",
+          "version": "1.0.0",
+          "status": "stubbed"
+        },
+        {
+          "contextId": "project",
+          "version": "1.0.0",
+          "status": "stubbed"
+        }
+      ],
+      "selectedFlows": [
+        "TLPS-FLOW-067",
+        "TLPS-FLOW-068",
+        "TLPS-FLOW-069",
+        "TLPS-FLOW-070",
+        "TLPS-FLOW-071",
+        "TLPS-FLOW-072",
+        "TLPS-FLOW-073",
+        "TLPS-FLOW-074",
+        "TLPS-FLOW-075",
+        "TLPS-FLOW-076",
+        "TLPS-FLOW-077",
+        "TLPS-FLOW-078",
+        "TLPS-FLOW-079",
+        "TLPS-FLOW-080",
+        "TLPS-FLOW-081",
+        "TLPS-FLOW-082",
+        "TLPS-FLOW-083",
+        "TLPS-FLOW-084",
+        "TLPS-FLOW-085",
+        "TLPS-FLOW-086",
+        "TLPS-FLOW-087",
+        "TLPS-FLOW-088",
+        "TLPS-FLOW-089",
+        "TLPS-FLOW-125",
+        "TLPS-FLOW-126",
+        "TLPS-FLOW-127",
+        "TLPS-FLOW-128",
+        "TLPS-FLOW-129",
+        "TLPS-FLOW-130",
+        "TLPS-FLOW-131",
+        "TLPS-FLOW-132",
+        "TLPS-FLOW-133",
+        "TLPS-FLOW-134",
+        "TLPS-FLOW-135",
+        "TLPS-FLOW-136",
+        "TLPS-FLOW-137",
+        "TLPS-FLOW-138",
+        "TLPS-FLOW-139",
+        "TLPS-FLOW-140",
+        "TLPS-FLOW-141",
+        "TLPS-FLOW-142",
+        "TLPS-FLOW-143",
+        "TLPS-FLOW-144",
+        "TLPS-FLOW-145",
+        "TLPS-FLOW-146",
+        "TLPS-FLOW-147",
+        "TLPS-FLOW-148",
+        "TLPS-FLOW-149",
+        "TLPS-FLOW-150",
+        "TLPS-FLOW-151",
+        "TLPS-FLOW-152",
+        "TLPS-FLOW-153",
+        "TLPS-FLOW-154",
+        "TLPS-FLOW-155",
+        "TLPS-FLOW-157",
+        "TLPS-FLOW-158",
+        "TLPS-FLOW-159",
+        "TLPS-FLOW-160"
+      ],
+      "overrides": {
+        "allowPlanned": true
+      },
+      "compilationPlans": [],
+      "artifactReferences": [
+        {
+          "kind": "application-ir",
+          "path": "./investorhub-reference.ir.json"
+        },
+        {
+          "kind": "logical-schema-preview",
+          "path": "./investorhub-reference.schema-preview.json",
+          "status": "LOGICAL_PREVIEW_WITH_SCHEMA_GAPS"
+        }
+      ],
+      "environmentAssignments": []
+    }
+  ]
+}

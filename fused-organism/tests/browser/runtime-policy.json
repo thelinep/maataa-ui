@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "browserFamily": "Chromium",
+  "exactVersion": "144.0.7559.96",
+  "deviceScaleFactor": 1,
+  "viewports": {
+    "responsive": [[390, 844], [768, 1024], [1440, 900]],
+    "visual": [[1280, 900], [390, 844]]
+  },
+  "note": "M2.1/0.4.1 is certified only against this exact system-provided Chromium build. Other versions are not implied compatible."
+}

@@ -1,0 +1,47 @@
+{
+  "id": "organisation",
+  "version": "1.0.0",
+  "versionStatus": "authored",
+  "status": "stubbed",
+  "dependencyStatus": "authored",
+  "dependencies": [],
+  "tableIds": [
+    "organisation.organisations",
+    "organisation.organisation_memberships",
+    "organisation.organisation_settings",
+    "organisation.workspaces",
+    "organisation.workspace_memberships",
+    "organisation.workspace_settings",
+    "organisation.workspace_roles",
+    "organisation.workspace_invites",
+    "organisation.workspace_activity",
+    "organisation.workspace_favourites"
+  ],
+  "coreSpineCandidates": [
+    "spine.json",
+    "registry-architecture.json"
+  ],
+  "reason": "Orgs, workspaces, memberships",
+  "stability": "experimental",
+  "dependsOn": [],
+  "provides": [],
+  "contracts": [],
+  "tables": [
+    "organisation.organisations",
+    "organisation.organisation_memberships",
+    "organisation.organisation_settings",
+    "organisation.workspaces",
+    "organisation.workspace_memberships",
+    "organisation.workspace_settings",
+    "organisation.workspace_roles",
+    "organisation.workspace_invites",
+    "organisation.workspace_activity",
+    "organisation.workspace_favourites"
+  ],
+  "provenance": {
+    "source": "domain-registry-m1",
+    "authored": true
+  },
+  "coreSpine": true,
+  "defaultIncludedService": false
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/application-ir.schema.json",
+  "title": "MAATAA Application Intermediate Representation",
+  "type": "object",
+  "required": ["schemaVersion", "irVersion", "application", "registry", "resolverVersion", "productComposition", "flowSelection", "selectedFlows", "flowIds", "contextVersions", "tableIds", "tables", "routeReadiness", "policies", "overrides", "seedProfile", "compilerStatus", "compilerBlockers", "whyIncluded", "irHash"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "irVersion": { "const": "1.0.0" },
+    "application": { "type": "object", "required": ["appId", "name", "intent"], "properties": { "appId": { "type": "string", "minLength": 1 }, "name": { "type": "string", "minLength": 1 }, "intent": { "type": "string" }, "description": { "type": "string" } }, "additionalProperties": true },
+    "registry": { "type": "object", "required": ["id", "version", "hash"], "properties": { "id": { "type": "string" }, "version": { "type": "string" }, "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }, "additionalProperties": false },
+    "resolverVersion": { "type": "string" },
+    "productComposition": { "type": "object", "required": ["id", "version", "tags"], "properties": { "id": { "type": "string" }, "version": { "type": "string" }, "tags": { "type": "array", "items": { "type": "string" } }, "sourceTagResolutions": { "type": "array", "items": { "type": "object" } } }, "additionalProperties": true },
+    "flowSelection": { "type": "object", "required": ["mode", "sourceProductId"], "properties": { "mode": { "enum": ["explicit", "product-default"] }, "sourceProductId": { "type": "string" } }, "additionalProperties": false },
+    "selectedFlows": { "type": "array", "items": { "type": "object", "required": ["id", "title"], "properties": { "id": { "type": "string" }, "title": { "type": "string" }, "category": { "type": "string" } }, "additionalProperties": false } },
+    "flowIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "contextVersions": { "type": "array", "items": { "type": "object", "required": ["contextId", "version", "status"], "properties": { "contextId": { "type": "string" }, "version": { "type": "string" }, "status": { "type": "string" } }, "additionalProperties": false } },
+    "tableIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_]*$" } },
+    "tables": { "type": "array", "items": { "type": "object", "required": ["id", "contextId", "domainId", "status", "provenance"], "properties": { "id": { "type": "string" }, "contextId": { "type": "string" }, "domainId": { "type": "string" }, "status": { "enum": ["stubbed", "planned", "implemented"] }, "provenance": { "type": "object" } }, "additionalProperties": false } },
+    "routeReadiness": { "type": "object", "required": ["status", "total", "executable", "blocked", "routes", "blockers"], "properties": { "status": { "enum": ["READY", "BLOCKED"] }, "total": { "type": "integer", "minimum": 0 }, "executable": { "type": "integer", "minimum": 0 }, "blocked": { "type": "integer", "minimum": 0 }, "routes": { "type": "array", "items": { "type": "object" } }, "blockers": { "type": "array", "items": { "type": "object" } } }, "additionalProperties": false },
+    "policies": { "type": "object" },
+    "overrides": { "type": "object" },
+    "seedProfile": { "type": "string" },
+    "compilerStatus": { "enum": ["READY_FOR_SCHEMA_PREVIEW", "BLOCKED"] },
+    "compilerBlockers": { "type": "array", "items": { "type": "object", "required": ["kind", "reason"], "properties": { "kind": { "enum": ["route", "planned-table"] }, "path": { "type": "string" }, "tableId": { "type": "string" }, "reason": { "type": "string" }, "flowIds": { "type": "array", "items": { "type": "string" } } }, "additionalProperties": true } },
+    "whyIncluded": { "type": "array", "items": { "type": "object", "required": ["type", "id", "via", "reason"], "properties": { "type": { "type": "string" }, "id": { "type": "string" }, "via": {}, "reason": { "type": "string" } }, "additionalProperties": true } },
+    "irHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": false
+}

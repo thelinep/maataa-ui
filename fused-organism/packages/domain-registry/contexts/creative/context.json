@@ -1,0 +1,83 @@
+{
+  "id": "creative",
+  "version": "1.0.0",
+  "versionStatus": "authored",
+  "status": "stubbed",
+  "dependencyStatus": "authored",
+  "dependencies": [
+    {
+      "contextId": "project",
+      "version": "1.0.0",
+      "basis": "authored schema/contract dependency"
+    },
+    {
+      "contextId": "people",
+      "version": "1.0.0",
+      "basis": "authored schema/contract dependency"
+    }
+  ],
+  "tableIds": [
+    "creative.ideas",
+    "creative.research_items",
+    "creative.treatments",
+    "creative.scripts",
+    "creative.script_versions",
+    "creative.script_breakdowns",
+    "creative.scenes",
+    "creative.scene_versions",
+    "creative.characters",
+    "creative.character_scene_links",
+    "creative.production_elements",
+    "creative.scene_elements",
+    "creative.storyboards",
+    "creative.storyboard_frames",
+    "creative.shot_lists",
+    "creative.shots",
+    "creative.creative_references",
+    "creative.creative_assets",
+    "creative.asset_versions",
+    "creative.creative_approvals"
+  ],
+  "coreSpineCandidates": [],
+  "stability": "experimental",
+  "dependsOn": [
+    "project",
+    "people"
+  ],
+  "provides": [
+    "scripts",
+    "scenes",
+    "storyboards",
+    "shots",
+    "assets"
+  ],
+  "contracts": [],
+  "tables": [
+    "creative.ideas",
+    "creative.research_items",
+    "creative.treatments",
+    "creative.scripts",
+    "creative.script_versions",
+    "creative.script_breakdowns",
+    "creative.scenes",
+    "creative.scene_versions",
+    "creative.characters",
+    "creative.character_scene_links",
+    "creative.production_elements",
+    "creative.scene_elements",
+    "creative.storyboards",
+    "creative.storyboard_frames",
+    "creative.shot_lists",
+    "creative.shots",
+    "creative.creative_references",
+    "creative.creative_assets",
+    "creative.asset_versions",
+    "creative.creative_approvals"
+  ],
+  "provenance": {
+    "source": "domain-registry-m1",
+    "authored": true
+  },
+  "coreSpine": false,
+  "defaultIncludedService": false
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "version": "1.0.0",
+  "contexts": [
+    "identity",
+    "organisation",
+    "project",
+    "communications",
+    "platform"
+  ],
+  "sharedServices": {
+    "evidence": {
+      "defaultIncluded": true,
+      "spine": false
+    },
+    "ai": {
+      "defaultIncluded": false,
+      "spine": false
+    }
+  },
+  "rules": {
+    "spineAlwaysIncluded": true,
+    "publicOptIn": true,
+    "dependencyGraphMustBeAcyclic": true,
+    "contextDependenciesMustRepresentRealContractOrSchemaDependencies": true
+  }
+}

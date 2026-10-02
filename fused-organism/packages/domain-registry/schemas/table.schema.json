@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "maataa://domain-registry/table/1.1.0",
+  "title": "Domain Registry Table",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "domain",
+    "context",
+    "status",
+    "provenance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*\\.[a-z][a-z0-9_]*$"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "identity-access",
+        "organisation-workspace",
+        "projects",
+        "development-creative",
+        "casting-talent",
+        "crew-departments",
+        "scheduling-live-production",
+        "locations-logistics-equipment",
+        "campaign-os",
+        "marketplace-procurement",
+        "evidence-documents-governance",
+        "finance-commerce",
+        "investor-rights-revenue",
+        "events-weddings-spatial",
+        "ai-research-analytics",
+        "communications-notifications",
+        "admin-integrations-operations",
+        "public-cms-growth"
+      ]
+    },
+    "context": {
+      "type": "string",
+      "enum": [
+        "identity",
+        "organisation",
+        "project",
+        "creative",
+        "people",
+        "production",
+        "logistics",
+        "campaign",
+        "marketplace",
+        "evidence",
+        "finance",
+        "investor",
+        "eventsSpatial",
+        "intelligence",
+        "communications",
+        "platform",
+        "public"
+      ]
+    },
+    "status": {
+      "enum": [
+        "implemented",
+        "stubbed",
+        "planned"
+      ]
+    },
+    "futureProduction": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "id",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "object",
+          "required": [
+            "derived",
+            "policy"
+          ],
+          "properties": {
+            "derived": {
+              "const": true
+            },
+            "policy": {
+              "const": "context-dot-name@1"
+            }
+          }
+        },
+        "status": {
+          "type": "object",
+          "required": [
+            "derived",
+            "rule"
+          ],
+          "properties": {
+            "derived": {
+              "const": true
+            },
+            "rule": {
+              "const": "future-production-set@1"
+            }
+          }
+        }
+      }
+    }
+  }
+}

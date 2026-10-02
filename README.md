@@ -144,6 +144,12 @@ npm run test:e2e phase5-collaboration-e2e.spec.ts
 npm run test:coverage
 ```
 
+## 🧩 Fused application workspace
+
+The fused MAATAA/TLPS application workspace is maintained under [`fused-organism/`](./fused-organism/README.md). This keeps application registry, design-system workspace packages, Data Studio, and registered applications under this repository while preserving the root app's existing install and build lifecycle. The child workspace has its own lockfile and scripts.
+
+From the repository root, run `npm run fused:test` for domain-registry tests or `npm run fused:validate` for registry integrity checks. Run application and full-workspace commands from `fused-organism/`.
+
 ### Documentation
 
 - **[Phase 5 Implementation Guide](docs/phase5/PHASE5-COLLABORATION-GUIDE.md)** - Comprehensive implementation guide with examples

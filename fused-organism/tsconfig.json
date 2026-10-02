@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "packages/**/*.mjs",
+    "scripts/**/*.mjs",
+    "tests/**/*.mjs"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

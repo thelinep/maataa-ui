@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/deferred-route.schema.json",
+  "title": "Explicitly deferred unresolved flow route",
+  "type": "object",
+  "required": ["path", "flowIds", "category", "owner", "targetVersion", "rationale"],
+  "properties": {
+    "path": { "type": "string", "pattern": "^/" },
+    "flowIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "category": { "enum": ["derivable-pattern", "typo", "renamed", "missing-source", "retired"] },
+    "owner": { "type": "string", "minLength": 1 },
+    "targetVersion": { "type": "string", "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$" },
+    "rationale": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

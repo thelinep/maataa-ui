@@ -1,0 +1,2 @@
+import test from "node:test";import assert from "node:assert/strict";import {createCameraSimulatorAdapter} from "../../packages/adapter-sdk/src/index.mjs";
+test("camera simulator enforces replay protection",async()=>{const a=createCameraSimulatorAdapter();await a.connect();const c={commandId:"1",capability:"camera.ptz",idempotencyKey:"same",payload:{pan:5}};assert.equal((await a.dispatch(c)).ack,true);assert.equal((await a.dispatch(c)).reason,"REPLAY_DETECTED");});

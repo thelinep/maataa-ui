@@ -1,0 +1,61 @@
+{
+  "id": "project",
+  "version": "1.0.0",
+  "versionStatus": "authored",
+  "status": "stubbed",
+  "dependencyStatus": "authored",
+  "dependencies": [],
+  "tableIds": [
+    "project.project_types",
+    "project.projects",
+    "project.project_intakes",
+    "project.project_briefs",
+    "project.project_status_history",
+    "project.project_health_snapshots",
+    "project.project_milestones",
+    "project.project_tasks",
+    "project.task_dependencies",
+    "project.task_checklists",
+    "project.project_blockers",
+    "project.project_members",
+    "project.project_activity",
+    "project.project_tags",
+    "project.project_tag_links",
+    "project.project_closeouts",
+    "project.project_notes"
+  ],
+  "coreSpineCandidates": [
+    "spine.json",
+    "registry-architecture.json"
+  ],
+  "reason": "The spine — everything hangs off projects",
+  "stability": "experimental",
+  "dependsOn": [],
+  "provides": [],
+  "contracts": [],
+  "tables": [
+    "project.project_types",
+    "project.projects",
+    "project.project_intakes",
+    "project.project_briefs",
+    "project.project_status_history",
+    "project.project_health_snapshots",
+    "project.project_milestones",
+    "project.project_tasks",
+    "project.task_dependencies",
+    "project.task_checklists",
+    "project.project_blockers",
+    "project.project_members",
+    "project.project_activity",
+    "project.project_tags",
+    "project.project_tag_links",
+    "project.project_closeouts",
+    "project.project_notes"
+  ],
+  "provenance": {
+    "source": "domain-registry-m1",
+    "authored": true
+  },
+  "coreSpine": true,
+  "defaultIncludedService": false
+}

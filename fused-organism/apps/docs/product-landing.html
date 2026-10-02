@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#050914" name="theme-color"/>
+<title>MAATAA UI V3.1 — Foundation &amp; Certification</title>
+<meta content="MAATAA UI V3.1 foundation-first certified kernel: 11 active packages with governed control reference simulations and roadmap domain previews." name="description"/>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#050914;
+  --bg-soft:#08101d;
+  --panel:#0b1424;
+  --panel-2:#101b2f;
+  --panel-3:#15223a;
+  --line:#23314a;
+  --line-hi:#354661;
+  --text:#f6f8fc;
+  --text-2:#c4cede;
+  --muted:#8f9db3;
+
+  --info:#4aa3ff;
+  --context:#58d8ff;
+  --ai:#9b76ff;
+  --proposal:#f0b94f;
+  --approval:#ff9e4a;
+  --authorized:#4cb7ff;
+  --executing:#4d7fff;
+  --verified:#41d59a;
+  --danger:#ff6677;
+  --stale:#d9a23f;
+  --offline:#8590a2;
+
+  --brand:#5a78ff;
+  --brand-2:#8c5dff;
+  --shadow:0 28px 80px rgba(0,0,0,.38);
+  --radius:20px;
+  --max:1280px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 22% -8%,rgba(76,98,255,.12),transparent 28%),
+    radial-gradient(circle at 88% 3%,rgba(143,91,255,.08),transparent 24%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{color:inherit}
+img,svg{max-width:100%}
+:focus-visible{outline:3px solid var(--context);outline-offset:3px}
+.skip{
+  position:fixed;left:12px;top:12px;z-index:999;transform:translateY(-180%);
+  background:white;color:#08101d;padding:10px 14px;border-radius:10px;font-weight:800
+}
+.skip:focus{transform:none}
+.wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+.topbar{
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(18px);
+  background:rgba(5,9,20,.86);
+  border-bottom:1px solid rgba(255,255,255,.08)
+}
+.nav{height:72px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.17em;font-size:14px}
+.brand-mark{width:27px;height:23px;background:linear-gradient(135deg,var(--brand),var(--brand-2));clip-path:polygon(0 100%,24% 0,50% 56%,75% 0,100% 100%,72% 76%,50% 100%,29% 76%)}
+.navlinks{display:flex;gap:20px;margin-left:auto;color:var(--text-2);font-size:14px}
+.navlinks a:hover{color:white}
+.nav-actions{display:flex;gap:9px}
+.btn{
+  appearance:none;border:1px solid var(--line);background:#0b1322;color:white;
+  border-radius:11px;padding:11px 15px;cursor:pointer;font-weight:720;transition:.18s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:var(--line-hi)}
+.btn.primary{background:linear-gradient(135deg,#3567ff,#7a4cff);border-color:transparent;box-shadow:0 12px 28px rgba(66,83,255,.22)}
+.btn.small{padding:8px 10px;font-size:12px}
+.btn:disabled{opacity:.48;cursor:not-allowed;transform:none}
+.badge,.state{
+  display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:6px 9px;
+  font-size:11px;font-weight:800;border:1px solid var(--line);background:#0a1220
+}
+.state::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-info{color:var(--info);border-color:color-mix(in srgb,var(--info) 35%,transparent);background:color-mix(in srgb,var(--info) 8%,transparent)}
+.s-ai{color:var(--ai);border-color:color-mix(in srgb,var(--ai) 35%,transparent);background:color-mix(in srgb,var(--ai) 8%,transparent)}
+.s-proposal{color:var(--proposal);border-color:color-mix(in srgb,var(--proposal) 35%,transparent);background:color-mix(in srgb,var(--proposal) 8%,transparent)}
+.s-approval{color:var(--approval);border-color:color-mix(in srgb,var(--approval) 35%,transparent);background:color-mix(in srgb,var(--approval) 8%,transparent)}
+.s-authorized{color:var(--authorized)}
+.s-executing{color:var(--executing)}
+.s-verified{color:var(--verified);border-color:color-mix(in srgb,var(--verified) 35%,transparent);background:color-mix(in srgb,var(--verified) 8%,transparent)}
+.s-danger{color:var(--danger)}
+.s-stale{color:var(--stale)}
+.s-offline{color:var(--offline)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.18em;font-weight:900;color:#8aa9ff}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(54px,6.7vw,94px);line-height:.94;letter-spacing:-.055em;margin-bottom:22px}
+h2{font-size:clamp(40px,5vw,66px);line-height:1;letter-spacing:-.045em;margin:10px 0 16px}
+h3{letter-spacing:-.02em}
+.lead{font-size:19px;line-height:1.64;color:var(--text-2);max-width:760px}
+.section{padding:112px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.section-head{max-width:820px;margin-bottom:44px}
+.section-head p,.section p{color:var(--text-2);line-height:1.7}
+.card,.panel{
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(17,28,49,.94),rgba(8,15,28,.97));
+  box-shadow:0 10px 34px rgba(0,0,0,.14)
+}
+.card{padding:23px}
+.iconbox{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:19px;
+  border:1px solid #2a3a59;background:linear-gradient(145deg,rgba(78,115,255,.2),rgba(142,91,255,.11))
+}
+.hero{position:relative;min-height:820px;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
+.hero-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;align-items:center;position:relative;z-index:2}
+.hero-copy{padding:84px 0 70px}
+.grad{background:linear-gradient(90deg,#fff 2%,#86a9ff 47%,#be8eff 90%);color:transparent;background-clip:text;-webkit-background-clip:text}
+.hero-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:28px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;max-width:720px}
+.metric{padding-right:18px;margin-right:18px;border-right:1px solid var(--line)}
+.metric:last-child{border:0;margin:0}
+.metric strong{display:block;font-size:21px;margin-bottom:4px}.metric span{font-size:11px;color:var(--muted)}
+.hero-visual{min-height:600px;position:relative}
+.hero-stage{
+  position:absolute;inset:30px 0 0 0;border-radius:30px;overflow:hidden;border:1px solid #263755;
+  background:
+    radial-gradient(circle at 62% 32%,rgba(74,163,255,.18),transparent 28%),
+    linear-gradient(180deg,#0a1222,#070b14);
+  box-shadow:var(--shadow)
+}
+.hero-stage::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(rgba(88,216,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(88,216,255,.045) 1px,transparent 1px);
+  background-size:32px 32px;mask-image:linear-gradient(to bottom,transparent 4%,black 28%,black 82%,transparent)
+}
+.city-svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-console{
+  position:absolute;right:18px;top:52px;width:44%;min-width:310px;padding:14px;
+  border:1px solid #2b3b59;background:rgba(8,15,28,.92);backdrop-filter:blur(14px);border-radius:18px;box-shadow:var(--shadow)
+}
+.hero-console h3{font-size:13px;margin:0 0 10px}
+.hero-console .row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid #1f2b41;font-size:11px}
+.hero-console .row:first-of-type{border-top:0}
+.hero-node{
+  position:absolute;padding:7px 9px;border:1px solid #2e456a;border-radius:9px;background:rgba(8,17,31,.92);
+  font-size:10px;box-shadow:0 8px 24px rgba(0,0,0,.25)
+}
+.hero-node b{display:block;font-size:11px;margin-bottom:3px}.hero-node small{color:var(--verified)}
+.n-camera{left:14%;top:22%}.n-robot{left:34%;bottom:20%}.n-power{right:9%;bottom:17%}.n-iot{left:54%;top:10%}
+.connector{position:absolute;height:1px;background:linear-gradient(90deg,var(--context),rgba(88,216,255,0));transform-origin:left center;opacity:.65}
+.c1{left:26%;top:31%;width:30%;transform:rotate(16deg)}.c2{left:43%;bottom:27%;width:25%;transform:rotate(-14deg)}.c3{right:20%;bottom:24%;width:22%;transform:rotate(-42deg)}
+.demo-ribbon{
+  position:absolute;left:18px;bottom:16px;padding:8px 11px;border:1px solid #365a65;border-radius:10px;
+  background:rgba(7,20,22,.86);font-size:10px;color:#8ce9cb;font-weight:900;letter-spacing:.08em
+}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cap-card{min-height:190px}
+.cap-card h3{margin:14px 0 7px}.cap-card p{font-size:13px;margin:0}
+.grammar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px;position:relative
+}
+.grammar .g{padding:14px 12px;text-align:center;border-radius:12px;border:1px solid var(--line);background:#09111f;font-size:11px;font-weight:850;position:relative}
+.grammar .g:nth-child(-n+4)::after{content:"→";position:absolute;right:-10px;color:#64728b}
+.grammar .g:nth-child(4)::after{content:"↓";right:50%;bottom:-21px;top:auto}
+.grammar .g:nth-child(n+5){grid-row:2}
+.grammar .g:nth-child(5){grid-column:4}.grammar .g:nth-child(6){grid-column:3}.grammar .g:nth-child(7){grid-column:2}.grammar .g:nth-child(8){grid-column:1}
+.preview-shell{padding:18px}
+.preview-top{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.demo-tab{
+  border:1px solid var(--line);background:#0a1220;color:#aebbd0;border-radius:9px;padding:8px 11px;cursor:pointer;font-size:12px
+}
+.demo-tab[aria-selected="true"]{background:#244fe6;border-color:#3969ff;color:white}
+.demo-state{margin-left:auto}
+.preview-grid{display:grid;grid-template-columns:175px 1fr 245px;gap:12px}
+.preview-nav{padding:10px;border:1px solid var(--line);border-radius:14px;background:#08101e}
+.preview-nav button{
+  width:100%;text-align:left;border:0;background:transparent;color:#a7b5ca;padding:9px;border-radius:8px;font-size:11px;cursor:pointer
+}
+.preview-nav button:first-child{background:#162542;color:white}
+.domain-surface{min-height:430px;border:1px solid var(--line);border-radius:15px;background:#07101c;overflow:hidden;position:relative}
+.domain-side{display:grid;gap:10px}
+.feed{padding:13px;border:1px solid var(--line);border-radius:12px;background:#091222;font-size:12px}
+.feed b{display:block;margin-bottom:5px}
+.feed span{color:var(--muted);line-height:1.45;display:block}
+.surface-toolbar{height:43px;padding:9px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;font-size:11px}
+.surface-body{height:386px;position:relative;overflow:hidden}
+.event-stage{
+  position:absolute;inset:12px;border-radius:13px;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 75%,rgba(83,68,255,.35),transparent 28%),
+    linear-gradient(180deg,#101a32 0 45%,#070a12 45% 100%);
+  border:1px solid #24334d
+}
+.event-stage .beam{position:absolute;top:0;width:18%;height:68%;filter:blur(1px);opacity:.78;clip-path:polygon(47% 0,53% 0,100% 100%,0 100%)}
+.event-stage .b1{left:16%;background:linear-gradient(#41b6ff,transparent)}
+.event-stage .b2{left:42%;background:linear-gradient(#8d61ff,transparent)}
+.event-stage .b3{right:12%;background:linear-gradient(#ff59d1,transparent)}
+.event-stage .screen{position:absolute;left:30%;right:30%;top:22%;height:31%;border:2px solid #5c80ff;background:linear-gradient(145deg,#12246d,#6414a0);box-shadow:0 0 40px #4b3cff55}
+.event-stage .stagefloor{position:absolute;left:20%;right:20%;bottom:25%;height:8%;background:#19283f;transform:perspective(300px) rotateX(55deg);border:1px solid #334866}
+.event-stage .audience{position:absolute;left:8%;right:8%;bottom:4%;height:22%;background:radial-gradient(circle at 10px 10px,#354458 2px,transparent 3px);background-size:18px 17px;opacity:.8}
+.overlay-label{position:absolute;padding:6px 8px;border-radius:8px;background:#071422df;border:1px solid #2a5778;font-size:9px}
+.camera-demo-grid{display:grid;grid-template-columns:1.35fr .65fr;height:100%}
+.camera-feed{position:relative;overflow:hidden;background:linear-gradient(180deg,#16203b,#090d17)}
+.camera-stage{position:absolute;inset:15px;border:1px solid #264360;border-radius:12px;overflow:hidden;background:radial-gradient(circle at center bottom,#39208b 0,transparent 35%),linear-gradient(#111b30 0 52%,#090b11 52%)}
+.camera-stage::before{content:"";position:absolute;left:18%;right:18%;top:20%;height:34%;background:linear-gradient(145deg,#0f54aa,#7b1bb1);border:2px solid #4d79ff;box-shadow:0 0 30px #3159ff55}
+.trackbox{position:absolute;left:53%;top:29%;width:86px;height:130px;border:2px solid var(--verified);border-radius:6px}
+.trackbox::after{content:"SUBJECT 02";position:absolute;left:-2px;top:-21px;background:var(--verified);color:#05120c;font-size:8px;font-weight:900;padding:4px 6px;border-radius:5px}
+.camera-controls{padding:13px;border-left:1px solid var(--line);display:grid;align-content:start;gap:11px;background:#09111f}
+.dpad{display:grid;grid-template-columns:repeat(3,32px);gap:4px;width:max-content}
+.dpad button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:#111d31;color:white;cursor:pointer}
+.slider{display:grid;grid-template-columns:48px 1fr 36px;align-items:center;gap:7px;font-size:10px;color:var(--muted)}
+.slider input{width:100%}
+.robot-surface{height:100%;display:grid;grid-template-columns:175px 1fr}
+.robot-telemetry{padding:13px;border-right:1px solid var(--line);background:#09111e}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #1d2a40;font-size:10px}.kv span{color:var(--muted)}
+.robot-map{position:relative;background:linear-gradient(rgba(88,216,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(88,216,255,.055) 1px,transparent 1px),#08111c;background-size:28px 28px}
+.robot-map svg{width:100%;height:100%;position:absolute;inset:0}
+.iot-grid,.building-grid,.ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px;height:100%;align-content:start}
+.sensor{padding:13px;border:1px solid var(--line);border-radius:12px;background:#0a1424}
+.sensor strong{font-size:12px;display:block}.sensor .value{font-size:25px;margin:10px 0 3px}.sensor small{color:var(--muted)}
+.control-model{display:grid;grid-template-columns:1fr .82fr;gap:28px;align-items:start}
+.control-flow{display:grid;gap:11px}
+.control-step{display:grid;grid-template-columns:38px 1fr 230px;gap:13px;align-items:center;padding:15px;border:1px solid var(--line);border-radius:15px;background:#0a1322}
+.num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#245bff;font-weight:900}
+.control-step p{font-size:12px;margin:3px 0 0;color:var(--muted)}
+.control-step .statebox{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0d1728;font-size:11px}
+.command-viz{padding:18px;position:sticky;top:100px}
+.pipeline{display:grid;gap:12px}
+.pipe{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;font-size:11px}
+.pipe i{height:8px;border-radius:999px;background:#121d31;overflow:hidden;position:relative}
+.pipe i::after{content:"";position:absolute;inset:0;width:var(--w,50%);background:var(--c,var(--info));border-radius:inherit}
+.camera-section{display:grid;grid-template-columns:1.18fr .82fr;gap:18px}
+.camera-console{overflow:hidden}
+.camera-full{height:470px;position:relative;background:linear-gradient(#111c33 0 55%,#080a11 55%)}
+.camera-full::before{content:"";position:absolute;left:18%;right:18%;top:15%;height:39%;background:linear-gradient(135deg,#10347d,#7617a0);border:2px solid #3e70ff;box-shadow:0 0 55px #4d44ff55}
+.camera-full .crowd{position:absolute;left:4%;right:4%;bottom:0;height:40%;background:radial-gradient(circle at 11px 9px,#26374d 2px,transparent 3px);background-size:20px 17px;opacity:.85}
+.camera-full .trackbox{left:56%;top:25%;height:160px;width:105px}
+.ptz-float{position:absolute;left:14px;bottom:14px;padding:12px;border:1px solid var(--line);border-radius:13px;background:#07101ddf;backdrop-filter:blur(8px)}
+.camera-panel{padding:17px}
+.camera-panel .feed{margin-bottom:9px}
+.camera-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.robot-layout{display:grid;grid-template-columns:275px 1fr;gap:16px}
+.robot-card{padding:18px}
+.robot-map-large{height:455px;border:1px solid var(--line);border-radius:18px;position:relative;overflow:hidden;background:linear-gradient(rgba(88,216,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(88,216,255,.055) 1px,transparent 1px),#07101b;background-size:32px 32px}
+.robot-map-large svg{width:100%;height:100%}
+.robot-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:15px}
+.twin-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:17px}
+.twin-visual{height:520px;position:relative;overflow:hidden}
+.twin-svg{width:100%;height:100%}
+.twin-controls{padding:20px}
+.layer-toggle{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1f2a3e;font-size:12px}
+.switch{position:relative;width:38px;height:22px}
+.switch input{position:absolute;opacity:0}
+.switch span{position:absolute;inset:0;border-radius:999px;background:#253147;transition:.2s}
+.switch span::after{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;border-radius:50%;background:white;transition:.2s}
+.switch input:checked+span{background:#3567ff}.switch input:checked+span::after{transform:translateX(16px)}
+.solutions{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.solution{padding:0;overflow:hidden}
+.solution-art{height:160px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.solution-copy{padding:18px}.solution-copy p{font-size:13px;margin:0}
+.solution-art svg{width:100%;height:100%}
+.dev-shell{display:grid;grid-template-columns:210px 1fr 260px;min-height:430px;overflow:hidden}
+.filetree{padding:16px;border-right:1px solid var(--line);font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:#99a8be}
+.filetree div{padding:5px 0}
+.editor{padding:20px;overflow:auto;background:#08101d;font:13px/1.75 ui-monospace,SFMono-Regular,Menlo,monospace;color:#d4dced}
+.kw{color:#bd8fff}.fn{color:#65b3ff}.str{color:#7ae0aa}.numc{color:#f4c765}
+.inspector{padding:16px;border-left:1px solid var(--line);background:#09111f}
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.price{padding:27px}.price.featured{border-color:#4d6de4;box-shadow:0 0 0 1px #4d6de433,0 20px 55px #233f9d22}
+.amount{font-size:42px;font-weight:900;margin:18px 0}
+.price ul{list-style:none;padding:0;display:grid;gap:10px;color:var(--text-2);font-size:13px}
+.price li::before{content:"✓";color:var(--verified);margin-right:8px}
+.note{font-size:11px;color:var(--muted)}
+.cta{min-height:650px;display:grid;place-items:center;position:relative;overflow:hidden;text-align:center}
+.cta::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(81,101,255,.24),transparent 24%),
+    radial-gradient(circle at 20% 75%,rgba(88,216,255,.13),transparent 20%),
+    radial-gradient(circle at 80% 70%,rgba(166,93,255,.13),transparent 22%),
+    linear-gradient(180deg,#07101c,#050914)
+}
+.cta-grid{position:absolute;inset:0;opacity:.55}
+.cta-inner{position:relative;z-index:2;max-width:820px}
+.cta h2{font-size:clamp(50px,7vw,84px);margin-bottom:20px}
+.footer{padding:30px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--muted)}
+.footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.toast{
+  position:fixed;right:18px;bottom:18px;z-index:200;max-width:340px;padding:12px 15px;border-radius:12px;
+  background:#0e1728;border:1px solid var(--line-hi);box-shadow:var(--shadow);font-size:12px;
+  opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s
+}
+.toast.show{opacity:1;transform:none}
+@media(max-width:1050px){
+  .hero-grid,.control-model,.camera-section,.twin-layout{grid-template-columns:1fr}
+  .hero{min-height:auto}.hero-copy{padding-bottom:20px}.hero-visual{min-height:590px}
+  .grid-3,.solutions{grid-template-columns:repeat(2,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .preview-grid{grid-template-columns:150px 1fr}.domain-side{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}
+  .dev-shell{grid-template-columns:180px 1fr}.inspector{display:none}
+  .command-viz{position:static}
+}
+@media(max-width:760px){
+  .wrap{width:min(100% - 24px,var(--max))}
+  .nav{height:64px}.navlinks{display:none}.nav-actions .docs{display:none}
+  .section{padding:76px 0}
+  h1{font-size:52px}h2{font-size:43px}
+  .metrics{grid-template-columns:repeat(2,1fr);gap:16px}.metric{border:0;margin:0}
+  .hero-visual{min-height:540px}.hero-console{width:58%;min-width:260px}
+  .grid-3,.grid-4,.solutions,.pricing,.robot-tools{grid-template-columns:1fr}
+  .preview-grid{grid-template-columns:1fr}.preview-nav{display:none}.domain-side{grid-template-columns:1fr}
+  .control-step{grid-template-columns:36px 1fr}.control-step .statebox{grid-column:2}
+  .camera-section,.robot-layout{grid-template-columns:1fr}
+  .robot-surface{grid-template-columns:1fr}.robot-telemetry{display:none}
+  .dev-shell{grid-template-columns:1fr}.filetree{display:none}
+}
+@media(max-width:520px){
+  h1{font-size:44px}
+  .hero-console{position:absolute;left:12px;right:12px;top:auto;bottom:15px;width:auto}
+  .hero-stage{inset:20px 0 0}
+  .grammar{grid-template-columns:1fr 1fr}.grammar .g{grid-column:auto!important;grid-row:auto!important}.grammar .g::after{display:none}
+  .camera-demo-grid{grid-template-columns:1fr}.camera-controls{display:none}
+  .camera-full{height:370px}
+  .surface-body{height:360px}.domain-surface{min-height:404px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+.kernel-banner{padding:9px 18px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08);background:#0a1322;color:#91a8d3;font-size:10px;font-weight:900;letter-spacing:.12em}.roadmap-badge{display:inline-flex;padding:6px 9px;border-radius:999px;border:1px solid rgba(240,185,79,.35);background:rgba(240,185,79,.08);color:#f0b94f;font-size:10px;font-weight:900;letter-spacing:.08em;margin-bottom:12px}.kernel-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media(max-width:900px){.kernel-list{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.kernel-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<div class="wrap nav">
+<a aria-label="MAATAA UI home" class="brand" href="#top"><span aria-hidden="true" class="brand-mark"></span> MAATAA UI</a>
+<nav aria-label="Primary navigation" class="navlinks">
+<a href="#product">Product</a><a href="#capabilities">Capabilities</a><a href="#control">Control</a>
+<a href="#solutions">Solutions</a><a href="#developers">Developers</a><a href="#pricing">Pricing</a>
+</nav>
+<div class="nav-actions"><a class="btn docs" href="#developers">Docs</a><a class="btn primary" href="#preview">Explore</a></div>
+</div>
+</header><div class="kernel-banner">V3.1 CERTIFIED KERNEL · 11 ACTIVE PACKAGES · CAMERA / ROBOTICS / DIGITAL TWIN SECTIONS ARE ROADMAP REFERENCE SIMULATIONS</div>
+<main id="main">
+<section class="hero" id="top">
+<div class="wrap hero-grid">
+<div class="hero-copy">
+<div class="eyebrow">MAATAA UI V3.1 · FOUNDATION-FIRST KERNEL</div>
+<h1>One interface for AI, software <span class="grad">&amp; the physical world.</span></h1>
+<p class="lead">The certified surface is an 11-package governed interaction kernel. Broader camera, robotics, IoT, building and digital-twin experiences below are explicit roadmap/reference simulations.</p>
+<div class="hero-actions"><a class="btn primary" href="#preview">Explore product</a><button class="btn" data-toast="Interactive demo sections are available below.">Watch interactive demo</button></div>
+<div aria-label="Product pillars" class="metrics">
+<div class="metric"><strong>AI → Control</strong><span>one governed lifecycle</span></div>
+<div class="metric"><strong>Digital Twin</strong><span>software ↔ physical state</span></div>
+<div class="metric"><strong>Human Authority</strong><span>approval stays explicit</span></div>
+<div class="metric"><strong>Evidence</strong><span>verify the outcome</span></div>
+</div>
+</div>
+<div aria-label="Illustrative MAATAA control environment" class="hero-visual">
+<div class="hero-stage">
+<svg aria-hidden="true" class="city-svg" viewbox="0 0 760 590">
+<defs>
+<lineargradient id="ground" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#10223c"></stop><stop offset="1" stop-color="#070b12"></stop></lineargradient>
+<lineargradient id="tower" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#173252"></stop><stop offset="1" stop-color="#0b1424"></stop></lineargradient>
+</defs>
+<rect fill="url(#ground)" height="590" width="760"></rect>
+<path d="M0 420 L760 330 L760 590 L0 590Z" fill="#090e17"></path>
+<g opacity=".8">
+<rect fill="url(#tower)" height="210" rx="4" stroke="#25496d" width="100" x="30" y="210"></rect>
+<rect fill="url(#tower)" height="230" rx="4" stroke="#27486b" width="72" x="145" y="170"></rect>
+<rect fill="url(#tower)" height="220" rx="4" stroke="#294c72" width="110" x="530" y="160"></rect>
+<rect fill="url(#tower)" height="150" rx="4" stroke="#294c72" width="74" x="652" y="210"></rect>
+</g>
+<g fill="none" opacity=".55" stroke="#58d8ff">
+<path d="M95 240 L300 305 L574 210"></path><path d="M184 205 L300 305 L625 338"></path><path d="M300 305 L445 395"></path>
+</g>
+<ellipse cx="365" cy="370" fill="#11233f" rx="160" ry="58" stroke="#31527a"></ellipse>
+<ellipse cx="365" cy="370" fill="#142b4a" rx="105" ry="35" stroke="#5a78ff"></ellipse>
+<circle cx="365" cy="370" fill="#1e3151" r="18" stroke="#8c5dff"></circle>
+<g fill="#58d8ff">
+<circle cx="95" cy="240" r="5"></circle><circle cx="184" cy="205" r="5"></circle><circle cx="574" cy="210" r="5"></circle><circle cx="625" cy="338" r="5"></circle><circle cx="445" cy="395" r="5"></circle>
+</g>
+<g opacity=".75" stroke="#243a59">
+<path d="M0 470H760"></path><path d="M0 510H760"></path><path d="M0 550H760"></path>
+</g>
+</svg>
+<div class="hero-node n-camera"><b>CAMERAS</b><small>6 online</small></div>
+<div class="hero-node n-robot"><b>ROBOTS</b><small>2 active</small></div>
+<div class="hero-node n-power"><b>POWER</b><small>normal</small></div>
+<div class="hero-node n-iot"><b>IoT SENSORS</b><small>24 online</small></div>
+<div class="connector c1"></div><div class="connector c2"></div><div class="connector c3"></div>
+<div class="demo-ribbon">SIMULATED ENVIRONMENT · NO HARDWARE CONNECTED</div>
+</div>
+<aside aria-label="MAATAA control status" class="hero-console">
+<h3>MAATAA / CONTROL CENTER</h3>
+<div class="row"><span>Context assembled</span><span class="state s-info">Current</span></div>
+<div class="row"><span>AI recommendation</span><span class="state s-ai">Ready</span></div>
+<div class="row"><span>Command proposal</span><span class="state s-proposal">Pending</span></div>
+<div class="row"><span>Human authority</span><span class="state s-approval">Required</span></div>
+<div class="row"><span>Physical verification</span><span class="state s-offline">Not run</span></div>
+</aside>
+</div>
+</div>
+</section>
+<section class="section" id="product">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">01 · Product model</div>
+<h2>Human control stays visible.</h2>
+<p>MAATAA UI separates what the system knows, what it recommends, what it proposes, who has authority, what executed and what has actually been verified.</p>
+</div>
+<div class="panel" style="padding:24px">
+<div aria-label="MAATAA interaction grammar" class="grammar">
+<div class="g">UNDERSTAND</div><div class="g">PRESENT</div><div class="g">RECOMMEND</div><div class="g">EXPLAIN</div>
+<div class="g">PROPOSE</div><div class="g">GOVERN</div><div class="g">ACT</div><div class="g">PROVE</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="capabilities">
+<div class="wrap"><div class="section-head"><div class="eyebrow">02 · Certified kernel</div><h2>11 active packages. M2 is certified on pinned Chromium 144.0.7559.96; everything else is explicit roadmap.</h2><p>The public surface mirrors <code>architecture.json</code>. Browser certification applies only to the published M2 surface matrix—not to all 90 headless registry entries or roadmap domains.</p></div><div class="kernel-list"><article class="card cap-card"><div class="iconbox">◆</div><h3>Contracts</h3><p><code>@maataa/contracts</code><br/>Canonical schemas and runtime validation inputs.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Core</h3><p><code>@maataa/core</code><br/>Foundation primitives, accessibility helpers and semantic state tokens.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Registry</h3><p><code>@maataa/registry</code><br/>Generated semantic component registry with explicit headless/render bindings.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>AI</h3><p><code>@maataa/ai</code><br/>Recommendation and agent view-model contracts; proposal-only by default.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Governance</h3><p><code>@maataa/governance</code><br/>Policy outcomes, approval checks and evidence receipts.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Renderer</h3><p><code>@maataa/renderer</code><br/>Allowlisted render planning with hostile-payload rejection.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Adapter SDK</h3><p><code>@maataa/adapter-sdk</code><br/>Bounded device adapter contract and camera simulator reference adapter.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Control</h3><p><code>@maataa/control</code><br/>Command lifecycle, leases, safety prechecks and verified receipts.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>React</h3><p><code>@maataa/react</code><br/>Injected React bindings and service hooks for consumers.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Recipes</h3><p><code>@maataa/recipes</code><br/>Compositions built only from the certified kernel.</p></article><article class="card cap-card"><div class="iconbox">◆</div><h3>Testing</h3><p><code>@maataa/testing</code><br/>Fixtures and certification support for the kernel.</p></article></div></div>
+</section>
+<section class="section" id="preview">
+<div class="wrap">
+<div class="section-head"><div class="roadmap-badge">REFERENCE SIMULATIONS · NOT ACTIVE DOMAIN PACKAGES</div>
+<div class="eyebrow">03 · Interactive product preview</div>
+<h2>One interface. Many worlds.</h2>
+<p>The tabs demonstrate how roadmap domains may consume the certified kernel. These are real HTML demo surfaces with simulated data. They do not claim a connection to physical hardware.</p>
+</div>
+<div class="panel preview-shell">
+<div aria-label="Domain preview" class="preview-top" role="tablist">
+<button aria-selected="true" class="demo-tab" data-domain="events" role="tab">Events</button>
+<button aria-selected="false" class="demo-tab" data-domain="robots" role="tab">Robotics</button>
+<button aria-selected="false" class="demo-tab" data-domain="cameras" role="tab">Cameras</button>
+<button aria-selected="false" class="demo-tab" data-domain="iot" role="tab">IoT</button>
+<button aria-selected="false" class="demo-tab" data-domain="building" role="tab">Buildings</button>
+<button aria-selected="false" class="demo-tab" data-domain="ai" role="tab">AI</button>
+<span class="demo-state state s-verified">Simulated environment</span>
+</div>
+<div class="preview-grid">
+<nav aria-label="Preview navigation" class="preview-nav">
+<button>Overview</button><button>Twins</button><button>Signals</button><button>Commands</button><button>Approvals</button><button>Evidence</button>
+</nav>
+<div aria-live="polite" class="domain-surface" id="domainSurface"></div>
+<aside class="domain-side">
+<div class="feed"><b>MAATAA recommendation</b><span id="demoRecommendation"></span></div>
+<div class="feed"><b>Authority</b><span>Human approval required for simulated command.</span></div>
+<div class="feed"><b>Evidence</b><span id="demoEvidence">Telemetry + twin state available.</span></div>
+<button class="btn primary" data-toast="Simulated proposal approved. No real system was contacted.">Approve simulated proposal</button>
+</aside>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="control">
+<div class="wrap control-model">
+<div>
+<div class="section-head"><div class="eyebrow">04 · Real control model</div><h2>Recommendation → verified real-world action.</h2><p>For connected systems, acknowledgement is not the same as physical verification.</p></div>
+<div class="control-flow">
+<div class="control-step"><div class="num">1</div><div><b>Observe</b><p>Read current twin, telemetry and constraints.</p></div><div class="statebox"><span class="state s-info">Context current</span></div></div>
+<div class="control-step"><div class="num">2</div><div><b>Recommend</b><p>AI or rules generate a bounded proposal.</p></div><div class="statebox"><span class="state s-ai">Recommendation</span></div></div>
+<div class="control-step"><div class="num">3</div><div><b>Govern</b><p>Policy, authority and safety conditions are checked.</p></div><div class="statebox"><span class="state s-approval">Approval required</span></div></div>
+<div class="control-step"><div class="num">4</div><div><b>Dispatch</b><p>Control runtime sends an authorized command.</p></div><div class="statebox"><span class="state s-authorized">Authorized</span></div></div>
+<div class="control-step"><div class="num">5</div><div><b>Acknowledge</b><p>Gateway or device reports command acceptance.</p></div><div class="statebox"><span class="state s-executing">Acknowledged</span></div></div>
+<div class="control-step"><div class="num">6</div><div><b>Verify</b><p>Observed state independently confirms the outcome.</p></div><div class="statebox"><span class="state s-verified">Verified</span></div></div>
+</div>
+</div>
+<aside class="panel command-viz">
+<div class="eyebrow">Semantic state</div><h3>One control receipt</h3>
+<div class="pipeline">
+<div class="pipe"><span>Context</span><i style="--w:100%;--c:var(--info)"></i></div>
+<div class="pipe"><span>Recommendation</span><i style="--w:100%;--c:var(--ai)"></i></div>
+<div class="pipe"><span>Proposal</span><i style="--w:100%;--c:var(--proposal)"></i></div>
+<div class="pipe"><span>Approval</span><i style="--w:100%;--c:var(--approval)"></i></div>
+<div class="pipe"><span>Dispatch</span><i style="--w:100%;--c:var(--authorized)"></i></div>
+<div class="pipe"><span>Acknowledged</span><i style="--w:100%;--c:var(--executing)"></i></div>
+<div class="pipe"><span>Verified</span><i style="--w:100%;--c:var(--verified)"></i></div>
+</div>
+<p class="note" style="margin-top:18px">Hardware safety and certified local interlocks remain outside the browser UI.</p>
+</aside>
+</div>
+</section>
+<section class="section" id="cameras">
+<div class="wrap">
+<div class="section-head"><div class="roadmap-badge">ROADMAP · CAMERA PACKAGE NOT ACTIVE IN 0.3.1</div><div class="eyebrow">05 · Cameras &amp; Vision</div><h2>See more. Control more. Verify more.</h2><p>This is a simulated reference surface built from the kernel, not a certified camera runtime. A complete simulated camera surface showing PTZ, vision, digital-twin state and command evidence.</p></div>
+<div class="camera-section">
+<div class="panel camera-console">
+<div class="surface-toolbar"><span class="state s-verified">Streaming · simulated</span><span class="badge">CAM 01</span><span class="badge" id="cameraPresetBadge">Preset: Stage Wide</span></div>
+<div class="camera-full" id="cameraView">
+<div class="crowd"></div><div class="trackbox" id="trackBox"></div>
+<div class="ptz-float">
+<div aria-label="PTZ controls" class="dpad">
+<button aria-label="Pan left and tilt up" data-ptz="-5,-5">↖</button><button aria-label="Tilt up" data-ptz="0,-5">↑</button><button aria-label="Pan right and tilt up" data-ptz="5,-5">↗</button>
+<button aria-label="Pan left" data-ptz="-5,0">←</button><button aria-label="Center camera" data-ptz="0,0">●</button><button aria-label="Pan right" data-ptz="5,0">→</button>
+<button aria-label="Pan left and tilt down" data-ptz="-5,5">↙</button><button aria-label="Tilt down" data-ptz="0,5">↓</button><button aria-label="Pan right and tilt down" data-ptz="5,5">↘</button>
+</div>
+</div>
+</div>
+</div>
+<aside class="panel camera-panel">
+<div class="feed"><b>Camera state</b><span>Stream: simulated · PTZ available · trust: demo</span></div>
+<div class="feed"><b>AI vision</b><span>Person presence: 3 · tracking: <span id="trackingText">active</span> · privacy zones: 1</span></div>
+<div class="feed"><b>PTZ telemetry</b><span>Pan <strong id="panVal">12.4°</strong> · Tilt <strong id="tiltVal">-6.8°</strong> · Zoom <strong id="zoomVal">3.2×</strong></span></div>
+<label class="slider"><span>Zoom</span><input aria-label="Simulated camera zoom" id="zoomSlider" max="10" min="1" step=".1" type="range" value="3.2"/><output id="zoomOut">3.2×</output></label>
+<label class="slider"><span>Focus</span><input aria-label="Simulated camera focus" max="100" min="0" type="range" value="65"/><output>Auto</output></label>
+<div class="camera-actions">
+<button class="btn small camera-preset" data-preset="Stage Wide">Stage wide</button>
+<button class="btn small camera-preset" data-preset="Product Close">Product</button>
+<button class="btn small" data-toast="Simulated snapshot created.">Snapshot</button>
+<button class="btn small primary" id="trackToggle">Disable tracking</button>
+</div>
+<div class="feed" style="margin-top:10px"><b>Command receipt</b><span id="cameraReceipt">No simulated command issued yet.</span></div>
+</aside>
+</div>
+</div>
+</section>
+<section class="section" id="robotics">
+<div class="wrap">
+<div class="section-head"><div class="roadmap-badge">ROADMAP · ROBOTICS PACKAGE NOT ACTIVE IN 0.3.1</div><div class="eyebrow">06 · Robotics &amp; Machines</div><h2>Mission control with explicit authority.</h2><p>This is a roadmap/reference interaction demo, not a certified robotics package or hardware controller. The map below is native SVG, not a screenshot. It simulates pose, path, obstacle and geofence state.</p></div>
+<div class="robot-layout">
+<aside class="panel robot-card">
+<span class="state s-verified">Robot R04 operational</span>
+<h3 style="margin-top:18px">Inspection Rover</h3>
+<div class="kv"><span>Battery</span><b>78%</b></div><div class="kv"><span>Mode</span><b>Assisted</b></div><div class="kv"><span>Control owner</span><b id="robotOwner">Operator A</b></div>
+<div class="kv"><span>Lease</span><b id="leaseVal">04:28</b></div><div class="kv"><span>Mission</span><b>Inspection B</b></div><div class="kv"><span>Safety</span><b>Ready</b></div>
+<div style="display:grid;gap:8px;margin-top:16px">
+<button class="btn primary" id="planMission">Plan mission</button>
+<button class="btn" data-toast="Digital twin inspection opened in demo mode.">Inspect twin</button>
+<button class="btn" id="requestControl">Request control</button>
+</div>
+</aside>
+<div aria-label="Simulated robot mission map" class="robot-map-large">
+<svg aria-label="Robot mission from Dock A to Inspection B" role="img" viewbox="0 0 900 455">
+<defs><pattern height="40" id="gridp" patternunits="userSpaceOnUse" width="40"><path d="M40 0H0V40" fill="none" stroke="#183049" stroke-width="1"></path></pattern></defs>
+<rect fill="url(#gridp)" height="455" width="900"></rect>
+<rect fill="#102038" height="95" rx="14" stroke="#2a4969" width="170" x="90" y="75"></rect><text fill="#a9bdd5" font-size="16" x="110" y="105">DOCK A</text>
+<rect fill="#102038" height="115" rx="14" stroke="#2a4969" width="185" x="630" y="245"></rect><text fill="#a9bdd5" font-size="16" x="651" y="278">INSPECTION B</text>
+<rect fill="#2c1622" height="105" rx="16" stroke="#ff6677" width="135" x="375" y="105"></rect><text fill="#ff8693" font-size="15" x="400" y="150">OBSTACLE</text>
+<path d="M170 155 C260 250,315 330,425 337 S640 300,710 298" fill="none" id="robotPath" stroke="#58d8ff" stroke-dasharray="8 9" stroke-linecap="round" stroke-width="5"></path>
+<path d="M145 355H775V70H145Z" fill="none" opacity=".6" stroke="#f0b94f" stroke-dasharray="9 9" stroke-width="2"></path>
+<g id="robotMarker" transform="translate(170 155)"><circle fill="#07131e" r="17" stroke="#41d59a" stroke-width="4"></circle><circle fill="#41d59a" r="5"></circle><text fill="#d6e4f3" font-size="14" x="24" y="5">R04</text></g>
+<circle cx="425" cy="337" fill="#07131e" r="9" stroke="#58d8ff" stroke-width="4"></circle><circle cx="710" cy="298" fill="#07131e" r="9" stroke="#8c5dff" stroke-width="4"></circle>
+<text fill="#f0b94f" font-size="12" x="145" y="390">GEOFENCE · ACTIVE</text>
+</svg>
+</div>
+</div>
+<div class="robot-tools">
+<div class="card"><div class="iconbox">⌁</div><h3>Path planning</h3><p>Waypoints, geofences and obstacles.</p></div>
+<div class="card"><div class="iconbox">◉</div><h3>Sensor fusion</h3><p>Camera, depth, LiDAR and pose.</p></div>
+<div class="card"><div class="iconbox">⏱</div><h3>Control leases</h3><p>Explicit operator ownership.</p></div>
+<div class="card"><div class="iconbox">⬡</div><h3>Safety envelope</h3><p>Local safety stays outside browser authority.</p></div>
+</div>
+</div>
+</section>
+<section class="section" id="twin">
+<div class="wrap">
+<div class="section-head"><div class="roadmap-badge">ROADMAP · DIGITAL-TWIN/SPATIAL PACKAGES NOT ACTIVE IN 0.3.1</div><div class="eyebrow">07 · Spatial &amp; Digital Twin</div><h2>Your physical world in context.</h2><p>This SVG twin is an interaction study backed by generic contracts, not an active standalone twin package. Toggle layers to inspect one simulated facility twin. The visual is generated natively from SVG layers.</p></div>
+<div class="twin-layout">
+<div class="panel twin-visual">
+<svg aria-label="Layered facility digital twin" class="twin-svg" role="img" viewbox="0 0 820 520">
+<rect fill="#07101c" height="520" width="820"></rect>
+<g id="layerGeometry">
+<path d="M70 370 L365 195 L740 315 L442 472Z" fill="#0f1c30" stroke="#35516f" stroke-width="3"></path>
+<path d="M150 325 L370 240 L650 325 L435 420Z" fill="#152640" stroke="#294767"></path>
+<path d="M330 257 L390 220 L465 244 L405 282Z" fill="#213b61" stroke="#486987"></path>
+</g>
+<g id="layerZones">
+<path d="M126 337 L280 278 L362 316 L206 374Z" fill="#2e67ff22" stroke="#4a8cff"></path>
+<path d="M420 292 L550 280 L633 320 L495 343Z" fill="#8c5dff22" stroke="#9b76ff"></path>
+<text fill="#77b5ff" font-size="13" x="190" y="332">ZONE A</text><text fill="#c4a4ff" font-size="13" x="500" y="317">ZONE B</text>
+</g>
+<g id="layerDevices">
+<g fill="#58d8ff"><circle cx="225" cy="330" r="8"></circle><circle cx="383" cy="273" r="8"></circle><circle cx="548" cy="315" r="8"></circle></g>
+</g>
+<g id="layerCameras">
+<path d="M225 330 L130 272 L160 382Z" fill="#58d8ff22" stroke="#58d8ff"></path><path d="M548 315 L675 265 L650 370Z" fill="#58d8ff18" stroke="#58d8ff"></path>
+<text fill="#58d8ff" font-size="11" x="198" y="352">CAM 01</text><text fill="#58d8ff" font-size="11" x="530" y="338">CAM 03</text>
+</g>
+<g id="layerRobots"><circle cx="440" cy="365" fill="#07131e" r="14" stroke="#41d59a" stroke-width="4"></circle><path d="M440 365 C485 340,530 350,570 330" fill="none" stroke="#41d59a" stroke-dasharray="6 6" stroke-width="3"></path></g>
+<g id="layerPower"><circle cx="390" cy="225" fill="#f0b94f" r="12"></circle><path d="M390 237V336" stroke="#f0b94f" stroke-width="3"></path><text fill="#f5c96b" font-size="12" x="405" y="228">POWER</text></g>
+<g id="layerSafety"><path d="M88 388 L433 489 L758 330" fill="none" stroke="#ff6677" stroke-dasharray="8 7" stroke-width="3"></path><text fill="#ff8491" font-size="12" x="110" y="420">SAFETY BOUNDARY</text></g>
+<g id="layerTelemetry"><rect fill="#0b1526" height="84" rx="12" stroke="#29405f" width="230" x="55" y="40"></rect><text fill="#8fa5be" font-size="12" x="75" y="68">LIVE TELEMETRY</text><text fill="#f5f7fb" font-size="16" x="75" y="92">24 sensors · 2 robots · 6 cameras</text><text fill="#41d59a" font-size="12" x="75" y="112">Observed state current</text></g>
+</svg>
+</div>
+<aside class="panel twin-controls">
+<h3>Facility Twin</h3>
+<div class="layer-toggle"><span>Geometry</span><label class="switch"><input checked="" data-layer="Geometry" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Zones</span><label class="switch"><input checked="" data-layer="Zones" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Devices</span><label class="switch"><input checked="" data-layer="Devices" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Cameras / FOV</span><label class="switch"><input checked="" data-layer="Cameras" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Robots / paths</span><label class="switch"><input checked="" data-layer="Robots" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Power</span><label class="switch"><input checked="" data-layer="Power" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Safety</span><label class="switch"><input checked="" data-layer="Safety" type="checkbox"/><span></span></label></div>
+<div class="layer-toggle"><span>Telemetry</span><label class="switch"><input checked="" data-layer="Telemetry" type="checkbox"/><span></span></label></div>
+</aside>
+</div>
+</div>
+</section>
+<section class="section" id="solutions">
+<div class="wrap">
+<div class="section-head"><div class="roadmap-badge">ROADMAP DOMAIN PACKS</div><div class="eyebrow">08 · Solutions</div><h2>Six domains. Six distinct visual languages.</h2><p>These domains are planned/experimental and are not part of the 11-package certified kernel. Each creative below is native SVG built for its domain rather than a crop from a master board.</p></div>
+<div class="solutions">
+<article class="card solution">
+<div class="solution-art">
+<svg aria-hidden="true" viewbox="0 0 400 160"><rect fill="#09111e" height="160" width="400"></rect><rect fill="#172b54" height="62" rx="6" stroke="#5a78ff" width="160" x="120" y="32"></rect><path d="M40 0 L115 130 L10 130Z" fill="#58d8ff33"></path><path d="M360 0 L285 130 L390 130Z" fill="#9b76ff33"></path><g fill="#33465d"><circle cx="65" cy="140" r="4"></circle><circle cx="85" cy="140" r="4"></circle><circle cx="105" cy="140" r="4"></circle><circle cx="125" cy="140" r="4"></circle><circle cx="145" cy="140" r="4"></circle></g><path d="M20 118H380" stroke="#2b3f60"></path></svg>
+</div><div class="solution-copy"><h3>Events &amp; Live</h3><p>Venue twins, show control, cameras, lighting, AV and production.</p></div>
+</article>
+<article class="card solution">
+<div class="solution-art">
+<svg aria-hidden="true" viewbox="0 0 400 160"><rect fill="#08111c" height="160" width="400"></rect><path d="M30 130H370M30 100H370M30 70H370" stroke="#173149"></path><path d="M70 128 C135 45 205 145 320 55" fill="none" stroke="#58d8ff" stroke-dasharray="7 6" stroke-width="4"></path><rect fill="#11283a" height="48" rx="12" stroke="#ff6677" width="48" x="280" y="40"></rect><g transform="translate(88 105)"><rect fill="#18314a" height="25" rx="7" stroke="#41d59a" width="36" x="-18" y="-12"></rect><circle cx="-10" cy="15" fill="#41d59a" r="5"></circle><circle cx="10" cy="15" fill="#41d59a" r="5"></circle></g></svg>
+</div><div class="solution-copy"><h3>Robotics</h3><p>Fleet state, missions, teleoperation and sensor-aware control.</p></div>
+</article>
+<article class="card solution">
+<div class="solution-art">
+<svg aria-hidden="true" viewbox="0 0 400 160"><rect fill="#09121e" height="160" width="400"></rect><g fill="#17304b" stroke="#4aa3ff"><rect height="70" rx="12" width="70" x="55" y="45"></rect><rect height="70" rx="12" width="70" x="165" y="25"></rect><rect height="70" rx="12" width="70" x="275" y="55"></rect></g><g stroke="#58d8ff"><path d="M125 80H165"></path><path d="M235 76L275 90"></path></g><g fill="#41d59a"><circle cx="90" cy="80" r="7"></circle><circle cx="200" cy="60" r="7"></circle><circle cx="310" cy="90" r="7"></circle></g></svg>
+</div><div class="solution-copy"><h3>IoT &amp; Smart Spaces</h3><p>Sensors, gateways, automations and digital twins.</p></div>
+</article>
+<article class="card solution">
+<div class="solution-art">
+<svg aria-hidden="true" viewbox="0 0 400 160"><rect fill="#09111c" height="160" width="400"></rect><path d="M85 130V42H315V130Z" fill="#10233a" stroke="#35506b"></path><path d="M85 78H315M85 104H315M160 42V130M240 42V130" stroke="#28425f"></path><g fill="#58d8ff"><circle cx="125" cy="62" r="5"></circle><circle cx="200" cy="90" r="5"></circle><circle cx="278" cy="116" r="5"></circle></g><path d="M110 135H290" stroke="#41d59a" stroke-width="4"></path></svg>
+</div><div class="solution-copy"><h3>Buildings</h3><p>HVAC, occupancy, lighting, energy and operational systems.</p></div>
+</article>
+<article class="card solution">
+<div class="solution-art">
+<svg aria-hidden="true" viewbox="0 0 400 160"><rect fill="#09111c" height="160" width="400"></rect><rect fill="#15283e" height="55" rx="8" stroke="#35506e" width="90" x="55" y="70"></rect><rect fill="#15283e" height="80" rx="8" stroke="#35506e" width="75" x="155" y="45"></rect><circle cx="285" cy="84" fill="#0d1928" r="42" stroke="#f0b94f"></circle><path d="M285 54V114M255 84H315" stroke="#f0b94f"></path><path d="M40 135H350" stroke="#41516a"></path><path d="M80 55L110 35L145 55" fill="none" stroke="#ff6677"></path></svg>
+</div><div class="solution-copy"><h3>Industrial</h3><p>Machine state, alarms, telemetry and supervisory control.</p></div>
+</article>
+<article class="card solution">
+<div class="solution-art">
+<svg aria-hidden="true" viewbox="0 0 400 160"><rect fill="#09111e" height="160" width="400"></rect><rect fill="#14233a" height="92" rx="8" stroke="#5a78ff" width="170" x="55" y="40"></rect><path d="M225 66L315 42V126L225 104Z" fill="#17263d" stroke="#58d8ff"></path><circle cx="110" cy="86" fill="#0b1423" r="20" stroke="#9b76ff"></circle><path d="M250 55H360M250 84H340M250 113H355" stroke="#2d4664" stroke-width="6"></path></svg>
+</div><div class="solution-copy"><h3>Media &amp; Broadcast</h3><p>Camera, tally, stream, cue and multi-view control surfaces.</p></div>
+</article>
+</div>
+</div>
+</section>
+<section class="section" id="developers">
+<div class="wrap">
+<div class="section-head"><div class="eyebrow">09 · Developer ecosystem</div><h2>Extensible by design.</h2><p>The certified developer surface is the 11-package kernel. Domain-specific imports shown elsewhere are roadmap only.</p></div>
+<div class="panel dev-shell">
+<div class="filetree"><div>▾ packages</div><div>  ▸ contracts</div><div>  ▸ registry</div><div>  ▸ renderer</div><div>  ▸ ai</div><div>  ▸ governance</div><div>  ▸ control-ui</div><div>  ▸ robotics</div><div>  ▸ camera</div></div>
+<pre class="editor"><span class="kw">import</span> {
+  <span class="fn">ContextPanel</span>,
+  <span class="fn">RecommendationCard</span>,
+  <span class="fn">ProposalDiff</span>,
+  <span class="fn">ApprovalGate</span>
+} <span class="kw">from</span> <span class="str">"@maataa/react"</span>;
+
+<span class="kw">const</span> node = {
+  component: <span class="str">"maataa.proposal-diff"</span>,
+  version: <span class="str">"1"</span>,
+  state: <span class="str">"approval_required"</span>
+};</pre>
+<aside class="inspector"><div class="eyebrow">Registry</div><div class="feed"><b>Component</b><span>maataa.proposal-diff@1</span></div><div class="feed"><b>Authority class</b><span>proposal</span></div><div class="feed"><b>Renderer</b><span>registered</span></div></aside>
+</div>
+</div>
+</section>
+<section class="section" id="pricing">
+<div class="wrap">
+<div class="section-head"><div class="eyebrow">10 · Commercial surface</div><h2>Clear packaging without fake proof.</h2><p>The cards below are illustrative product packaging, not established commercial pricing.</p></div>
+<div class="pricing">
+<div class="panel price"><span class="badge">Starter</span><div class="amount">$0</div><p>For evaluation and prototypes.</p><ul><li>Core components</li><li>Docs and examples</li><li>Playground</li></ul><button class="btn" style="width:100%">Get started</button></div>
+<div class="panel price featured"><span class="badge">Professional · illustrative</span><div class="amount">$99*</div><p>Example packaging for growing teams.</p><ul><li>AI interaction</li><li>Governance</li><li>Domain packs</li><li>Priority support</li></ul><button class="btn primary" style="width:100%">Explore plan</button><div class="note">*Illustrative only; not a published offer.</div></div>
+<div class="panel price"><span class="badge">Enterprise</span><div class="amount" style="font-size:34px">Custom</div><p>For private registries and controlled environments.</p><ul><li>Private registry</li><li>Policy integrations</li><li>Edge / on-prem patterns</li><li>Governance support</li></ul><button class="btn" style="width:100%">Contact</button></div>
+</div>
+</div>
+</section>
+<section class="cta">
+<svg aria-hidden="true" class="cta-grid" preserveaspectratio="none" viewbox="0 0 1400 650">
+<defs><pattern height="55" id="dots" patternunits="userSpaceOnUse" width="55"><circle cx="2" cy="2" fill="#496985" r="1.5"></circle></pattern></defs>
+<rect fill="url(#dots)" height="650" width="1400"></rect>
+<g fill="none" opacity=".45" stroke="#4a6fff"><path d="M120 490 C360 170 610 520 810 250 S1160 150 1300 360"></path><path d="M80 370 C300 280 480 140 700 310 S1000 500 1320 200"></path></g>
+<g fill="#58d8ff"><circle cx="120" cy="490" r="6"></circle><circle cx="360" cy="278" r="6"></circle><circle cx="700" cy="310" r="6"></circle><circle cx="1000" cy="430" r="6"></circle><circle cx="1300" cy="360" r="6"></circle></g>
+</svg>
+<div class="cta-inner">
+<div class="eyebrow">11 · Human–AI–Machine</div>
+<h2>Build on the <span class="grad">certified kernel.</span></h2>
+<p class="lead" style="margin-inline:auto">Start with contracts, registry, governance, renderer, adapter SDK and control. Add domain packs only as they graduate from roadmap to verified releases.</p>
+<div class="hero-actions" style="justify-content:center"><a class="btn primary" href="#developers">Start building</a><a class="btn" href="#product">Review product</a></div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="wrap footer-grid"><div class="brand"><span aria-hidden="true" class="brand-mark"></span> MAATAA UI</div><div>Independent product concept · governed AI / software / physical control UI</div><div>Security · Accessibility · Components · Developers</div><div>V3.1 · 11-package active kernel</div></div>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script>
+const state = {
+  domain:'events',
+  camera:{pan:12.4,tilt:-6.8,zoom:3.2,tracking:true,preset:'Stage Wide'},
+  robot:{control:false,mission:false}
+};
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const toast = $('#toast');
+function notify(message){
+  toast.textContent=message;toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),2200);
+}
+$$('[data-toast]').forEach(el=>el.addEventListener('click',()=>notify(el.dataset.toast)));
+
+const domainData={
+ events:{rec:'Product-reveal cue depends on camera and lighting readiness.',evidence:'Cue state + device readiness available.'},
+ robots:{rec:'Robot R04 can reach Inspection B using the safe alternate path.',evidence:'Pose + obstacle + geofence state available.'},
+ cameras:{rec:'CAM 03 is unavailable. CAM 01 can cover the required shot.',evidence:'Stream state + PTZ capability available.'},
+ iot:{rec:'Gateway B latency is rising. Defer noncritical telemetry burst.',evidence:'Gateway health + queue depth available.'},
+ building:{rec:'Zone C occupancy dropped. Reduce HVAC demand within policy.',evidence:'Occupancy + HVAC state available.'},
+ ai:{rec:'Two proposals depend on stale context. Refresh authoritative state first.',evidence:'Context freshness + provenance available.'}
+};
+
+function eventHTML(){
+return `<div class="surface-toolbar"><span class="state s-verified">Live show · simulated</span><span class="badge">Product Reveal</span></div>
+<div class="surface-body"><div class="event-stage"><div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div><div class="screen"></div><div class="stagefloor"></div><div class="audience"></div><span class="overlay-label" style="left:12%;top:18%">CAM 01 · READY</span><span class="overlay-label" style="right:10%;top:26%">LIGHTING · READY</span><span class="overlay-label" style="left:42%;bottom:13%">AUDIO · ACTIVE</span></div></div>`;
+}
+function cameraHTML(){
+return `<div class="surface-toolbar"><span class="state s-verified">CAM 01 · simulated stream</span><span class="badge">PTZ</span></div>
+<div class="surface-body camera-demo-grid"><div class="camera-feed"><div class="camera-stage"><div class="trackbox"></div></div></div><div class="camera-controls"><span class="state s-ai">Tracking active</span><div class="kv"><span>Pan</span><b>12.4°</b></div><div class="kv"><span>Tilt</span><b>-6.8°</b></div><div class="kv"><span>Zoom</span><b>3.2×</b></div><div class="kv"><span>Preset</span><b>Stage Wide</b></div></div></div>`;
+}
+function robotHTML(){
+return `<div class="surface-toolbar"><span class="state s-verified">R04 operational</span><span class="badge">Assisted</span></div><div class="surface-body robot-surface"><div class="robot-telemetry"><div class="kv"><span>Battery</span><b>78%</b></div><div class="kv"><span>Pose</span><b>41.2 / 18.6</b></div><div class="kv"><span>Lease</span><b>Operator A</b></div><div class="kv"><span>Mission</span><b>Inspection B</b></div></div><div class="robot-map"><svg viewBox="0 0 650 386"><path d="M90 290 C180 80 300 345 540 110" fill="none" stroke="#58d8ff" stroke-width="5" stroke-dasharray="8 8"/><rect x="305" y="125" width="100" height="88" rx="12" fill="#2c1622" stroke="#ff6677"/><text x="323" y="170" fill="#ff8491" font-size="13">OBSTACLE</text><circle cx="90" cy="290" r="16" fill="#07131e" stroke="#41d59a" stroke-width="4"/><circle cx="540" cy="110" r="11" fill="#07131e" stroke="#9b76ff" stroke-width="4"/></svg></div></div>`;
+}
+function iotHTML(){
+return `<div class="surface-toolbar"><span class="state s-verified">24 devices online</span><span class="badge">Gateway A</span></div><div class="surface-body"><div class="iot-grid"><div class="sensor"><strong>Temperature</strong><div class="value">23.4°C</div><small>Zone A · current</small></div><div class="sensor"><strong>CO₂</strong><div class="value">612</div><small>ppm · normal</small></div><div class="sensor"><strong>Gateway latency</strong><div class="value">88ms</div><small>rising</small></div><div class="sensor"><strong>Occupancy</strong><div class="value">143</div><small>people</small></div><div class="sensor"><strong>Lighting</strong><div class="value">68%</div><small>scene active</small></div><div class="sensor"><strong>Energy</strong><div class="value">42kW</div><small>facility load</small></div></div></div>`;
+}
+function buildingHTML(){
+return `<div class="surface-toolbar"><span class="state s-verified">Building twin current</span><span class="badge">4 floors</span></div><div class="surface-body"><div class="building-grid"><div class="sensor"><strong>Zone A</strong><div class="value">22.6°C</div><small>HVAC normal</small></div><div class="sensor"><strong>Zone B</strong><div class="value">63%</div><small>occupied</small></div><div class="sensor"><strong>Zone C</strong><div class="value">14%</div><small>low occupancy</small></div><div class="sensor"><strong>Air quality</strong><div class="value">Good</div><small>all floors</small></div><div class="sensor"><strong>Power</strong><div class="value">Normal</div><small>8 zones</small></div><div class="sensor"><strong>Access</strong><div class="value">Ready</div><small>controlled</small></div></div></div>`;
+}
+function aiHTML(){
+return `<div class="surface-toolbar"><span class="state s-ai">MAATAA recommendation</span><span class="badge">Proposal only</span></div><div class="surface-body"><div class="ai-grid"><div class="sensor"><strong>Context</strong><div class="value">18</div><small>sources · 2 stale</small></div><div class="sensor"><strong>Recommendations</strong><div class="value">3</div><small>1 needs approval</small></div><div class="sensor"><strong>Evidence</strong><div class="value">12</div><small>linked references</small></div><div class="sensor"><strong>Policy</strong><div class="value">Allow</div><small>with approval</small></div><div class="sensor"><strong>Authority</strong><div class="value">Human</div><small>required</small></div><div class="sensor"><strong>State</strong><div class="value">Draft</div><small>not executed</small></div></div></div>`;
+}
+const renderers={events:eventHTML,robots:robotHTML,cameras:cameraHTML,iot:iotHTML,building:buildingHTML,ai:aiHTML};
+function renderDomain(domain){
+  state.domain=domain;
+  $('#domainSurface').innerHTML=renderers[domain]();
+  $('#demoRecommendation').textContent=domainData[domain].rec;
+  $('#demoEvidence').textContent=domainData[domain].evidence;
+  $$('.demo-tab').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.domain===domain)));
+}
+$$('.demo-tab').forEach(b=>b.addEventListener('click',()=>renderDomain(b.dataset.domain)));
+renderDomain('events');
+
+function updateCameraReceipt(text,status='s-executing'){
+  $('#cameraReceipt').innerHTML=`<span class="state ${status}">${text}</span>`;
+}
+$$('[data-ptz]').forEach(btn=>btn.addEventListener('click',()=>{
+  const [dp,dt]=btn.dataset.ptz.split(',').map(Number);
+  if(dp===0 && dt===0){state.camera.pan=0;state.camera.tilt=0;}else{state.camera.pan+=dp;state.camera.tilt+=dt;}
+  $('#panVal').textContent=state.camera.pan.toFixed(1)+'°';
+  $('#tiltVal').textContent=state.camera.tilt.toFixed(1)+'°';
+  updateCameraReceipt('Simulated PTZ command acknowledged');
+}));
+$('#zoomSlider').addEventListener('input',e=>{
+  state.camera.zoom=Number(e.target.value);
+  $('#zoomVal').textContent=state.camera.zoom.toFixed(1)+'×';
+  $('#zoomOut').textContent=state.camera.zoom.toFixed(1)+'×';
+  updateCameraReceipt('Simulated zoom setpoint changed');
+});
+$$('.camera-preset').forEach(btn=>btn.addEventListener('click',()=>{
+  state.camera.preset=btn.dataset.preset;
+  $('#cameraPresetBadge').textContent='Preset: '+state.camera.preset;
+  updateCameraReceipt('Preset '+state.camera.preset+' acknowledged','s-verified');
+}));
+$('#trackToggle').addEventListener('click',()=>{
+  state.camera.tracking=!state.camera.tracking;
+  $('#trackBox').style.display=state.camera.tracking?'block':'none';
+  $('#trackingText').textContent=state.camera.tracking?'active':'disabled';
+  $('#trackToggle').textContent=state.camera.tracking?'Disable tracking':'Enable tracking';
+  updateCameraReceipt(state.camera.tracking?'Tracking enabled':'Tracking disabled','s-verified');
+});
+
+$('#requestControl').addEventListener('click',()=>{
+  state.robot.control=!state.robot.control;
+  $('#robotOwner').textContent=state.robot.control?'You · demo lease':'Operator A';
+  $('#requestControl').textContent=state.robot.control?'Release demo control':'Request control';
+  notify(state.robot.control?'Simulated control lease granted.':'Simulated control lease released.');
+});
+$('#planMission').addEventListener('click',()=>{
+  state.robot.mission=!state.robot.mission;
+  const path=$('#robotPath');
+  path.setAttribute('stroke',state.robot.mission?'#41d59a':'#58d8ff');
+  $('#planMission').textContent=state.robot.mission?'Mission planned':'Plan mission';
+  notify(state.robot.mission?'Simulated mission validated against obstacle and geofence.':'Mission plan reset.');
+});
+
+$$('[data-layer]').forEach(input=>input.addEventListener('change',()=>{
+  const layer=$('#layer'+input.dataset.layer);
+  if(layer) layer.style.display=input.checked?'':'none';
+}));
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='Escape') toast.classList.remove('show');
+});
+</script>
+</body>
+</html>

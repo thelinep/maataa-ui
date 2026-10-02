@@ -1,0 +1,40 @@
+{
+  "title": "Choose the domain dashboard layout",
+  "question": "Which layout makes application domains, repositories, and server capabilities easiest to manage together? What should carry forward, what feels wrong, and should we approve, combine, revise, or reject the selected concept?",
+  "options": [
+    {
+      "id": "portfolio-and-services",
+      "label": "Portfolio and service coverage",
+      "kicker": "THE ROLL",
+      "thesis": "Scan each app's domain and repository beside the services assigned to it.",
+      "palette": ["#f7f2e9", "#fffdf8", "#3d2817", "#345f52", "#985846"],
+      "materials": ["warm paper surfaces", "ink dividers", "sage and clay status accents"],
+      "viewport": "An application registry leads the page; a compact service coverage matrix sits beside it; a server inventory continues below.",
+      "risk": "A wide matrix may need a deliberate narrow-screen collapse.",
+      "comp": ".impeccable/mocks/decision/portfolio-and-services.png"
+    },
+    {
+      "id": "application-inspector",
+      "label": "Application registry with inspector",
+      "thesis": "Select one app to edit its domains, Git source, and assigned servers in a focused detail pane.",
+      "palette": ["#f7f2e9", "#fffdf8", "#3d2817", "#345f52", "#985846"],
+      "materials": ["warm paper surfaces", "ink dividers", "sage and clay status accents"],
+      "viewport": "A narrow searchable application list anchors the left; a spacious selected-application inspector owns the main column; server management is a secondary tab.",
+      "risk": "Cross-app capability gaps are harder to compare at a glance.",
+      "comp": ".impeccable/mocks/decision/application-inspector.png"
+    },
+    {
+      "id": "capability-map",
+      "label": "Application-to-server capability map",
+      "thesis": "See which servers provide each capability and which applications consume it.",
+      "palette": ["#f7f2e9", "#fffdf8", "#3d2817", "#345f52", "#985846"],
+      "materials": ["warm paper surfaces", "ink dividers", "sage and clay status accents"],
+      "viewport": "Applications form the row axis; server capabilities form the columns; domain and repository details open in a compact inspector.",
+      "risk": "The matrix may grow dense as applications and capabilities increase.",
+      "comp": ".impeccable/mocks/decision/capability-map.png"
+    }
+  ],
+  "buildPath": {"value": "comp", "toggle": true},
+  "steer": true,
+  "reroll": {"registers": ["safer", "bolder"]}
+}

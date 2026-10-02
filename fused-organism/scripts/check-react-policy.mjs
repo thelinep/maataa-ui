@@ -1,0 +1,23 @@
+import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+const root=path.resolve(new URL("..",import.meta.url).pathname);
+const pkg=JSON.parse(fs.readFileSync(path.join(root,"packages/react/package.json"),"utf8"));
+const errors=[];
+if(pkg.dependencies?.react) errors.push("react must not be a package dependency");
+if(pkg.peerDependencies?.react!==">=18.2.0 <20") errors.push("react peer range must be explicit");
+if(pkg.peerDependenciesMeta?.react?.optional!==true) errors.push("react host peer must remain optional for tree-only kernel certification");
+if(pkg.maataaPolicy?.classification!=="host-provided-peer") errors.push("react peer classification metadata missing");
+if(pkg.maataaPolicy?.adapterContractVersion!=="1.0.0") errors.push("React adapter contract version metadata mismatch");
+const mod=await import(pathToFileURL(path.join(root,"packages/react/src/index.mjs")).href+`?policy=${Date.now()}`);
+if(mod.REACT_PEER_RANGE!==pkg.peerDependencies.react) errors.push("exported REACT_PEER_RANGE differs from package peer range");
+if(mod.REACT_ADAPTER_CONTRACT_VERSION!==pkg.maataaPolicy.adapterContractVersion) errors.push("exported React adapter contract version differs from package policy");
+if(typeof mod.validateReactHost!=="function") errors.push("validateReactHost export missing");
+const visual=JSON.parse(fs.readFileSync(path.join(root,"packages/maataa-ui/package.json"),"utf8"));
+if(visual.dependencies?.react||visual.dependencies?.["react-dom"]) errors.push("visual package must use host-provided React peers");
+if(visual.peerDependencies?.react!==pkg.peerDependencies.react||visual.peerDependencies?.["react-dom"]!==pkg.peerDependencies.react) errors.push("visual package React host range must match the kernel adapter");
+if(visual.dependencies?.["@maataa/governance"]!=="*"||visual.dependencies?.["@maataa/react"]!=="*") errors.push("visual package must depend on the workspace governance and React adapter packages");
+const source=fs.readFileSync(path.join(root,"packages/maataa-ui/src/kernelIntegration.tsx"),"utf8");
+if(!source.includes("canDispatch")||!source.includes("createMaataaReact")) errors.push("fused UI integration must use kernel dispatch and React adapter APIs");
+if(errors.length){console.error("React dependency/adapter policy FAIL\n"+errors.join("\n"));process.exit(1);}
+console.log("React dependency/adapter policy PASS (host peers aligned; visual Button uses kernel dispatch)");

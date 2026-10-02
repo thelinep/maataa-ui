@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/workspace.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "Workspace",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "workspaceId": {
+      "type": "string",
+      "description": "Workspace ID"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Organization ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name"
+    },
+    "policyRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Policy ref"
+      }
+    }
+  },
+  "required": [
+    "workspaceId",
+    "organizationId",
+    "name"
+  ]
+}

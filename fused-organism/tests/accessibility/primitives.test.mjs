@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import {primitiveNames,assertInteractiveA11y} from "../../packages/core/src/index.mjs";
+test("foundation primitive inventory contains expected form and a11y primitives",()=>{for(const n of ["Input","Textarea","Select","Radio","Switch","Form","Label","Portal","FocusTrap","VisuallyHidden","AriaLive","Toast","Menu","Popover","CommandPalette","NotificationCenter"])assert.ok(primitiveNames.includes(n),n);});
+test("interactive control requires accessible name",()=>assert.throws(()=>assertInteractiveA11y("button",{}),/ACCESSIBLE_NAME_REQUIRED/));

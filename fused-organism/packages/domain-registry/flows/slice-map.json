@@ -1,0 +1,522 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "authored",
+  "sourceFiles": [
+    "tlps_full_application_v2_manifest.json",
+    "tlps_all_flows_detailed.json"
+  ],
+  "referenceUnit": "unique slice identifiers across application, pages, and flow records",
+  "referencedSliceCount": 72,
+  "referenceOccurrences": 3427,
+  "resolvedCount": 70,
+  "explicitlyClassifiedCount": 2,
+  "unresolvedCount": 0,
+  "resolutions": {
+    "identity": {
+      "resolution": "context",
+      "context": "identity",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "auth": {
+      "resolution": "context",
+      "context": "identity",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "device": {
+      "resolution": "context",
+      "context": "identity",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "permissions": {
+      "resolution": "context",
+      "context": "identity",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "organisation": {
+      "resolution": "context",
+      "context": "organisation",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "workspace": {
+      "resolution": "context",
+      "context": "organisation",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "projects": {
+      "resolution": "context",
+      "context": "project",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "tasks": {
+      "resolution": "context",
+      "context": "project",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "briefs": {
+      "resolution": "context",
+      "context": "project",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "milestones": {
+      "resolution": "context",
+      "context": "project",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "communications": {
+      "resolution": "context",
+      "context": "communications",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "notifications": {
+      "resolution": "context",
+      "context": "communications",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "scripts": {
+      "resolution": "context",
+      "context": "creative",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "scenes": {
+      "resolution": "context",
+      "context": "creative",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "assets": {
+      "resolution": "context",
+      "context": "creative",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "casting": {
+      "resolution": "context",
+      "context": "people",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "talent": {
+      "resolution": "context",
+      "context": "people",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "crew": {
+      "resolution": "context",
+      "context": "people",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "departments": {
+      "resolution": "context",
+      "context": "people",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "attendance": {
+      "resolution": "context",
+      "context": "people",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "schedule": {
+      "resolution": "context",
+      "context": "production",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "callSheets": {
+      "resolution": "context",
+      "context": "production",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "incidents": {
+      "resolution": "context",
+      "context": "production",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "production": {
+      "resolution": "context",
+      "context": "production",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "locations": {
+      "resolution": "context",
+      "context": "logistics",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "vehicles": {
+      "resolution": "context",
+      "context": "logistics",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "equipment": {
+      "resolution": "context",
+      "context": "logistics",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "permits": {
+      "resolution": "context",
+      "context": "logistics",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "logistics": {
+      "resolution": "context",
+      "context": "logistics",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "marketplace": {
+      "resolution": "context",
+      "context": "marketplace",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "vendors": {
+      "resolution": "context",
+      "context": "marketplace",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "rfq": {
+      "resolution": "context",
+      "context": "marketplace",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "quotes": {
+      "resolution": "context",
+      "context": "marketplace",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "procurement": {
+      "resolution": "context",
+      "context": "marketplace",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "purchaseOrders": {
+      "resolution": "context",
+      "context": "marketplace",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "budgets": {
+      "resolution": "context",
+      "context": "finance",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "expenses": {
+      "resolution": "context",
+      "context": "finance",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "invoices": {
+      "resolution": "context",
+      "context": "finance",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "payments": {
+      "resolution": "context",
+      "context": "finance",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "cashflow": {
+      "resolution": "context",
+      "context": "finance",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "finance": {
+      "resolution": "context",
+      "context": "finance",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "evidence": {
+      "resolution": "context",
+      "context": "evidence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "documents": {
+      "resolution": "context",
+      "context": "evidence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "approvals": {
+      "resolution": "context",
+      "context": "evidence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "risks": {
+      "resolution": "context",
+      "context": "evidence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "audit": {
+      "resolution": "context",
+      "context": "evidence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "investor": {
+      "resolution": "context",
+      "context": "investor",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "funding": {
+      "resolution": "context",
+      "context": "investor",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "rights": {
+      "resolution": "context",
+      "context": "investor",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "distribution": {
+      "resolution": "context",
+      "context": "investor",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "revenue": {
+      "resolution": "context",
+      "context": "investor",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "recoupment": {
+      "resolution": "context",
+      "context": "investor",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "events": {
+      "resolution": "context",
+      "context": "eventsSpatial",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "venues": {
+      "resolution": "context",
+      "context": "eventsSpatial",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "spatial": {
+      "resolution": "context",
+      "context": "eventsSpatial",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "ai": {
+      "resolution": "context",
+      "context": "intelligence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "analytics": {
+      "resolution": "context",
+      "context": "intelligence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "forecast": {
+      "resolution": "context",
+      "context": "intelligence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "observatory": {
+      "resolution": "context",
+      "context": "intelligence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "research": {
+      "resolution": "context",
+      "context": "intelligence",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "campaigns": {
+      "resolution": "context",
+      "context": "campaign",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "atl": {
+      "resolution": "context",
+      "context": "campaign",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "btl": {
+      "resolution": "context",
+      "context": "campaign",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "ooh": {
+      "resolution": "context",
+      "context": "campaign",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "leads": {
+      "resolution": "context",
+      "context": "campaign",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "activations": {
+      "resolution": "context",
+      "context": "campaign",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "sync": {
+      "resolution": "context",
+      "context": "platform",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "featureFlags": {
+      "resolution": "context",
+      "context": "platform",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "preferences": {
+      "resolution": "context",
+      "context": "platform",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "ui": {
+      "resolution": "context",
+      "context": "platform",
+      "source": "m1-slice-map",
+      "explicit": true
+    },
+    "app": {
+      "resolution": "special",
+      "classification": "application-shell",
+      "owner": "platform",
+      "reason": "Application shell/router state is cross-context infrastructure, not domain data."
+    },
+    "router": {
+      "resolution": "special",
+      "classification": "application-shell",
+      "owner": "platform",
+      "reason": "Application shell/router state is cross-context infrastructure, not domain data."
+    }
+  },
+  "referencedSlices": [
+    "activations",
+    "ai",
+    "analytics",
+    "app",
+    "approvals",
+    "assets",
+    "atl",
+    "attendance",
+    "audit",
+    "auth",
+    "briefs",
+    "btl",
+    "budgets",
+    "callSheets",
+    "campaigns",
+    "cashflow",
+    "casting",
+    "communications",
+    "crew",
+    "departments",
+    "device",
+    "distribution",
+    "documents",
+    "equipment",
+    "events",
+    "evidence",
+    "expenses",
+    "featureFlags",
+    "finance",
+    "forecast",
+    "funding",
+    "identity",
+    "incidents",
+    "investor",
+    "invoices",
+    "leads",
+    "locations",
+    "logistics",
+    "marketplace",
+    "milestones",
+    "notifications",
+    "observatory",
+    "ooh",
+    "organisation",
+    "payments",
+    "permissions",
+    "permits",
+    "preferences",
+    "procurement",
+    "production",
+    "projects",
+    "purchaseOrders",
+    "quotes",
+    "recoupment",
+    "research",
+    "revenue",
+    "rfq",
+    "rights",
+    "risks",
+    "router",
+    "scenes",
+    "schedule",
+    "scripts",
+    "spatial",
+    "sync",
+    "talent",
+    "tasks",
+    "ui",
+    "vehicles",
+    "vendors",
+    "venues",
+    "workspace"
+  ]
+}

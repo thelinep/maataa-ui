@@ -1,0 +1,6335 @@
+{
+  "application": "TLPS Full Application v2 — Landing + Product Explorer + All Frames",
+  "version": "2.0.0",
+  "counts": {
+    "routes": 284,
+    "public_non_auth": 28,
+    "auth_security": 16,
+    "protected_application": 240,
+    "roles": 18,
+    "products": 16
+  },
+  "products": [
+    {
+      "id": "core",
+      "name": "TLPS Core Platform",
+      "icon": "apps",
+      "description": "Identity, workspace, projects, command, audit and application shell.",
+      "families": [
+        "Workspace",
+        "Projects",
+        "Admin & Support"
+      ]
+    },
+    {
+      "id": "production",
+      "name": "TLPS Production OS",
+      "icon": "production-live",
+      "description": "End-to-end production planning and field execution.",
+      "families": [
+        "Projects",
+        "Crew",
+        "Live Production",
+        "Location & Logistics",
+        "Evidence & Governance",
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "film",
+      "name": "TLPS Film OS",
+      "icon": "film",
+      "description": "Film development, casting, crew, shoot operations, finance, rights and investor reporting.",
+      "families": [
+        "Development & Creative",
+        "Casting",
+        "Crew",
+        "Live Production",
+        "Location & Logistics",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue"
+      ]
+    },
+    {
+      "id": "campaign",
+      "name": "TLPS Campaign OS",
+      "icon": "campaign",
+      "description": "Plan, activate, prove and measure ATL, BTL, OOH, DOOH and retail campaigns.",
+      "families": [
+        "Campaign OS",
+        "Marketplace & Procurement",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "AI & Intelligence"
+      ]
+    },
+    {
+      "id": "atl",
+      "name": "TLPS ATL",
+      "icon": "atl",
+      "description": "Mass-media planning, creative approvals, media operations and reporting.",
+      "families": [
+        "Campaign OS",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "AI & Intelligence"
+      ]
+    },
+    {
+      "id": "btl",
+      "name": "TLPS BTL",
+      "icon": "btl",
+      "description": "Ground activations, promoter operations, lead capture, logistics and proof.",
+      "families": [
+        "Campaign OS",
+        "Crew",
+        "Location & Logistics",
+        "Evidence & Governance",
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "ooh",
+      "name": "TLPS OOH / DOOH",
+      "icon": "billboard",
+      "description": "Site inventory, media buying, deployment, proof-of-display and measurement.",
+      "families": [
+        "Campaign OS",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Evidence & Governance",
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "marketplace",
+      "name": "TLPS Marketplace",
+      "icon": "marketplace",
+      "description": "Resource discovery, RFQ, quote comparison, award, delivery and vendor rating.",
+      "families": [
+        "Marketplace & Procurement",
+        "Crew",
+        "Location & Logistics",
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "evidence",
+      "name": "TLPS Evidence OS",
+      "icon": "evidence-core",
+      "description": "Capture, provenance, verification, approvals, documents, risk and audit.",
+      "families": [
+        "Evidence & Governance"
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "TLPS Finance OS",
+      "icon": "finance",
+      "description": "Budget, commitments, actuals, invoices, payments, cash flow and profitability.",
+      "families": [
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "investor",
+      "name": "TLPS InvestorHub",
+      "icon": "investorhub",
+      "description": "Deal rooms, disclosures, funding, evidence, distribution, revenue and returns.",
+      "families": [
+        "Investor & Revenue",
+        "Evidence & Governance",
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "event",
+      "name": "TLPS Event OS",
+      "icon": "event",
+      "description": "Venue, run-of-show, vendor, field production and live command workflows.",
+      "families": [
+        "Events / Wedding / Spatial",
+        "Crew",
+        "Marketplace & Procurement",
+        "Evidence & Governance",
+        "Finance & Commerce"
+      ]
+    },
+    {
+      "id": "wedding",
+      "name": "TLPS Wedding OS",
+      "icon": "wedding",
+      "description": "Wedding journey, AI producer, 4D studio, simulation and operations.",
+      "families": [
+        "Events / Wedding / Spatial",
+        "Marketplace & Procurement",
+        "Evidence & Governance",
+        "AI & Intelligence"
+      ]
+    },
+    {
+      "id": "spatial",
+      "name": "TLPS Exhibition / Spatial",
+      "icon": "cad",
+      "description": "Layout, CAD, 3D previz, fabrication, spatial operations and proof.",
+      "families": [
+        "Events / Wedding / Spatial",
+        "Marketplace & Procurement",
+        "Evidence & Governance"
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "MAATAA AI for TLPS",
+      "icon": "maataa",
+      "description": "Context, research, evidence-aware answers, production intelligence and forecasting.",
+      "families": [
+        "AI & Intelligence"
+      ]
+    },
+    {
+      "id": "analytics",
+      "name": "TLPS Analytics",
+      "icon": "analytics",
+      "description": "KPI, campaign, budget, schedule, risk, ROI and executive insight surfaces.",
+      "families": [
+        "AI & Intelligence",
+        "Finance & Commerce",
+        "Campaign OS"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "id": "P001",
+      "name": "TLPS Home",
+      "family": "Public",
+      "route": "/",
+      "icon": "home",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "The operating system for physical and media production."
+    },
+    {
+      "id": "P002",
+      "name": "Products",
+      "family": "Public",
+      "route": "/products",
+      "icon": "apps",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Explore production, campaign, evidence and finance products."
+    },
+    {
+      "id": "P003",
+      "name": "Production OS",
+      "family": "Product",
+      "route": "/production-os",
+      "icon": "production",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Plan, crew, schedule, operate and close productions."
+    },
+    {
+      "id": "P004",
+      "name": "Film OS",
+      "family": "Product",
+      "route": "/film-os",
+      "icon": "film",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Development through distribution for film and content."
+    },
+    {
+      "id": "P005",
+      "name": "Campaign OS",
+      "family": "Product",
+      "route": "/campaign-os",
+      "icon": "campaign",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "ATL, BTL, OOH, retail and experiential operations."
+    },
+    {
+      "id": "P006",
+      "name": "TLPS ATL",
+      "family": "Product",
+      "route": "/atl",
+      "icon": "tv",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Mass-media planning, production and measurement."
+    },
+    {
+      "id": "P007",
+      "name": "TLPS BTL",
+      "family": "Product",
+      "route": "/btl",
+      "icon": "btl",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Ground activations, field operations and evidence."
+    },
+    {
+      "id": "P008",
+      "name": "TLPS OOH / DOOH",
+      "family": "Product",
+      "route": "/ooh",
+      "icon": "billboard",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Outdoor inventory, site ops, proofs and reporting."
+    },
+    {
+      "id": "P009",
+      "name": "Events OS",
+      "family": "Product",
+      "route": "/events",
+      "icon": "event",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Event planning, run-of-show, vendors and live control."
+    },
+    {
+      "id": "P010",
+      "name": "Wedding OS",
+      "family": "Product",
+      "route": "/weddings",
+      "icon": "wedding",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Wedding journey, 4D studio, operations and vendors."
+    },
+    {
+      "id": "P011",
+      "name": "Exhibition & Spatial",
+      "family": "Product",
+      "route": "/spatial",
+      "icon": "exhibition",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Measured layouts, CAD, previz, fabrication and delivery."
+    },
+    {
+      "id": "P012",
+      "name": "Marketplace",
+      "family": "Public",
+      "route": "/marketplace",
+      "icon": "marketplace",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Discover crew, vendors, equipment and production services."
+    },
+    {
+      "id": "P013",
+      "name": "InvestorHub",
+      "family": "Public",
+      "route": "/investorhub",
+      "icon": "investorhub",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Project discovery, deal rooms, evidence and returns."
+    },
+    {
+      "id": "P014",
+      "name": "Evidence OS",
+      "family": "Product",
+      "route": "/evidence",
+      "icon": "evidence-core",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Capture, verify, approve and audit production evidence."
+    },
+    {
+      "id": "P015",
+      "name": "Finance & Commerce",
+      "family": "Product",
+      "route": "/finance",
+      "icon": "finance",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Budgets, procurement, invoices, payments and recovery."
+    },
+    {
+      "id": "P016",
+      "name": "TLPS AI Co-Pilot",
+      "family": "Product",
+      "route": "/ai",
+      "icon": "maataa",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Context-aware production intelligence and assistance."
+    },
+    {
+      "id": "P017",
+      "name": "Analytics",
+      "family": "Public",
+      "route": "/analytics",
+      "icon": "analytics",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "KPI, campaign, budget, risk and ROI reporting."
+    },
+    {
+      "id": "P018",
+      "name": "Solutions",
+      "family": "Public",
+      "route": "/solutions",
+      "icon": "module",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Solutions by workflow, production type and organisation."
+    },
+    {
+      "id": "P019",
+      "name": "Industries",
+      "family": "Public",
+      "route": "/industries",
+      "icon": "building",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Film, advertising, events, retail and institutional work."
+    },
+    {
+      "id": "P020",
+      "name": "Case Studies",
+      "family": "Public",
+      "route": "/case-studies",
+      "icon": "folder-open",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Controlled case studies and evidence-backed outcomes."
+    },
+    {
+      "id": "P021",
+      "name": "Pricing",
+      "family": "Public",
+      "route": "/pricing",
+      "icon": "rupee",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Creator, producer, studio and enterprise plan previews."
+    },
+    {
+      "id": "P022",
+      "name": "Documentation",
+      "family": "Public",
+      "route": "/docs",
+      "icon": "document",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Product documentation, playbooks and implementation guides."
+    },
+    {
+      "id": "P023",
+      "name": "About TLPS",
+      "family": "Public",
+      "route": "/about",
+      "icon": "tlps-icon",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Platform vision, governance and operating philosophy."
+    },
+    {
+      "id": "P024",
+      "name": "Contact / Book Demo",
+      "family": "Public",
+      "route": "/contact",
+      "icon": "calendar",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [
+        "explore",
+        "book demo",
+        "sign in"
+      ],
+      "metrics": [
+        "Products",
+        "Workflows",
+        "Evidence"
+      ],
+      "description": "Request a controlled demonstration or production consultation."
+    },
+    {
+      "id": "001",
+      "name": "Splash",
+      "family": "Entry & Security",
+      "route": "/mobile/001/splash",
+      "icon": "tlps-icon",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "002",
+      "name": "Welcome",
+      "family": "Entry & Security",
+      "route": "/mobile/002/welcome",
+      "icon": "sparkles",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "003",
+      "name": "Product Introduction",
+      "family": "Entry & Security",
+      "route": "/mobile/003/product-introduction",
+      "icon": "apps",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "004",
+      "name": "Sign In",
+      "family": "Entry & Security",
+      "route": "/mobile/004/sign-in",
+      "icon": "login",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "005",
+      "name": "Sign Up",
+      "family": "Entry & Security",
+      "route": "/mobile/005/sign-up",
+      "icon": "user-add",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "006",
+      "name": "OTP Verification",
+      "family": "Entry & Security",
+      "route": "/mobile/006/otp-verification",
+      "icon": "otp",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "007",
+      "name": "Forgot Password",
+      "family": "Entry & Security",
+      "route": "/mobile/007/forgot-password",
+      "icon": "key",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "008",
+      "name": "Reset Password",
+      "family": "Entry & Security",
+      "route": "/mobile/008/reset-password",
+      "icon": "password",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "009",
+      "name": "Organisation Selection",
+      "family": "Entry & Security",
+      "route": "/mobile/009/organisation-selection",
+      "icon": "organisation",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "010",
+      "name": "Workspace Selection",
+      "family": "Entry & Security",
+      "route": "/mobile/010/workspace-selection",
+      "icon": "workspace-switch",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "011",
+      "name": "Role Selection",
+      "family": "Entry & Security",
+      "route": "/mobile/011/role-selection",
+      "icon": "role",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "012",
+      "name": "Device Verification",
+      "family": "Entry & Security",
+      "route": "/mobile/012/device-verification",
+      "icon": "device-check",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "013",
+      "name": "Location Verification",
+      "family": "Entry & Security",
+      "route": "/mobile/013/location-verification",
+      "icon": "location-verify",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "014",
+      "name": "NDA Viewer",
+      "family": "Entry & Security",
+      "route": "/mobile/014/nda-viewer",
+      "icon": "nda",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "015",
+      "name": "NDA Accept / Sign",
+      "family": "Entry & Security",
+      "route": "/mobile/015/nda-accept-sign",
+      "icon": "document-sign",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "016",
+      "name": "Secure Access Status",
+      "family": "Entry & Security",
+      "route": "/mobile/016/secure-access-status",
+      "icon": "shield-check",
+      "kind": "auth",
+      "access": "auth",
+      "primaryActions": [
+        "verify identity",
+        "select workspace",
+        "accept NDA"
+      ],
+      "metrics": [
+        "Security gate",
+        "Device trust",
+        "NDA status"
+      ],
+      "description": ""
+    },
+    {
+      "id": "017",
+      "name": "Home Dashboard",
+      "family": "Workspace",
+      "route": "/mobile/017/home-dashboard",
+      "icon": "home",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "018",
+      "name": "Personal Command Centre",
+      "family": "Workspace",
+      "route": "/mobile/018/personal-command-centre",
+      "icon": "ops-board",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "019",
+      "name": "Organisation Dashboard",
+      "family": "Workspace",
+      "route": "/mobile/019/organisation-dashboard",
+      "icon": "organisation",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "020",
+      "name": "Client Workspace",
+      "family": "Workspace",
+      "route": "/mobile/020/client-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "021",
+      "name": "Agency Workspace",
+      "family": "Workspace",
+      "route": "/mobile/021/agency-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "022",
+      "name": "TLPS Workspace",
+      "family": "Workspace",
+      "route": "/mobile/022/tlps-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "023",
+      "name": "Producer Workspace",
+      "family": "Workspace",
+      "route": "/mobile/023/producer-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "024",
+      "name": "Line Producer Workspace",
+      "family": "Workspace",
+      "route": "/mobile/024/line-producer-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "025",
+      "name": "HOD Workspace",
+      "family": "Workspace",
+      "route": "/mobile/025/hod-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "026",
+      "name": "Crew Workspace",
+      "family": "Workspace",
+      "route": "/mobile/026/crew-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "027",
+      "name": "Vendor Workspace",
+      "family": "Workspace",
+      "route": "/mobile/027/vendor-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "028",
+      "name": "Investor Workspace",
+      "family": "Workspace",
+      "route": "/mobile/028/investor-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "029",
+      "name": "Workspace Switcher",
+      "family": "Workspace",
+      "route": "/mobile/029/workspace-switcher",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "030",
+      "name": "Universal Search",
+      "family": "Workspace",
+      "route": "/mobile/030/universal-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "031",
+      "name": "Quick Actions / FAB",
+      "family": "Workspace",
+      "route": "/mobile/031/quick-actions-fab",
+      "icon": "fab-add",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "032",
+      "name": "Activity Feed",
+      "family": "Workspace",
+      "route": "/mobile/032/activity-feed",
+      "icon": "activity",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "switch context",
+        "open project",
+        "review activity"
+      ],
+      "metrics": [
+        "Active projects",
+        "Open approvals",
+        "Unread"
+      ],
+      "description": ""
+    },
+    {
+      "id": "033",
+      "name": "Projects Portfolio",
+      "family": "Projects",
+      "route": "/mobile/033/projects-portfolio",
+      "icon": "projects",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "034",
+      "name": "Project Search",
+      "family": "Projects",
+      "route": "/mobile/034/project-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "035",
+      "name": "Create Project",
+      "family": "Projects",
+      "route": "/mobile/035/create-project",
+      "icon": "project-add",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "036",
+      "name": "Project Intake",
+      "family": "Projects",
+      "route": "/mobile/036/project-intake",
+      "icon": "brief",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "037",
+      "name": "Project Type Selection",
+      "family": "Projects",
+      "route": "/mobile/037/project-type-selection",
+      "icon": "module",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "038",
+      "name": "Project Brief",
+      "family": "Projects",
+      "route": "/mobile/038/project-brief",
+      "icon": "brief",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "039",
+      "name": "Project Overview",
+      "family": "Projects",
+      "route": "/mobile/039/project-overview",
+      "icon": "project",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "040",
+      "name": "Project Dashboard",
+      "family": "Projects",
+      "route": "/mobile/040/project-dashboard",
+      "icon": "dashboard",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "041",
+      "name": "Project Health",
+      "family": "Projects",
+      "route": "/mobile/041/project-health",
+      "icon": "health",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "042",
+      "name": "Project Milestones",
+      "family": "Projects",
+      "route": "/mobile/042/project-milestones",
+      "icon": "milestone",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "043",
+      "name": "Project Timeline",
+      "family": "Projects",
+      "route": "/mobile/043/project-timeline",
+      "icon": "timeline",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "044",
+      "name": "Project Tasks",
+      "family": "Projects",
+      "route": "/mobile/044/project-tasks",
+      "icon": "task-grid",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "045",
+      "name": "Project Blockers",
+      "family": "Projects",
+      "route": "/mobile/045/project-blockers",
+      "icon": "blocker",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "046",
+      "name": "Project Team",
+      "family": "Projects",
+      "route": "/mobile/046/project-team",
+      "icon": "team",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "047",
+      "name": "Project Activity",
+      "family": "Projects",
+      "route": "/mobile/047/project-activity",
+      "icon": "activity",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "048",
+      "name": "Project Closeout",
+      "family": "Projects",
+      "route": "/mobile/048/project-closeout",
+      "icon": "closeout",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update project",
+        "add task",
+        "raise issue"
+      ],
+      "metrics": [
+        "Progress",
+        "Tasks",
+        "Blockers"
+      ],
+      "description": ""
+    },
+    {
+      "id": "049",
+      "name": "Idea / Concept",
+      "family": "Development & Creative",
+      "route": "/mobile/049/idea-concept",
+      "icon": "idea",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "050",
+      "name": "Research Workspace",
+      "family": "Development & Creative",
+      "route": "/mobile/050/research-workspace",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "051",
+      "name": "Treatment",
+      "family": "Development & Creative",
+      "route": "/mobile/051/treatment",
+      "icon": "treatment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "052",
+      "name": "Script Library",
+      "family": "Development & Creative",
+      "route": "/mobile/052/script-library",
+      "icon": "script",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "053",
+      "name": "Script Reader",
+      "family": "Development & Creative",
+      "route": "/mobile/053/script-reader",
+      "icon": "script-page",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "054",
+      "name": "Script Version History",
+      "family": "Development & Creative",
+      "route": "/mobile/054/script-version-history",
+      "icon": "script-version",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "055",
+      "name": "Script Breakdown",
+      "family": "Development & Creative",
+      "route": "/mobile/055/script-breakdown",
+      "icon": "production-elements",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "056",
+      "name": "Scene List",
+      "family": "Development & Creative",
+      "route": "/mobile/056/scene-list",
+      "icon": "scene-list",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "057",
+      "name": "Scene Detail",
+      "family": "Development & Creative",
+      "route": "/mobile/057/scene-detail",
+      "icon": "scene",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "058",
+      "name": "Character Breakdown",
+      "family": "Development & Creative",
+      "route": "/mobile/058/character-breakdown",
+      "icon": "character",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "059",
+      "name": "Production Elements",
+      "family": "Development & Creative",
+      "route": "/mobile/059/production-elements",
+      "icon": "production-elements",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "060",
+      "name": "Storyboard",
+      "family": "Development & Creative",
+      "route": "/mobile/060/storyboard",
+      "icon": "storyboard",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "061",
+      "name": "Shot List",
+      "family": "Development & Creative",
+      "route": "/mobile/061/shot-list",
+      "icon": "shotlist",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "062",
+      "name": "Creative References",
+      "family": "Development & Creative",
+      "route": "/mobile/062/creative-references",
+      "icon": "reference",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "063",
+      "name": "Creative Approval",
+      "family": "Development & Creative",
+      "route": "/mobile/063/creative-approval",
+      "icon": "approval",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "064",
+      "name": "Creative Asset Library",
+      "family": "Development & Creative",
+      "route": "/mobile/064/creative-asset-library",
+      "icon": "asset-library",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "edit creative",
+        "version asset",
+        "request approval"
+      ],
+      "metrics": [
+        "Versions",
+        "Scenes",
+        "Approvals"
+      ],
+      "description": ""
+    },
+    {
+      "id": "065",
+      "name": "Casting Dashboard",
+      "family": "Casting",
+      "route": "/mobile/065/casting-dashboard",
+      "icon": "casting",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "066",
+      "name": "Casting Calls",
+      "family": "Casting",
+      "route": "/mobile/066/casting-calls",
+      "icon": "casting-call",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "067",
+      "name": "Casting Call Detail",
+      "family": "Casting",
+      "route": "/mobile/067/casting-call-detail",
+      "icon": "module",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "068",
+      "name": "Actor Gallery",
+      "family": "Casting",
+      "route": "/mobile/068/actor-gallery",
+      "icon": "actor-gallery",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "069",
+      "name": "Actor Search",
+      "family": "Casting",
+      "route": "/mobile/069/actor-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "070",
+      "name": "Actor Profile",
+      "family": "Casting",
+      "route": "/mobile/070/actor-profile",
+      "icon": "actor",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "071",
+      "name": "Actor Portfolio",
+      "family": "Casting",
+      "route": "/mobile/071/actor-portfolio",
+      "icon": "portfolio",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "072",
+      "name": "Audition Submission",
+      "family": "Casting",
+      "route": "/mobile/072/audition-submission",
+      "icon": "audition",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "073",
+      "name": "Audition Player",
+      "family": "Casting",
+      "route": "/mobile/073/audition-player",
+      "icon": "audition-video",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "074",
+      "name": "Casting Shortlist",
+      "family": "Casting",
+      "route": "/mobile/074/casting-shortlist",
+      "icon": "shortlist",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "075",
+      "name": "Compare Talent",
+      "family": "Casting",
+      "route": "/mobile/075/compare-talent",
+      "icon": "compare",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "076",
+      "name": "Casting Approval",
+      "family": "Casting",
+      "route": "/mobile/076/casting-approval",
+      "icon": "approval",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "077",
+      "name": "Offer / Availability",
+      "family": "Casting",
+      "route": "/mobile/077/offer-availability",
+      "icon": "offer",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "078",
+      "name": "Talent Contract",
+      "family": "Casting",
+      "route": "/mobile/078/talent-contract",
+      "icon": "contract",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "079",
+      "name": "Cast Schedule",
+      "family": "Casting",
+      "route": "/mobile/079/cast-schedule",
+      "icon": "cast-schedule",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "080",
+      "name": "Cast Communication",
+      "family": "Casting",
+      "route": "/mobile/080/cast-communication",
+      "icon": "cast-message",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "shortlist",
+        "compare",
+        "approve talent"
+      ],
+      "metrics": [
+        "Candidates",
+        "Shortlisted",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "081",
+      "name": "Crew Dashboard",
+      "family": "Crew",
+      "route": "/mobile/081/crew-dashboard",
+      "icon": "crew-roster",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "082",
+      "name": "Departments",
+      "family": "Crew",
+      "route": "/mobile/082/departments",
+      "icon": "department",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "083",
+      "name": "Department Detail",
+      "family": "Crew",
+      "route": "/mobile/083/department-detail",
+      "icon": "module",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "084",
+      "name": "HOD Directory",
+      "family": "Crew",
+      "route": "/mobile/084/hod-directory",
+      "icon": "hod",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "085",
+      "name": "Crew Directory",
+      "family": "Crew",
+      "route": "/mobile/085/crew-directory",
+      "icon": "crew-directory",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "086",
+      "name": "Crew Search",
+      "family": "Crew",
+      "route": "/mobile/086/crew-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "087",
+      "name": "Crew Profile",
+      "family": "Crew",
+      "route": "/mobile/087/crew-profile",
+      "icon": "crew-profile",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "088",
+      "name": "Crew Availability",
+      "family": "Crew",
+      "route": "/mobile/088/crew-availability",
+      "icon": "crew-availability",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "089",
+      "name": "Crew Hiring Request",
+      "family": "Crew",
+      "route": "/mobile/089/crew-hiring-request",
+      "icon": "hire",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "090",
+      "name": "Crew Shortlist",
+      "family": "Crew",
+      "route": "/mobile/090/crew-shortlist",
+      "icon": "shortlist",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "091",
+      "name": "Crew Assignment",
+      "family": "Crew",
+      "route": "/mobile/091/crew-assignment",
+      "icon": "assignment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "092",
+      "name": "Crew Contract",
+      "family": "Crew",
+      "route": "/mobile/092/crew-contract",
+      "icon": "contract",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "093",
+      "name": "Crew Attendance",
+      "family": "Crew",
+      "route": "/mobile/093/crew-attendance",
+      "icon": "attendance",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "094",
+      "name": "Crew Timesheet",
+      "family": "Crew",
+      "route": "/mobile/094/crew-timesheet",
+      "icon": "timesheet",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "095",
+      "name": "Crew Performance",
+      "family": "Crew",
+      "route": "/mobile/095/crew-performance",
+      "icon": "performance",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "096",
+      "name": "Crew Communication",
+      "family": "Crew",
+      "route": "/mobile/096/crew-communication",
+      "icon": "crew-message",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "assign crew",
+        "mark attendance",
+        "message team"
+      ],
+      "metrics": [
+        "Crew",
+        "On duty",
+        "Missing"
+      ],
+      "description": ""
+    },
+    {
+      "id": "097",
+      "name": "Production Calendar",
+      "family": "Live Production",
+      "route": "/mobile/097/production-calendar",
+      "icon": "calendar",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "098",
+      "name": "Master Schedule",
+      "family": "Live Production",
+      "route": "/mobile/098/master-schedule",
+      "icon": "schedule",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "099",
+      "name": "Stripboard",
+      "family": "Live Production",
+      "route": "/mobile/099/stripboard",
+      "icon": "stripboard",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "100",
+      "name": "Shoot Day List",
+      "family": "Live Production",
+      "route": "/mobile/100/shoot-day-list",
+      "icon": "shoot-day",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "101",
+      "name": "Shoot Day Detail",
+      "family": "Live Production",
+      "route": "/mobile/101/shoot-day-detail",
+      "icon": "shoot-day",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "102",
+      "name": "Call Sheet",
+      "family": "Live Production",
+      "route": "/mobile/102/call-sheet",
+      "icon": "callsheet",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "103",
+      "name": "Call Sheet Preview",
+      "family": "Live Production",
+      "route": "/mobile/103/call-sheet-preview",
+      "icon": "callsheet",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "104",
+      "name": "Call Sheet Acknowledgement",
+      "family": "Live Production",
+      "route": "/mobile/104/call-sheet-acknowledgement",
+      "icon": "callsheet",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "105",
+      "name": "Daily Production Dashboard",
+      "family": "Live Production",
+      "route": "/mobile/105/daily-production-dashboard",
+      "icon": "production-live",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "106",
+      "name": "Live Set Command",
+      "family": "Live Production",
+      "route": "/mobile/106/live-set-command",
+      "icon": "ops-board",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "107",
+      "name": "Scene Progress",
+      "family": "Live Production",
+      "route": "/mobile/107/scene-progress",
+      "icon": "scene-progress",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "108",
+      "name": "Shot Progress",
+      "family": "Live Production",
+      "route": "/mobile/108/shot-progress",
+      "icon": "shot-progress",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "109",
+      "name": "Attendance Live",
+      "family": "Live Production",
+      "route": "/mobile/109/attendance-live",
+      "icon": "attendance",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "110",
+      "name": "DPR — Daily Production Report",
+      "family": "Live Production",
+      "route": "/mobile/110/dpr-daily-production-report",
+      "icon": "production-live",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "111",
+      "name": "Delay / Incident Report",
+      "family": "Live Production",
+      "route": "/mobile/111/delay-incident-report",
+      "icon": "delay",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "112",
+      "name": "Wrap Day",
+      "family": "Live Production",
+      "route": "/mobile/112/wrap-day",
+      "icon": "wrap",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "start day",
+        "update progress",
+        "file DPR"
+      ],
+      "metrics": [
+        "Scenes",
+        "Shots",
+        "Delay"
+      ],
+      "description": ""
+    },
+    {
+      "id": "113",
+      "name": "Location Dashboard",
+      "family": "Location & Logistics",
+      "route": "/mobile/113/location-dashboard",
+      "icon": "location",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "114",
+      "name": "Location Search",
+      "family": "Location & Logistics",
+      "route": "/mobile/114/location-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "115",
+      "name": "Location Detail",
+      "family": "Location & Logistics",
+      "route": "/mobile/115/location-detail",
+      "icon": "location",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "116",
+      "name": "Recce",
+      "family": "Location & Logistics",
+      "route": "/mobile/116/recce",
+      "icon": "recce",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "117",
+      "name": "Recce Capture",
+      "family": "Location & Logistics",
+      "route": "/mobile/117/recce-capture",
+      "icon": "recce-camera",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "118",
+      "name": "Location Comparison",
+      "family": "Location & Logistics",
+      "route": "/mobile/118/location-comparison",
+      "icon": "location-compare",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "119",
+      "name": "Permit Status",
+      "family": "Location & Logistics",
+      "route": "/mobile/119/permit-status",
+      "icon": "permit",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "120",
+      "name": "Location Booking",
+      "family": "Location & Logistics",
+      "route": "/mobile/120/location-booking",
+      "icon": "booking",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "121",
+      "name": "Travel Planner",
+      "family": "Location & Logistics",
+      "route": "/mobile/121/travel-planner",
+      "icon": "travel",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "122",
+      "name": "Accommodation",
+      "family": "Location & Logistics",
+      "route": "/mobile/122/accommodation",
+      "icon": "hotel",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "123",
+      "name": "Transport Dashboard",
+      "family": "Location & Logistics",
+      "route": "/mobile/123/transport-dashboard",
+      "icon": "transport",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "124",
+      "name": "Vehicle Assignment",
+      "family": "Location & Logistics",
+      "route": "/mobile/124/vehicle-assignment",
+      "icon": "vehicle",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "125",
+      "name": "Equipment Dashboard",
+      "family": "Location & Logistics",
+      "route": "/mobile/125/equipment-dashboard",
+      "icon": "equipment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "126",
+      "name": "Equipment Inventory",
+      "family": "Location & Logistics",
+      "route": "/mobile/126/equipment-inventory",
+      "icon": "inventory",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "127",
+      "name": "Equipment Booking",
+      "family": "Location & Logistics",
+      "route": "/mobile/127/equipment-booking",
+      "icon": "equipment-booking",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "128",
+      "name": "Equipment Check-in / Return",
+      "family": "Location & Logistics",
+      "route": "/mobile/128/equipment-check-in-return",
+      "icon": "check-in-equipment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "book resource",
+        "check-in",
+        "record return"
+      ],
+      "metrics": [
+        "Locations",
+        "Vehicles",
+        "Equipment"
+      ],
+      "description": ""
+    },
+    {
+      "id": "129",
+      "name": "Campaign Dashboard",
+      "family": "Campaign OS",
+      "route": "/mobile/129/campaign-dashboard",
+      "icon": "campaign",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "130",
+      "name": "Campaign Brief",
+      "family": "Campaign OS",
+      "route": "/mobile/130/campaign-brief",
+      "icon": "brief",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "131",
+      "name": "Campaign Strategy",
+      "family": "Campaign OS",
+      "route": "/mobile/131/campaign-strategy",
+      "icon": "target",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "132",
+      "name": "Markets / Cities",
+      "family": "Campaign OS",
+      "route": "/mobile/132/markets-cities",
+      "icon": "market",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "133",
+      "name": "Media Plan",
+      "family": "Campaign OS",
+      "route": "/mobile/133/media-plan",
+      "icon": "media-plan",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "134",
+      "name": "ATL Planner",
+      "family": "Campaign OS",
+      "route": "/mobile/134/atl-planner",
+      "icon": "atl",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "135",
+      "name": "BTL Activation Planner",
+      "family": "Campaign OS",
+      "route": "/mobile/135/btl-activation-planner",
+      "icon": "btl",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "136",
+      "name": "OOH Site List",
+      "family": "Campaign OS",
+      "route": "/mobile/136/ooh-site-list",
+      "icon": "ooh",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "137",
+      "name": "OOH Site Detail",
+      "family": "Campaign OS",
+      "route": "/mobile/137/ooh-site-detail",
+      "icon": "billboard",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "138",
+      "name": "DOOH Screen Detail",
+      "family": "Campaign OS",
+      "route": "/mobile/138/dooh-screen-detail",
+      "icon": "dooh",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "139",
+      "name": "Activation Calendar",
+      "family": "Campaign OS",
+      "route": "/mobile/139/activation-calendar",
+      "icon": "calendar",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "140",
+      "name": "Field Activation",
+      "family": "Campaign OS",
+      "route": "/mobile/140/field-activation",
+      "icon": "activation",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "141",
+      "name": "Site Check-in",
+      "family": "Campaign OS",
+      "route": "/mobile/141/site-check-in",
+      "icon": "site-checkin",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "142",
+      "name": "Live Activation Feed",
+      "family": "Campaign OS",
+      "route": "/mobile/142/live-activation-feed",
+      "icon": "activation-live",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "143",
+      "name": "Lead Capture",
+      "family": "Campaign OS",
+      "route": "/mobile/143/lead-capture",
+      "icon": "lead-capture",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "144",
+      "name": "Campaign Results",
+      "family": "Campaign OS",
+      "route": "/mobile/144/campaign-results",
+      "icon": "campaign-results",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "launch activation",
+        "capture lead",
+        "submit proof"
+      ],
+      "metrics": [
+        "Reach",
+        "Activations",
+        "Leads"
+      ],
+      "description": ""
+    },
+    {
+      "id": "145",
+      "name": "Marketplace Home",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/145/marketplace-home",
+      "icon": "marketplace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "146",
+      "name": "Marketplace Categories",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/146/marketplace-categories",
+      "icon": "grid",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "147",
+      "name": "Vendor Search",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/147/vendor-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "148",
+      "name": "Vendor Listing",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/148/vendor-listing",
+      "icon": "vendor",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "149",
+      "name": "Vendor Profile",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/149/vendor-profile",
+      "icon": "vendor",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "150",
+      "name": "Vendor Portfolio",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/150/vendor-portfolio",
+      "icon": "portfolio",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "151",
+      "name": "Vendor Availability",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/151/vendor-availability",
+      "icon": "availability",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "152",
+      "name": "Create RFQ",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/152/create-rfq",
+      "icon": "rfq-add",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "153",
+      "name": "RFQ Detail",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/153/rfq-detail",
+      "icon": "rfq",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "154",
+      "name": "Quote Inbox",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/154/quote-inbox",
+      "icon": "quote-inbox",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "155",
+      "name": "Quote Detail",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/155/quote-detail",
+      "icon": "quote",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "156",
+      "name": "Compare Quotes",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/156/compare-quotes",
+      "icon": "quote-compare",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "157",
+      "name": "Vendor Award",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/157/vendor-award",
+      "icon": "award",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "158",
+      "name": "Purchase Order",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/158/purchase-order",
+      "icon": "purchase-order",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "159",
+      "name": "Delivery / Service Tracking",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/159/delivery-service-tracking",
+      "icon": "delivery-tracking",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "160",
+      "name": "Vendor Rating",
+      "family": "Marketplace & Procurement",
+      "route": "/mobile/160/vendor-rating",
+      "icon": "rating",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "create RFQ",
+        "compare quote",
+        "award vendor"
+      ],
+      "metrics": [
+        "RFQs",
+        "Quotes",
+        "Awards"
+      ],
+      "description": ""
+    },
+    {
+      "id": "161",
+      "name": "Evidence Dashboard",
+      "family": "Evidence & Governance",
+      "route": "/mobile/161/evidence-dashboard",
+      "icon": "evidence-core",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "162",
+      "name": "Capture Evidence",
+      "family": "Evidence & Governance",
+      "route": "/mobile/162/capture-evidence",
+      "icon": "evidence-capture",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "163",
+      "name": "Camera Evidence Capture",
+      "family": "Evidence & Governance",
+      "route": "/mobile/163/camera-evidence-capture",
+      "icon": "camera-evidence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "164",
+      "name": "Video Evidence Capture",
+      "family": "Evidence & Governance",
+      "route": "/mobile/164/video-evidence-capture",
+      "icon": "video-evidence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "165",
+      "name": "GPS / Time Evidence",
+      "family": "Evidence & Governance",
+      "route": "/mobile/165/gps-time-evidence",
+      "icon": "gps-evidence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "166",
+      "name": "Evidence Detail",
+      "family": "Evidence & Governance",
+      "route": "/mobile/166/evidence-detail",
+      "icon": "evidence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "167",
+      "name": "Evidence Timeline",
+      "family": "Evidence & Governance",
+      "route": "/mobile/167/evidence-timeline",
+      "icon": "evidence-timeline",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "168",
+      "name": "Evidence Verification",
+      "family": "Evidence & Governance",
+      "route": "/mobile/168/evidence-verification",
+      "icon": "verification",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "169",
+      "name": "Before / After Proof",
+      "family": "Evidence & Governance",
+      "route": "/mobile/169/before-after-proof",
+      "icon": "before-after",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "170",
+      "name": "Approval Inbox",
+      "family": "Evidence & Governance",
+      "route": "/mobile/170/approval-inbox",
+      "icon": "pending-approval",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "171",
+      "name": "Approval Detail",
+      "family": "Evidence & Governance",
+      "route": "/mobile/171/approval-detail",
+      "icon": "approval",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "172",
+      "name": "Reject / Request Changes",
+      "family": "Evidence & Governance",
+      "route": "/mobile/172/reject-request-changes",
+      "icon": "request-changes",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "173",
+      "name": "Document Vault",
+      "family": "Evidence & Governance",
+      "route": "/mobile/173/document-vault",
+      "icon": "vault",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "174",
+      "name": "Document Viewer",
+      "family": "Evidence & Governance",
+      "route": "/mobile/174/document-viewer",
+      "icon": "document-view",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "175",
+      "name": "Risk Register",
+      "family": "Evidence & Governance",
+      "route": "/mobile/175/risk-register",
+      "icon": "risk-register",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "176",
+      "name": "Audit Trail",
+      "family": "Evidence & Governance",
+      "route": "/mobile/176/audit-trail",
+      "icon": "audit-trail",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "capture evidence",
+        "verify proof",
+        "approve / reject"
+      ],
+      "metrics": [
+        "Evidence",
+        "Verified",
+        "Pending"
+      ],
+      "description": ""
+    },
+    {
+      "id": "177",
+      "name": "Finance Dashboard",
+      "family": "Finance & Commerce",
+      "route": "/mobile/177/finance-dashboard",
+      "icon": "finance",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "178",
+      "name": "Budget Overview",
+      "family": "Finance & Commerce",
+      "route": "/mobile/178/budget-overview",
+      "icon": "budget",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "179",
+      "name": "Budget Categories",
+      "family": "Finance & Commerce",
+      "route": "/mobile/179/budget-categories",
+      "icon": "budget",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "180",
+      "name": "Budget Line Detail",
+      "family": "Finance & Commerce",
+      "route": "/mobile/180/budget-line-detail",
+      "icon": "budget-line",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "181",
+      "name": "Estimate",
+      "family": "Finance & Commerce",
+      "route": "/mobile/181/estimate",
+      "icon": "estimate",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "182",
+      "name": "Cost Sheet",
+      "family": "Finance & Commerce",
+      "route": "/mobile/182/cost-sheet",
+      "icon": "cost-sheet",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "183",
+      "name": "Actual vs Budget",
+      "family": "Finance & Commerce",
+      "route": "/mobile/183/actual-vs-budget",
+      "icon": "actual",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "184",
+      "name": "Variance Detail",
+      "family": "Finance & Commerce",
+      "route": "/mobile/184/variance-detail",
+      "icon": "variance",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "185",
+      "name": "Expense Entry",
+      "family": "Finance & Commerce",
+      "route": "/mobile/185/expense-entry",
+      "icon": "expense-add",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "186",
+      "name": "Expense Approval",
+      "family": "Finance & Commerce",
+      "route": "/mobile/186/expense-approval",
+      "icon": "expense-approve",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "187",
+      "name": "Vendor Invoice",
+      "family": "Finance & Commerce",
+      "route": "/mobile/187/vendor-invoice",
+      "icon": "invoice",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "188",
+      "name": "Invoice Approval",
+      "family": "Finance & Commerce",
+      "route": "/mobile/188/invoice-approval",
+      "icon": "invoice-approve",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "189",
+      "name": "Payments",
+      "family": "Finance & Commerce",
+      "route": "/mobile/189/payments",
+      "icon": "payment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "190",
+      "name": "Payment Verification",
+      "family": "Finance & Commerce",
+      "route": "/mobile/190/payment-verification",
+      "icon": "payment-check",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "191",
+      "name": "Cash Flow",
+      "family": "Finance & Commerce",
+      "route": "/mobile/191/cash-flow",
+      "icon": "cashflow",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "192",
+      "name": "Project Profitability",
+      "family": "Finance & Commerce",
+      "route": "/mobile/192/project-profitability",
+      "icon": "profitability",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "add expense",
+        "approve invoice",
+        "verify payment"
+      ],
+      "metrics": [
+        "Budget",
+        "Actual",
+        "Variance"
+      ],
+      "description": ""
+    },
+    {
+      "id": "193",
+      "name": "InvestorHub Home",
+      "family": "Investor & Revenue",
+      "route": "/mobile/193/investorhub-home",
+      "icon": "investorhub",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "194",
+      "name": "Investment Opportunities",
+      "family": "Investor & Revenue",
+      "route": "/mobile/194/investment-opportunities",
+      "icon": "opportunity",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "195",
+      "name": "Project Investment Profile",
+      "family": "Investor & Revenue",
+      "route": "/mobile/195/project-investment-profile",
+      "icon": "investment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "196",
+      "name": "Investor Deal Room",
+      "family": "Investor & Revenue",
+      "route": "/mobile/196/investor-deal-room",
+      "icon": "deal-room",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "197",
+      "name": "Pitch Deck Viewer",
+      "family": "Investor & Revenue",
+      "route": "/mobile/197/pitch-deck-viewer",
+      "icon": "pitch-deck",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "198",
+      "name": "Disclosure Centre",
+      "family": "Investor & Revenue",
+      "route": "/mobile/198/disclosure-centre",
+      "icon": "disclosure",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "199",
+      "name": "Due Diligence",
+      "family": "Investor & Revenue",
+      "route": "/mobile/199/due-diligence",
+      "icon": "due-diligence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "200",
+      "name": "Funding Requirement",
+      "family": "Investor & Revenue",
+      "route": "/mobile/200/funding-requirement",
+      "icon": "funding-target",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "201",
+      "name": "Investment Tranches",
+      "family": "Investor & Revenue",
+      "route": "/mobile/201/investment-tranches",
+      "icon": "tranche",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "202",
+      "name": "Investor Progress Report",
+      "family": "Investor & Revenue",
+      "route": "/mobile/202/investor-progress-report",
+      "icon": "investor-report",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "203",
+      "name": "Investor Evidence",
+      "family": "Investor & Revenue",
+      "route": "/mobile/203/investor-evidence",
+      "icon": "investor-evidence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "204",
+      "name": "Distribution Dashboard",
+      "family": "Investor & Revenue",
+      "route": "/mobile/204/distribution-dashboard",
+      "icon": "distribution",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "205",
+      "name": "Rights / Windows",
+      "family": "Investor & Revenue",
+      "route": "/mobile/205/rights-windows",
+      "icon": "rights-window",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "206",
+      "name": "Revenue Dashboard",
+      "family": "Investor & Revenue",
+      "route": "/mobile/206/revenue-dashboard",
+      "icon": "revenue",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "207",
+      "name": "Recoupment Waterfall",
+      "family": "Investor & Revenue",
+      "route": "/mobile/207/recoupment-waterfall",
+      "icon": "recoupment",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "208",
+      "name": "Investor Returns",
+      "family": "Investor & Revenue",
+      "route": "/mobile/208/investor-returns",
+      "icon": "returns",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "open deal room",
+        "review evidence",
+        "view returns"
+      ],
+      "metrics": [
+        "Capital",
+        "Recovered",
+        "MOIC"
+      ],
+      "description": ""
+    },
+    {
+      "id": "209",
+      "name": "Event Dashboard",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/209/event-dashboard",
+      "icon": "event",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "210",
+      "name": "Event Journey",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/210/event-journey",
+      "icon": "event-journey",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "211",
+      "name": "Event Timeline",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/211/event-timeline",
+      "icon": "timeline",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "212",
+      "name": "Event Run of Show",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/212/event-run-of-show",
+      "icon": "run-of-show",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "213",
+      "name": "Venue Dashboard",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/213/venue-dashboard",
+      "icon": "venue",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "214",
+      "name": "Wedding Journey",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/214/wedding-journey",
+      "icon": "wedding",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "215",
+      "name": "AI Wedding Producer",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/215/ai-wedding-producer",
+      "icon": "maataa",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "216",
+      "name": "4D Studio",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/216/4d-studio",
+      "icon": "cube",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "217",
+      "name": "Live Simulation",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/217/live-simulation",
+      "icon": "live-simulation",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "218",
+      "name": "Decision Graph",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/218/decision-graph",
+      "icon": "graph-view",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "219",
+      "name": "Board Composer",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/219/board-composer",
+      "icon": "board-composer",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "220",
+      "name": "Presentation Studio",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/220/presentation-studio",
+      "icon": "presentation-studio",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "221",
+      "name": "Film Twin",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/221/film-twin",
+      "icon": "film-twin",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "222",
+      "name": "Exhibition Layout",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/222/exhibition-layout",
+      "icon": "exhibition",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "223",
+      "name": "3D / CAD Previz",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/223/3d-cad-previz",
+      "icon": "cad",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "224",
+      "name": "Spatial Operations Centre",
+      "family": "Events / Wedding / Spatial",
+      "route": "/mobile/224/spatial-operations-centre",
+      "icon": "spatial",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "update run-of-show",
+        "open simulation",
+        "approve layout"
+      ],
+      "metrics": [
+        "Milestones",
+        "Vendors",
+        "Readiness"
+      ],
+      "description": ""
+    },
+    {
+      "id": "225",
+      "name": "TLPS AI Co-Pilot",
+      "family": "AI & Intelligence",
+      "route": "/mobile/225/tlps-ai-co-pilot",
+      "icon": "maataa",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "226",
+      "name": "AI Chat",
+      "family": "AI & Intelligence",
+      "route": "/mobile/226/ai-chat",
+      "icon": "chat-ai",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "227",
+      "name": "Project Context",
+      "family": "AI & Intelligence",
+      "route": "/mobile/227/project-context",
+      "icon": "context",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "228",
+      "name": "Suggested Actions",
+      "family": "AI & Intelligence",
+      "route": "/mobile/228/suggested-actions",
+      "icon": "suggested-action",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "229",
+      "name": "Research Runtime",
+      "family": "AI & Intelligence",
+      "route": "/mobile/229/research-runtime",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "230",
+      "name": "Knowledge Search",
+      "family": "AI & Intelligence",
+      "route": "/mobile/230/knowledge-search",
+      "icon": "search",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "231",
+      "name": "Evidence-aware Answer",
+      "family": "AI & Intelligence",
+      "route": "/mobile/231/evidence-aware-answer",
+      "icon": "evidence-answer",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "232",
+      "name": "Production Intelligence",
+      "family": "AI & Intelligence",
+      "route": "/mobile/232/production-intelligence",
+      "icon": "intelligence",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "233",
+      "name": "Schedule Intelligence",
+      "family": "AI & Intelligence",
+      "route": "/mobile/233/schedule-intelligence",
+      "icon": "schedule-analytics",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "234",
+      "name": "Budget Intelligence",
+      "family": "AI & Intelligence",
+      "route": "/mobile/234/budget-intelligence",
+      "icon": "budget-analytics",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "235",
+      "name": "Risk Intelligence",
+      "family": "AI & Intelligence",
+      "route": "/mobile/235/risk-intelligence",
+      "icon": "risk-analytics",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "236",
+      "name": "Campaign Analytics",
+      "family": "AI & Intelligence",
+      "route": "/mobile/236/campaign-analytics",
+      "icon": "campaign-analytics",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "237",
+      "name": "KPI Dashboard",
+      "family": "AI & Intelligence",
+      "route": "/mobile/237/kpi-dashboard",
+      "icon": "kpi",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "238",
+      "name": "ROI Dashboard",
+      "family": "AI & Intelligence",
+      "route": "/mobile/238/roi-dashboard",
+      "icon": "roi-dashboard",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "239",
+      "name": "Forecast",
+      "family": "AI & Intelligence",
+      "route": "/mobile/239/forecast",
+      "icon": "forecast",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "240",
+      "name": "Executive Insights",
+      "family": "AI & Intelligence",
+      "route": "/mobile/240/executive-insights",
+      "icon": "executive-insights",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "ask co-pilot",
+        "run analysis",
+        "save insight"
+      ],
+      "metrics": [
+        "Confidence",
+        "Signals",
+        "Actions"
+      ],
+      "description": ""
+    },
+    {
+      "id": "241",
+      "name": "Notifications Centre",
+      "family": "Admin & Support",
+      "route": "/mobile/241/notifications-centre",
+      "icon": "notifications",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "242",
+      "name": "Notification Detail",
+      "family": "Admin & Support",
+      "route": "/mobile/242/notification-detail",
+      "icon": "bell",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "243",
+      "name": "Live Communication Board",
+      "family": "Admin & Support",
+      "route": "/mobile/243/live-communication-board",
+      "icon": "communication-board",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "244",
+      "name": "Project Chat",
+      "family": "Admin & Support",
+      "route": "/mobile/244/project-chat",
+      "icon": "chat",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "245",
+      "name": "Direct Messages",
+      "family": "Admin & Support",
+      "route": "/mobile/245/direct-messages",
+      "icon": "direct-message",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "246",
+      "name": "Profile",
+      "family": "Admin & Support",
+      "route": "/mobile/246/profile",
+      "icon": "profile",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "247",
+      "name": "Organisation Settings",
+      "family": "Admin & Support",
+      "route": "/mobile/247/organisation-settings",
+      "icon": "organisation",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "248",
+      "name": "Account Settings",
+      "family": "Admin & Support",
+      "route": "/mobile/248/account-settings",
+      "icon": "account",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "249",
+      "name": "Workspace Settings",
+      "family": "Admin & Support",
+      "route": "/mobile/249/workspace-settings",
+      "icon": "workspace",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "250",
+      "name": "Role & Permissions",
+      "family": "Admin & Support",
+      "route": "/mobile/250/role-permissions",
+      "icon": "permissions",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "251",
+      "name": "Language / Lipi",
+      "family": "Admin & Support",
+      "route": "/mobile/251/language-lipi",
+      "icon": "lipi",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "252",
+      "name": "Appearance",
+      "family": "Admin & Support",
+      "route": "/mobile/252/appearance",
+      "icon": "theme",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "253",
+      "name": "Offline / Sync Status",
+      "family": "Admin & Support",
+      "route": "/mobile/253/offline-sync-status",
+      "icon": "sync",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "254",
+      "name": "Support Agent",
+      "family": "Admin & Support",
+      "route": "/mobile/254/support-agent",
+      "icon": "support",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "255",
+      "name": "Runtime Observatory",
+      "family": "Admin & Support",
+      "route": "/mobile/255/runtime-observatory",
+      "icon": "observatory",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "256",
+      "name": "Export & Share Centre",
+      "family": "Admin & Support",
+      "route": "/mobile/256/export-share-centre",
+      "icon": "export",
+      "kind": "app",
+      "access": "protected",
+      "primaryActions": [
+        "send message",
+        "change settings",
+        "export state"
+      ],
+      "metrics": [
+        "Unread",
+        "Sync queue",
+        "Health"
+      ],
+      "description": ""
+    },
+    {
+      "id": "PUB-025",
+      "name": "Product Explorer",
+      "family": "Public",
+      "route": "/explorer",
+      "icon": "apps",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [],
+      "metrics": [],
+      "description": "Explore TLPS products, modules, frames, routes and role coverage."
+    },
+    {
+      "id": "PUB-026",
+      "name": "Frame Explorer",
+      "family": "Public",
+      "route": "/frames",
+      "icon": "grid",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [],
+      "metrics": [],
+      "description": "Browse every public, authentication and protected application frame."
+    },
+    {
+      "id": "PUB-027",
+      "name": "Role Explorer",
+      "family": "Public",
+      "route": "/roles",
+      "icon": "users",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [],
+      "metrics": [],
+      "description": "Review all demo roles, fictional demo emails, workspaces and authority."
+    },
+    {
+      "id": "PUB-028",
+      "name": "Redux State Explorer",
+      "family": "Public",
+      "route": "/states",
+      "icon": "activity",
+      "kind": "public",
+      "access": "public",
+      "primaryActions": [],
+      "metrics": [],
+      "description": "Inspect the advanced Redux-style architecture, slices, middleware and live state."
+    }
+  ],
+  "roles": [
+    {
+      "id": "client",
+      "label": "Client",
+      "name": "Client Demo",
+      "avatar": "CL",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "agency",
+      "label": "Agency",
+      "name": "Agency Demo",
+      "avatar": "AG",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "producer",
+      "label": "Producer",
+      "name": "Producer Demo",
+      "avatar": "PR",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "executiveProducer",
+      "label": "Executive Producer",
+      "name": "Executive Producer Demo",
+      "avatar": "EX",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "lineProducer",
+      "label": "Line Producer",
+      "name": "Line Producer Demo",
+      "avatar": "LI",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "hod",
+      "label": "HOD",
+      "name": "HOD Demo",
+      "avatar": "HO",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "crew",
+      "label": "Crew",
+      "name": "Crew Demo",
+      "avatar": "CR",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "cast",
+      "label": "Cast",
+      "name": "Cast Demo",
+      "avatar": "CA",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "talent",
+      "label": "Talent",
+      "name": "Talent Demo",
+      "avatar": "TA",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "vendor",
+      "label": "Vendor",
+      "name": "Vendor Demo",
+      "avatar": "VE",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "fabricator",
+      "label": "Fabricator",
+      "name": "Fabricator Demo",
+      "avatar": "FA",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "finance",
+      "label": "Finance",
+      "name": "Finance Demo",
+      "avatar": "FI",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "legal",
+      "label": "Legal",
+      "name": "Legal Demo",
+      "avatar": "LE",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "evidenceReviewer",
+      "label": "Evidence Reviewer",
+      "name": "Evidence Reviewer Demo",
+      "avatar": "EV",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "sponsor",
+      "label": "Sponsor",
+      "name": "Sponsor Demo",
+      "avatar": "SP",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "investor",
+      "label": "Investor",
+      "name": "Investor Demo",
+      "avatar": "IN",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "auditor",
+      "label": "Auditor",
+      "name": "Auditor Demo",
+      "avatar": "AU",
+      "organisation": "TLPS Demo Organisation"
+    },
+    {
+      "id": "admin",
+      "label": "TLPS Admin",
+      "name": "TLPS Admin Demo",
+      "avatar": "TL",
+      "organisation": "TLPS Demo Organisation"
+    }
+  ],
+  "permissions": {
+    "client": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Campaign OS",
+        "Events / Wedding / Spatial",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "approve",
+        "audit"
+      ]
+    },
+    "agency": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Campaign OS",
+        "Development & Creative",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "approve",
+        "captureEvidence",
+        "procure"
+      ]
+    },
+    "producer": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Campaign OS",
+        "Casting",
+        "Crew",
+        "Development & Creative",
+        "Entry & Security",
+        "Events / Wedding / Spatial",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Live Production",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "approve",
+        "captureEvidence",
+        "finance",
+        "legal",
+        "audit",
+        "manageCrew",
+        "procure",
+        "invest"
+      ]
+    },
+    "executiveProducer": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Campaign OS",
+        "Casting",
+        "Crew",
+        "Development & Creative",
+        "Entry & Security",
+        "Events / Wedding / Spatial",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Live Production",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "approve",
+        "captureEvidence",
+        "finance",
+        "legal",
+        "audit",
+        "manageCrew",
+        "procure",
+        "invest"
+      ]
+    },
+    "lineProducer": {
+      "families": [
+        "Admin & Support",
+        "Campaign OS",
+        "Casting",
+        "Crew",
+        "Development & Creative",
+        "Entry & Security",
+        "Events / Wedding / Spatial",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Live Production",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "approve",
+        "captureEvidence",
+        "finance",
+        "manageCrew",
+        "procure"
+      ]
+    },
+    "hod": {
+      "families": [
+        "Admin & Support",
+        "Casting",
+        "Crew",
+        "Development & Creative",
+        "Evidence & Governance",
+        "Live Production",
+        "Location & Logistics",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "captureEvidence",
+        "manageCrew"
+      ]
+    },
+    "crew": {
+      "families": [
+        "Admin & Support",
+        "Crew",
+        "Evidence & Governance",
+        "Live Production",
+        "Location & Logistics",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "captureEvidence"
+      ]
+    },
+    "cast": {
+      "families": [
+        "Admin & Support",
+        "Casting",
+        "Development & Creative",
+        "Evidence & Governance",
+        "Live Production",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "captureEvidence"
+      ]
+    },
+    "talent": {
+      "families": [
+        "Admin & Support",
+        "Casting",
+        "Evidence & Governance",
+        "Live Production",
+        "Workspace"
+      ],
+      "abilities": [
+        "view"
+      ]
+    },
+    "vendor": {
+      "families": [
+        "Admin & Support",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "captureEvidence"
+      ]
+    },
+    "fabricator": {
+      "families": [
+        "Admin & Support",
+        "Campaign OS",
+        "Events / Wedding / Spatial",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "captureEvidence",
+        "procure"
+      ]
+    },
+    "finance": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "approve",
+        "finance",
+        "audit"
+      ]
+    },
+    "legal": {
+      "families": [
+        "Admin & Support",
+        "Evidence & Governance",
+        "Investor & Revenue",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "approve",
+        "legal",
+        "audit"
+      ]
+    },
+    "evidenceReviewer": {
+      "families": [
+        "Admin & Support",
+        "Campaign OS",
+        "Evidence & Governance",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "approve",
+        "captureEvidence",
+        "audit"
+      ]
+    },
+    "sponsor": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Campaign OS",
+        "Evidence & Governance",
+        "Investor & Revenue",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "approve",
+        "audit"
+      ]
+    },
+    "investor": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "invest",
+        "audit"
+      ]
+    },
+    "auditor": {
+      "families": [
+        "Admin & Support",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "audit"
+      ]
+    },
+    "admin": {
+      "families": [
+        "AI & Intelligence",
+        "Admin & Support",
+        "Campaign OS",
+        "Casting",
+        "Crew",
+        "Development & Creative",
+        "Entry & Security",
+        "Events / Wedding / Spatial",
+        "Evidence & Governance",
+        "Finance & Commerce",
+        "Investor & Revenue",
+        "Live Production",
+        "Location & Logistics",
+        "Marketplace & Procurement",
+        "Projects",
+        "Workspace"
+      ],
+      "abilities": [
+        "view",
+        "edit",
+        "approve",
+        "captureEvidence",
+        "finance",
+        "legal",
+        "audit",
+        "admin",
+        "manageCrew",
+        "procure",
+        "invest"
+      ]
+    }
+  }
+}

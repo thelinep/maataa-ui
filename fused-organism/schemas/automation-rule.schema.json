@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/automation-rule.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "AutomationRule",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ruleId": {
+      "type": "string",
+      "description": "Rule ID"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Enabled"
+    },
+    "trigger": {
+      "type": "string",
+      "description": "Deterministic trigger"
+    },
+    "condition": {
+      "type": "string",
+      "description": "Deterministic condition"
+    },
+    "actionType": {
+      "type": "string",
+      "description": "Bounded action"
+    },
+    "requiresApproval": {
+      "type": "boolean",
+      "description": "Approval requirement"
+    }
+  },
+  "required": [
+    "ruleId",
+    "enabled",
+    "trigger",
+    "actionType",
+    "requiresApproval"
+  ]
+}

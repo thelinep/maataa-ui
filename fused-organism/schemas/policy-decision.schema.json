@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/policy-decision.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "PolicyDecision",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Decision ID"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "deny",
+        "allow_with_approval",
+        "allow_with_constraints"
+      ]
+    },
+    "reasonCodes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Stable reason code"
+      }
+    },
+    "requiredApprovalIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Approval ID"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "outcome",
+    "reasonCodes"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "authored",
+  "classifications": [
+    {
+      "flowId": "TLPS-FLOW-001",
+      "classification": "public-opt-in",
+      "contextIds": [
+        "public"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-002",
+      "classification": "public-opt-in",
+      "contextIds": [
+        "public"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-003",
+      "classification": "public-opt-in",
+      "contextIds": [
+        "public"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-004",
+      "classification": "core-spine",
+      "contextIds": [
+        "identity"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-005",
+      "classification": "core-spine",
+      "contextIds": [
+        "identity"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-006",
+      "classification": "core-spine",
+      "contextIds": [
+        "identity"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-007",
+      "classification": "core-spine",
+      "contextIds": [
+        "identity"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    },
+    {
+      "flowId": "TLPS-FLOW-008",
+      "classification": "core-spine",
+      "contextIds": [
+        "identity"
+      ],
+      "provenance": "authored-from-flow-category-and-canonical-spine-policy"
+    }
+  ]
+}

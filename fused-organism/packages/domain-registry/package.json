@@ -1,0 +1,33 @@
+{
+  "name": "@maataa/domain-registry",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.mjs",
+    "./composition": "./src/composition.mjs"
+  },
+  "files": [
+    "catalog",
+    "contexts",
+    "data",
+    "flows",
+    "products",
+    "routes",
+    "schemas",
+    "sources",
+    "applications",
+    "composition",
+    "scripts",
+    "src",
+    "registry.manifest.json",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "routes:sync": "node scripts/update-route-registries.mjs",
+    "composition:generate": "node scripts/generate-composition-artifacts.mjs",
+    "validate": "node scripts/validate.mjs"
+  }
+}

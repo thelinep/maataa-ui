@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/route-finding.schema.json",
+  "title": "Route governance finding",
+  "type": "object",
+  "required": ["id", "severity", "code", "class", "owner", "sourceEvidence", "reason", "resolvedWhen"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "severity": { "enum": ["BLOCKER", "ERROR", "WARNING", "INFO"] },
+    "code": { "type": "string", "minLength": 1 },
+    "class": { "type": "string", "minLength": 1 },
+    "owner": { "type": "string", "minLength": 1 },
+    "flowId": { "type": "string" },
+    "subject": { "type": "string" },
+    "requestedPath": { "type": "string", "pattern": "^/" },
+    "sourceEvidence": { "type": "object" },
+    "reason": { "type": "string", "minLength": 1 },
+    "resolvedWhen": { "type": "object" }
+  },
+  "additionalProperties": true
+}

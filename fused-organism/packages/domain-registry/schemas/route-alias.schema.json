@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/route-alias.schema.json",
+  "title": "Approved route alias",
+  "type": "object",
+  "required": ["requested", "target", "provenance", "approvedBy"],
+  "properties": {
+    "requested": { "type": "string", "pattern": "^/" },
+    "target": { "type": "string", "pattern": "^/" },
+    "provenance": { "type": "string", "minLength": 1 },
+    "approvedBy": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "explicitly-deferred",
+  "targetVersion": "1.1.0",
+  "policy": "Deferred routes remain UNRESOLVED and non-executable. Deferral removes the registry-wide publication blocker only; it does not make a route resolvable.",
+  "routes": [
+    {
+      "path": "/mobile/auth/create-organisation",
+      "flowIds": [
+        "TLPS-FLOW-005"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/auth/invite",
+      "flowIds": [
+        "TLPS-FLOW-006"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/auth/accept-invite",
+      "flowIds": [
+        "TLPS-FLOW-006"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/auth/sign-out",
+      "flowIds": [
+        "TLPS-FLOW-008"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/offline",
+      "flowIds": [
+        "TLPS-FLOW-115"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/admin/api-keys",
+      "flowIds": [
+        "TLPS-FLOW-119"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/admin/webhooks",
+      "flowIds": [
+        "TLPS-FLOW-120"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/admin/integrations",
+      "flowIds": [
+        "TLPS-FLOW-121"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/admin/audit-log",
+      "flowIds": [
+        "TLPS-FLOW-122"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/admin/data-retention",
+      "flowIds": [
+        "TLPS-FLOW-123"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    },
+    {
+      "path": "/mobile/admin/feature-flags",
+      "flowIds": [
+        "TLPS-FLOW-124"
+      ],
+      "category": "missing-source",
+      "owner": "platform",
+      "targetVersion": "1.1.0",
+      "rationale": "Referenced by the flow source but absent from manifest.pages, routeParams, and authored aliases."
+    }
+  ],
+  "counts": {
+    "routes": 11,
+    "sourceReferences": 11
+  }
+}

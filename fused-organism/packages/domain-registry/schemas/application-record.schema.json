@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/application-record.schema.json",
+  "title": "Application Registry record",
+  "type": "object",
+  "required": ["appId", "intent", "registryVersion", "registryHash", "resolverVersion", "irVersions", "pinnedContextVersions", "selectedFlows", "overrides", "compilationPlans", "artifactReferences", "environmentAssignments"],
+  "properties": {
+    "appId": { "type": "string", "minLength": 1 },
+    "intent": { "type": "object" },
+    "registryVersion": { "type": "string" },
+    "registryHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "resolverVersion": { "type": "string" },
+    "irVersions": { "type": "array", "items": { "type": "object" } },
+    "pinnedContextVersions": { "type": "array", "items": { "type": "object" } },
+    "selectedFlows": { "type": "array", "items": { "type": "string" } },
+    "overrides": { "type": "object" },
+    "compilationPlans": { "type": "array", "items": { "type": "object" } },
+    "artifactReferences": { "type": "array", "items": { "type": "object" } },
+    "environmentAssignments": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/control-lease.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "ControlLease",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "leaseId": {
+      "type": "string",
+      "description": "Lease ID"
+    },
+    "resourceId": {
+      "type": "string",
+      "description": "Controlled resource"
+    },
+    "holderRef": {
+      "type": "string",
+      "description": "Controller"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "exclusive",
+        "shared",
+        "observer"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "revoked",
+        "released"
+      ]
+    },
+    "expiresAt": {
+      "type": "string",
+      "description": "ISO time"
+    }
+  },
+  "required": [
+    "leaseId",
+    "resourceId",
+    "holderRef",
+    "mode",
+    "status"
+  ]
+}

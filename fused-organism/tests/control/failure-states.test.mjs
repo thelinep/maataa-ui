@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import {createCommand,transition} from "../../packages/control/src/index.mjs";
+test("dispatch supports NACK timeout and failure",()=>{for(const terminal of ["nack","timed_out","failed"]){let c=createCommand({commandId:terminal,deviceId:"d",capability:"x",idempotencyKey:terminal,issuedAt:"t"});for(const s of ["validated","authorized","queued","dispatched"])c=transition(c,s);c=transition(c,terminal);assert.equal(c.status,terminal);}});
+test("cancel is explicit before dispatch",()=>{let c=createCommand({commandId:"x",deviceId:"d",capability:"x",idempotencyKey:"x",issuedAt:"t"});c=transition(c,"validated");c=transition(c,"cancelled");assert.equal(c.status,"cancelled");});

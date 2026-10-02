@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/digital-twin.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "DigitalTwin",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "twinId": {
+      "type": "string",
+      "description": "Twin ID"
+    },
+    "physicalEntityRef": {
+      "type": "string",
+      "description": "Physical entity"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Twin kind"
+    },
+    "observedState": {
+      "type": "object"
+    },
+    "desiredState": {
+      "type": "object"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Capability"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Constraint"
+      }
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "ISO time"
+    }
+  },
+  "required": [
+    "twinId",
+    "physicalEntityRef",
+    "kind",
+    "observedState",
+    "capabilities",
+    "updatedAt"
+  ]
+}

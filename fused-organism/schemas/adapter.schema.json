@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/adapter.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "AdapterDescriptor",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "adapterId": {
+      "type": "string",
+      "description": "Adapter ID"
+    },
+    "version": {
+      "type": "string",
+      "description": "Adapter version"
+    },
+    "protocol": {
+      "type": "string",
+      "description": "Protocol"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Capability"
+      }
+    },
+    "discovery": {
+      "type": "boolean",
+      "description": "Discovery support"
+    },
+    "command": {
+      "type": "boolean",
+      "description": "Command support"
+    },
+    "telemetry": {
+      "type": "boolean",
+      "description": "Telemetry support"
+    }
+  },
+  "required": [
+    "adapterId",
+    "version",
+    "protocol",
+    "capabilities"
+  ]
+}

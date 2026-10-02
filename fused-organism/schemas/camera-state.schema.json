@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/camera-state.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "CameraState",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "description": "Camera"
+    },
+    "streamState": {
+      "type": "string",
+      "enum": [
+        "streaming",
+        "stopped",
+        "degraded",
+        "offline"
+      ]
+    },
+    "pan": {
+      "type": "number",
+      "description": "Degrees"
+    },
+    "tilt": {
+      "type": "number",
+      "description": "Degrees"
+    },
+    "zoom": {
+      "type": "number",
+      "description": "Zoom factor"
+    },
+    "preset": {
+      "type": "string",
+      "description": "Preset"
+    },
+    "tracking": {
+      "type": "boolean",
+      "description": "Tracking state"
+    },
+    "observedAt": {
+      "type": "string",
+      "description": "ISO time"
+    }
+  },
+  "required": [
+    "deviceId",
+    "streamState",
+    "pan",
+    "tilt",
+    "zoom",
+    "tracking",
+    "observedAt"
+  ]
+}

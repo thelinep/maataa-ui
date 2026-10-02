@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/declared-route-pattern.schema.json",
+  "title": "Declared route pattern",
+  "type": "object",
+  "required": ["id", "path", "parameters", "kind", "declared", "registered", "executable", "routeState", "source"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "path": { "type": "string", "pattern": "^/" },
+    "parameters": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "kind": { "const": "dynamic" },
+    "declared": { "const": true },
+    "registered": { "const": false },
+    "executable": { "const": false },
+    "routeState": { "const": "DECLARED_UNREGISTERED" },
+    "source": { "const": "manifest.routeParams" }
+  },
+  "additionalProperties": true
+}

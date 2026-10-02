@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryVersion": "1.0.0",
+  "generatedAt": "2026-10-02",
+  "source": "TLPS audit 2026-10-02 + tlps_all_flows_detailed.json + tlps_flows_index.json",
+  "status": "M1",
+
+  "paths": {
+    "schemas":   "schemas/",
+    "catalog":   "catalog/",
+    "contexts":  "contexts/",
+    "flows":     "flows/",
+    "products":  "products/",
+    "lockfiles": "lockfiles/",
+    "tests":     "tests/"
+  },
+
+  "layers": [
+    { "id": "catalog",    "file": "catalog/domains.json",     "schema": "schemas/table.schema.json" },
+    { "id": "spine",      "file": "catalog/spine.json",       "schema": "schemas/spine.schema.json" },
+    { "id": "contexts",   "dir":  "contexts/",                "schema": "schemas/context.schema.json" },
+    { "id": "flows",      "file": "flows/flows.json",         "schema": "schemas/flow.schema.json" },
+    { "id": "products",   "file": "products/products.json",   "schema": "schemas/product.schema.json" }
+  ],
+
+  "counts": {
+    "domains": 18,
+    "tables": 352,
+    "contexts": 17,
+    "flows": 160,
+    "products": 6,
+    "services": 2
+  },
+
+  "statusVocabulary": {
+    "implemented": "Real tables, real migrations, safe to generate against",
+    "stubbed":     "Table shape defined, no business logic; generation allowed but flagged",
+    "planned":     "No table; generation refused unless explicitly overridden"
+  },
+
+  "invariants": [
+    "Every table belongs to exactly one domain",
+    "Every table belongs to exactly one context",
+    "Every context references valid tables",
+    "Every context dependency references a valid context+version",
+    "Every flow references valid contexts, actors, products",
+    "Every product references valid contexts and flows",
+    "Every composition includes the full spine",
+    "No duplicate table IDs, flow IDs, context IDs, product IDs",
+    "No broken dependency edges",
+    "No cycles in context or product graphs",
+    "No orphan implemented tables",
+    "No implemented table depends on a planned table",
+    "No implemented context depends on a planned context"
+  ],
+
+  "spine": ["identity", "organisation", "project", "communications", "platform", "public"]
+}
