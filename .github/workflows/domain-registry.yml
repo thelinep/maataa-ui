@@ -1,6 +1,7 @@
 name: Domain Registry
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - ".github/workflows/domain-registry.yml"
@@ -9,7 +10,7 @@ on:
       - "fused-organism/package.json"
       - "fused-organism/package-lock.json"
   push:
-    branches: [main]
+    branches: [master, main]
     paths:
       - ".github/workflows/domain-registry.yml"
       - "fused-organism/packages/domain-registry/**"
