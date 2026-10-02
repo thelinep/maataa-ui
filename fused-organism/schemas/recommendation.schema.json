@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/recommendation.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "Recommendation",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable recommendation ID"
+    },
+    "summary": {
+      "type": "string",
+      "description": "User-facing summary"
+    },
+    "rationaleSummary": {
+      "type": "string",
+      "description": "Auditable rationale summary"
+    },
+    "confidence": {
+      "type": "number",
+      "description": "0..1 confidence"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Evidence ID"
+      }
+    },
+    "proposedActionIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Action ID"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "summary"
+  ]
+}

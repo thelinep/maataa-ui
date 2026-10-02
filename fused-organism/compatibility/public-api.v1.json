@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "baseline": "v1",
+  "frozenAtProductVersion": "0.3.2",
+  "policy": "exports-may-be-added-but-not-removed",
+  "packages": [
+    {
+      "name": "@maataa/adapter-sdk",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "createCameraSimulatorAdapter",
+        "defineAdapter"
+      ]
+    },
+    {
+      "name": "@maataa/ai",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "agentStep",
+        "recommendationViewModel",
+        "usageSnapshot"
+      ]
+    },
+    {
+      "name": "@maataa/contracts",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "assertContract",
+        "schemas",
+        "validateContract"
+      ]
+    },
+    {
+      "name": "@maataa/control",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "acquireLease",
+        "controlComponent",
+        "controlComponents",
+        "controlledStopRequest",
+        "createCommand",
+        "evaluateSafety",
+        "executeGovernedCommand",
+        "isTerminal",
+        "releaseLease",
+        "renewLease",
+        "revokeLease",
+        "terminalStates",
+        "transition"
+      ]
+    },
+    {
+      "name": "@maataa/core",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "accessibleName",
+        "assertInteractiveA11y",
+        "liveRegionPoliteness",
+        "primitive",
+        "primitiveNames",
+        "semanticTokens"
+      ]
+    },
+    {
+      "name": "@maataa/governance",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "canDispatch",
+        "evidenceReceipt",
+        "policyOutcomes"
+      ]
+    },
+    {
+      "name": "@maataa/react",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "createMaataaReact"
+      ]
+    },
+    {
+      "name": "@maataa/recipes",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "governedCameraControlRecipe"
+      ]
+    },
+    {
+      "name": "@maataa/registry",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "getRegistryEntry",
+        "isRegisteredComponent",
+        "registry"
+      ]
+    },
+    {
+      "name": "@maataa/renderer",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "createRenderPlan",
+        "renderText"
+      ]
+    },
+    {
+      "name": "@maataa/testing",
+      "version": "0.3.2",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "approvedApproval",
+        "approvedPolicy",
+        "assertTerminal",
+        "connectedCameraSimulator"
+      ]
+    }
+  ]
+}

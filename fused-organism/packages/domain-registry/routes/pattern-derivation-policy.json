@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "policy-authored-patterns-not-derived",
+  "source": "governance decision for M1; no source route patterns are synthesized",
+  "ruleId": "segment-shape-frequency@1",
+  "minimumConcreteRoutes": 3,
+  "groupBy": ["segmentCount", "orderedSegmentShapes"],
+  "shapePrecedence": ["numeric", "hex-uuid", "prefixed-id", "slug", "literal"],
+  "segmentShapes": [
+    { "id": "literal", "pattern": "fixed segment value" },
+    { "id": "numeric", "pattern": "^\\d+$" },
+    { "id": "slug", "pattern": "^[a-z][a-z0-9-]*$" },
+    { "id": "hex-uuid", "pattern": "^[0-9a-f-]{8,}$" },
+    { "id": "prefixed-id", "pattern": "^[A-Z]+-\\d+$" }
+  ],
+  "behavior": {
+    "deriveFromConcreteRoutesOnly": true,
+    "derivedPatternsAreDeclarations": true,
+    "patternExecutesOnlyWhenBoundToRegisteredDynamicPage": true,
+    "oneOffShapesRemainConcreteRoutes": true,
+    "patternsDerived": 0
+  }
+}

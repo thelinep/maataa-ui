@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/flow-route-reference.schema.json",
+  "title": "Flow route source occurrence",
+  "type": "object",
+  "required": ["id", "flowId", "sourceField", "sourceIndex", "routePath", "resolutionId", "routeStatus"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "flowId": { "type": "string", "minLength": 1 },
+    "sourceField": { "enum": ["entryPoints", "steps", "routes"] },
+    "sourceIndex": { "type": "integer", "minimum": 0 },
+    "routePath": { "type": "string", "pattern": "^/" },
+    "resolutionId": { "type": "string", "pattern": "^/" },
+    "routeStatus": { "enum": ["REGISTERED_STATIC", "REGISTERED_DYNAMIC", "DECLARED_UNREGISTERED", "APPROVED_ALIAS", "UNRESOLVED"] }
+  },
+  "additionalProperties": false
+}

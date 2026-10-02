@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/mission.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "Mission",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "missionId": {
+      "type": "string",
+      "description": "Mission ID"
+    },
+    "resourceId": {
+      "type": "string",
+      "description": "Robot/vehicle"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "validated",
+        "authorized",
+        "running",
+        "paused",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "waypointIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Waypoint"
+      }
+    },
+    "requiresApproval": {
+      "type": "boolean",
+      "description": "Approval"
+    }
+  },
+  "required": [
+    "missionId",
+    "resourceId",
+    "status",
+    "waypointIds"
+  ]
+}

@@ -1,0 +1,3654 @@
+{
+  "schemaVersion": "1.0.0",
+  "applicationId": "casting-pipeline-demo",
+  "sourceIrHash": "435fe2b13c694495b02c0f74949e521511519edda457cfacd1db7e74a1188930",
+  "status": "SCHEMA_INCOMPLETE",
+  "schemaReadiness": {
+    "status": "SCHEMA_INCOMPLETE",
+    "counts": {
+      "total": 160,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 160
+    },
+    "byContext": {
+      "communications": {
+        "total": 9,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 9
+      },
+      "evidence": {
+        "total": 23,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 23
+      },
+      "identity": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "organisation": {
+        "total": 10,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 10
+      },
+      "people": {
+        "total": 32,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 32
+      },
+      "platform": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "production": {
+        "total": 19,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 19
+      },
+      "project": {
+        "total": 17,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 17
+      }
+    }
+  },
+  "contextBoundaries": [
+    {
+      "contextId": "communications",
+      "version": "1.0.0",
+      "models": [
+        "CommunicationsAnnouncements",
+        "CommunicationsCommunicationThreads",
+        "CommunicationsDirectMessageThreads",
+        "CommunicationsMessageAttachments",
+        "CommunicationsMessages",
+        "CommunicationsNotificationDeliveries",
+        "CommunicationsNotificationPreferences",
+        "CommunicationsNotifications",
+        "CommunicationsThreadMembers"
+      ]
+    },
+    {
+      "contextId": "evidence",
+      "version": "1.0.0",
+      "models": [
+        "EvidenceApprovalComments",
+        "EvidenceApprovalDecisions",
+        "EvidenceApprovalSteps",
+        "EvidenceApprovals",
+        "EvidenceAuditEvents",
+        "EvidenceBeforeAfterProofs",
+        "EvidenceChainOfCustodyEvents",
+        "EvidenceChangeRequests",
+        "EvidenceDocumentLinks",
+        "EvidenceDocumentVersions",
+        "EvidenceDocuments",
+        "EvidenceEvidenceGps",
+        "EvidenceEvidenceItems",
+        "EvidenceEvidenceLinks",
+        "EvidenceEvidenceMedia",
+        "EvidenceEvidenceMetadata",
+        "EvidenceEvidenceTimelineEvents",
+        "EvidenceEvidenceTimestamps",
+        "EvidenceEvidenceVerifications",
+        "EvidenceLegalHolds",
+        "EvidenceRiskMitigations",
+        "EvidenceRisks",
+        "EvidenceTrustedTimestamps"
+      ]
+    },
+    {
+      "contextId": "identity",
+      "version": "1.0.0",
+      "models": [
+        "IdentityAccessPolicies",
+        "IdentityAccessReviews",
+        "IdentityAuthAccounts",
+        "IdentityAuthChallenges",
+        "IdentityAuthCredentials",
+        "IdentityDelegations",
+        "IdentityDeviceVerifications",
+        "IdentityDevices",
+        "IdentityInvitations",
+        "IdentityLocationVerifications",
+        "IdentityNdaAcceptances",
+        "IdentityNdaVersions",
+        "IdentityNdas",
+        "IdentityOtpChallenges",
+        "IdentityPasswordResetTokens",
+        "IdentityPermissions",
+        "IdentityRolePermissions",
+        "IdentityRoles",
+        "IdentitySignatures",
+        "IdentityUserEmails",
+        "IdentityUserPhones",
+        "IdentityUserProfiles",
+        "IdentityUserRoles",
+        "IdentityUserSessions",
+        "IdentityUsers"
+      ]
+    },
+    {
+      "contextId": "organisation",
+      "version": "1.0.0",
+      "models": [
+        "OrganisationOrganisationMemberships",
+        "OrganisationOrganisationSettings",
+        "OrganisationOrganisations",
+        "OrganisationWorkspaceActivity",
+        "OrganisationWorkspaceFavourites",
+        "OrganisationWorkspaceInvites",
+        "OrganisationWorkspaceMemberships",
+        "OrganisationWorkspaceRoles",
+        "OrganisationWorkspaceSettings",
+        "OrganisationWorkspaces"
+      ]
+    },
+    {
+      "contextId": "people",
+      "version": "1.0.0",
+      "models": [
+        "PeopleAttendanceRecords",
+        "PeopleAuditionMedia",
+        "PeopleAuditionSubmissions",
+        "PeopleCastAssignments",
+        "PeopleCastMessages",
+        "PeopleCastScheduleEntries",
+        "PeopleCastingApprovals",
+        "PeopleCastingCallRoles",
+        "PeopleCastingCalls",
+        "PeopleCrewAssignments",
+        "PeopleCrewAvailability",
+        "PeopleCrewContracts",
+        "PeopleCrewHiringRequests",
+        "PeopleCrewMessages",
+        "PeopleCrewProfiles",
+        "PeopleCrewShortlistItems",
+        "PeopleCrewShortlists",
+        "PeopleCrewSkills",
+        "PeopleDepartmentMembers",
+        "PeopleDepartments",
+        "PeopleHodAssignments",
+        "PeoplePerformanceReviews",
+        "PeopleTalentAvailability",
+        "PeopleTalentComparisons",
+        "PeopleTalentContracts",
+        "PeopleTalentMedia",
+        "PeopleTalentOffers",
+        "PeopleTalentPortfolios",
+        "PeopleTalentProfiles",
+        "PeopleTalentShortlistItems",
+        "PeopleTalentShortlists",
+        "PeopleTimesheets"
+      ]
+    },
+    {
+      "contextId": "platform",
+      "version": "1.0.0",
+      "models": [
+        "PlatformApiKeys",
+        "PlatformBackupJobs",
+        "PlatformDataRetentionPolicies",
+        "PlatformExportJobs",
+        "PlatformExports",
+        "PlatformFeatureFlagAssignments",
+        "PlatformFeatureFlags",
+        "PlatformIntegrationConnections",
+        "PlatformIntegrationEvents",
+        "PlatformIntegrations",
+        "PlatformRestoreJobs",
+        "PlatformRuntimeObservations",
+        "PlatformShareLinks",
+        "PlatformStatusEvents",
+        "PlatformSupportComments",
+        "PlatformSupportTickets",
+        "PlatformSyncConflicts",
+        "PlatformSyncJobs",
+        "PlatformSyncQueueItems",
+        "PlatformSystemIncidents",
+        "PlatformUserPreferences",
+        "PlatformWebhookDeliveries",
+        "PlatformWebhookSubscriptions",
+        "PlatformWebhooks",
+        "PlatformWorkspacePreferences"
+      ]
+    },
+    {
+      "contextId": "production",
+      "version": "1.0.0",
+      "models": [
+        "ProductionCallSheetAcknowledgements",
+        "ProductionCallSheetRecipients",
+        "ProductionCallSheetVersions",
+        "ProductionCallSheets",
+        "ProductionDailyProductionReports",
+        "ProductionDelays",
+        "ProductionIncidents",
+        "ProductionLiveAttendance",
+        "ProductionProductionCalendars",
+        "ProductionProductionDays",
+        "ProductionSceneProgress",
+        "ProductionScheduleItems",
+        "ProductionScheduleVersions",
+        "ProductionSchedules",
+        "ProductionShootDays",
+        "ProductionShotProgress",
+        "ProductionStripboards",
+        "ProductionStrips",
+        "ProductionWrapReports"
+      ]
+    },
+    {
+      "contextId": "project",
+      "version": "1.0.0",
+      "models": [
+        "ProjectProjectActivity",
+        "ProjectProjectBlockers",
+        "ProjectProjectBriefs",
+        "ProjectProjectCloseouts",
+        "ProjectProjectHealthSnapshots",
+        "ProjectProjectIntakes",
+        "ProjectProjectMembers",
+        "ProjectProjectMilestones",
+        "ProjectProjectNotes",
+        "ProjectProjectStatusHistory",
+        "ProjectProjectTagLinks",
+        "ProjectProjectTags",
+        "ProjectProjectTasks",
+        "ProjectProjectTypes",
+        "ProjectProjects",
+        "ProjectTaskChecklists",
+        "ProjectTaskDependencies"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "modelName": "CommunicationsAnnouncements",
+      "tableId": "communications.announcements",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsCommunicationThreads",
+      "tableId": "communications.communication_threads",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsDirectMessageThreads",
+      "tableId": "communications.direct_message_threads",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsMessageAttachments",
+      "tableId": "communications.message_attachments",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsMessages",
+      "tableId": "communications.messages",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsNotificationDeliveries",
+      "tableId": "communications.notification_deliveries",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsNotificationPreferences",
+      "tableId": "communications.notification_preferences",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsNotifications",
+      "tableId": "communications.notifications",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "CommunicationsThreadMembers",
+      "tableId": "communications.thread_members",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceApprovalComments",
+      "tableId": "evidence.approval_comments",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceApprovalDecisions",
+      "tableId": "evidence.approval_decisions",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceApprovalSteps",
+      "tableId": "evidence.approval_steps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceApprovals",
+      "tableId": "evidence.approvals",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceAuditEvents",
+      "tableId": "evidence.audit_events",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceBeforeAfterProofs",
+      "tableId": "evidence.before_after_proofs",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceChainOfCustodyEvents",
+      "tableId": "evidence.chain_of_custody_events",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceChangeRequests",
+      "tableId": "evidence.change_requests",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceDocumentLinks",
+      "tableId": "evidence.document_links",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceDocumentVersions",
+      "tableId": "evidence.document_versions",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceDocuments",
+      "tableId": "evidence.documents",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceGps",
+      "tableId": "evidence.evidence_gps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceItems",
+      "tableId": "evidence.evidence_items",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceLinks",
+      "tableId": "evidence.evidence_links",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceMedia",
+      "tableId": "evidence.evidence_media",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceMetadata",
+      "tableId": "evidence.evidence_metadata",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceTimelineEvents",
+      "tableId": "evidence.evidence_timeline_events",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceTimestamps",
+      "tableId": "evidence.evidence_timestamps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceEvidenceVerifications",
+      "tableId": "evidence.evidence_verifications",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceLegalHolds",
+      "tableId": "evidence.legal_holds",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceRiskMitigations",
+      "tableId": "evidence.risk_mitigations",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceRisks",
+      "tableId": "evidence.risks",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "EvidenceTrustedTimestamps",
+      "tableId": "evidence.trusted_timestamps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityAccessPolicies",
+      "tableId": "identity.access_policies",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityAccessReviews",
+      "tableId": "identity.access_reviews",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityAuthAccounts",
+      "tableId": "identity.auth_accounts",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityAuthChallenges",
+      "tableId": "identity.auth_challenges",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityAuthCredentials",
+      "tableId": "identity.auth_credentials",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityDelegations",
+      "tableId": "identity.delegations",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityDeviceVerifications",
+      "tableId": "identity.device_verifications",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityDevices",
+      "tableId": "identity.devices",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityInvitations",
+      "tableId": "identity.invitations",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityLocationVerifications",
+      "tableId": "identity.location_verifications",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityNdaAcceptances",
+      "tableId": "identity.nda_acceptances",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityNdaVersions",
+      "tableId": "identity.nda_versions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityNdas",
+      "tableId": "identity.ndas",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityOtpChallenges",
+      "tableId": "identity.otp_challenges",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityPasswordResetTokens",
+      "tableId": "identity.password_reset_tokens",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityPermissions",
+      "tableId": "identity.permissions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityRolePermissions",
+      "tableId": "identity.role_permissions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityRoles",
+      "tableId": "identity.roles",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentitySignatures",
+      "tableId": "identity.signatures",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityUserEmails",
+      "tableId": "identity.user_emails",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityUserPhones",
+      "tableId": "identity.user_phones",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityUserProfiles",
+      "tableId": "identity.user_profiles",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityUserRoles",
+      "tableId": "identity.user_roles",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityUserSessions",
+      "tableId": "identity.user_sessions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "IdentityUsers",
+      "tableId": "identity.users",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationOrganisationMemberships",
+      "tableId": "organisation.organisation_memberships",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationOrganisationSettings",
+      "tableId": "organisation.organisation_settings",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationOrganisations",
+      "tableId": "organisation.organisations",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaceActivity",
+      "tableId": "organisation.workspace_activity",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaceFavourites",
+      "tableId": "organisation.workspace_favourites",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaceInvites",
+      "tableId": "organisation.workspace_invites",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaceMemberships",
+      "tableId": "organisation.workspace_memberships",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaceRoles",
+      "tableId": "organisation.workspace_roles",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaceSettings",
+      "tableId": "organisation.workspace_settings",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "OrganisationWorkspaces",
+      "tableId": "organisation.workspaces",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleAttendanceRecords",
+      "tableId": "people.attendance_records",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleAuditionMedia",
+      "tableId": "people.audition_media",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleAuditionSubmissions",
+      "tableId": "people.audition_submissions",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCastAssignments",
+      "tableId": "people.cast_assignments",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCastMessages",
+      "tableId": "people.cast_messages",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCastScheduleEntries",
+      "tableId": "people.cast_schedule_entries",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCastingApprovals",
+      "tableId": "people.casting_approvals",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCastingCallRoles",
+      "tableId": "people.casting_call_roles",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCastingCalls",
+      "tableId": "people.casting_calls",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewAssignments",
+      "tableId": "people.crew_assignments",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewAvailability",
+      "tableId": "people.crew_availability",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewContracts",
+      "tableId": "people.crew_contracts",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewHiringRequests",
+      "tableId": "people.crew_hiring_requests",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewMessages",
+      "tableId": "people.crew_messages",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewProfiles",
+      "tableId": "people.crew_profiles",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewShortlistItems",
+      "tableId": "people.crew_shortlist_items",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewShortlists",
+      "tableId": "people.crew_shortlists",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleCrewSkills",
+      "tableId": "people.crew_skills",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleDepartmentMembers",
+      "tableId": "people.department_members",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleDepartments",
+      "tableId": "people.departments",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleHodAssignments",
+      "tableId": "people.hod_assignments",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeoplePerformanceReviews",
+      "tableId": "people.performance_reviews",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentAvailability",
+      "tableId": "people.talent_availability",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentComparisons",
+      "tableId": "people.talent_comparisons",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentContracts",
+      "tableId": "people.talent_contracts",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentMedia",
+      "tableId": "people.talent_media",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentOffers",
+      "tableId": "people.talent_offers",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentPortfolios",
+      "tableId": "people.talent_portfolios",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentProfiles",
+      "tableId": "people.talent_profiles",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentShortlistItems",
+      "tableId": "people.talent_shortlist_items",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTalentShortlists",
+      "tableId": "people.talent_shortlists",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PeopleTimesheets",
+      "tableId": "people.timesheets",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformApiKeys",
+      "tableId": "platform.api_keys",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformBackupJobs",
+      "tableId": "platform.backup_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformDataRetentionPolicies",
+      "tableId": "platform.data_retention_policies",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformExportJobs",
+      "tableId": "platform.export_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformExports",
+      "tableId": "platform.exports",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformFeatureFlagAssignments",
+      "tableId": "platform.feature_flag_assignments",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformFeatureFlags",
+      "tableId": "platform.feature_flags",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformIntegrationConnections",
+      "tableId": "platform.integration_connections",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformIntegrationEvents",
+      "tableId": "platform.integration_events",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformIntegrations",
+      "tableId": "platform.integrations",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformRestoreJobs",
+      "tableId": "platform.restore_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformRuntimeObservations",
+      "tableId": "platform.runtime_observations",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformShareLinks",
+      "tableId": "platform.share_links",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformStatusEvents",
+      "tableId": "platform.status_events",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformSupportComments",
+      "tableId": "platform.support_comments",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformSupportTickets",
+      "tableId": "platform.support_tickets",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformSyncConflicts",
+      "tableId": "platform.sync_conflicts",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformSyncJobs",
+      "tableId": "platform.sync_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformSyncQueueItems",
+      "tableId": "platform.sync_queue_items",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformSystemIncidents",
+      "tableId": "platform.system_incidents",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformUserPreferences",
+      "tableId": "platform.user_preferences",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformWebhookDeliveries",
+      "tableId": "platform.webhook_deliveries",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformWebhookSubscriptions",
+      "tableId": "platform.webhook_subscriptions",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformWebhooks",
+      "tableId": "platform.webhooks",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "PlatformWorkspacePreferences",
+      "tableId": "platform.workspace_preferences",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionCallSheetAcknowledgements",
+      "tableId": "production.call_sheet_acknowledgements",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionCallSheetRecipients",
+      "tableId": "production.call_sheet_recipients",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionCallSheetVersions",
+      "tableId": "production.call_sheet_versions",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionCallSheets",
+      "tableId": "production.call_sheets",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionDailyProductionReports",
+      "tableId": "production.daily_production_reports",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionDelays",
+      "tableId": "production.delays",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionIncidents",
+      "tableId": "production.incidents",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionLiveAttendance",
+      "tableId": "production.live_attendance",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionProductionCalendars",
+      "tableId": "production.production_calendars",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionProductionDays",
+      "tableId": "production.production_days",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionSceneProgress",
+      "tableId": "production.scene_progress",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionScheduleItems",
+      "tableId": "production.schedule_items",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionScheduleVersions",
+      "tableId": "production.schedule_versions",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionSchedules",
+      "tableId": "production.schedules",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionShootDays",
+      "tableId": "production.shoot_days",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionShotProgress",
+      "tableId": "production.shot_progress",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionStripboards",
+      "tableId": "production.stripboards",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionStrips",
+      "tableId": "production.strips",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProductionWrapReports",
+      "tableId": "production.wrap_reports",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectActivity",
+      "tableId": "project.project_activity",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectBlockers",
+      "tableId": "project.project_blockers",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectBriefs",
+      "tableId": "project.project_briefs",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectCloseouts",
+      "tableId": "project.project_closeouts",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectHealthSnapshots",
+      "tableId": "project.project_health_snapshots",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectIntakes",
+      "tableId": "project.project_intakes",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectMembers",
+      "tableId": "project.project_members",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectMilestones",
+      "tableId": "project.project_milestones",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectNotes",
+      "tableId": "project.project_notes",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectStatusHistory",
+      "tableId": "project.project_status_history",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectTagLinks",
+      "tableId": "project.project_tag_links",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectTags",
+      "tableId": "project.project_tags",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectTasks",
+      "tableId": "project.project_tasks",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjectTypes",
+      "tableId": "project.project_types",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectProjects",
+      "tableId": "project.projects",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectTaskChecklists",
+      "tableId": "project.task_checklists",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    },
+    {
+      "modelName": "ProjectTaskDependencies",
+      "tableId": "project.task_dependencies",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      },
+      "contractVersion": null,
+      "fields": [],
+      "relations": [],
+      "primaryKey": null
+    }
+  ],
+  "relations": [],
+  "prismaPreview": {
+    "status": "SCHEMA_INCOMPLETE",
+    "models": [],
+    "text": "",
+    "limitation": "160 of 160 tables lack complete field, key, relation, ownership, or lifecycle definitions. Prisma output is withheld; no fields or relations are inferred."
+  },
+  "counts": {
+    "contexts": 8,
+    "models": 160,
+    "relations": 0,
+    "complete": 0,
+    "partial": 0,
+    "nameOnly": 160,
+    "stubbed": 150,
+    "planned": 10
+  }
+}

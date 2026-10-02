@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourcePolicy": "External material is a candidate until an owner reviews and adopts exact tables into an approved source record. Importers emit proposals only and never write canonical contracts.",
+  "records": [
+    "./candidates/neroevents-postgres-migrations.json"
+  ]
+}

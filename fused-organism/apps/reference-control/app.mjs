@@ -1,0 +1,7 @@
+import { createCameraSimulatorAdapter } from "/packages/adapter-sdk/src/index.mjs";
+import { acquireLease } from "/packages/control/src/lease.mjs";
+import { executeGovernedCommand } from "/packages/control/src/runtime.mjs";
+const $=s=>document.querySelector(s);const adapter=createCameraSimulatorAdapter();await adapter.connect();let proposed=null;
+async function paint(){const s=await adapter.readState();$("#cameraState").textContent=`Pan ${s.pan}° · Tilt ${s.tilt}° · Zoom ${s.zoom}×`;}
+$("#propose").onclick=()=>{proposed={commandId:`cmd-${Date.now()}`,deviceId:"cam-01",capability:"camera.ptz",payload:{pan:Number($("#pan").value),tilt:Number($("#tilt").value)},idempotencyKey:`idem-${Date.now()}`,issuedAt:new Date().toISOString()};$("#status").textContent="Proposal ready · human approval required";$("#approve").disabled=false;};
+$("#approve").onclick=async()=>{const approval={id:"approval-1",status:"approved"};const result=await executeGovernedCommand({input:proposed,policyDecision:{id:"p1",outcome:"allow_with_approval",reasonCodes:["DEMO"],requiredApprovalIds:["approval-1"]},approvals:[approval],lease:acquireLease({leaseId:"l1",resourceId:"cam-01",holderRef:"operator"}),adapter,verify:({command,observedState})=>observedState.pan===command.payload.pan&&observedState.tilt===command.payload.tilt});$("#status").innerHTML=`<span class="state">${result.command.status}</span>`;$("#receipt").textContent=JSON.stringify(result.receipt,null,2);await paint();$("#approve").disabled=true;};await paint();

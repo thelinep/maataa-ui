@@ -1,0 +1,3 @@
+# @tlps/domain-primitives
+
+This package owns registry categories assigned to `@tlps/domain-primitives`. It provides a general vector canvas and an interactive WebGL scene surface, composed against MAATAA primitives and tokens. The canvas supports shape/note editing, keyboard movement, selection, panning, and zoom. The 3D scene supports box, sphere, and plane geometry; camera orbit/pan/zoom; object transforms and colors; environment grid/axes; lighting; and image snapshots. It is a lightweight spatial planning and preview surface, not a CAD suite or a simulation/digital-twin runtime. Entries still marked `planned` are inventory only and are not shipped components.

@@ -1,0 +1,11 @@
+{
+  "name": "@maataa-ui/fixture-domain",
+  "version": "0.0.0-fixture",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@maataa/contracts": "*",
+    "@maataa/core": "*",
+    "@maataa/renderer": "*"
+  }
+}

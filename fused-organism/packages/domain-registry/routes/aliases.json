@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "authored-empty",
+  "policy": "Aliases require explicit governance authorship and provenance; no alias is inferred from a flow reference.",
+  "aliases": []
+}

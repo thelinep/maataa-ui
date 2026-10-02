@@ -1,0 +1,1239 @@
+{
+  "schemaVersion": "1.0.0",
+  "domains": [
+    {
+      "id": "identity-access",
+      "name": "Identity & Access",
+      "context": "identity",
+      "count": 25,
+      "tables": [
+        {
+          "name": "users"
+        },
+        {
+          "name": "user_profiles"
+        },
+        {
+          "name": "user_emails"
+        },
+        {
+          "name": "user_phones"
+        },
+        {
+          "name": "auth_accounts"
+        },
+        {
+          "name": "auth_credentials",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "auth_challenges",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "otp_challenges"
+        },
+        {
+          "name": "password_reset_tokens"
+        },
+        {
+          "name": "user_sessions",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "invitations"
+        },
+        {
+          "name": "devices"
+        },
+        {
+          "name": "device_verifications"
+        },
+        {
+          "name": "location_verifications"
+        },
+        {
+          "name": "roles"
+        },
+        {
+          "name": "permissions"
+        },
+        {
+          "name": "role_permissions"
+        },
+        {
+          "name": "user_roles"
+        },
+        {
+          "name": "access_policies",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "access_reviews",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "delegations"
+        },
+        {
+          "name": "ndas"
+        },
+        {
+          "name": "nda_versions"
+        },
+        {
+          "name": "nda_acceptances"
+        },
+        {
+          "name": "signatures"
+        }
+      ]
+    },
+    {
+      "id": "organisation-workspace",
+      "name": "Organisation & Workspace",
+      "context": "organisation",
+      "count": 10,
+      "tables": [
+        {
+          "name": "organisations"
+        },
+        {
+          "name": "organisation_memberships"
+        },
+        {
+          "name": "organisation_settings"
+        },
+        {
+          "name": "workspaces"
+        },
+        {
+          "name": "workspace_memberships"
+        },
+        {
+          "name": "workspace_settings"
+        },
+        {
+          "name": "workspace_roles"
+        },
+        {
+          "name": "workspace_invites"
+        },
+        {
+          "name": "workspace_activity"
+        },
+        {
+          "name": "workspace_favourites"
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "name": "Projects",
+      "context": "project",
+      "count": 17,
+      "tables": [
+        {
+          "name": "project_types"
+        },
+        {
+          "name": "projects"
+        },
+        {
+          "name": "project_intakes"
+        },
+        {
+          "name": "project_briefs"
+        },
+        {
+          "name": "project_status_history"
+        },
+        {
+          "name": "project_health_snapshots"
+        },
+        {
+          "name": "project_milestones"
+        },
+        {
+          "name": "project_tasks"
+        },
+        {
+          "name": "task_dependencies"
+        },
+        {
+          "name": "task_checklists"
+        },
+        {
+          "name": "project_blockers"
+        },
+        {
+          "name": "project_members"
+        },
+        {
+          "name": "project_activity"
+        },
+        {
+          "name": "project_tags"
+        },
+        {
+          "name": "project_tag_links"
+        },
+        {
+          "name": "project_closeouts"
+        },
+        {
+          "name": "project_notes"
+        }
+      ]
+    },
+    {
+      "id": "development-creative",
+      "name": "Development & Creative",
+      "context": "creative",
+      "count": 20,
+      "tables": [
+        {
+          "name": "ideas"
+        },
+        {
+          "name": "research_items"
+        },
+        {
+          "name": "treatments"
+        },
+        {
+          "name": "scripts"
+        },
+        {
+          "name": "script_versions"
+        },
+        {
+          "name": "script_breakdowns"
+        },
+        {
+          "name": "scenes"
+        },
+        {
+          "name": "scene_versions"
+        },
+        {
+          "name": "characters"
+        },
+        {
+          "name": "character_scene_links"
+        },
+        {
+          "name": "production_elements"
+        },
+        {
+          "name": "scene_elements"
+        },
+        {
+          "name": "storyboards"
+        },
+        {
+          "name": "storyboard_frames"
+        },
+        {
+          "name": "shot_lists"
+        },
+        {
+          "name": "shots"
+        },
+        {
+          "name": "creative_references"
+        },
+        {
+          "name": "creative_assets"
+        },
+        {
+          "name": "asset_versions"
+        },
+        {
+          "name": "creative_approvals"
+        }
+      ]
+    },
+    {
+      "id": "casting-talent",
+      "name": "Casting & Talent",
+      "context": "people",
+      "count": 17,
+      "tables": [
+        {
+          "name": "casting_calls"
+        },
+        {
+          "name": "casting_call_roles"
+        },
+        {
+          "name": "talent_profiles"
+        },
+        {
+          "name": "talent_portfolios"
+        },
+        {
+          "name": "talent_media"
+        },
+        {
+          "name": "audition_submissions"
+        },
+        {
+          "name": "audition_media"
+        },
+        {
+          "name": "talent_shortlists"
+        },
+        {
+          "name": "talent_shortlist_items"
+        },
+        {
+          "name": "talent_comparisons"
+        },
+        {
+          "name": "casting_approvals"
+        },
+        {
+          "name": "talent_availability"
+        },
+        {
+          "name": "talent_offers"
+        },
+        {
+          "name": "talent_contracts"
+        },
+        {
+          "name": "cast_assignments"
+        },
+        {
+          "name": "cast_schedule_entries"
+        },
+        {
+          "name": "cast_messages"
+        }
+      ]
+    },
+    {
+      "id": "crew-departments",
+      "name": "Crew & Departments",
+      "context": "people",
+      "count": 15,
+      "tables": [
+        {
+          "name": "departments"
+        },
+        {
+          "name": "department_members"
+        },
+        {
+          "name": "hod_assignments"
+        },
+        {
+          "name": "crew_profiles"
+        },
+        {
+          "name": "crew_skills"
+        },
+        {
+          "name": "crew_availability"
+        },
+        {
+          "name": "crew_hiring_requests"
+        },
+        {
+          "name": "crew_shortlists"
+        },
+        {
+          "name": "crew_shortlist_items"
+        },
+        {
+          "name": "crew_assignments"
+        },
+        {
+          "name": "crew_contracts"
+        },
+        {
+          "name": "attendance_records"
+        },
+        {
+          "name": "timesheets"
+        },
+        {
+          "name": "performance_reviews"
+        },
+        {
+          "name": "crew_messages"
+        }
+      ]
+    },
+    {
+      "id": "scheduling-live-production",
+      "name": "Scheduling & Live Production",
+      "context": "production",
+      "count": 19,
+      "tables": [
+        {
+          "name": "production_calendars"
+        },
+        {
+          "name": "schedules"
+        },
+        {
+          "name": "schedule_versions"
+        },
+        {
+          "name": "schedule_items"
+        },
+        {
+          "name": "stripboards"
+        },
+        {
+          "name": "strips"
+        },
+        {
+          "name": "shoot_days"
+        },
+        {
+          "name": "call_sheets"
+        },
+        {
+          "name": "call_sheet_versions"
+        },
+        {
+          "name": "call_sheet_recipients"
+        },
+        {
+          "name": "call_sheet_acknowledgements"
+        },
+        {
+          "name": "production_days"
+        },
+        {
+          "name": "scene_progress"
+        },
+        {
+          "name": "shot_progress"
+        },
+        {
+          "name": "live_attendance"
+        },
+        {
+          "name": "daily_production_reports"
+        },
+        {
+          "name": "incidents"
+        },
+        {
+          "name": "delays"
+        },
+        {
+          "name": "wrap_reports"
+        }
+      ]
+    },
+    {
+      "id": "locations-logistics-equipment",
+      "name": "Locations, Logistics & Equipment",
+      "context": "logistics",
+      "count": 26,
+      "tables": [
+        {
+          "name": "locations"
+        },
+        {
+          "name": "location_media"
+        },
+        {
+          "name": "recces"
+        },
+        {
+          "name": "recce_media"
+        },
+        {
+          "name": "location_comparisons"
+        },
+        {
+          "name": "permits"
+        },
+        {
+          "name": "permit_documents"
+        },
+        {
+          "name": "location_bookings"
+        },
+        {
+          "name": "travel_plans"
+        },
+        {
+          "name": "travel_legs"
+        },
+        {
+          "name": "accommodations"
+        },
+        {
+          "name": "room_allocations"
+        },
+        {
+          "name": "transport_plans"
+        },
+        {
+          "name": "vehicles"
+        },
+        {
+          "name": "drivers"
+        },
+        {
+          "name": "vehicle_assignments"
+        },
+        {
+          "name": "logistics_tasks"
+        },
+        {
+          "name": "shipments"
+        },
+        {
+          "name": "equipment_categories"
+        },
+        {
+          "name": "equipment_items"
+        },
+        {
+          "name": "equipment_kits"
+        },
+        {
+          "name": "equipment_inventory_events"
+        },
+        {
+          "name": "equipment_bookings"
+        },
+        {
+          "name": "equipment_checkouts"
+        },
+        {
+          "name": "equipment_returns"
+        },
+        {
+          "name": "equipment_maintenance"
+        }
+      ]
+    },
+    {
+      "id": "campaign-os",
+      "name": "Campaign OS",
+      "context": "campaign",
+      "count": 22,
+      "tables": [
+        {
+          "name": "campaigns"
+        },
+        {
+          "name": "campaign_briefs"
+        },
+        {
+          "name": "campaign_strategies"
+        },
+        {
+          "name": "markets"
+        },
+        {
+          "name": "cities"
+        },
+        {
+          "name": "campaign_markets"
+        },
+        {
+          "name": "media_plans"
+        },
+        {
+          "name": "media_plan_items"
+        },
+        {
+          "name": "atl_plans"
+        },
+        {
+          "name": "btl_plans"
+        },
+        {
+          "name": "ooh_sites"
+        },
+        {
+          "name": "ooh_site_bookings"
+        },
+        {
+          "name": "dooh_screens"
+        },
+        {
+          "name": "dooh_schedules"
+        },
+        {
+          "name": "activations"
+        },
+        {
+          "name": "activation_calendar_items"
+        },
+        {
+          "name": "site_checkins"
+        },
+        {
+          "name": "activation_feed_events"
+        },
+        {
+          "name": "leads"
+        },
+        {
+          "name": "lead_events"
+        },
+        {
+          "name": "campaign_results"
+        },
+        {
+          "name": "campaign_metrics"
+        }
+      ]
+    },
+    {
+      "id": "marketplace-procurement",
+      "name": "Marketplace & Procurement",
+      "context": "marketplace",
+      "count": 22,
+      "tables": [
+        {
+          "name": "marketplace_categories"
+        },
+        {
+          "name": "marketplace_services"
+        },
+        {
+          "name": "capability_packs"
+        },
+        {
+          "name": "service_skus"
+        },
+        {
+          "name": "vendors"
+        },
+        {
+          "name": "vendor_profiles"
+        },
+        {
+          "name": "vendor_portfolios"
+        },
+        {
+          "name": "vendor_capabilities"
+        },
+        {
+          "name": "vendor_availability"
+        },
+        {
+          "name": "vendor_ratings"
+        },
+        {
+          "name": "rfqs"
+        },
+        {
+          "name": "rfq_items"
+        },
+        {
+          "name": "rfq_recipients"
+        },
+        {
+          "name": "quotes"
+        },
+        {
+          "name": "quote_items"
+        },
+        {
+          "name": "quote_comparisons"
+        },
+        {
+          "name": "procurement_awards"
+        },
+        {
+          "name": "purchase_orders"
+        },
+        {
+          "name": "purchase_order_items"
+        },
+        {
+          "name": "deliveries"
+        },
+        {
+          "name": "service_deliveries"
+        },
+        {
+          "name": "vendor_performance"
+        }
+      ]
+    },
+    {
+      "id": "evidence-documents-governance",
+      "name": "Evidence, Documents & Governance",
+      "context": "evidence",
+      "count": 23,
+      "tables": [
+        {
+          "name": "evidence_items"
+        },
+        {
+          "name": "evidence_media"
+        },
+        {
+          "name": "evidence_metadata"
+        },
+        {
+          "name": "evidence_gps"
+        },
+        {
+          "name": "evidence_timestamps"
+        },
+        {
+          "name": "evidence_links"
+        },
+        {
+          "name": "evidence_timeline_events"
+        },
+        {
+          "name": "evidence_verifications"
+        },
+        {
+          "name": "before_after_proofs"
+        },
+        {
+          "name": "approvals"
+        },
+        {
+          "name": "approval_steps"
+        },
+        {
+          "name": "approval_decisions"
+        },
+        {
+          "name": "approval_comments"
+        },
+        {
+          "name": "change_requests"
+        },
+        {
+          "name": "documents"
+        },
+        {
+          "name": "document_versions"
+        },
+        {
+          "name": "document_links"
+        },
+        {
+          "name": "risks"
+        },
+        {
+          "name": "risk_mitigations"
+        },
+        {
+          "name": "audit_events"
+        },
+        {
+          "name": "chain_of_custody_events",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "trusted_timestamps",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "legal_holds"
+        }
+      ]
+    },
+    {
+      "id": "finance-commerce",
+      "name": "Finance & Commerce",
+      "context": "finance",
+      "count": 22,
+      "tables": [
+        {
+          "name": "budgets"
+        },
+        {
+          "name": "budget_categories"
+        },
+        {
+          "name": "budget_lines"
+        },
+        {
+          "name": "estimates"
+        },
+        {
+          "name": "estimate_lines"
+        },
+        {
+          "name": "cost_sheets"
+        },
+        {
+          "name": "cost_sheet_lines"
+        },
+        {
+          "name": "commitments"
+        },
+        {
+          "name": "expenses"
+        },
+        {
+          "name": "expense_lines"
+        },
+        {
+          "name": "expense_approvals"
+        },
+        {
+          "name": "vendor_invoices"
+        },
+        {
+          "name": "invoice_lines"
+        },
+        {
+          "name": "invoice_approvals"
+        },
+        {
+          "name": "payments"
+        },
+        {
+          "name": "payment_allocations",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "payment_verifications",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "cashflow_entries"
+        },
+        {
+          "name": "profitability_snapshots"
+        },
+        {
+          "name": "tax_codes"
+        },
+        {
+          "name": "currencies"
+        },
+        {
+          "name": "exchange_rates",
+          "status": "planned",
+          "futureProduction": true
+        }
+      ]
+    },
+    {
+      "id": "investor-rights-revenue",
+      "name": "Investor, Rights & Revenue",
+      "context": "investor",
+      "count": 21,
+      "tables": [
+        {
+          "name": "investment_opportunities"
+        },
+        {
+          "name": "investment_profiles"
+        },
+        {
+          "name": "deal_rooms"
+        },
+        {
+          "name": "deal_room_members"
+        },
+        {
+          "name": "pitch_decks"
+        },
+        {
+          "name": "disclosures"
+        },
+        {
+          "name": "due_diligence_items"
+        },
+        {
+          "name": "funding_requirements"
+        },
+        {
+          "name": "investment_tranches"
+        },
+        {
+          "name": "investor_commitments"
+        },
+        {
+          "name": "investor_progress_reports"
+        },
+        {
+          "name": "investor_evidence_links"
+        },
+        {
+          "name": "distribution_channels"
+        },
+        {
+          "name": "distribution_deals"
+        },
+        {
+          "name": "rights"
+        },
+        {
+          "name": "rights_windows"
+        },
+        {
+          "name": "revenue_entries"
+        },
+        {
+          "name": "recoupment_models"
+        },
+        {
+          "name": "recoupment_tiers"
+        },
+        {
+          "name": "investor_returns"
+        },
+        {
+          "name": "investor_accounts"
+        }
+      ]
+    },
+    {
+      "id": "events-weddings-spatial",
+      "name": "Events, Weddings & Spatial",
+      "context": "eventsSpatial",
+      "count": 25,
+      "tables": [
+        {
+          "name": "events"
+        },
+        {
+          "name": "event_journeys"
+        },
+        {
+          "name": "event_timeline_items"
+        },
+        {
+          "name": "run_of_show_items"
+        },
+        {
+          "name": "venues"
+        },
+        {
+          "name": "venue_bookings"
+        },
+        {
+          "name": "weddings"
+        },
+        {
+          "name": "wedding_journeys"
+        },
+        {
+          "name": "wedding_events"
+        },
+        {
+          "name": "spatial_projects"
+        },
+        {
+          "name": "spatial_layers"
+        },
+        {
+          "name": "spatial_objects"
+        },
+        {
+          "name": "spatial_layouts"
+        },
+        {
+          "name": "simulations"
+        },
+        {
+          "name": "decision_graphs"
+        },
+        {
+          "name": "decision_graph_nodes"
+        },
+        {
+          "name": "decision_graph_edges"
+        },
+        {
+          "name": "boards"
+        },
+        {
+          "name": "board_items"
+        },
+        {
+          "name": "presentations"
+        },
+        {
+          "name": "presentation_slides"
+        },
+        {
+          "name": "film_twins"
+        },
+        {
+          "name": "exhibition_layouts"
+        },
+        {
+          "name": "cad_models"
+        },
+        {
+          "name": "spatial_operations"
+        }
+      ]
+    },
+    {
+      "id": "ai-research-analytics",
+      "name": "AI, Research & Analytics",
+      "context": "intelligence",
+      "count": 22,
+      "tables": [
+        {
+          "name": "ai_conversations"
+        },
+        {
+          "name": "ai_messages"
+        },
+        {
+          "name": "ai_contexts"
+        },
+        {
+          "name": "ai_suggestions"
+        },
+        {
+          "name": "research_sessions"
+        },
+        {
+          "name": "research_sources"
+        },
+        {
+          "name": "knowledge_documents",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "knowledge_chunks",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "evidence_aware_answers"
+        },
+        {
+          "name": "intelligence_runs"
+        },
+        {
+          "name": "intelligence_signals"
+        },
+        {
+          "name": "forecast_runs"
+        },
+        {
+          "name": "forecast_scenarios"
+        },
+        {
+          "name": "saved_insights"
+        },
+        {
+          "name": "analytics_events"
+        },
+        {
+          "name": "kpi_definitions"
+        },
+        {
+          "name": "kpi_measurements"
+        },
+        {
+          "name": "prompt_templates"
+        },
+        {
+          "name": "generation_jobs"
+        },
+        {
+          "name": "model_registry",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "model_runs",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "ai_citations"
+        }
+      ]
+    },
+    {
+      "id": "communications-notifications",
+      "name": "Communications & Notifications",
+      "context": "communications",
+      "count": 9,
+      "tables": [
+        {
+          "name": "notifications"
+        },
+        {
+          "name": "notification_preferences"
+        },
+        {
+          "name": "notification_deliveries"
+        },
+        {
+          "name": "communication_threads"
+        },
+        {
+          "name": "thread_members"
+        },
+        {
+          "name": "messages"
+        },
+        {
+          "name": "message_attachments"
+        },
+        {
+          "name": "direct_message_threads"
+        },
+        {
+          "name": "announcements"
+        }
+      ]
+    },
+    {
+      "id": "admin-integrations-operations",
+      "name": "Admin, Integrations & Operations",
+      "context": "platform",
+      "count": 25,
+      "tables": [
+        {
+          "name": "user_preferences"
+        },
+        {
+          "name": "workspace_preferences"
+        },
+        {
+          "name": "sync_jobs"
+        },
+        {
+          "name": "sync_queue_items"
+        },
+        {
+          "name": "sync_conflicts"
+        },
+        {
+          "name": "runtime_observations"
+        },
+        {
+          "name": "support_tickets"
+        },
+        {
+          "name": "support_comments"
+        },
+        {
+          "name": "api_keys"
+        },
+        {
+          "name": "webhooks"
+        },
+        {
+          "name": "webhook_subscriptions"
+        },
+        {
+          "name": "webhook_deliveries",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "integrations"
+        },
+        {
+          "name": "integration_connections"
+        },
+        {
+          "name": "integration_events"
+        },
+        {
+          "name": "data_retention_policies"
+        },
+        {
+          "name": "feature_flags"
+        },
+        {
+          "name": "feature_flag_assignments"
+        },
+        {
+          "name": "system_incidents"
+        },
+        {
+          "name": "status_events"
+        },
+        {
+          "name": "exports"
+        },
+        {
+          "name": "export_jobs"
+        },
+        {
+          "name": "share_links"
+        },
+        {
+          "name": "backup_jobs",
+          "status": "planned",
+          "futureProduction": true
+        },
+        {
+          "name": "restore_jobs",
+          "status": "planned",
+          "futureProduction": true
+        }
+      ]
+    },
+    {
+      "id": "public-cms-growth",
+      "name": "Public, CMS & Growth",
+      "context": "public",
+      "count": 12,
+      "tables": [
+        {
+          "name": "product_pages"
+        },
+        {
+          "name": "solution_pages"
+        },
+        {
+          "name": "industry_pages"
+        },
+        {
+          "name": "case_studies"
+        },
+        {
+          "name": "pricing_plans"
+        },
+        {
+          "name": "documentation_pages"
+        },
+        {
+          "name": "legal_documents"
+        },
+        {
+          "name": "cookie_consents"
+        },
+        {
+          "name": "contact_requests"
+        },
+        {
+          "name": "demo_requests"
+        },
+        {
+          "name": "marketing_leads"
+        },
+        {
+          "name": "marketing_events"
+        }
+      ]
+    }
+  ]
+}

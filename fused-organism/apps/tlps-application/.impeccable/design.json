@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T21:53:18.602Z",
+  "title": "Design System: TLPS Workspace",
+  "extensions": {
+    "colorMeta": {
+      "navy": {
+        "role": "neutral",
+        "displayName": "Control Navy",
+        "tonalRamp": [
+          "#101a25",
+          "#132133",
+          "#172b40",
+          "#1d354c",
+          "#27455c",
+          "#48677c",
+          "#8195a4",
+          "#c5d0d7"
+        ]
+      },
+      "navy-raised": {
+        "role": "neutral",
+        "displayName": "Raised Navy",
+        "tonalRamp": [
+          "#101d2b",
+          "#142437",
+          "#192d43",
+          "#203850",
+          "#2e4a63",
+          "#516d83",
+          "#879aaa",
+          "#c8d3db"
+        ]
+      },
+      "mineral-canvas": {
+        "role": "neutral",
+        "displayName": "Mineral Canvas",
+        "tonalRamp": [
+          "#192126",
+          "#27343c",
+          "#3a4b55",
+          "#536773",
+          "#728692",
+          "#9cabb4",
+          "#c9d2d8",
+          "#f3f6f8"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White Surface",
+        "tonalRamp": [
+          "#20252a",
+          "#353c42",
+          "#4d565d",
+          "#6a747c",
+          "#8a949b",
+          "#afb7bd",
+          "#d4d9dd",
+          "#ffffff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Operations Ink",
+        "tonalRamp": [
+          "#15283d",
+          "#20374e",
+          "#314b62",
+          "#4d6579",
+          "#6d8293",
+          "#93a3af",
+          "#bbc5cc",
+          "#e7ecef"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "tonalRamp": [
+          "#26323d",
+          "#354450",
+          "#465867",
+          "#5a6e7e",
+          "#718595",
+          "#8d9daa",
+          "#adb8c1",
+          "#d5dbe0"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Quiet Line",
+        "tonalRamp": [
+          "#26333c",
+          "#384851",
+          "#4d5d66",
+          "#64747d",
+          "#7e8d95",
+          "#9eabb1",
+          "#c2cbd0",
+          "#dfe6eb"
+        ]
+      },
+      "teal": {
+        "role": "primary",
+        "displayName": "Operations Teal",
+        "tonalRamp": [
+          "#073c3d",
+          "#075052",
+          "#086667",
+          "#087d7d",
+          "#079594",
+          "#21afaa",
+          "#62cbc4",
+          "#c9f1ec"
+        ]
+      },
+      "teal-bright": {
+        "role": "primary",
+        "displayName": "Bright Teal",
+        "tonalRamp": [
+          "#064e4c",
+          "#076763",
+          "#07817b",
+          "#099a92",
+          "#11b4aa",
+          "#37cec2",
+          "#83e4d9",
+          "#d5f8f3"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Signal Amber",
+        "tonalRamp": [
+          "#462c0a",
+          "#613c0d",
+          "#7d4d11",
+          "#9a6018",
+          "#b87522",
+          "#d58e33",
+          "#edb969",
+          "#fff0cf"
+        ]
+      },
+      "green": {
+        "role": "tertiary",
+        "displayName": "Quiet Green",
+        "tonalRamp": [
+          "#0b3b2d",
+          "#0e513c",
+          "#12684c",
+          "#187f5c",
+          "#20976d",
+          "#3caf85",
+          "#75cba6",
+          "#d5f3e5"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Public landing headline."
+      },
+      "headline": {
+        "displayName": "Workspace headline",
+        "purpose": "Page heading and route title."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Operational descriptions and page copy."
+      },
+      "label": {
+        "displayName": "Context label",
+        "purpose": "Short metadata and route family labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel-ambient",
+        "value": "0 2px 5px rgba(24,49,68,.02)",
+        "purpose": "Keep white data panels separated from the mineral canvas."
+      },
+      {
+        "name": "card-hover",
+        "value": "0 12px 35px rgba(19,40,60,.055)",
+        "purpose": "Light lift on interactive cards."
+      },
+      {
+        "name": "dialog",
+        "value": "0 24px 75px rgba(5,20,34,.24)",
+        "purpose": "Separate modal selection surfaces from the dimmed workspace."
+      }
+    ],
+    "motion": [
+      {
+        "name": "interaction-standard",
+        "value": "150ms ease",
+        "purpose": "Small card and control feedback."
+      },
+      {
+        "name": "navigation-drawer",
+        "value": ".22s cubic-bezier(.2,.75,.25,1)",
+        "purpose": "Mobile navigation drawer; disabled for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "narrow-phone",
+        "value": "420px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single primary action in a view.",
+      "html": "<button class=\"ds-btn-primary\">Open workspace</button>",
+      "css": ".ds-btn-primary{min-height:38px;padding:0 14px;border:1px solid var(--teal);border-radius:6px;color:#fff;background:var(--teal);font:600 11px ui-sans-serif,system-ui,-apple-system,sans-serif;transition:transform .15s,background .15s}.ds-btn-primary:hover{background:#006b71;transform:translateY(-1px)}.ds-btn-primary:focus-visible{outline:3px solid rgba(0,126,131,.46);outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A low-emphasis companion action.",
+      "html": "<button class=\"ds-btn-secondary\">Adjust view</button>",
+      "css": ".ds-btn-secondary{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:6px;color:var(--ink);background:#fff;font:600 11px ui-sans-serif,system-ui,-apple-system,sans-serif}.ds-btn-secondary:hover{border-color:#9ebcc3;color:#006b71;background:#f9fdfd}.ds-btn-secondary:focus-visible{outline:3px solid rgba(0,126,131,.46);outline-offset:2px}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Global search across routes, products and workflows.",
+      "html": "<label class=\"ds-search\"><span aria-hidden=\"true\">⌕</span><input aria-label=\"Search\" placeholder=\"Search pages and workflows\" /></label>",
+      "css": ".ds-search{height:38px;display:flex;align-items:center;gap:9px;padding:0 11px;border:1px solid var(--line);border-radius:6px;background:#f3f6f8;color:#8392a1}.ds-search input{width:100%;border:0;outline:none;color:var(--ink);background:transparent;font:400 11px ui-sans-serif,system-ui,-apple-system,sans-serif}.ds-search:focus-within{outline:3px solid rgba(0,126,131,.32);outline-offset:2px}"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "description": "Grouped item on the deep navy primary navigation rail.",
+      "html": "<button class=\"ds-nav-item\"><span aria-hidden=\"true\">▣</span>Production</button>",
+      "css": ".ds-nav-item{width:100%;min-height:39px;display:flex;align-items:center;gap:12px;padding:8px 11px;border:0;border-radius:8px;color:#c1d0db;background:#0c1b2b;text-align:left;font:500 12px ui-sans-serif,system-ui,-apple-system,sans-serif}.ds-nav-item:hover{color:#fff;background:rgba(255,255,255,.07)}.ds-nav-item:focus-visible{outline:3px solid #09a6a0;outline-offset:2px}"
+    },
+    {
+      "name": "Metric Card",
+      "kind": "card",
+      "description": "Compact priority metric with an illustrative qualifier.",
+      "html": "<article class=\"ds-metric\"><small>Production units</small><strong>12,430</strong><span>Illustrative preview</span></article>",
+      "css": ".ds-metric{min-height:110px;display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid var(--line);border-radius:9px;background:#fff}.ds-metric small{color:var(--muted);font:400 10px ui-sans-serif,system-ui,-apple-system,sans-serif}.ds-metric strong{color:var(--ink);font:800 27px ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:-.04em}.ds-metric span{color:#95a2ad;font:400 9px ui-sans-serif,system-ui,-apple-system,sans-serif}"
+    },
+    {
+      "name": "Attention Chip",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "Text-first semantic status with a quiet tint.",
+      "html": "<span class=\"ds-attention\"><i></i>Needs review</span>",
+      "css": ".ds-attention{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;color:#9b6a21;background:#fff4e5;font:600 9px ui-sans-serif,system-ui,-apple-system,sans-serif}.ds-attention i{width:6px;height:6px;border-radius:50%;background:#dc8d26}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Control Room",
+    "overview": "The workspace should feel like a composed operations room: broad enough to hold many disciplines, with a steady hierarchy that makes today's work and the next decision easy to locate. Deep navy gives navigation its own visual territory. The mineral canvas, white work surfaces, teal actions and restrained amber alerts keep dense information readable without making the screen feel urgent all the time.\n\nThe product runs on the MAATAA UI shell, but its TLPS skin is distinct from MAATAA's warm paper-and-ink identity. The public landing page explains the connected operating layer; the authenticated-looking workspace remains an explicitly local preview with illustrative records and disconnected services.",
+    "keyCharacteristics": [
+      "Deep navy navigation rail against a pale mineral canvas.",
+      "Teal indicates the main action and active navigation; amber is reserved for attention states.",
+      "Dense operational information sits in calm, bordered white panels.",
+      "Every sample record and preview action is labelled as illustrative or disconnected."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Discipline Rule",
+        "body": "Teal marks actions and selected state. Amber marks attention. Neither is decoration.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do keep preview and sample labels close to illustrative metrics, records, and actions.",
+      "Do use the MAATAA AppShell, Sidebar, and TopNav as the structural foundation.",
+      "Do keep teal and amber semantically distinct and limited to purposeful areas.",
+      "Do preserve visible focus, keyboard access, reduced-motion support, and the mobile drawer."
+    ],
+    "donts": [
+      "Don't use MAATAA's warm paper-and-ink theme for TLPS.",
+      "Don't imply authentication, authorization, persistence, finance processing, approvals, calendar sync, messaging, or provider connections are active.",
+      "Don't place credentials or demo emails in the shipped application data.",
+      "Don't use amber as a general accent or add gradients and glass effects to operational surfaces."
+    ]
+  }
+}

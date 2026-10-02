@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/route-resolution.schema.json",
+  "title": "Deterministic flow route resolution",
+  "type": "object",
+  "required": ["requested", "flowIds", "resolution"],
+  "properties": {
+    "requested": { "type": "string", "pattern": "^/" },
+    "flowIds": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+    "resolution": {
+      "type": "object",
+      "required": ["kind", "match", "registered", "executable", "status"],
+      "properties": {
+        "kind": { "enum": ["static", "dynamic", "alias", "unresolved"] },
+        "path": { "type": ["string", "null"] },
+        "match": { "type": "boolean" },
+        "source": { "type": ["string", "null"] },
+        "registered": { "type": "boolean" },
+        "executable": { "type": "boolean" },
+        "status": { "enum": ["REGISTERED_STATIC", "REGISTERED_DYNAMIC", "DECLARED_UNREGISTERED", "APPROVED_ALIAS", "UNRESOLVED"] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

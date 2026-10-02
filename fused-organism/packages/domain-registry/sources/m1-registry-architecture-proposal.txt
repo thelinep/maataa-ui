@@ -1,0 +1,490 @@
+First, the dependency rule needs one adjustment. The example creative.dependsOn = ["project", "people"] conflicts with “feature contexts may depend only on spine contexts,” because people is not in the new five-context spine. The cleaner rule is: every app includes the spine; context-to-context dependencies are allowed only when there is a real schema/contract dependency, and the full graph must remain acyclic. That lets creative → people exist when creative records actually reference talent/people, without forcing every relationship into flow composition.
+Second, the proposed acceptance test should say context.dependencies("creative") → ["project","people"]. dependents("creative") means the inverse: contexts that depend on creative.
+Third, FUTURE_PRODUCTION_SET must contain explicit canonical table IDs, not labels such as “hardened auth/session/access tables” or “RAG/knowledge tables.” If the intended result is exactly 335 STUBBED + 17 PLANNED = 352, commit those exact 17 IDs. Otherwise status derivation is still partially interpretive.
+With those corrections, I would lock the following as the M1 contract.
+Canonical spine
+{
+  "version": "1.0.0",
+  "contexts": [
+    "identity",
+    "organisation",
+    "project",
+    "communications",
+    "platform"
+  ],
+  "sharedServices": {
+    "evidence": {
+      "defaultIncluded": true,
+      "spine": false
+    },
+    "ai": {
+      "defaultIncluded": false,
+      "spine": false
+    }
+  },
+  "rules": {
+    "spineAlwaysIncluded": true,
+    "publicOptIn": true,
+    "dependencyGraphMustBeAcyclic": true,
+    "contextDependenciesMustRepresentRealContractOrSchemaDependencies": true
+  }
+}
+
+That gives a clean distinction:
+Spine
+identity
+organisation
+project
+communications
+platform
+
+Always-bundled shared capability
+evidence
+
+Optional shared capability
+ai
+
+Feature contexts
+people
+creative
+production
+marketplace
+finance
+investor
+campaign
+events
+spatial
+public
+...
+
+Evidence can therefore remain separately addressable as Evidence OS while still being included by default in generated applications.
+Context contract
+Every one of the 17 context packages should minimally become:
+{
+  "id": "creative",
+  "version": "1.0.0",
+  "status": "stubbed",
+  "stability": "experimental",
+
+  "dependsOn": [
+    "project",
+    "people"
+  ],
+
+  "provides": [
+    "scripts",
+    "scenes",
+    "storyboards",
+    "shots",
+    "assets"
+  ],
+
+  "contracts": [],
+
+  "tables": [],
+
+  "provenance": {
+    "source": "domain-registry-m1",
+    "authored": true
+  }
+}
+
+The validator then needs these invariants:
+context.id unique
+version valid semver
+status valid enum
+every dependency exists
+no self-dependency
+no graph cycle
+every referenced table exists
+every table belongs to a canonical domain
+every provided capability is unique or explicitly shared
+
+Status derivation
+Do not manually add status to 352 rows.
+Make it an importer rule:
+if table.id ∈ FUTURE_PRODUCTION_SET
+    status = PLANNED
+else
+    status = STUBBED
+
+And preserve its provenance:
+{
+  "status": "planned",
+  "provenance": {
+    "derived": true,
+    "rule": "future-production-set@1"
+  }
+}
+
+The manifest should contain the derivation itself:
+{
+  "derivations": {
+    "tableStatus": {
+      "version": 1,
+      "default": "stubbed",
+      "plannedSet": "catalog/future-production-tables.json"
+    },
+
+    "tableId": {
+      "version": 1,
+      "pattern": "<context>.<name>"
+    }
+  }
+}
+
+And future-production-tables.json should contain the exact 17 canonical table IDs.
+ID policy
+Agreed: derived IDs are not findings once the policy exists.
+Use:
+<context-id>.<table-name>
+
+For example:
+people.talent_profiles
+people.talent_media
+creative.scripts
+finance.invoices
+evidence.evidence_items
+
+Each registry object should expose:
+{
+  "id": "people.talent_profiles",
+  "name": "talent_profiles",
+  "context": "people",
+  "provenance": {
+    "id": {
+      "derived": true,
+      "policy": "context-dot-name@1"
+    }
+  }
+}
+
+No UUIDs are necessary for the canonical registry vocabulary unless you later need immutable rename identity.
+Slice-resolution map
+This should become a governed registry artifact, not code hidden in the resolver.
+{
+  "casting": "people",
+  "talent": "people",
+  "crew": "people",
+  "departments": "people",
+  "attendance": "people",
+
+  "scripts": "creative",
+  "scenes": "creative",
+  "assets": "creative",
+
+  "schedule": "production",
+  "callSheets": "production",
+  "incidents": "production",
+
+  "locations": "logistics",
+  "vehicles": "logistics",
+  "equipment": "logistics",
+  "permits": "logistics",
+
+  "marketplace": "marketplace",
+  "vendors": "marketplace",
+  "rfq": "marketplace",
+  "quotes": "marketplace",
+  "procurement": "marketplace",
+  "purchaseOrders": "marketplace",
+
+  "budgets": "finance",
+  "expenses": "finance",
+  "invoices": "finance",
+  "payments": "finance",
+  "cashflow": "finance",
+
+  "evidence": "evidence",
+  "documents": "evidence",
+  "approvals": "evidence",
+  "risks": "evidence",
+  "audit": "evidence",
+
+  "investor": "investor",
+  "funding": "investor",
+  "rights": "investor",
+  "distribution": "investor",
+  "revenue": "investor",
+  "recoupment": "investor"
+}
+
+All referenced slices from the audited TLPS source must have exactly one resolution or an explicit special classification. The source itself distinguishes implemented Redux slices from a substantially larger referenced-slice set, so this map is the right bridge from application vocabulary to registry context vocabulary.    Pasted text
+A CI test should enforce:
+referenced_slice_count
+=
+resolved_slice_count
++ explicitly_ignored_slice_count
+
+with zero silent fallbacks.
+Six canonical product compositions
+I would commit exactly these:
+{
+  "production-os": {
+    "tags": ["film", "production"]
+  },
+
+  "campaign-os": {
+    "tags": [
+      "campaign",
+      "atl",
+      "btl",
+      "ooh",
+      "analytics"
+    ]
+  },
+
+  "marketplace": {
+    "tags": ["marketplace"]
+  },
+
+  "finance-commerce": {
+    "tags": ["finance"]
+  },
+
+  "investorhub": {
+    "tags": ["investor"]
+  },
+
+  "events-wedding-spatial": {
+    "tags": [
+      "event",
+      "wedding",
+      "spatial"
+    ]
+  }
+}
+
+Then composition applies:
+canonical product
+        ↓
+raw tags
+        ↓
+flows
+        ↓
+slice map
+        ↓
+contexts
+        ↓
+dependency closure
+        ↓
+spine
+        ↓
+default evidence service
+        ↓
+tables
+
+This finally establishes the distinction between the 16 source product tags and 6 compiler-facing product compositions.
+Route findings
+The 11 route findings should get a deterministic reconciliation pass.
+For each flow route:
+1. exact route lookup
+2. normalized route lookup
+3. dynamic-pattern lookup
+4. alias lookup
+5. unresolved
+
+Do not silently invent an alias.
+The resolution artifact should look like:
+{
+  "requested": "/casting/actors/123",
+  "status": "dynamic-match",
+  "matched": "/casting/actors/:actorId"
+}
+
+or:
+{
+  "requested": "/some/missing/path",
+  "status": "unresolved",
+  "owner": "platform",
+  "resolution": null
+}
+
+The source already defines 17 parameterized route patterns, so those need to participate in reconciliation even though the audited headline says dynamicRoutes: 0.    Pasted text
+Findings model
+Every one of the 50 findings should now have:
+{
+  "id": "REG-042",
+  "class": "source-gap",
+  "severity": "blocker",
+  "owner": "architecture",
+
+  "subject": "creative context dependency graph",
+
+  "problem": "...",
+
+  "resolution": "...",
+
+  "resolvedWhen": {
+    "test": "context.dependencies('creative')",
+    "expected": ["project", "people"]
+  }
+}
+
+Use exactly three classes:
+SOURCE_GAP
+SCHEMA_FORMAT_GAP
+DATA_QUALITY_GAP
+
+and at least:
+BLOCKER
+ERROR
+WARNING
+INFO
+
+Build policy
+This is the most important governance change:
+BLOCKER > 0
+    → registry validation fails
+    → CI fails
+    → registry cannot publish
+    → compiler cannot consume it
+
+ERROR > 0
+    → publish fails
+
+WARNING > 0
+    → publish permitted with report
+
+INFO
+    → advisory only
+
+“Loaded with warnings” is acceptable for the Data Studio inspection surface.
+It is not acceptable for the published registry artifact.
+Keep both concepts:
+Draft Registry
+may be blocked
+Data Studio can inspect it
+
+Published Registry
+must have blockers = 0
+compiler can consume it
+
+That distinction lets Data Studio remain useful precisely when things are broken.
+Ownership
+I would assign the 18 current blockers approximately as:
+Platform
+- status derivation
+- ID derivation
+- slice map
+- route resolver implementation
+- CI behavior
+
+Architecture
+- 17 context definitions
+- dependency graph
+- spine
+- evidence/shared-service semantics
+- canonical product compositions
+
+Data quality / source steward
+- genuinely missing routes
+- incorrect flow entry points
+- ambiguous names
+
+The registry itself should carry owners:
+{
+  "owner": {
+    "team": "platform",
+    "role": "domain-registry"
+  }
+}
+
+Two-commit sequence
+I agree with your sequencing, but I would make the first commit explicitly architectural:
+Commit 1 — domain-registry: establish canonical composition model
+catalog/spine.json
+
+catalog/future-production-tables.json
+
+contexts/*/context.json
+17 packages
+
+flows/slice-map.json
+
+products/compositions.json
+
+registry.manifest.json
+
+validator:
+- status derivation
+- ID derivation
+- dependency graph
+- acyclicity
+- slice resolution
+- composition resolution
+- blocker CI policy
+
+Expected result:
+18 blockers
+→ approximately route/data-quality remainder
+
+Then:
+Commit 2 — domain-registry: reconcile routes and close M1 findings
+route aliases / dynamic matcher
+flow entry-point corrections
+missing-route authoring
+resolution table
+finding ownership
+resolvedWhen assertions
+
+Expected:
+BLOCKERS = 0
+ERRORS = 0
+
+Warnings may remain if consciously accepted.
+M1 acceptance gate
+I would now define M1 COMPLETE only if all of these pass:
+352 canonical tables load
+
+18 domains load
+
+17 contexts load
+
+6 canonical product compositions load
+
+160 flows load
+
+all slice references resolve
+
+all context dependencies resolve
+
+dependency graph is acyclic
+
+all table IDs deterministic
+
+all table statuses deterministic
+
+all product tags resolve to canonical products
+
+all flow routes resolve or have an explicit approved resolution
+
+spine closure succeeds
+
+evidence default-service composition succeeds
+
+BLOCKER count = 0
+
+ERROR count = 0
+
+registry manifest has a version
+
+registry hash is reproducible
+
+And the decisive compiler gate becomes:
+flow.resolve(
+  "casting pipeline for a film production company"
+)
+
+→ flow IDs
+→ people + project + evidence + communications + finance + required dependencies
+→ spine closure
+→ exact table set
+→ status check
+→ Application IR
+
+Once that result is deterministic and explainable, M2 can start.
+The important point is that Data Studio should continue displaying a broken draft registry. The compiler should refuse it. That gives MAATAA both properties we want: complete architectural honesty for humans, and hard correctness guarantees for generation.
+And there is one particularly valuable architectural outcome here: after these two commits, a table is no longer present merely because an LLM “thought it might be useful.” Every generated table will have a traceable chain:
+Intent → Product → Flow → Context → Table → Contract → Version.
+That trace is the real value of the Domain Registry and the reason Data Studio matters.

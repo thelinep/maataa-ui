@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "imported",
+  "source": "manifest roles with flow-observed actor references",
+  "actors": [
+    {
+      "id": "admin",
+      "label": "TLPS Admin",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "agency",
+      "label": "Agency",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "auditor",
+      "label": "Auditor",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "cast",
+      "label": "Cast",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "client",
+      "label": "Client",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "crew",
+      "label": "Crew",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "evidenceReviewer",
+      "label": "Evidence Reviewer",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "executiveProducer",
+      "label": "Executive Producer",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "fabricator",
+      "label": "Fabricator",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "finance",
+      "label": "Finance",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "guest",
+      "label": "Guest",
+      "status": "registered",
+      "source": "tlps_all_flows_detailed.json"
+    },
+    {
+      "id": "hod",
+      "label": "HOD",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "investor",
+      "label": "Investor",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "legal",
+      "label": "Legal",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "lineProducer",
+      "label": "Line Producer",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "producer",
+      "label": "Producer",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "prospect",
+      "label": "Prospect",
+      "status": "registered",
+      "source": "tlps_all_flows_detailed.json"
+    },
+    {
+      "id": "sponsor",
+      "label": "Sponsor",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "talent",
+      "label": "Talent",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    },
+    {
+      "id": "vendor",
+      "label": "Vendor",
+      "organisation": "TLPS Demo Organisation",
+      "status": "registered",
+      "source": "tlps_full_application_v2_manifest.json"
+    }
+  ]
+}

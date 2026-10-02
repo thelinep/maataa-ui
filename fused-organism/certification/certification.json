@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "sourceOfTruth": true,
+  "product": "MAATAA UI fused organism",
+  "version": "1.0.0-alpha.0",
+  "generatedAt": "2026-10-01T20:04:34.492Z",
+  "status": "NOT_CERTIFIED",
+  "complete": false,
+  "packageManager": "npm@10.9.2",
+  "browserRuntime": null,
+  "scope": "Fused kernel plus @maataa/ui workspace. The inherited PASS gates below are historical evidence for the kernel-only closeout generated on 2026-09-30; they are not fresh results for the fused product. Fused package certification is pending clean install, platform-compatible UI tests, and fresh browser certification.",
+  "currentFusionChecks": [
+    {
+      "name": "kernel-test-suite",
+      "status": "PASS",
+      "note": "49/49 tests on 2026-10-02"
+    },
+    {
+      "name": "ui-typescript",
+      "status": "PASS",
+      "note": "No emit typecheck"
+    },
+    {
+      "name": "integrated-build",
+      "status": "PASS",
+      "note": "Kernel and UI artifacts emitted"
+    },
+    {
+      "name": "ui-lint",
+      "status": "PASS_WITH_WARNINGS",
+      "note": "0 errors; 4 pre-existing hook/type warnings"
+    },
+    {
+      "name": "ui-format",
+      "status": "PASS",
+      "note": "Prettier check"
+    },
+    {
+      "name": "ui-vitest",
+      "status": "BLOCKED",
+      "note": "Missing @rollup/rollup-darwin-arm64 in installed legacy node_modules; host is Darwin ARM64"
+    },
+    {
+      "name": "ui-product-smoke",
+      "status": "PASS",
+      "note": "Allowed action, unapproved action blocked, compliance display stays truthful"
+    },
+    {
+      "name": "toolchain",
+      "status": "FAIL",
+      "note": "Installed npm 12.0.2; kernel policy requires npm 10.9.x"
+    },
+    {
+      "name": "browser-runtime",
+      "status": "FAIL",
+      "note": "Pinned Chromium unavailable: CHROMIUM_NOT_FOUND"
+    },
+    {
+      "name": "clean-install",
+      "status": "NOT_VERIFIED",
+      "note": "Offline lock regeneration blocked by uncached Storybook metadata"
+    },
+    {
+      "name": "product-gate",
+      "status": "FAIL",
+      "note": "Stopped before remaining gates because installed npm 12.0.2 violates the required npm 10.9.x range"
+    }
+  ],
+  "gates": [
+    {
+      "name": "m0-foundation",
+      "command": "npm run gate:m0",
+      "status": "PASS",
+      "durationMs": 123
+    },
+    {
+      "name": "m2-closeout",
+      "command": "npm run gate:m2-closeout",
+      "status": "PASS",
+      "durationMs": 132
+    },
+    {
+      "name": "toolchain",
+      "command": "npm run gate:toolchain",
+      "status": "PASS",
+      "durationMs": 135
+    },
+    {
+      "name": "version-sync",
+      "command": "npm run gate:version-sync",
+      "status": "PASS",
+      "durationMs": 124
+    },
+    {
+      "name": "drift",
+      "command": "npm run gate:drift",
+      "status": "PASS",
+      "durationMs": 227
+    },
+    {
+      "name": "visual-policy",
+      "command": "npm run gate:visual-policy",
+      "status": "PASS",
+      "durationMs": 139
+    },
+    {
+      "name": "registry-bindings",
+      "command": "npm run check:registry-bindings",
+      "status": "PASS",
+      "durationMs": 146
+    },
+    {
+      "name": "react-policy",
+      "command": "npm run check:react-policy",
+      "status": "PASS",
+      "durationMs": 119
+    },
+    {
+      "name": "compatibility",
+      "command": "npm run check:compat",
+      "status": "PASS",
+      "durationMs": 571
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "status": "PASS",
+      "durationMs": 125
+    },
+    {
+      "name": "format",
+      "command": "npm run format:check",
+      "status": "PASS",
+      "durationMs": 124
+    },
+    {
+      "name": "boundaries",
+      "command": "npm run check:boundaries",
+      "status": "PASS",
+      "durationMs": 126
+    },
+    {
+      "name": "exports",
+      "command": "npm run check:exports",
+      "status": "PASS",
+      "durationMs": 118
+    },
+    {
+      "name": "react-adapter",
+      "command": "npm run test:react",
+      "status": "PASS",
+      "durationMs": 183
+    },
+    {
+      "name": "tests",
+      "command": "npm test",
+      "status": "PASS",
+      "durationMs": 634
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "status": "PASS",
+      "durationMs": 131
+    },
+    {
+      "name": "fresh-clone",
+      "command": "npm run fresh-clone",
+      "status": "PASS",
+      "durationMs": 3831
+    },
+    {
+      "name": "browser-runtime",
+      "command": "npm run gate:browser-runtime",
+      "status": "PASS",
+      "durationMs": 170
+    },
+    {
+      "name": "browser-certification",
+      "command": "npm run certify:browser",
+      "status": "PASS",
+      "durationMs": 1187
+    },
+    {
+      "name": "release",
+      "command": "npm run release:check",
+      "status": "PASS",
+      "durationMs": 1661
+    }
+  ],
+  "exclusions": [
+    "third-party React implementation or React version matrix; M2 certifies the MAATAA host-adapter contract only",
+    "cross-browser behaviour outside pinned Chromium 144.0.7559.96",
+    "full WCAG conformance or manual assistive-technology certification",
+    "axe-core rules-engine coverage",
+    "Playwright test-runner coverage",
+    "real ONVIF/RTSP/WebRTC camera interoperability",
+    "real robotics, PLC, IoT, building, industrial, show-control, mobility or energy control",
+    "hardware-in-the-loop operation or safety-rated emergency control",
+    "penetration testing, external security audit or production deployment",
+    "visual regression for the full public landing page or all 90 registry components",
+    "browser rendering for headless-bound registry entries other than the explicitly certified React primitives",
+    "M3 deferred React hooks until implemented and separately tested"
+  ]
+}

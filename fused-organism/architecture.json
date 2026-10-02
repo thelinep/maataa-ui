@@ -1,0 +1,389 @@
+{
+  "name": "MAATAA UI V3",
+  "version": "0.4.1",
+  "strategy": "foundation-first",
+  "packageManager": "npm@10.9.2",
+  "activePackages": [
+    "@maataa/contracts",
+    "@maataa/core",
+    "@maataa/registry",
+    "@maataa/ai",
+    "@maataa/governance",
+    "@maataa/renderer",
+    "@maataa/adapter-sdk",
+    "@maataa/control",
+    "@maataa/react",
+    "@maataa/recipes",
+    "@maataa/testing"
+  ],
+  "certificationTarget": "M0R + M1 compatibility freeze + M2 real-browser and React-adapter certification on the 11-package kernel",
+  "roadmapDomains": [
+    "camera",
+    "robotics",
+    "iot",
+    "building",
+    "spatial",
+    "digital-twin",
+    "industrial",
+    "show-control",
+    "mobility",
+    "energy",
+    "events",
+    "commerce",
+    "finance",
+    "knowledge",
+    "production",
+    "creators"
+  ],
+  "canonicalFlow": [
+    "context",
+    "recommendation",
+    "proposal",
+    "policy",
+    "approval",
+    "authorized-command",
+    "dispatch",
+    "ack-nack",
+    "observed-state",
+    "verification",
+    "evidence"
+  ],
+  "invariants": [
+    {
+      "id": "INV-001",
+      "statement": "UI-supplied authority claims cannot bypass policy and approval.",
+      "test": "INV-001 UI authority flags cannot bypass policy",
+      "file": "tests/architecture/invariants.test.mjs"
+    },
+    {
+      "id": "INV-002",
+      "statement": "Prompt text is not authorization.",
+      "test": "INV-002 prompt text cannot satisfy authorization",
+      "file": "tests/architecture/invariants.test.mjs"
+    },
+    {
+      "id": "INV-003",
+      "statement": "Acknowledgement is not verification.",
+      "test": "INV-003 acknowledged command can still fail verification",
+      "file": "tests/architecture/invariants.test.mjs"
+    },
+    {
+      "id": "INV-004",
+      "statement": "Renderer executes no payload code and rejects hostile data at runtime.",
+      "test": "renderer rejects nested hostile payloads at runtime without invoking accessors",
+      "file": "tests/security/renderer.test.mjs"
+    },
+    {
+      "id": "INV-005",
+      "statement": "Hardware safety readiness and active interlocks remain external preconditions to dispatch.",
+      "test": "INV-005 hardware safety state can deny an otherwise approved command",
+      "file": "tests/architecture/invariants.test.mjs"
+    },
+    {
+      "id": "INV-006",
+      "statement": "Foundation packages never depend on domain packs; experimental domain packs may depend only on approved foundation packages.",
+      "test": "INV-006 experimental domain fixture obeys one-way package boundaries",
+      "file": "tests/packages/domain-boundary-fixture.test.mjs"
+    },
+    {
+      "id": "INV-007",
+      "statement": "Frozen v1 contracts cannot change shape or identity without a new contract version.",
+      "test": "INV-007 frozen v1 contract baseline remains compatible",
+      "file": "tests/compatibility/contracts-compat.test.mjs"
+    },
+    {
+      "id": "INV-008",
+      "statement": "Frozen public package exports cannot be removed from the 0.3.x API surface.",
+      "test": "INV-008 public API baseline exports remain available",
+      "file": "tests/compatibility/public-api-compat.test.mjs"
+    },
+    {
+      "id": "INV-009",
+      "statement": "Frozen registry entries cannot silently change identity, authority class, package, headless status, schema binding, or supported states.",
+      "test": "INV-009 registry baseline remains compatible",
+      "file": "tests/compatibility/registry-compat.test.mjs"
+    },
+    {
+      "id": "INV-010",
+      "statement": "Terminal control states cannot transition back to active states.",
+      "test": "INV-010 terminal control states cannot transition back to active states",
+      "file": "tests/control/lifecycle-invariants.test.mjs"
+    },
+    {
+      "id": "INV-011",
+      "statement": "NACK cannot transition to verified.",
+      "test": "INV-011 NACK cannot transition to verified",
+      "file": "tests/control/lifecycle-invariants.test.mjs"
+    },
+    {
+      "id": "INV-012",
+      "statement": "Cancelled commands cannot transition to completed.",
+      "test": "INV-012 cancelled commands cannot transition to completed",
+      "file": "tests/control/lifecycle-invariants.test.mjs"
+    },
+    {
+      "id": "INV-013",
+      "statement": "Expired leases cannot authorize dispatch.",
+      "test": "INV-013 expired lease cannot authorize dispatch",
+      "file": "tests/control/lifecycle-invariants.test.mjs"
+    },
+    {
+      "id": "INV-014",
+      "statement": "Verification is derived from observed state rather than acknowledgement payload.",
+      "test": "INV-014 verification result is derived from observed state, not ACK payload",
+      "file": "tests/control/lifecycle-invariants.test.mjs"
+    },
+    {
+      "id": "INV-015",
+      "statement": "The React adapter rejects hosts that do not satisfy its declared host contract.",
+      "test": "INV-015 React adapter rejects incomplete host contracts",
+      "file": "packages/react/test/react-adapter.test.mjs"
+    },
+    {
+      "id": "INV-016",
+      "statement": "React adapter primitives preserve native accessible semantics in a real browser.",
+      "test": "INV-016 React adapter primitives expose accessible browser semantics",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    },
+    {
+      "id": "INV-017",
+      "statement": "Keyboard navigation and focus restoration remain deterministic.",
+      "test": "INV-017 keyboard navigation and focus restoration pass",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    },
+    {
+      "id": "INV-018",
+      "statement": "Dynamic command feedback is exposed through a live region.",
+      "test": "INV-018 command feedback is exposed through a live region",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    },
+    {
+      "id": "INV-019",
+      "statement": "Certified responsive viewports do not introduce horizontal overflow.",
+      "test": "INV-019 responsive viewport matrix has no horizontal overflow",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    },
+    {
+      "id": "INV-020",
+      "statement": "Reduced-motion preference disables nonessential animation.",
+      "test": "INV-020 reduced motion disables nonessential animation",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    },
+    {
+      "id": "INV-021",
+      "statement": "Forced-colors mode preserves visible control boundaries and focus.",
+      "test": "INV-021 forced colors preserves control boundaries",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    },
+    {
+      "id": "INV-022",
+      "statement": "Certified visual fixtures remain within the screenshot regression threshold.",
+      "test": "INV-022 screenshot visual regression remains within threshold",
+      "file": "tests/browser/browser-certification.browser.mjs"
+    }
+  ],
+  "milestones": {
+    "M0R": {
+      "status": "COMPLETE_RETROSPECTIVE",
+      "release": "0.3.3",
+      "scope": [
+        "foundation audit recorded without rewriting history",
+        "platform/contract versioning ADR",
+        "named version-sync gate",
+        "registry binding proof",
+        "React host-peer policy",
+        "one-to-one lifecycle invariant map"
+      ]
+    },
+    "M1": {
+      "status": "COMPLETE_AFTER_RECONCILIATION",
+      "release": "0.3.3",
+      "scope": [
+        "versioned v1 contract freeze",
+        "public API compatibility manifest",
+        "registry compatibility baseline with binding metadata",
+        "deprecation metadata gate",
+        "control lifecycle invariants",
+        "generated public API documentation"
+      ]
+    },
+    "M2": {
+      "status": "COMPLETE_WITH_CLOSEOUT",
+      "release": "0.4.1",
+      "scope": [
+        "real pinned Chromium browser certification",
+        "React adapter host-contract hardening",
+        "browser accessibility automation",
+        "keyboard/focus/live-region certification",
+        "responsive/forced-colors/reduced-motion matrix",
+        "screenshot visual regression with explicit update enforcement",
+        "published invariant, gate, React-surface, certified-surface, and exclusions maps",
+        "M0R findings resolved or explicitly deferred"
+      ]
+    },
+    "M3": {
+      "status": "NEXT_AFTER_M2_CLOSEOUT",
+      "scope": [
+        "camera contracts",
+        "capability negotiation",
+        "simulator parity",
+        "protocol adapter boundaries",
+        "failure matrix"
+      ]
+    }
+  },
+  "versioning": {
+    "platformVersion": "0.4.1",
+    "contractCompatibilityFamily": "v1",
+    "contractSemanticVersion": "1.0.0",
+    "independentVersionSpaces": true,
+    "adr": "docs/adr/ADR-001-CONTRACT-AND-PLATFORM-VERSIONING.md"
+  },
+  "runtimeDependencyPolicy": {
+    "claim": "zero external runtime dependencies in package dependencies",
+    "hostPeersAllowed": {
+      "@maataa/react": {
+        "react": ">=18.2.0 <20",
+        "optional": true
+      }
+    },
+    "adr": "docs/adr/ADR-002-RUNTIME-DEPENDENCY-POLICY.md"
+  },
+  "browserCertification": {
+    "milestone": "M2",
+    "status": "COMPLETE_PINNED",
+    "runtime": "system Chromium 144.0.7559.96 via Chrome DevTools Protocol",
+    "environmentDependency": true,
+    "npmDependency": false,
+    "checks": [
+      "accessibility-tree semantics",
+      "keyboard navigation",
+      "focus restoration",
+      "live regions",
+      "responsive matrix",
+      "reduced motion",
+      "forced colors",
+      "PNG visual regression"
+    ],
+    "adr": "docs/adr/ADR-003-BROWSER-CERTIFICATION-RUNTIME.md",
+    "pinnedFamily": "Chromium",
+    "pinnedExactVersion": "144.0.7559.96",
+    "deviceScaleFactor": 1,
+    "playwrightCertified": false,
+    "axeCoreCertified": false,
+    "toolingDecisionAdr": "docs/adr/ADR-005-CDP-INSTEAD-OF-PLAYWRIGHT-AXE-IN-M2.md"
+  },
+  "reactAdapterCertification": {
+    "status": "COMPLETE",
+    "adapterContractVersion": "1.0.0",
+    "peerRange": ">=18.2.0 <20",
+    "scope": "MAATAA adapter host contract and resulting browser semantics",
+    "upstreamReactImplementationCertified": false,
+    "adr": "docs/adr/ADR-004-REACT-ADAPTER-CERTIFICATION-BOUNDARY.md"
+  },
+  "m2CertifiedSurfaces": {
+    "reactNodeCertified": {
+      "constants": [
+        "REACT_ADAPTER_CONTRACT_VERSION",
+        "REACT_PEER_RANGE"
+      ],
+      "functions": [
+        "validateReactHost",
+        "createMaataaReact"
+      ],
+      "primitives": [
+        "Box",
+        "Button",
+        "Input",
+        "Textarea",
+        "Select",
+        "Switch",
+        "VisuallyHidden",
+        "AriaLive"
+      ],
+      "hooks": [
+        "useDisclosure",
+        "useMediaQuery",
+        "useTelemetry",
+        "useControl",
+        "useApproval",
+        "useAgent",
+        "useTheme",
+        "useToast"
+      ]
+    },
+    "reactBrowserCertified": {
+      "primitives": [
+        "Button",
+        "Input",
+        "Switch",
+        "AriaLive"
+      ],
+      "behaviours": [
+        "accessibility-tree roles/names",
+        "keyboard tab navigation",
+        "dialog initial focus/focus restoration",
+        "polite live-region update",
+        "responsive no-overflow",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "visualStates": [
+        "state.info",
+        "state.ai",
+        "state.proposal",
+        "state.approval",
+        "state.authorized",
+        "state.executing",
+        "state.verified",
+        "state.danger",
+        "state.stale",
+        "state.offline"
+      ]
+    },
+    "fixtureOnlyNotReactExports": [
+      "tablist/tabs fixture",
+      "native dialog fixture",
+      "motion probe",
+      "forced-colors probe",
+      "semantic visual swatches"
+    ]
+  },
+  "m3DeferredReactHooks": [
+    "useMaataaContext",
+    "useRecommendation",
+    "useProposal",
+    "useEvidence",
+    "useCommand",
+    "useCommandReceipt",
+    "useControlLease",
+    "useObservedState",
+    "useDeviceState",
+    "useTwin"
+  ],
+  "notCertified": [
+    "third-party React implementation or React version matrix; M2 certifies the MAATAA host-adapter contract only",
+    "cross-browser behaviour outside pinned Chromium 144.0.7559.96",
+    "full WCAG conformance or manual assistive-technology certification",
+    "axe-core rules-engine coverage",
+    "Playwright test-runner coverage",
+    "real ONVIF/RTSP/WebRTC camera interoperability",
+    "real robotics, PLC, IoT, building, industrial, show-control, mobility or energy control",
+    "hardware-in-the-loop operation or safety-rated emergency control",
+    "penetration testing, external security audit or production deployment",
+    "visual regression for the full public landing page or all 90 registry components",
+    "browser rendering for headless-bound registry entries other than the explicitly certified React primitives",
+    "M3 deferred React hooks until implemented and separately tested"
+  ],
+  "m0r": {
+    "blockingFindingsRemaining": 0,
+    "deferredNonBlocking": [
+      "full visual implementation of the 90 headless-bound registry components",
+      "full WCAG/manual assistive-technology audit",
+      "cross-browser matrix",
+      "external security/penetration audit",
+      "protocol interoperability and hardware-in-the-loop certification",
+      "broad domain examples beyond certified kernel/reference fixtures"
+    ]
+  }
+}

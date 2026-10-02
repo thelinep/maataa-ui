@@ -1,0 +1,128 @@
+{
+  "version": 2,
+  "layers": {
+    "@maataa/contracts": 0,
+    "@maataa/tokens": 0,
+    "@maataa/core": 1,
+    "@maataa/registry": 1,
+    "@maataa/primitives": 1,
+    "@maataa/ai": 2,
+    "@maataa/governance": 2,
+    "@maataa/renderer": 2,
+    "@maataa/adapter-sdk": 2,
+    "@maataa/control": 3,
+    "@maataa/react": 4,
+    "@maataa/recipes": 5,
+    "@maataa/testing": 6,
+    "@maataa/ui": 7,
+    "@tlps/domain-primitives": 8,
+    "@tlps/workflow-primitives": 8,
+    "@tlps/evidence-primitives": 8,
+    "@tlps/generative-primitives": 8,
+    "@tlps/composites": 8,
+    "@tlps/templates": 8
+  },
+  "allowed": {
+    "@maataa/adapter-sdk": [
+      "@maataa/contracts"
+    ],
+    "@maataa/ai": [
+      "@maataa/contracts",
+      "@maataa/core"
+    ],
+    "@maataa/contracts": [],
+    "@maataa/control": [
+      "@maataa/contracts",
+      "@maataa/core",
+      "@maataa/governance",
+      "@maataa/adapter-sdk"
+    ],
+    "@maataa/core": [
+      "@maataa/contracts"
+    ],
+    "@maataa/governance": [
+      "@maataa/contracts",
+      "@maataa/core"
+    ],
+    "@maataa/primitives": [
+      "@maataa/tokens"
+    ],
+    "@maataa/react": [
+      "@maataa/core",
+      "@maataa/ai",
+      "@maataa/governance",
+      "@maataa/control",
+      "@maataa/renderer",
+      "@maataa/registry"
+    ],
+    "@maataa/recipes": [
+      "@maataa/contracts",
+      "@maataa/core",
+      "@maataa/ai",
+      "@maataa/governance",
+      "@maataa/control",
+      "@maataa/renderer"
+    ],
+    "@maataa/registry": [
+      "@maataa/contracts"
+    ],
+    "@maataa/renderer": [
+      "@maataa/contracts",
+      "@maataa/core",
+      "@maataa/registry"
+    ],
+    "@maataa/testing": [
+      "@maataa/contracts",
+      "@maataa/registry",
+      "@maataa/renderer",
+      "@maataa/control",
+      "@maataa/adapter-sdk"
+    ],
+    "@maataa/tokens": [],
+    "@maataa/ui": [
+      "@maataa/governance",
+      "@maataa/react",
+      "@maataa/tokens",
+      "@maataa/primitives"
+    ],
+    "@tlps/composites": [
+      "@maataa/primitives"
+    ],
+    "@tlps/domain-primitives": [
+      "@maataa/primitives",
+      "@maataa/tokens"
+    ],
+    "@tlps/evidence-primitives": [
+      "@maataa/primitives"
+    ],
+    "@tlps/generative-primitives": [
+      "@maataa/primitives"
+    ],
+    "@tlps/templates": [
+      "@maataa/primitives"
+    ],
+    "@tlps/workflow-primitives": [
+      "@maataa/primitives"
+    ]
+  },
+  "experimentalDomain": {
+    "package": "@maataa-ui/fixture-domain",
+    "path": "experimental/domain-fixture",
+    "allowedDependencies": [
+      "@maataa/contracts",
+      "@maataa/core",
+      "@maataa/renderer"
+    ]
+  },
+  "forbiddenDomainPrefixes": [
+    "@maataa-ui/"
+  ],
+  "forbiddenTokens": [
+    "@maataa-ui/events",
+    "@maataa-ui/robotics",
+    "@maataa-ui/iot",
+    "@maataa-ui/finance",
+    "@maataa-ui/building",
+    "@maataa-ui/show-control"
+  ]
+}

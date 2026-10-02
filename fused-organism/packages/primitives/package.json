@@ -1,0 +1,94 @@
+{
+  "name": "@maataa/primitives",
+  "version": "0.4.1",
+  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./master-registry": {
+      "types": "./dist/masterPrimitiveRegistry.d.ts",
+      "default": "./dist/masterPrimitiveRegistry.js"
+    },
+    "./AspectRatio": {
+      "types": "./dist/AspectRatio.d.ts",
+      "default": "./dist/AspectRatio.js"
+    },
+    "./Badge": {
+      "types": "./dist/Badge.d.ts",
+      "default": "./dist/Badge.js"
+    },
+    "./Box": {
+      "types": "./dist/Box.d.ts",
+      "default": "./dist/Box.js"
+    },
+    "./Button": {
+      "types": "./dist/Button.d.ts",
+      "default": "./dist/Button.js"
+    },
+    "./Card": {
+      "types": "./dist/Card.d.ts",
+      "default": "./dist/Card.js"
+    },
+    "./Container": {
+      "types": "./dist/Container.d.ts",
+      "default": "./dist/Container.js"
+    },
+    "./Divider": {
+      "types": "./dist/Divider.d.ts",
+      "default": "./dist/Divider.js"
+    },
+    "./Flex": {
+      "types": "./dist/Flex.d.ts",
+      "default": "./dist/Flex.js"
+    },
+    "./Grid": {
+      "types": "./dist/Grid.d.ts",
+      "default": "./dist/Grid.js"
+    },
+    "./Input": {
+      "types": "./dist/Input.d.ts",
+      "default": "./dist/Input.js"
+    },
+    "./Portal": {
+      "types": "./dist/Portal.d.ts",
+      "default": "./dist/Portal.js"
+    },
+    "./ScrollArea": {
+      "types": "./dist/ScrollArea.d.ts",
+      "default": "./dist/ScrollArea.js"
+    },
+    "./Spacer": {
+      "types": "./dist/Spacer.d.ts",
+      "default": "./dist/Spacer.js"
+    },
+    "./Stack": {
+      "types": "./dist/Stack.d.ts",
+      "default": "./dist/Stack.js"
+    },
+    "./VisuallyHidden": {
+      "types": "./dist/VisuallyHidden.d.ts",
+      "default": "./dist/VisuallyHidden.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@maataa/tokens": "*"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0 <20",
+    "react-dom": ">=18.2.0 <20"
+  }
+}

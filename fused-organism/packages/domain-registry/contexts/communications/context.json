@@ -1,0 +1,45 @@
+{
+  "id": "communications",
+  "version": "1.0.0",
+  "versionStatus": "authored",
+  "status": "stubbed",
+  "dependencyStatus": "authored",
+  "dependencies": [],
+  "tableIds": [
+    "communications.notifications",
+    "communications.notification_preferences",
+    "communications.notification_deliveries",
+    "communications.communication_threads",
+    "communications.thread_members",
+    "communications.messages",
+    "communications.message_attachments",
+    "communications.direct_message_threads",
+    "communications.announcements"
+  ],
+  "coreSpineCandidates": [
+    "spine.json",
+    "registry-architecture.json"
+  ],
+  "reason": "Notifications, threads, messages",
+  "stability": "experimental",
+  "dependsOn": [],
+  "provides": [],
+  "contracts": [],
+  "tables": [
+    "communications.notifications",
+    "communications.notification_preferences",
+    "communications.notification_deliveries",
+    "communications.communication_threads",
+    "communications.thread_members",
+    "communications.messages",
+    "communications.message_attachments",
+    "communications.direct_message_threads",
+    "communications.announcements"
+  ],
+  "provenance": {
+    "source": "domain-registry-m1",
+    "authored": true
+  },
+  "coreSpine": true,
+  "defaultIncludedService": false
+}

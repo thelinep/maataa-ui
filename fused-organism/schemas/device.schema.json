@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/device.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "Device",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "description": "Device ID"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Device kind"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Manufacturer"
+    },
+    "model": {
+      "type": "string",
+      "description": "Model"
+    },
+    "trustState": {
+      "type": "string",
+      "enum": [
+        "trusted",
+        "untrusted",
+        "revoked",
+        "unknown"
+      ]
+    },
+    "connectionState": {
+      "type": "string",
+      "enum": [
+        "online",
+        "degraded",
+        "offline",
+        "unknown"
+      ]
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Capability"
+      }
+    }
+  },
+  "required": [
+    "deviceId",
+    "kind",
+    "trustState",
+    "connectionState",
+    "capabilities"
+  ]
+}

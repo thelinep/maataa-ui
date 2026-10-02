@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "neroevents-postgres-migrations",
+  "name": "NEVO Events PostgreSQL migrations",
+  "classification": "CANDIDATE",
+  "sourceKind": "sql-migration",
+  "repository": {
+    "url": "https://github.com/thelinep/neroevents",
+    "commitSha": "777dabc132f7898618302121e4d882efb0345733"
+  },
+  "files": [
+    { "path": "packages/database/migrations/0001_auth_and_sessions.sql", "blobSha": "77b85951776133bda1ae33f86b50e58921ddb74f" },
+    { "path": "packages/database/migrations/0002_projects_tasks.sql", "blobSha": "5e97e633b40c79e2b31b5227efcda9c58eb602bc" },
+    { "path": "packages/database/migrations/0003_custom_agents_models.sql", "blobSha": "ea68af89f641d460dbd1c194d6ac788d926bb7f2" },
+    { "path": "packages/database/migrations/0004_performance_and_kg.sql", "blobSha": "f18a01578dad578413637ba305d818c671ef779b" },
+    { "path": "packages/database/migrations/0005_fine_tune_history_memory.sql", "blobSha": "c61549a377da1c6c2352114ebd0095d4937bbb86" },
+    { "path": "packages/database/migrations/0006_security_and_indexes.sql", "blobSha": "77243144577a6c0018043e92f60bb9eb8fd7d719" },
+    { "path": "packages/database/migrations/0007_audit_approvals_workspaces.sql", "blobSha": "5a714955e74f50fb5ce5ffdaacf1d955dff8bfea" },
+    { "path": "packages/database/migrations/0008_identity_hardening.sql", "blobSha": "9b901f2b81ba90836c259b722afc0c64b204a412" },
+    { "path": "packages/database/migrations/0009_tenants_memberships.sql", "blobSha": "8dd2fb74e67e3aee08106280ef95071d5e712742" },
+    { "path": "packages/database/migrations/0010_audit_events_tenant_scope.sql", "blobSha": "31f9c19e67f1d437f9d301c1c9eefaf66e16ed2a" },
+    { "path": "packages/database/migrations/0011_audit_events_historical_project_reference.sql", "blobSha": "fc17c917c85ffaf6d747d91a5bbb053217ae8463" }
+  ],
+  "coverage": {
+    "contexts": [],
+    "canonicalTableIds": [],
+    "sourceNativeTables": ["users", "sessions", "projects", "project_tasks", "custom_agents", "custom_models", "model_performance", "kg_nodes", "kg_edges", "datasets", "fine_tune_jobs", "history_entries", "session_memory", "audit_events", "task_approvals", "tenants", "tenant_memberships"]
+  },
+  "reviewer": null,
+  "adoptionDecision": {
+    "status": "pending",
+    "decidedBy": null,
+    "rationale": null,
+    "decidedAt": null
+  },
+  "notes": "Candidate evidence from a separate product repository. Source-native tables are recorded for discovery only. No TLPS contexts or canonical tables have been mapped or adopted."
+}

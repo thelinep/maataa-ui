@@ -1,0 +1,248 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "deferred",
+  "findings": [
+    {
+      "id": "ROUTE-001",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-119",
+      "requestedPath": "/mobile/admin/api-keys",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-002",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-122",
+      "requestedPath": "/mobile/admin/audit-log",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-003",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-123",
+      "requestedPath": "/mobile/admin/data-retention",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-004",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-124",
+      "requestedPath": "/mobile/admin/feature-flags",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-005",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-121",
+      "requestedPath": "/mobile/admin/integrations",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-006",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-120",
+      "requestedPath": "/mobile/admin/webhooks",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-007",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-006",
+      "requestedPath": "/mobile/auth/accept-invite",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-008",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-005",
+      "requestedPath": "/mobile/auth/create-organisation",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-009",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-006",
+      "requestedPath": "/mobile/auth/invite",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-010",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-008",
+      "requestedPath": "/mobile/auth/sign-out",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    },
+    {
+      "id": "ROUTE-011",
+      "severity": "INFO",
+      "code": "FLOW_ROUTE_DEFERRED",
+      "class": "DATA_QUALITY_GAP",
+      "owner": "platform",
+      "flowId": "TLPS-FLOW-115",
+      "requestedPath": "/offline",
+      "category": "missing-source",
+      "targetVersion": "1.1.0",
+      "sourceEvidence": {
+        "declaredPattern": false,
+        "registeredPage": false,
+        "deferred": true
+      },
+      "reason": "Unresolved route explicitly deferred to 1.1.0 (missing-source).",
+      "resolvedWhen": {
+        "oneOf": [
+          "resolve or retire before 1.1.0"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/evidence.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Evidence ID"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Evidence kind"
+    },
+    "uri": {
+      "type": "string",
+      "description": "Optional URI"
+    },
+    "hash": {
+      "type": "string",
+      "description": "Content hash"
+    },
+    "observedAt": {
+      "type": "string",
+      "description": "Observation time"
+    },
+    "sourceRef": {
+      "type": "string",
+      "description": "Source reference"
+    }
+  },
+  "required": [
+    "id",
+    "kind"
+  ]
+}

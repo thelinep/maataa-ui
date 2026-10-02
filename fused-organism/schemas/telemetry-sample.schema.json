@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/telemetry-sample.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "TelemetrySample",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "description": "Device ID"
+    },
+    "metric": {
+      "type": "string",
+      "description": "Metric name"
+    },
+    "value": {},
+    "unit": {
+      "type": "string",
+      "description": "Canonical unit"
+    },
+    "observedAt": {
+      "type": "string",
+      "description": "ISO time"
+    },
+    "quality": {
+      "type": "string",
+      "enum": [
+        "good",
+        "uncertain",
+        "bad",
+        "stale"
+      ]
+    },
+    "sourceRef": {
+      "type": "string",
+      "description": "Source"
+    }
+  },
+  "required": [
+    "deviceId",
+    "metric",
+    "value",
+    "observedAt",
+    "quality"
+  ]
+}

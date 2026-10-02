@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.maataa.ui/v1/control-command.schema.json",
+  "x-maataa-contract-version": "1.0.0",
+  "title": "ControlCommand",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "commandId": {
+      "type": "string",
+      "description": "Command ID"
+    },
+    "deviceId": {
+      "type": "string",
+      "description": "Target device"
+    },
+    "capability": {
+      "type": "string",
+      "description": "Bounded capability"
+    },
+    "payload": {},
+    "status": {
+      "type": "string",
+      "enum": [
+        "requested",
+        "validated",
+        "authorized",
+        "queued",
+        "dispatched",
+        "acknowledged",
+        "completed",
+        "verified",
+        "denied",
+        "nack",
+        "cancelled",
+        "timed_out",
+        "failed",
+        "verification_failed"
+      ]
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "description": "Replay protection key"
+    },
+    "issuedAt": {
+      "type": "string",
+      "description": "ISO time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "description": "ISO time"
+    },
+    "approvalIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Approval ID"
+      }
+    }
+  },
+  "required": [
+    "commandId",
+    "deviceId",
+    "capability",
+    "status",
+    "idempotencyKey",
+    "issuedAt"
+  ]
+}

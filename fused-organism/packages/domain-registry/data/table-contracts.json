@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "authoring-required",
+  "sourcePolicy": "Contracts must be grounded in an authoritative schema, ERD, or reviewed source artifact. Table names alone do not define fields, keys, or relations.",
+  "contracts": []
+}

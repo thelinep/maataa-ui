@@ -1,0 +1,4712 @@
+{
+  "schemaVersion": "1.0.0",
+  "irVersion": "1.0.0",
+  "application": {
+    "appId": "casting-pipeline-demo",
+    "name": "Casting Pipeline",
+    "intent": "Casting pipeline for a film production company"
+  },
+  "registry": {
+    "id": "tlps-domain-registry",
+    "version": "1.0.0",
+    "hash": "8924c3614daa415bf33ef3b47e68e0d1b35dd6f632602dad9019512d4db5a2da"
+  },
+  "resolverVersion": "1.0.0",
+  "productComposition": {
+    "id": "production-os",
+    "version": "1.0.0",
+    "tags": [
+      "film"
+    ],
+    "sourceTagResolutions": [
+      {
+        "tag": "film",
+        "classification": "canonical-product",
+        "canonicalProductId": "production-os"
+      }
+    ]
+  },
+  "flowSelection": {
+    "mode": "explicit",
+    "sourceProductId": "production-os"
+  },
+  "selectedFlows": [
+    {
+      "id": "TLPS-FLOW-027",
+      "title": "Casting-call flow",
+      "category": "Casting"
+    },
+    {
+      "id": "TLPS-FLOW-028",
+      "title": "Audition flow",
+      "category": "Casting"
+    },
+    {
+      "id": "TLPS-FLOW-029",
+      "title": "Talent-selection flow",
+      "category": "Casting"
+    },
+    {
+      "id": "TLPS-FLOW-030",
+      "title": "Talent-contract flow",
+      "category": "Casting"
+    },
+    {
+      "id": "TLPS-FLOW-031",
+      "title": "Casting decision flow",
+      "category": "Casting"
+    }
+  ],
+  "flowIds": [
+    "TLPS-FLOW-027",
+    "TLPS-FLOW-028",
+    "TLPS-FLOW-029",
+    "TLPS-FLOW-030",
+    "TLPS-FLOW-031"
+  ],
+  "contextVersions": [
+    {
+      "contextId": "communications",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "evidence",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "identity",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "organisation",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "people",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "platform",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "production",
+      "version": "1.0.0",
+      "status": "stubbed"
+    },
+    {
+      "contextId": "project",
+      "version": "1.0.0",
+      "status": "stubbed"
+    }
+  ],
+  "tableIds": [
+    "communications.announcements",
+    "communications.communication_threads",
+    "communications.direct_message_threads",
+    "communications.message_attachments",
+    "communications.messages",
+    "communications.notification_deliveries",
+    "communications.notification_preferences",
+    "communications.notifications",
+    "communications.thread_members",
+    "evidence.approval_comments",
+    "evidence.approval_decisions",
+    "evidence.approval_steps",
+    "evidence.approvals",
+    "evidence.audit_events",
+    "evidence.before_after_proofs",
+    "evidence.chain_of_custody_events",
+    "evidence.change_requests",
+    "evidence.document_links",
+    "evidence.document_versions",
+    "evidence.documents",
+    "evidence.evidence_gps",
+    "evidence.evidence_items",
+    "evidence.evidence_links",
+    "evidence.evidence_media",
+    "evidence.evidence_metadata",
+    "evidence.evidence_timeline_events",
+    "evidence.evidence_timestamps",
+    "evidence.evidence_verifications",
+    "evidence.legal_holds",
+    "evidence.risk_mitigations",
+    "evidence.risks",
+    "evidence.trusted_timestamps",
+    "identity.access_policies",
+    "identity.access_reviews",
+    "identity.auth_accounts",
+    "identity.auth_challenges",
+    "identity.auth_credentials",
+    "identity.delegations",
+    "identity.device_verifications",
+    "identity.devices",
+    "identity.invitations",
+    "identity.location_verifications",
+    "identity.nda_acceptances",
+    "identity.nda_versions",
+    "identity.ndas",
+    "identity.otp_challenges",
+    "identity.password_reset_tokens",
+    "identity.permissions",
+    "identity.role_permissions",
+    "identity.roles",
+    "identity.signatures",
+    "identity.user_emails",
+    "identity.user_phones",
+    "identity.user_profiles",
+    "identity.user_roles",
+    "identity.user_sessions",
+    "identity.users",
+    "organisation.organisation_memberships",
+    "organisation.organisation_settings",
+    "organisation.organisations",
+    "organisation.workspace_activity",
+    "organisation.workspace_favourites",
+    "organisation.workspace_invites",
+    "organisation.workspace_memberships",
+    "organisation.workspace_roles",
+    "organisation.workspace_settings",
+    "organisation.workspaces",
+    "people.attendance_records",
+    "people.audition_media",
+    "people.audition_submissions",
+    "people.cast_assignments",
+    "people.cast_messages",
+    "people.cast_schedule_entries",
+    "people.casting_approvals",
+    "people.casting_call_roles",
+    "people.casting_calls",
+    "people.crew_assignments",
+    "people.crew_availability",
+    "people.crew_contracts",
+    "people.crew_hiring_requests",
+    "people.crew_messages",
+    "people.crew_profiles",
+    "people.crew_shortlist_items",
+    "people.crew_shortlists",
+    "people.crew_skills",
+    "people.department_members",
+    "people.departments",
+    "people.hod_assignments",
+    "people.performance_reviews",
+    "people.talent_availability",
+    "people.talent_comparisons",
+    "people.talent_contracts",
+    "people.talent_media",
+    "people.talent_offers",
+    "people.talent_portfolios",
+    "people.talent_profiles",
+    "people.talent_shortlist_items",
+    "people.talent_shortlists",
+    "people.timesheets",
+    "platform.api_keys",
+    "platform.backup_jobs",
+    "platform.data_retention_policies",
+    "platform.export_jobs",
+    "platform.exports",
+    "platform.feature_flag_assignments",
+    "platform.feature_flags",
+    "platform.integration_connections",
+    "platform.integration_events",
+    "platform.integrations",
+    "platform.restore_jobs",
+    "platform.runtime_observations",
+    "platform.share_links",
+    "platform.status_events",
+    "platform.support_comments",
+    "platform.support_tickets",
+    "platform.sync_conflicts",
+    "platform.sync_jobs",
+    "platform.sync_queue_items",
+    "platform.system_incidents",
+    "platform.user_preferences",
+    "platform.webhook_deliveries",
+    "platform.webhook_subscriptions",
+    "platform.webhooks",
+    "platform.workspace_preferences",
+    "production.call_sheet_acknowledgements",
+    "production.call_sheet_recipients",
+    "production.call_sheet_versions",
+    "production.call_sheets",
+    "production.daily_production_reports",
+    "production.delays",
+    "production.incidents",
+    "production.live_attendance",
+    "production.production_calendars",
+    "production.production_days",
+    "production.scene_progress",
+    "production.schedule_items",
+    "production.schedule_versions",
+    "production.schedules",
+    "production.shoot_days",
+    "production.shot_progress",
+    "production.stripboards",
+    "production.strips",
+    "production.wrap_reports",
+    "project.project_activity",
+    "project.project_blockers",
+    "project.project_briefs",
+    "project.project_closeouts",
+    "project.project_health_snapshots",
+    "project.project_intakes",
+    "project.project_members",
+    "project.project_milestones",
+    "project.project_notes",
+    "project.project_status_history",
+    "project.project_tag_links",
+    "project.project_tags",
+    "project.project_tasks",
+    "project.project_types",
+    "project.projects",
+    "project.task_checklists",
+    "project.task_dependencies"
+  ],
+  "tables": [
+    {
+      "id": "communications.announcements",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.communication_threads",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.direct_message_threads",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.message_attachments",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.messages",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.notification_deliveries",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.notification_preferences",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.notifications",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.thread_members",
+      "contextId": "communications",
+      "domainId": "communications-notifications",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approval_comments",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approval_decisions",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approval_steps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approvals",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.audit_events",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.before_after_proofs",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.chain_of_custody_events",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.change_requests",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.document_links",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.document_versions",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.documents",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_gps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_items",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_links",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_media",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_metadata",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_timeline_events",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_timestamps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_verifications",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.legal_holds",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.risk_mitigations",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.risks",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.trusted_timestamps",
+      "contextId": "evidence",
+      "domainId": "evidence-documents-governance",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.access_policies",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.access_reviews",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.auth_accounts",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.auth_challenges",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.auth_credentials",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.delegations",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.device_verifications",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.devices",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.invitations",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.location_verifications",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.nda_acceptances",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.nda_versions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.ndas",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.otp_challenges",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.password_reset_tokens",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.permissions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.role_permissions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.roles",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.signatures",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_emails",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_phones",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_profiles",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_roles",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_sessions",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.users",
+      "contextId": "identity",
+      "domainId": "identity-access",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.organisation_memberships",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.organisation_settings",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.organisations",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_activity",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_favourites",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_invites",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_memberships",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_roles",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_settings",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspaces",
+      "contextId": "organisation",
+      "domainId": "organisation-workspace",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.attendance_records",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.audition_media",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.audition_submissions",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.cast_assignments",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.cast_messages",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.cast_schedule_entries",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.casting_approvals",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.casting_call_roles",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.casting_calls",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_assignments",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_availability",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_contracts",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_hiring_requests",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_messages",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_profiles",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_shortlist_items",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_shortlists",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_skills",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.department_members",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.departments",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.hod_assignments",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.performance_reviews",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_availability",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_comparisons",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_contracts",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_media",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_offers",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_portfolios",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_profiles",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_shortlist_items",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_shortlists",
+      "contextId": "people",
+      "domainId": "casting-talent",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.timesheets",
+      "contextId": "people",
+      "domainId": "crew-departments",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.api_keys",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.backup_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.data_retention_policies",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.export_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.exports",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.feature_flag_assignments",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.feature_flags",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.integration_connections",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.integration_events",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.integrations",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.restore_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.runtime_observations",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.share_links",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.status_events",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.support_comments",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.support_tickets",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.sync_conflicts",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.sync_jobs",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.sync_queue_items",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.system_incidents",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.user_preferences",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.webhook_deliveries",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "planned",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.webhook_subscriptions",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.webhooks",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.workspace_preferences",
+      "contextId": "platform",
+      "domainId": "admin-integrations-operations",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheet_acknowledgements",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheet_recipients",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheet_versions",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheets",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.daily_production_reports",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.delays",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.incidents",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.live_attendance",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.production_calendars",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.production_days",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.scene_progress",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.schedule_items",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.schedule_versions",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.schedules",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.shoot_days",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.shot_progress",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.stripboards",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.strips",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.wrap_reports",
+      "contextId": "production",
+      "domainId": "scheduling-live-production",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_activity",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_blockers",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_briefs",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_closeouts",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_health_snapshots",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_intakes",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_members",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_milestones",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_notes",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_status_history",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_tag_links",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_tags",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_tasks",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_types",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.projects",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.task_checklists",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.task_dependencies",
+      "contextId": "project",
+      "domainId": "projects",
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    }
+  ],
+  "routeReadiness": {
+    "status": "READY",
+    "total": 16,
+    "executable": 16,
+    "blocked": 0,
+    "routes": [
+      {
+        "path": "/mobile/065/casting-dashboard",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/065/casting-dashboard",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027"
+        ]
+      },
+      {
+        "path": "/mobile/066/casting-calls",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/066/casting-calls",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027"
+        ]
+      },
+      {
+        "path": "/mobile/067/casting-call-detail",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/067/casting-call-detail",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027",
+          "TLPS-FLOW-028"
+        ]
+      },
+      {
+        "path": "/mobile/068/actor-gallery",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/068/actor-gallery",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027"
+        ]
+      },
+      {
+        "path": "/mobile/069/actor-search",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/069/actor-search",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027"
+        ]
+      },
+      {
+        "path": "/mobile/070/actor-profile",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/070/actor-profile",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027"
+        ]
+      },
+      {
+        "path": "/mobile/071/actor-portfolio",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/071/actor-portfolio",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-027"
+        ]
+      },
+      {
+        "path": "/mobile/072/audition-submission",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/072/audition-submission",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-028"
+        ]
+      },
+      {
+        "path": "/mobile/073/audition-player",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/073/audition-player",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-028"
+        ]
+      },
+      {
+        "path": "/mobile/074/casting-shortlist",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/074/casting-shortlist",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-028",
+          "TLPS-FLOW-029",
+          "TLPS-FLOW-031"
+        ]
+      },
+      {
+        "path": "/mobile/075/compare-talent",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/075/compare-talent",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-029",
+          "TLPS-FLOW-031"
+        ]
+      },
+      {
+        "path": "/mobile/076/casting-approval",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/076/casting-approval",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-029",
+          "TLPS-FLOW-031"
+        ]
+      },
+      {
+        "path": "/mobile/077/offer-availability",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/077/offer-availability",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-029",
+          "TLPS-FLOW-030"
+        ]
+      },
+      {
+        "path": "/mobile/078/talent-contract",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/078/talent-contract",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-030",
+          "TLPS-FLOW-031"
+        ]
+      },
+      {
+        "path": "/mobile/079/cast-schedule",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/079/cast-schedule",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-030",
+          "TLPS-FLOW-031"
+        ]
+      },
+      {
+        "path": "/mobile/080/cast-communication",
+        "status": "REGISTERED_STATIC",
+        "resolvedPath": "/mobile/080/cast-communication",
+        "executable": true,
+        "flowIds": [
+          "TLPS-FLOW-030"
+        ]
+      }
+    ],
+    "blockers": []
+  },
+  "schemaReadiness": {
+    "status": "SCHEMA_INCOMPLETE",
+    "counts": {
+      "total": 160,
+      "complete": 0,
+      "partial": 0,
+      "nameOnly": 160
+    },
+    "byContext": {
+      "communications": {
+        "total": 9,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 9
+      },
+      "evidence": {
+        "total": 23,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 23
+      },
+      "identity": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "organisation": {
+        "total": 10,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 10
+      },
+      "people": {
+        "total": 32,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 32
+      },
+      "platform": {
+        "total": 25,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 25
+      },
+      "production": {
+        "total": 19,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 19
+      },
+      "project": {
+        "total": 17,
+        "complete": 0,
+        "partial": 0,
+        "nameOnly": 17
+      }
+    }
+  },
+  "policies": {
+    "coreSpine": [
+      "identity",
+      "organisation",
+      "project",
+      "communications",
+      "platform"
+    ],
+    "spineAlwaysIncluded": true,
+    "defaultSharedServices": [
+      "evidence"
+    ],
+    "requestedSharedServices": [],
+    "optionalSharedServices": [],
+    "publicContextOptIn": false
+  },
+  "overrides": {
+    "allowPlanned": true
+  },
+  "seedProfile": "demo-casting",
+  "lifecycleState": "RESOLVED",
+  "compilerStatus": "SCHEMA_INCOMPLETE",
+  "compilerBlockers": [
+    {
+      "kind": "schema-contract",
+      "code": "SCHEMA_INCOMPLETE",
+      "reason": "160 of 160 tables lack complete schema contracts."
+    }
+  ],
+  "whyIncluded": [
+    {
+      "type": "context",
+      "id": "communications",
+      "via": "canonical-spine",
+      "reason": "Always included by the registry's five-context spine.",
+      "flowIds": []
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-027",
+      "reason": "Flow binding references evidence.approvals.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-027",
+      "reason": "Flow binding references evidence.documents.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-028",
+      "reason": "Flow binding references evidence.approvals.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-028",
+      "reason": "Flow binding references evidence.documents.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-029",
+      "reason": "Flow binding references evidence.approvals.",
+      "flowIds": [
+        "TLPS-FLOW-029"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-029",
+      "reason": "Flow binding references evidence.documents.",
+      "flowIds": [
+        "TLPS-FLOW-029"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-030",
+      "reason": "Flow binding references evidence.approvals.",
+      "flowIds": [
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-030",
+      "reason": "Flow binding references evidence.documents.",
+      "flowIds": [
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-031",
+      "reason": "Flow binding references evidence.approvals.",
+      "flowIds": [
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow-table:TLPS-FLOW-031",
+      "reason": "Flow binding references evidence.documents.",
+      "flowIds": [
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow:TLPS-FLOW-027",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow:TLPS-FLOW-028",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow:TLPS-FLOW-029",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-029"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow:TLPS-FLOW-030",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "flow:TLPS-FLOW-031",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "evidence",
+      "via": "shared-service:evidence",
+      "reason": "Included by the registry's default shared-service rule.",
+      "flowIds": []
+    },
+    {
+      "type": "context",
+      "id": "identity",
+      "via": "canonical-spine",
+      "reason": "Always included by the registry's five-context spine.",
+      "flowIds": []
+    },
+    {
+      "type": "context",
+      "id": "organisation",
+      "via": "canonical-spine",
+      "reason": "Always included by the registry's five-context spine.",
+      "flowIds": []
+    },
+    {
+      "type": "context",
+      "id": "people",
+      "via": "flow:TLPS-FLOW-027",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "people",
+      "via": "flow:TLPS-FLOW-028",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "people",
+      "via": "flow:TLPS-FLOW-029",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-029"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "people",
+      "via": "flow:TLPS-FLOW-030",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "people",
+      "via": "flow:TLPS-FLOW-031",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "platform",
+      "via": "canonical-spine",
+      "reason": "Always included by the registry's five-context spine.",
+      "flowIds": []
+    },
+    {
+      "type": "context",
+      "id": "production",
+      "via": "flow:TLPS-FLOW-027",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "production",
+      "via": "flow:TLPS-FLOW-028",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "production",
+      "via": "flow:TLPS-FLOW-029",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-029"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "production",
+      "via": "flow:TLPS-FLOW-030",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "production",
+      "via": "flow:TLPS-FLOW-031",
+      "reason": "Required by the flow's authored context binding.",
+      "flowIds": [
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "context",
+      "id": "project",
+      "via": "canonical-spine",
+      "reason": "Always included by the registry's five-context spine.",
+      "flowIds": []
+    },
+    {
+      "type": "flow",
+      "id": "TLPS-FLOW-027",
+      "via": "application-intent:flowIds",
+      "reason": "Explicitly selected by the application intent."
+    },
+    {
+      "type": "flow",
+      "id": "TLPS-FLOW-028",
+      "via": "application-intent:flowIds",
+      "reason": "Explicitly selected by the application intent."
+    },
+    {
+      "type": "flow",
+      "id": "TLPS-FLOW-029",
+      "via": "application-intent:flowIds",
+      "reason": "Explicitly selected by the application intent."
+    },
+    {
+      "type": "flow",
+      "id": "TLPS-FLOW-030",
+      "via": "application-intent:flowIds",
+      "reason": "Explicitly selected by the application intent."
+    },
+    {
+      "type": "flow",
+      "id": "TLPS-FLOW-031",
+      "via": "application-intent:flowIds",
+      "reason": "Explicitly selected by the application intent."
+    },
+    {
+      "type": "product",
+      "id": "production-os",
+      "via": "tag:film",
+      "reason": "Product tag film resolves to production-os."
+    },
+    {
+      "type": "route",
+      "id": "/mobile/065/casting-dashboard",
+      "via": [
+        "flow:TLPS-FLOW-027"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/066/casting-calls",
+      "via": [
+        "flow:TLPS-FLOW-027"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/067/casting-call-detail",
+      "via": [
+        "flow:TLPS-FLOW-027",
+        "flow:TLPS-FLOW-028"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027",
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/068/actor-gallery",
+      "via": [
+        "flow:TLPS-FLOW-027"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/069/actor-search",
+      "via": [
+        "flow:TLPS-FLOW-027"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/070/actor-profile",
+      "via": [
+        "flow:TLPS-FLOW-027"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/071/actor-portfolio",
+      "via": [
+        "flow:TLPS-FLOW-027"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-027"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/072/audition-submission",
+      "via": [
+        "flow:TLPS-FLOW-028"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/073/audition-player",
+      "via": [
+        "flow:TLPS-FLOW-028"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-028"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/074/casting-shortlist",
+      "via": [
+        "flow:TLPS-FLOW-028",
+        "flow:TLPS-FLOW-029",
+        "flow:TLPS-FLOW-031"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-028",
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/075/compare-talent",
+      "via": [
+        "flow:TLPS-FLOW-029",
+        "flow:TLPS-FLOW-031"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/076/casting-approval",
+      "via": [
+        "flow:TLPS-FLOW-029",
+        "flow:TLPS-FLOW-031"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/077/offer-availability",
+      "via": [
+        "flow:TLPS-FLOW-029",
+        "flow:TLPS-FLOW-030"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/078/talent-contract",
+      "via": [
+        "flow:TLPS-FLOW-030",
+        "flow:TLPS-FLOW-031"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-030",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/079/cast-schedule",
+      "via": [
+        "flow:TLPS-FLOW-030",
+        "flow:TLPS-FLOW-031"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-030",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "route",
+      "id": "/mobile/080/cast-communication",
+      "via": [
+        "flow:TLPS-FLOW-030"
+      ],
+      "reason": "Referenced by selected flows and resolved as REGISTERED_STATIC.",
+      "flowIds": [
+        "TLPS-FLOW-030"
+      ]
+    },
+    {
+      "type": "table",
+      "id": "communications.announcements",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.communication_threads",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.direct_message_threads",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.message_attachments",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.messages",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.notification_deliveries",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.notification_preferences",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.notifications",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "communications.thread_members",
+      "via": "context:communications",
+      "reason": "All catalog tables owned by included context communications are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.approval_comments",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.approval_decisions",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.approval_steps",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.approvals",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": [
+        "TLPS-FLOW-027",
+        "TLPS-FLOW-028",
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-030",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "table",
+      "id": "evidence.audit_events",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.before_after_proofs",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.chain_of_custody_events",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.change_requests",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.document_links",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.document_versions",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.documents",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": [
+        "TLPS-FLOW-027",
+        "TLPS-FLOW-028",
+        "TLPS-FLOW-029",
+        "TLPS-FLOW-030",
+        "TLPS-FLOW-031"
+      ]
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_gps",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_items",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_links",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_media",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_metadata",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_timeline_events",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_timestamps",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.evidence_verifications",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.legal_holds",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.risk_mitigations",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.risks",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "evidence.trusted_timestamps",
+      "via": "context:evidence",
+      "reason": "All catalog tables owned by included context evidence are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.access_policies",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.access_reviews",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.auth_accounts",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.auth_challenges",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.auth_credentials",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.delegations",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.device_verifications",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.devices",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.invitations",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.location_verifications",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.nda_acceptances",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.nda_versions",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.ndas",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.otp_challenges",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.password_reset_tokens",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.permissions",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.role_permissions",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.roles",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.signatures",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.user_emails",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.user_phones",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.user_profiles",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.user_roles",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.user_sessions",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "identity.users",
+      "via": "context:identity",
+      "reason": "All catalog tables owned by included context identity are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.organisation_memberships",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.organisation_settings",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.organisations",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspace_activity",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspace_favourites",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspace_invites",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspace_memberships",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspace_roles",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspace_settings",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "organisation.workspaces",
+      "via": "context:organisation",
+      "reason": "All catalog tables owned by included context organisation are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.attendance_records",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.audition_media",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.audition_submissions",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.cast_assignments",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.cast_messages",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.cast_schedule_entries",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.casting_approvals",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.casting_call_roles",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.casting_calls",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_assignments",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_availability",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_contracts",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_hiring_requests",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_messages",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_profiles",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_shortlist_items",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_shortlists",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.crew_skills",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.department_members",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.departments",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.hod_assignments",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.performance_reviews",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_availability",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_comparisons",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_contracts",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_media",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_offers",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_portfolios",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_profiles",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_shortlist_items",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.talent_shortlists",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "people.timesheets",
+      "via": "context:people",
+      "reason": "All catalog tables owned by included context people are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.api_keys",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.backup_jobs",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.data_retention_policies",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.export_jobs",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.exports",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.feature_flag_assignments",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.feature_flags",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.integration_connections",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.integration_events",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.integrations",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.restore_jobs",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.runtime_observations",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.share_links",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.status_events",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.support_comments",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.support_tickets",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.sync_conflicts",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.sync_jobs",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.sync_queue_items",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.system_incidents",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.user_preferences",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.webhook_deliveries",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.webhook_subscriptions",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.webhooks",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "platform.workspace_preferences",
+      "via": "context:platform",
+      "reason": "All catalog tables owned by included context platform are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.call_sheet_acknowledgements",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.call_sheet_recipients",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.call_sheet_versions",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.call_sheets",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.daily_production_reports",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.delays",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.incidents",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.live_attendance",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.production_calendars",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.production_days",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.scene_progress",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.schedule_items",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.schedule_versions",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.schedules",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.shoot_days",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.shot_progress",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.stripboards",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.strips",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "production.wrap_reports",
+      "via": "context:production",
+      "reason": "All catalog tables owned by included context production are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_activity",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_blockers",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_briefs",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_closeouts",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_health_snapshots",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_intakes",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_members",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_milestones",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_notes",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_status_history",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_tag_links",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_tags",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_tasks",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.project_types",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.projects",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.task_checklists",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    },
+    {
+      "type": "table",
+      "id": "project.task_dependencies",
+      "via": "context:project",
+      "reason": "All catalog tables owned by included context project are included.",
+      "flowIds": []
+    }
+  ],
+  "irHash": "435fe2b13c694495b02c0f74949e521511519edda457cfacd1db7e74a1188930"
+}

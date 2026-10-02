@@ -11,6 +11,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "fused:test": "npm --prefix fused-organism test --workspace @maataa/domain-registry",
+    "fused:validate": "npm --prefix fused-organism run validate --workspace @maataa/domain-registry",
     "test:e2e": "vitest --run tests/e2e",
     "lint": "eslint src --ext .ts,.tsx",
     "type-check": "tsc --noEmit"

@@ -1,0 +1,11 @@
+{
+  "deviceId": "cam-01",
+  "capability": "camera.ptz",
+  "proposal": {
+    "pan": 22,
+    "tilt": -4,
+    "zoom": 2.5
+  },
+  "requiredApproval": true,
+  "expectedTerminalState": "verified"
+}

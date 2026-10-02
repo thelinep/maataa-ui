@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maataa.local/schemas/schema-source.schema.json",
+  "title": "MAATAA Schema Source Record",
+  "type": "object",
+  "required": ["schemaVersion", "id", "name", "classification", "sourceKind", "repository", "files", "coverage", "reviewer", "adoptionDecision"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "classification": { "enum": ["AUTHORITATIVE", "CANDIDATE", "SUPERSEDED", "REJECTED"] },
+    "sourceKind": { "enum": ["sql-migration", "prisma", "erd", "json-schema"] },
+    "repository": { "type": "object", "required": ["url", "commitSha"], "properties": { "url": { "type": "string", "format": "uri" }, "commitSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" } }, "additionalProperties": false },
+    "files": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["path", "blobSha"], "properties": { "path": { "type": "string", "minLength": 1 }, "blobSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" } }, "additionalProperties": false } },
+    "coverage": { "type": "object", "required": ["contexts", "canonicalTableIds", "sourceNativeTables"], "properties": { "contexts": { "type": "array", "items": { "type": "string" } }, "canonicalTableIds": { "type": "array", "items": { "type": "string" } }, "sourceNativeTables": { "type": "array", "items": { "type": "string" } } }, "additionalProperties": false },
+    "reviewer": { "type": ["string", "null"] },
+    "adoptionDecision": { "type": "object", "required": ["status", "decidedBy", "rationale"], "properties": { "status": { "enum": ["pending", "adopted", "rejected", "superseded"] }, "decidedBy": { "type": ["string", "null"] }, "rationale": { "type": ["string", "null"] }, "decidedAt": { "type": ["string", "null"], "format": "date-time" } }, "additionalProperties": false },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

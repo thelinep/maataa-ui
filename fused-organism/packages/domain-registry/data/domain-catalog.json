@@ -1,0 +1,6829 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "imported",
+  "completeness": "status-derived",
+  "idPolicy": "context-dot-name@1",
+  "domains": [
+    {
+      "id": "identity-access",
+      "name": "Identity & Access",
+      "contextId": "identity",
+      "tableIds": [
+        "identity.users",
+        "identity.user_profiles",
+        "identity.user_emails",
+        "identity.user_phones",
+        "identity.auth_accounts",
+        "identity.auth_credentials",
+        "identity.auth_challenges",
+        "identity.otp_challenges",
+        "identity.password_reset_tokens",
+        "identity.user_sessions",
+        "identity.invitations",
+        "identity.devices",
+        "identity.device_verifications",
+        "identity.location_verifications",
+        "identity.roles",
+        "identity.permissions",
+        "identity.role_permissions",
+        "identity.user_roles",
+        "identity.access_policies",
+        "identity.access_reviews",
+        "identity.delegations",
+        "identity.ndas",
+        "identity.nda_versions",
+        "identity.nda_acceptances",
+        "identity.signatures"
+      ]
+    },
+    {
+      "id": "organisation-workspace",
+      "name": "Organisation & Workspace",
+      "contextId": "organisation",
+      "tableIds": [
+        "organisation.organisations",
+        "organisation.organisation_memberships",
+        "organisation.organisation_settings",
+        "organisation.workspaces",
+        "organisation.workspace_memberships",
+        "organisation.workspace_settings",
+        "organisation.workspace_roles",
+        "organisation.workspace_invites",
+        "organisation.workspace_activity",
+        "organisation.workspace_favourites"
+      ]
+    },
+    {
+      "id": "projects",
+      "name": "Projects",
+      "contextId": "project",
+      "tableIds": [
+        "project.project_types",
+        "project.projects",
+        "project.project_intakes",
+        "project.project_briefs",
+        "project.project_status_history",
+        "project.project_health_snapshots",
+        "project.project_milestones",
+        "project.project_tasks",
+        "project.task_dependencies",
+        "project.task_checklists",
+        "project.project_blockers",
+        "project.project_members",
+        "project.project_activity",
+        "project.project_tags",
+        "project.project_tag_links",
+        "project.project_closeouts",
+        "project.project_notes"
+      ]
+    },
+    {
+      "id": "development-creative",
+      "name": "Development & Creative",
+      "contextId": "creative",
+      "tableIds": [
+        "creative.ideas",
+        "creative.research_items",
+        "creative.treatments",
+        "creative.scripts",
+        "creative.script_versions",
+        "creative.script_breakdowns",
+        "creative.scenes",
+        "creative.scene_versions",
+        "creative.characters",
+        "creative.character_scene_links",
+        "creative.production_elements",
+        "creative.scene_elements",
+        "creative.storyboards",
+        "creative.storyboard_frames",
+        "creative.shot_lists",
+        "creative.shots",
+        "creative.creative_references",
+        "creative.creative_assets",
+        "creative.asset_versions",
+        "creative.creative_approvals"
+      ]
+    },
+    {
+      "id": "casting-talent",
+      "name": "Casting & Talent",
+      "contextId": "people",
+      "tableIds": [
+        "people.casting_calls",
+        "people.casting_call_roles",
+        "people.talent_profiles",
+        "people.talent_portfolios",
+        "people.talent_media",
+        "people.audition_submissions",
+        "people.audition_media",
+        "people.talent_shortlists",
+        "people.talent_shortlist_items",
+        "people.talent_comparisons",
+        "people.casting_approvals",
+        "people.talent_availability",
+        "people.talent_offers",
+        "people.talent_contracts",
+        "people.cast_assignments",
+        "people.cast_schedule_entries",
+        "people.cast_messages"
+      ]
+    },
+    {
+      "id": "crew-departments",
+      "name": "Crew & Departments",
+      "contextId": "people",
+      "tableIds": [
+        "people.departments",
+        "people.department_members",
+        "people.hod_assignments",
+        "people.crew_profiles",
+        "people.crew_skills",
+        "people.crew_availability",
+        "people.crew_hiring_requests",
+        "people.crew_shortlists",
+        "people.crew_shortlist_items",
+        "people.crew_assignments",
+        "people.crew_contracts",
+        "people.attendance_records",
+        "people.timesheets",
+        "people.performance_reviews",
+        "people.crew_messages"
+      ]
+    },
+    {
+      "id": "scheduling-live-production",
+      "name": "Scheduling & Live Production",
+      "contextId": "production",
+      "tableIds": [
+        "production.production_calendars",
+        "production.schedules",
+        "production.schedule_versions",
+        "production.schedule_items",
+        "production.stripboards",
+        "production.strips",
+        "production.shoot_days",
+        "production.call_sheets",
+        "production.call_sheet_versions",
+        "production.call_sheet_recipients",
+        "production.call_sheet_acknowledgements",
+        "production.production_days",
+        "production.scene_progress",
+        "production.shot_progress",
+        "production.live_attendance",
+        "production.daily_production_reports",
+        "production.incidents",
+        "production.delays",
+        "production.wrap_reports"
+      ]
+    },
+    {
+      "id": "locations-logistics-equipment",
+      "name": "Locations, Logistics & Equipment",
+      "contextId": "logistics",
+      "tableIds": [
+        "logistics.locations",
+        "logistics.location_media",
+        "logistics.recces",
+        "logistics.recce_media",
+        "logistics.location_comparisons",
+        "logistics.permits",
+        "logistics.permit_documents",
+        "logistics.location_bookings",
+        "logistics.travel_plans",
+        "logistics.travel_legs",
+        "logistics.accommodations",
+        "logistics.room_allocations",
+        "logistics.transport_plans",
+        "logistics.vehicles",
+        "logistics.drivers",
+        "logistics.vehicle_assignments",
+        "logistics.logistics_tasks",
+        "logistics.shipments",
+        "logistics.equipment_categories",
+        "logistics.equipment_items",
+        "logistics.equipment_kits",
+        "logistics.equipment_inventory_events",
+        "logistics.equipment_bookings",
+        "logistics.equipment_checkouts",
+        "logistics.equipment_returns",
+        "logistics.equipment_maintenance"
+      ]
+    },
+    {
+      "id": "campaign-os",
+      "name": "Campaign OS",
+      "contextId": "campaign",
+      "tableIds": [
+        "campaign.campaigns",
+        "campaign.campaign_briefs",
+        "campaign.campaign_strategies",
+        "campaign.markets",
+        "campaign.cities",
+        "campaign.campaign_markets",
+        "campaign.media_plans",
+        "campaign.media_plan_items",
+        "campaign.atl_plans",
+        "campaign.btl_plans",
+        "campaign.ooh_sites",
+        "campaign.ooh_site_bookings",
+        "campaign.dooh_screens",
+        "campaign.dooh_schedules",
+        "campaign.activations",
+        "campaign.activation_calendar_items",
+        "campaign.site_checkins",
+        "campaign.activation_feed_events",
+        "campaign.leads",
+        "campaign.lead_events",
+        "campaign.campaign_results",
+        "campaign.campaign_metrics"
+      ]
+    },
+    {
+      "id": "marketplace-procurement",
+      "name": "Marketplace & Procurement",
+      "contextId": "marketplace",
+      "tableIds": [
+        "marketplace.marketplace_categories",
+        "marketplace.marketplace_services",
+        "marketplace.capability_packs",
+        "marketplace.service_skus",
+        "marketplace.vendors",
+        "marketplace.vendor_profiles",
+        "marketplace.vendor_portfolios",
+        "marketplace.vendor_capabilities",
+        "marketplace.vendor_availability",
+        "marketplace.vendor_ratings",
+        "marketplace.rfqs",
+        "marketplace.rfq_items",
+        "marketplace.rfq_recipients",
+        "marketplace.quotes",
+        "marketplace.quote_items",
+        "marketplace.quote_comparisons",
+        "marketplace.procurement_awards",
+        "marketplace.purchase_orders",
+        "marketplace.purchase_order_items",
+        "marketplace.deliveries",
+        "marketplace.service_deliveries",
+        "marketplace.vendor_performance"
+      ]
+    },
+    {
+      "id": "evidence-documents-governance",
+      "name": "Evidence, Documents & Governance",
+      "contextId": "evidence",
+      "tableIds": [
+        "evidence.evidence_items",
+        "evidence.evidence_media",
+        "evidence.evidence_metadata",
+        "evidence.evidence_gps",
+        "evidence.evidence_timestamps",
+        "evidence.evidence_links",
+        "evidence.evidence_timeline_events",
+        "evidence.evidence_verifications",
+        "evidence.before_after_proofs",
+        "evidence.approvals",
+        "evidence.approval_steps",
+        "evidence.approval_decisions",
+        "evidence.approval_comments",
+        "evidence.change_requests",
+        "evidence.documents",
+        "evidence.document_versions",
+        "evidence.document_links",
+        "evidence.risks",
+        "evidence.risk_mitigations",
+        "evidence.audit_events",
+        "evidence.chain_of_custody_events",
+        "evidence.trusted_timestamps",
+        "evidence.legal_holds"
+      ]
+    },
+    {
+      "id": "finance-commerce",
+      "name": "Finance & Commerce",
+      "contextId": "finance",
+      "tableIds": [
+        "finance.budgets",
+        "finance.budget_categories",
+        "finance.budget_lines",
+        "finance.estimates",
+        "finance.estimate_lines",
+        "finance.cost_sheets",
+        "finance.cost_sheet_lines",
+        "finance.commitments",
+        "finance.expenses",
+        "finance.expense_lines",
+        "finance.expense_approvals",
+        "finance.vendor_invoices",
+        "finance.invoice_lines",
+        "finance.invoice_approvals",
+        "finance.payments",
+        "finance.payment_allocations",
+        "finance.payment_verifications",
+        "finance.cashflow_entries",
+        "finance.profitability_snapshots",
+        "finance.tax_codes",
+        "finance.currencies",
+        "finance.exchange_rates"
+      ]
+    },
+    {
+      "id": "investor-rights-revenue",
+      "name": "Investor, Rights & Revenue",
+      "contextId": "investor",
+      "tableIds": [
+        "investor.investment_opportunities",
+        "investor.investment_profiles",
+        "investor.deal_rooms",
+        "investor.deal_room_members",
+        "investor.pitch_decks",
+        "investor.disclosures",
+        "investor.due_diligence_items",
+        "investor.funding_requirements",
+        "investor.investment_tranches",
+        "investor.investor_commitments",
+        "investor.investor_progress_reports",
+        "investor.investor_evidence_links",
+        "investor.distribution_channels",
+        "investor.distribution_deals",
+        "investor.rights",
+        "investor.rights_windows",
+        "investor.revenue_entries",
+        "investor.recoupment_models",
+        "investor.recoupment_tiers",
+        "investor.investor_returns",
+        "investor.investor_accounts"
+      ]
+    },
+    {
+      "id": "events-weddings-spatial",
+      "name": "Events, Weddings & Spatial",
+      "contextId": "eventsSpatial",
+      "tableIds": [
+        "eventsspatial.events",
+        "eventsspatial.event_journeys",
+        "eventsspatial.event_timeline_items",
+        "eventsspatial.run_of_show_items",
+        "eventsspatial.venues",
+        "eventsspatial.venue_bookings",
+        "eventsspatial.weddings",
+        "eventsspatial.wedding_journeys",
+        "eventsspatial.wedding_events",
+        "eventsspatial.spatial_projects",
+        "eventsspatial.spatial_layers",
+        "eventsspatial.spatial_objects",
+        "eventsspatial.spatial_layouts",
+        "eventsspatial.simulations",
+        "eventsspatial.decision_graphs",
+        "eventsspatial.decision_graph_nodes",
+        "eventsspatial.decision_graph_edges",
+        "eventsspatial.boards",
+        "eventsspatial.board_items",
+        "eventsspatial.presentations",
+        "eventsspatial.presentation_slides",
+        "eventsspatial.film_twins",
+        "eventsspatial.exhibition_layouts",
+        "eventsspatial.cad_models",
+        "eventsspatial.spatial_operations"
+      ]
+    },
+    {
+      "id": "ai-research-analytics",
+      "name": "AI, Research & Analytics",
+      "contextId": "intelligence",
+      "tableIds": [
+        "intelligence.ai_conversations",
+        "intelligence.ai_messages",
+        "intelligence.ai_contexts",
+        "intelligence.ai_suggestions",
+        "intelligence.research_sessions",
+        "intelligence.research_sources",
+        "intelligence.knowledge_documents",
+        "intelligence.knowledge_chunks",
+        "intelligence.evidence_aware_answers",
+        "intelligence.intelligence_runs",
+        "intelligence.intelligence_signals",
+        "intelligence.forecast_runs",
+        "intelligence.forecast_scenarios",
+        "intelligence.saved_insights",
+        "intelligence.analytics_events",
+        "intelligence.kpi_definitions",
+        "intelligence.kpi_measurements",
+        "intelligence.prompt_templates",
+        "intelligence.generation_jobs",
+        "intelligence.model_registry",
+        "intelligence.model_runs",
+        "intelligence.ai_citations"
+      ]
+    },
+    {
+      "id": "communications-notifications",
+      "name": "Communications & Notifications",
+      "contextId": "communications",
+      "tableIds": [
+        "communications.notifications",
+        "communications.notification_preferences",
+        "communications.notification_deliveries",
+        "communications.communication_threads",
+        "communications.thread_members",
+        "communications.messages",
+        "communications.message_attachments",
+        "communications.direct_message_threads",
+        "communications.announcements"
+      ]
+    },
+    {
+      "id": "admin-integrations-operations",
+      "name": "Admin, Integrations & Operations",
+      "contextId": "platform",
+      "tableIds": [
+        "platform.user_preferences",
+        "platform.workspace_preferences",
+        "platform.sync_jobs",
+        "platform.sync_queue_items",
+        "platform.sync_conflicts",
+        "platform.runtime_observations",
+        "platform.support_tickets",
+        "platform.support_comments",
+        "platform.api_keys",
+        "platform.webhooks",
+        "platform.webhook_subscriptions",
+        "platform.webhook_deliveries",
+        "platform.integrations",
+        "platform.integration_connections",
+        "platform.integration_events",
+        "platform.data_retention_policies",
+        "platform.feature_flags",
+        "platform.feature_flag_assignments",
+        "platform.system_incidents",
+        "platform.status_events",
+        "platform.exports",
+        "platform.export_jobs",
+        "platform.share_links",
+        "platform.backup_jobs",
+        "platform.restore_jobs"
+      ]
+    },
+    {
+      "id": "public-cms-growth",
+      "name": "Public, CMS & Growth",
+      "contextId": "public",
+      "tableIds": [
+        "public.product_pages",
+        "public.solution_pages",
+        "public.industry_pages",
+        "public.case_studies",
+        "public.pricing_plans",
+        "public.documentation_pages",
+        "public.legal_documents",
+        "public.cookie_consents",
+        "public.contact_requests",
+        "public.demo_requests",
+        "public.marketing_leads",
+        "public.marketing_events"
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "id": "identity.users",
+      "name": "users",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_profiles",
+      "name": "user_profiles",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_emails",
+      "name": "user_emails",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_phones",
+      "name": "user_phones",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.auth_accounts",
+      "name": "auth_accounts",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.auth_credentials",
+      "name": "auth_credentials",
+      "domain": "identity-access",
+      "context": "identity",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.auth_challenges",
+      "name": "auth_challenges",
+      "domain": "identity-access",
+      "context": "identity",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.otp_challenges",
+      "name": "otp_challenges",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.password_reset_tokens",
+      "name": "password_reset_tokens",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_sessions",
+      "name": "user_sessions",
+      "domain": "identity-access",
+      "context": "identity",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.invitations",
+      "name": "invitations",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.devices",
+      "name": "devices",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.device_verifications",
+      "name": "device_verifications",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.location_verifications",
+      "name": "location_verifications",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.roles",
+      "name": "roles",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.permissions",
+      "name": "permissions",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.role_permissions",
+      "name": "role_permissions",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.user_roles",
+      "name": "user_roles",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.access_policies",
+      "name": "access_policies",
+      "domain": "identity-access",
+      "context": "identity",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.access_reviews",
+      "name": "access_reviews",
+      "domain": "identity-access",
+      "context": "identity",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.delegations",
+      "name": "delegations",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.ndas",
+      "name": "ndas",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.nda_versions",
+      "name": "nda_versions",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.nda_acceptances",
+      "name": "nda_acceptances",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "identity.signatures",
+      "name": "signatures",
+      "domain": "identity-access",
+      "context": "identity",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.organisations",
+      "name": "organisations",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.organisation_memberships",
+      "name": "organisation_memberships",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.organisation_settings",
+      "name": "organisation_settings",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspaces",
+      "name": "workspaces",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_memberships",
+      "name": "workspace_memberships",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_settings",
+      "name": "workspace_settings",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_roles",
+      "name": "workspace_roles",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_invites",
+      "name": "workspace_invites",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_activity",
+      "name": "workspace_activity",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "organisation.workspace_favourites",
+      "name": "workspace_favourites",
+      "domain": "organisation-workspace",
+      "context": "organisation",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_types",
+      "name": "project_types",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.projects",
+      "name": "projects",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_intakes",
+      "name": "project_intakes",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_briefs",
+      "name": "project_briefs",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_status_history",
+      "name": "project_status_history",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_health_snapshots",
+      "name": "project_health_snapshots",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_milestones",
+      "name": "project_milestones",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_tasks",
+      "name": "project_tasks",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.task_dependencies",
+      "name": "task_dependencies",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.task_checklists",
+      "name": "task_checklists",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_blockers",
+      "name": "project_blockers",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_members",
+      "name": "project_members",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_activity",
+      "name": "project_activity",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_tags",
+      "name": "project_tags",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_tag_links",
+      "name": "project_tag_links",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_closeouts",
+      "name": "project_closeouts",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "project.project_notes",
+      "name": "project_notes",
+      "domain": "projects",
+      "context": "project",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.ideas",
+      "name": "ideas",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.research_items",
+      "name": "research_items",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.treatments",
+      "name": "treatments",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.scripts",
+      "name": "scripts",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.script_versions",
+      "name": "script_versions",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.script_breakdowns",
+      "name": "script_breakdowns",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.scenes",
+      "name": "scenes",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.scene_versions",
+      "name": "scene_versions",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.characters",
+      "name": "characters",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.character_scene_links",
+      "name": "character_scene_links",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.production_elements",
+      "name": "production_elements",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.scene_elements",
+      "name": "scene_elements",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.storyboards",
+      "name": "storyboards",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.storyboard_frames",
+      "name": "storyboard_frames",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.shot_lists",
+      "name": "shot_lists",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.shots",
+      "name": "shots",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.creative_references",
+      "name": "creative_references",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.creative_assets",
+      "name": "creative_assets",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.asset_versions",
+      "name": "asset_versions",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "creative.creative_approvals",
+      "name": "creative_approvals",
+      "domain": "development-creative",
+      "context": "creative",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.casting_calls",
+      "name": "casting_calls",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.casting_call_roles",
+      "name": "casting_call_roles",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_profiles",
+      "name": "talent_profiles",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_portfolios",
+      "name": "talent_portfolios",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_media",
+      "name": "talent_media",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.audition_submissions",
+      "name": "audition_submissions",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.audition_media",
+      "name": "audition_media",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_shortlists",
+      "name": "talent_shortlists",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_shortlist_items",
+      "name": "talent_shortlist_items",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_comparisons",
+      "name": "talent_comparisons",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.casting_approvals",
+      "name": "casting_approvals",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_availability",
+      "name": "talent_availability",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_offers",
+      "name": "talent_offers",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.talent_contracts",
+      "name": "talent_contracts",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.cast_assignments",
+      "name": "cast_assignments",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.cast_schedule_entries",
+      "name": "cast_schedule_entries",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.cast_messages",
+      "name": "cast_messages",
+      "domain": "casting-talent",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.departments",
+      "name": "departments",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.department_members",
+      "name": "department_members",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.hod_assignments",
+      "name": "hod_assignments",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_profiles",
+      "name": "crew_profiles",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_skills",
+      "name": "crew_skills",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_availability",
+      "name": "crew_availability",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_hiring_requests",
+      "name": "crew_hiring_requests",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_shortlists",
+      "name": "crew_shortlists",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_shortlist_items",
+      "name": "crew_shortlist_items",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_assignments",
+      "name": "crew_assignments",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_contracts",
+      "name": "crew_contracts",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.attendance_records",
+      "name": "attendance_records",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.timesheets",
+      "name": "timesheets",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.performance_reviews",
+      "name": "performance_reviews",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "people.crew_messages",
+      "name": "crew_messages",
+      "domain": "crew-departments",
+      "context": "people",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.production_calendars",
+      "name": "production_calendars",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.schedules",
+      "name": "schedules",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.schedule_versions",
+      "name": "schedule_versions",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.schedule_items",
+      "name": "schedule_items",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.stripboards",
+      "name": "stripboards",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.strips",
+      "name": "strips",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.shoot_days",
+      "name": "shoot_days",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheets",
+      "name": "call_sheets",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheet_versions",
+      "name": "call_sheet_versions",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheet_recipients",
+      "name": "call_sheet_recipients",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.call_sheet_acknowledgements",
+      "name": "call_sheet_acknowledgements",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.production_days",
+      "name": "production_days",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.scene_progress",
+      "name": "scene_progress",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.shot_progress",
+      "name": "shot_progress",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.live_attendance",
+      "name": "live_attendance",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.daily_production_reports",
+      "name": "daily_production_reports",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.incidents",
+      "name": "incidents",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.delays",
+      "name": "delays",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "production.wrap_reports",
+      "name": "wrap_reports",
+      "domain": "scheduling-live-production",
+      "context": "production",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.locations",
+      "name": "locations",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.location_media",
+      "name": "location_media",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.recces",
+      "name": "recces",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.recce_media",
+      "name": "recce_media",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.location_comparisons",
+      "name": "location_comparisons",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.permits",
+      "name": "permits",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.permit_documents",
+      "name": "permit_documents",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.location_bookings",
+      "name": "location_bookings",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.travel_plans",
+      "name": "travel_plans",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.travel_legs",
+      "name": "travel_legs",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.accommodations",
+      "name": "accommodations",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.room_allocations",
+      "name": "room_allocations",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.transport_plans",
+      "name": "transport_plans",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.vehicles",
+      "name": "vehicles",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.drivers",
+      "name": "drivers",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.vehicle_assignments",
+      "name": "vehicle_assignments",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.logistics_tasks",
+      "name": "logistics_tasks",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.shipments",
+      "name": "shipments",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_categories",
+      "name": "equipment_categories",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_items",
+      "name": "equipment_items",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_kits",
+      "name": "equipment_kits",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_inventory_events",
+      "name": "equipment_inventory_events",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_bookings",
+      "name": "equipment_bookings",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_checkouts",
+      "name": "equipment_checkouts",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_returns",
+      "name": "equipment_returns",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "logistics.equipment_maintenance",
+      "name": "equipment_maintenance",
+      "domain": "locations-logistics-equipment",
+      "context": "logistics",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.campaigns",
+      "name": "campaigns",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.campaign_briefs",
+      "name": "campaign_briefs",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.campaign_strategies",
+      "name": "campaign_strategies",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.markets",
+      "name": "markets",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.cities",
+      "name": "cities",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.campaign_markets",
+      "name": "campaign_markets",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.media_plans",
+      "name": "media_plans",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.media_plan_items",
+      "name": "media_plan_items",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.atl_plans",
+      "name": "atl_plans",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.btl_plans",
+      "name": "btl_plans",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.ooh_sites",
+      "name": "ooh_sites",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.ooh_site_bookings",
+      "name": "ooh_site_bookings",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.dooh_screens",
+      "name": "dooh_screens",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.dooh_schedules",
+      "name": "dooh_schedules",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.activations",
+      "name": "activations",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.activation_calendar_items",
+      "name": "activation_calendar_items",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.site_checkins",
+      "name": "site_checkins",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.activation_feed_events",
+      "name": "activation_feed_events",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.leads",
+      "name": "leads",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.lead_events",
+      "name": "lead_events",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.campaign_results",
+      "name": "campaign_results",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "campaign.campaign_metrics",
+      "name": "campaign_metrics",
+      "domain": "campaign-os",
+      "context": "campaign",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.marketplace_categories",
+      "name": "marketplace_categories",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.marketplace_services",
+      "name": "marketplace_services",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.capability_packs",
+      "name": "capability_packs",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.service_skus",
+      "name": "service_skus",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendors",
+      "name": "vendors",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendor_profiles",
+      "name": "vendor_profiles",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendor_portfolios",
+      "name": "vendor_portfolios",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendor_capabilities",
+      "name": "vendor_capabilities",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendor_availability",
+      "name": "vendor_availability",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendor_ratings",
+      "name": "vendor_ratings",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.rfqs",
+      "name": "rfqs",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.rfq_items",
+      "name": "rfq_items",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.rfq_recipients",
+      "name": "rfq_recipients",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.quotes",
+      "name": "quotes",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.quote_items",
+      "name": "quote_items",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.quote_comparisons",
+      "name": "quote_comparisons",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.procurement_awards",
+      "name": "procurement_awards",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.purchase_orders",
+      "name": "purchase_orders",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.purchase_order_items",
+      "name": "purchase_order_items",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.deliveries",
+      "name": "deliveries",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.service_deliveries",
+      "name": "service_deliveries",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "marketplace.vendor_performance",
+      "name": "vendor_performance",
+      "domain": "marketplace-procurement",
+      "context": "marketplace",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_items",
+      "name": "evidence_items",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_media",
+      "name": "evidence_media",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_metadata",
+      "name": "evidence_metadata",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_gps",
+      "name": "evidence_gps",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_timestamps",
+      "name": "evidence_timestamps",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_links",
+      "name": "evidence_links",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_timeline_events",
+      "name": "evidence_timeline_events",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.evidence_verifications",
+      "name": "evidence_verifications",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.before_after_proofs",
+      "name": "before_after_proofs",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approvals",
+      "name": "approvals",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approval_steps",
+      "name": "approval_steps",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approval_decisions",
+      "name": "approval_decisions",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.approval_comments",
+      "name": "approval_comments",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.change_requests",
+      "name": "change_requests",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.documents",
+      "name": "documents",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.document_versions",
+      "name": "document_versions",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.document_links",
+      "name": "document_links",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.risks",
+      "name": "risks",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.risk_mitigations",
+      "name": "risk_mitigations",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.audit_events",
+      "name": "audit_events",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.chain_of_custody_events",
+      "name": "chain_of_custody_events",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.trusted_timestamps",
+      "name": "trusted_timestamps",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "evidence.legal_holds",
+      "name": "legal_holds",
+      "domain": "evidence-documents-governance",
+      "context": "evidence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.budgets",
+      "name": "budgets",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.budget_categories",
+      "name": "budget_categories",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.budget_lines",
+      "name": "budget_lines",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.estimates",
+      "name": "estimates",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.estimate_lines",
+      "name": "estimate_lines",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.cost_sheets",
+      "name": "cost_sheets",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.cost_sheet_lines",
+      "name": "cost_sheet_lines",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.commitments",
+      "name": "commitments",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.expenses",
+      "name": "expenses",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.expense_lines",
+      "name": "expense_lines",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.expense_approvals",
+      "name": "expense_approvals",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.vendor_invoices",
+      "name": "vendor_invoices",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.invoice_lines",
+      "name": "invoice_lines",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.invoice_approvals",
+      "name": "invoice_approvals",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.payments",
+      "name": "payments",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.payment_allocations",
+      "name": "payment_allocations",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.payment_verifications",
+      "name": "payment_verifications",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.cashflow_entries",
+      "name": "cashflow_entries",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.profitability_snapshots",
+      "name": "profitability_snapshots",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.tax_codes",
+      "name": "tax_codes",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.currencies",
+      "name": "currencies",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "finance.exchange_rates",
+      "name": "exchange_rates",
+      "domain": "finance-commerce",
+      "context": "finance",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investment_opportunities",
+      "name": "investment_opportunities",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investment_profiles",
+      "name": "investment_profiles",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.deal_rooms",
+      "name": "deal_rooms",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.deal_room_members",
+      "name": "deal_room_members",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.pitch_decks",
+      "name": "pitch_decks",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.disclosures",
+      "name": "disclosures",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.due_diligence_items",
+      "name": "due_diligence_items",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.funding_requirements",
+      "name": "funding_requirements",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investment_tranches",
+      "name": "investment_tranches",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investor_commitments",
+      "name": "investor_commitments",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investor_progress_reports",
+      "name": "investor_progress_reports",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investor_evidence_links",
+      "name": "investor_evidence_links",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.distribution_channels",
+      "name": "distribution_channels",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.distribution_deals",
+      "name": "distribution_deals",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.rights",
+      "name": "rights",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.rights_windows",
+      "name": "rights_windows",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.revenue_entries",
+      "name": "revenue_entries",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.recoupment_models",
+      "name": "recoupment_models",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.recoupment_tiers",
+      "name": "recoupment_tiers",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investor_returns",
+      "name": "investor_returns",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "investor.investor_accounts",
+      "name": "investor_accounts",
+      "domain": "investor-rights-revenue",
+      "context": "investor",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.events",
+      "name": "events",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.event_journeys",
+      "name": "event_journeys",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.event_timeline_items",
+      "name": "event_timeline_items",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.run_of_show_items",
+      "name": "run_of_show_items",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.venues",
+      "name": "venues",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.venue_bookings",
+      "name": "venue_bookings",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.weddings",
+      "name": "weddings",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.wedding_journeys",
+      "name": "wedding_journeys",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.wedding_events",
+      "name": "wedding_events",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.spatial_projects",
+      "name": "spatial_projects",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.spatial_layers",
+      "name": "spatial_layers",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.spatial_objects",
+      "name": "spatial_objects",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.spatial_layouts",
+      "name": "spatial_layouts",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.simulations",
+      "name": "simulations",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.decision_graphs",
+      "name": "decision_graphs",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.decision_graph_nodes",
+      "name": "decision_graph_nodes",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.decision_graph_edges",
+      "name": "decision_graph_edges",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.boards",
+      "name": "boards",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.board_items",
+      "name": "board_items",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.presentations",
+      "name": "presentations",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.presentation_slides",
+      "name": "presentation_slides",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.film_twins",
+      "name": "film_twins",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.exhibition_layouts",
+      "name": "exhibition_layouts",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.cad_models",
+      "name": "cad_models",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "eventsspatial.spatial_operations",
+      "name": "spatial_operations",
+      "domain": "events-weddings-spatial",
+      "context": "eventsSpatial",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.ai_conversations",
+      "name": "ai_conversations",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.ai_messages",
+      "name": "ai_messages",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.ai_contexts",
+      "name": "ai_contexts",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.ai_suggestions",
+      "name": "ai_suggestions",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.research_sessions",
+      "name": "research_sessions",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.research_sources",
+      "name": "research_sources",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.knowledge_documents",
+      "name": "knowledge_documents",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.knowledge_chunks",
+      "name": "knowledge_chunks",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.evidence_aware_answers",
+      "name": "evidence_aware_answers",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.intelligence_runs",
+      "name": "intelligence_runs",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.intelligence_signals",
+      "name": "intelligence_signals",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.forecast_runs",
+      "name": "forecast_runs",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.forecast_scenarios",
+      "name": "forecast_scenarios",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.saved_insights",
+      "name": "saved_insights",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.analytics_events",
+      "name": "analytics_events",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.kpi_definitions",
+      "name": "kpi_definitions",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.kpi_measurements",
+      "name": "kpi_measurements",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.prompt_templates",
+      "name": "prompt_templates",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.generation_jobs",
+      "name": "generation_jobs",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.model_registry",
+      "name": "model_registry",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.model_runs",
+      "name": "model_runs",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "intelligence.ai_citations",
+      "name": "ai_citations",
+      "domain": "ai-research-analytics",
+      "context": "intelligence",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.notifications",
+      "name": "notifications",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.notification_preferences",
+      "name": "notification_preferences",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.notification_deliveries",
+      "name": "notification_deliveries",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.communication_threads",
+      "name": "communication_threads",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.thread_members",
+      "name": "thread_members",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.messages",
+      "name": "messages",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.message_attachments",
+      "name": "message_attachments",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.direct_message_threads",
+      "name": "direct_message_threads",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "communications.announcements",
+      "name": "announcements",
+      "domain": "communications-notifications",
+      "context": "communications",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.user_preferences",
+      "name": "user_preferences",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.workspace_preferences",
+      "name": "workspace_preferences",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.sync_jobs",
+      "name": "sync_jobs",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.sync_queue_items",
+      "name": "sync_queue_items",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.sync_conflicts",
+      "name": "sync_conflicts",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.runtime_observations",
+      "name": "runtime_observations",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.support_tickets",
+      "name": "support_tickets",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.support_comments",
+      "name": "support_comments",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.api_keys",
+      "name": "api_keys",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.webhooks",
+      "name": "webhooks",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.webhook_subscriptions",
+      "name": "webhook_subscriptions",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.webhook_deliveries",
+      "name": "webhook_deliveries",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.integrations",
+      "name": "integrations",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.integration_connections",
+      "name": "integration_connections",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.integration_events",
+      "name": "integration_events",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.data_retention_policies",
+      "name": "data_retention_policies",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.feature_flags",
+      "name": "feature_flags",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.feature_flag_assignments",
+      "name": "feature_flag_assignments",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.system_incidents",
+      "name": "system_incidents",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.status_events",
+      "name": "status_events",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.exports",
+      "name": "exports",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.export_jobs",
+      "name": "export_jobs",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.share_links",
+      "name": "share_links",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.backup_jobs",
+      "name": "backup_jobs",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "platform.restore_jobs",
+      "name": "restore_jobs",
+      "domain": "admin-integrations-operations",
+      "context": "platform",
+      "status": "planned",
+      "futureProduction": true,
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.product_pages",
+      "name": "product_pages",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.solution_pages",
+      "name": "solution_pages",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.industry_pages",
+      "name": "industry_pages",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.case_studies",
+      "name": "case_studies",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.pricing_plans",
+      "name": "pricing_plans",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.documentation_pages",
+      "name": "documentation_pages",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.legal_documents",
+      "name": "legal_documents",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.cookie_consents",
+      "name": "cookie_consents",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.contact_requests",
+      "name": "contact_requests",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.demo_requests",
+      "name": "demo_requests",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.marketing_leads",
+      "name": "marketing_leads",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    },
+    {
+      "id": "public.marketing_events",
+      "name": "marketing_events",
+      "domain": "public-cms-growth",
+      "context": "public",
+      "futureProduction": false,
+      "status": "stubbed",
+      "provenance": {
+        "id": {
+          "derived": true,
+          "policy": "context-dot-name@1"
+        },
+        "status": {
+          "derived": true,
+          "rule": "future-production-set@1"
+        }
+      }
+    }
+  ],
+  "statusDerivation": {
+    "version": 1,
+    "default": "stubbed",
+    "plannedSet": "catalog/future-production-tables.json"
+  }
+}
