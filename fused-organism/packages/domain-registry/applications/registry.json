@@ -34,7 +34,7 @@
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "435fe2b13c694495b02c0f74949e521511519edda457cfacd1db7e74a1188930",
+          "irHash": "14a3d7cc43fdbb0e42393fecba896b575783af64393e73a06fe115231bd6b80b",
           "artifact": "./casting-pipeline-demo.ir.json"
         }
       ],
@@ -127,7 +127,7 @@
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "73e1ac5db780306d21a8a399f91eac332ea323a68ac65ea757dbf4086112904a",
+          "irHash": "b0d4ab3f34b0c1a99d5f92eeb4481c8078d8b2b9074912bdcfadb2b5e61e8da3",
           "artifact": "./campaign-os-reference.ir.json"
         }
       ],
@@ -344,7 +344,7 @@
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "cd6a5957c8a3debe2b097792d5f1f25f97aeabe7a3fe684a787ba894fdf9a4c5",
+          "irHash": "050cfe26c3fe66f12a06956bbaf58e922591ef3fab3629d2f6dca6df07f2ae98",
           "artifact": "./events-wedding-spatial-reference.ir.json"
         }
       ],
@@ -552,7 +552,7 @@
       "irVersions": [
         {
           "version": "1.0.0",
-          "irHash": "87034a57ac9ad442cf220bcb3a13d88c85db89ee2fb8152eddfbf698444858ce",
+          "irHash": "f0ac60af6d29a17dac653c7e2d7ac4b1a32706e74b08a8aa0a843164e36e835b",
           "artifact": "./investorhub-reference.ir.json"
         }
       ],

@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import {
   assertRegistryPublishable, getContextDependencies, getContextDependents, getRegistryGate,
   getRegistryHeatmap, lookupDependencies, registry, resolveProductComposition, resolveRoute,
@@ -7,6 +9,10 @@ import {
 } from "../src/index.mjs";
 import { buildRouteImpactIndexes, diffApplicationIR, explainComposition, previewLogicalSchema, resolveComposition, sealApplicationIR, validateApplicationIR } from "../src/composition.mjs";
 import { assessCompileTestability, assessContractCoverage, compileLogicalSchema, diffTableContracts, validateTableContract, validateTableContractStructure } from "../src/contracts.mjs";
+import recoveredKernel from "../schema-sources/authored/maataa-core-v1/contracts.json" with { type: "json" };
+import organisationApproval from "../schema-sources/approvals/organisation-m2.7/approval-record.json" with { type: "json" };
+import organisationClosure from "../schema-sources/approvals/organisation-m2.7/fk-closure.json" with { type: "json" };
+import checksumVerification from "../schema-sources/approvals/organisation-m2.7/checksum-verification.json" with { type: "json" };
 
 const castingIntent = { appId: "casting-pipeline-demo", name: "Casting Pipeline", description: "Casting pipeline for a film production company", productTags: ["film"], flowIds: ["TLPS-FLOW-027", "TLPS-FLOW-028", "TLPS-FLOW-029", "TLPS-FLOW-030", "TLPS-FLOW-031"], seedProfile: "demo-casting" };
 
@@ -217,7 +223,7 @@ test("M2 casting resolver is deterministic, pinned, and closes flows over contex
   assert.equal(explicitlyAllowed.compilerStatus, "SCHEMA_INCOMPLETE");
   assert.equal(explicitlyAllowed.lifecycleState, "RESOLVED");
   assert.equal(explicitlyAllowed.schemaReadiness.counts.total, 160);
-  assert.equal(explicitlyAllowed.schemaReadiness.counts.nameOnly, 160);
+  assert.deepEqual(explicitlyAllowed.schemaReadiness.counts, { total: 160, complete: 10, partial: 0, nameOnly: 150 });
   assert.ok(explicitlyAllowed.compilerBlockers.some((item) => item.kind === "schema-contract"));
   assert.deepEqual(validateApplicationIR(first), { valid: true, errors: [] });
   assert.equal(JSON.stringify(registry), before, "resolver must not mutate canonical registry data");
@@ -260,10 +266,16 @@ test("M2 explain, logical schema preview, semantic diff, and route impact preser
   assert.deepEqual(previewLogicalSchema(casting), preview, "logical preview is deterministic for a pinned IR");
   assert.equal(preview.status, "SCHEMA_INCOMPLETE");
   assert.equal(preview.models.length, 160);
-  assert.equal(preview.relations.length, 0);
+  assert.equal(preview.relations.length, 26, "the preview exposes relations from canonical approved contracts only");
   assert.equal(preview.prismaPreview.status, "SCHEMA_INCOMPLETE");
   assert.equal(preview.prismaPreview.text, "");
-  assert.ok(preview.models.every((model) => model.fields.length === 0 && model.relations.length === 0));
+  assert.equal(preview.prismaPreview.models.length, 0, "incomplete slice blocks Prisma generation");
+  const contractById = new Map(registry.tableContracts.contracts.map((contract) => [contract.id, contract]));
+  for (const model of preview.models) {
+    const contract = contractById.get(model.tableId);
+    assert.deepEqual(model.fields.map(({ name, ...field }) => [name, field]), Object.entries(contract?.fields ?? {}), "the preview must project authored fields without inventing any");
+    assert.deepEqual(model.relations, contract?.relations ?? []);
+  }
   const withPublic = resolveComposition({ ...castingIntent, includePublicContext: true });
   const diff = diffApplicationIR(casting, withPublic);
   assert.ok(diff.levels.contextVersions.added.some((item) => item.contextId === "public"));
@@ -288,11 +300,11 @@ test("M2 explain, logical schema preview, semantic diff, and route impact preser
 test("M2.5 derives casting schema coverage and refuses invented schema", () => {
   const casting = resolveComposition({ ...castingIntent, overrides: { allowPlanned: true } });
   const coverage = assessContractCoverage(casting.tableIds, registry);
-  assert.deepEqual(coverage.counts, { total: 160, complete: 0, partial: 0, nameOnly: 160 });
+  assert.deepEqual(coverage.counts, { total: 160, complete: 10, partial: 0, nameOnly: 150 });
   assert.equal(coverage.status, "SCHEMA_INCOMPLETE");
   const preview = previewLogicalSchema(casting);
   assert.equal(preview.prismaPreview.models.length, 0);
-  assert.equal(preview.models.some((model) => model.fields.length > 0), false);
+  assert.equal(preview.models.filter((model) => model.fields.length > 0).length, 10, "only canonical contracts contribute application preview fields");
 });
 
 test("M2.5 validates source-backed table contracts and reports semantic changes", () => {
@@ -356,11 +368,82 @@ test("COMPILE_TESTABLE is separate from SCHEMA_READY and emits deterministic log
   assert.equal(first.status, "LOGICAL_SCHEMA_READY");
   assert.deepEqual(first, second);
   assert.match(first.schemaHash, /^[a-f0-9]{64}$/);
-  assert.equal(assessCompileTestability(["communications.announcements"], source).status, "SCHEMA_INCOMPLETE");
+  source.tableContracts.contracts = [];
+  assert.equal(assessContractCoverage(["communications.notifications"], source).entries[0].status, "NAME_ONLY", "draft contracts are excluded from canonical coverage");
+  assert.equal(assessCompileTestability(["communications.notifications"], source).status, "COMPILE_TESTABLE", "draft contracts remain usable for explicit structural test compilation");
   source.tableContracts.contracts = [contract, structuredClone(contract)];
   const duplicate = assessCompileTestability([contract.id], source);
   assert.equal(duplicate.status, "SCHEMA_INCOMPLETE");
   assert.ok(duplicate.entries[0].errors.some((item) => item.includes("duplicate authored contract ID")));
+});
+
+test("M2.7 Organisation approval is complete, closed, and scoped to registry readiness", () => {
+  const recoveredBytes = readFileSync(new URL("../schema-sources/authored/maataa-core-v1/contracts.json", import.meta.url));
+  assert.equal(createHash("sha256").update(recoveredBytes).digest("hex"), "b1023d82cc7b3f14876c14f7b69a5789e70b80c7f3b945841010dc8ed5d5a3c0");
+  const tableIds = [...organisationApproval.tables].sort();
+  const contracts = new Map(registry.tableContracts.contracts.map((contract) => [contract.id, contract]));
+  const original = new Map(recoveredKernel.contracts.map((contract) => [contract.id, contract]));
+  assert.equal(organisationApproval.decision, "APPROVED");
+  assert.equal(organisationApproval.scope.schemaApproval, "APPROVED");
+  assert.equal(organisationApproval.scope.provenanceApproval, "APPROVED");
+  assert.equal(organisationApproval.scope.migrationApproval, "NOT_GRANTED_BY_THIS_RECORD");
+  assert.equal(organisationApproval.productionBoundary.legalComplianceReviewRequired, true);
+  assert.equal(checksumVerification.verificationStatus, "UNRESOLVED");
+  assert.equal(registry.tableContracts.contracts.length, 10, "the canonical table registry contains approved contracts only");
+  assert.equal(registry.authoredContracts.length, 13, "draft proposals remain available in the authored source package");
+  assert.equal(registry.manifest.assets.authoredContracts.pendingReview, 9, "the manifest reports non-canonical proposals separately");
+  assert.deepEqual(
+    (({ status, total, complete, partial, nameOnly }) => ({ status, total, complete, partial, nameOnly }))(registry.manifest.integrity.schemaCompilerReadiness),
+    { status: "SCHEMA_INCOMPLETE", total: 352, complete: 10, partial: 0, nameOnly: 342 },
+  );
+  assert.deepEqual(registry.tableContracts.contracts.map((contract) => contract.id).sort(), tableIds);
+  assert.ok(registry.tableContracts.contracts.every((contract) => contract.provenance.reviewStatus === "approved"));
+  const pendingProposals = registry.authoredContracts.filter((contract) => !tableIds.includes(contract.id));
+  assert.equal(pendingProposals.length, 9);
+  assert.ok(pendingProposals.every((contract) => contract.provenance.reviewStatus === "unreviewed"));
+
+  const normalizeReview = (value) => {
+    if (Array.isArray(value)) return value.map(normalizeReview);
+    if (!value || typeof value !== "object") return value;
+    const normalized = {};
+    for (const [key, child] of Object.entries(value)) {
+      if (key === "reviewedBy" || key === "reviewedAt") continue;
+      normalized[key] = key === "reviewStatus" && child === "approved" ? "unreviewed" : normalizeReview(child);
+    }
+    return normalized;
+  };
+  for (const tableId of ["organisation.organisations", "organisation.organisation_memberships", "organisation.workspaces", "organisation.workspace_memberships"]) {
+    const promoted = structuredClone(contracts.get(tableId));
+    const draft = original.get(tableId);
+    assert.ok(draft, `Recovered source is missing ${tableId}`);
+    assert.deepEqual(promoted.primaryKey, draft.primaryKey, `${tableId} primary key changed during promotion`);
+    promoted.lifecycle.retentionPolicy = draft.lifecycle.retentionPolicy;
+    assert.deepEqual(normalizeReview(promoted), draft, `${tableId} changed beyond approval metadata and retention reference`);
+  }
+
+  const coverage = assessContractCoverage(tableIds, registry);
+  assert.equal(coverage.status, "SCHEMA_READY");
+  assert.deepEqual(coverage.counts, { total: 10, complete: 10, partial: 0, nameOnly: 0 });
+  const structural = assessCompileTestability(tableIds, registry);
+  assert.equal(structural.status, "COMPILE_TESTABLE");
+  assert.deepEqual(structural.counts, { total: 10, structurallyComplete: 10, partial: 0, nameOnly: 0 });
+  const logical = compileLogicalSchema(tableIds, registry);
+  assert.equal(logical.status, "LOGICAL_SCHEMA_READY");
+  assert.equal(logical.model.tables.length, 11, "Organisation closure includes identity.users");
+
+  const newEdges = registry.tableContracts.contracts
+    .filter((contract) => organisationApproval.newlyAuthoredContracts.includes(contract.id))
+    .flatMap((contract) => contract.foreignKeys.map((foreignKey) => ({ sourceTable: contract.id, foreignKey: foreignKey.name, targetTable: foreignKey.references, status: "CLOSED" })))
+    .sort((a, b) => `${a.sourceTable}:${a.foreignKey}`.localeCompare(`${b.sourceTable}:${b.foreignKey}`));
+  const approvedEdges = [...organisationClosure.newForeignKeyEdges]
+    .sort((a, b) => `${a.sourceTable}:${a.foreignKey}`.localeCompare(`${b.sourceTable}:${b.foreignKey}`));
+  assert.deepEqual(newEdges, approvedEdges);
+  assert.equal(newEdges.length, 15);
+
+  const globalCoverage = assessContractCoverage(registry.domains.tables.map((table) => table.id), registry);
+  assert.equal(globalCoverage.status, "SCHEMA_INCOMPLETE");
+  assert.deepEqual(globalCoverage.counts, { total: 352, complete: 10, partial: 0, nameOnly: 342 });
+  assert.equal(getRegistryGate(registry).schemaCompilerReady, false);
 });
 
 test("Application IR drafts can be resealed and content tampering is detected", () => {

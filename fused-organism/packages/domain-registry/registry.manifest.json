@@ -19,9 +19,9 @@
     "schemaCompilerReadiness": {
       "status": "SCHEMA_INCOMPLETE",
       "total": 352,
-      "complete": 0,
+      "complete": 10,
       "partial": 0,
-      "nameOnly": 352,
+      "nameOnly": 342,
       "reason": "Registry package validity does not imply database schema readiness; incomplete contracts fail closed."
     },
     "domainRegistry": {
@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "7b2033c419a3fcb1b80eed4b1b79856035705c6cd1c20d2009e727744f99d389",
+    "registryHash": "0aec154db73eefeced36dfcc42761bc826fc75980dcd76fdffde1cb860f6c6eb",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -335,43 +335,43 @@
       },
       {
         "path": "./applications/campaign-os-reference.ir.json",
-        "sha256": "e744a5a585f8d28b14babe49505ecdcbd470c9f445e86cd0d617863a93646f93"
+        "sha256": "9ceb449576dd48867cbd30db4ea4b7f2a5eeae672b9fce63806b9c9e0299d144"
       },
       {
         "path": "./applications/campaign-os-reference.schema-preview.json",
-        "sha256": "37393ec52f3100113da1741b6c19a3f7db89570ac7ce411e1d0ee517be11eaf2"
+        "sha256": "3c04c2c787d42988cb8d9fc93de9c5be818dcbc3169f445e0e6b6ce9a6487314"
       },
       {
         "path": "./applications/casting-pipeline-demo.ir.json",
-        "sha256": "0db8deb9d01680e21ab8d46b1679cb19453682a596bae8f21f42456884f127c3"
+        "sha256": "22a5d9ef1001ffbde9393ae98a7cfd3f1d3ddc0a3cf07c813674d46d217fa29a"
       },
       {
         "path": "./applications/casting-pipeline-demo.schema-preview.json",
-        "sha256": "03c0bfd4e98d2b0f18047bbdf83307282da7434b3e0ef58d7408715e9fce5d7c"
+        "sha256": "f5590bc1aac31e701ec22936a7f105481c0927dde8f6d273caf56d8f554ef924"
       },
       {
         "path": "./applications/casting-pipeline.explainability.json",
-        "sha256": "4364c4ddfbaeda8f61c1bc59d77e348d9204faff7883fc56aa220b4b1f782f41"
+        "sha256": "ea30a3a925db5deae5ac25c1efcd2a5299c3e44ff53cde52a1210a74c055c5e0"
       },
       {
         "path": "./applications/events-wedding-spatial-reference.ir.json",
-        "sha256": "196414608f78340306dbeef5be0811c28edca508de01ae8372ea4270cde97bd2"
+        "sha256": "59461b46c7ccf56bdb4194949e91929d8dbc60b364108bc809ef222ffcba60ad"
       },
       {
         "path": "./applications/events-wedding-spatial-reference.schema-preview.json",
-        "sha256": "30e9b2e713278fe89a0e4028781310a2659b2371843bf50cffd9f80187c25219"
+        "sha256": "63a6965cd1162be2203b1244f7191c6254cb2c2bd4774a60b83f8d6ee4fd9551"
       },
       {
         "path": "./applications/investorhub-reference.ir.json",
-        "sha256": "58d5dd6651eca79087b583b0031bd21e056955d268d898547582bf4a97a362b8"
+        "sha256": "b59aa6959e58c1b94879193b4658457569dbdf2304a9231d42260e69f44e8166"
       },
       {
         "path": "./applications/investorhub-reference.schema-preview.json",
-        "sha256": "27c2011dca61d17a70f40a69a9c6bbabe47272ef7ca79e3c0595a042ca368850"
+        "sha256": "dc96d78e0b44e4c6b74d6dbb2cad1e014eeb29247b70336ea932990341797ae6"
       },
       {
         "path": "./applications/registry.json",
-        "sha256": "1206c8240b91eec3ba7a37d1f0ddae7aacbbbb67a5b8d64a1cd0bec9ee717d02"
+        "sha256": "ca44b35cb3efff91d73b8006b4724d4f03d7d2aca41521ca753f275bcac200f8"
       },
       {
         "path": "./catalog/future-production-tables.json",
@@ -507,7 +507,7 @@
       },
       {
         "path": "./data/table-contracts.json",
-        "sha256": "ed767eaa4b3112af6e93febaa79061d399d50a90028150d10ce34756c4700955"
+        "sha256": "4665530ea6a5d780b1a7546ad098eff8e5f881ffe046a3a330bf7ba8f3e272f1"
       },
       {
         "path": "./flows/flow-classifications.json",
@@ -558,8 +558,48 @@
         "sha256": "9d1b0cfa06fffc6202f3cf03872d6729a9eb72d3fcea0c3c05ce284140b754f6"
       },
       {
+        "path": "./schema-sources/approvals/organisation-m2.7/BUNDLE_SHA256.txt",
+        "sha256": "f958b9e580684a7ffb69d69530b4a0601ae7ca145604f70651c1cda75ed0e35e"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/README.source.md",
+        "sha256": "8364adfac43ce2717f0f15830caf2d4cc3dcccc972e0c361498302aa5bb9dd2d"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/approval-bundle.json",
+        "sha256": "7d94dd0463a1e70e14700370cd2c7d14b4a441994aaf9c67705aa62867a1d8e9"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/approval-record.json",
+        "sha256": "b0f9414370b97f9db956a5edaed87bb26a023f23af5573f5d656730379c6c31f"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/checksum-verification.json",
+        "sha256": "8d425140849a1981907d7bdcdc7707a8fcacbf5648c623c9a26d2092651cd36c"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/contracts.approved.json",
+        "sha256": "24b6366f4f1648ccad6fea5cc30f7808306e8e8490dd2bfca99db528b02ec16b"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/existing4-retention-approvals.json",
+        "sha256": "a13f6b43e249433119522a91d7cfac2266fab823d9de02d500bbc7b127350ff8"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/fk-closure.json",
+        "sha256": "aa9dcdc7f674f031cea89c786205e6727ba84218cafd37e01fcac9cc212edebc"
+      },
+      {
+        "path": "./schema-sources/approvals/organisation-m2.7/retention-policies.approved.json",
+        "sha256": "9abe833d64be4e46f6c9d959e7c310aadc7e0bfa8f1ce4244494a572587aca33"
+      },
+      {
         "path": "./schema-sources/approved/README.md",
         "sha256": "2ef8f162042f677d4e7ae89624cd1e8d452bbfec22415558f5f2ef0b41e419cd"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-core-v1/contracts.json",
+        "sha256": "b1023d82cc7b3f14876c14f7b69a5789e70b80c7f3b945841010dc8ed5d5a3c0"
       },
       {
         "path": "./schema-sources/candidates/neroevents-postgres-migrations.json",
@@ -830,13 +870,13 @@
     "tableContracts": {
       "path": "./data/table-contracts.json",
       "version": "1.0.0",
-      "status": "authoring-required",
-      "records": 0,
+      "status": "canonical-approved",
+      "records": 10,
       "catalogTables": 352,
       "total": 352,
-      "complete": 0,
+      "complete": 10,
       "partial": 0,
-      "nameOnly": 352,
+      "nameOnly": 342,
       "byContext": {
         "campaign": {
           "total": 22,
@@ -906,9 +946,9 @@
         },
         "organisation": {
           "total": 10,
-          "complete": 0,
+          "complete": 10,
           "partial": 0,
-          "nameOnly": 10
+          "nameOnly": 0
         },
         "people": {
           "total": 32,
@@ -941,6 +981,14 @@
           "nameOnly": 12
         }
       }
+    },
+    "authoredContracts": {
+      "path": "./schema-sources/authored/maataa-core-v1/contracts.json",
+      "sourceId": "maataa-core-v1",
+      "status": "AUTHORING_COMPLETE_REVIEW_PENDING",
+      "records": 13,
+      "canonicalized": 4,
+      "pendingReview": 9
     },
     "scalarTypes": {
       "path": "./data/scalar-types.json",
@@ -1127,7 +1175,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "7b2033c419a3fcb1b80eed4b1b79856035705c6cd1c20d2009e727744f99d389",
+    "packageHash": "0aec154db73eefeced36dfcc42761bc826fc75980dcd76fdffde1cb860f6c6eb",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

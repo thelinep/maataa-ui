@@ -20,11 +20,12 @@ import deferredRoutes from "../routes/deferred.json" with { type: "json" };
 import routePatternPolicy from "../routes/pattern-derivation-policy.json" with { type: "json" };
 import scalarTypes from "../data/scalar-types.json" with { type: "json" };
 import tableContracts from "../data/table-contracts.json" with { type: "json" };
+import authoredKernel from "../schema-sources/authored/maataa-core-v1/contracts.json" with { type: "json" };
 import { validateTableContract } from "./contracts.mjs";
 import schemaSources from "../schema-sources/registry.json" with { type: "json" };
 import candidateSchemaSources from "../schema-sources/candidates/neroevents-postgres-migrations.json" with { type: "json" };
 
-export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts, schemaSources: { ...schemaSources, records: [candidateSchemaSources] } });
+export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts, authoredContracts: authoredKernel.contracts, schemaSources: { ...schemaSources, records: [candidateSchemaSources] } });
 
 const uniqueBy = (items, field) => new Map(items.map((item) => [item[field], item]));
 const compositionProducts = (source) => source.products.products ?? [];

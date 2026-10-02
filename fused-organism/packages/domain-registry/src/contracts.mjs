@@ -4,6 +4,11 @@ const REQUIRED_SECTIONS = ["fields", "enums", "primaryKey", "uniqueConstraints",
 const REQUIRED_REVIEW = "approved";
 const sorted = (items) => [...items].sort((a, b) => String(a).localeCompare(String(b)));
 const has = (value, key) => Object.hasOwn(value ?? {}, key);
+const allContracts = (source) => {
+  const contracts = new Map((source.authoredContracts ?? []).map((contract) => [contract.id, contract]));
+  for (const contract of source.tableContracts?.contracts ?? []) contracts.set(contract.id, contract);
+  return [...contracts.values()];
+};
 
 function provenanceValid(value, requireApproval) {
   const statusValid = requireApproval
@@ -45,6 +50,7 @@ function validateContract(contract, source, { requireApproval }) {
     if (!provenanceValid(enumDefinition.provenance, requireApproval)) errors.push(requireApproval ? `Enum ${enumDefinition.id ?? "<missing>"} provenance must be approved and source-backed.` : `Enum ${enumDefinition.id ?? "<missing>"} provenance must be source-backed with a valid review status.`);
   }
   const fieldNames = new Set(Object.keys(fields));
+  const contractById = new Map(allContracts(source).map((item) => [item.id, item]));
   const checkFields = (owner, names) => {
     for (const name of names ?? []) if (!fieldNames.has(name)) errors.push(`${owner} references unknown field ${name}.`);
   };
@@ -61,7 +67,7 @@ function validateContract(contract, source, { requireApproval }) {
     checkFields(`foreign key ${key.name}`, key.fields);
     const target = (source.domains.tables ?? []).find((item) => item.id === key.references);
     if (!target) errors.push(`Foreign key ${key.name} references unknown table ${key.references}.`);
-    const targetContract = (source.tableContracts?.contracts ?? []).find((item) => item.id === key.references);
+    const targetContract = contractById.get(key.references);
     if (!targetContract) errors.push(`Foreign key ${key.name} target contract is not authored: ${key.references}.`);
     if (targetContract) {
       for (const [index, field] of (key.referencedFields ?? []).entries()) {
@@ -83,10 +89,10 @@ function validateContract(contract, source, { requireApproval }) {
     if (!provenanceValid(relation.provenance, requireApproval)) errors.push(requireApproval ? `Relation ${relation.name} provenance must be approved and source-backed.` : `Relation ${relation.name} provenance must be source-backed with a valid review status.`);
     const target = (source.domains.tables ?? []).find((item) => item.id === relation.to);
     if (!target) errors.push(`Relation ${relation.name} targets unknown table ${relation.to}.`);
-    const targetContract = (source.tableContracts?.contracts ?? []).find((item) => item.id === relation.to);
+    const targetContract = contractById.get(relation.to);
     if (!targetContract) errors.push(`Relation ${relation.name} target contract is not authored: ${relation.to}.`);
     else if (relation.cardinality === "many-to-many") {
-      const joinContract = (source.tableContracts?.contracts ?? []).find((item) => item.id === relation.through?.tableId);
+      const joinContract = contractById.get(relation.through?.tableId);
       if (!joinContract) errors.push(`Many-to-many relation ${relation.name} requires an authored join-table contract: ${relation.through?.tableId ?? "<missing>"}.`);
       else {
         const sourceFk = joinContract.foreignKeys?.find((item) => item.name === relation.through?.sourceForeignKey);
@@ -160,7 +166,12 @@ export function assessContractCoverage(tableIds, source) {
 }
 
 function validateStructuralClosure(root, source) {
-  const rows = source.tableContracts?.contracts ?? [];
+  const canonicalRows = source.tableContracts?.contracts ?? [];
+  const canonicalIds = new Set(canonicalRows.map((item) => item.id));
+  const rows = [
+    ...(source.authoredContracts ?? []).filter((item) => !canonicalIds.has(item.id)),
+    ...canonicalRows,
+  ];
   const contracts = new Map(rows.map((item) => [item.id, item]));
   const counts = new Map();
   for (const item of rows) counts.set(item.id, (counts.get(item.id) ?? 0) + 1);
@@ -188,7 +199,7 @@ function validateStructuralClosure(root, source) {
 }
 
 export function assessCompileTestability(tableIds, source) {
-  const contracts = new Map((source.tableContracts?.contracts ?? []).map((item) => [item.id, item]));
+  const contracts = new Map(allContracts(source).map((item) => [item.id, item]));
   const entries = sorted(tableIds).map((tableId) => {
     const contract = contracts.get(tableId);
     if (!contract) return { tableId, status: "NAME_ONLY", fieldCount: 0, errors: ["No table contract is authored."] };
@@ -207,7 +218,7 @@ export function assessCompileTestability(tableIds, source) {
 export function compileLogicalSchema(tableIds, source) {
   const readiness = assessCompileTestability(tableIds, source);
   if (readiness.status !== "COMPILE_TESTABLE") return { status: "BLOCKED", readiness, blockers: readiness.entries.flatMap((entry) => entry.errors.map((reason) => ({ tableId: entry.tableId, reason }))) };
-  const contracts = new Map((source.tableContracts?.contracts ?? []).map((item) => [item.id, item]));
+  const contracts = new Map(allContracts(source).map((item) => [item.id, item]));
   const closure = new Set();
   const visit = (id) => {
     if (closure.has(id)) return;

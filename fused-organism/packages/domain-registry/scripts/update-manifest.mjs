@@ -24,6 +24,7 @@ const actors = await readJson("data/actor-registry.json");
 const sliceMap = await readJson("data/slice-map.json");
 const spine = await readJson("catalog/spine.json");
 const tableContracts = await readJson("data/table-contracts.json");
+const authoredKernel = await readJson("schema-sources/authored/maataa-core-v1/contracts.json");
 const scalarTypes = await readJson("data/scalar-types.json");
 const schemaSourceRegistry = await readJson("schema-sources/registry.json");
 const schemaSourceRecords = await Promise.all(schemaSourceRegistry.records.map((relative) => readJson(`schema-sources/${relative.replace(/^\.\//, "")}`)));
@@ -67,7 +68,7 @@ const contentHashes = [];
 for (const file of assetFiles) contentHashes.push({ path: `./${file}`, sha256: createHash("sha256").update(await readFile(path.join(root, file))).digest("hex") });
 const registryHash = createHash("sha256").update(contentHashes.map((item) => `${item.path}\0${item.sha256}\n`).join("")).digest("hex");
 const gate = getRegistryGate();
-const schemaCoverage = assessContractCoverage(domains.tables.map((item) => item.id), { domains, tableContracts, scalarTypes });
+const schemaCoverage = assessContractCoverage(domains.tables.map((item) => item.id), { domains, tableContracts, scalarTypes, authoredContracts: authoredKernel.contracts });
 const counts = gate.counts;
 manifest.schemaVersion = "1.1.0";
 manifest.registryId = "tlps-domain-registry";
@@ -102,6 +103,14 @@ manifest.assets = {
   sliceMap: { path: "./flows/slice-map.json", version: "1.0.0", status: sliceMap.status, referencedUnique: sliceMap.referencedSliceCount, contextResolved: sliceMap.resolvedCount, explicitSpecial: sliceMap.explicitlyClassifiedCount, unresolved: sliceMap.unresolvedCount },
   applicationRegistry: { path: "./applications/registry.json", version: "1.0.0", status: "local-preview", records: (await readJson("applications/registry.json")).records.length, resolverVersion: "1.0.0" },
   tableContracts: { path: "./data/table-contracts.json", version: tableContracts.schemaVersion, status: tableContracts.status, records: tableContracts.contracts.length, catalogTables: domains.tables.length, ...schemaCoverage.counts, byContext: schemaCoverage.byContext },
+  authoredContracts: {
+    path: "./schema-sources/authored/maataa-core-v1/contracts.json",
+    sourceId: authoredKernel.sourceId,
+    status: authoredKernel.status,
+    records: authoredKernel.contracts.length,
+    canonicalized: authoredKernel.contracts.filter((contract) => tableContracts.contracts.some((canonical) => canonical.id === contract.id)).length,
+    pendingReview: authoredKernel.contracts.filter((contract) => !tableContracts.contracts.some((canonical) => canonical.id === contract.id)).length,
+  },
   scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },
   schemaSources: { path: "./schema-sources/registry.json", version: schemaSourceRegistry.schemaVersion, records: schemaSourceRecords.length, byClassification: schemaSourceRecords.reduce((counts, item) => ({ ...counts, [item.classification]: (counts[item.classification] ?? 0) + 1 }), {}) },
   compositionArtifacts: { path: "./composition/route-impact-indexes.json", version: "1.0.0", status: "generated-preview", routeBacklog: (await readJson("composition/route-impact-indexes.json")).deferredRouteBacklog.length, compiler: "not-implemented" },

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "approvalScope": "Domain Registry schema-readiness policy; not external legal/compliance sign-off.",
+  "productionLegalReviewRequired": true,
+  "approvedBy": "thelinep",
+  "approvedAt": "2026-10-02T21:08:00+05:30",
+  "policies": [
+    {
+      "id": "ORG_SETTINGS_ACTIVE_PLUS_90D",
+      "trigger": "organisation deletion/closure",
+      "windowDays": 90,
+      "basis": "owner-approved operational recovery window",
+      "status": "approved"
+    },
+    {
+      "id": "WORKSPACE_SETTINGS_ACTIVE_PLUS_90D",
+      "trigger": "workspace deletion/closure",
+      "windowDays": 90,
+      "basis": "owner-approved operational recovery window",
+      "status": "approved"
+    },
+    {
+      "id": "WORKSPACE_ROLES_RETIRED_PLUS_365D",
+      "trigger": "role retirement or workspace deletion",
+      "windowDays": 365,
+      "basis": "owner-approved role-history support window",
+      "status": "approved"
+    },
+    {
+      "id": "WORKSPACE_INVITES_TERMINAL_PLUS_180D",
+      "trigger": "invite acceptance, expiry, or revocation",
+      "windowDays": 180,
+      "basis": "owner-approved invitation troubleshooting and abuse-review window",
+      "status": "approved"
+    },
+    {
+      "id": "WORKSPACE_ACTIVITY_365D",
+      "trigger": "activity occurrence",
+      "windowDays": 365,
+      "basis": "owner-approved non-compliance activity-feed history window",
+      "status": "approved"
+    },
+    {
+      "id": "WORKSPACE_FAVOURITES_MEMBERSHIP_END_PLUS_30D",
+      "trigger": "membership termination or workspace deletion",
+      "windowDays": 30,
+      "basis": "owner-approved short recovery window",
+      "status": "approved"
+    }
+  ]
+}

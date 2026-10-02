@@ -2995,9 +2995,9 @@
     "status": "SCHEMA_INCOMPLETE",
     "counts": {
       "total": 160,
-      "complete": 0,
+      "complete": 10,
       "partial": 0,
-      "nameOnly": 160
+      "nameOnly": 150
     },
     "byContext": {
       "communications": {
@@ -3020,9 +3020,9 @@
       },
       "organisation": {
         "total": 10,
-        "complete": 0,
+        "complete": 10,
         "partial": 0,
-        "nameOnly": 10
+        "nameOnly": 0
       },
       "people": {
         "total": 32,
@@ -3076,7 +3076,7 @@
     {
       "kind": "schema-contract",
       "code": "SCHEMA_INCOMPLETE",
-      "reason": "160 of 160 tables lack complete schema contracts."
+      "reason": "150 of 160 tables lack complete schema contracts."
     }
   ],
   "whyIncluded": [
@@ -4708,5 +4708,5 @@
       "flowIds": []
     }
   ],
-  "irHash": "435fe2b13c694495b02c0f74949e521511519edda457cfacd1db7e74a1188930"
+  "irHash": "14a3d7cc43fdbb0e42393fecba896b575783af64393e73a06fe115231bd6b80b"
 }
