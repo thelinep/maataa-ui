@@ -129,6 +129,7 @@ export function generatePrismaPreview(logicalResult, { targetProvider } = {}) {
       migrationPreviewValid: false,
       validationStatus: "NOT_RUN",
       tableIds: tables.map((table) => table.id),
+      unprojectedLogicalInvariants: tables.flatMap((table) => (table.invariants ?? []).map((invariant) => ({ tableId: table.id, ...invariant, projection: "DEFERRED_TO_PROVIDER_MIGRATION" }))),
       sourceLogicalSchemaHash: logicalResult.schemaHash,
       physicalTableNamePolicy: "context_table underscore mapping",
       enumProjection: "Prisma enum projection; canonical allowed values remain in MAATAA logical contract",

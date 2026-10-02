@@ -14,6 +14,7 @@ import recoveredKernel from "../schema-sources/authored/maataa-core-v1/contracts
 import organisationApproval from "../schema-sources/approvals/organisation-m2.7/approval-record.json" with { type: "json" };
 import organisationClosure from "../schema-sources/approvals/organisation-m2.7/fk-closure.json" with { type: "json" };
 import checksumVerification from "../schema-sources/approvals/organisation-m2.7/checksum-verification.json" with { type: "json" };
+import workspaceMembershipKeyAmendment from "../schema-sources/approvals/organisation-m2.7/amendments/workspace-membership-composite-key.v1.1.0.json" with { type: "json" };
 
 const castingIntent = { appId: "casting-pipeline-demo", name: "Casting Pipeline", description: "Casting pipeline for a film production company", productTags: ["film"], flowIds: ["TLPS-FLOW-027", "TLPS-FLOW-028", "TLPS-FLOW-029", "TLPS-FLOW-030", "TLPS-FLOW-031"], seedProfile: "demo-casting" };
 
@@ -413,6 +414,14 @@ test("Communications DRAFT contracts close dependencies and emit a provider-labe
   const communicationsDraft = JSON.parse(readFileSync(new URL("../schema-sources/authored/maataa-communications-v1/contracts.draft.json", import.meta.url), "utf8"));
   assert.match(communicationsDraft.contractSetHash, /^[a-f0-9]{64}$/);
   assert.equal(communicationsDraft.readiness.schemaReady, false, "a DRAFT is not canonically schema-ready");
+  const communicationsReview = JSON.parse(readFileSync(new URL("../schema-sources/authored/maataa-communications-v1/contracts.review.json", import.meta.url), "utf8"));
+  const communicationsLogical = JSON.parse(readFileSync(new URL("../schema-sources/authored/maataa-communications-v1/logical-schema.draft.json", import.meta.url), "utf8"));
+  assert.equal(communicationsReview.reviewStatus, "REVIEWED");
+  assert.equal(communicationsReview.contractSetHash, communicationsDraft.contractSetHash, "review binds the exact current contract set");
+  assert.equal(communicationsReview.logicalSchemaHash, communicationsLogical.schemaHash, "review also binds the resolved dependency closure");
+  assert.equal(communicationsReview.retainedBoundaries.schemaReady, false);
+  assert.equal(communicationsReview.retainedBoundaries.canonicalPromotion, false);
+  assert.equal(registry.manifest.assets.communicationsDraftContracts.review.status, "REVIEWED");
   assert.ok(registry.draftContracts.every((contract) => contract.schemaLifecycle === "DRAFT" && contract.provenance.kind === "MAATAA_AUTHORED"));
   const readiness = assessDraftCompileTestability(communicationsIds, registry);
   assert.equal(readiness.status, "DRAFT_COMPILE_TESTABLE");
@@ -422,6 +431,24 @@ test("Communications DRAFT contracts close dependencies and emit a provider-labe
   assert.equal(logical.model.tables.length, 14, "closure includes all referenced Organisation and Identity contracts");
   assert.ok(logical.model.tables.every((table) => ["CANONICAL", "DRAFT"].includes(table.schemaLifecycle)));
   assert.equal(logical.model.tables.filter((table) => table.id.startsWith("communications.")).length, 9);
+  const logicalTables = new Map(logical.model.tables.map((table) => [table.id, table]));
+  const directMessages = logicalTables.get("communications.direct_message_threads");
+  const memberEpisodes = logicalTables.get("communications.thread_members");
+  const announcements = logicalTables.get("communications.announcements");
+  const workspaceMembershipKey = ["id", "workspace_id", "organisation_id"];
+  for (const table of [directMessages, memberEpisodes]) {
+    const membershipReference = table.foreignKeys.find((fk) => fk.references === "organisation.workspace_memberships");
+    assert.deepEqual(membershipReference.referencedFields, workspaceMembershipKey, `${table.id} proves workspace and organisation membership scope`);
+    assert.equal(membershipReference.fields.length, 3);
+  }
+  assert.equal(directMessages.invariants[0].kind, "strictly-ordered-uuid-pair");
+  assert.equal(memberEpisodes.invariants[0].kind, "at-most-one-active-row");
+  assert.equal(memberEpisodes.fields.workspace_membership_id.nullable, false);
+  assert.deepEqual(memberEpisodes.uniqueConstraints, [], "the generated episode ID avoids timestamp collisions and preserves history");
+  assert.equal(announcements.invariants[0].kind, "conditional-nullability");
+  const invalidDirectMessage = structuredClone(directMessages);
+  invalidDirectMessage.invariants[0].fields = ["participant_low_membership_id", "missing_field"];
+  assert.equal(validateTableContractStructure(invalidDirectMessage, registry).valid, false, "invariant field references are validated");
   const noProvider = generatePrismaPreview(logical);
   assert.equal(noProvider.status, "BLOCKED", "the adapter never silently chooses a provider");
   const edgeCount = logical.model.tables.reduce((total, table) => total + table.foreignKeys.length, 0);
@@ -432,7 +459,7 @@ test("Communications DRAFT contracts close dependencies and emit a provider-labe
     assert.equal(preview.metadata.schemaLifecycle, "DRAFT");
     assert.equal(preview.metadata.deployable, false);
     assert.equal(preview.metadata.migrationExecutable, false);
-    assert.equal(preview.metadata.prismaPreviewValid, false, "Prisma CLI is unavailable, so syntax validation is not claimed");
+    assert.ok(preview.metadata.unprojectedLogicalInvariants.length >= 3, "Prisma model validation does not claim to validate database-only invariants");
     assert.equal((preview.schema.match(/@relation\("R_/g) ?? []).length, edgeCount * 2, "each FK has its local Prisma relation and inverse relation field");
     assert.equal((preview.schema.match(/onDelete: /g) ?? []).length, edgeCount, "every declared delete action is projected");
     assert.equal((preview.schema.match(/onUpdate: /g) ?? []).length, edgeCount, "every declared update action is projected");
@@ -482,6 +509,16 @@ test("M2.7 Organisation approval is complete, closed, and scoped to registry rea
     const draft = original.get(tableId);
     assert.ok(draft, `Recovered source is missing ${tableId}`);
     assert.deepEqual(promoted.primaryKey, draft.primaryKey, `${tableId} primary key changed during promotion`);
+    if (tableId === "organisation.workspace_memberships") {
+      assert.equal(workspaceMembershipKeyAmendment.decision, "APPROVED");
+      assert.equal(workspaceMembershipKeyAmendment.approvedBy, "thelinep");
+      assert.equal(promoted.version, workspaceMembershipKeyAmendment.resultVersion);
+      assert.deepEqual(promoted.uniqueConstraints.at(-1), workspaceMembershipKeyAmendment.addedUniqueConstraint);
+      const stable = (value) => Array.isArray(value) ? value.map(stable) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stable(value[key])])) : value;
+      assert.equal(createHash("sha256").update(JSON.stringify(stable(promoted))).digest("hex"), workspaceMembershipKeyAmendment.resultContractHash);
+      promoted.version = draft.version;
+      promoted.uniqueConstraints = promoted.uniqueConstraints.filter((item) => item.name !== workspaceMembershipKeyAmendment.addedUniqueConstraint.name);
+    }
     promoted.lifecycle.retentionPolicy = draft.lifecycle.retentionPolicy;
     assert.deepEqual(normalizeReview(promoted), draft, `${tableId} changed beyond approval metadata and retention reference`);
   }

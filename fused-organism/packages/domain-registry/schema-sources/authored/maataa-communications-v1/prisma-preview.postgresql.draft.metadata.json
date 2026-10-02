@@ -26,9 +26,49 @@
     "organisation.workspace_memberships",
     "organisation.workspaces"
   ],
-  "sourceLogicalSchemaHash": "42ab1eb99f25e6896dd34ac7a9d32799818d36c290f950a1c4110a46e3332e3c",
+  "unprojectedLogicalInvariants": [
+    {
+      "tableId": "communications.announcements",
+      "discriminator": "audience_kind",
+      "field": "workspace_id",
+      "kind": "conditional-nullability",
+      "name": "announcement_audience_matches_workspace_scope",
+      "nullableWhen": [
+        "ORGANISATION"
+      ],
+      "requiredWhen": [
+        "WORKSPACE"
+      ],
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    },
+    {
+      "tableId": "communications.direct_message_threads",
+      "comparison": "uuid-binary-ascending",
+      "fields": [
+        "participant_low_membership_id",
+        "participant_high_membership_id"
+      ],
+      "kind": "strictly-ordered-uuid-pair",
+      "name": "direct_message_membership_pair_is_normalized",
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    },
+    {
+      "tableId": "communications.thread_members",
+      "activeWhenNull": "left_at",
+      "keyFields": [
+        "organisation_id",
+        "workspace_id",
+        "thread_id",
+        "workspace_membership_id"
+      ],
+      "kind": "at-most-one-active-row",
+      "name": "one_active_thread_membership_episode",
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    }
+  ],
+  "sourceLogicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f",
   "physicalTableNamePolicy": "context_table underscore mapping",
   "enumProjection": "Prisma enum projection; canonical allowed values remain in MAATAA logical contract",
   "validationTool": "Prisma CLI 7.9.1",
-  "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90"
+  "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9"
 }

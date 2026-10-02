@@ -75,6 +75,27 @@ function validateContract(contract, source, { requireApproval }) {
     checkFields(`index ${index.name}`, index.fields);
     if (!provenanceValid(index.provenance, requireApproval, contract.provenance)) errors.push(requireApproval ? `Index ${index.name} provenance must be reviewed and provide valid evidence.` : `Index ${index.name} provenance must provide valid evidence or inherit table provenance.`);
   }
+  const invariantNames = new Set();
+  for (const invariant of contract.invariants ?? []) {
+    if (!invariant.name || invariantNames.has(invariant.name)) errors.push(`Invariant names must be present and unique on ${contract.id}.`);
+    invariantNames.add(invariant.name);
+    if (invariant.kind === "strictly-ordered-uuid-pair") {
+      checkFields(`invariant ${invariant.name}`, invariant.fields);
+      if ((invariant.fields ?? []).length !== 2 || invariant.fields.some((name) => fields[name]?.type !== "uuid" || fields[name]?.nullable)) errors.push(`Invariant ${invariant.name} requires two non-null UUID fields.`);
+      if (invariant.comparison !== "uuid-binary-ascending") errors.push(`Invariant ${invariant.name} must declare UUID binary ordering.`);
+    } else if (invariant.kind === "conditional-nullability") {
+      checkFields(`invariant ${invariant.name}`, [invariant.discriminator, invariant.field]);
+      const definition = (contract.enums ?? []).find((item) => item.id === fields[invariant.discriminator]?.enumId);
+      const nullableWhen = new Set(invariant.nullableWhen ?? []);
+      const requiredWhen = new Set(invariant.requiredWhen ?? []);
+      if (fields[invariant.field]?.nullable !== true) errors.push(`Invariant ${invariant.name} requires nullable field ${invariant.field}.`);
+      if (!definition || !nullableWhen.size || !requiredWhen.size || [...nullableWhen].some((value) => !definition.values.includes(value)) || [...requiredWhen].some((value) => !definition.values.includes(value)) || [...nullableWhen].some((value) => requiredWhen.has(value)) || new Set([...nullableWhen, ...requiredWhen]).size !== definition?.values.length) errors.push(`Invariant ${invariant.name} must cover every discriminator enum value exactly once.`);
+    } else if (invariant.kind === "at-most-one-active-row") {
+      checkFields(`invariant ${invariant.name}`, [...(invariant.keyFields ?? []), invariant.activeWhenNull]);
+      if (!invariant.keyFields?.length || invariant.keyFields.includes(invariant.activeWhenNull)) errors.push(`Invariant ${invariant.name} needs key fields distinct from its active marker.`);
+      if (fields[invariant.activeWhenNull]?.nullable !== true) errors.push(`Invariant ${invariant.name} active marker ${invariant.activeWhenNull} must be nullable.`);
+    } else errors.push(`Invariant ${invariant.name ?? "<missing>"} has unsupported kind ${invariant.kind ?? "<missing>"}.`);
+  }
   for (const key of contract.foreignKeys ?? []) {
     checkFields(`foreign key ${key.name}`, key.fields);
     const target = (source.domains.tables ?? []).find((item) => item.id === key.references);
@@ -254,9 +275,9 @@ function createLogicalModel(tableIds, contracts, source, readiness, { authority,
     authority,
     prismaEligible,
     tables: [...closure].sort().map((id) => {
-      const { context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance } = contracts.get(id);
+      const { context, name, version, fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, invariants, ownership, lifecycle, provenance } = contracts.get(id);
       const contract = contracts.get(id);
-      return stable({ id, context, name, version, schemaLifecycle: contract.schemaLifecycle ?? (canonicalIds.has(id) ? "CANONICAL" : "DRAFT"), fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, ownership, lifecycle, provenance, sourceAuthority: canonicalIds.has(id) ? "CANONICAL_APPROVED" : "AUTHORED_NONCANONICAL" });
+      return stable({ id, context, name, version, schemaLifecycle: contract.schemaLifecycle ?? (canonicalIds.has(id) ? "CANONICAL" : "DRAFT"), fields, enums, primaryKey, uniqueConstraints, foreignKeys, relations, indexes, invariants: invariants ?? [], ownership, lifecycle, provenance, sourceAuthority: canonicalIds.has(id) ? "CANONICAL_APPROVED" : "AUTHORED_NONCANONICAL" });
     }),
   };
   const serialized = JSON.stringify(stable(model));

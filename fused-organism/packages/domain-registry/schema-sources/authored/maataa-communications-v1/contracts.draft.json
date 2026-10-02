@@ -2,8 +2,9 @@
   "schemaVersion": "1.0.0",
   "context": "communications",
   "schemaLifecycle": "DRAFT",
-  "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
-  "generatedFrom": "maataa-communications-v1#reviewed-decisions",
+  "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
+  "generatedFrom": "maataa-communications-v1#reviewed-decisions+contract-review-corrections-v1",
+  "correctionSetId": "maataa-communications-contract-review-corrections-v1",
   "contracts": [
     {
       "schemaVersion": "1.0.0",
@@ -100,8 +101,8 @@
         {
           "id": "communications_announcements_audience_kind",
           "values": [
-            "organisation",
-            "workspace"
+            "ORGANISATION",
+            "WORKSPACE"
           ]
         },
         {
@@ -250,6 +251,20 @@
             "published_at"
           ],
           "unique": false
+        }
+      ],
+      "invariants": [
+        {
+          "name": "announcement_audience_matches_workspace_scope",
+          "kind": "conditional-nullability",
+          "discriminator": "audience_kind",
+          "field": "workspace_id",
+          "nullableWhen": [
+            "ORGANISATION"
+          ],
+          "requiredWhen": [
+            "WORKSPACE"
+          ]
         }
       ],
       "ownership": {
@@ -611,15 +626,17 @@
       ],
       "foreignKeys": [
         {
-          "name": "fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads",
+          "name": "fk_direct_message_threads_organisation_id_thread_id_workspace_id_communications_communication_threads",
           "fields": [
             "organisation_id",
-            "thread_id"
+            "thread_id",
+            "workspace_id"
           ],
           "references": "communications.communication_threads",
           "referencedFields": [
             "organisation_id",
-            "id"
+            "id",
+            "workspace_id"
           ],
           "onDelete": "restrict",
           "onUpdate": "no-action"
@@ -639,25 +656,33 @@
           "onUpdate": "no-action"
         },
         {
-          "name": "fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships",
+          "name": "fk_direct_message_threads_participant_low_membership_id_workspace_id_organisation_id_organisation_workspace_memberships",
           "fields": [
-            "participant_low_membership_id"
+            "participant_low_membership_id",
+            "workspace_id",
+            "organisation_id"
           ],
           "references": "organisation.workspace_memberships",
           "referencedFields": [
-            "id"
+            "id",
+            "workspace_id",
+            "organisation_id"
           ],
           "onDelete": "restrict",
           "onUpdate": "no-action"
         },
         {
-          "name": "fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships",
+          "name": "fk_direct_message_threads_participant_high_membership_id_workspace_id_organisation_id_organisation_workspace_memberships",
           "fields": [
-            "participant_high_membership_id"
+            "participant_high_membership_id",
+            "workspace_id",
+            "organisation_id"
           ],
           "references": "organisation.workspace_memberships",
           "referencedFields": [
-            "id"
+            "id",
+            "workspace_id",
+            "organisation_id"
           ],
           "onDelete": "restrict",
           "onUpdate": "no-action"
@@ -668,12 +693,14 @@
           "name": "organisation_id_thread_id_to_communications_communication_threads",
           "from": [
             "organisation_id",
-            "thread_id"
+            "thread_id",
+            "workspace_id"
           ],
           "to": "communications.communication_threads",
           "toFields": [
             "organisation_id",
-            "id"
+            "id",
+            "workspace_id"
           ],
           "cardinality": "many-to-one"
         },
@@ -693,22 +720,30 @@
         {
           "name": "participant_low_membership_id_to_organisation_workspace_memberships",
           "from": [
-            "participant_low_membership_id"
+            "participant_low_membership_id",
+            "workspace_id",
+            "organisation_id"
           ],
           "to": "organisation.workspace_memberships",
           "toFields": [
-            "id"
+            "id",
+            "workspace_id",
+            "organisation_id"
           ],
           "cardinality": "many-to-one"
         },
         {
           "name": "participant_high_membership_id_to_organisation_workspace_memberships",
           "from": [
-            "participant_high_membership_id"
+            "participant_high_membership_id",
+            "workspace_id",
+            "organisation_id"
           ],
           "to": "organisation.workspace_memberships",
           "toFields": [
-            "id"
+            "id",
+            "workspace_id",
+            "organisation_id"
           ],
           "cardinality": "many-to-one"
         }
@@ -731,6 +766,17 @@
             "participant_high_membership_id"
           ],
           "unique": false
+        }
+      ],
+      "invariants": [
+        {
+          "name": "direct_message_membership_pair_is_normalized",
+          "kind": "strictly-ordered-uuid-pair",
+          "fields": [
+            "participant_low_membership_id",
+            "participant_high_membership_id"
+          ],
+          "comparison": "uuid-binary-ascending"
         }
       ],
       "ownership": {
@@ -1993,10 +2039,6 @@
           "type": "uuid",
           "nullable": false
         },
-        "user_id": {
-          "type": "uuid",
-          "nullable": false
-        },
         "role": {
           "type": "enum",
           "nullable": false,
@@ -2030,7 +2072,11 @@
         },
         "workspace_membership_id": {
           "type": "uuid",
-          "nullable": true
+          "nullable": false
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false
         }
       },
       "enums": [
@@ -2045,65 +2091,36 @@
       "primaryKey": [
         "id"
       ],
-      "uniqueConstraints": [
+      "uniqueConstraints": [],
+      "foreignKeys": [
         {
-          "name": "uq_thread_members_organisation_id_thread_id_user_id",
+          "name": "fk_thread_members_organisation_id_thread_id_workspace_id_communications_communication_threads",
           "fields": [
             "organisation_id",
             "thread_id",
-            "user_id"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_thread_members_organisation_id_thread_id_communications_communication_threads",
-          "fields": [
-            "organisation_id",
-            "thread_id"
+            "workspace_id"
           ],
           "references": "communications.communication_threads",
           "referencedFields": [
             "organisation_id",
-            "id"
+            "id",
+            "workspace_id"
           ],
           "onDelete": "restrict",
           "onUpdate": "no-action"
         },
         {
-          "name": "fk_thread_members_organisation_id_user_id_organisation_organisation_memberships",
+          "name": "fk_thread_members_workspace_membership_id_workspace_id_organisation_id_organisation_workspace_memberships",
           "fields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "references": "organisation.organisation_memberships",
-          "referencedFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_thread_members_workspace_membership_id_organisation_workspace_memberships",
-          "fields": [
-            "workspace_membership_id"
+            "workspace_membership_id",
+            "workspace_id",
+            "organisation_id"
           ],
           "references": "organisation.workspace_memberships",
           "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_thread_members_user_id_identity_users",
-          "fields": [
-            "user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
+            "id",
+            "workspace_id",
+            "organisation_id"
           ],
           "onDelete": "restrict",
           "onUpdate": "no-action"
@@ -2114,68 +2131,65 @@
           "name": "organisation_id_thread_id_to_communications_communication_threads",
           "from": [
             "organisation_id",
-            "thread_id"
+            "thread_id",
+            "workspace_id"
           ],
           "to": "communications.communication_threads",
           "toFields": [
             "organisation_id",
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_user_id_to_organisation_organisation_memberships",
-          "from": [
-            "organisation_id",
-            "user_id"
-          ],
-          "to": "organisation.organisation_memberships",
-          "toFields": [
-            "organisation_id",
-            "user_id"
+            "id",
+            "workspace_id"
           ],
           "cardinality": "many-to-one"
         },
         {
           "name": "workspace_membership_id_to_organisation_workspace_memberships",
           "from": [
-            "workspace_membership_id"
+            "workspace_membership_id",
+            "workspace_id",
+            "organisation_id"
           ],
           "to": "organisation.workspace_memberships",
           "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "user_id_to_identity_users",
-          "from": [
-            "user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
+            "id",
+            "workspace_id",
+            "organisation_id"
           ],
           "cardinality": "many-to-one"
         }
       ],
       "indexes": [
         {
-          "name": "ix_thread_members_1_organisation_id_user_id_left_at",
+          "name": "ix_thread_members_1_organisation_id_workspace_id_thread_id_workspace_membership_id_left_at",
           "fields": [
             "organisation_id",
-            "user_id",
+            "workspace_id",
+            "thread_id",
+            "workspace_membership_id",
             "left_at"
           ],
           "unique": false
         },
         {
-          "name": "ix_thread_members_2_thread_id_joined_at",
+          "name": "ix_thread_members_2_workspace_membership_id_joined_at",
           "fields": [
-            "thread_id",
+            "workspace_membership_id",
             "joined_at"
           ],
           "unique": false
+        }
+      ],
+      "invariants": [
+        {
+          "name": "one_active_thread_membership_episode",
+          "kind": "at-most-one-active-row",
+          "keyFields": [
+            "organisation_id",
+            "workspace_id",
+            "thread_id",
+            "workspace_membership_id"
+          ],
+          "activeWhenNull": "left_at"
         }
       ],
       "ownership": {
@@ -2229,6 +2243,6 @@
       "organisation.workspace_memberships",
       "organisation.workspaces"
     ],
-    "logicalSchemaHash": "42ab1eb99f25e6896dd34ac7a9d32799818d36c290f950a1c4110a46e3332e3c"
+    "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f"
   }
 }

@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceDir = path.join(packageRoot, "schema-sources/authored/maataa-communications-v1");
 const decisions = JSON.parse(await readFile(path.join(sourceDir, "decisions.json"), "utf8"));
+const correctionPath = path.join(sourceDir, "contract-review-corrections.json");
+const corrections = JSON.parse(await readFile(correctionPath, "utf8"));
 
 const safeName = (value) => value.replace(/[^a-zA-Z0-9_]/g, "_").replace(/_+/g, "_").replace(/^_|_$/g, "").toLowerCase();
 const evidence = (tableId) => [
@@ -83,6 +85,7 @@ function makeContract(table) {
     foreignKeys,
     relations,
     indexes,
+    ...(table.invariants ? { invariants: table.invariants } : {}),
     ownership: {
       owner: table.ownership.owner,
       steward: table.ownership.steward,
@@ -100,15 +103,20 @@ function makeContract(table) {
   };
 }
 
-const contracts = decisions.tables.map(makeContract).sort((a, b) => a.id.localeCompare(b.id));
 const stable = (value) => Array.isArray(value) ? value.map(stable) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stable(value[key])])) : value;
+const baseContracts = decisions.tables.map(makeContract).sort((a, b) => a.id.localeCompare(b.id));
+const baseContractSetHash = createHash("sha256").update(JSON.stringify(stable(baseContracts))).digest("hex");
+if (corrections.baselineContractSetHash !== baseContractSetHash) throw new Error(`Review corrections expect ${corrections.baselineContractSetHash}, but the source decisions produce ${baseContractSetHash}.`);
+const correctionTables = new Map(corrections.replacementTables.map((table) => [table.id, table]));
+const contracts = decisions.tables.map((table) => makeContract(correctionTables.get(table.id) ?? table)).sort((a, b) => a.id.localeCompare(b.id));
 const contractSetHash = createHash("sha256").update(JSON.stringify(stable(contracts))).digest("hex");
 const output = {
   schemaVersion: "1.0.0",
   context: "communications",
   schemaLifecycle: "DRAFT",
   contractSetHash,
-  generatedFrom: "maataa-communications-v1#reviewed-decisions",
+  generatedFrom: "maataa-communications-v1#reviewed-decisions+contract-review-corrections-v1",
+  correctionSetId: corrections.correctionSetId,
   contracts,
 };
 

@@ -9,6 +9,7 @@ const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
 const outputRoot = path.join(packageRoot, "schema-sources/authored/maataa-communications-v1");
 const draftPath = path.join(outputRoot, "contracts.draft.json");
 const draft = JSON.parse(await readFile(draftPath, "utf8"));
+const logical = JSON.parse(await readFile(path.join(outputRoot, "logical-schema.draft.json"), "utf8"));
 const requested = registry.domains.tables.filter((table) => table.context === "communications").map((table) => table.id);
 const structural = assessDraftCompileTestability(requested, registry);
 const findings = [];
@@ -54,6 +55,21 @@ findings.push({
   message: "The initial emitted index names exceeded PostgreSQL's 63-byte identifier limit.",
   resolution: "The provider adapter now emits deterministic shortened physical names with a SHA-256 suffix; the database-neutral contract names are unchanged.",
 });
+
+for (const provider of ["postgresql", "sqlite"]) {
+  for (const table of logical.model.tables) {
+    for (const invariant of table.invariants ?? []) {
+      findings.push({
+        provider,
+        classification: "PRISMA_MODEL_LIMITATION",
+        status: "DEFERRED",
+        tableId: table.id,
+        invariant: invariant.name,
+        message: `${invariant.name} is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it.`,
+      });
+    }
+  }
+}
 
 const allValid = structural.status === "DRAFT_COMPILE_TESTABLE" && results.length === targets.length && results.every((item) => item.valid);
 draft.readiness = {

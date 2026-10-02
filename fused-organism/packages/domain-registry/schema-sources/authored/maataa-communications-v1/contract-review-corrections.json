@@ -1,0 +1,776 @@
+{
+  "schemaVersion": "1.0.0",
+  "correctionSetId": "maataa-communications-contract-review-corrections-v1",
+  "baselineContractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+  "decisionStatus": "ACCEPTED_FOR_SCHEMA_CORRECTION",
+  "reviewer": "thelinep",
+  "reviewedAt": "2026-10-02T20:57:13.345Z",
+  "decisions": [
+    {
+      "finding": "tenant-integrity",
+      "decision": "All workspace-membership references carry membership id, workspace id, and organisation id; the referenced Organisation key is added by a separately recorded additive amendment."
+    },
+    {
+      "finding": "direct-message-pair",
+      "decision": "A database-level logical invariant requires strict UUID binary ordering; equality is therefore forbidden. The unique workspace pair remains."
+    },
+    {
+      "finding": "announcement-scope",
+      "decision": "Only ORGANISATION and WORKSPACE audiences are supported; audience kind and workspace nullability must agree."
+    },
+    {
+      "finding": "membership-history",
+      "decision": "Each row is an episode identified by its generated UUID. Rejoining creates another row, even at the same timestamp; only one active episode per tenant/workspace/thread/membership is allowed."
+    }
+  ],
+  "unresolved": [
+    "Physical CHECK and partial unique-index DDL are deferred to provider migration projections; Prisma model validation does not prove them.",
+    "Legal retention approval, migration approval, deployment approval, and canonical promotion are not granted by this correction record."
+  ],
+  "replacementTables": [
+    {
+      "id": "communications.thread_members",
+      "decisionStatus": "PROPOSED",
+      "purpose": "Membership and per-user read position for a communication thread.",
+      "primaryKey": [
+        "id"
+      ],
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "generation": "application-generated UUID v4"
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "thread_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "role": {
+          "type": "enum",
+          "nullable": false,
+          "values": [
+            "member",
+            "moderator"
+          ]
+        },
+        "joined_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "default": "current-timestamp"
+        },
+        "last_read_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "left_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "default": "current-timestamp"
+        },
+        "workspace_membership_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false
+        }
+      },
+      "foreignKeys": [
+        {
+          "fields": [
+            "organisation_id",
+            "thread_id",
+            "workspace_id"
+          ],
+          "target": "communications.communication_threads",
+          "targetFields": [
+            "organisation_id",
+            "id",
+            "workspace_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "fields": [
+            "workspace_membership_id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "target": "organisation.workspace_memberships",
+          "targetFields": [
+            "id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionNote": "Present for workspace-bound threads; validator/policy verifies the referenced membership belongs to the parent thread workspace and same user."
+        }
+      ],
+      "uniqueConstraints": [],
+      "indexes": [
+        [
+          "organisation_id",
+          "workspace_id",
+          "thread_id",
+          "workspace_membership_id",
+          "left_at"
+        ],
+        [
+          "workspace_membership_id",
+          "joined_at"
+        ]
+      ],
+      "lifecycle": {
+        "mutable": "role, last_read_at, left_at",
+        "retentionPolicy": "PROPOSED: communications.thread-members-retention-v1",
+        "retentionAnchor": "thread closure or membership end, whichever is later",
+        "purge": "1095 days after terminal anchor; governance hold overrides ordinary deletion"
+      },
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ],
+        "status": "PROPOSED"
+      },
+      "relations": [
+        {
+          "name": "organisation_id_thread_id_to_communications_communication_threads",
+          "from": [
+            "organisation_id",
+            "thread_id",
+            "workspace_id"
+          ],
+          "to": "communications.communication_threads",
+          "toFields": [
+            "organisation_id",
+            "id",
+            "workspace_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "workspace_membership_id_to_organisation_workspace_memberships",
+          "from": [
+            "workspace_membership_id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": true,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        }
+      ],
+      "crossRowInvariants": [
+        "If parent thread.workspace_id is non-null, workspace_membership_id is required and must match that workspace and user_id.",
+        "If parent thread.workspace_id is null, workspace_membership_id is null and organisation membership is sufficient."
+      ],
+      "decisionProvenance": {
+        "owner": "MAATAA",
+        "origin": "MAATAA_AUTHORED_ARCHITECTURAL_DECISION",
+        "reference": "maataa-communications-v1#communications.thread_members",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
+      },
+      "invariants": [
+        {
+          "name": "one_active_thread_membership_episode",
+          "kind": "at-most-one-active-row",
+          "keyFields": [
+            "organisation_id",
+            "workspace_id",
+            "thread_id",
+            "workspace_membership_id"
+          ],
+          "activeWhenNull": "left_at"
+        }
+      ]
+    },
+    {
+      "id": "communications.direct_message_threads",
+      "decisionStatus": "PROPOSED",
+      "purpose": "Canonical pair mapping for a one-to-one direct-message thread.",
+      "primaryKey": [
+        "id"
+      ],
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "generation": "application-generated UUID v4"
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "thread_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "default": "current-timestamp"
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "participant_low_membership_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "participant_high_membership_id": {
+          "type": "uuid",
+          "nullable": false
+        }
+      },
+      "foreignKeys": [
+        {
+          "fields": [
+            "organisation_id",
+            "thread_id",
+            "workspace_id"
+          ],
+          "target": "communications.communication_threads",
+          "targetFields": [
+            "organisation_id",
+            "id",
+            "workspace_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "fields": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "target": "organisation.workspaces",
+          "targetFields": [
+            "id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionNote": "Null means organisation-wide scope; a non-null workspace must belong to the same organisation."
+        },
+        {
+          "fields": [
+            "participant_low_membership_id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "target": "organisation.workspace_memberships",
+          "targetFields": [
+            "id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "fields": [
+            "participant_high_membership_id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "target": "organisation.workspace_memberships",
+          "targetFields": [
+            "id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "fields": [
+            "organisation_id",
+            "workspace_id",
+            "participant_low_membership_id",
+            "participant_high_membership_id"
+          ]
+        },
+        {
+          "fields": [
+            "organisation_id",
+            "id"
+          ]
+        }
+      ],
+      "indexes": [
+        [
+          "organisation_id",
+          "workspace_id"
+        ],
+        [
+          "organisation_id",
+          "workspace_id",
+          "participant_low_membership_id",
+          "participant_high_membership_id"
+        ]
+      ],
+      "checksProposed": [
+        "participant_low_membership_id < participant_high_membership_id",
+        "participant_low_membership_id != participant_high_membership_id",
+        "both memberships belong to workspace_id and organisation_id",
+        "parent communication_threads.kind = direct and parent workspace_id matches"
+      ],
+      "lifecycle": {
+        "mutable": "none after creation; participants and workspace are immutable for this mapping",
+        "retentionPolicy": "PROPOSED: communications.direct-message-threads-retention-v1",
+        "retentionAnchor": "parent thread closure",
+        "purge": "1095 days after parent thread closure; governance hold overrides ordinary deletion"
+      },
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ],
+        "status": "PROPOSED"
+      },
+      "relations": [
+        {
+          "name": "organisation_id_thread_id_to_communications_communication_threads",
+          "from": [
+            "organisation_id",
+            "thread_id",
+            "workspace_id"
+          ],
+          "to": "communications.communication_threads",
+          "toFields": [
+            "organisation_id",
+            "id",
+            "workspace_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "workspace_id_organisation_id_to_organisation_workspaces",
+          "from": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "participant_low_membership_id_to_organisation_workspace_memberships",
+          "from": [
+            "participant_low_membership_id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "participant_high_membership_id_to_organisation_workspace_memberships",
+          "from": [
+            "participant_high_membership_id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id",
+            "workspace_id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        }
+      ],
+      "deterministicPairRule": "Database check requires membership IDs in canonical ascending order; unique constraint on organisation, workspace, and normalized pair rejects duplicates independent of caller behavior.",
+      "decisionProvenance": {
+        "owner": "MAATAA",
+        "origin": "MAATAA_AUTHORED_ARCHITECTURAL_DECISION",
+        "reference": "maataa-communications-v1#communications.direct_message_threads",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
+      },
+      "invariants": [
+        {
+          "name": "direct_message_membership_pair_is_normalized",
+          "kind": "strictly-ordered-uuid-pair",
+          "fields": [
+            "participant_low_membership_id",
+            "participant_high_membership_id"
+          ],
+          "comparison": "uuid-binary-ascending"
+        }
+      ]
+    },
+    {
+      "id": "communications.announcements",
+      "decisionStatus": "PROPOSED",
+      "purpose": "An organisation-scoped authored announcement with an explicit, versioned audience specification.",
+      "primaryKey": [
+        "id"
+      ],
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "generation": "application-generated UUID v4"
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "author_user_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "body": {
+          "type": "text",
+          "nullable": false
+        },
+        "audience_kind": {
+          "type": "enum",
+          "nullable": false,
+          "values": [
+            "ORGANISATION",
+            "WORKSPACE"
+          ]
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "values": [
+            "draft",
+            "scheduled",
+            "published",
+            "expired",
+            "retired"
+          ],
+          "default": "draft"
+        },
+        "scheduled_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "withdrawn_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "default": "current-timestamp"
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "default": "current-timestamp"
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "expired_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "retired_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        }
+      },
+      "foreignKeys": [
+        {
+          "fields": [
+            "organisation_id"
+          ],
+          "target": "organisation.organisations",
+          "targetFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "fields": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "target": "organisation.workspaces",
+          "targetFields": [
+            "id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionNote": "Null means organisation-wide scope; a non-null workspace must belong to the same organisation."
+        },
+        {
+          "fields": [
+            "organisation_id",
+            "author_user_id"
+          ],
+          "target": "organisation.organisation_memberships",
+          "targetFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionNote": "Author must belong to this organisation; active status is checked when publishing."
+        },
+        {
+          "fields": [
+            "author_user_id"
+          ],
+          "target": "identity.users",
+          "targetFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionNote": "Identity owns the user identifier and profile; Communications stores only the reference."
+        }
+      ],
+      "uniqueConstraints": [],
+      "indexes": [
+        [
+          "organisation_id",
+          "status",
+          "published_at"
+        ],
+        [
+          "organisation_id",
+          "workspace_id"
+        ],
+        [
+          "organisation_id",
+          "workspace_id",
+          "status",
+          "published_at"
+        ]
+      ],
+      "stateTransitions": [
+        [
+          "draft",
+          "scheduled"
+        ],
+        [
+          "draft",
+          "published"
+        ],
+        [
+          "scheduled",
+          "published"
+        ],
+        [
+          "scheduled",
+          "expired"
+        ],
+        [
+          "published",
+          "expired"
+        ],
+        [
+          "draft",
+          "retired"
+        ],
+        [
+          "scheduled",
+          "retired"
+        ],
+        [
+          "published",
+          "retired"
+        ],
+        [
+          "expired",
+          "retired"
+        ]
+      ],
+      "lifecycle": {
+        "mutable": "draft content and audience before publication; published audience is immutable; states advance only through declared transitions",
+        "retentionPolicy": "PROPOSED: communications.announcements-retention-v1",
+        "retentionAnchor": "expired_at or retired_at",
+        "purge": "730 days after expiry/retirement; governance hold overrides ordinary deletion"
+      },
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ],
+        "status": "PROPOSED"
+      },
+      "relations": [
+        {
+          "name": "organisation_id_to_organisation_organisations",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "workspace_id_organisation_id_to_organisation_workspaces",
+          "from": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": true,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "organisation_id_author_user_id_to_organisation_organisation_memberships",
+          "from": [
+            "organisation_id",
+            "author_user_id"
+          ],
+          "to": "organisation.organisation_memberships",
+          "toFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        },
+        {
+          "name": "author_user_id_to_identity_users",
+          "from": [
+            "author_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "nullable": false,
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "decisionStatus": "PROPOSED"
+        }
+      ],
+      "checksProposed": [
+        "audience_kind = organisation requires workspace_id IS NULL",
+        "audience_kind = workspace requires workspace_id IS NOT NULL"
+      ],
+      "decisionProvenance": {
+        "owner": "MAATAA",
+        "origin": "MAATAA_AUTHORED_ARCHITECTURAL_DECISION",
+        "reference": "maataa-communications-v1#communications.announcements",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
+      },
+      "invariants": [
+        {
+          "name": "announcement_audience_matches_workspace_scope",
+          "kind": "conditional-nullability",
+          "discriminator": "audience_kind",
+          "field": "workspace_id",
+          "nullableWhen": [
+            "ORGANISATION"
+          ],
+          "requiredWhen": [
+            "WORKSPACE"
+          ]
+        }
+      ]
+    }
+  ]
+}

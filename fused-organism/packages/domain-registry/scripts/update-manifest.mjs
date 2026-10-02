@@ -26,6 +26,8 @@ const spine = await readJson("catalog/spine.json");
 const tableContracts = await readJson("data/table-contracts.json");
 const authoredKernel = await readJson("schema-sources/authored/maataa-core-v1/contracts.json");
 const communicationsDraft = await readJson("schema-sources/authored/maataa-communications-v1/contracts.draft.json");
+const communicationsCorrections = await readJson("schema-sources/authored/maataa-communications-v1/contract-review-corrections.json");
+const communicationsContractReview = await readJson("schema-sources/authored/maataa-communications-v1/contracts.review.json");
 const communicationsPrismaPreviews = await Promise.all(["postgresql", "sqlite"].map(async (provider) => ({
   provider,
   ...(await readJson(`schema-sources/authored/maataa-communications-v1/prisma-preview.${provider}.draft.metadata.json`)),
@@ -122,6 +124,17 @@ manifest.assets = {
     records: communicationsDraft.contracts.length,
     contractSetHash: communicationsDraft.contractSetHash,
     readiness: communicationsDraft.readiness,
+    correctionSetId: communicationsCorrections.correctionSetId,
+    correctionDecisionStatus: communicationsCorrections.decisionStatus,
+    review: {
+      path: "./schema-sources/authored/maataa-communications-v1/contracts.review.json",
+      status: communicationsContractReview.contractSetHash === communicationsDraft.contractSetHash ? communicationsContractReview.reviewStatus : "STALE",
+      reviewer: communicationsContractReview.reviewer,
+      contractSetHash: communicationsContractReview.contractSetHash,
+      logicalSchemaHash: communicationsContractReview.logicalSchemaHash,
+      schemaReady: communicationsContractReview.retainedBoundaries.schemaReady,
+      canonicalPromotion: communicationsContractReview.retainedBoundaries.canonicalPromotion,
+    },
     prismaPreviews: communicationsPrismaPreviews.map(({ provider, ...preview }) => ({
       provider,
       path: `./schema-sources/authored/maataa-communications-v1/prisma-preview.${provider}.draft.prisma`,
@@ -130,6 +143,7 @@ manifest.assets = {
       contractSetHash: preview.contractSetHash,
       deployable: preview.deployable,
       migrationExecutable: preview.migrationExecutable,
+      unprojectedLogicalInvariants: preview.unprojectedLogicalInvariants ?? [],
     })),
   },
   scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },

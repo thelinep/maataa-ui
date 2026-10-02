@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "8ae9955f7e6ae66790c711e3222d65257850831e13f9ee2ecdf6536f3ed7daf5",
+    "registryHash": "d524b287badaae4993a37c7c8e9a06c7076b9a897bea0cc22b53052da176c1d9",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -507,7 +507,7 @@
       },
       {
         "path": "./data/table-contracts.json",
-        "sha256": "4665530ea6a5d780b1a7546ad098eff8e5f881ffe046a3a330bf7ba8f3e272f1"
+        "sha256": "3b7ab86425e2e7b5bbfd1ca35924a42c7215f5157bbd7fd53ba8849d1c81d9f1"
       },
       {
         "path": "./flows/flow-classifications.json",
@@ -566,6 +566,10 @@
         "sha256": "8364adfac43ce2717f0f15830caf2d4cc3dcccc972e0c361498302aa5bb9dd2d"
       },
       {
+        "path": "./schema-sources/approvals/organisation-m2.7/amendments/workspace-membership-composite-key.v1.1.0.json",
+        "sha256": "6ac6de3e2ba0817ba4eae3ac2357afa66674d533ef3863f7afba9ecd27a06bbe"
+      },
+      {
         "path": "./schema-sources/approvals/organisation-m2.7/approval-bundle.json",
         "sha256": "7d94dd0463a1e70e14700370cd2c7d14b4a441994aaf9c67705aa62867a1d8e9"
       },
@@ -606,8 +610,16 @@
         "sha256": "6b758b7842da9c64319741a033dbe4dfc5eadbbc264830974c1c7ad328ed9709"
       },
       {
+        "path": "./schema-sources/authored/maataa-communications-v1/contract-review-corrections.json",
+        "sha256": "dee4641345de3337af9f137550262b4ae80f7e87588e4fe926b20a9030dc38c2"
+      },
+      {
         "path": "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
-        "sha256": "9e7a73ebd8b305bdadf6a956c3db26874643b0faab8dd52bc6bebd8752a707a7"
+        "sha256": "1c1326d2a2cb0482485249e8ca447a44cadf46cab6c73496563c47a7dc631bf4"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/contracts.review.json",
+        "sha256": "c595a696b0ba638d9645beaab76aab81d1dfc50d0f4c56cd29901800151c4761"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/decisions.json",
@@ -619,27 +631,27 @@
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/logical-schema.draft.json",
-        "sha256": "a39fc91dec92616d7eb9f95d3af2de1bb6de7a42979dcc63240b2d97a83644ac"
+        "sha256": "3d67292fd1c3165be0d9518be2f8646f7f462e459c9bcca0e03f178c0ec9e8b6"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.metadata.json",
-        "sha256": "32d9f48d750ddd95a6c865a87c599bc515893412af55a1fa31853ca1744b33db"
+        "sha256": "616a9825b039e2b709e2daee9b77dc6c828eb29ff02d620c0d49eb040b8dcc9a"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
-        "sha256": "1c7d6256a4aada87ff06ffef6a0d8cb4732dc7beb7b1daaaaa3efff20011798e"
+        "sha256": "4b8ef3426eba57138085418f12b1ec613244918c851456fc57dcbffdbc9731f0"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.metadata.json",
-        "sha256": "27077d8269a5fed48a5f64d051b70a0924235a2d77258f65b2b025c51e067183"
+        "sha256": "16c20dbc0d705e984b4dac38330be523a5b01f04e0ca756b62fd6061a856983d"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
-        "sha256": "c93ddbc196a2a0d3d3b25cbf55b3e40190ce3537a61e0f503af883b85fc8d8f3"
+        "sha256": "0b6114bad9577051d4983395be7443a490195f8116cd00a70a6ebd0a86e6e9ab"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/projection-findings.json",
-        "sha256": "e2c4e646b508f123cb48e0479e749cbc11675fa6d1e259157c187ad89f5a63a6"
+        "sha256": "3f4294c3dd50fdbbe37da6c1b72faadf1726f0249716e72f4775736f109bacff"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/provenance.json",
@@ -719,7 +731,7 @@
       },
       {
         "path": "./schemas/table-contract.schema.json",
-        "sha256": "17915fa2e7437701f194400fea6d8cf5eb514e900ae07001e5a73bf7717c38d3"
+        "sha256": "7dc78160e6f8a0b6c9219c26e550111a7699575117b0f10151d76b9879a1bf1d"
       },
       {
         "path": "./schemas/table.schema.json",
@@ -1050,7 +1062,7 @@
       "path": "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
       "schemaLifecycle": "DRAFT",
       "records": 9,
-      "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+      "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
       "readiness": {
         "compileTestable": true,
         "fkClosure": "PASS",
@@ -1078,7 +1090,18 @@
           "organisation.workspace_memberships",
           "organisation.workspaces"
         ],
-        "logicalSchemaHash": "42ab1eb99f25e6896dd34ac7a9d32799818d36c290f950a1c4110a46e3332e3c"
+        "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f"
+      },
+      "correctionSetId": "maataa-communications-contract-review-corrections-v1",
+      "correctionDecisionStatus": "ACCEPTED_FOR_SCHEMA_CORRECTION",
+      "review": {
+        "path": "./schema-sources/authored/maataa-communications-v1/contracts.review.json",
+        "status": "REVIEWED",
+        "reviewer": "thelinep",
+        "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
+        "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f",
+        "schemaReady": false,
+        "canonicalPromotion": false
       },
       "prismaPreviews": [
         {
@@ -1086,18 +1109,98 @@
           "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
           "validation": "PASS",
           "validationTool": "Prisma CLI 7.9.1",
-          "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+          "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
           "deployable": false,
-          "migrationExecutable": false
+          "migrationExecutable": false,
+          "unprojectedLogicalInvariants": [
+            {
+              "tableId": "communications.announcements",
+              "discriminator": "audience_kind",
+              "field": "workspace_id",
+              "kind": "conditional-nullability",
+              "name": "announcement_audience_matches_workspace_scope",
+              "nullableWhen": [
+                "ORGANISATION"
+              ],
+              "requiredWhen": [
+                "WORKSPACE"
+              ],
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
+              "tableId": "communications.direct_message_threads",
+              "comparison": "uuid-binary-ascending",
+              "fields": [
+                "participant_low_membership_id",
+                "participant_high_membership_id"
+              ],
+              "kind": "strictly-ordered-uuid-pair",
+              "name": "direct_message_membership_pair_is_normalized",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
+              "tableId": "communications.thread_members",
+              "activeWhenNull": "left_at",
+              "keyFields": [
+                "organisation_id",
+                "workspace_id",
+                "thread_id",
+                "workspace_membership_id"
+              ],
+              "kind": "at-most-one-active-row",
+              "name": "one_active_thread_membership_episode",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            }
+          ]
         },
         {
           "provider": "sqlite",
           "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
           "validation": "PASS",
           "validationTool": "Prisma CLI 7.9.1",
-          "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+          "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
           "deployable": false,
-          "migrationExecutable": false
+          "migrationExecutable": false,
+          "unprojectedLogicalInvariants": [
+            {
+              "tableId": "communications.announcements",
+              "discriminator": "audience_kind",
+              "field": "workspace_id",
+              "kind": "conditional-nullability",
+              "name": "announcement_audience_matches_workspace_scope",
+              "nullableWhen": [
+                "ORGANISATION"
+              ],
+              "requiredWhen": [
+                "WORKSPACE"
+              ],
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
+              "tableId": "communications.direct_message_threads",
+              "comparison": "uuid-binary-ascending",
+              "fields": [
+                "participant_low_membership_id",
+                "participant_high_membership_id"
+              ],
+              "kind": "strictly-ordered-uuid-pair",
+              "name": "direct_message_membership_pair_is_normalized",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
+              "tableId": "communications.thread_members",
+              "activeWhenNull": "left_at",
+              "keyFields": [
+                "organisation_id",
+                "workspace_id",
+                "thread_id",
+                "workspace_membership_id"
+              ],
+              "kind": "at-most-one-active-row",
+              "name": "one_active_thread_membership_episode",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            }
+          ]
         }
       ]
     },
@@ -1287,7 +1390,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "8ae9955f7e6ae66790c711e3222d65257850831e13f9ee2ecdf6536f3ed7daf5",
+    "packageHash": "d524b287badaae4993a37c7c8e9a06c7076b9a897bea0cc22b53052da176c1d9",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

@@ -9,8 +9,8 @@ datasource db {
 }
 
 enum E_CommunicationsAnnouncementsAudienceKind {
-  organisation
-  workspace
+  ORGANISATION
+  WORKSPACE
   @@map("communications_announcements_audience_kind")
 }
 enum E_CommunicationsAnnouncementsStatus {
@@ -155,9 +155,9 @@ model CommunicationsCommunicationThreads {
   rel_fk_communication_threads_workspace_id_organisation_id_organisation_workspaces OrganisationWorkspaces? @relation("R_fk_communication_threads_workspace_id_organisation_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
   rel_fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships", fields: [organisation_id, created_by_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
   rel_fk_communication_threads_created_by_user_id_identity_users IdentityUsers @relation("R_fk_communication_threads_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
-  back_communications_direct_message_threads_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads")
+  back_communications_direct_message_threads_fk_direct_message_threads_organisation_id_thread_id_workspace_id_communications_communication_threads CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_organisation_id_thread_id_workspace_id_communications_communication_threads")
   back_communications_messages_fk_messages_organisation_id_thread_id_communications_communication_threads CommunicationsMessages[] @relation("R_fk_messages_organisation_id_thread_id_communications_communication_threads")
-  back_communications_thread_members_fk_thread_members_organisation_id_thread_id_communications_communication_threads CommunicationsThreadMembers[] @relation("R_fk_thread_members_organisation_id_thread_id_communications_communication_threads")
+  back_communications_thread_members_fk_thread_members_organisation_id_thread_id_workspace_id_communications_communication_threads CommunicationsThreadMembers[] @relation("R_fk_thread_members_organisation_id_thread_id_workspace_id_communications_communication_threads")
   @@unique([organisation_id, id], map: "uq_communication_threads_organisation_id_id")
   @@unique([organisation_id, id, workspace_id], map: "uq_communication_threads_organisation_id_id_workspace_id")
   @@index([organisation_id, updated_at], map: "ix_communication_threads_1_organisation_id_updated_at")
@@ -173,10 +173,10 @@ model CommunicationsDirectMessageThreads {
   participant_low_membership_id String
   thread_id String
   workspace_id String
-  rel_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads", fields: [organisation_id, thread_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_direct_message_threads_organisation_id_thread_id_workspace_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_direct_message_threads_organisation_id_thread_id_workspace_id_communications_communication_threads", fields: [organisation_id, thread_id, workspace_id], references: [organisation_id, id, workspace_id], onDelete: Restrict, onUpdate: NoAction)
   rel_fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
-  rel_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships", fields: [participant_low_membership_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
-  rel_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships", fields: [participant_high_membership_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_direct_message_threads_participant_low_membership_id_workspace_id_organisation_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_direct_message_threads_participant_low_membership_id_workspace_id_organisation_id_organisation_workspace_memberships", fields: [participant_low_membership_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_direct_message_threads_participant_high_membership_id_workspace_id_organisation_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_direct_message_threads_participant_high_membership_id_workspace_id_organisation_id_organisation_workspace_memberships", fields: [participant_high_membership_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
   @@unique([organisation_id, workspace_id, participant_low_membership_id, participant_high_membership_id], map: "uq_direct_message_threads_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id")
   @@unique([organisation_id, id], map: "uq_direct_message_threads_organisation_id_id")
   @@index([organisation_id, workspace_id], map: "ix_direct_message_threads_1_organisation_id_workspace_id")
@@ -311,15 +311,12 @@ model CommunicationsThreadMembers {
   organisation_id String
   role E_CommunicationsThreadMembersRole
   thread_id String
-  user_id String
-  workspace_membership_id String?
-  rel_fk_thread_members_organisation_id_thread_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_thread_members_organisation_id_thread_id_communications_communication_threads", fields: [organisation_id, thread_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
-  rel_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships", fields: [organisation_id, user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
-  rel_fk_thread_members_workspace_membership_id_organisation_workspace_memberships OrganisationWorkspaceMemberships? @relation("R_fk_thread_members_workspace_membership_id_organisation_workspace_memberships", fields: [workspace_membership_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
-  rel_fk_thread_members_user_id_identity_users IdentityUsers @relation("R_fk_thread_members_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
-  @@unique([organisation_id, thread_id, user_id], map: "uq_thread_members_organisation_id_thread_id_user_id")
-  @@index([organisation_id, user_id, left_at], map: "ix_thread_members_1_organisation_id_user_id_left_at")
-  @@index([thread_id, joined_at], map: "ix_thread_members_2_thread_id_joined_at")
+  workspace_id String
+  workspace_membership_id String
+  rel_fk_thread_members_organisation_id_thread_id_workspace_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_thread_members_organisation_id_thread_id_workspace_id_communications_communication_threads", fields: [organisation_id, thread_id, workspace_id], references: [organisation_id, id, workspace_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_thread_members_workspace_membership_id_workspace_id_organisation_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_thread_members_workspace_membership_id_workspace_id_organisation_id_organisation_workspace_memberships", fields: [workspace_membership_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@index([organisation_id, workspace_id, thread_id, workspace_membership_id, left_at], map: "ix_thread_members_1_organisation_id_workspace_id_thread_id_workspace_membership_id_left_at")
+  @@index([workspace_membership_id, joined_at], map: "ix_thread_members_2_workspace_membership_id_joined_at")
   @@map("communications_thread_members")
 }
 model IdentityUsers {
@@ -338,7 +335,6 @@ model IdentityUsers {
   back_communications_notification_preferences_fk_notification_preferences_user_id_identity_users CommunicationsNotificationPreferences[] @relation("R_fk_notification_preferences_user_id_identity_users")
   back_communications_notifications_fk_notifications_actor_user_id_identity_users CommunicationsNotifications[] @relation("R_fk_notifications_actor_user_id_identity_users")
   back_communications_notifications_fk_notifications_recipient_user_id_identity_users CommunicationsNotifications[] @relation("R_fk_notifications_recipient_user_id_identity_users")
-  back_communications_thread_members_fk_thread_members_user_id_identity_users CommunicationsThreadMembers[] @relation("R_fk_thread_members_user_id_identity_users")
   back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
   back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
   back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
@@ -369,7 +365,6 @@ model OrganisationOrganisationMemberships {
   back_communications_notification_preferences_fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships CommunicationsNotificationPreferences[] @relation("R_fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships")
   back_communications_notifications_fk_notifications_organisation_id_recipient_user_id_organisation_organisation_memberships CommunicationsNotifications[] @relation("R_fk_notifications_organisation_id_recipient_user_id_organisation_organisation_memberships")
   back_communications_notifications_fk_notifications_organisation_id_actor_user_id_organisation_organisation_memberships CommunicationsNotifications[] @relation("R_fk_notifications_organisation_id_actor_user_id_organisation_organisation_memberships")
-  back_communications_thread_members_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships CommunicationsThreadMembers[] @relation("R_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships")
   @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
   @@index([user_id, status], map: "organisation_memberships_user_idx")
   @@map("organisation_organisation_memberships")
@@ -409,10 +404,11 @@ model OrganisationWorkspaceMemberships {
   rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
   rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
   rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
-  back_communications_direct_message_threads_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships")
-  back_communications_direct_message_threads_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships")
-  back_communications_thread_members_fk_thread_members_workspace_membership_id_organisation_workspace_memberships CommunicationsThreadMembers[] @relation("R_fk_thread_members_workspace_membership_id_organisation_workspace_memberships")
+  back_communications_direct_message_threads_fk_direct_message_threads_participant_low_membership_id_workspace_id_organisation_id_organisation_workspace_memberships CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_participant_low_membership_id_workspace_id_organisation_id_organisation_workspace_memberships")
+  back_communications_direct_message_threads_fk_direct_message_threads_participant_high_membership_id_workspace_id_organisation_id_organisation_workspace_memberships CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_participant_high_membership_id_workspace_id_organisation_id_organisation_workspace_memberships")
+  back_communications_thread_members_fk_thread_members_workspace_membership_id_workspace_id_organisation_id_organisation_workspace_memberships CommunicationsThreadMembers[] @relation("R_fk_thread_members_workspace_membership_id_workspace_id_organisation_id_organisation_workspace_memberships")
   @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
   @@index([user_id, status], map: "workspace_memberships_user_status_idx")
   @@map("organisation_workspace_memberships")
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "schemaLifecycle": "DRAFT",
-  "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+  "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
   "validationTool": "Prisma CLI 7.9.1",
   "structuralStatus": "DRAFT_COMPILE_TESTABLE",
   "projections": [
@@ -31,6 +31,54 @@
       "status": "RESOLVED",
       "message": "The initial emitted index names exceeded PostgreSQL's 63-byte identifier limit.",
       "resolution": "The provider adapter now emits deterministic shortened physical names with a SHA-256 suffix; the database-neutral contract names are unchanged."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "message": "announcement_audience_matches_workspace_scope is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "message": "direct_message_membership_pair_is_normalized is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "message": "one_active_thread_membership_episode is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "message": "announcement_audience_matches_workspace_scope is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "message": "direct_message_membership_pair_is_normalized is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "message": "one_active_thread_membership_episode is retained in the database-neutral logical contract but is not represented by Prisma schema syntax; the provider migration projection must implement and validate it."
     }
   ]
 }
