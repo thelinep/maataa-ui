@@ -1,0 +1,442 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for PostgreSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum E_CommunicationsAnnouncementsAudienceKind {
+  organisation
+  workspace
+  @@map("communications_announcements_audience_kind")
+}
+enum E_CommunicationsAnnouncementsStatus {
+  draft
+  scheduled
+  published
+  expired
+  retired
+  @@map("communications_announcements_status")
+}
+enum E_CommunicationsCommunicationThreadsKind {
+  group
+  direct
+  announcement
+  @@map("communications_communication_threads_kind")
+}
+enum E_CommunicationsCommunicationThreadsStatus {
+  open
+  closed
+  archived
+  @@map("communications_communication_threads_status")
+}
+enum E_CommunicationsMessagesState {
+  visible
+  redacted
+  @@map("communications_messages_state")
+}
+enum E_CommunicationsNotificationDeliveriesChannel {
+  in_app
+  email
+  push
+  @@map("communications_notification_deliveries_channel")
+}
+enum E_CommunicationsNotificationDeliveriesStatus {
+  queued
+  sending
+  sent
+  delivered
+  failed
+  suppressed
+  @@map("communications_notification_deliveries_status")
+}
+enum E_CommunicationsNotificationPreferencesChannel {
+  in_app
+  email
+  push
+  @@map("communications_notification_preferences_channel")
+}
+enum E_CommunicationsNotificationsState {
+  unread
+  read
+  dismissed
+  @@map("communications_notifications_state")
+}
+enum E_CommunicationsThreadMembersRole {
+  member
+  moderator
+  @@map("communications_thread_members_role")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+model CommunicationsAnnouncements {
+  audience_kind E_CommunicationsAnnouncementsAudienceKind
+  author_user_id String @db.Uuid
+  body String @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  expired_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  published_at DateTime? @db.Timestamptz(6)
+  retired_at DateTime? @db.Timestamptz(6)
+  scheduled_at DateTime? @db.Timestamptz(6)
+  status E_CommunicationsAnnouncementsStatus @default("draft")
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  withdrawn_at DateTime? @db.Timestamptz(6)
+  workspace_id String? @db.Uuid
+  rel_fk_announcements_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_announcements_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_announcements_workspace_id_organisation_id_organisation_workspaces OrganisationWorkspaces? @relation("R_fk_announcements_workspace_id_organisation_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_announcements_organisation_id_author_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_announcements_organisation_id_author_user_id_organisation_organisation_memberships", fields: [organisation_id, author_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_announcements_author_user_id_identity_users IdentityUsers @relation("R_fk_announcements_author_user_id_identity_users", fields: [author_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  @@index([organisation_id, status, published_at], name: "ix_announcements_1_organisation_id_status_published_at")
+  @@index([organisation_id, workspace_id], name: "ix_announcements_2_organisation_id_workspace_id")
+  @@index([organisation_id, workspace_id, status, published_at], name: "ix_announcements_3_organisation_id_workspace_id_status_published_at")
+  @@map("communications_announcements")
+}
+model CommunicationsCommunicationThreads {
+  archived_at DateTime? @db.Timestamptz(6)
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  kind E_CommunicationsCommunicationThreadsKind
+  organisation_id String @db.Uuid
+  status E_CommunicationsCommunicationThreadsStatus @default("open")
+  subject String? @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String? @db.Uuid
+  rel_fk_communication_threads_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_communication_threads_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_communication_threads_workspace_id_organisation_id_organisation_workspaces OrganisationWorkspaces? @relation("R_fk_communication_threads_workspace_id_organisation_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships", fields: [organisation_id, created_by_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_communication_threads_created_by_user_id_identity_users IdentityUsers @relation("R_fk_communication_threads_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  back_communications_direct_message_threads_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads")
+  back_communications_messages_fk_messages_organisation_id_thread_id_communications_communication_threads CommunicationsMessages[] @relation("R_fk_messages_organisation_id_thread_id_communications_communication_threads")
+  back_communications_thread_members_fk_thread_members_organisation_id_thread_id_communications_communication_threads CommunicationsThreadMembers[] @relation("R_fk_thread_members_organisation_id_thread_id_communications_communication_threads")
+  @@unique([organisation_id, id], name: "uq_communication_threads_organisation_id_id")
+  @@unique([organisation_id, id, workspace_id], name: "uq_communication_threads_organisation_id_id_workspace_id")
+  @@index([organisation_id, updated_at], name: "ix_communication_threads_1_organisation_id_updated_at")
+  @@index([organisation_id, kind, closed_at], name: "ix_communication_threads_2_organisation_id_kind_closed_at")
+  @@index([organisation_id, workspace_id], name: "ix_communication_threads_3_organisation_id_workspace_id")
+  @@map("communications_communication_threads")
+}
+model CommunicationsDirectMessageThreads {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  participant_high_membership_id String @db.Uuid
+  participant_low_membership_id String @db.Uuid
+  thread_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads", fields: [organisation_id, thread_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships", fields: [participant_low_membership_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships OrganisationWorkspaceMemberships @relation("R_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships", fields: [participant_high_membership_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([organisation_id, workspace_id, participant_low_membership_id, participant_high_membership_id], name: "uq_direct_message_threads_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id")
+  @@unique([organisation_id, id], name: "uq_direct_message_threads_organisation_id_id")
+  @@index([organisation_id, workspace_id], name: "ix_direct_message_threads_1_organisation_id_workspace_id")
+  @@index([organisation_id, workspace_id, participant_low_membership_id, participant_high_membership_id], name: "ix_direct_message_threads_2_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id")
+  @@map("communications_direct_message_threads")
+}
+model CommunicationsMessageAttachments {
+  byte_length Int
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  file_name String @db.VarChar(255)
+  id String @db.Uuid @id @default(uuid())
+  media_type String @db.VarChar(200)
+  message_id String @db.Uuid
+  organisation_id String @db.Uuid
+  sha256 String @db.VarChar(64)
+  storage_key String @db.VarChar(512)
+  rel_fk_message_attachments_organisation_id_message_id_communications_messages CommunicationsMessages @relation("R_fk_message_attachments_organisation_id_message_id_communications_messages", fields: [organisation_id, message_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_message_attachments_organisation_id_created_by_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_message_attachments_organisation_id_created_by_user_id_organisation_organisation_memberships", fields: [organisation_id, created_by_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_message_attachments_created_by_user_id_identity_users IdentityUsers @relation("R_fk_message_attachments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([organisation_id, storage_key], name: "uq_message_attachments_organisation_id_storage_key")
+  @@index([organisation_id, message_id], name: "ix_message_attachments_1_organisation_id_message_id")
+  @@map("communications_message_attachments")
+}
+model CommunicationsMessages {
+  body String @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  edited_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  redacted_at DateTime? @db.Timestamptz(6)
+  redacted_by_user_id String? @db.Uuid
+  redaction_reason String? @db.VarChar(500)
+  sender_user_id String @db.Uuid
+  sequence_number Int
+  state E_CommunicationsMessagesState @default("visible")
+  thread_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_fk_messages_organisation_id_thread_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_messages_organisation_id_thread_id_communications_communication_threads", fields: [organisation_id, thread_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_messages_organisation_id_sender_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_messages_organisation_id_sender_user_id_organisation_organisation_memberships", fields: [organisation_id, sender_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_messages_redacted_by_user_id_identity_users IdentityUsers? @relation("R_fk_messages_redacted_by_user_id_identity_users", fields: [redacted_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_messages_sender_user_id_identity_users IdentityUsers @relation("R_fk_messages_sender_user_id_identity_users", fields: [sender_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  back_communications_message_attachments_fk_message_attachments_organisation_id_message_id_communications_messages CommunicationsMessageAttachments[] @relation("R_fk_message_attachments_organisation_id_message_id_communications_messages")
+  @@unique([organisation_id, id], name: "uq_messages_organisation_id_id")
+  @@unique([organisation_id, thread_id, sequence_number], name: "uq_messages_organisation_id_thread_id_sequence_number")
+  @@index([organisation_id, thread_id, created_at], name: "ix_messages_1_organisation_id_thread_id_created_at")
+  @@map("communications_messages")
+}
+model CommunicationsNotificationDeliveries {
+  attempt_number Int
+  attempted_at DateTime? @db.Timestamptz(6)
+  channel E_CommunicationsNotificationDeliveriesChannel
+  completed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  delivered_at DateTime? @db.Timestamptz(6)
+  failed_at DateTime? @db.Timestamptz(6)
+  failure_code String? @db.VarChar(100)
+  failure_detail String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  idempotency_key String @db.VarChar(200)
+  notification_id String @db.Uuid
+  organisation_id String @db.Uuid
+  provider_identifier String? @db.VarChar(160)
+  provider_reference String? @db.VarChar(255)
+  response_metadata Json?
+  scheduled_at DateTime? @db.Timestamptz(6)
+  sent_at DateTime? @db.Timestamptz(6)
+  status E_CommunicationsNotificationDeliveriesStatus
+  terminal_at DateTime? @db.Timestamptz(6)
+  rel_fk_notification_deliveries_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_notification_deliveries_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notification_deliveries_organisation_id_notification_id_communications_notifications CommunicationsNotifications @relation("R_fk_notification_deliveries_organisation_id_notification_id_communications_notifications", fields: [organisation_id, notification_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([organisation_id, idempotency_key], name: "uq_notification_deliveries_organisation_id_idempotency_key")
+  @@unique([notification_id, attempt_number], name: "uq_notification_deliveries_notification_id_attempt_number")
+  @@index([organisation_id, status, scheduled_at], name: "ix_notification_deliveries_1_organisation_id_status_scheduled_at")
+  @@index([notification_id, created_at], name: "ix_notification_deliveries_2_notification_id_created_at")
+  @@map("communications_notification_deliveries")
+}
+model CommunicationsNotificationPreferences {
+  channel E_CommunicationsNotificationPreferencesChannel
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  enabled Boolean @default(true)
+  id String @db.Uuid @id @default(uuid())
+  notification_type String @db.VarChar(80)
+  organisation_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_fk_notification_preferences_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_notification_preferences_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships", fields: [organisation_id, user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notification_preferences_user_id_identity_users IdentityUsers @relation("R_fk_notification_preferences_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([organisation_id, user_id, notification_type, channel], name: "uq_notification_preferences_organisation_id_user_id_notification_type_channel")
+  @@index([organisation_id, user_id], name: "ix_notification_preferences_1_organisation_id_user_id")
+  @@map("communications_notification_preferences")
+}
+model CommunicationsNotifications {
+  action_uri String? @db.Text
+  actor_user_id String? @db.Uuid
+  body String @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  dismissed_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  notification_type String @db.VarChar(80)
+  organisation_id String @db.Uuid
+  read_at DateTime? @db.Timestamptz(6)
+  recipient_user_id String @db.Uuid
+  resource_id String? @db.VarChar(255)
+  resource_type String? @db.VarChar(100)
+  state E_CommunicationsNotificationsState @default("unread")
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String? @db.Uuid
+  rel_fk_notifications_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_notifications_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notifications_actor_user_id_identity_users IdentityUsers? @relation("R_fk_notifications_actor_user_id_identity_users", fields: [actor_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_notifications_workspace_id_organisation_id_organisation_workspaces OrganisationWorkspaces? @relation("R_fk_notifications_workspace_id_organisation_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notifications_organisation_id_recipient_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_notifications_organisation_id_recipient_user_id_organisation_organisation_memberships", fields: [organisation_id, recipient_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notifications_recipient_user_id_identity_users IdentityUsers @relation("R_fk_notifications_recipient_user_id_identity_users", fields: [recipient_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_notifications_organisation_id_actor_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships? @relation("R_fk_notifications_organisation_id_actor_user_id_organisation_organisation_memberships", fields: [organisation_id, actor_user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  back_communications_notification_deliveries_fk_notification_deliveries_organisation_id_notification_id_communications_notifications CommunicationsNotificationDeliveries[] @relation("R_fk_notification_deliveries_organisation_id_notification_id_communications_notifications")
+  @@unique([organisation_id, id], name: "uq_notifications_organisation_id_id")
+  @@index([organisation_id, recipient_user_id, created_at], name: "ix_notifications_1_organisation_id_recipient_user_id_created_at")
+  @@index([organisation_id, recipient_user_id, state], name: "ix_notifications_2_organisation_id_recipient_user_id_state")
+  @@index([organisation_id, workspace_id], name: "ix_notifications_3_organisation_id_workspace_id")
+  @@index([organisation_id, workspace_id, recipient_user_id, created_at], name: "ix_notifications_4_organisation_id_workspace_id_recipient_user_id_created_at")
+  @@map("communications_notifications")
+}
+model CommunicationsThreadMembers {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id @default(uuid())
+  joined_at DateTime @db.Timestamptz(6) @default(now())
+  last_read_at DateTime? @db.Timestamptz(6)
+  left_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_CommunicationsThreadMembersRole
+  thread_id String @db.Uuid
+  user_id String @db.Uuid
+  workspace_membership_id String? @db.Uuid
+  rel_fk_thread_members_organisation_id_thread_id_communications_communication_threads CommunicationsCommunicationThreads @relation("R_fk_thread_members_organisation_id_thread_id_communications_communication_threads", fields: [organisation_id, thread_id], references: [organisation_id, id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships OrganisationOrganisationMemberships @relation("R_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships", fields: [organisation_id, user_id], references: [organisation_id, user_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_thread_members_workspace_membership_id_organisation_workspace_memberships OrganisationWorkspaceMemberships? @relation("R_fk_thread_members_workspace_membership_id_organisation_workspace_memberships", fields: [workspace_membership_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_thread_members_user_id_identity_users IdentityUsers @relation("R_fk_thread_members_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([organisation_id, thread_id, user_id], name: "uq_thread_members_organisation_id_thread_id_user_id")
+  @@index([organisation_id, user_id, left_at], name: "ix_thread_members_1_organisation_id_user_id_left_at")
+  @@index([thread_id, joined_at], name: "ix_thread_members_2_thread_id_joined_at")
+  @@map("communications_thread_members")
+}
+model IdentityUsers {
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  email String @db.VarChar(320)
+  email_verified_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  status E_IdentityUsersAccountStatus @default("active")
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  back_communications_announcements_fk_announcements_author_user_id_identity_users CommunicationsAnnouncements[] @relation("R_fk_announcements_author_user_id_identity_users")
+  back_communications_communication_threads_fk_communication_threads_created_by_user_id_identity_users CommunicationsCommunicationThreads[] @relation("R_fk_communication_threads_created_by_user_id_identity_users")
+  back_communications_message_attachments_fk_message_attachments_created_by_user_id_identity_users CommunicationsMessageAttachments[] @relation("R_fk_message_attachments_created_by_user_id_identity_users")
+  back_communications_messages_fk_messages_redacted_by_user_id_identity_users CommunicationsMessages[] @relation("R_fk_messages_redacted_by_user_id_identity_users")
+  back_communications_messages_fk_messages_sender_user_id_identity_users CommunicationsMessages[] @relation("R_fk_messages_sender_user_id_identity_users")
+  back_communications_notification_preferences_fk_notification_preferences_user_id_identity_users CommunicationsNotificationPreferences[] @relation("R_fk_notification_preferences_user_id_identity_users")
+  back_communications_notifications_fk_notifications_actor_user_id_identity_users CommunicationsNotifications[] @relation("R_fk_notifications_actor_user_id_identity_users")
+  back_communications_notifications_fk_notifications_recipient_user_id_identity_users CommunicationsNotifications[] @relation("R_fk_notifications_recipient_user_id_identity_users")
+  back_communications_thread_members_fk_thread_members_user_id_identity_users CommunicationsThreadMembers[] @relation("R_fk_thread_members_user_id_identity_users")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  @@unique([email], name: "users_email_unique")
+  @@index([status], name: "users_status_idx")
+  @@map("identity_users")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default("active")
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_communications_announcements_fk_announcements_organisation_id_author_user_id_organisation_organisation_memberships CommunicationsAnnouncements[] @relation("R_fk_announcements_organisation_id_author_user_id_organisation_organisation_memberships")
+  back_communications_communication_threads_fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships CommunicationsCommunicationThreads[] @relation("R_fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships")
+  back_communications_message_attachments_fk_message_attachments_organisation_id_created_by_user_id_organisation_organisation_memberships CommunicationsMessageAttachments[] @relation("R_fk_message_attachments_organisation_id_created_by_user_id_organisation_organisation_memberships")
+  back_communications_messages_fk_messages_organisation_id_sender_user_id_organisation_organisation_memberships CommunicationsMessages[] @relation("R_fk_messages_organisation_id_sender_user_id_organisation_organisation_memberships")
+  back_communications_notification_preferences_fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships CommunicationsNotificationPreferences[] @relation("R_fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships")
+  back_communications_notifications_fk_notifications_organisation_id_recipient_user_id_organisation_organisation_memberships CommunicationsNotifications[] @relation("R_fk_notifications_organisation_id_recipient_user_id_organisation_organisation_memberships")
+  back_communications_notifications_fk_notifications_organisation_id_actor_user_id_organisation_organisation_memberships CommunicationsNotifications[] @relation("R_fk_notifications_organisation_id_actor_user_id_organisation_organisation_memberships")
+  back_communications_thread_members_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships CommunicationsThreadMembers[] @relation("R_fk_thread_members_organisation_id_user_id_organisation_organisation_memberships")
+  @@unique([organisation_id, user_id], name: "organisation_memberships_pair_unique")
+  @@index([user_id, status], name: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  slug String @db.VarChar(120)
+  status E_OrganisationOrganisationsOrganisationStatus @default("active")
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_communications_announcements_fk_announcements_organisation_id_organisation_organisations CommunicationsAnnouncements[] @relation("R_fk_announcements_organisation_id_organisation_organisations")
+  back_communications_communication_threads_fk_communication_threads_organisation_id_organisation_organisations CommunicationsCommunicationThreads[] @relation("R_fk_communication_threads_organisation_id_organisation_organisations")
+  back_communications_notification_deliveries_fk_notification_deliveries_organisation_id_organisation_organisations CommunicationsNotificationDeliveries[] @relation("R_fk_notification_deliveries_organisation_id_organisation_organisations")
+  back_communications_notification_preferences_fk_notification_preferences_organisation_id_organisation_organisations CommunicationsNotificationPreferences[] @relation("R_fk_notification_preferences_organisation_id_organisation_organisations")
+  back_communications_notifications_fk_notifications_organisation_id_organisation_organisations CommunicationsNotifications[] @relation("R_fk_notifications_organisation_id_organisation_organisations")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  @@unique([slug], name: "organisations_slug_unique")
+  @@index([status], name: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default("active")
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_communications_direct_message_threads_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships")
+  back_communications_direct_message_threads_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships")
+  back_communications_thread_members_fk_thread_members_workspace_membership_id_organisation_workspace_memberships CommunicationsThreadMembers[] @relation("R_fk_thread_members_workspace_membership_id_organisation_workspace_memberships")
+  @@unique([workspace_id, user_id], name: "workspace_memberships_pair_unique")
+  @@index([user_id, status], name: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_OrganisationWorkspacesWorkspaceStatus @default("active")
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_communications_announcements_fk_announcements_workspace_id_organisation_id_organisation_workspaces CommunicationsAnnouncements[] @relation("R_fk_announcements_workspace_id_organisation_id_organisation_workspaces")
+  back_communications_communication_threads_fk_communication_threads_workspace_id_organisation_id_organisation_workspaces CommunicationsCommunicationThreads[] @relation("R_fk_communication_threads_workspace_id_organisation_id_organisation_workspaces")
+  back_communications_direct_message_threads_fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces CommunicationsDirectMessageThreads[] @relation("R_fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces")
+  back_communications_notifications_fk_notifications_workspace_id_organisation_id_organisation_workspaces CommunicationsNotifications[] @relation("R_fk_notifications_workspace_id_organisation_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  @@unique([organisation_id, slug], name: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], name: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], name: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}

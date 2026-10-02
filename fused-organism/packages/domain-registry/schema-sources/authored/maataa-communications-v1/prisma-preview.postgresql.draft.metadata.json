@@ -1,0 +1,32 @@
+{
+  "schemaLifecycle": "DRAFT",
+  "targetProvider": "postgresql",
+  "intendedCompatibility": "PostgreSQL",
+  "deployable": false,
+  "migrationExecutable": false,
+  "migrationApproved": false,
+  "deploymentApproved": false,
+  "legalReviewed": false,
+  "prismaPreviewValid": false,
+  "migrationPreviewValid": false,
+  "validationStatus": "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
+  "tableIds": [
+    "communications.announcements",
+    "communications.communication_threads",
+    "communications.direct_message_threads",
+    "communications.message_attachments",
+    "communications.messages",
+    "communications.notification_deliveries",
+    "communications.notification_preferences",
+    "communications.notifications",
+    "communications.thread_members",
+    "identity.users",
+    "organisation.organisation_memberships",
+    "organisation.organisations",
+    "organisation.workspace_memberships",
+    "organisation.workspaces"
+  ],
+  "sourceLogicalSchemaHash": "42ab1eb99f25e6896dd34ac7a9d32799818d36c290f950a1c4110a46e3332e3c",
+  "physicalTableNamePolicy": "context_table underscore mapping",
+  "enumProjection": "Prisma enum projection; canonical allowed values remain in MAATAA logical contract"
+}

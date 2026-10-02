@@ -9,6 +9,7 @@ import {
 } from "../src/index.mjs";
 import { buildRouteImpactIndexes, diffApplicationIR, explainComposition, previewLogicalSchema, resolveComposition, sealApplicationIR, validateApplicationIR } from "../src/composition.mjs";
 import { assessDraftCompileTestability, assessContractCoverage, compileDraftLogicalSchema, compileLogicalSchema, diffTableContracts, validateTableContract, validateTableContractStructure } from "../src/contracts.mjs";
+import { generatePrismaPreview } from "../src/prisma-preview.mjs";
 import recoveredKernel from "../schema-sources/authored/maataa-core-v1/contracts.json" with { type: "json" };
 import organisationApproval from "../schema-sources/approvals/organisation-m2.7/approval-record.json" with { type: "json" };
 import organisationClosure from "../schema-sources/approvals/organisation-m2.7/fk-closure.json" with { type: "json" };
@@ -344,6 +345,7 @@ test("M2.5 validates source-backed table contracts and reports semantic changes"
 
 test("draft compilation is explicit and cannot cross the canonical compiler boundary", () => {
   const source = structuredClone(registry);
+  source.draftContracts = [];
   const provenance = { source: "communications-design", reference: "communications.notifications#table", reviewStatus: "unreviewed" };
   const contract = {
     schemaVersion: "1.0.0", id: "communications.notifications", context: "communications", name: "notifications", version: "1.0.0",
@@ -359,7 +361,7 @@ test("draft compilation is explicit and cannot cross the canonical compiler boun
   source.authoredContracts = [contract];
   source.tableContracts.contracts = [];
   assert.deepEqual(validateTableContractStructure(contract, source), { valid: true, errors: [] });
-  assert.ok(validateTableContract(contract, source).errors.some((item) => item.includes("must cite a source and reference and be approved")));
+  assert.ok(validateTableContract(contract, source).errors.some((item) => item.includes("provenance must be reviewed")));
   assert.deepEqual(assessDraftCompileTestability([contract.id], source), {
     status: "DRAFT_COMPILE_TESTABLE", counts: { total: 1, structurallyComplete: 1, partial: 0, nameOnly: 0 },
     entries: [{ tableId: contract.id, status: "STRUCTURALLY_COMPLETE", fieldCount: 3, errors: [] }],
@@ -368,7 +370,9 @@ test("draft compilation is explicit and cannot cross the canonical compiler boun
   const second = compileDraftLogicalSchema([contract.id], source);
   assert.equal(first.status, "DRAFT_LOGICAL_SCHEMA_READY");
   assert.equal(first.authority, "DRAFT_OR_MIXED");
-  assert.equal(first.prismaEligible, false);
+  assert.equal(first.prismaEligible, true, "structurally closed DRAFT can generate a non-deployable Prisma preview");
+  assert.equal(first.deployable, false);
+  assert.equal(first.migrationExecutable, false);
   assert.equal(first.model.tables[0].sourceAuthority, "AUTHORED_NONCANONICAL");
   assert.deepEqual(first, second);
   assert.match(first.schemaHash, /^[a-f0-9]{64}$/);
@@ -400,6 +404,39 @@ test("draft compilation is explicit and cannot cross the canonical compiler boun
   assert.equal(canonicalMissing.status, "BLOCKED");
   assert.equal(canonicalMissing.prismaEligible, false);
   assert.ok(canonicalMissing.blockers.some((item) => item.reason.includes("dependency communications.missing is not in the approved canonical contract registry")));
+});
+
+test("Communications DRAFT contracts close dependencies and emit a provider-labelled preview", () => {
+  const communicationsIds = registry.domains.tables.filter((table) => table.context === "communications").map((table) => table.id).sort();
+  assert.equal(communicationsIds.length, 9);
+  assert.equal(registry.draftContracts.length, 9);
+  assert.ok(registry.draftContracts.every((contract) => contract.schemaLifecycle === "DRAFT" && contract.provenance.kind === "MAATAA_AUTHORED"));
+  const readiness = assessDraftCompileTestability(communicationsIds, registry);
+  assert.equal(readiness.status, "DRAFT_COMPILE_TESTABLE");
+  assert.deepEqual(readiness.counts, { total: 9, structurallyComplete: 9, partial: 0, nameOnly: 0 });
+  const logical = compileDraftLogicalSchema(communicationsIds, registry);
+  assert.equal(logical.status, "DRAFT_LOGICAL_SCHEMA_READY");
+  assert.equal(logical.model.tables.length, 14, "closure includes all referenced Organisation and Identity contracts");
+  assert.ok(logical.model.tables.every((table) => ["CANONICAL", "DRAFT"].includes(table.schemaLifecycle)));
+  assert.equal(logical.model.tables.filter((table) => table.id.startsWith("communications.")).length, 9);
+  const noProvider = generatePrismaPreview(logical);
+  assert.equal(noProvider.status, "BLOCKED", "the adapter never silently chooses a provider");
+  const edgeCount = logical.model.tables.reduce((total, table) => total + table.foreignKeys.length, 0);
+  for (const provider of ["postgresql", "sqlite"]) {
+    const preview = generatePrismaPreview(logical, { targetProvider: provider });
+    assert.equal(preview.status, "GENERATED_UNVALIDATED");
+    assert.match(preview.schema, new RegExp(`provider = "${provider}"`));
+    assert.equal(preview.metadata.schemaLifecycle, "DRAFT");
+    assert.equal(preview.metadata.deployable, false);
+    assert.equal(preview.metadata.migrationExecutable, false);
+    assert.equal(preview.metadata.prismaPreviewValid, false, "Prisma CLI is unavailable, so syntax validation is not claimed");
+    assert.equal((preview.schema.match(/@relation\("R_/g) ?? []).length, edgeCount * 2, "each FK has its local Prisma relation and inverse relation field");
+    assert.equal((preview.schema.match(/onDelete: /g) ?? []).length, edgeCount, "every declared delete action is projected");
+    assert.equal((preview.schema.match(/onUpdate: /g) ?? []).length, edgeCount, "every declared update action is projected");
+    assert.match(preview.schema, /enum E_/);
+  }
+  assert.equal(assessContractCoverage(communicationsIds, registry).counts.complete, 0, "DRAFT contracts do not change canonical coverage");
+  assert.equal(assessContractCoverage(registry.tableContracts.contracts.map((item) => item.id), registry).counts.complete, 10);
 });
 
 test("M2.7 Organisation approval is complete, closed, and scoped to registry readiness", () => {
@@ -455,7 +492,8 @@ test("M2.7 Organisation approval is complete, closed, and scoped to registry rea
   const logical = compileDraftLogicalSchema(tableIds, registry);
   assert.equal(logical.status, "DRAFT_LOGICAL_SCHEMA_READY");
   assert.equal(logical.authority, "DRAFT_OR_MIXED");
-  assert.equal(logical.prismaEligible, false);
+  assert.equal(logical.prismaEligible, true, "closed authored schema may emit a DRAFT Prisma preview");
+  assert.equal(logical.deployable, false);
   assert.equal(logical.model.tables.length, 11, "Organisation closure includes identity.users");
   assert.equal(logical.model.tables.find((item) => item.id === "identity.users").sourceAuthority, "AUTHORED_NONCANONICAL");
   const canonicalLogical = compileLogicalSchema(tableIds, registry);
@@ -466,7 +504,7 @@ test("M2.7 Organisation approval is complete, closed, and scoped to registry rea
   promotedWithoutApproval.tableContracts.contracts.push(structuredClone(registry.authoredContracts.find((item) => item.id === "identity.users")));
   const unapprovedDependency = compileLogicalSchema(tableIds, promotedWithoutApproval);
   assert.equal(unapprovedDependency.status, "BLOCKED", "a dependency copied into the canonical array without approval must not become compiler input");
-  assert.ok(unapprovedDependency.blockers.some((item) => item.reason.includes("identity.users") && item.reason.includes("must cite a source and reference and be approved")));
+  assert.ok(unapprovedDependency.blockers.some((item) => item.reason.includes("identity.users") && item.reason.includes("provenance must be reviewed")));
 
   const newEdges = registry.tableContracts.contracts
     .filter((contract) => organisationApproval.newlyAuthoredContracts.includes(contract.id))

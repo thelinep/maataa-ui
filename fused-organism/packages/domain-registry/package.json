@@ -8,6 +8,7 @@
     ".": "./src/index.mjs",
     "./composition": "./src/composition.mjs",
     "./contracts": "./src/contracts.mjs",
+    "./prisma-preview": "./src/prisma-preview.mjs",
     "./sql-proposal": "./src/sql-proposal.mjs"
   },
   "files": [
@@ -32,6 +33,7 @@
     "routes:sync": "node scripts/update-route-registries.mjs",
     "composition:generate": "node scripts/generate-composition-artifacts.mjs",
     "validate": "node scripts/validate.mjs",
-    "contracts:propose-sql": "node scripts/propose-sql-contracts.mjs"
+    "contracts:propose-sql": "node scripts/propose-sql-contracts.mjs",
+    "contracts:communications-draft": "node scripts/generate-communications-draft-contracts.mjs && node scripts/generate-communications-prisma-preview.mjs"
   }
 }

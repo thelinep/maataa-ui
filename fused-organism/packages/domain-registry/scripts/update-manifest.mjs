@@ -25,6 +25,7 @@ const sliceMap = await readJson("data/slice-map.json");
 const spine = await readJson("catalog/spine.json");
 const tableContracts = await readJson("data/table-contracts.json");
 const authoredKernel = await readJson("schema-sources/authored/maataa-core-v1/contracts.json");
+const communicationsDraft = await readJson("schema-sources/authored/maataa-communications-v1/contracts.draft.json");
 const scalarTypes = await readJson("data/scalar-types.json");
 const schemaSourceRegistry = await readJson("schema-sources/registry.json");
 const schemaSourceRecords = await Promise.all(schemaSourceRegistry.records.map((relative) => readJson(`schema-sources/${relative.replace(/^\.\//, "")}`)));
@@ -110,6 +111,19 @@ manifest.assets = {
     records: authoredKernel.contracts.length,
     canonicalized: authoredKernel.contracts.filter((contract) => tableContracts.contracts.some((canonical) => canonical.id === contract.id)).length,
     pendingReview: authoredKernel.contracts.filter((contract) => !tableContracts.contracts.some((canonical) => canonical.id === contract.id)).length,
+  },
+  communicationsDraftContracts: {
+    path: "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
+    schemaLifecycle: communicationsDraft.schemaLifecycle,
+    records: communicationsDraft.contracts.length,
+    readiness: communicationsDraft.readiness,
+    prismaPreviews: ["postgresql", "sqlite"].map((provider) => ({
+      provider,
+      path: `./schema-sources/authored/maataa-communications-v1/prisma-preview.${provider}.draft.prisma`,
+      validation: "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
+      deployable: false,
+      migrationExecutable: false,
+    })),
   },
   scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },
   schemaSources: { path: "./schema-sources/registry.json", version: schemaSourceRegistry.schemaVersion, records: schemaSourceRecords.length, byClassification: schemaSourceRecords.reduce((counts, item) => ({ ...counts, [item.classification]: (counts[item.classification] ?? 0) + 1 }), {}) },
