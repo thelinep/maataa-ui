@@ -25,6 +25,8 @@
     "composition",
     "scripts",
     "src",
+    "prisma.config.postgresql.ts",
+    "prisma.config.sqlite.ts",
     "registry.manifest.json",
     "README.md"
   ],
@@ -34,6 +36,13 @@
     "composition:generate": "node scripts/generate-composition-artifacts.mjs",
     "validate": "node scripts/validate.mjs",
     "contracts:propose-sql": "node scripts/propose-sql-contracts.mjs",
-    "contracts:communications-draft": "node scripts/generate-communications-draft-contracts.mjs && node scripts/generate-communications-prisma-preview.mjs"
+    "contracts:communications-draft": "node scripts/generate-communications-draft-contracts.mjs && node scripts/generate-communications-prisma-preview.mjs",
+    "prisma:validate:postgresql": "prisma validate --config prisma.config.postgresql.ts --schema schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
+    "prisma:validate:sqlite": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
+    "prisma:validate:communications": "npm run prisma:validate:postgresql && npm run prisma:validate:sqlite",
+    "contracts:communications-validate": "node scripts/validate-communications-prisma-previews.mjs"
+  },
+  "devDependencies": {
+    "prisma": "7.9.1"
   }
 }

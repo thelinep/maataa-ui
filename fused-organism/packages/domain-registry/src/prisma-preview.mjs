@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 const typeMap = {
   uuid: "String", string: "String", text: "String", int: "Int", decimal: "Decimal",
   float: "Float", boolean: "Boolean", date: "DateTime", datetime: "DateTime", time: "DateTime",
@@ -8,12 +10,17 @@ const pascal = (value) => value.split(/[^a-zA-Z0-9]+/).filter(Boolean).map((part
 const prismaIdentifier = (value) => /^[A-Za-z][A-Za-z0-9_]*$/.test(value) ? value : `f_${value.replace(/[^A-Za-z0-9_]/g, "_")}`;
 const relationName = (fk) => `R_${fk.name}`;
 const inverseFieldName = (table, fk) => prismaIdentifier(`back_${table.context}_${table.name}_${fk.name}`);
+const providerConstraintName = (name, provider) => {
+  if (provider !== "postgresql" || Buffer.byteLength(name, "utf8") <= 63) return name;
+  const suffix = createHash("sha256").update(name).digest("hex").slice(0, 8);
+  return `${name.slice(0, 54)}_${suffix}`;
+};
 
 function fieldDefault(field) {
   if (field.defaultExpression?.kind === "uuid-v4") return " @default(uuid())";
   if (field.defaultExpression?.kind === "current-timestamp") return " @default(now())";
   if (field.defaultExpression?.kind === "database-native") return ` @default(dbgenerated(${JSON.stringify(field.defaultExpression.expression)}))`;
-  if (Object.hasOwn(field, "defaultLiteral")) return ` @default(${JSON.stringify(field.defaultLiteral)})`;
+  if (Object.hasOwn(field, "defaultLiteral")) return ` @default(${field.type === "enum" ? prismaIdentifier(field.defaultLiteral) : JSON.stringify(field.defaultLiteral)})`;
   return "";
 }
 
@@ -74,8 +81,8 @@ export function generatePrismaPreview(logicalResult, { targetProvider } = {}) {
       }
     }
     if (primaryKey.length > 1) lines.push(`  @@id([${primaryKey.map(prismaIdentifier).join(", ")}])`);
-    for (const unique of table.uniqueConstraints ?? []) lines.push(`  @@unique([${unique.fields.map(prismaIdentifier).join(", ")}], name: "${unique.name}")`);
-    for (const index of table.indexes ?? []) lines.push(`  @@index([${index.fields.map(prismaIdentifier).join(", ")}], name: "${index.name}")`);
+    for (const unique of table.uniqueConstraints ?? []) lines.push(`  @@unique([${unique.fields.map(prismaIdentifier).join(", ")}], map: "${providerConstraintName(unique.name, targetProvider)}")`);
+    for (const index of table.indexes ?? []) lines.push(`  @@index([${index.fields.map(prismaIdentifier).join(", ")}], map: "${providerConstraintName(index.name, targetProvider)}")`);
     lines.push(`  @@map("${table.context}_${table.name}")`);
     lines.push("}");
     return lines.join("\n");
@@ -99,7 +106,6 @@ export function generatePrismaPreview(logicalResult, { targetProvider } = {}) {
     "",
     "datasource db {",
     `  provider = "${targetProvider}"`,
-    "  url      = env(\"DATABASE_URL\")",
     "}",
     "",
     ...enums,
@@ -121,7 +127,7 @@ export function generatePrismaPreview(logicalResult, { targetProvider } = {}) {
       legalReviewed: false,
       prismaPreviewValid: false,
       migrationPreviewValid: false,
-      validationStatus: "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
+      validationStatus: "NOT_RUN",
       tableIds: tables.map((table) => table.id),
       sourceLogicalSchemaHash: logicalResult.schemaHash,
       physicalTableNamePolicy: "context_table underscore mapping",

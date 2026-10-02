@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "schemaLifecycle": "DRAFT",
+  "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+  "validationTool": "Prisma CLI 7.9.1",
+  "structuralStatus": "DRAFT_COMPILE_TESTABLE",
+  "projections": [
+    {
+      "provider": "postgresql",
+      "config": "prisma.config.postgresql.ts",
+      "schema": "schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
+      "status": "PASS",
+      "valid": true,
+      "exitCode": 0,
+      "output": "The schema at schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma is valid 🚀\n\nLoaded Prisma config from prisma.config.postgresql.ts.\n\nPrisma schema loaded from schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma."
+    },
+    {
+      "provider": "sqlite",
+      "config": "prisma.config.sqlite.ts",
+      "schema": "schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
+      "status": "PASS",
+      "valid": true,
+      "exitCode": 0,
+      "output": "The schema at schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma is valid 🚀\n\nLoaded Prisma config from prisma.config.sqlite.ts.\n\nPrisma schema loaded from schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma."
+    }
+  ],
+  "findings": [
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION_ERROR",
+      "status": "RESOLVED",
+      "message": "The initial emitted index names exceeded PostgreSQL's 63-byte identifier limit.",
+      "resolution": "The provider adapter now emits deterministic shortened physical names with a SHA-256 suffix; the database-neutral contract names are unchanged."
+    }
+  ]
+}

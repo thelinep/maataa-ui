@@ -116,6 +116,7 @@ manifest.assets = {
     path: "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
     schemaLifecycle: communicationsDraft.schemaLifecycle,
     records: communicationsDraft.contracts.length,
+    contractSetHash: communicationsDraft.contractSetHash,
     readiness: communicationsDraft.readiness,
     prismaPreviews: ["postgresql", "sqlite"].map((provider) => ({
       provider,

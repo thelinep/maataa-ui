@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -99,12 +100,16 @@ function makeContract(table) {
   };
 }
 
+const contracts = decisions.tables.map(makeContract).sort((a, b) => a.id.localeCompare(b.id));
+const stable = (value) => Array.isArray(value) ? value.map(stable) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stable(value[key])])) : value;
+const contractSetHash = createHash("sha256").update(JSON.stringify(stable(contracts))).digest("hex");
 const output = {
   schemaVersion: "1.0.0",
   context: "communications",
   schemaLifecycle: "DRAFT",
+  contractSetHash,
   generatedFrom: "maataa-communications-v1#reviewed-decisions",
-  contracts: decisions.tables.map(makeContract),
+  contracts,
 };
 
 await writeFile(path.join(sourceDir, "contracts.draft.json"), `${JSON.stringify(output, null, 2)}\n`);

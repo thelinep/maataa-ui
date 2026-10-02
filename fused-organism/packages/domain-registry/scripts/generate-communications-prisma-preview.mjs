@@ -40,4 +40,4 @@ for (const provider of ["postgresql", "sqlite"]) {
   await writeFile(path.join(outputRoot, `prisma-preview.${provider}.draft.prisma`), preview.schema);
   await writeFile(path.join(outputRoot, `prisma-preview.${provider}.draft.metadata.json`), `${JSON.stringify(preview.metadata, null, 2)}\n`);
 }
-console.log(JSON.stringify({ requestedCommunicationsTables: communicationsIds.length, closureTables: logical.model.tables.length, structureAndFkClosure: "PASS", logicalSchemaHash: logical.schemaHash, prismaPreviews: Object.fromEntries(Object.entries(previews).map(([key, value]) => [key, value.status])), prismaCliAvailable: false }, null, 2));
+console.log(JSON.stringify({ requestedCommunicationsTables: communicationsIds.length, closureTables: logical.model.tables.length, structureAndFkClosure: "PASS", logicalSchemaHash: logical.schemaHash, prismaPreviews: Object.fromEntries(Object.entries(previews).map(([key, value]) => [key, value.status])) }, null, 2));

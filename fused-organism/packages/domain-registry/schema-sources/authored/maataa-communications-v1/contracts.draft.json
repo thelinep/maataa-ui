@@ -2,8 +2,1640 @@
   "schemaVersion": "1.0.0",
   "context": "communications",
   "schemaLifecycle": "DRAFT",
+  "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
   "generatedFrom": "maataa-communications-v1#reviewed-decisions",
   "contracts": [
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.announcements",
+      "context": "communications",
+      "name": "announcements",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "An organisation-scoped authored announcement with an explicit, versioned audience specification.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "author_user_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "body": {
+          "type": "text",
+          "nullable": false
+        },
+        "audience_kind": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_announcements_audience_kind"
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_announcements_status",
+          "defaultLiteral": "draft"
+        },
+        "scheduled_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "withdrawn_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "expired_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "retired_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        }
+      },
+      "enums": [
+        {
+          "id": "communications_announcements_audience_kind",
+          "values": [
+            "organisation",
+            "workspace"
+          ]
+        },
+        {
+          "id": "communications_announcements_status",
+          "values": [
+            "draft",
+            "scheduled",
+            "published",
+            "expired",
+            "retired"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "fk_announcements_organisation_id_organisation_organisations",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_announcements_workspace_id_organisation_id_organisation_workspaces",
+          "fields": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_announcements_organisation_id_author_user_id_organisation_organisation_memberships",
+          "fields": [
+            "organisation_id",
+            "author_user_id"
+          ],
+          "references": "organisation.organisation_memberships",
+          "referencedFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_announcements_author_user_id_identity_users",
+          "fields": [
+            "author_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_to_organisation_organisations",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "workspace_id_organisation_id_to_organisation_workspaces",
+          "from": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "organisation_id_author_user_id_to_organisation_organisation_memberships",
+          "from": [
+            "organisation_id",
+            "author_user_id"
+          ],
+          "to": "organisation.organisation_memberships",
+          "toFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "author_user_id_to_identity_users",
+          "from": [
+            "author_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_announcements_1_organisation_id_status_published_at",
+          "fields": [
+            "organisation_id",
+            "status",
+            "published_at"
+          ],
+          "unique": false
+        },
+        {
+          "name": "ix_announcements_2_organisation_id_workspace_id",
+          "fields": [
+            "organisation_id",
+            "workspace_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "ix_announcements_3_organisation_id_workspace_id_status_published_at",
+          "fields": [
+            "organisation_id",
+            "workspace_id",
+            "status",
+            "published_at"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "PROPOSED: communications.announcements-retention-v1",
+        "mutable": "draft content and audience before publication; published audience is immutable; states advance only through declared transitions",
+        "retentionAnchor": "expired_at or retired_at",
+        "purge": "730 days after expiry/retirement; governance hold overrides ordinary deletion"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.announcements",
+          "domain-catalog#communications.announcements"
+        ],
+        "reviewedBy": null
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.communication_threads",
+      "context": "communications",
+      "name": "communication_threads",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "An organisation-scoped conversation container for messages and participants.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "kind": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_communication_threads_kind"
+        },
+        "subject": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "closed_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_communication_threads_status",
+          "defaultLiteral": "open"
+        },
+        "archived_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        }
+      },
+      "enums": [
+        {
+          "id": "communications_communication_threads_kind",
+          "values": [
+            "group",
+            "direct",
+            "announcement"
+          ]
+        },
+        {
+          "id": "communications_communication_threads_status",
+          "values": [
+            "open",
+            "closed",
+            "archived"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "uq_communication_threads_organisation_id_id",
+          "fields": [
+            "organisation_id",
+            "id"
+          ]
+        },
+        {
+          "name": "uq_communication_threads_organisation_id_id_workspace_id",
+          "fields": [
+            "organisation_id",
+            "id",
+            "workspace_id"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_communication_threads_organisation_id_organisation_organisations",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_communication_threads_workspace_id_organisation_id_organisation_workspaces",
+          "fields": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships",
+          "fields": [
+            "organisation_id",
+            "created_by_user_id"
+          ],
+          "references": "organisation.organisation_memberships",
+          "referencedFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_communication_threads_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_to_organisation_organisations",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "workspace_id_organisation_id_to_organisation_workspaces",
+          "from": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "organisation_id_created_by_user_id_to_organisation_organisation_memberships",
+          "from": [
+            "organisation_id",
+            "created_by_user_id"
+          ],
+          "to": "organisation.organisation_memberships",
+          "toFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_communication_threads_1_organisation_id_updated_at",
+          "fields": [
+            "organisation_id",
+            "updated_at"
+          ],
+          "unique": false
+        },
+        {
+          "name": "ix_communication_threads_2_organisation_id_kind_closed_at",
+          "fields": [
+            "organisation_id",
+            "kind",
+            "closed_at"
+          ],
+          "unique": false
+        },
+        {
+          "name": "ix_communication_threads_3_organisation_id_workspace_id",
+          "fields": [
+            "organisation_id",
+            "workspace_id"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "PROPOSED: communications.communication-threads-retention-v1",
+        "mutable": "subject, status, updated_at, closed_at, archived_at",
+        "retentionAnchor": "closed_at or archived_at",
+        "purge": "1095 days after close/archive; governance hold overrides ordinary deletion; child history is retained consistently"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.communication_threads",
+          "domain-catalog#communications.communication_threads"
+        ],
+        "reviewedBy": null
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.direct_message_threads",
+      "context": "communications",
+      "name": "direct_message_threads",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "Canonical pair mapping for a one-to-one direct-message thread.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "thread_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "participant_low_membership_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "participant_high_membership_id": {
+          "type": "uuid",
+          "nullable": false
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "uq_direct_message_threads_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id",
+          "fields": [
+            "organisation_id",
+            "workspace_id",
+            "participant_low_membership_id",
+            "participant_high_membership_id"
+          ]
+        },
+        {
+          "name": "uq_direct_message_threads_organisation_id_id",
+          "fields": [
+            "organisation_id",
+            "id"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads",
+          "fields": [
+            "organisation_id",
+            "thread_id"
+          ],
+          "references": "communications.communication_threads",
+          "referencedFields": [
+            "organisation_id",
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces",
+          "fields": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id",
+            "organisation_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships",
+          "fields": [
+            "participant_low_membership_id"
+          ],
+          "references": "organisation.workspace_memberships",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships",
+          "fields": [
+            "participant_high_membership_id"
+          ],
+          "references": "organisation.workspace_memberships",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_thread_id_to_communications_communication_threads",
+          "from": [
+            "organisation_id",
+            "thread_id"
+          ],
+          "to": "communications.communication_threads",
+          "toFields": [
+            "organisation_id",
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "workspace_id_organisation_id_to_organisation_workspaces",
+          "from": [
+            "workspace_id",
+            "organisation_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id",
+            "organisation_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "participant_low_membership_id_to_organisation_workspace_memberships",
+          "from": [
+            "participant_low_membership_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "participant_high_membership_id_to_organisation_workspace_memberships",
+          "from": [
+            "participant_high_membership_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_direct_message_threads_1_organisation_id_workspace_id",
+          "fields": [
+            "organisation_id",
+            "workspace_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "ix_direct_message_threads_2_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id",
+          "fields": [
+            "organisation_id",
+            "workspace_id",
+            "participant_low_membership_id",
+            "participant_high_membership_id"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "retentionPolicy": "PROPOSED: communications.direct-message-threads-retention-v1",
+        "mutable": "none after creation; participants and workspace are immutable for this mapping",
+        "retentionAnchor": "parent thread closure",
+        "purge": "1095 days after parent thread closure; governance hold overrides ordinary deletion"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.direct_message_threads",
+          "domain-catalog#communications.direct_message_threads"
+        ],
+        "reviewedBy": null
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.message_attachments",
+      "context": "communications",
+      "name": "message_attachments",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "Metadata and opaque object-storage locator for an attachment belonging to a message.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "message_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "media_type": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "deleted_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "storage_key": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 512
+        },
+        "file_name": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 255
+        },
+        "byte_length": {
+          "type": "int",
+          "nullable": false
+        },
+        "sha256": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 64
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "uq_message_attachments_organisation_id_storage_key",
+          "fields": [
+            "organisation_id",
+            "storage_key"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_message_attachments_organisation_id_message_id_communications_messages",
+          "fields": [
+            "organisation_id",
+            "message_id"
+          ],
+          "references": "communications.messages",
+          "referencedFields": [
+            "organisation_id",
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_message_attachments_organisation_id_created_by_user_id_organisation_organisation_memberships",
+          "fields": [
+            "organisation_id",
+            "created_by_user_id"
+          ],
+          "references": "organisation.organisation_memberships",
+          "referencedFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_message_attachments_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_message_id_to_communications_messages",
+          "from": [
+            "organisation_id",
+            "message_id"
+          ],
+          "to": "communications.messages",
+          "toFields": [
+            "organisation_id",
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "organisation_id_created_by_user_id_to_organisation_organisation_memberships",
+          "from": [
+            "organisation_id",
+            "created_by_user_id"
+          ],
+          "to": "organisation.organisation_memberships",
+          "toFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_message_attachments_1_organisation_id_message_id",
+          "fields": [
+            "organisation_id",
+            "message_id"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "retentionPolicy": "PROPOSED: communications.message-attachments-retention-v1",
+        "mutable": "deleted_at only; bytes are stored outside this relational table using an opaque storage reference",
+        "retentionAnchor": "same parent-message closure/retention lifecycle",
+        "purge": "Same 1095-day parent-message lifecycle; storage object deletion must honor governance hold and follow the parent message"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.message_attachments",
+          "domain-catalog#communications.message_attachments"
+        ],
+        "reviewedBy": null
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.messages",
+      "context": "communications",
+      "name": "messages",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "An ordered text message authored within a thread.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "thread_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "sender_user_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "sequence_number": {
+          "type": "int",
+          "nullable": false
+        },
+        "body": {
+          "type": "text",
+          "nullable": false
+        },
+        "edited_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "redacted_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "state": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_messages_state",
+          "defaultLiteral": "visible"
+        },
+        "redacted_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "redaction_reason": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 500
+        }
+      },
+      "enums": [
+        {
+          "id": "communications_messages_state",
+          "values": [
+            "visible",
+            "redacted"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "uq_messages_organisation_id_id",
+          "fields": [
+            "organisation_id",
+            "id"
+          ]
+        },
+        {
+          "name": "uq_messages_organisation_id_thread_id_sequence_number",
+          "fields": [
+            "organisation_id",
+            "thread_id",
+            "sequence_number"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_messages_organisation_id_thread_id_communications_communication_threads",
+          "fields": [
+            "organisation_id",
+            "thread_id"
+          ],
+          "references": "communications.communication_threads",
+          "referencedFields": [
+            "organisation_id",
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_messages_organisation_id_sender_user_id_organisation_organisation_memberships",
+          "fields": [
+            "organisation_id",
+            "sender_user_id"
+          ],
+          "references": "organisation.organisation_memberships",
+          "referencedFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_messages_redacted_by_user_id_identity_users",
+          "fields": [
+            "redacted_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_messages_sender_user_id_identity_users",
+          "fields": [
+            "sender_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_thread_id_to_communications_communication_threads",
+          "from": [
+            "organisation_id",
+            "thread_id"
+          ],
+          "to": "communications.communication_threads",
+          "toFields": [
+            "organisation_id",
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "organisation_id_sender_user_id_to_organisation_organisation_memberships",
+          "from": [
+            "organisation_id",
+            "sender_user_id"
+          ],
+          "to": "organisation.organisation_memberships",
+          "toFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "redacted_by_user_id_to_identity_users",
+          "from": [
+            "redacted_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "sender_user_id_to_identity_users",
+          "from": [
+            "sender_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_messages_1_organisation_id_thread_id_created_at",
+          "fields": [
+            "organisation_id",
+            "thread_id",
+            "created_at"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "PROPOSED: communications.messages-retention-v1",
+        "mutable": "body may be corrected with edited_at; redaction sets state, redacted_at, redacted_by_user_id, and reason while preserving row identity",
+        "retentionAnchor": "parent thread closure",
+        "purge": "1095 days after parent thread closure; governance hold overrides ordinary deletion"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.messages",
+          "domain-catalog#communications.messages"
+        ],
+        "reviewedBy": null
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.notification_deliveries",
+      "context": "communications",
+      "name": "notification_deliveries",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "An append-oriented record of one channel delivery attempt for a notification.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "notification_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "channel": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_notification_deliveries_channel"
+        },
+        "attempt_number": {
+          "type": "int",
+          "nullable": false
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_notification_deliveries_status"
+        },
+        "idempotency_key": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "provider_reference": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 255
+        },
+        "scheduled_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "attempted_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "completed_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "failure_code": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 100
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "sent_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "delivered_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "failed_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "terminal_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC"
+        },
+        "provider_identifier": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 160
+        },
+        "response_metadata": {
+          "type": "json",
+          "nullable": true
+        },
+        "failure_detail": {
+          "type": "text",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "communications_notification_deliveries_channel",
+          "values": [
+            "in_app",
+            "email",
+            "push"
+          ]
+        },
+        {
+          "id": "communications_notification_deliveries_status",
+          "values": [
+            "queued",
+            "sending",
+            "sent",
+            "delivered",
+            "failed",
+            "suppressed"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "uq_notification_deliveries_organisation_id_idempotency_key",
+          "fields": [
+            "organisation_id",
+            "idempotency_key"
+          ]
+        },
+        {
+          "name": "uq_notification_deliveries_notification_id_attempt_number",
+          "fields": [
+            "notification_id",
+            "attempt_number"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_notification_deliveries_organisation_id_organisation_organisations",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_notification_deliveries_organisation_id_notification_id_communications_notifications",
+          "fields": [
+            "organisation_id",
+            "notification_id"
+          ],
+          "references": "communications.notifications",
+          "referencedFields": [
+            "organisation_id",
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_to_organisation_organisations",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "organisation_id_notification_id_to_communications_notifications",
+          "from": [
+            "organisation_id",
+            "notification_id"
+          ],
+          "to": "communications.notifications",
+          "toFields": [
+            "organisation_id",
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_notification_deliveries_1_organisation_id_status_scheduled_at",
+          "fields": [
+            "organisation_id",
+            "status",
+            "scheduled_at"
+          ],
+          "unique": false
+        },
+        {
+          "name": "ix_notification_deliveries_2_notification_id_created_at",
+          "fields": [
+            "notification_id",
+            "created_at"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "retentionPolicy": "PROPOSED: communications.notification-deliveries-retention-v1",
+        "mutable": "one attempt advances through its declared lifecycle; each retry is a new row; terminal attempt evidence is preserved",
+        "retentionAnchor": "terminal_at",
+        "purge": "180 days after terminal delivery state; governance hold overrides ordinary deletion; provider secrets are prohibited"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.notification_deliveries",
+          "domain-catalog#communications.notification_deliveries"
+        ],
+        "reviewedBy": null
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "communications.notification_preferences",
+      "context": "communications",
+      "name": "notification_preferences",
+      "version": "1.0.0",
+      "schemaLifecycle": "DRAFT",
+      "description": "A user’s per-organisation opt-in/out preferences by notification category and channel; no provider credentials.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "user_id": {
+          "type": "uuid",
+          "nullable": false
+        },
+        "notification_type": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 80
+        },
+        "channel": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "communications_notification_preferences_channel"
+        },
+        "enabled": {
+          "type": "boolean",
+          "nullable": false,
+          "defaultLiteral": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        }
+      },
+      "enums": [
+        {
+          "id": "communications_notification_preferences_channel",
+          "values": [
+            "in_app",
+            "email",
+            "push"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "uq_notification_preferences_organisation_id_user_id_notification_type_channel",
+          "fields": [
+            "organisation_id",
+            "user_id",
+            "notification_type",
+            "channel"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_notification_preferences_organisation_id_organisation_organisations",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships",
+          "fields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "references": "organisation.organisation_memberships",
+          "referencedFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        },
+        {
+          "name": "fk_notification_preferences_user_id_identity_users",
+          "fields": [
+            "user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action"
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation_id_to_organisation_organisations",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "organisation_id_user_id_to_organisation_organisation_memberships",
+          "from": [
+            "organisation_id",
+            "user_id"
+          ],
+          "to": "organisation.organisation_memberships",
+          "toFields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "cardinality": "many-to-one"
+        },
+        {
+          "name": "user_id_to_identity_users",
+          "from": [
+            "user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_notification_preferences_1_organisation_id_user_id",
+          "fields": [
+            "organisation_id",
+            "user_id"
+          ],
+          "unique": false
+        }
+      ],
+      "ownership": {
+        "owner": "communications",
+        "steward": "communications",
+        "tenantKey": [
+          "organisation_id"
+        ]
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "PROPOSED: communications.notification-preferences-retention-v1",
+        "mutable": "enabled, updated_at",
+        "retentionAnchor": "preference becomes inactive or owning organisation membership ends",
+        "purge": "90 days after inactive/terminal lifecycle; governance hold overrides ordinary deletion"
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "maataa-communications-v1#communications.notification_preferences",
+          "domain-catalog#communications.notification_preferences"
+        ],
+        "reviewedBy": null
+      }
+    },
     {
       "schemaVersion": "1.0.0",
       "id": "communications.notifications",
@@ -338,710 +1970,6 @@
     },
     {
       "schemaVersion": "1.0.0",
-      "id": "communications.notification_preferences",
-      "context": "communications",
-      "name": "notification_preferences",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "A user’s per-organisation opt-in/out preferences by notification category and channel; no provider credentials.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "user_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "notification_type": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 80
-        },
-        "channel": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_notification_preferences_channel"
-        },
-        "enabled": {
-          "type": "boolean",
-          "nullable": false,
-          "defaultLiteral": true
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "updated_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        }
-      },
-      "enums": [
-        {
-          "id": "communications_notification_preferences_channel",
-          "values": [
-            "in_app",
-            "email",
-            "push"
-          ]
-        }
-      ],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [
-        {
-          "name": "uq_notification_preferences_organisation_id_user_id_notification_type_channel",
-          "fields": [
-            "organisation_id",
-            "user_id",
-            "notification_type",
-            "channel"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_notification_preferences_organisation_id_organisation_organisations",
-          "fields": [
-            "organisation_id"
-          ],
-          "references": "organisation.organisations",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_notification_preferences_organisation_id_user_id_organisation_organisation_memberships",
-          "fields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "references": "organisation.organisation_memberships",
-          "referencedFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_notification_preferences_user_id_identity_users",
-          "fields": [
-            "user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_to_organisation_organisations",
-          "from": [
-            "organisation_id"
-          ],
-          "to": "organisation.organisations",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_user_id_to_organisation_organisation_memberships",
-          "from": [
-            "organisation_id",
-            "user_id"
-          ],
-          "to": "organisation.organisation_memberships",
-          "toFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "user_id_to_identity_users",
-          "from": [
-            "user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_notification_preferences_1_organisation_id_user_id",
-          "fields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "updatedAt": "updated_at",
-        "retentionPolicy": "PROPOSED: communications.notification-preferences-retention-v1",
-        "mutable": "enabled, updated_at",
-        "retentionAnchor": "preference becomes inactive or owning organisation membership ends",
-        "purge": "90 days after inactive/terminal lifecycle; governance hold overrides ordinary deletion"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.notification_preferences",
-          "domain-catalog#communications.notification_preferences"
-        ],
-        "reviewedBy": null
-      }
-    },
-    {
-      "schemaVersion": "1.0.0",
-      "id": "communications.notification_deliveries",
-      "context": "communications",
-      "name": "notification_deliveries",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "An append-oriented record of one channel delivery attempt for a notification.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "notification_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "channel": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_notification_deliveries_channel"
-        },
-        "attempt_number": {
-          "type": "int",
-          "nullable": false
-        },
-        "status": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_notification_deliveries_status"
-        },
-        "idempotency_key": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 200
-        },
-        "provider_reference": {
-          "type": "string",
-          "nullable": true,
-          "maxLength": 255
-        },
-        "scheduled_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "attempted_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "completed_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "failure_code": {
-          "type": "string",
-          "nullable": true,
-          "maxLength": 100
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "sent_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "delivered_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "failed_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "terminal_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "provider_identifier": {
-          "type": "string",
-          "nullable": true,
-          "maxLength": 160
-        },
-        "response_metadata": {
-          "type": "json",
-          "nullable": true
-        },
-        "failure_detail": {
-          "type": "text",
-          "nullable": true
-        }
-      },
-      "enums": [
-        {
-          "id": "communications_notification_deliveries_channel",
-          "values": [
-            "in_app",
-            "email",
-            "push"
-          ]
-        },
-        {
-          "id": "communications_notification_deliveries_status",
-          "values": [
-            "queued",
-            "sending",
-            "sent",
-            "delivered",
-            "failed",
-            "suppressed"
-          ]
-        }
-      ],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [
-        {
-          "name": "uq_notification_deliveries_organisation_id_idempotency_key",
-          "fields": [
-            "organisation_id",
-            "idempotency_key"
-          ]
-        },
-        {
-          "name": "uq_notification_deliveries_notification_id_attempt_number",
-          "fields": [
-            "notification_id",
-            "attempt_number"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_notification_deliveries_organisation_id_organisation_organisations",
-          "fields": [
-            "organisation_id"
-          ],
-          "references": "organisation.organisations",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_notification_deliveries_organisation_id_notification_id_communications_notifications",
-          "fields": [
-            "organisation_id",
-            "notification_id"
-          ],
-          "references": "communications.notifications",
-          "referencedFields": [
-            "organisation_id",
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_to_organisation_organisations",
-          "from": [
-            "organisation_id"
-          ],
-          "to": "organisation.organisations",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_notification_id_to_communications_notifications",
-          "from": [
-            "organisation_id",
-            "notification_id"
-          ],
-          "to": "communications.notifications",
-          "toFields": [
-            "organisation_id",
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_notification_deliveries_1_organisation_id_status_scheduled_at",
-          "fields": [
-            "organisation_id",
-            "status",
-            "scheduled_at"
-          ],
-          "unique": false
-        },
-        {
-          "name": "ix_notification_deliveries_2_notification_id_created_at",
-          "fields": [
-            "notification_id",
-            "created_at"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "retentionPolicy": "PROPOSED: communications.notification-deliveries-retention-v1",
-        "mutable": "one attempt advances through its declared lifecycle; each retry is a new row; terminal attempt evidence is preserved",
-        "retentionAnchor": "terminal_at",
-        "purge": "180 days after terminal delivery state; governance hold overrides ordinary deletion; provider secrets are prohibited"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.notification_deliveries",
-          "domain-catalog#communications.notification_deliveries"
-        ],
-        "reviewedBy": null
-      }
-    },
-    {
-      "schemaVersion": "1.0.0",
-      "id": "communications.communication_threads",
-      "context": "communications",
-      "name": "communication_threads",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "An organisation-scoped conversation container for messages and participants.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "kind": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_communication_threads_kind"
-        },
-        "subject": {
-          "type": "string",
-          "nullable": true,
-          "maxLength": 200
-        },
-        "created_by_user_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "updated_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "closed_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "workspace_id": {
-          "type": "uuid",
-          "nullable": true
-        },
-        "status": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_communication_threads_status",
-          "defaultLiteral": "open"
-        },
-        "archived_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        }
-      },
-      "enums": [
-        {
-          "id": "communications_communication_threads_kind",
-          "values": [
-            "group",
-            "direct",
-            "announcement"
-          ]
-        },
-        {
-          "id": "communications_communication_threads_status",
-          "values": [
-            "open",
-            "closed",
-            "archived"
-          ]
-        }
-      ],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [
-        {
-          "name": "uq_communication_threads_organisation_id_id",
-          "fields": [
-            "organisation_id",
-            "id"
-          ]
-        },
-        {
-          "name": "uq_communication_threads_organisation_id_id_workspace_id",
-          "fields": [
-            "organisation_id",
-            "id",
-            "workspace_id"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_communication_threads_organisation_id_organisation_organisations",
-          "fields": [
-            "organisation_id"
-          ],
-          "references": "organisation.organisations",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_communication_threads_workspace_id_organisation_id_organisation_workspaces",
-          "fields": [
-            "workspace_id",
-            "organisation_id"
-          ],
-          "references": "organisation.workspaces",
-          "referencedFields": [
-            "id",
-            "organisation_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_communication_threads_organisation_id_created_by_user_id_organisation_organisation_memberships",
-          "fields": [
-            "organisation_id",
-            "created_by_user_id"
-          ],
-          "references": "organisation.organisation_memberships",
-          "referencedFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_communication_threads_created_by_user_id_identity_users",
-          "fields": [
-            "created_by_user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_to_organisation_organisations",
-          "from": [
-            "organisation_id"
-          ],
-          "to": "organisation.organisations",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "workspace_id_organisation_id_to_organisation_workspaces",
-          "from": [
-            "workspace_id",
-            "organisation_id"
-          ],
-          "to": "organisation.workspaces",
-          "toFields": [
-            "id",
-            "organisation_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_created_by_user_id_to_organisation_organisation_memberships",
-          "from": [
-            "organisation_id",
-            "created_by_user_id"
-          ],
-          "to": "organisation.organisation_memberships",
-          "toFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "created_by_user_id_to_identity_users",
-          "from": [
-            "created_by_user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_communication_threads_1_organisation_id_updated_at",
-          "fields": [
-            "organisation_id",
-            "updated_at"
-          ],
-          "unique": false
-        },
-        {
-          "name": "ix_communication_threads_2_organisation_id_kind_closed_at",
-          "fields": [
-            "organisation_id",
-            "kind",
-            "closed_at"
-          ],
-          "unique": false
-        },
-        {
-          "name": "ix_communication_threads_3_organisation_id_workspace_id",
-          "fields": [
-            "organisation_id",
-            "workspace_id"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "updatedAt": "updated_at",
-        "retentionPolicy": "PROPOSED: communications.communication-threads-retention-v1",
-        "mutable": "subject, status, updated_at, closed_at, archived_at",
-        "retentionAnchor": "closed_at or archived_at",
-        "purge": "1095 days after close/archive; governance hold overrides ordinary deletion; child history is retained consistently"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.communication_threads",
-          "domain-catalog#communications.communication_threads"
-        ],
-        "reviewedBy": null
-      }
-    },
-    {
-      "schemaVersion": "1.0.0",
       "id": "communications.thread_members",
       "context": "communications",
       "name": "thread_members",
@@ -1272,933 +2200,6 @@
         ],
         "reviewedBy": null
       }
-    },
-    {
-      "schemaVersion": "1.0.0",
-      "id": "communications.messages",
-      "context": "communications",
-      "name": "messages",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "An ordered text message authored within a thread.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "thread_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "sender_user_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "sequence_number": {
-          "type": "int",
-          "nullable": false
-        },
-        "body": {
-          "type": "text",
-          "nullable": false
-        },
-        "edited_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "redacted_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "updated_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "state": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_messages_state",
-          "defaultLiteral": "visible"
-        },
-        "redacted_by_user_id": {
-          "type": "uuid",
-          "nullable": true
-        },
-        "redaction_reason": {
-          "type": "string",
-          "nullable": true,
-          "maxLength": 500
-        }
-      },
-      "enums": [
-        {
-          "id": "communications_messages_state",
-          "values": [
-            "visible",
-            "redacted"
-          ]
-        }
-      ],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [
-        {
-          "name": "uq_messages_organisation_id_id",
-          "fields": [
-            "organisation_id",
-            "id"
-          ]
-        },
-        {
-          "name": "uq_messages_organisation_id_thread_id_sequence_number",
-          "fields": [
-            "organisation_id",
-            "thread_id",
-            "sequence_number"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_messages_organisation_id_thread_id_communications_communication_threads",
-          "fields": [
-            "organisation_id",
-            "thread_id"
-          ],
-          "references": "communications.communication_threads",
-          "referencedFields": [
-            "organisation_id",
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_messages_organisation_id_sender_user_id_organisation_organisation_memberships",
-          "fields": [
-            "organisation_id",
-            "sender_user_id"
-          ],
-          "references": "organisation.organisation_memberships",
-          "referencedFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_messages_redacted_by_user_id_identity_users",
-          "fields": [
-            "redacted_by_user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "set-null",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_messages_sender_user_id_identity_users",
-          "fields": [
-            "sender_user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_thread_id_to_communications_communication_threads",
-          "from": [
-            "organisation_id",
-            "thread_id"
-          ],
-          "to": "communications.communication_threads",
-          "toFields": [
-            "organisation_id",
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_sender_user_id_to_organisation_organisation_memberships",
-          "from": [
-            "organisation_id",
-            "sender_user_id"
-          ],
-          "to": "organisation.organisation_memberships",
-          "toFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "redacted_by_user_id_to_identity_users",
-          "from": [
-            "redacted_by_user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "sender_user_id_to_identity_users",
-          "from": [
-            "sender_user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_messages_1_organisation_id_thread_id_created_at",
-          "fields": [
-            "organisation_id",
-            "thread_id",
-            "created_at"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "updatedAt": "updated_at",
-        "retentionPolicy": "PROPOSED: communications.messages-retention-v1",
-        "mutable": "body may be corrected with edited_at; redaction sets state, redacted_at, redacted_by_user_id, and reason while preserving row identity",
-        "retentionAnchor": "parent thread closure",
-        "purge": "1095 days after parent thread closure; governance hold overrides ordinary deletion"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.messages",
-          "domain-catalog#communications.messages"
-        ],
-        "reviewedBy": null
-      }
-    },
-    {
-      "schemaVersion": "1.0.0",
-      "id": "communications.message_attachments",
-      "context": "communications",
-      "name": "message_attachments",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "Metadata and opaque object-storage locator for an attachment belonging to a message.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "message_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "media_type": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 200
-        },
-        "created_by_user_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "deleted_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "storage_key": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 512
-        },
-        "file_name": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 255
-        },
-        "byte_length": {
-          "type": "int",
-          "nullable": false
-        },
-        "sha256": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 64
-        }
-      },
-      "enums": [],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [
-        {
-          "name": "uq_message_attachments_organisation_id_storage_key",
-          "fields": [
-            "organisation_id",
-            "storage_key"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_message_attachments_organisation_id_message_id_communications_messages",
-          "fields": [
-            "organisation_id",
-            "message_id"
-          ],
-          "references": "communications.messages",
-          "referencedFields": [
-            "organisation_id",
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_message_attachments_organisation_id_created_by_user_id_organisation_organisation_memberships",
-          "fields": [
-            "organisation_id",
-            "created_by_user_id"
-          ],
-          "references": "organisation.organisation_memberships",
-          "referencedFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_message_attachments_created_by_user_id_identity_users",
-          "fields": [
-            "created_by_user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_message_id_to_communications_messages",
-          "from": [
-            "organisation_id",
-            "message_id"
-          ],
-          "to": "communications.messages",
-          "toFields": [
-            "organisation_id",
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_created_by_user_id_to_organisation_organisation_memberships",
-          "from": [
-            "organisation_id",
-            "created_by_user_id"
-          ],
-          "to": "organisation.organisation_memberships",
-          "toFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "created_by_user_id_to_identity_users",
-          "from": [
-            "created_by_user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_message_attachments_1_organisation_id_message_id",
-          "fields": [
-            "organisation_id",
-            "message_id"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "retentionPolicy": "PROPOSED: communications.message-attachments-retention-v1",
-        "mutable": "deleted_at only; bytes are stored outside this relational table using an opaque storage reference",
-        "retentionAnchor": "same parent-message closure/retention lifecycle",
-        "purge": "Same 1095-day parent-message lifecycle; storage object deletion must honor governance hold and follow the parent message"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.message_attachments",
-          "domain-catalog#communications.message_attachments"
-        ],
-        "reviewedBy": null
-      }
-    },
-    {
-      "schemaVersion": "1.0.0",
-      "id": "communications.direct_message_threads",
-      "context": "communications",
-      "name": "direct_message_threads",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "Canonical pair mapping for a one-to-one direct-message thread.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "thread_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "workspace_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "participant_low_membership_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "participant_high_membership_id": {
-          "type": "uuid",
-          "nullable": false
-        }
-      },
-      "enums": [],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [
-        {
-          "name": "uq_direct_message_threads_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id",
-          "fields": [
-            "organisation_id",
-            "workspace_id",
-            "participant_low_membership_id",
-            "participant_high_membership_id"
-          ]
-        },
-        {
-          "name": "uq_direct_message_threads_organisation_id_id",
-          "fields": [
-            "organisation_id",
-            "id"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "name": "fk_direct_message_threads_organisation_id_thread_id_communications_communication_threads",
-          "fields": [
-            "organisation_id",
-            "thread_id"
-          ],
-          "references": "communications.communication_threads",
-          "referencedFields": [
-            "organisation_id",
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_direct_message_threads_workspace_id_organisation_id_organisation_workspaces",
-          "fields": [
-            "workspace_id",
-            "organisation_id"
-          ],
-          "references": "organisation.workspaces",
-          "referencedFields": [
-            "id",
-            "organisation_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_direct_message_threads_participant_low_membership_id_organisation_workspace_memberships",
-          "fields": [
-            "participant_low_membership_id"
-          ],
-          "references": "organisation.workspace_memberships",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_direct_message_threads_participant_high_membership_id_organisation_workspace_memberships",
-          "fields": [
-            "participant_high_membership_id"
-          ],
-          "references": "organisation.workspace_memberships",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_thread_id_to_communications_communication_threads",
-          "from": [
-            "organisation_id",
-            "thread_id"
-          ],
-          "to": "communications.communication_threads",
-          "toFields": [
-            "organisation_id",
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "workspace_id_organisation_id_to_organisation_workspaces",
-          "from": [
-            "workspace_id",
-            "organisation_id"
-          ],
-          "to": "organisation.workspaces",
-          "toFields": [
-            "id",
-            "organisation_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "participant_low_membership_id_to_organisation_workspace_memberships",
-          "from": [
-            "participant_low_membership_id"
-          ],
-          "to": "organisation.workspace_memberships",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "participant_high_membership_id_to_organisation_workspace_memberships",
-          "from": [
-            "participant_high_membership_id"
-          ],
-          "to": "organisation.workspace_memberships",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_direct_message_threads_1_organisation_id_workspace_id",
-          "fields": [
-            "organisation_id",
-            "workspace_id"
-          ],
-          "unique": false
-        },
-        {
-          "name": "ix_direct_message_threads_2_organisation_id_workspace_id_participant_low_membership_id_participant_high_membership_id",
-          "fields": [
-            "organisation_id",
-            "workspace_id",
-            "participant_low_membership_id",
-            "participant_high_membership_id"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "retentionPolicy": "PROPOSED: communications.direct-message-threads-retention-v1",
-        "mutable": "none after creation; participants and workspace are immutable for this mapping",
-        "retentionAnchor": "parent thread closure",
-        "purge": "1095 days after parent thread closure; governance hold overrides ordinary deletion"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.direct_message_threads",
-          "domain-catalog#communications.direct_message_threads"
-        ],
-        "reviewedBy": null
-      }
-    },
-    {
-      "schemaVersion": "1.0.0",
-      "id": "communications.announcements",
-      "context": "communications",
-      "name": "announcements",
-      "version": "1.0.0",
-      "schemaLifecycle": "DRAFT",
-      "description": "An organisation-scoped authored announcement with an explicit, versioned audience specification.",
-      "fields": {
-        "id": {
-          "type": "uuid",
-          "nullable": false,
-          "generated": true,
-          "defaultExpression": {
-            "kind": "uuid-v4"
-          }
-        },
-        "organisation_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "author_user_id": {
-          "type": "uuid",
-          "nullable": false
-        },
-        "title": {
-          "type": "string",
-          "nullable": false,
-          "maxLength": 200
-        },
-        "body": {
-          "type": "text",
-          "nullable": false
-        },
-        "audience_kind": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_announcements_audience_kind"
-        },
-        "status": {
-          "type": "enum",
-          "nullable": false,
-          "enumId": "communications_announcements_status",
-          "defaultLiteral": "draft"
-        },
-        "scheduled_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "published_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "withdrawn_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "created_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "updated_at": {
-          "type": "datetime",
-          "nullable": false,
-          "timezone": "UTC",
-          "defaultExpression": {
-            "kind": "current-timestamp"
-          }
-        },
-        "workspace_id": {
-          "type": "uuid",
-          "nullable": true
-        },
-        "expired_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        },
-        "retired_at": {
-          "type": "datetime",
-          "nullable": true,
-          "timezone": "UTC"
-        }
-      },
-      "enums": [
-        {
-          "id": "communications_announcements_audience_kind",
-          "values": [
-            "organisation",
-            "workspace"
-          ]
-        },
-        {
-          "id": "communications_announcements_status",
-          "values": [
-            "draft",
-            "scheduled",
-            "published",
-            "expired",
-            "retired"
-          ]
-        }
-      ],
-      "primaryKey": [
-        "id"
-      ],
-      "uniqueConstraints": [],
-      "foreignKeys": [
-        {
-          "name": "fk_announcements_organisation_id_organisation_organisations",
-          "fields": [
-            "organisation_id"
-          ],
-          "references": "organisation.organisations",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_announcements_workspace_id_organisation_id_organisation_workspaces",
-          "fields": [
-            "workspace_id",
-            "organisation_id"
-          ],
-          "references": "organisation.workspaces",
-          "referencedFields": [
-            "id",
-            "organisation_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_announcements_organisation_id_author_user_id_organisation_organisation_memberships",
-          "fields": [
-            "organisation_id",
-            "author_user_id"
-          ],
-          "references": "organisation.organisation_memberships",
-          "referencedFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        },
-        {
-          "name": "fk_announcements_author_user_id_identity_users",
-          "fields": [
-            "author_user_id"
-          ],
-          "references": "identity.users",
-          "referencedFields": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no-action"
-        }
-      ],
-      "relations": [
-        {
-          "name": "organisation_id_to_organisation_organisations",
-          "from": [
-            "organisation_id"
-          ],
-          "to": "organisation.organisations",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "workspace_id_organisation_id_to_organisation_workspaces",
-          "from": [
-            "workspace_id",
-            "organisation_id"
-          ],
-          "to": "organisation.workspaces",
-          "toFields": [
-            "id",
-            "organisation_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "organisation_id_author_user_id_to_organisation_organisation_memberships",
-          "from": [
-            "organisation_id",
-            "author_user_id"
-          ],
-          "to": "organisation.organisation_memberships",
-          "toFields": [
-            "organisation_id",
-            "user_id"
-          ],
-          "cardinality": "many-to-one"
-        },
-        {
-          "name": "author_user_id_to_identity_users",
-          "from": [
-            "author_user_id"
-          ],
-          "to": "identity.users",
-          "toFields": [
-            "id"
-          ],
-          "cardinality": "many-to-one"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "ix_announcements_1_organisation_id_status_published_at",
-          "fields": [
-            "organisation_id",
-            "status",
-            "published_at"
-          ],
-          "unique": false
-        },
-        {
-          "name": "ix_announcements_2_organisation_id_workspace_id",
-          "fields": [
-            "organisation_id",
-            "workspace_id"
-          ],
-          "unique": false
-        },
-        {
-          "name": "ix_announcements_3_organisation_id_workspace_id_status_published_at",
-          "fields": [
-            "organisation_id",
-            "workspace_id",
-            "status",
-            "published_at"
-          ],
-          "unique": false
-        }
-      ],
-      "ownership": {
-        "owner": "communications",
-        "steward": "communications",
-        "tenantKey": [
-          "organisation_id"
-        ]
-      },
-      "lifecycle": {
-        "createdAt": "created_at",
-        "updatedAt": "updated_at",
-        "retentionPolicy": "PROPOSED: communications.announcements-retention-v1",
-        "mutable": "draft content and audience before publication; published audience is immutable; states advance only through declared transitions",
-        "retentionAnchor": "expired_at or retired_at",
-        "purge": "730 days after expiry/retirement; governance hold overrides ordinary deletion"
-      },
-      "provenance": {
-        "kind": "MAATAA_AUTHORED",
-        "evidence": [
-          "maataa-communications-v1#communications.announcements",
-          "domain-catalog#communications.announcements"
-        ],
-        "reviewedBy": null
-      }
     }
   ],
   "readiness": {
@@ -2206,7 +2207,7 @@
     "fkClosure": "PASS",
     "schemaReady": true,
     "logicalPreviewValid": true,
-    "prismaPreviewValid": false,
+    "prismaPreviewValid": true,
     "migrationPreviewValid": false,
     "migrationApproved": false,
     "deploymentApproved": false,

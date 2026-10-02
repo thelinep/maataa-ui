@@ -7,9 +7,9 @@
   "migrationApproved": false,
   "deploymentApproved": false,
   "legalReviewed": false,
-  "prismaPreviewValid": false,
+  "prismaPreviewValid": true,
   "migrationPreviewValid": false,
-  "validationStatus": "NOT_RUN_PRISMA_CLI_UNAVAILABLE",
+  "validationStatus": "PASS",
   "tableIds": [
     "communications.announcements",
     "communications.communication_threads",
@@ -28,5 +28,7 @@
   ],
   "sourceLogicalSchemaHash": "42ab1eb99f25e6896dd34ac7a9d32799818d36c290f950a1c4110a46e3332e3c",
   "physicalTableNamePolicy": "context_table underscore mapping",
-  "enumProjection": "Prisma enum projection; canonical allowed values remain in MAATAA logical contract"
+  "enumProjection": "Prisma enum projection; canonical allowed values remain in MAATAA logical contract",
+  "validationTool": "Prisma CLI 7.9.1",
+  "contractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90"
 }
