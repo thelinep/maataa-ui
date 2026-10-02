@@ -21,8 +21,10 @@ import routePatternPolicy from "../routes/pattern-derivation-policy.json" with {
 import scalarTypes from "../data/scalar-types.json" with { type: "json" };
 import tableContracts from "../data/table-contracts.json" with { type: "json" };
 import { validateTableContract } from "./contracts.mjs";
+import schemaSources from "../schema-sources/registry.json" with { type: "json" };
+import candidateSchemaSources from "../schema-sources/candidates/neroevents-postgres-migrations.json" with { type: "json" };
 
-export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts });
+export const registry = Object.freeze({ manifest, domains, contexts, products, flows, routes, registeredRoutes, declaredPatterns, routeAliases, routeResolutionRegistry, routeFindings, flowRouteReferences, deferredRoutes, routePatternPolicy, actors, sliceMap, routeResolutions, futureProductionTables, flowClassifications, spine, scalarTypes, tableContracts, schemaSources: { ...schemaSources, records: [candidateSchemaSources] } });
 
 const uniqueBy = (items, field) => new Map(items.map((item) => [item[field], item]));
 const compositionProducts = (source) => source.products.products ?? [];
@@ -162,6 +164,27 @@ export function validateRegistry(source = registry) {
     emitted.add(key);
     findings.push(finding(code, entity, message, options));
   };
+  const schemaSources = source.schemaSources?.records ?? [];
+  const schemaSourceIds = new Set();
+  for (const record of schemaSources) {
+    if (!record?.id || schemaSourceIds.has(record.id)) {
+      add("schema-source-invalid", record?.id ?? "<missing>", "Schema source records must have unique non-empty IDs.");
+      continue;
+    }
+    schemaSourceIds.add(record.id);
+    const validClassification = ["AUTHORITATIVE", "CANDIDATE", "SUPERSEDED", "REJECTED"].includes(record.classification) && typeof record.name === "string" && record.name.trim().length > 0;
+    const validCommit = /^[a-f0-9]{40}$/.test(record.repository?.commitSha ?? "");
+    const filePaths = Array.isArray(record.files) ? record.files.map((file) => file?.path) : [];
+    const validFiles = Array.isArray(record.files) && record.files.length > 0 && filePaths.length === new Set(filePaths).size && record.files.every((file) => typeof file?.path === "string" && file.path.length > 0 && /^[a-f0-9]{40}$/.test(file.blobSha ?? ""));
+    const validCoverage = Array.isArray(record.coverage?.contexts) && Array.isArray(record.coverage?.canonicalTableIds) && Array.isArray(record.coverage?.sourceNativeTables);
+    const validDecision = ["pending", "adopted", "rejected", "superseded"].includes(record.adoptionDecision?.status);
+    const authorityReviewed = record.classification !== "AUTHORITATIVE" || (record.adoptionDecision?.status === "adopted" && record.adoptionDecision?.decidedBy && record.reviewer);
+    const expectedDecision = { AUTHORITATIVE: "adopted", CANDIDATE: "pending", SUPERSEDED: "superseded", REJECTED: "rejected" }[record.classification];
+    const classificationConsistent = record.adoptionDecision?.status === expectedDecision;
+    if (!validClassification || !validCommit || !validFiles || !validCoverage || !validDecision || !authorityReviewed || !classificationConsistent) {
+      add("schema-source-invalid", record.id, "Schema source classification, immutable repository/file pins, coverage, or adoption review metadata is incomplete or inconsistent.");
+    }
+  }
   const duplicateIds = (items, field, code) => {
     const seen = new Set();
     for (const item of items) {

@@ -7,7 +7,7 @@ import { validateApplicationIR } from "../src/composition.mjs";
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(await readFile(path.join(packageRoot, "registry.manifest.json"), "utf8"));
-const assetDirs = ["catalog", "contexts", "data", "flows", "products", "routes", "schemas", "sources", "applications", "composition"];
+const assetDirs = ["catalog", "contexts", "data", "flows", "products", "routes", "schemas", "sources", "schema-sources", "applications", "composition"];
 const files = [];
 for (const directory of assetDirs) {
   const walk = async (relativeDir) => {

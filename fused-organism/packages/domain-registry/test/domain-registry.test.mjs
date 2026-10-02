@@ -300,7 +300,7 @@ test("M2.5 validates source-backed table contracts and reports semantic changes"
   const provenance = { source: "reviewed-schema.sql", reference: "tables.organisations", reviewStatus: "approved", reviewedBy: "schema-steward" };
   const contract = {
     schemaVersion: "1.0.0", id: "organisation.organisations", context: "organisation", name: "organisations", version: "1.0.0",
-    fields: { id: { type: "uuid", nullable: false, generated: true, provenance }, label: { type: "string", nullable: false, generated: false, maxLength: 160, provenance }, created_at: { type: "datetime", nullable: false, generated: false, default: "now", timezone: "UTC", provenance }, updated_at: { type: "datetime", nullable: false, generated: false, default: "now", timezone: "UTC", provenance } },
+    fields: { id: { type: "uuid", nullable: false, generated: true, provenance }, label: { type: "string", nullable: false, generated: false, maxLength: 160, provenance }, created_at: { type: "datetime", nullable: false, generated: false, defaultExpression: { kind: "current-timestamp" }, timezone: "UTC", provenance }, updated_at: { type: "datetime", nullable: false, generated: false, defaultExpression: { kind: "current-timestamp" }, timezone: "UTC", provenance } },
     enums: [], primaryKey: ["id"], uniqueConstraints: [], foreignKeys: [], relations: [], indexes: [],
     ownership: { owner: "organisation", steward: "platform", provenance },
     lifecycle: { createdAt: "created_at", updatedAt: "updated_at", provenance }, provenance,
@@ -310,6 +310,16 @@ test("M2.5 validates source-backed table contracts and reports semantic changes"
   const invalid = structuredClone(contract);
   invalid.primaryKey = ["unknown"];
   assert.ok(validateTableContract(invalid, source).errors.some((item) => item.includes("unknown field")));
+  const ambiguousDefault = structuredClone(contract);
+  ambiguousDefault.fields.label.defaultLiteral = "now()";
+  ambiguousDefault.fields.label.defaultExpression = { kind: "current-timestamp" };
+  assert.ok(validateTableContract(ambiguousDefault, source).errors.some((item) => item.includes("both defaultLiteral and defaultExpression")));
+  const logicalOnly = structuredClone(contract);
+  logicalOnly.relations = [{ name: "relatedOrganisation", from: ["id"], to: contract.id, toFields: ["id"], cardinality: "many-to-one", provenance }];
+  assert.deepEqual(validateTableContract(logicalOnly, source), { valid: true, errors: [] }, "logical relations are not fabricated from or forced to duplicate physical FKs");
+  const implicitManyToMany = structuredClone(contract);
+  implicitManyToMany.relations = [{ name: "members", to: contract.id, cardinality: "many-to-many", provenance }];
+  assert.ok(validateTableContract(implicitManyToMany, source).errors.some((item) => item.includes("requires an authored join-table contract")));
   const changed = structuredClone(contract);
   changed.fields.label.maxLength = 200;
   const diff = diffTableContracts({ contracts: [contract] }, { contracts: [changed] });

@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "b21c980c67db71a207e3795d12f964c89d947ab2b435f7b49eae676ea4807ce4",
+    "registryHash": "7b2033c419a3fcb1b80eed4b1b79856035705c6cd1c20d2009e727744f99d389",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -558,6 +558,22 @@
         "sha256": "9d1b0cfa06fffc6202f3cf03872d6729a9eb72d3fcea0c3c05ce284140b754f6"
       },
       {
+        "path": "./schema-sources/approved/README.md",
+        "sha256": "2ef8f162042f677d4e7ae89624cd1e8d452bbfec22415558f5f2ef0b41e419cd"
+      },
+      {
+        "path": "./schema-sources/candidates/neroevents-postgres-migrations.json",
+        "sha256": "fe4f0a6c94a53c41f284d7702b2b7f0fb4233e1f625b14e5863ec889e299c9b9"
+      },
+      {
+        "path": "./schema-sources/registry.json",
+        "sha256": "6d84d83eeba2f3b7e86c6b46f213f81fb38405ee0fc3027c79f3e20348ae5d92"
+      },
+      {
+        "path": "./schema-sources/rejected/README.md",
+        "sha256": "7851ce169e161c52920d4aa5b8c5c617098eebf0cb33781d38a120b066a0412d"
+      },
+      {
         "path": "./schemas/application-ir.schema.json",
         "sha256": "66418f5f430b1bf1352a59c1bea0a9a8b7a965ac2c113d1fe9f1adb1a74bd59f"
       },
@@ -602,8 +618,12 @@
         "sha256": "347760c4b085adb504cf7a936b11211976eaad41511caa42867c03a485c36e24"
       },
       {
+        "path": "./schemas/schema-source.schema.json",
+        "sha256": "d66a585b76e8840096347dccf8119865a5fb7da6f9e9f2f779660c6b0a328f4a"
+      },
+      {
         "path": "./schemas/table-contract.schema.json",
-        "sha256": "8a961e830e57b1d204424a36104724198d4dad33ec5fa8399de5b3f4d212a83c"
+        "sha256": "f39ac156eeae9db0b52cf2892cdb283d0aed04e6d849f8f1e06d6dc20699817c"
       },
       {
         "path": "./schemas/table.schema.json",
@@ -928,6 +948,14 @@
       "status": "canonical-vocabulary",
       "records": 12
     },
+    "schemaSources": {
+      "path": "./schema-sources/registry.json",
+      "version": "1.0.0",
+      "records": 1,
+      "byClassification": {
+        "CANDIDATE": 1
+      }
+    },
     "compositionArtifacts": {
       "path": "./composition/route-impact-indexes.json",
       "version": "1.0.0",
@@ -1099,7 +1127,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "b21c980c67db71a207e3795d12f964c89d947ab2b435f7b49eae676ea4807ce4",
+    "packageHash": "7b2033c419a3fcb1b80eed4b1b79856035705c6cd1c20d2009e727744f99d389",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

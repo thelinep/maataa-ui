@@ -7,18 +7,19 @@
   "exports": {
     ".": "./src/index.mjs",
     "./composition": "./src/composition.mjs",
-    "./contracts": "./src/contracts.mjs"
+    "./contracts": "./src/contracts.mjs",
+    "./sql-proposal": "./src/sql-proposal.mjs"
   },
   "files": [
     "catalog",
     "contexts",
-    "data",
     "flows",
     "products",
     "routes",
     "schemas",
     "data",
     "sources",
+    "schema-sources",
     "applications",
     "composition",
     "scripts",
@@ -30,6 +31,7 @@
     "test": "node --test test/*.test.mjs",
     "routes:sync": "node scripts/update-route-registries.mjs",
     "composition:generate": "node scripts/generate-composition-artifacts.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "contracts:propose-sql": "node scripts/propose-sql-contracts.mjs"
   }
 }

@@ -1086,6 +1086,10 @@ td strong { color: var(--ink); font-size: 9px; }
 .studio-route-validity strong { font-size: 10px; }
 .studio-governance-note { margin: 0 13px 13px; color: var(--muted); font-size: 8px; line-height: 1.5; }
 .studio-governance-steps > div.is-blocked { border-color: color-mix(in srgb, var(--clay) 55%, var(--line)); background: color-mix(in srgb, var(--clay) 6%, var(--surface)); }
+.studio-source-list { display: grid; gap: 8px; padding: 12px; }
+.studio-source-list article { padding: 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface-soft); }
+.studio-source-list article > strong { margin-right: 9px; font-size: 12px; }
+.studio-source-list article p { margin: 7px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
 .studio-findings-panel { grid-column: 1 / -1; }
 .studio-finding-list { display: grid; max-height: 490px; overflow: auto; padding: 0 13px; }
 .studio-finding-row { display: grid; grid-template-columns: 64px 190px minmax(0, 1fr); align-items: start; gap: 7px; padding: 8px 0; border-bottom: 1px solid var(--line); }

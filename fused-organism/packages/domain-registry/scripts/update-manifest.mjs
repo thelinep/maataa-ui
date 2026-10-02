@@ -25,6 +25,8 @@ const sliceMap = await readJson("data/slice-map.json");
 const spine = await readJson("catalog/spine.json");
 const tableContracts = await readJson("data/table-contracts.json");
 const scalarTypes = await readJson("data/scalar-types.json");
+const schemaSourceRegistry = await readJson("schema-sources/registry.json");
+const schemaSourceRecords = await Promise.all(schemaSourceRegistry.records.map((relative) => readJson(`schema-sources/${relative.replace(/^\.\//, "")}`)));
 const architectureSource = await readJson("sources/deepseek_json_20261002_2c644e.json");
 const sourceSpine = await readJson("sources/deepseek_json_20261002_104c0f.json");
 const projections = [
@@ -50,7 +52,7 @@ for (const [canonical, projection] of projections) {
 const expectedLegacyRoutes = { schemaVersion: "1.0.0", status: "source-imported", routes: registeredRoutes.routes.map(({ kind, declared, registered, executable, routeState, ...route }) => ({ ...route, status: "registered" })) };
 if (JSON.stringify(expectedLegacyRoutes) !== JSON.stringify(await readJson("data/route-registry.json"))) throw new Error("Legacy route catalog projection mismatch: routes/registered.json vs data/route-registry.json");
 const assetFiles = [];
-for (const directory of ["catalog", "contexts", "data", "flows", "products", "routes", "schemas", "sources", "applications", "composition"]) {
+for (const directory of ["catalog", "contexts", "data", "flows", "products", "routes", "schemas", "sources", "schema-sources", "applications", "composition"]) {
   const walk = async (current) => {
     for (const entry of await readdir(path.join(root, current), { withFileTypes: true })) {
       const relative = path.posix.join(current, entry.name);
@@ -101,6 +103,7 @@ manifest.assets = {
   applicationRegistry: { path: "./applications/registry.json", version: "1.0.0", status: "local-preview", records: (await readJson("applications/registry.json")).records.length, resolverVersion: "1.0.0" },
   tableContracts: { path: "./data/table-contracts.json", version: tableContracts.schemaVersion, status: tableContracts.status, records: tableContracts.contracts.length, catalogTables: domains.tables.length, ...schemaCoverage.counts, byContext: schemaCoverage.byContext },
   scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },
+  schemaSources: { path: "./schema-sources/registry.json", version: schemaSourceRegistry.schemaVersion, records: schemaSourceRecords.length, byClassification: schemaSourceRecords.reduce((counts, item) => ({ ...counts, [item.classification]: (counts[item.classification] ?? 0) + 1 }), {}) },
   compositionArtifacts: { path: "./composition/route-impact-indexes.json", version: "1.0.0", status: "generated-preview", routeBacklog: (await readJson("composition/route-impact-indexes.json")).deferredRouteBacklog.length, compiler: "not-implemented" },
 };
 manifest.sources = manifest.sources.filter((source) => source.key !== "m1ArchitectureProposal").map((source) => ({ ...source, snapshot: `./sources/${source.file}` }));

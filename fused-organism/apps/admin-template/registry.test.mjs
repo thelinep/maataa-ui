@@ -14,6 +14,7 @@ test("runtime route resolution requires an owning application", () => {
   assert.equal(resolveApplicationRoute("tlps", "P001")?.appId, "tlps");
   assert.equal(resolveApplicationRoute("nevoevents", "P001"), null);
   assert.equal(resolveApplicationRoute("missing-app", "P001"), null);
+  assert.equal(resolveApplicationRoute("maataa-workspace", "data-studio/governance/contracts")?.id, "data-studio/governance/contracts");
 });
 
 test("domain mappings resolve only to routes and environments owned by their application", () => {

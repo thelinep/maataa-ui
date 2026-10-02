@@ -32,7 +32,14 @@
         "type": { "enum": ["uuid", "string", "text", "int", "decimal", "float", "boolean", "date", "datetime", "time", "json", "bytes", "enum"] },
         "nullable": { "type": "boolean" },
         "generated": { "type": "boolean" },
-        "default": {},
+        "defaultLiteral": {},
+        "defaultExpression": {
+          "oneOf": [
+            { "type": "object", "required": ["kind"], "properties": { "kind": { "const": "current-timestamp" } }, "additionalProperties": false },
+            { "type": "object", "required": ["kind"], "properties": { "kind": { "const": "uuid-v4" } }, "additionalProperties": false },
+            { "type": "object", "required": ["kind", "expression", "dialect"], "properties": { "kind": { "const": "database-native" }, "expression": { "type": "string", "minLength": 1 }, "dialect": { "type": "string", "minLength": 1 } }, "additionalProperties": false }
+          ]
+        },
         "maxLength": { "type": "integer", "minimum": 1 },
         "precision": { "type": "integer", "minimum": 1 },
         "scale": { "type": "integer", "minimum": 0 },
@@ -45,7 +52,7 @@
     },
     "constraint": { "type": "object", "required": ["name", "fields", "provenance"], "properties": { "name": { "type": "string" }, "fields": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } }, "provenance": { "$ref": "#/$defs/provenance" } }, "additionalProperties": false },
     "foreignKey": { "type": "object", "required": ["name", "fields", "references", "referencedFields", "onDelete", "onUpdate", "provenance"], "properties": { "name": { "type": "string" }, "fields": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "references": { "type": "string" }, "referencedFields": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "onDelete": { "enum": ["cascade", "restrict", "set-null", "set-default", "no-action"] }, "onUpdate": { "enum": ["cascade", "restrict", "set-null", "set-default", "no-action"] }, "provenance": { "$ref": "#/$defs/provenance" } }, "additionalProperties": false },
-    "relation": { "type": "object", "required": ["name", "from", "to", "toFields", "cardinality", "onDelete", "provenance"], "properties": { "name": { "type": "string" }, "from": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "to": { "type": "string" }, "toFields": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "cardinality": { "enum": ["one-to-one", "one-to-many", "many-to-one", "many-to-many"] }, "onDelete": { "enum": ["cascade", "restrict", "set-null", "set-default", "no-action"] }, "provenance": { "$ref": "#/$defs/provenance" } }, "additionalProperties": false },
+    "relation": { "type": "object", "required": ["name", "to", "cardinality", "provenance"], "properties": { "name": { "type": "string" }, "from": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "to": { "type": "string" }, "toFields": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "cardinality": { "enum": ["one-to-one", "one-to-many", "many-to-one", "many-to-many"] }, "through": { "type": "object", "required": ["tableId", "sourceForeignKey", "targetForeignKey"], "properties": { "tableId": { "type": "string" }, "sourceForeignKey": { "type": "string" }, "targetForeignKey": { "type": "string" } }, "additionalProperties": false }, "provenance": { "$ref": "#/$defs/provenance" } }, "allOf": [{ "if": { "properties": { "cardinality": { "const": "many-to-many" } }, "required": ["cardinality"] }, "then": { "required": ["through"], "properties": { "from": { "not": {} }, "toFields": { "not": {} } } } }, { "if": { "properties": { "cardinality": { "enum": ["one-to-one", "one-to-many", "many-to-one"] } }, "required": ["cardinality"] }, "then": { "required": ["from", "toFields"] } }], "additionalProperties": false },
     "index": { "type": "object", "required": ["name", "fields", "unique", "provenance"], "properties": { "name": { "type": "string" }, "fields": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "unique": { "type": "boolean" }, "method": { "type": "string" }, "provenance": { "$ref": "#/$defs/provenance" } }, "additionalProperties": false },
     "ownership": { "type": "object", "required": ["owner", "steward"], "properties": { "owner": { "type": "string" }, "steward": { "type": "string" }, "tenantKey": { "type": "string" }, "provenance": { "$ref": "#/$defs/provenance" } }, "additionalProperties": false },
     "lifecycle": { "type": "object", "required": ["createdAt", "updatedAt"], "properties": { "createdAt": { "type": "string" }, "updatedAt": { "type": "string" }, "retiredAt": { "type": "string" }, "softDeleteField": { "type": "string" }, "retentionPolicy": { "type": "string" }, "provenance": { "$ref": "#/$defs/provenance" } }, "additionalProperties": false },

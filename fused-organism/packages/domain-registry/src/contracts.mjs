@@ -29,7 +29,10 @@ export function validateTableContract(contract, source) {
     if (field.type === "decimal" && (!Number.isInteger(field.precision) || !Number.isInteger(field.scale) || field.scale > field.precision)) errors.push(`Field ${fieldName} needs valid decimal precision and scale.`);
     if (field.type === "datetime" && !field.timezone) errors.push(`Field ${fieldName} must declare timezone semantics.`);
     if (field.type === "enum" && !enumIds.has(field.enumId)) errors.push(`Field ${fieldName} references missing enum ${field.enumId ?? "<missing>"}.`);
-    if (field.generated === true && has(field, "default")) errors.push(`Field ${fieldName} cannot declare both generated and default without an explicit generation rule.`);
+    if (has(field, "defaultLiteral") && has(field, "defaultExpression")) errors.push(`Field ${fieldName} cannot have both defaultLiteral and defaultExpression; their meanings are distinct.`);
+    if (field.defaultExpression && !["current-timestamp", "uuid-v4", "database-native"].includes(field.defaultExpression.kind)) errors.push(`Field ${fieldName} has an unsupported default expression kind.`);
+    if (field.defaultExpression?.kind === "database-native" && (!field.defaultExpression.expression?.trim() || !field.defaultExpression.dialect?.trim())) errors.push(`Field ${fieldName} database-native default must preserve its expression and dialect explicitly.`);
+    if (field.generated === true && (has(field, "defaultLiteral") || has(field, "defaultExpression"))) errors.push(`Field ${fieldName} cannot declare generated behavior and a default without an explicit generation rule.`);
   }
   for (const enumDefinition of contract.enums ?? []) {
     if (!enumDefinition.id || !Array.isArray(enumDefinition.values) || !enumDefinition.values.length || new Set(enumDefinition.values).size !== enumDefinition.values.length) errors.push(`Enum ${enumDefinition.id ?? "<missing>"} must have a unique, non-empty value list.`);
@@ -66,7 +69,7 @@ export function validateTableContract(contract, source) {
     }
     if ((key.fields ?? []).length !== (key.referencedFields ?? []).length) errors.push(`Foreign key ${key.name} source and target field counts differ.`);
     if ([key.onDelete, key.onUpdate].includes("set-null") && (key.fields ?? []).some((name) => fields[name]?.nullable !== true)) errors.push(`Foreign key ${key.name} uses set-null on a non-nullable field.`);
-    if ([key.onDelete, key.onUpdate].includes("set-default") && (key.fields ?? []).some((name) => !has(fields[name], "default"))) errors.push(`Foreign key ${key.name} uses set-default without a declared field default.`);
+    if ([key.onDelete, key.onUpdate].includes("set-default") && (key.fields ?? []).some((name) => !has(fields[name], "defaultLiteral") && !has(fields[name], "defaultExpression"))) errors.push(`Foreign key ${key.name} uses set-default without a declared field default.`);
     if (!provenanceApproved(key.provenance)) errors.push(`Foreign key ${key.name} provenance must be approved and source-backed.`);
   }
   for (const relation of contract.relations ?? []) {
@@ -76,13 +79,25 @@ export function validateTableContract(contract, source) {
     if (!target) errors.push(`Relation ${relation.name} targets unknown table ${relation.to}.`);
     const targetContract = (source.tableContracts?.contracts ?? []).find((item) => item.id === relation.to);
     if (!targetContract) errors.push(`Relation ${relation.name} target contract is not authored: ${relation.to}.`);
-    else for (const [index, field] of (relation.toFields ?? []).entries()) {
-      if (!has(targetContract.fields, field)) errors.push(`Relation ${relation.name} targets unknown field ${relation.to}.${field}.`);
-      const localField = fields[relation.from?.[index]];
-      const targetField = targetContract.fields?.[field];
-      if (localField && targetField && localField.type !== targetField.type) errors.push(`Relation ${relation.name} has incompatible scalar types for ${relation.from[index]} and ${relation.to}.${field}.`);
+    else if (relation.cardinality === "many-to-many") {
+      const joinContract = (source.tableContracts?.contracts ?? []).find((item) => item.id === relation.through?.tableId);
+      if (!joinContract) errors.push(`Many-to-many relation ${relation.name} requires an authored join-table contract: ${relation.through?.tableId ?? "<missing>"}.`);
+      else {
+        const sourceFk = joinContract.foreignKeys?.find((item) => item.name === relation.through?.sourceForeignKey);
+        const targetFk = joinContract.foreignKeys?.find((item) => item.name === relation.through?.targetForeignKey);
+        if (sourceFk?.references !== contract.id) errors.push(`Many-to-many relation ${relation.name} source join key must reference ${contract.id}.`);
+        if (targetFk?.references !== relation.to) errors.push(`Many-to-many relation ${relation.name} target join key must reference ${relation.to}.`);
+        if (sourceFk && targetFk && relation.through.sourceForeignKey === relation.through.targetForeignKey) errors.push(`Many-to-many relation ${relation.name} must identify two distinct join-table foreign keys.`);
+      }
+    } else {
+      for (const [index, field] of (relation.toFields ?? []).entries()) {
+        if (!has(targetContract.fields, field)) errors.push(`Relation ${relation.name} targets unknown field ${relation.to}.${field}.`);
+        const localField = fields[relation.from?.[index]];
+        const targetField = targetContract.fields?.[field];
+        if (localField && targetField && localField.type !== targetField.type) errors.push(`Relation ${relation.name} has incompatible scalar types for ${relation.from[index]} and ${relation.to}.${field}.`);
+      }
+      if ((relation.from ?? []).length !== (relation.toFields ?? []).length) errors.push(`Relation ${relation.name} source and target field counts differ.`);
     }
-    if ((relation.from ?? []).length !== (relation.toFields ?? []).length && relation.cardinality !== "many-to-many") errors.push(`Relation ${relation.name} source and target field counts differ.`);
   }
   if (Array.isArray(contract.primaryKey)) {
     if (!contract.primaryKey.length) errors.push("A complete table contract requires a non-empty primary key.");

@@ -1,0 +1,39 @@
+name: Domain Registry
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/domain-registry.yml"
+      - "fused-organism/packages/domain-registry/**"
+      - "fused-organism/apps/admin-template/**"
+      - "fused-organism/package.json"
+      - "fused-organism/package-lock.json"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/domain-registry.yml"
+      - "fused-organism/packages/domain-registry/**"
+      - "fused-organism/apps/admin-template/**"
+      - "fused-organism/package.json"
+      - "fused-organism/package-lock.json"
+
+jobs:
+  domain-registry:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: fused-organism
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+          cache: npm
+          cache-dependency-path: fused-organism/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm test --workspace @maataa/domain-registry
+      - run: npm run validate --workspace @maataa/domain-registry
+      - run: npm run test:admin
+      - run: npm run build --workspace @maataa-app/admin-template
+      - run: node --check apps/admin-template/screens/data-studio.mjs
+      - run: node --check apps/admin-template/preview-controller.mjs

@@ -17,6 +17,7 @@ const adminRoutes = [
   ["data-studio/compose", "Composition workspace", "workflow", "Data Studio", "data-studio:read", "data-studio"],
   ["data-studio/apps", "Generated applications", "grid", "Data Studio", "data-studio:read", "data-studio"],
   ["data-studio/governance", "Governance", "shield", "Data Studio", "data-studio:read", "data-studio"],
+  ["data-studio/governance/contracts", "Contract coverage", "database", "Data Studio", "data-studio:read", "data-studio"],
   ["data-studio/system", "System connections", "server", "Data Studio", "data-studio:read", "data-studio"],
   ["mailbox", "Mailbox", "mail", "Communication", "mail:read", "communication"],
   ["notes", "Notes", "note", "Communication", "notes:read", "communication"],

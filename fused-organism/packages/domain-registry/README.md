@@ -16,6 +16,12 @@ The supplied registry still contains no authoritative field/key/relation source,
 
 Registry publication and schema compilation are separate gates. A valid, publishable domain package does not imply schema compiler readiness. `registry.manifest.json` records both values, and its schema compiler gate remains blocked until all canonical tables have valid complete contracts. `schemas/compilation-plan.schema.json` remains a future downstream contract.
 
+### M2.6 schema source intake
+
+`schema-sources/registry.json` references immutable source records classified as `AUTHORITATIVE`, `CANDIDATE`, `SUPERSEDED`, or `REJECTED`. `schema-sources/candidates/neroevents-postgres-migrations.json` pins the separate NEVO repository's SQL files to a commit and blob SHAs with zero MAATAA context/table mappings. The registry gate rejects inconsistent source classification and adoption metadata.
+
+`src/sql-proposal.mjs` and `npm run contracts:propose-sql -- --input <file> --source-id <id> --source-file <path>` emit proposal JSON after verifying the input's Git blob SHA. The importer never writes `data/table-contracts.json`; unsupported SQL becomes a diagnostic, physical FKs remain distinct from logical relations, and every proposal requires human review. `defaultLiteral` and `defaultExpression` keep stored values separate from executable defaults. Many-to-many relations require a named, authored join-table contract. Data Studio → Governance → Contract coverage shows table/context completeness, source authority, review state, missing sections, blocked targets, validation findings, and proof-app usage.
+
 This package is the versioned source registry read by Data Studio. It keeps a **Draft Registry** inspectable even when invalid and exposes a fail-closed publish/compiler gate.
 
 ## Canonical package layout
