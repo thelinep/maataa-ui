@@ -3,13 +3,13 @@
   "proofType": "MAATAA_GLOBAL_SCHEMA_READINESS",
   "evidenceBoundary": "Schema readiness proof only; it does not authorize or prove a migration or deployment.",
   "sourceSnapshot": {
-    "gitHead": "675337f84d1e85a33e617d25d90ca26e428b4d28",
+    "gitHead": "89dd322467863fed5c4eb40fd49a0cca4b6cd253",
     "branch": "feat/fused-organism-parent",
     "workingTreeDirty": true,
-    "trackedChangeCount": 72,
-    "untrackedFileCount": 495,
+    "trackedChangeCount": 67,
+    "untrackedFileCount": 496,
     "registryVersion": "1.0.0",
-    "registryHash": "0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9",
+    "registryHash": "c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
     "prismaVersionPinned": "7.9.1"
   },
   "schema": {
@@ -347,8 +347,8 @@
     "registryTests": {
       "command": "npm test",
       "exitCode": 0,
-      "tests": 30,
-      "passed": 30,
+      "tests": 43,
+      "passed": 43,
       "failed": 0
     },
     "registryIntegrity": {
@@ -359,7 +359,7 @@
         "Domain registry: VALID · Route registry: VALID · Registry publishable: YES · Schema compiler ready: YES",
         "Routes: 284 registered static, 0 registered dynamic, 0 declared only, 0 approved aliases, 11 unresolved.",
         "Application IR artifacts: PASS · 4 records pinned to M1",
-        "Reproducible package hash: PASS · 0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9",
+        "Reproducible package hash: PASS · c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
         "Registry validation PASS: publishable; warnings and info are recorded above."
       ]
     },

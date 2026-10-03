@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "inventoryStatus": "NO_CONCRETE_TARGET_IDENTIFIED",
+  "inventoryStatus": "NO_DATABASE_TARGETS_DECLARED",
   "observedAt": "2026-10-03",
   "repository": {
     "branch": "feat/fused-organism-parent",
-    "head": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90"
+    "head": "89dd322467863fed5c4eb40fd49a0cca4b6cd253"
   },
   "targets": [],
   "applicationEnvironmentAssignments": [
@@ -56,5 +56,21 @@
     "schema-only baseline hash or explicit empty-state attestation",
     "migration-history inventory/hash",
     "runtime/application compatibility target"
-  ]
+  ],
+  "controlPlaneInventory": {
+    "path": "../control-plane/generated/control-plane.target-inventory.json",
+    "sha256": "ef36f3f82342da4bd1118bc1bdd249c83e7806a5a1f0e0741716738b2062e3e6",
+    "controlPlaneHash": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780",
+    "targetsDeclared": 0,
+    "targetsVerified": 0,
+    "targetsConflicted": 0,
+    "targetsUnknown": 0,
+    "byProvider": {
+      "postgresql": 0,
+      "sqlite": 0,
+      "libsql": 0,
+      "mysql": 0,
+      "other": 0
+    }
+  }
 }

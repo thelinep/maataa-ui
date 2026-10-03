@@ -3,18 +3,21 @@
   "reportId": "maataa-m4-readiness-2026-10-03",
   "createdAt": "2026-10-03",
   "branch": "feat/fused-organism-parent",
-  "sourceHead": "675337f84d1e85a33e617d25d90ca26e428b4d28",
+  "sourceHead": "89dd322467863fed5c4eb40fd49a0cca4b6cd253",
   "scope": [
     "M4.1 target/baseline/history inventory",
     "M4.2 provider preview inventory and invariant crosswalk"
   ],
   "m4_1": {
     "status": "BLOCKED",
-    "concreteTargetCount": 0,
     "targetBaselineCount": 0,
     "targetMigrationHistoryCount": 0,
     "reason": "TARGET_BASELINE_UNAVAILABLE",
-    "targetSelection": "UNKNOWN"
+    "targetSelection": "NONE_DECLARED",
+    "targetsDeclared": 0,
+    "targetsVerified": 0,
+    "targetsConflicted": 0,
+    "targetsUnknown": 0
   },
   "m4_2": {
     "status": "PARTIAL",
@@ -53,11 +56,11 @@
     "fkAndRelationClosure": "PASS",
     "postgresqlPrismaValidation": "PASS",
     "sqlitePrismaValidation": "PASS",
-    "tests": "30/30 PASS",
+    "tests": "43/43 PASS",
     "registryValidation": "PASS",
     "unresolvedRoutes": 11,
     "routeSeverity": "INFORMATIONAL",
-    "registryHash": "0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9",
+    "registryHash": "c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
     "sourceWorktreeDirty": true
   },
   "providerFindings": [
@@ -124,13 +127,47 @@
   "worktreeSnapshot": "DIRTY; unrelated existing work preserved",
   "targetSummary": {
     "targetsDiscovered": 0,
-    "state": "UNKNOWN",
-    "provider": "UNKNOWN",
-    "version": "UNKNOWN",
-    "baseline": "UNAVAILABLE",
-    "migrationHistory": "UNAVAILABLE",
+    "targetsDeclared": 0,
+    "targetsVerified": 0,
+    "targetsConflicted": 0,
+    "targetsUnknown": 0,
+    "state": "NO_TARGET_DECLARED",
+    "provider": "PER_TARGET",
+    "version": "PER_TARGET",
+    "baseline": "NO_TARGET_DECLARED",
+    "migrationHistory": "NO_TARGET_DECLARED",
     "targetDiffHash": null,
     "destructiveOperations": "NOT_ASSESSED_WITHOUT_TARGET_DIFF",
-    "backfillRequirements": "NOT_ASSESSED_WITHOUT_TARGET_DIFF"
+    "backfillRequirements": "NOT_ASSESSED_WITHOUT_TARGET_DIFF",
+    "byProvider": {
+      "postgresql": 0,
+      "sqlite": 0,
+      "libsql": 0,
+      "mysql": 0,
+      "other": 0
+    },
+    "targetSelection": "NONE_DECLARED"
+  },
+  "controlPlane": {
+    "canonicalManifestPath": "../control-plane/generated/control-plane.canonical.json",
+    "targetInventoryPath": "../control-plane/generated/control-plane.target-inventory.json",
+    "hashDocumentPath": "../control-plane/generated/control-plane.hash.json",
+    "hash": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780",
+    "targetInventoryHash": "ef36f3f82342da4bd1118bc1bdd249c83e7806a5a1f0e0741716738b2062e3e6",
+    "applicationCount": 4,
+    "environmentCount": 0,
+    "targetCounts": {
+      "declared": 0,
+      "verified": 0,
+      "conflicted": 0,
+      "unknown": 0,
+      "byProvider": {
+        "postgresql": 0,
+        "sqlite": 0,
+        "libsql": 0,
+        "mysql": 0,
+        "other": 0
+      }
+    }
   }
 }

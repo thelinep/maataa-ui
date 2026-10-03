@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9",
+    "registryHash": "c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -452,6 +452,34 @@
       {
         "path": "./contexts/public/context.json",
         "sha256": "2fe771a6dc667b6d38b87a8c19dce3ea077c966a377aaee4ba87b24a3a3de8dd"
+      },
+      {
+        "path": "./control-plane/README.md",
+        "sha256": "ff163e3ef526ed6b4c23ef39b873473487ad27b946e0e740937d872538776f23"
+      },
+      {
+        "path": "./control-plane/generated/control-plane.canonical.json",
+        "sha256": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780"
+      },
+      {
+        "path": "./control-plane/generated/control-plane.hash.json",
+        "sha256": "1dfd547f4cec1b10cdc398ddadb85dd4802a56437fdb66980e6012f3f66bfa1e"
+      },
+      {
+        "path": "./control-plane/generated/control-plane.target-inventory.json",
+        "sha256": "ef36f3f82342da4bd1118bc1bdd249c83e7806a5a1f0e0741716738b2062e3e6"
+      },
+      {
+        "path": "./control-plane/manifest.ts",
+        "sha256": "ff2571a8974ac1cb14b4537e1fdc41d7d74660b10f43e242b6cad22cf0878a63"
+      },
+      {
+        "path": "./control-plane/schema/control-plane.schema.json",
+        "sha256": "d68dbd68c66151fd97d46c716ff263be157b2f36d1caf255ac59083d3b435fc0"
+      },
+      {
+        "path": "./control-plane/tsconfig.json",
+        "sha256": "554b28dd929d4b1b0eb6d107018f37d369f33a384b33c13009f19dab2a8bb11a"
       },
       {
         "path": "./data/actor-registry.json",
@@ -2167,7 +2195,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9",
+    "packageHash": "c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

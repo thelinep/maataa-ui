@@ -143,7 +143,7 @@ for (const [canonical, projection] of projections) {
 const expectedLegacyRoutes = { schemaVersion: "1.0.0", status: "source-imported", routes: registeredRoutes.routes.map(({ kind, declared, registered, executable, routeState, ...route }) => ({ ...route, status: "registered" })) };
 if (JSON.stringify(expectedLegacyRoutes) !== JSON.stringify(await readJson("data/route-registry.json"))) throw new Error("Legacy route catalog projection mismatch: routes/registered.json vs data/route-registry.json");
 const assetFiles = [];
-for (const directory of ["catalog", "contexts", "data", "flows", "products", "routes", "schemas", "sources", "schema-sources", "applications", "composition"]) {
+for (const directory of ["catalog", "contexts", "control-plane", "data", "flows", "products", "routes", "schemas", "sources", "schema-sources", "applications", "composition"]) {
   const walk = async (current) => {
     for (const entry of await readdir(path.join(root, current), { withFileTypes: true })) {
       const relative = path.posix.join(current, entry.name);

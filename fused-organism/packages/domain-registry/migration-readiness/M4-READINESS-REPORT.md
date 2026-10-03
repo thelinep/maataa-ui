@@ -7,12 +7,19 @@
 - 352 canonical contracts; contract hash `023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa`.
 - Logical schema hash `5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5`; FK/relation closure PASS.
 - PostgreSQL and SQLite Prisma validation PASS; tests 30/30; registry validation PASS.
-- Registry hash `0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9`; source worktree was dirty.
+- Registry hash `c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54`; source worktree was dirty.
 - 11 unresolved routes remain informational.
 
 ## Target inventory
 
-No intended environment, provider/version, target identity, schema baseline, or migration history is recorded. Four registered reference applications currently have zero environment assignments. The PostgreSQL and SQLite Prisma configs are validation placeholders. No database was contacted. See `targets.json`, `baseline-inventory.json`, and `migration-history-inventory.json`.
+- Applications represented: **4**.
+- Environments declared: **0**.
+- Database targets declared / verified / conflicted / unknown: **0 / 0 / 0 / 0**.
+- Provider counts: PostgreSQL 0, SQLite 0, libSQL 0, MySQL 0, other 0.
+- Control-plane hash: `1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780`; target-inventory hash: `ef36f3f82342da4bd1118bc1bdd249c83e7806a5a1f0e0741716738b2062e3e6`.
+- Application IDs and labels resolve from the existing Application Registry. A fixture is never promoted into the authoritative target inventory.
+- No database targets are currently declared. No target environment, provider/version, target identity, schema baseline, or migration history is recorded. The PostgreSQL and SQLite Prisma configs are validation placeholders. No database was contacted.
+- See `targets.json`, `baseline-inventory.json`, and `migration-history-inventory.json`.
 
 ## M4.2 artifacts
 
