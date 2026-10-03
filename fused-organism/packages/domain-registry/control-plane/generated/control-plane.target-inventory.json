@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "controlPlaneHash": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780",
+  "targetCounts": {
+    "declared": 0,
+    "verified": 0,
+    "conflicted": 0,
+    "unknown": 0,
+    "byProvider": {
+      "postgresql": 0,
+      "sqlite": 0,
+      "libsql": 0,
+      "mysql": 0,
+      "other": 0
+    }
+  },
+  "targets": [],
+  "applicationCount": 4,
+  "environmentCount": 0,
+  "migrationApproved": false,
+  "deploymentApproved": false
+}

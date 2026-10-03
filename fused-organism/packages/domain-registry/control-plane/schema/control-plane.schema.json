@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MAATAA Control Plane Canonical Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "applicationRegistry", "applications", "infrastructureResources", "secretReferences", "policies"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "applicationRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "schemaVersion"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "schemaVersion": { "type": "string", "minLength": 1 }
+      }
+    },
+    "applications": { "type": "array", "items": { "$ref": "#/definitions/application" } },
+    "infrastructureResources": { "type": "array", "items": { "$ref": "#/definitions/infrastructureResource" } },
+    "secretReferences": { "type": "array", "items": { "$ref": "#/definitions/secretReference" } },
+    "policies": { "$ref": "#/definitions/policies" }
+  },
+  "definitions": {
+    "identifier": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+    "artifactReference": {
+      "type": "object", "additionalProperties": false, "required": ["id", "kind"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["schema-baseline", "migration-history", "verification", "backup", "other"] },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "uri": { "type": "string", "minLength": 1 }
+      }
+    },
+    "secretReference": {
+      "type": "object", "additionalProperties": false, "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "provider": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "minLength": 1 }
+      }
+    },
+    "repository": {
+      "type": "object", "additionalProperties": false, "required": ["id", "url"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "url": { "type": "string", "minLength": 1 },
+        "defaultBranch": { "type": "string", "minLength": 1 },
+        "buildCommand": { "type": "string", "minLength": 1 },
+        "outputDirectory": { "type": "string", "minLength": 1 }
+      }
+    },
+    "verificationStatus": { "enum": ["DECLARED", "VERIFIED", "CONFLICTED", "UNKNOWN"] },
+    "domainAssignment": {
+      "type": "object", "additionalProperties": false, "required": ["id", "hostname", "environmentId", "verificationStatus"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "hostname": { "type": "string", "minLength": 1 },
+        "environmentId": { "$ref": "#/definitions/identifier" },
+        "verificationStatus": { "$ref": "#/definitions/verificationStatus" },
+        "evidence": { "type": "array", "items": { "$ref": "#/definitions/artifactReference" } },
+        "routeMappings": {
+          "type": "array", "items": {
+            "type": "object", "additionalProperties": false, "required": ["path", "routeId"],
+            "properties": { "path": { "type": "string", "minLength": 1 }, "routeId": { "$ref": "#/definitions/identifier" } }
+          }
+        }
+      }
+    },
+    "observedDatabaseState": {
+      "type": "object", "additionalProperties": false, "required": ["state", "provider", "engineVersion"],
+      "properties": {
+        "state": { "enum": ["EMPTY", "EXISTING"] },
+        "provider": { "enum": ["postgresql", "sqlite", "libsql", "mysql", "other"] },
+        "engineVersion": { "type": "string", "minLength": 1 }
+      }
+    },
+    "databaseTarget": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "provider", "state", "verificationStatus"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "provider": { "enum": ["postgresql", "sqlite", "libsql", "mysql", "other"] },
+        "engineVersion": { "type": "string", "minLength": 1 },
+        "state": { "enum": ["EMPTY", "EXISTING", "UNKNOWN"] },
+        "verificationStatus": { "$ref": "#/definitions/verificationStatus" },
+        "observed": { "$ref": "#/definitions/observedDatabaseState" },
+        "evidence": { "type": "array", "items": { "$ref": "#/definitions/artifactReference" } },
+        "secretRef": { "$ref": "#/definitions/identifier" },
+        "baseline": { "$ref": "#/definitions/artifactReference" },
+        "migrationHistory": { "$ref": "#/definitions/artifactReference" },
+        "backupPolicyRef": { "$ref": "#/definitions/identifier" },
+        "migrationPolicyRef": { "$ref": "#/definitions/identifier" }
+      },
+      "allOf": [
+        { "if": { "properties": { "state": { "const": "EXISTING" } }, "required": ["state"] }, "then": { "required": ["baseline", "migrationHistory"] } },
+        { "if": { "properties": { "state": { "const": "UNKNOWN" } }, "required": ["state"] }, "then": { "properties": { "verificationStatus": { "const": "UNKNOWN" } }, "not": { "anyOf": [{ "required": ["observed"] }, { "required": ["baseline"] }, { "required": ["migrationHistory"] }] } } },
+        { "if": { "properties": { "verificationStatus": { "const": "VERIFIED" } }, "required": ["verificationStatus"] }, "then": { "required": ["engineVersion", "observed", "evidence"], "properties": { "evidence": { "minItems": 1 } } } },
+        { "if": { "properties": { "verificationStatus": { "const": "CONFLICTED" } }, "required": ["verificationStatus"] }, "then": { "required": ["observed", "evidence"], "properties": { "evidence": { "minItems": 1 } } } },
+        { "if": { "properties": { "verificationStatus": { "const": "DECLARED" } }, "required": ["verificationStatus"] }, "then": { "not": { "required": ["observed"] } } }
+      ]
+    },
+    "resourceAssignment": {
+      "type": "object", "additionalProperties": false, "required": ["resourceId", "capabilities"],
+      "properties": { "resourceId": { "$ref": "#/definitions/identifier" }, "capabilities": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } } }
+    },
+    "environment": {
+      "type": "object", "additionalProperties": false, "required": ["id", "kind"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "kind": { "enum": ["local", "development", "test", "staging", "production", "other"] },
+        "databaseTargets": { "type": "array", "items": { "$ref": "#/definitions/databaseTarget" } },
+        "resources": { "type": "array", "items": { "$ref": "#/definitions/resourceAssignment" } },
+        "deploymentPolicyRef": { "$ref": "#/definitions/identifier" }
+      }
+    },
+    "application": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "domains", "environments"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "name": { "type": "string", "minLength": 1 },
+        "repository": { "$ref": "#/definitions/repository" },
+        "domains": { "type": "array", "items": { "$ref": "#/definitions/domainAssignment" } },
+        "environments": { "type": "array", "items": { "$ref": "#/definitions/environment" } }
+      }
+    },
+    "infrastructureResource": {
+      "type": "object", "additionalProperties": false, "required": ["id", "kind", "provider", "service", "verificationStatus"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "kind": { "enum": ["runtime", "storage", "queue"] },
+        "provider": { "type": "string", "minLength": 1 },
+        "service": { "type": "string", "minLength": 1 },
+        "verificationStatus": { "$ref": "#/definitions/verificationStatus" },
+        "region": { "type": "string", "minLength": 1 },
+        "secretRef": { "$ref": "#/definitions/identifier" },
+        "capabilities": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "evidence": { "type": "array", "items": { "$ref": "#/definitions/artifactReference" } }
+      }
+    },
+    "backupPolicy": {
+      "type": "object", "additionalProperties": false, "required": ["id", "restoreRehearsalRequired"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "restoreRehearsalRequired": { "type": "boolean" },
+        "recoveryPointObjective": { "type": "string", "minLength": 1 },
+        "recoveryTimeObjective": { "type": "string", "minLength": 1 },
+        "retentionDays": { "type": "integer", "minimum": 1 },
+        "resourceRef": { "$ref": "#/definitions/identifier" }
+      }
+    },
+    "migrationPolicy": {
+      "type": "object", "additionalProperties": false, "required": ["id", "requiresExplicitApproval"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "requiresExplicitApproval": { "const": true },
+        "backupPolicyRef": { "$ref": "#/definitions/identifier" },
+        "preflightRequirements": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "deploymentPolicy": {
+      "type": "object", "additionalProperties": false, "required": ["id", "applicationId", "environmentId", "requiresExplicitApproval"],
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "applicationId": { "$ref": "#/definitions/identifier" },
+        "environmentId": { "$ref": "#/definitions/identifier" },
+        "requiresExplicitApproval": { "const": true },
+        "healthChecks": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "policies": {
+      "type": "object", "additionalProperties": false, "required": ["backups", "migrations", "deployments"],
+      "properties": {
+        "backups": { "type": "array", "items": { "$ref": "#/definitions/backupPolicy" } },
+        "migrations": { "type": "array", "items": { "$ref": "#/definitions/migrationPolicy" } },
+        "deployments": { "type": "array", "items": { "$ref": "#/definitions/deploymentPolicy" } }
+      }
+    }
+  }
+}

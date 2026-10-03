@@ -12,10 +12,15 @@
     "./composition": "./src/composition.mjs",
     "./contracts": "./src/contracts.mjs",
     "./prisma-preview": "./src/prisma-preview.mjs",
-    "./sql-proposal": "./src/sql-proposal.mjs"
+    "./sql-proposal": "./src/sql-proposal.mjs",
+    "./control-plane": {
+      "types": "./src/control-plane.d.mts",
+      "default": "./src/control-plane.mjs"
+    }
   },
   "files": [
     "catalog",
+    "control-plane",
     "contexts",
     "flows",
     "products",
@@ -56,9 +61,13 @@
     "prisma:validate:postgresql": "prisma validate --config prisma.config.postgresql.ts --schema schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
     "prisma:validate:sqlite": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
     "prisma:validate:communications": "npm run prisma:validate:postgresql && npm run prisma:validate:sqlite",
-    "contracts:communications-validate": "npm run contracts:communications-migration-preview && node scripts/validate-communications-enforcement.mjs && node scripts/validate-communications-prisma-previews.mjs"
+    "contracts:communications-validate": "npm run contracts:communications-migration-preview && node scripts/validate-communications-enforcement.mjs && node scripts/validate-communications-prisma-previews.mjs",
+    "control-plane:typecheck": "tsc --project control-plane/tsconfig.json",
+    "control-plane:compile": "node scripts/compile-control-plane.mjs"
   },
   "devDependencies": {
-    "prisma": "7.9.1"
+    "ajv": "6.15.0",
+    "prisma": "7.9.1",
+    "typescript": "5.9.3"
   }
 }
