@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "TARGET_BASELINE_UNAVAILABLE",
+  "repositoryHead": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90",
+  "targetBaselines": [],
+  "canonicalDesiredState": {
+    "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+    "tableCount": 352
+  },
+  "bootstrapArtifactsAreNotTargetBaselines": true,
+  "bootstrapArtifacts": [
+    {
+      "provider": "postgresql",
+      "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
+      "sha256": "db52e638eb6fd0268b1a0a79676444e93888cc4b7056eb80b6613eda9ad2eb11",
+      "fromState": "EMPTY_DATABASE"
+    },
+    {
+      "provider": "sqlite",
+      "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
+      "sha256": "5c5253ce7afbdcaa2a57c84e13024729357d490a857ec5e391b8262db2a9b36f",
+      "fromState": "EMPTY_DATABASE"
+    }
+  ],
+  "finding": "No target baseline, target environment, or explicit new-empty-target attestation is recorded; no target-specific diff can be generated."
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0.0",
+  "inventoryStatus": "NO_CONCRETE_TARGET_IDENTIFIED",
+  "observedAt": "2026-10-03",
+  "repository": {
+    "branch": "feat/fused-organism-parent",
+    "head": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90"
+  },
+  "targets": [],
+  "applicationEnvironmentAssignments": [
+    {
+      "appId": "casting-pipeline-demo",
+      "count": 0
+    },
+    {
+      "appId": "campaign-os-reference",
+      "count": 0
+    },
+    {
+      "appId": "events-wedding-spatial-reference",
+      "count": 0
+    },
+    {
+      "appId": "investorhub-reference",
+      "count": 0
+    }
+  ],
+  "configurationEvidence": [
+    {
+      "kind": "prisma-validation-config",
+      "provider": "postgresql",
+      "path": "prisma.config.postgresql.ts",
+      "meaning": "Validation-only placeholder; not a real target connection."
+    },
+    {
+      "kind": "prisma-validation-config",
+      "provider": "sqlite",
+      "path": "prisma.config.sqlite.ts",
+      "meaning": "Validation-only placeholder; does not establish SQLite or libSQL deployment."
+    },
+    {
+      "kind": "repository-scan",
+      "scope": "repository files",
+      "result": "No .env or .env.* files found."
+    },
+    {
+      "kind": "repository-scan",
+      "scope": "domain-registry",
+      "result": "No checked-in prisma/ or migrations/ target history directories found outside dependencies and legacy artifacts."
+    }
+  ],
+  "requiredToResolve": [
+    "owner-confirmed application/environment",
+    "provider and exact engine version",
+    "database/schema identity",
+    "schema-only baseline hash or explicit empty-state attestation",
+    "migration-history inventory/hash",
+    "runtime/application compatibility target"
+  ]
+}
