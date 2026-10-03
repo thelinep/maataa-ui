@@ -1,0 +1,386 @@
+{
+  "reportVersion": "1.0.0",
+  "proofType": "MAATAA_GLOBAL_SCHEMA_READINESS",
+  "evidenceBoundary": "Schema readiness proof only; it does not authorize or prove a migration or deployment.",
+  "sourceSnapshot": {
+    "gitHead": "812444ec6a738fdfe8737f0049b1b40ede08901b",
+    "branch": "feat/fused-organism-parent",
+    "workingTreeDirty": false,
+    "trackedChangeCount": 0,
+    "untrackedFileCount": 0,
+    "registryVersion": "1.0.0",
+    "registryHash": "b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d",
+    "prismaVersionPinned": "7.9.1"
+  },
+  "schema": {
+    "lifecycle": "CANONICAL",
+    "readiness": "SCHEMA_READY",
+    "tableCount": 352,
+    "completeContracts": 352,
+    "partialContracts": 0,
+    "nameOnlyContracts": 0,
+    "duplicateIds": 0,
+    "foreignKeyClosure": "PASS",
+    "relationClosure": "PASS",
+    "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5"
+  },
+  "reviews": {
+    "status": "ALL_17_CONTEXTS_HAVE_APPROVAL_EVIDENCE",
+    "reviewer": "thelinep",
+    "contexts": [
+      {
+        "context": "creative",
+        "contractCount": 20,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "4c49daf1a7a46a40e25000b05f783e8f376d5cf4ed38a78c6bb1fe62d0e8295c",
+        "draftContractSetHash": "d0ba64c3f382df2ea4c753a7f89a2e7ee75da3fdeb132822c6b0f5f55004e2d6",
+        "canonicalContractSetHash": "4c49daf1a7a46a40e25000b05f783e8f376d5cf4ed38a78c6bb1fe62d0e8295c"
+      },
+      {
+        "context": "logistics",
+        "contractCount": 26,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "6adad2f8afb7e7fc290e34ff0b736f8abb2e8018a9be58ce6cc18504d45a5237",
+        "draftContractSetHash": "91e531a587c0127548cb6f8571e3fc7ac5d92ec7998cd3ede91c632b36525ea5",
+        "canonicalContractSetHash": "6adad2f8afb7e7fc290e34ff0b736f8abb2e8018a9be58ce6cc18504d45a5237"
+      },
+      {
+        "context": "campaign",
+        "contractCount": 22,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "749d5e3f6fa6616b999e61da7bfc6e3f96e7e18fcbb25ef83d52b1a191abf7b1",
+        "draftContractSetHash": "a5d856968f9e4f6d76c7559c64f85d3ee0e2fa5f08724598ca13fd0592743b70",
+        "canonicalContractSetHash": "749d5e3f6fa6616b999e61da7bfc6e3f96e7e18fcbb25ef83d52b1a191abf7b1"
+      },
+      {
+        "context": "marketplace",
+        "contractCount": 22,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "d1ecad5b39ba7c13715016a1b6013e0d66a1af06aaa4854b23f24fd62b048f30",
+        "draftContractSetHash": "1f351ff36152218d32dbf52361a152e9896f6b14e0eebde1ee22e18b1d6ea58b",
+        "canonicalContractSetHash": "d1ecad5b39ba7c13715016a1b6013e0d66a1af06aaa4854b23f24fd62b048f30"
+      },
+      {
+        "context": "finance",
+        "contractCount": 22,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "e7f03b66c918d98ca8f655a6f0287de480c5c1deb9252eb43cdaf2a94c80b56a",
+        "draftContractSetHash": "581edab0a3166b80ae0684dfb88e451103556a5938468066d5f43e7c1af8faa0",
+        "canonicalContractSetHash": "e7f03b66c918d98ca8f655a6f0287de480c5c1deb9252eb43cdaf2a94c80b56a"
+      },
+      {
+        "context": "investor",
+        "contractCount": 21,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "0fcb7a5b2f8b28c68bccc6561688a8c1a503fea798073afbf2af277267c9e63c",
+        "draftContractSetHash": "c20e36d60dc4edf1e8b65e83684b865a15077e59487508b9c1f8cb46afdafa88",
+        "canonicalContractSetHash": "0fcb7a5b2f8b28c68bccc6561688a8c1a503fea798073afbf2af277267c9e63c"
+      },
+      {
+        "context": "eventsSpatial",
+        "contractCount": 25,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "4363ec6a1190e9c3eb7a238ccb23cad3b84c3263fc9db1bae022009d1462358a",
+        "draftContractSetHash": "2e773814a98a1c0dfc394064305c3376e6e786f1427bbf996642f68e3aa63d23",
+        "canonicalContractSetHash": "4363ec6a1190e9c3eb7a238ccb23cad3b84c3263fc9db1bae022009d1462358a"
+      },
+      {
+        "context": "intelligence",
+        "contractCount": 22,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "e85945304f6a53c217323d5caa73435345a9d9254e89a197a1fd3d424cc40379",
+        "draftContractSetHash": "66e42df571ccbd1c4120f271da6ead003b019820aeeebb6e1f3576bdd1ea012c",
+        "canonicalContractSetHash": "e85945304f6a53c217323d5caa73435345a9d9254e89a197a1fd3d424cc40379"
+      },
+      {
+        "context": "public",
+        "contractCount": 12,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z",
+        "binding": "EXACT_CANONICAL_CONTEXT_HASH",
+        "reviewedSetHash": "14bb8e51a85acc130f83f323389509161c9ddedfa70b568fac3b3aba23e26fb1",
+        "draftContractSetHash": "d423653d2488d8d525dc9e9ca151ebeec8422dfd4a884cb17713caa7bc89513a",
+        "canonicalContractSetHash": "14bb8e51a85acc130f83f323389509161c9ddedfa70b568fac3b3aba23e26fb1"
+      },
+      {
+        "context": "identity",
+        "contractCount": 25,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-02T23:32:49.157Z",
+        "binding": "EXACT_CASTING_160_SLICE_HASH_REFRESH",
+        "reviewedSetHash": "f873757dc6030c305d80d52f55c7f18772b1677eadd1045f4c841129afdb3c83",
+        "refreshedSliceContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "refreshedSliceLogicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      {
+        "context": "people",
+        "contractCount": 32,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:00:00+05:30",
+        "binding": "EXACT_CASTING_160_SLICE_HASH_REFRESH",
+        "reviewedSetHash": "8ea1f93f7b411e560abec4afd749725b75437f0b68ed34afca98c1eb847d6bdb",
+        "refreshedSliceContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "refreshedSliceLogicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      {
+        "context": "project",
+        "contractCount": 17,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-03T00:00:00+05:30",
+        "binding": "EXACT_CASTING_160_SLICE_HASH_REFRESH",
+        "reviewedSetHash": "b9e1a35a3d6f1cf3c18a0c2966e0f7db45cf7033dbff1650c8535a8243b96540",
+        "refreshedSliceContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "refreshedSliceLogicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      {
+        "context": "evidence",
+        "contractCount": 23,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-02T23:32:53.955Z",
+        "binding": "EXACT_CASTING_160_SLICE_HASH_REFRESH",
+        "reviewedSetHash": "56cae63f78f9ba4bfbe6ce5b0b53b3514ab2d9d569431d4475f02298a572fd60",
+        "refreshedSliceContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "refreshedSliceLogicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      {
+        "context": "platform",
+        "contractCount": 25,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-02T23:32:57.483Z",
+        "binding": "EXACT_CASTING_160_SLICE_HASH_REFRESH",
+        "reviewedSetHash": "337f7199af20b5dc6f342a5187af0db4003039aaebbc2df569aa269f8cd5a607",
+        "refreshedSliceContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "refreshedSliceLogicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      {
+        "context": "production",
+        "contractCount": 19,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-02T23:33:00.948Z",
+        "binding": "EXACT_CASTING_160_SLICE_HASH_REFRESH",
+        "reviewedSetHash": "0adac1cec6284cec517aa27444e6cadb6de7282ad11f8c5310fdf1c105e19836",
+        "refreshedSliceContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "refreshedSliceLogicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      {
+        "context": "communications",
+        "contractCount": 9,
+        "status": "REVIEWED",
+        "decision": "APPROVE",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-02T23:03:43.000Z",
+        "binding": "EXACT_COMMUNICATIONS_DRAFT_HASH_AND_ID_SET",
+        "reviewedSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+        "dependencyClosureContractSetHash": "fa37616e7096b93736cb8664530a5ed757e2327cd7322e82bd858da5b1b17a50",
+        "refreshedLogicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672"
+      },
+      {
+        "context": "organisation",
+        "contractCount": 10,
+        "status": "APPROVED",
+        "decision": "APPROVED",
+        "reviewer": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30",
+        "binding": "APPROVED_TABLE_ID_SET_AND_BUNDLE_SHA256",
+        "reviewedSetHash": "7d94dd0463a1e70e14700370cd2c7d14b4a441994aaf9c67705aa62867a1d8e9",
+        "newlyAuthoredContractCount": 6
+      }
+    ]
+  },
+  "providers": [
+    {
+      "provider": "postgresql",
+      "status": "PASS",
+      "validationCommand": "prisma validate --config prisma.config.postgresql.ts --schema schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.prisma",
+      "schemaSha256": "ae087b0d8df61300f5e087fc1338152c78309d09140674657c9efb3d81081b96",
+      "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+      "deployable": false,
+      "migrationExecutable": false,
+      "findings": [
+        {
+          "name": "announcement_audience_matches_workspace_scope",
+          "tableId": "communications.announcements",
+          "kind": "conditional-nullability",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "direct_message_membership_pair_is_normalized",
+          "tableId": "communications.direct_message_threads",
+          "kind": "strictly-ordered-uuid-pair",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "direct_message_parent_thread_is_direct",
+          "tableId": "communications.direct_message_threads",
+          "kind": "referenced-row-predicate",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "one_active_thread_membership_episode",
+          "tableId": "communications.thread_members",
+          "kind": "at-most-one-active-row",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+          "tableId": "communications.thread_members",
+          "kind": "immutable-episode-identity-and-terminal-state",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        }
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "status": "PASS",
+      "validationCommand": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.canonical.prisma",
+      "schemaSha256": "e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017",
+      "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+      "deployable": false,
+      "migrationExecutable": false,
+      "findings": [
+        {
+          "name": "announcement_audience_matches_workspace_scope",
+          "tableId": "communications.announcements",
+          "kind": "conditional-nullability",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "direct_message_membership_pair_is_normalized",
+          "tableId": "communications.direct_message_threads",
+          "kind": "strictly-ordered-uuid-pair",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "direct_message_parent_thread_is_direct",
+          "tableId": "communications.direct_message_threads",
+          "kind": "referenced-row-predicate",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "one_active_thread_membership_episode",
+          "tableId": "communications.thread_members",
+          "kind": "at-most-one-active-row",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        },
+        {
+          "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+          "tableId": "communications.thread_members",
+          "kind": "immutable-episode-identity-and-terminal-state",
+          "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+        }
+      ]
+    }
+  ],
+  "validations": {
+    "structuralAndClosure": {
+      "status": "PASS",
+      "command": "assessment via assessContractCoverage + assessDraftCompileTestability",
+      "completeContracts": 352,
+      "fkClosure": "PASS",
+      "relationClosure": "PASS"
+    },
+    "logicalModel": {
+      "status": "PASS",
+      "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5"
+    },
+    "prismaProviders": [
+      {
+        "provider": "postgresql",
+        "status": "PASS",
+        "validationCommand": "prisma validate --config prisma.config.postgresql.ts --schema schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.prisma",
+        "schemaSha256": "ae087b0d8df61300f5e087fc1338152c78309d09140674657c9efb3d81081b96"
+      },
+      {
+        "provider": "sqlite",
+        "status": "PASS",
+        "validationCommand": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.canonical.prisma",
+        "schemaSha256": "e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017"
+      }
+    ],
+    "registryTests": {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 30,
+      "passed": 30,
+      "failed": 0
+    },
+    "registryIntegrity": {
+      "command": "npm run validate",
+      "exitCode": 0,
+      "summary": [
+        "Registry tlps-domain-registry@1.0.0: 0 blocker(s), 0 error(s), 0 warning(s), 11 info.",
+        "Domain registry: VALID · Route registry: VALID · Registry publishable: YES · Schema compiler ready: YES",
+        "Routes: 284 registered static, 0 registered dynamic, 0 declared only, 0 approved aliases, 11 unresolved.",
+        "Application IR artifacts: PASS · 4 records pinned to M1",
+        "Reproducible package hash: PASS · b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d",
+        "Registry validation PASS: publishable; warnings and info are recorded above."
+      ]
+    },
+    "diffCheck": {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "status": "PASS",
+      "scope": "tracked diff"
+    },
+    "proofScriptSyntax": {
+      "command": "node --check fused-organism/packages/domain-registry/scripts/generate-global-schema-proof.mjs",
+      "exitCode": 0,
+      "status": "PASS"
+    }
+  },
+  "permissions": {
+    "schemaReady": true,
+    "migrationApproved": false,
+    "deploymentApproved": false,
+    "legalReviewed": false,
+    "migrationExecuted": false,
+    "deploymentExecuted": false
+  }
+}
