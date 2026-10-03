@@ -12,8 +12,8 @@ Generated deterministically by `fused-organism/packages/domain-registry/scripts/
 - Relation closure: **PASS**
 - Contract-set SHA-256: `023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa`
 - Logical-schema SHA-256: `5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5`
-- Registry hash: `b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d`
-- Source commit: `812444ec6a738fdfe8737f0049b1b40ede08901b` (feat/fused-organism-parent; worktree clean)
+- Registry hash: `0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9`
+- Source commit: `675337f84d1e85a33e617d25d90ca26e428b4d28` (feat/fused-organism-parent; worktree dirty: 72 tracked changes, 495 untracked files)
 
 ## Provider previews
 
@@ -65,7 +65,7 @@ Prisma validation confirms each generated schema is syntactically and structural
 - Domain registry: VALID · Route registry: VALID · Registry publishable: YES · Schema compiler ready: YES
 - Routes: 284 registered static, 0 registered dynamic, 0 declared only, 0 approved aliases, 11 unresolved.
 - Application IR artifacts: PASS · 4 records pinned to M1
-- Reproducible package hash: PASS · b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d
+- Reproducible package hash: PASS · 0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9
 - Registry validation PASS: publishable; warnings and info are recorded above.
 - `git diff --check` (tracked diff): **PASS**.
 - Proof generator syntax: **PASS**.

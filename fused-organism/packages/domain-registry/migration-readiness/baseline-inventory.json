@@ -13,13 +13,13 @@
     {
       "provider": "postgresql",
       "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
-      "sha256": "db52e638eb6fd0268b1a0a79676444e93888cc4b7056eb80b6613eda9ad2eb11",
+      "sha256": "620e60f89da9f73c1d7f966c5ec9bd1ba8e1b42e06a3ee2536b15f9d61054d26",
       "fromState": "EMPTY_DATABASE"
     },
     {
       "provider": "sqlite",
       "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
-      "sha256": "5c5253ce7afbdcaa2a57c84e13024729357d490a857ec5e391b8262db2a9b36f",
+      "sha256": "b7f9f40b43b842fa467809ce090b875346b7b1436b00641398bee5af45ab8637",
       "fromState": "EMPTY_DATABASE"
     }
   ],

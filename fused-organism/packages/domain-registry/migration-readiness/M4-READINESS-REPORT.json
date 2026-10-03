@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "maataa-m4-readiness-2026-10-03",
+  "createdAt": "2026-10-03",
+  "branch": "feat/fused-organism-parent",
+  "sourceHead": "675337f84d1e85a33e617d25d90ca26e428b4d28",
+  "scope": [
+    "M4.1 target/baseline/history inventory",
+    "M4.2 provider preview inventory and invariant crosswalk"
+  ],
+  "m4_1": {
+    "status": "BLOCKED",
+    "concreteTargetCount": 0,
+    "targetBaselineCount": 0,
+    "targetMigrationHistoryCount": 0,
+    "reason": "TARGET_BASELINE_UNAVAILABLE",
+    "targetSelection": "UNKNOWN"
+  },
+  "m4_2": {
+    "status": "PARTIAL",
+    "targetDiffGenerated": false,
+    "reason": "TARGET_BASELINE_UNAVAILABLE",
+    "emptyDatabaseBootstraps": [
+      {
+        "provider": "postgresql",
+        "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
+        "sha256": "620e60f89da9f73c1d7f966c5ec9bd1ba8e1b42e06a3ee2536b15f9d61054d26",
+        "tableCount": 352,
+        "deployable": false,
+        "migrationExecutable": false,
+        "migrationApproved": false,
+        "invariantsEnforcedInArtifact": false
+      },
+      {
+        "provider": "sqlite",
+        "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
+        "sha256": "b7f9f40b43b842fa467809ce090b875346b7b1436b00641398bee5af45ab8637",
+        "tableCount": 352,
+        "deployable": false,
+        "migrationExecutable": false,
+        "migrationApproved": false,
+        "invariantsEnforcedInArtifact": false
+      }
+    ],
+    "providerInvariantCount": 5,
+    "providerInvariantCrosswalk": "provider-invariant-plan.json",
+    "semanticOperationReview": "NOT_PERFORMED"
+  },
+  "schemaProof": {
+    "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+    "tableCount": 352,
+    "fkAndRelationClosure": "PASS",
+    "postgresqlPrismaValidation": "PASS",
+    "sqlitePrismaValidation": "PASS",
+    "tests": "30/30 PASS",
+    "registryValidation": "PASS",
+    "unresolvedRoutes": 11,
+    "routeSeverity": "INFORMATIONAL",
+    "registryHash": "0e3dcc0ea23fb0bbac4e8e08aeb738b2ae2bfd4797b99f86aad8751a7c4338e9",
+    "sourceWorktreeDirty": true
+  },
+  "providerFindings": [
+    {
+      "provider": "postgresql",
+      "finding": "Prisma projection omits five Communications logical invariants; overlay separately reviewed statically, but is not included in full bootstrap."
+    },
+    {
+      "provider": "sqlite",
+      "finding": "Prisma projection omits five Communications logical invariants; separate overlay behavior checks pass in in-memory SQLite, but overlay is not included in full bootstrap."
+    },
+    {
+      "provider": "sqlite/libsql",
+      "finding": "No selected runtime/version; SQLite validation is not libSQL compatibility evidence."
+    }
+  ],
+  "invariants": {
+    "required": 5,
+    "crosswalked": 5,
+    "integratedIntoGlobalBootstrap": 0,
+    "postgresqlReview": "PASS_STATIC_REVIEW",
+    "sqliteBehavioralChecks": "PASS",
+    "executionAgainstRealDatabase": false
+  },
+  "databaseContacted": false,
+  "databaseMutated": false,
+  "migrationExecutionApproved": false,
+  "deploymentApproved": false,
+  "pushPerformed": false,
+  "stopGates": [
+    "M4-TARGET-UNKNOWN",
+    "M4-TARGET-BASELINE",
+    "M4-TARGET-HISTORY",
+    "M4-INVARIANT-OVERLAY-INTEGRATION"
+  ],
+  "nextSafeAction": "Record an owner-approved target/provider/version and either capture a read-only schema/history baseline or attest a genuinely new empty target; then generate a target-bound diff without applying it.",
+  "evidenceFiles": [
+    "targets.json",
+    "baseline-inventory.json",
+    "migration-history-inventory.json",
+    "provider-invariant-plan.json"
+  ],
+  "providerEnforcement": {
+    "postgresql": "PARTIAL",
+    "sqlite": "PARTIAL",
+    "reason": "All five invariants are crosswalked and separately reviewed/tested, but the overlays are not integrated into the full global bootstrap or a target diff."
+  },
+  "m4_gates": {
+    "M4.1_TARGETS_AND_BASELINES": "BLOCKED",
+    "M4.2_PROVIDER_DIFFS": "PARTIAL",
+    "M4.3_COMPATIBILITY_REHEARSAL": "BLOCKED",
+    "M4.4_BACKUP_AND_RESTORE": "BLOCKED",
+    "M4.5_RECOVERY_PLAN": "BLOCKED",
+    "M4.6_PLAN_REVIEW": "NOT_READY"
+  },
+  "validationCommands": {
+    "tests": "npm test: PASS (30/30)",
+    "registry": "npm run validate: PASS (0 blockers/errors/warnings; 11 informational routes)",
+    "postgresql": "Prisma validate canonical global schema: PASS",
+    "sqlite": "Prisma validate canonical global schema: PASS",
+    "communicationsEnforcement": "npm run contracts:communications-enforcement-check: PASS (SQLite behavioral, PostgreSQL static review)"
+  },
+  "pushStatus": "NONE",
+  "worktreeSnapshot": "DIRTY; unrelated existing work preserved",
+  "targetSummary": {
+    "targetsDiscovered": 0,
+    "state": "UNKNOWN",
+    "provider": "UNKNOWN",
+    "version": "UNKNOWN",
+    "baseline": "UNAVAILABLE",
+    "migrationHistory": "UNAVAILABLE",
+    "targetDiffHash": null,
+    "destructiveOperations": "NOT_ASSESSED_WITHOUT_TARGET_DIFF",
+    "backfillRequirements": "NOT_ASSESSED_WITHOUT_TARGET_DIFF"
+  }
+}

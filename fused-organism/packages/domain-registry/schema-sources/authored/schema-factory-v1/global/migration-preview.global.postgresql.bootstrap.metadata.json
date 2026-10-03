@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactStatus": "GENERATED_REVIEW_REQUIRED",
+  "artifactKind": "EMPTY_DATABASE_BOOTSTRAP_PREVIEW",
+  "authority": "Canonical database-neutral MAATAA schema projected through Prisma; preview only",
+  "provider": "postgresql",
+  "sourceSnapshot": {
+    "gitHead": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90",
+    "branch": "feat/fused-organism-parent",
+    "repositoryWorkingTreeDirty": true,
+    "domainRegistryPathsDirty": false,
+    "registryVersion": "1.0.0",
+    "registryHash": "b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d",
+    "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5"
+  },
+  "target": {
+    "environment": null,
+    "engineVersion": null,
+    "baselineSchemaHash": null,
+    "migrationHistoryHash": null,
+    "fromState": "EMPTY_DATABASE",
+    "targetSpecificUpgradeDiff": false
+  },
+  "generator": {
+    "name": "Prisma migrate diff",
+    "version": "7.9.1",
+    "command": "prisma migrate diff --config prisma.config.postgresql.ts --from-empty --to-schema schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.prisma --script",
+    "mode": "Read-only schema-to-SQL rendering; no datasource connection or execution"
+  },
+  "output": {
+    "file": "migration-preview.global.postgresql.bootstrap.sql",
+    "sha256": "620e60f89da9f73c1d7f966c5ec9bd1ba8e1b42e06a3ee2536b15f9d61054d26",
+    "bytes": 919372,
+    "createSchemas": 1,
+    "createEnums": 368,
+    "createTables": 352,
+    "createIndexes": 1809,
+    "foreignKeyClauses": 1491,
+    "alterTableStatements": 1491,
+    "triggerDefinitions": 0,
+    "functionDefinitions": 0,
+    "destructiveStatements": 0,
+    "dataWriteStatements": 0
+  },
+  "logicalEnforcement": {
+    "status": "INCOMPLETE",
+    "unprojectedInvariantCount": 5,
+    "providerOverlayIncluded": false,
+    "finding": "See canonical Prisma preview metadata. Communications invariant overlays remain separate 14-table DRAFT artifacts and are not merged into this global bootstrap."
+  },
+  "permissions": {
+    "deployable": false,
+    "migrationExecutable": false,
+    "migrationApproved": false,
+    "deploymentApproved": false
+  }
+}
