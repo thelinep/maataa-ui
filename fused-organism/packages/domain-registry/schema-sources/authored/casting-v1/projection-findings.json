@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "1.0.0",
+  "schemaLifecycle": "DRAFT",
+  "contractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+  "validationTool": "Prisma CLI 7.9.1",
+  "structuralStatus": "DRAFT_COMPILE_TESTABLE",
+  "requestedTables": 160,
+  "resolvedContractCount": 160,
+  "effectiveClosureTables": 160,
+  "projections": [
+    {
+      "provider": "postgresql",
+      "config": "prisma.config.postgresql.ts",
+      "schema": "schema-sources/authored/casting-v1/prisma-preview.postgresql.draft.prisma",
+      "status": "PASS",
+      "valid": true,
+      "exitCode": 0,
+      "output": "The schema at schema-sources/authored/casting-v1/prisma-preview.postgresql.draft.prisma is valid 🚀\n\nLoaded Prisma config from prisma.config.postgresql.ts.\n\nPrisma schema loaded from schema-sources/authored/casting-v1/prisma-preview.postgresql.draft.prisma."
+    },
+    {
+      "provider": "sqlite",
+      "config": "prisma.config.sqlite.ts",
+      "schema": "schema-sources/authored/casting-v1/prisma-preview.sqlite.draft.prisma",
+      "status": "PASS",
+      "valid": true,
+      "exitCode": 0,
+      "output": "The schema at schema-sources/authored/casting-v1/prisma-preview.sqlite.draft.prisma is valid 🚀\n\nLoaded Prisma config from prisma.config.sqlite.ts.\n\nPrisma schema loaded from schema-sources/authored/casting-v1/prisma-preview.sqlite.draft.prisma."
+    }
+  ],
+  "findings": [
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "message": "announcement_audience_matches_workspace_scope remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "message": "direct_message_membership_pair_is_normalized remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_parent_thread_is_direct",
+      "message": "direct_message_parent_thread_is_direct remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "message": "one_active_thread_membership_episode remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.thread_members",
+      "invariant": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "message": "thread_membership_episode_cannot_be_reopened_or_rekeyed remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "message": "announcement_audience_matches_workspace_scope remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "message": "direct_message_membership_pair_is_normalized remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_parent_thread_is_direct",
+      "message": "direct_message_parent_thread_is_direct remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "message": "one_active_thread_membership_episode remains in the database-neutral model and requires provider migration implementation and validation."
+    },
+    {
+      "provider": "sqlite",
+      "classification": "PRISMA_MODEL_LIMITATION",
+      "status": "DEFERRED",
+      "tableId": "communications.thread_members",
+      "invariant": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "message": "thread_membership_episode_cannot_be_reopened_or_rekeyed remains in the database-neutral model and requires provider migration implementation and validation."
+    }
+  ]
+}

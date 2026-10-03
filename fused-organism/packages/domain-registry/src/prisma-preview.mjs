@@ -20,7 +20,17 @@ function fieldDefault(field) {
   if (field.defaultExpression?.kind === "uuid-v4") return " @default(uuid())";
   if (field.defaultExpression?.kind === "current-timestamp") return " @default(now())";
   if (field.defaultExpression?.kind === "database-native") return ` @default(dbgenerated(${JSON.stringify(field.defaultExpression.expression)}))`;
-  if (Object.hasOwn(field, "defaultLiteral")) return ` @default(${field.type === "enum" ? prismaIdentifier(field.defaultLiteral) : JSON.stringify(field.defaultLiteral)})`;
+  if (Object.hasOwn(field, "defaultLiteral")) {
+    // Prisma's Json scalar defaults are expressed as JSON text inside a Prisma
+    // string literal (for example @default("{}")), not as Prisma object/list
+    // syntax. Keep the logical contract value unchanged and adapt only here.
+    const value = field.type === "enum"
+      ? prismaIdentifier(field.defaultLiteral)
+      : field.type === "json"
+        ? JSON.stringify(JSON.stringify(field.defaultLiteral))
+        : JSON.stringify(field.defaultLiteral);
+    return ` @default(${value})`;
+  }
   return "";
 }
 

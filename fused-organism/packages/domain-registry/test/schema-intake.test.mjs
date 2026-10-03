@@ -27,7 +27,7 @@ test("source classification and adoption decision must agree before registry pub
   assert.ok(findings.some((item) => item.code === "schema-source-invalid"));
 });
 
-test("reviewed MAATAA Communications source records all twelve decisions without promoting contracts", () => {
+test("reviewed MAATAA Communications source remains separate from canonical contract promotion", () => {
   const tableIds = registry.domains.tables.filter((item) => item.context === "communications").map((item) => item.id).sort();
   assert.equal(communicationsSource.status, "REVIEWED_UNPINNED");
   assert.equal(communicationsSource.authority, "REVIEWED_MAATAA_SOURCE_PENDING_AUTHORITY_PIN");
@@ -58,7 +58,7 @@ test("reviewed MAATAA Communications source records all twelve decisions without
     assert.deepEqual(shape.required.sort(), Object.entries(table.fields).filter(([, field]) => !field.nullable).map(([field]) => field).sort());
     assert.ok(table.primaryKey.every((field) => table.fields[field]), `${table.id} has explicit key fields`);
   }
-  assert.equal(registry.tableContracts.contracts.some((item) => item.context === "communications"), false, "review does not create canonical contracts");
+  assert.equal(registry.tableContracts.contracts.filter((item) => item.context === "communications").length, 9, "only the separately reviewed contract set is canonicalized");
   assert.equal(registry.schemaSources.records.some((item) => item.id === "maataa-communications-v1"), true, "the approved source is published by the separate authority-registry commit");
   assert.equal(maataaCommunicationsAuthority.classification, "AUTHORITATIVE");
   assert.equal(maataaCommunicationsAuthority.adoptionDecision.status, "adopted");

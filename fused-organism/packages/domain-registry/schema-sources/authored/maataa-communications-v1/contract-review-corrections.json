@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "correctionSetId": "maataa-communications-contract-review-corrections-v1",
-  "baselineContractSetHash": "3bb5c782a4a067a5fa41a9d4cb25a7783b43712b9d93a034072967de6aebdc90",
+  "baselineContractSetHash": "abda114aaeb94d5f4494f77bdb2e9de69097c595765b304d720912fb041099da",
   "decisionStatus": "ACCEPTED_FOR_SCHEMA_CORRECTION",
   "reviewer": "thelinep",
   "reviewedAt": "2026-10-02T20:57:13.345Z",
@@ -24,7 +24,7 @@
     }
   ],
   "unresolved": [
-    "Physical CHECK and partial unique-index DDL are deferred to provider migration projections; Prisma model validation does not prove them.",
+    "Prisma validation alone does not prove provider-specific trigger, CHECK, and partial-index enforcement; see the hash-bound provider enforcement plan and migration previews.",
     "Legal retention approval, migration approval, deployment approval, and canonical promotion are not granted by this correction record."
   ],
   "replacementTables": [
@@ -213,6 +213,13 @@
             "workspace_membership_id"
           ],
           "activeWhenNull": "left_at"
+        },
+        {
+          "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+          "kind": "immutable-episode-identity-and-terminal-state",
+          "immutableFields": ["organisation_id", "workspace_id", "thread_id", "workspace_membership_id", "joined_at", "created_at"],
+          "terminalField": "left_at",
+          "terminalTransition": "null-to-non-null-once; ended episodes cannot be reopened or have their end time rewritten"
         }
       ]
     },
@@ -460,6 +467,13 @@
             "participant_high_membership_id"
           ],
           "comparison": "uuid-binary-ascending"
+        },
+        {
+          "name": "direct_message_parent_thread_is_direct",
+          "kind": "referenced-row-predicate",
+          "target": "communications.communication_threads",
+          "predicate": { "field": "kind", "equals": "direct" },
+          "scopeFields": ["organisation_id", "thread_id", "workspace_id"]
         }
       ]
     },

@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "context": "communications",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "logicalAuthority": "MAATAA database-neutral Communications contracts",
+  "decision": {
+    "reviewStatus": "approved",
+    "reviewer": "thelinep",
+    "reviewedAt": "2026-10-03T04:16:05+05:30",
+    "basis": "User authorized thelinep for reviewer roles and requested context-by-context review and canonicalization. This plan implements the already-approved logical invariants without changing their semantics."
+  },
+  "migrationExecutionApproved": false,
+  "deploymentApproved": false,
+  "invariants": [
+    {
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "rule": "ORGANISATION requires workspace_id IS NULL; WORKSPACE requires workspace_id IS NOT NULL.",
+      "postgresql": {
+        "enforcement": "CHECK constraint",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "ck_communications_announcements_audience_scope"
+      },
+      "sqlite": {
+        "enforcement": "BEFORE INSERT and BEFORE UPDATE triggers",
+        "file": "provider-enforcement.sqlite.sql",
+        "names": [
+          "trg_communications_announcements_audience_scope_insert",
+          "trg_communications_announcements_audience_scope_update"
+        ]
+      }
+    },
+    {
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "rule": "The lower participant membership ID must be strictly less than the higher ID; equality and reversed pairs are rejected.",
+      "postgresql": {
+        "enforcement": "CHECK constraint over native UUID values",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "ck_communications_direct_message_pair_order"
+      },
+      "sqlite": {
+        "enforcement": "BEFORE INSERT and BEFORE UPDATE triggers using case-normalized canonical UUID text ordering",
+        "file": "provider-enforcement.sqlite.sql",
+        "names": [
+          "trg_communications_direct_message_pair_order_insert",
+          "trg_communications_direct_message_pair_order_update"
+        ]
+      }
+    },
+    {
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_parent_thread_is_direct",
+      "rule": "A direct-message mapping must reference a parent thread whose kind is direct and whose organisation, workspace, and ID match the mapping.",
+      "postgresql": {
+        "enforcement": "BEFORE INSERT/UPDATE mapping triggers and parent-kind/workspace immutability trigger",
+        "file": "provider-enforcement.postgresql.sql",
+        "names": [
+          "trg_communications_direct_message_parent_insert",
+          "trg_communications_direct_message_parent_update",
+          "trg_communications_direct_thread_kind_update"
+        ]
+      },
+      "sqlite": {
+        "enforcement": "BEFORE INSERT/UPDATE mapping triggers and parent-kind/workspace immutability trigger",
+        "file": "provider-enforcement.sqlite.sql",
+        "names": [
+          "trg_communications_direct_message_parent_insert",
+          "trg_communications_direct_message_parent_update",
+          "trg_communications_direct_thread_kind_update"
+        ]
+      }
+    },
+    {
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "rule": "At most one row per organisation, workspace, thread, and workspace membership may have left_at IS NULL; ended episodes remain as history and rejoining may create a new episode.",
+      "postgresql": {
+        "enforcement": "partial unique index",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "uq_communications_thread_members_active_episode"
+      },
+      "sqlite": {
+        "enforcement": "partial unique index",
+        "file": "provider-enforcement.sqlite.sql",
+        "name": "uq_communications_thread_members_active_episode"
+      }
+    },
+    {
+      "tableId": "communications.thread_members",
+      "invariant": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "rule": "Episode identity and joined/created timestamps are immutable; left_at may transition from null to a terminal timestamp once, but an ended episode cannot be reopened or rewritten.",
+      "postgresql": {
+        "enforcement": "BEFORE UPDATE trigger",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "trg_communications_thread_membership_episode_update"
+      },
+      "sqlite": {
+        "enforcement": "BEFORE UPDATE trigger",
+        "file": "provider-enforcement.sqlite.sql",
+        "name": "trg_communications_thread_membership_episode_update"
+      }
+    }
+  ],
+  "validation": {
+    "sqliteBehavioralChecks": "PASS",
+    "postgresqlReview": "SQL syntax and target columns checked against the generated PostgreSQL Prisma projection; runtime DB execution is outside this DRAFT review.",
+    "prismaLimitation": "The Prisma schema language does not represent these invariants. Keep them in migration overlays and never remove them from the logical model.",
+    "sqliteTestCases": [
+      "organisation/workspace announcement audience correspondence",
+      "strictly ordered and syntactically valid UUID pair",
+      "single active thread membership episode while ended history and rejoin are allowed"
+    ],
+    "postgresqlProjectionReview": "PASS_STATIC_REVIEW",
+    "migrationPreviews": {
+      "postgresql": {
+        "file": "migration-preview.postgresql.draft.sql",
+        "sha256": "2c3c0917311e36a36764f12be425c5f09e71e6eef4f824c07a06b49483f974cf",
+        "valid": true
+      },
+      "sqlite": {
+        "file": "migration-preview.sqlite.draft.sql",
+        "sha256": "b41aae0b469c733960734935f5cd964301022d4cc9868622b9d2f3d985a755e5",
+        "valid": true
+      }
+    }
+  },
+  "providerArtifactHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e"
+}

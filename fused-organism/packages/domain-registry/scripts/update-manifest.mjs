@@ -28,6 +28,89 @@ const authoredKernel = await readJson("schema-sources/authored/maataa-core-v1/co
 const communicationsDraft = await readJson("schema-sources/authored/maataa-communications-v1/contracts.draft.json");
 const communicationsCorrections = await readJson("schema-sources/authored/maataa-communications-v1/contract-review-corrections.json");
 const communicationsContractReview = await readJson("schema-sources/authored/maataa-communications-v1/contracts.review.json");
+const castingDraft = await readJson("schema-sources/authored/casting-v1/contracts.draft.json");
+const castingPeopleReview = await readJson("schema-sources/authored/casting-v1/people.review.json");
+const castingProjectReview = await readJson("schema-sources/authored/casting-v1/project.review.json");
+const castingContextReviews = Object.fromEntries(await Promise.all(["identity", "evidence", "platform", "production"].map(async (contextId) => [
+  contextId,
+  await readJson(`schema-sources/authored/casting-v1/${contextId}.review.json`),
+])));
+const normalizeReviewedPeopleContract = (contract) => {
+  const normalized = structuredClone(contract);
+  normalized.schemaLifecycle = "DRAFT";
+  const clearReviewStamp = (value) => {
+    if (!value || typeof value !== "object") return;
+    if (value.kind === "MAATAA_AUTHORED") {
+      delete value.reviewedBy;
+      delete value.reviewedAt;
+    }
+    for (const child of Object.values(value)) clearReviewStamp(child);
+  };
+  clearReviewStamp(normalized);
+  return normalized;
+};
+const canonicalPeopleContracts = tableContracts.contracts.filter((contract) => contract.context === "people");
+const normalizedPeopleHash = createHash("sha256")
+  .update(JSON.stringify(canonicalPeopleContracts.map(normalizeReviewedPeopleContract)))
+  .digest("hex");
+const peopleReviewCurrent = canonicalPeopleContracts.length === castingPeopleReview.contractCount
+  && normalizedPeopleHash === castingPeopleReview.contractSetHash
+  && JSON.stringify(canonicalPeopleContracts.map((contract) => contract.id).sort()) === JSON.stringify(castingPeopleReview.contractIds);
+const canonicalProjectContracts = tableContracts.contracts.filter((contract) => contract.context === "project");
+const normalizeReviewedProjectContract = (contract) => {
+  const normalized = structuredClone(contract);
+  if (castingProjectReview.coreProposalIds.includes(normalized.id)) delete normalized.schemaLifecycle;
+  else normalized.schemaLifecycle = "DRAFT";
+  const clearReviewStamp = (value) => {
+    if (!value || typeof value !== "object") return;
+    if (value.kind === "MAATAA_AUTHORED") {
+      delete value.reviewedBy;
+      delete value.reviewedAt;
+    }
+    if (value.reviewStatus === "approved") {
+      value.reviewStatus = "unreviewed";
+      delete value.reviewedBy;
+      delete value.reviewedAt;
+    }
+    for (const child of Object.values(value)) clearReviewStamp(child);
+  };
+  clearReviewStamp(normalized);
+  return normalized;
+};
+const normalizedProjectHash = createHash("sha256")
+  .update(JSON.stringify(canonicalProjectContracts.map(normalizeReviewedProjectContract)))
+  .digest("hex");
+const projectReviewCurrent = canonicalProjectContracts.length === castingProjectReview.contractCount
+  && normalizedProjectHash === castingProjectReview.contractSetHash
+  && JSON.stringify(canonicalProjectContracts.map((contract) => contract.id).sort()) === JSON.stringify(castingProjectReview.contractIds);
+const normalizeReviewedContextContract = (contract, review) => {
+  const normalized = structuredClone(contract);
+  if (review.coreProposalIds.includes(normalized.id)) delete normalized.schemaLifecycle;
+  else normalized.schemaLifecycle = "DRAFT";
+  const clearReviewStamp = (value) => {
+    if (!value || typeof value !== "object") return;
+    if (value.kind === "MAATAA_AUTHORED") {
+      delete value.reviewedBy;
+      delete value.reviewedAt;
+    }
+    if (value.reviewStatus === "approved") {
+      value.reviewStatus = "unreviewed";
+      delete value.reviewedBy;
+      delete value.reviewedAt;
+    }
+    for (const child of Object.values(value)) clearReviewStamp(child);
+  };
+  clearReviewStamp(normalized);
+  return normalized;
+};
+const castingContextReviewState = Object.fromEntries(Object.entries(castingContextReviews).map(([contextId, review]) => {
+  const contracts = tableContracts.contracts.filter((contract) => contract.context === contextId);
+  const hash = createHash("sha256").update(JSON.stringify(contracts.map((contract) => normalizeReviewedContextContract(contract, review)))).digest("hex");
+  const current = contracts.length === review.contractCount
+    && hash === review.contractSetHash
+    && JSON.stringify(contracts.map((contract) => contract.id).sort()) === JSON.stringify(review.contractIds);
+  return [contextId, { review, contracts, current }];
+}));
 const communicationsPrismaPreviews = await Promise.all(["postgresql", "sqlite"].map(async (provider) => ({
   provider,
   ...(await readJson(`schema-sources/authored/maataa-communications-v1/prisma-preview.${provider}.draft.metadata.json`)),
@@ -75,7 +158,7 @@ const contentHashes = [];
 for (const file of assetFiles) contentHashes.push({ path: `./${file}`, sha256: createHash("sha256").update(await readFile(path.join(root, file))).digest("hex") });
 const registryHash = createHash("sha256").update(contentHashes.map((item) => `${item.path}\0${item.sha256}\n`).join("")).digest("hex");
 const gate = getRegistryGate();
-const schemaCoverage = assessContractCoverage(domains.tables.map((item) => item.id), { domains, tableContracts, scalarTypes, authoredContracts: authoredKernel.contracts });
+const schemaCoverage = assessContractCoverage(domains.tables.map((item) => item.id), { domains, tableContracts, scalarTypes, authoredContracts: authoredKernel.contracts, castingDraftContracts: castingDraft.contracts });
 const counts = gate.counts;
 manifest.schemaVersion = "1.1.0";
 manifest.registryId = "tlps-domain-registry";
@@ -145,6 +228,53 @@ manifest.assets = {
       migrationExecutable: preview.migrationExecutable,
       unprojectedLogicalInvariants: preview.unprojectedLogicalInvariants ?? [],
     })),
+  },
+  castingDraftContracts: {
+    path: "./schema-sources/authored/casting-v1/contracts.draft.json",
+    schemaLifecycle: castingDraft.schemaLifecycle,
+    composition: castingDraft.composition,
+    resolvedContractCount: castingDraft.resolvedContractCount,
+    authoredDraftCount: castingDraft.contracts.length,
+    contractSetHash: castingDraft.contractSetHash,
+    readiness: castingDraft.readiness,
+    peopleReview: {
+      path: "./schema-sources/authored/casting-v1/people.review.json",
+      status: peopleReviewCurrent ? castingPeopleReview.reviewStatus : "STALE",
+      reviewer: castingPeopleReview.reviewer,
+      contractCount: castingPeopleReview.contractCount,
+      contractSetHash: castingPeopleReview.contractSetHash,
+      compositionContractSetHash: castingDraft.contractSetHash,
+      logicalSchemaHash: castingDraft.readiness.logicalSchemaHash,
+      identityContextCanonical: tableContracts.contracts.some((contract) => contract.id === "identity.users"),
+      compositionSchemaReady: castingDraft.readiness.schemaReady,
+      applicationMembershipAuthorizationImplemented: castingPeopleReview.retainedBoundaries.applicationMembershipAuthorizationImplemented,
+      canonicalizedContracts: tableContracts.contracts.filter((contract) => contract.context === "people").length,
+      canonicalPromotion: castingPeopleReview.decision === "APPROVE",
+    },
+    projectReview: {
+      path: "./schema-sources/authored/casting-v1/project.review.json",
+      status: projectReviewCurrent ? castingProjectReview.reviewStatus : "STALE",
+      reviewer: castingProjectReview.reviewer,
+      contractCount: castingProjectReview.contractCount,
+      contractSetHash: castingProjectReview.contractSetHash,
+      compositionContractSetHash: castingProjectReview.compositionContractSetHash,
+      logicalSchemaHash: castingProjectReview.logicalSchemaHash,
+      compositionSchemaReady: castingProjectReview.retainedBoundaries.compositionSchemaReady,
+      canonicalizedContracts: canonicalProjectContracts.length,
+      canonicalPromotion: castingProjectReview.decision === "APPROVE",
+    },
+    contextReviews: Object.fromEntries(Object.entries(castingContextReviewState).map(([contextId, { review, contracts, current }]) => [contextId, {
+      path: `./schema-sources/authored/casting-v1/${contextId}.review.json`,
+      status: current ? review.reviewStatus : "STALE",
+      reviewer: review.reviewer,
+      contractCount: review.contractCount,
+      contractSetHash: review.contractSetHash,
+      compositionContractSetHash: review.compositionContractSetHash,
+      logicalSchemaHash: review.logicalSchemaHash,
+      compositionSchemaReady: review.retainedBoundaries.compositionSchemaReady,
+      canonicalizedContracts: contracts.length,
+      canonicalPromotion: review.decision === "APPROVE",
+    }])),
   },
   scalarTypes: { path: "./data/scalar-types.json", version: scalarTypes.schemaVersion, status: scalarTypes.status, records: scalarTypes.types.length },
   schemaSources: { path: "./schema-sources/registry.json", version: schemaSourceRegistry.schemaVersion, records: schemaSourceRecords.length, byClassification: schemaSourceRecords.reduce((counts, item) => ({ ...counts, [item.classification]: (counts[item.classification] ?? 0) + 1 }), {}) },

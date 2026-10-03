@@ -1,0 +1,14 @@
+{
+  "schemaLifecycle": "DRAFT",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
+  "targetProvider": "sqlite",
+  "generatedFrom": "Prisma Migrate diff --from-empty --to-schema --script plus reviewed MAATAA invariant overlay",
+  "migrationPreviewValid": true,
+  "migrationApproved": false,
+  "deploymentApproved": false,
+  "sqlSha256": "b41aae0b469c733960734935f5cd964301022d4cc9868622b9d2f3d985a755e5",
+  "basePrismaSqlSha256": "5696422455d1326d4d71e04fbf48f30f50e85dcbeeba17f9000fd47d9df35394",
+  "overlaySqlSha256": "471fb610ef907a7108f180c1ba0137bf5054992f2880793b564cddf522c30370",
+  "overlayFile": "provider-enforcement.sqlite.sql"
+}

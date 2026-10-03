@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "context": "communications",
   "schemaLifecycle": "DRAFT",
-  "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
   "generatedFrom": "maataa-communications-v1#reviewed-decisions+contract-review-corrections-v1",
   "correctionSetId": "maataa-communications-contract-review-corrections-v1",
   "contracts": [
@@ -288,7 +288,8 @@
           "maataa-communications-v1#communications.announcements",
           "domain-catalog#communications.announcements"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -553,7 +554,8 @@
           "maataa-communications-v1#communications.communication_threads",
           "domain-catalog#communications.communication_threads"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -777,6 +779,20 @@
             "participant_high_membership_id"
           ],
           "comparison": "uuid-binary-ascending"
+        },
+        {
+          "name": "direct_message_parent_thread_is_direct",
+          "kind": "referenced-row-predicate",
+          "target": "communications.communication_threads",
+          "predicate": {
+            "field": "kind",
+            "equals": "direct"
+          },
+          "scopeFields": [
+            "organisation_id",
+            "thread_id",
+            "workspace_id"
+          ]
         }
       ],
       "ownership": {
@@ -799,7 +815,8 @@
           "maataa-communications-v1#communications.direct_message_threads",
           "domain-catalog#communications.direct_message_threads"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -993,7 +1010,8 @@
           "maataa-communications-v1#communications.message_attachments",
           "domain-catalog#communications.message_attachments"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -1240,7 +1258,8 @@
           "maataa-communications-v1#communications.messages",
           "domain-catalog#communications.messages"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -1487,7 +1506,8 @@
           "maataa-communications-v1#communications.notification_deliveries",
           "domain-catalog#communications.notification_deliveries"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -1679,7 +1699,8 @@
           "maataa-communications-v1#communications.notification_preferences",
           "domain-catalog#communications.notification_preferences"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -2011,7 +2032,8 @@
           "maataa-communications-v1#communications.notifications",
           "domain-catalog#communications.notifications"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     },
     {
@@ -2190,6 +2212,20 @@
             "workspace_membership_id"
           ],
           "activeWhenNull": "left_at"
+        },
+        {
+          "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+          "kind": "immutable-episode-identity-and-terminal-state",
+          "immutableFields": [
+            "organisation_id",
+            "workspace_id",
+            "thread_id",
+            "workspace_membership_id",
+            "joined_at",
+            "created_at"
+          ],
+          "terminalField": "left_at",
+          "terminalTransition": "null-to-non-null-once; ended episodes cannot be reopened or have their end time rewritten"
         }
       ],
       "ownership": {
@@ -2212,7 +2248,8 @@
           "maataa-communications-v1#communications.thread_members",
           "domain-catalog#communications.thread_members"
         ],
-        "reviewedBy": null
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T01:11:54+05:30"
       }
     }
   ],
@@ -2222,7 +2259,7 @@
     "schemaReady": false,
     "logicalPreviewValid": true,
     "prismaPreviewValid": true,
-    "migrationPreviewValid": false,
+    "migrationPreviewValid": true,
     "migrationApproved": false,
     "deploymentApproved": false,
     "legalReviewed": false,
@@ -2243,6 +2280,7 @@
       "organisation.workspace_memberships",
       "organisation.workspaces"
     ],
-    "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f"
+    "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
+    "providerInvariantEnforcement": "PASS"
   }
 }

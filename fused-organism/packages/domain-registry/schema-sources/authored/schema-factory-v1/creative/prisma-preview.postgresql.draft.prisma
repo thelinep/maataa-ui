@@ -1,0 +1,1099 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for PostgreSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum E_CreativeAssetVersionsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.asset_versions#status")
+}
+enum E_CreativeCharacterSceneLinksStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.character_scene_links#status")
+}
+enum E_CreativeCharactersStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.characters#status")
+}
+enum E_CreativeCreativeApprovalsDecision {
+  pending
+  approved
+  rejected
+  changes_requested
+  @@map("creative.creative_approvals#decision")
+}
+enum E_CreativeCreativeApprovalsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.creative_approvals#status")
+}
+enum E_CreativeCreativeAssetsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.creative_assets#status")
+}
+enum E_CreativeCreativeReferencesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.creative_references#status")
+}
+enum E_CreativeIdeasStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.ideas#status")
+}
+enum E_CreativeProductionElementsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.production_elements#status")
+}
+enum E_CreativeResearchItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.research_items#status")
+}
+enum E_CreativeSceneElementsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.scene_elements#status")
+}
+enum E_CreativeSceneVersionsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.scene_versions#status")
+}
+enum E_CreativeScenesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.scenes#status")
+}
+enum E_CreativeScriptBreakdownsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.script_breakdowns#status")
+}
+enum E_CreativeScriptVersionsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.script_versions#status")
+}
+enum E_CreativeScriptsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.scripts#status")
+}
+enum E_CreativeShotListsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.shot_lists#status")
+}
+enum E_CreativeShotsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.shots#status")
+}
+enum E_CreativeStoryboardFramesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.storyboard_frames#status")
+}
+enum E_CreativeStoryboardsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.storyboards#status")
+}
+enum E_CreativeTreatmentsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("creative.treatments#status")
+}
+enum E_EvidenceEvidenceItemsEvidenceKind {
+  document
+  image
+  video
+  audio
+  dataset
+  other
+  @@map("evidence.evidence_items#evidence_kind")
+}
+enum E_EvidenceEvidenceItemsEvidenceStatus {
+  active
+  quarantined
+  withdrawn
+  @@map("evidence.evidence_items#evidence_status")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+enum E_PeopleTalentProfilesStatus {
+  active
+  inactive
+  suspended
+  archived
+  revoked
+  @@map("people.talent_profiles#status")
+}
+enum E_ProjectProjectMembersMembershipStatus {
+  active
+  invited
+  suspended
+  removed
+  @@map("project.project_members#membership_status")
+}
+enum E_ProjectProjectMembersProjectRole {
+  owner
+  admin
+  contributor
+  viewer
+  @@map("project.project_members#project_role")
+}
+enum E_ProjectProjectsProjectStatus {
+  draft
+  active
+  on_hold
+  completed
+  archived
+  @@map("project.projects#project_status")
+}
+model CreativeAssetVersions {
+  change_summary String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  creative_asset_id String @db.Uuid
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  status E_CreativeAssetVersionsStatus @default(draft)
+  storage_uri String? @db.VarChar(500)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  version_number Int
+  workspace_id String @db.Uuid
+  rel_fk_asset_versions_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_asset_versions_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_asset_versions_creative_asset_id_creative_creative_assets CreativeCreativeAssets @relation("R_fk_asset_versions_creative_asset_id_creative_creative_assets", fields: [creative_asset_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_asset_versions_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_asset_versions_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_asset_versions_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_asset_versions_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_asset_versions_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_asset_versions_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "asset_versions_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "asset_versions_id_workspace_organisation_uq")
+  @@unique([creative_asset_id, version_number], map: "asset_versions_creative_asset_id_version_number_uq")
+  @@index([organisation_id, status], map: "asset_versions_organisation_status_idx")
+  @@index([workspace_id, status], map: "asset_versions_workspace_status_idx")
+  @@index([created_at], map: "asset_versions_created_idx")
+  @@map("creative_asset_versions")
+}
+model CreativeCharacterSceneLinks {
+  appearance_note String? @db.Text
+  character_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  relationship String @db.VarChar(80)
+  scene_id String @db.Uuid
+  sort_order Int
+  status E_CreativeCharacterSceneLinksStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_character_scene_links_organisation_id_organisation_organi OrganisationOrganisations @relation("R_fk_character_scene_links_organisation_id_organisation_organi", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_character_scene_links_character_id_creative_characters CreativeCharacters @relation("R_fk_character_scene_links_character_id_creative_characters", fields: [character_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_character_scene_links_scene_id_creative_scenes CreativeScenes @relation("R_fk_character_scene_links_scene_id_creative_scenes", fields: [scene_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_character_scene_links_workspace_id_organisation_workspace OrganisationWorkspaces @relation("R_fk_character_scene_links_workspace_id_organisation_workspace", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_character_scene_links_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_character_scene_links_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "character_scene_links_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "character_scene_links_id_workspace_organisation_uq")
+  @@unique([character_id, scene_id], map: "character_scene_links_character_id_scene_id_uq")
+  @@index([organisation_id, status], map: "character_scene_links_organisation_status_idx")
+  @@index([workspace_id, status], map: "character_scene_links_workspace_status_idx")
+  @@index([created_at], map: "character_scene_links_created_idx")
+  @@map("creative_character_scene_links")
+}
+model CreativeCharacters {
+  age_range String? @db.VarChar(80)
+  character_kind String @db.VarChar(40)
+  continuity_notes String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  display_name String @db.VarChar(160)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  status E_CreativeCharactersStatus @default(draft)
+  talent_profile_id String? @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_characters_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_characters_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_characters_project_id_project_projects ProjectProjects @relation("R_fk_characters_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_characters_talent_profile_id_people_talent_profiles PeopleTalentProfiles? @relation("R_fk_characters_talent_profile_id_people_talent_profiles", fields: [talent_profile_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_characters_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_characters_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_characters_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_characters_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_character_scene_links_fk_character_scene_links_character_id_creative_characters CreativeCharacterSceneLinks[] @relation("R_fk_character_scene_links_character_id_creative_characters")
+  @@unique([id, organisation_id], map: "characters_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "characters_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "characters_organisation_status_idx")
+  @@index([workspace_id, status], map: "characters_workspace_status_idx")
+  @@index([created_at], map: "characters_created_idx")
+  @@map("creative_characters")
+}
+model CreativeCreativeApprovals {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  creative_asset_id String? @db.Uuid
+  decided_at DateTime? @db.Timestamptz(6)
+  decision E_CreativeCreativeApprovalsDecision @default(pending)
+  feedback String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  reviewer_user_id String? @db.Uuid
+  script_version_id String? @db.Uuid
+  status E_CreativeCreativeApprovalsStatus @default(draft)
+  subject_kind String @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_creative_approvals_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_creative_approvals_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_approvals_project_id_project_projects ProjectProjects @relation("R_fk_creative_approvals_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_approvals_script_version_id_creative_script_vers CreativeScriptVersions? @relation("R_fk_creative_approvals_script_version_id_creative_script_vers", fields: [script_version_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_approvals_creative_asset_id_creative_creative_as CreativeCreativeAssets? @relation("R_fk_creative_approvals_creative_asset_id_creative_creative_as", fields: [creative_asset_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_approvals_reviewer_user_id_identity_users IdentityUsers? @relation("R_fk_creative_approvals_reviewer_user_id_identity_users", fields: [reviewer_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_creative_approvals_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_creative_approvals_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_approvals_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_creative_approvals_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "creative_approvals_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "creative_approvals_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "creative_approvals_organisation_status_idx")
+  @@index([workspace_id, status], map: "creative_approvals_workspace_status_idx")
+  @@index([created_at], map: "creative_approvals_created_idx")
+  @@map("creative_creative_approvals")
+}
+model CreativeCreativeAssets {
+  asset_kind String @db.VarChar(60)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  license String? @db.VarChar(120)
+  metadata Json?
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  rights_note String? @db.Text
+  source_uri String? @db.VarChar(500)
+  status E_CreativeCreativeAssetsStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_creative_assets_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_creative_assets_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_assets_project_id_project_projects ProjectProjects @relation("R_fk_creative_assets_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_assets_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_creative_assets_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_assets_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_creative_assets_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_creative_assets_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_creative_assets_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_asset_versions_fk_asset_versions_creative_asset_id_creative_creative_assets CreativeAssetVersions[] @relation("R_fk_asset_versions_creative_asset_id_creative_creative_assets")
+  back_creative_creative_approvals_fk_creative_approvals_creative_asset_id_creative_creative_as CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_creative_asset_id_creative_creative_as")
+  @@unique([id, organisation_id], map: "creative_assets_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "creative_assets_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "creative_assets_organisation_status_idx")
+  @@index([workspace_id, status], map: "creative_assets_workspace_status_idx")
+  @@index([created_at], map: "creative_assets_created_idx")
+  @@map("creative_creative_assets")
+}
+model CreativeCreativeReferences {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  credit String? @db.VarChar(200)
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  reference_kind String @db.VarChar(60)
+  status E_CreativeCreativeReferencesStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  uri String @db.VarChar(500)
+  workspace_id String @db.Uuid
+  rel_fk_creative_references_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_creative_references_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_references_project_id_project_projects ProjectProjects @relation("R_fk_creative_references_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_references_evidence_item_id_evidence_evidence_it EvidenceEvidenceItems? @relation("R_fk_creative_references_evidence_item_id_evidence_evidence_it", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_creative_references_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_creative_references_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_creative_references_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_creative_references_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "creative_references_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "creative_references_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "creative_references_organisation_status_idx")
+  @@index([workspace_id, status], map: "creative_references_workspace_status_idx")
+  @@index([created_at], map: "creative_references_created_idx")
+  @@map("creative_creative_references")
+}
+model CreativeIdeas {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  logline String? @db.Text
+  organisation_id String @db.Uuid
+  premise String? @db.Text
+  priority String @db.VarChar(24)
+  project_id String @db.Uuid
+  status E_CreativeIdeasStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_ideas_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_ideas_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ideas_project_id_project_projects ProjectProjects @relation("R_fk_ideas_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ideas_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_ideas_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_ideas_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_ideas_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "ideas_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "ideas_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "ideas_organisation_status_idx")
+  @@index([workspace_id, status], map: "ideas_workspace_status_idx")
+  @@index([created_at], map: "ideas_created_idx")
+  @@map("creative_ideas")
+}
+model CreativeProductionElements {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  element_kind String @db.VarChar(80)
+  id String @db.Uuid @id @default(uuid())
+  label String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  quantity Decimal?
+  status E_CreativeProductionElementsStatus @default(draft)
+  unit String? @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_production_elements_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_production_elements_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_production_elements_project_id_project_projects ProjectProjects @relation("R_fk_production_elements_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_production_elements_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_production_elements_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_production_elements_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_production_elements_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_scene_elements_fk_scene_elements_production_element_id_creative_production_ CreativeSceneElements[] @relation("R_fk_scene_elements_production_element_id_creative_production_")
+  @@unique([id, organisation_id], map: "production_elements_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "production_elements_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "production_elements_organisation_status_idx")
+  @@index([workspace_id, status], map: "production_elements_workspace_status_idx")
+  @@index([created_at], map: "production_elements_created_idx")
+  @@map("creative_production_elements")
+}
+model CreativeResearchItems {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  evidence_item_id String? @db.Uuid
+  findings String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  method String @db.VarChar(80)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  question String @db.Text
+  source_uri String? @db.VarChar(500)
+  status E_CreativeResearchItemsStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_research_items_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_research_items_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_research_items_project_id_project_projects ProjectProjects @relation("R_fk_research_items_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_research_items_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_research_items_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_research_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_research_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_research_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_research_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "research_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "research_items_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "research_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "research_items_workspace_status_idx")
+  @@index([created_at], map: "research_items_created_idx")
+  @@map("creative_research_items")
+}
+model CreativeSceneElements {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  production_element_id String @db.Uuid
+  quantity Decimal?
+  scene_id String @db.Uuid
+  status E_CreativeSceneElementsStatus @default(draft)
+  unit String? @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_scene_elements_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_scene_elements_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scene_elements_scene_id_creative_scenes CreativeScenes @relation("R_fk_scene_elements_scene_id_creative_scenes", fields: [scene_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scene_elements_production_element_id_creative_production_ CreativeProductionElements @relation("R_fk_scene_elements_production_element_id_creative_production_", fields: [production_element_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scene_elements_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_scene_elements_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scene_elements_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_scene_elements_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "scene_elements_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "scene_elements_id_workspace_organisation_uq")
+  @@unique([scene_id, production_element_id], map: "scene_elements_scene_id_production_element_id_uq")
+  @@index([organisation_id, status], map: "scene_elements_organisation_status_idx")
+  @@index([workspace_id, status], map: "scene_elements_workspace_status_idx")
+  @@index([created_at], map: "scene_elements_created_idx")
+  @@map("creative_scene_elements")
+}
+model CreativeSceneVersions {
+  change_summary String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  scene_id String @db.Uuid
+  status E_CreativeSceneVersionsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  version_number Int
+  workspace_id String @db.Uuid
+  rel_fk_scene_versions_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_scene_versions_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scene_versions_scene_id_creative_scenes CreativeScenes @relation("R_fk_scene_versions_scene_id_creative_scenes", fields: [scene_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scene_versions_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_scene_versions_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_scene_versions_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_scene_versions_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "scene_versions_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "scene_versions_id_workspace_organisation_uq")
+  @@unique([scene_id, version_number], map: "scene_versions_scene_id_version_number_uq")
+  @@index([organisation_id, status], map: "scene_versions_organisation_status_idx")
+  @@index([workspace_id, status], map: "scene_versions_workspace_status_idx")
+  @@index([created_at], map: "scene_versions_created_idx")
+  @@map("creative_scene_versions")
+}
+model CreativeScenes {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  heading String @db.VarChar(240)
+  id String @db.Uuid @id @default(uuid())
+  interior_exterior String @db.VarChar(16)
+  location_text String? @db.VarChar(240)
+  organisation_id String @db.Uuid
+  scene_number String @db.VarChar(40)
+  script_id String @db.Uuid
+  sort_order Int
+  status E_CreativeScenesStatus @default(draft)
+  summary String? @db.Text
+  time_of_day String? @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_scenes_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_scenes_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scenes_script_id_creative_scripts CreativeScripts @relation("R_fk_scenes_script_id_creative_scripts", fields: [script_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scenes_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_scenes_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_scenes_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_scenes_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_character_scene_links_fk_character_scene_links_scene_id_creative_scenes CreativeCharacterSceneLinks[] @relation("R_fk_character_scene_links_scene_id_creative_scenes")
+  back_creative_scene_elements_fk_scene_elements_scene_id_creative_scenes CreativeSceneElements[] @relation("R_fk_scene_elements_scene_id_creative_scenes")
+  back_creative_scene_versions_fk_scene_versions_scene_id_creative_scenes CreativeSceneVersions[] @relation("R_fk_scene_versions_scene_id_creative_scenes")
+  back_creative_script_breakdowns_fk_script_breakdowns_scene_id_creative_scenes CreativeScriptBreakdowns[] @relation("R_fk_script_breakdowns_scene_id_creative_scenes")
+  back_creative_shots_fk_shots_scene_id_creative_scenes CreativeShots[] @relation("R_fk_shots_scene_id_creative_scenes")
+  back_creative_storyboard_frames_fk_storyboard_frames_scene_id_creative_scenes CreativeStoryboardFrames[] @relation("R_fk_storyboard_frames_scene_id_creative_scenes")
+  @@unique([id, organisation_id], map: "scenes_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "scenes_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "scenes_organisation_status_idx")
+  @@index([workspace_id, status], map: "scenes_workspace_status_idx")
+  @@index([created_at], map: "scenes_created_idx")
+  @@map("creative_scenes")
+}
+model CreativeScriptBreakdowns {
+  category String @db.VarChar(80)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  label String @db.VarChar(200)
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  quantity Decimal?
+  scene_id String? @db.Uuid
+  script_version_id String @db.Uuid
+  status E_CreativeScriptBreakdownsStatus @default(draft)
+  unit String? @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_script_breakdowns_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_script_breakdowns_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_script_breakdowns_script_version_id_creative_script_versi CreativeScriptVersions @relation("R_fk_script_breakdowns_script_version_id_creative_script_versi", fields: [script_version_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_script_breakdowns_scene_id_creative_scenes CreativeScenes? @relation("R_fk_script_breakdowns_scene_id_creative_scenes", fields: [scene_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_script_breakdowns_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_script_breakdowns_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_script_breakdowns_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_script_breakdowns_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "script_breakdowns_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "script_breakdowns_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "script_breakdowns_organisation_status_idx")
+  @@index([workspace_id, status], map: "script_breakdowns_workspace_status_idx")
+  @@index([created_at], map: "script_breakdowns_created_idx")
+  @@map("creative_script_breakdowns")
+}
+model CreativeScriptVersions {
+  change_summary String? @db.Text
+  content_uri String? @db.VarChar(500)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  script_id String @db.Uuid
+  status E_CreativeScriptVersionsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  version_number Int
+  workspace_id String @db.Uuid
+  rel_fk_script_versions_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_script_versions_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_script_versions_script_id_creative_scripts CreativeScripts @relation("R_fk_script_versions_script_id_creative_scripts", fields: [script_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_script_versions_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_script_versions_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_script_versions_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_script_versions_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_creative_approvals_fk_creative_approvals_script_version_id_creative_script_vers CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_script_version_id_creative_script_vers")
+  back_creative_script_breakdowns_fk_script_breakdowns_script_version_id_creative_script_versi CreativeScriptBreakdowns[] @relation("R_fk_script_breakdowns_script_version_id_creative_script_versi")
+  @@unique([id, organisation_id], map: "script_versions_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "script_versions_id_workspace_organisation_uq")
+  @@unique([script_id, version_number], map: "script_versions_script_id_version_number_uq")
+  @@index([organisation_id, status], map: "script_versions_organisation_status_idx")
+  @@index([workspace_id, status], map: "script_versions_workspace_status_idx")
+  @@index([created_at], map: "script_versions_created_idx")
+  @@map("creative_script_versions")
+}
+model CreativeScripts {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  format String @db.VarChar(40)
+  id String @db.Uuid @id @default(uuid())
+  language String @db.VarChar(16)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  status E_CreativeScriptsStatus @default(draft)
+  title String @db.VarChar(200)
+  treatment_id String? @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  working_draft String? @db.Text
+  workspace_id String @db.Uuid
+  rel_fk_scripts_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_scripts_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scripts_project_id_project_projects ProjectProjects @relation("R_fk_scripts_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scripts_treatment_id_creative_treatments CreativeTreatments? @relation("R_fk_scripts_treatment_id_creative_treatments", fields: [treatment_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_scripts_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_scripts_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_scripts_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_scripts_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_scenes_fk_scenes_script_id_creative_scripts CreativeScenes[] @relation("R_fk_scenes_script_id_creative_scripts")
+  back_creative_script_versions_fk_script_versions_script_id_creative_scripts CreativeScriptVersions[] @relation("R_fk_script_versions_script_id_creative_scripts")
+  back_creative_shot_lists_fk_shot_lists_script_id_creative_scripts CreativeShotLists[] @relation("R_fk_shot_lists_script_id_creative_scripts")
+  back_creative_storyboards_fk_storyboards_script_id_creative_scripts CreativeStoryboards[] @relation("R_fk_storyboards_script_id_creative_scripts")
+  @@unique([id, organisation_id], map: "scripts_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "scripts_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "scripts_organisation_status_idx")
+  @@index([workspace_id, status], map: "scripts_workspace_status_idx")
+  @@index([created_at], map: "scripts_created_idx")
+  @@map("creative_scripts")
+}
+model CreativeShotLists {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  objective String? @db.Text
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  script_id String? @db.Uuid
+  status E_CreativeShotListsStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  version_number Int
+  workspace_id String @db.Uuid
+  rel_fk_shot_lists_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_shot_lists_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shot_lists_project_id_project_projects ProjectProjects @relation("R_fk_shot_lists_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shot_lists_script_id_creative_scripts CreativeScripts? @relation("R_fk_shot_lists_script_id_creative_scripts", fields: [script_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shot_lists_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_shot_lists_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_shot_lists_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_shot_lists_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_shots_fk_shots_shot_list_id_creative_shot_lists CreativeShots[] @relation("R_fk_shots_shot_list_id_creative_shot_lists")
+  @@unique([id, organisation_id], map: "shot_lists_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "shot_lists_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "shot_lists_organisation_status_idx")
+  @@index([workspace_id, status], map: "shot_lists_workspace_status_idx")
+  @@index([created_at], map: "shot_lists_created_idx")
+  @@map("creative_shot_lists")
+}
+model CreativeShots {
+  camera_setup String? @db.VarChar(160)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  duration_seconds Decimal?
+  id String @db.Uuid @id @default(uuid())
+  lens String? @db.VarChar(80)
+  movement String? @db.VarChar(80)
+  organisation_id String @db.Uuid
+  scene_id String @db.Uuid
+  shot_list_id String @db.Uuid
+  shot_number String @db.VarChar(40)
+  shot_type String? @db.VarChar(40)
+  status E_CreativeShotsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_shots_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_shots_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shots_shot_list_id_creative_shot_lists CreativeShotLists @relation("R_fk_shots_shot_list_id_creative_shot_lists", fields: [shot_list_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shots_scene_id_creative_scenes CreativeScenes @relation("R_fk_shots_scene_id_creative_scenes", fields: [scene_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shots_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_shots_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_shots_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_shots_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "shots_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "shots_id_workspace_organisation_uq")
+  @@unique([shot_list_id, shot_number], map: "shots_shot_list_id_shot_number_uq")
+  @@index([organisation_id, status], map: "shots_organisation_status_idx")
+  @@index([workspace_id, status], map: "shots_workspace_status_idx")
+  @@index([created_at], map: "shots_created_idx")
+  @@map("creative_shots")
+}
+model CreativeStoryboardFrames {
+  camera_note String? @db.Text
+  caption String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  frame_number Int
+  id String @db.Uuid @id @default(uuid())
+  image_uri String? @db.VarChar(500)
+  organisation_id String @db.Uuid
+  scene_id String? @db.Uuid
+  status E_CreativeStoryboardFramesStatus @default(draft)
+  storyboard_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_storyboard_frames_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_storyboard_frames_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_storyboard_frames_storyboard_id_creative_storyboards CreativeStoryboards @relation("R_fk_storyboard_frames_storyboard_id_creative_storyboards", fields: [storyboard_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_storyboard_frames_scene_id_creative_scenes CreativeScenes? @relation("R_fk_storyboard_frames_scene_id_creative_scenes", fields: [scene_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_storyboard_frames_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_storyboard_frames_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_storyboard_frames_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_storyboard_frames_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "storyboard_frames_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "storyboard_frames_id_workspace_organisation_uq")
+  @@unique([storyboard_id, frame_number], map: "storyboard_frames_storyboard_id_frame_number_uq")
+  @@index([organisation_id, status], map: "storyboard_frames_organisation_status_idx")
+  @@index([workspace_id, status], map: "storyboard_frames_workspace_status_idx")
+  @@index([created_at], map: "storyboard_frames_created_idx")
+  @@map("creative_storyboard_frames")
+}
+model CreativeStoryboards {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  script_id String @db.Uuid
+  status E_CreativeStoryboardsStatus @default(draft)
+  status_note String? @db.VarChar(80)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  version_number Int
+  workspace_id String @db.Uuid
+  rel_fk_storyboards_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_storyboards_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_storyboards_script_id_creative_scripts CreativeScripts @relation("R_fk_storyboards_script_id_creative_scripts", fields: [script_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_storyboards_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_storyboards_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_storyboards_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_storyboards_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_storyboard_frames_fk_storyboard_frames_storyboard_id_creative_storyboards CreativeStoryboardFrames[] @relation("R_fk_storyboard_frames_storyboard_id_creative_storyboards")
+  @@unique([id, organisation_id], map: "storyboards_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "storyboards_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "storyboards_organisation_status_idx")
+  @@index([workspace_id, status], map: "storyboards_workspace_status_idx")
+  @@index([created_at], map: "storyboards_created_idx")
+  @@map("creative_storyboards")
+}
+model CreativeTreatments {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  logline String @db.Text
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  status E_CreativeTreatmentsStatus @default(draft)
+  synopsis String? @db.Text
+  target_minutes Int?
+  title String @db.VarChar(200)
+  tone String? @db.VarChar(120)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_treatments_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_treatments_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_treatments_project_id_project_projects ProjectProjects @relation("R_fk_treatments_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_treatments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_treatments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_treatments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_treatments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_scripts_fk_scripts_treatment_id_creative_treatments CreativeScripts[] @relation("R_fk_scripts_treatment_id_creative_treatments")
+  @@unique([id, organisation_id], map: "treatments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "treatments_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "treatments_organisation_status_idx")
+  @@index([workspace_id, status], map: "treatments_workspace_status_idx")
+  @@index([created_at], map: "treatments_created_idx")
+  @@map("creative_treatments")
+}
+model EvidenceEvidenceItems {
+  captured_at DateTime? @db.Timestamptz(6)
+  content_sha256 String @db.VarChar(64)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  description String? @db.Text
+  id String @db.Uuid @id
+  kind E_EvidenceEvidenceItemsEvidenceKind
+  media_type String @db.VarChar(127)
+  metadata Json @default("{}")
+  organisation_id String @db.Uuid
+  project_id String? @db.Uuid
+  retention_until DateTime? @db.Timestamptz(6)
+  size_bytes Int?
+  status E_EvidenceEvidenceItemsEvidenceStatus @default(active)
+  storage_uri String @db.Text
+  title String @db.VarChar(240)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  uploaded_by_user_id String? @db.Uuid
+  withdrawn_at DateTime? @db.Timestamptz(6)
+  rel_evidence_items_organisation_fk OrganisationOrganisations @relation("R_evidence_items_organisation_fk", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_project_tenant_fk ProjectProjects? @relation("R_evidence_items_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_uploader_fk IdentityUsers? @relation("R_evidence_items_uploader_fk", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_creative_asset_versions_fk_asset_versions_evidence_item_id_evidence_evidence_items CreativeAssetVersions[] @relation("R_fk_asset_versions_evidence_item_id_evidence_evidence_items")
+  back_creative_creative_assets_fk_creative_assets_evidence_item_id_evidence_evidence_items CreativeCreativeAssets[] @relation("R_fk_creative_assets_evidence_item_id_evidence_evidence_items")
+  back_creative_creative_references_fk_creative_references_evidence_item_id_evidence_evidence_it CreativeCreativeReferences[] @relation("R_fk_creative_references_evidence_item_id_evidence_evidence_it")
+  back_creative_research_items_fk_research_items_evidence_item_id_evidence_evidence_items CreativeResearchItems[] @relation("R_fk_research_items_evidence_item_id_evidence_evidence_items")
+  @@unique([id, organisation_id], map: "evidence_items_id_organisation_unique")
+  @@index([organisation_id, project_id, created_at], map: "evidence_items_project_created_idx")
+  @@index([organisation_id, content_sha256], map: "evidence_items_hash_idx")
+  @@index([organisation_id, retention_until], map: "evidence_items_retention_idx")
+  @@map("evidence_evidence_items")
+}
+model IdentityUsers {
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  email String @db.VarChar(320)
+  email_verified_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  status E_IdentityUsersAccountStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  back_creative_asset_versions_fk_asset_versions_created_by_user_id_identity_users CreativeAssetVersions[] @relation("R_fk_asset_versions_created_by_user_id_identity_users")
+  back_creative_character_scene_links_fk_character_scene_links_created_by_user_id_identity_users CreativeCharacterSceneLinks[] @relation("R_fk_character_scene_links_created_by_user_id_identity_users")
+  back_creative_characters_fk_characters_created_by_user_id_identity_users CreativeCharacters[] @relation("R_fk_characters_created_by_user_id_identity_users")
+  back_creative_creative_approvals_fk_creative_approvals_reviewer_user_id_identity_users CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_reviewer_user_id_identity_users")
+  back_creative_creative_approvals_fk_creative_approvals_created_by_user_id_identity_users CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_created_by_user_id_identity_users")
+  back_creative_creative_assets_fk_creative_assets_created_by_user_id_identity_users CreativeCreativeAssets[] @relation("R_fk_creative_assets_created_by_user_id_identity_users")
+  back_creative_creative_references_fk_creative_references_created_by_user_id_identity_users CreativeCreativeReferences[] @relation("R_fk_creative_references_created_by_user_id_identity_users")
+  back_creative_ideas_fk_ideas_created_by_user_id_identity_users CreativeIdeas[] @relation("R_fk_ideas_created_by_user_id_identity_users")
+  back_creative_production_elements_fk_production_elements_created_by_user_id_identity_users CreativeProductionElements[] @relation("R_fk_production_elements_created_by_user_id_identity_users")
+  back_creative_research_items_fk_research_items_created_by_user_id_identity_users CreativeResearchItems[] @relation("R_fk_research_items_created_by_user_id_identity_users")
+  back_creative_scene_elements_fk_scene_elements_created_by_user_id_identity_users CreativeSceneElements[] @relation("R_fk_scene_elements_created_by_user_id_identity_users")
+  back_creative_scene_versions_fk_scene_versions_created_by_user_id_identity_users CreativeSceneVersions[] @relation("R_fk_scene_versions_created_by_user_id_identity_users")
+  back_creative_scenes_fk_scenes_created_by_user_id_identity_users CreativeScenes[] @relation("R_fk_scenes_created_by_user_id_identity_users")
+  back_creative_script_breakdowns_fk_script_breakdowns_created_by_user_id_identity_users CreativeScriptBreakdowns[] @relation("R_fk_script_breakdowns_created_by_user_id_identity_users")
+  back_creative_script_versions_fk_script_versions_created_by_user_id_identity_users CreativeScriptVersions[] @relation("R_fk_script_versions_created_by_user_id_identity_users")
+  back_creative_scripts_fk_scripts_created_by_user_id_identity_users CreativeScripts[] @relation("R_fk_scripts_created_by_user_id_identity_users")
+  back_creative_shot_lists_fk_shot_lists_created_by_user_id_identity_users CreativeShotLists[] @relation("R_fk_shot_lists_created_by_user_id_identity_users")
+  back_creative_shots_fk_shots_created_by_user_id_identity_users CreativeShots[] @relation("R_fk_shots_created_by_user_id_identity_users")
+  back_creative_storyboard_frames_fk_storyboard_frames_created_by_user_id_identity_users CreativeStoryboardFrames[] @relation("R_fk_storyboard_frames_created_by_user_id_identity_users")
+  back_creative_storyboards_fk_storyboards_created_by_user_id_identity_users CreativeStoryboards[] @relation("R_fk_storyboards_created_by_user_id_identity_users")
+  back_creative_treatments_fk_treatments_created_by_user_id_identity_users CreativeTreatments[] @relation("R_fk_treatments_created_by_user_id_identity_users")
+  back_evidence_evidence_items_evidence_items_uploader_fk EvidenceEvidenceItems[] @relation("R_evidence_items_uploader_fk")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  back_people_talent_profiles_fk_talent_profiles_user_id_identity_users PeopleTalentProfiles[] @relation("R_fk_talent_profiles_user_id_identity_users")
+  back_people_talent_profiles_fk_talent_profiles_created_by_user_id_identity_users PeopleTalentProfiles[] @relation("R_fk_talent_profiles_created_by_user_id_identity_users")
+  back_project_project_members_project_members_user_fk ProjectProjectMembers[] @relation("R_project_members_user_fk")
+  back_project_project_members_project_members_adder_fk ProjectProjectMembers[] @relation("R_project_members_adder_fk")
+  back_project_projects_projects_creator_user_fk ProjectProjects[] @relation("R_projects_creator_user_fk")
+  @@unique([email], map: "users_email_unique")
+  @@index([status], map: "users_status_idx")
+  @@map("identity_users")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
+  @@index([user_id, status], map: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  slug String @db.VarChar(120)
+  status E_OrganisationOrganisationsOrganisationStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_creative_asset_versions_fk_asset_versions_organisation_id_organisation_organisations CreativeAssetVersions[] @relation("R_fk_asset_versions_organisation_id_organisation_organisations")
+  back_creative_character_scene_links_fk_character_scene_links_organisation_id_organisation_organi CreativeCharacterSceneLinks[] @relation("R_fk_character_scene_links_organisation_id_organisation_organi")
+  back_creative_characters_fk_characters_organisation_id_organisation_organisations CreativeCharacters[] @relation("R_fk_characters_organisation_id_organisation_organisations")
+  back_creative_creative_approvals_fk_creative_approvals_organisation_id_organisation_organisat CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_organisation_id_organisation_organisat")
+  back_creative_creative_assets_fk_creative_assets_organisation_id_organisation_organisation CreativeCreativeAssets[] @relation("R_fk_creative_assets_organisation_id_organisation_organisation")
+  back_creative_creative_references_fk_creative_references_organisation_id_organisation_organisa CreativeCreativeReferences[] @relation("R_fk_creative_references_organisation_id_organisation_organisa")
+  back_creative_ideas_fk_ideas_organisation_id_organisation_organisations CreativeIdeas[] @relation("R_fk_ideas_organisation_id_organisation_organisations")
+  back_creative_production_elements_fk_production_elements_organisation_id_organisation_organisa CreativeProductionElements[] @relation("R_fk_production_elements_organisation_id_organisation_organisa")
+  back_creative_research_items_fk_research_items_organisation_id_organisation_organisations CreativeResearchItems[] @relation("R_fk_research_items_organisation_id_organisation_organisations")
+  back_creative_scene_elements_fk_scene_elements_organisation_id_organisation_organisations CreativeSceneElements[] @relation("R_fk_scene_elements_organisation_id_organisation_organisations")
+  back_creative_scene_versions_fk_scene_versions_organisation_id_organisation_organisations CreativeSceneVersions[] @relation("R_fk_scene_versions_organisation_id_organisation_organisations")
+  back_creative_scenes_fk_scenes_organisation_id_organisation_organisations CreativeScenes[] @relation("R_fk_scenes_organisation_id_organisation_organisations")
+  back_creative_script_breakdowns_fk_script_breakdowns_organisation_id_organisation_organisati CreativeScriptBreakdowns[] @relation("R_fk_script_breakdowns_organisation_id_organisation_organisati")
+  back_creative_script_versions_fk_script_versions_organisation_id_organisation_organisation CreativeScriptVersions[] @relation("R_fk_script_versions_organisation_id_organisation_organisation")
+  back_creative_scripts_fk_scripts_organisation_id_organisation_organisations CreativeScripts[] @relation("R_fk_scripts_organisation_id_organisation_organisations")
+  back_creative_shot_lists_fk_shot_lists_organisation_id_organisation_organisations CreativeShotLists[] @relation("R_fk_shot_lists_organisation_id_organisation_organisations")
+  back_creative_shots_fk_shots_organisation_id_organisation_organisations CreativeShots[] @relation("R_fk_shots_organisation_id_organisation_organisations")
+  back_creative_storyboard_frames_fk_storyboard_frames_organisation_id_organisation_organisati CreativeStoryboardFrames[] @relation("R_fk_storyboard_frames_organisation_id_organisation_organisati")
+  back_creative_storyboards_fk_storyboards_organisation_id_organisation_organisations CreativeStoryboards[] @relation("R_fk_storyboards_organisation_id_organisation_organisations")
+  back_creative_treatments_fk_treatments_organisation_id_organisation_organisations CreativeTreatments[] @relation("R_fk_treatments_organisation_id_organisation_organisations")
+  back_evidence_evidence_items_evidence_items_organisation_fk EvidenceEvidenceItems[] @relation("R_evidence_items_organisation_fk")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  back_people_talent_profiles_fk_talent_profiles_organisation_id_organisation_organisation PeopleTalentProfiles[] @relation("R_fk_talent_profiles_organisation_id_organisation_organisation")
+  @@unique([slug], map: "organisations_slug_unique")
+  @@index([status], map: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
+  @@index([user_id, status], map: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_OrganisationWorkspacesWorkspaceStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_creative_asset_versions_fk_asset_versions_workspace_id_organisation_workspaces CreativeAssetVersions[] @relation("R_fk_asset_versions_workspace_id_organisation_workspaces")
+  back_creative_character_scene_links_fk_character_scene_links_workspace_id_organisation_workspace CreativeCharacterSceneLinks[] @relation("R_fk_character_scene_links_workspace_id_organisation_workspace")
+  back_creative_characters_fk_characters_workspace_id_organisation_workspaces CreativeCharacters[] @relation("R_fk_characters_workspace_id_organisation_workspaces")
+  back_creative_creative_approvals_fk_creative_approvals_workspace_id_organisation_workspaces CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_workspace_id_organisation_workspaces")
+  back_creative_creative_assets_fk_creative_assets_workspace_id_organisation_workspaces CreativeCreativeAssets[] @relation("R_fk_creative_assets_workspace_id_organisation_workspaces")
+  back_creative_creative_references_fk_creative_references_workspace_id_organisation_workspaces CreativeCreativeReferences[] @relation("R_fk_creative_references_workspace_id_organisation_workspaces")
+  back_creative_ideas_fk_ideas_workspace_id_organisation_workspaces CreativeIdeas[] @relation("R_fk_ideas_workspace_id_organisation_workspaces")
+  back_creative_production_elements_fk_production_elements_workspace_id_organisation_workspaces CreativeProductionElements[] @relation("R_fk_production_elements_workspace_id_organisation_workspaces")
+  back_creative_research_items_fk_research_items_workspace_id_organisation_workspaces CreativeResearchItems[] @relation("R_fk_research_items_workspace_id_organisation_workspaces")
+  back_creative_scene_elements_fk_scene_elements_workspace_id_organisation_workspaces CreativeSceneElements[] @relation("R_fk_scene_elements_workspace_id_organisation_workspaces")
+  back_creative_scene_versions_fk_scene_versions_workspace_id_organisation_workspaces CreativeSceneVersions[] @relation("R_fk_scene_versions_workspace_id_organisation_workspaces")
+  back_creative_scenes_fk_scenes_workspace_id_organisation_workspaces CreativeScenes[] @relation("R_fk_scenes_workspace_id_organisation_workspaces")
+  back_creative_script_breakdowns_fk_script_breakdowns_workspace_id_organisation_workspaces CreativeScriptBreakdowns[] @relation("R_fk_script_breakdowns_workspace_id_organisation_workspaces")
+  back_creative_script_versions_fk_script_versions_workspace_id_organisation_workspaces CreativeScriptVersions[] @relation("R_fk_script_versions_workspace_id_organisation_workspaces")
+  back_creative_scripts_fk_scripts_workspace_id_organisation_workspaces CreativeScripts[] @relation("R_fk_scripts_workspace_id_organisation_workspaces")
+  back_creative_shot_lists_fk_shot_lists_workspace_id_organisation_workspaces CreativeShotLists[] @relation("R_fk_shot_lists_workspace_id_organisation_workspaces")
+  back_creative_shots_fk_shots_workspace_id_organisation_workspaces CreativeShots[] @relation("R_fk_shots_workspace_id_organisation_workspaces")
+  back_creative_storyboard_frames_fk_storyboard_frames_workspace_id_organisation_workspaces CreativeStoryboardFrames[] @relation("R_fk_storyboard_frames_workspace_id_organisation_workspaces")
+  back_creative_storyboards_fk_storyboards_workspace_id_organisation_workspaces CreativeStoryboards[] @relation("R_fk_storyboards_workspace_id_organisation_workspaces")
+  back_creative_treatments_fk_treatments_workspace_id_organisation_workspaces CreativeTreatments[] @relation("R_fk_treatments_workspace_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  back_people_talent_profiles_fk_talent_profiles_workspace_id_organisation_workspaces PeopleTalentProfiles[] @relation("R_fk_talent_profiles_workspace_id_organisation_workspaces")
+  back_project_projects_projects_workspace_tenant_fk ProjectProjects[] @relation("R_projects_workspace_tenant_fk")
+  @@unique([organisation_id, slug], map: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], map: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], map: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}
+model PeopleTalentProfiles {
+  biography String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  date_of_birth DateTime? @db.Date
+  description String? @db.Text
+  display_name String @db.VarChar(200)
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(180)
+  organisation_id String @db.Uuid
+  pronouns String? @db.VarChar(80)
+  status E_PeopleTalentProfilesStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String? @db.Uuid
+  workspace_id String? @db.Uuid
+  rel_fk_talent_profiles_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_talent_profiles_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_talent_profiles_user_id_identity_users IdentityUsers? @relation("R_fk_talent_profiles_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_talent_profiles_workspace_id_organisation_workspaces OrganisationWorkspaces? @relation("R_fk_talent_profiles_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_talent_profiles_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_talent_profiles_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  back_creative_characters_fk_characters_talent_profile_id_people_talent_profiles CreativeCharacters[] @relation("R_fk_characters_talent_profile_id_people_talent_profiles")
+  @@unique([id, organisation_id], map: "uq_talent_profiles_id_organisation")
+  @@index([organisation_id, status], map: "ix_talent_profiles_organisation_status")
+  @@index([organisation_id], map: "ix_talent_profiles_organisation_id")
+  @@index([user_id], map: "ix_talent_profiles_user_id")
+  @@index([workspace_id, organisation_id], map: "ix_talent_profiles_workspace_id_organisation_id")
+  @@index([created_by_user_id], map: "ix_talent_profiles_created_by_user_id")
+  @@map("people_talent_profiles")
+}
+model ProjectProjectMembers {
+  added_by_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  role E_ProjectProjectMembersProjectRole
+  status E_ProjectProjectMembersMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_project_members_project_tenant_fk ProjectProjects @relation("R_project_members_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_project_members_user_fk IdentityUsers @relation("R_project_members_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_project_members_adder_fk IdentityUsers? @relation("R_project_members_adder_fk", fields: [added_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([project_id, user_id], map: "project_members_pair_unique")
+  @@index([user_id, status], map: "project_members_user_status_idx")
+  @@map("project_project_members")
+}
+model ProjectProjects {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_ProjectProjectsProjectStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_projects_workspace_tenant_fk OrganisationWorkspaces @relation("R_projects_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_projects_creator_user_fk IdentityUsers? @relation("R_projects_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_creative_characters_fk_characters_project_id_project_projects CreativeCharacters[] @relation("R_fk_characters_project_id_project_projects")
+  back_creative_creative_approvals_fk_creative_approvals_project_id_project_projects CreativeCreativeApprovals[] @relation("R_fk_creative_approvals_project_id_project_projects")
+  back_creative_creative_assets_fk_creative_assets_project_id_project_projects CreativeCreativeAssets[] @relation("R_fk_creative_assets_project_id_project_projects")
+  back_creative_creative_references_fk_creative_references_project_id_project_projects CreativeCreativeReferences[] @relation("R_fk_creative_references_project_id_project_projects")
+  back_creative_ideas_fk_ideas_project_id_project_projects CreativeIdeas[] @relation("R_fk_ideas_project_id_project_projects")
+  back_creative_production_elements_fk_production_elements_project_id_project_projects CreativeProductionElements[] @relation("R_fk_production_elements_project_id_project_projects")
+  back_creative_research_items_fk_research_items_project_id_project_projects CreativeResearchItems[] @relation("R_fk_research_items_project_id_project_projects")
+  back_creative_scripts_fk_scripts_project_id_project_projects CreativeScripts[] @relation("R_fk_scripts_project_id_project_projects")
+  back_creative_shot_lists_fk_shot_lists_project_id_project_projects CreativeShotLists[] @relation("R_fk_shot_lists_project_id_project_projects")
+  back_creative_treatments_fk_treatments_project_id_project_projects CreativeTreatments[] @relation("R_fk_treatments_project_id_project_projects")
+  back_evidence_evidence_items_evidence_items_project_tenant_fk EvidenceEvidenceItems[] @relation("R_evidence_items_project_tenant_fk")
+  back_project_project_members_project_members_project_tenant_fk ProjectProjectMembers[] @relation("R_project_members_project_tenant_fk")
+  @@unique([workspace_id, slug], map: "projects_workspace_slug_unique")
+  @@unique([id, organisation_id], map: "projects_id_organisation_unique")
+  @@index([organisation_id, status], map: "projects_tenant_status_idx")
+  @@index([workspace_id, status], map: "projects_workspace_status_idx")
+  @@map("project_projects")
+}

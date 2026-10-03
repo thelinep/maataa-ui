@@ -1,0 +1,1564 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for PostgreSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum E_EvidenceEvidenceItemsEvidenceKind {
+  document
+  image
+  video
+  audio
+  dataset
+  other
+  @@map("evidence.evidence_items#evidence_kind")
+}
+enum E_EvidenceEvidenceItemsEvidenceStatus {
+  active
+  quarantined
+  withdrawn
+  @@map("evidence.evidence_items#evidence_status")
+}
+enum E_FinanceBudgetCategoriesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("finance.budget_categories#status")
+}
+enum E_FinanceBudgetLinesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("finance.budget_lines#status")
+}
+enum E_FinanceBudgetsBudgetStatus {
+  draft
+  submitted
+  approved
+  locked
+  closed
+  @@map("finance.budgets#budget_status")
+}
+enum E_FinanceCommitmentsCommitmentStatus {
+  open
+  partially_invoiced
+  closed
+  cancelled
+  @@map("finance.commitments#commitment_status")
+}
+enum E_FinancePaymentsPaymentStatus {
+  pending
+  authorized
+  settled
+  failed
+  refunded
+  @@map("finance.payments#payment_status")
+}
+enum E_FinanceVendorInvoicesInvoiceStatus {
+  received
+  matched
+  approved
+  disputed
+  paid
+  @@map("finance.vendor_invoices#invoice_status")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_InvestorDealRoomMembersAccessStatus {
+  invited
+  active
+  revoked
+  @@map("investor.deal_room_members#access_status")
+}
+enum E_InvestorDealRoomsRoomStatus {
+  draft
+  open
+  closed
+  archived
+  @@map("investor.deal_rooms#room_status")
+}
+enum E_InvestorDisclosuresStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.disclosures#status")
+}
+enum E_InvestorDistributionChannelsChannelStatus {
+  active
+  paused
+  retired
+  @@map("investor.distribution_channels#channel_status")
+}
+enum E_InvestorDistributionDealsDealStatus {
+  draft
+  offered
+  active
+  expired
+  terminated
+  @@map("investor.distribution_deals#deal_status")
+}
+enum E_InvestorDueDiligenceItemsItemStatus {
+  open
+  in_review
+  answered
+  accepted
+  waived
+  @@map("investor.due_diligence_items#item_status")
+}
+enum E_InvestorFundingRequirementsRequirementStatus {
+  proposed
+  approved
+  met
+  waived
+  @@map("investor.funding_requirements#requirement_status")
+}
+enum E_InvestorInvestmentOpportunitiesOpportunityStatus {
+  draft
+  open
+  closed
+  filled
+  cancelled
+  @@map("investor.investment_opportunities#opportunity_status")
+}
+enum E_InvestorInvestmentProfilesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.investment_profiles#status")
+}
+enum E_InvestorInvestmentTranchesTrancheStatus {
+  planned
+  approved
+  released
+  cancelled
+  @@map("investor.investment_tranches#tranche_status")
+}
+enum E_InvestorInvestorAccountsAccountStatus {
+  pending
+  verified
+  blocked
+  closed
+  @@map("investor.investor_accounts#account_status")
+}
+enum E_InvestorInvestorCommitmentsCommitmentStatus {
+  indication
+  committed
+  withdrawn
+  settled
+  @@map("investor.investor_commitments#commitment_status")
+}
+enum E_InvestorInvestorEvidenceLinksStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.investor_evidence_links#status")
+}
+enum E_InvestorInvestorProgressReportsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.investor_progress_reports#status")
+}
+enum E_InvestorInvestorReturnsReturnStatus {
+  estimated
+  approved
+  paid
+  void
+  @@map("investor.investor_returns#return_status")
+}
+enum E_InvestorPitchDecksStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.pitch_decks#status")
+}
+enum E_InvestorRecoupmentModelsModelStatus {
+  draft
+  active
+  retired
+  @@map("investor.recoupment_models#model_status")
+}
+enum E_InvestorRecoupmentTiersStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.recoupment_tiers#status")
+}
+enum E_InvestorRevenueEntriesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.revenue_entries#status")
+}
+enum E_InvestorRightsWindowsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("investor.rights_windows#status")
+}
+enum E_InvestorRightsRightsStatus {
+  proposed
+  granted
+  expired
+  revoked
+  @@map("investor.rights#rights_status")
+}
+enum E_MarketplaceProcurementAwardsDecision {
+  pending
+  awarded
+  not_awarded
+  @@map("marketplace.procurement_awards#decision")
+}
+enum E_MarketplaceProcurementAwardsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.procurement_awards#status")
+}
+enum E_MarketplacePurchaseOrdersOrderStatus {
+  draft
+  issued
+  acknowledged
+  fulfilled
+  cancelled
+  @@map("marketplace.purchase_orders#order_status")
+}
+enum E_MarketplaceQuotesQuoteStatus {
+  draft
+  submitted
+  accepted
+  rejected
+  expired
+  @@map("marketplace.quotes#quote_status")
+}
+enum E_MarketplaceRfqsRfqStatus {
+  draft
+  issued
+  closed
+  awarded
+  cancelled
+  @@map("marketplace.rfqs#rfq_status")
+}
+enum E_MarketplaceVendorsVendorStatus {
+  pending
+  verified
+  suspended
+  retired
+  @@map("marketplace.vendors#vendor_status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+enum E_ProjectProjectMembersMembershipStatus {
+  active
+  invited
+  suspended
+  removed
+  @@map("project.project_members#membership_status")
+}
+enum E_ProjectProjectMembersProjectRole {
+  owner
+  admin
+  contributor
+  viewer
+  @@map("project.project_members#project_role")
+}
+enum E_ProjectProjectsProjectStatus {
+  draft
+  active
+  on_hold
+  completed
+  archived
+  @@map("project.projects#project_status")
+}
+model EvidenceEvidenceItems {
+  captured_at DateTime? @db.Timestamptz(6)
+  content_sha256 String @db.VarChar(64)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  description String? @db.Text
+  id String @db.Uuid @id
+  kind E_EvidenceEvidenceItemsEvidenceKind
+  media_type String @db.VarChar(127)
+  metadata Json @default("{}")
+  organisation_id String @db.Uuid
+  project_id String? @db.Uuid
+  retention_until DateTime? @db.Timestamptz(6)
+  size_bytes Int?
+  status E_EvidenceEvidenceItemsEvidenceStatus @default(active)
+  storage_uri String @db.Text
+  title String @db.VarChar(240)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  uploaded_by_user_id String? @db.Uuid
+  withdrawn_at DateTime? @db.Timestamptz(6)
+  rel_evidence_items_organisation_fk OrganisationOrganisations @relation("R_evidence_items_organisation_fk", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_project_tenant_fk ProjectProjects? @relation("R_evidence_items_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_uploader_fk IdentityUsers? @relation("R_evidence_items_uploader_fk", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_investor_disclosures_fk_disclosures_evidence_item_id_evidence_evidence_items InvestorDisclosures[] @relation("R_fk_disclosures_evidence_item_id_evidence_evidence_items")
+  back_investor_due_diligence_items_fk_due_diligence_items_evidence_item_id_evidence_evidence_it InvestorDueDiligenceItems[] @relation("R_fk_due_diligence_items_evidence_item_id_evidence_evidence_it")
+  back_investor_investor_evidence_links_fk_investor_evidence_links_evidence_item_id_evidence_evidenc InvestorInvestorEvidenceLinks[] @relation("R_fk_investor_evidence_links_evidence_item_id_evidence_evidenc")
+  back_investor_pitch_decks_fk_pitch_decks_evidence_item_id_evidence_evidence_items InvestorPitchDecks[] @relation("R_fk_pitch_decks_evidence_item_id_evidence_evidence_items")
+  @@unique([id, organisation_id], map: "evidence_items_id_organisation_unique")
+  @@index([organisation_id, project_id, created_at], map: "evidence_items_project_created_idx")
+  @@index([organisation_id, content_sha256], map: "evidence_items_hash_idx")
+  @@index([organisation_id, retention_until], map: "evidence_items_retention_idx")
+  @@map("evidence_evidence_items")
+}
+model FinanceBudgetCategories {
+  code String? @db.VarChar(80)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  sort_order Int
+  status E_FinanceBudgetCategoriesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_budget_categories_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_budget_categories_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budget_categories_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_budget_categories_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_budget_categories_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_budget_categories_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_finance_budget_lines_fk_budget_lines_category_id_finance_budget_categories FinanceBudgetLines[] @relation("R_fk_budget_lines_category_id_finance_budget_categories")
+  @@unique([id, organisation_id], map: "budget_categories_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "budget_categories_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "budget_categories_organisation_status_idx")
+  @@index([workspace_id, status], map: "budget_categories_workspace_status_idx")
+  @@index([created_at], map: "budget_categories_created_idx")
+  @@map("finance_budget_categories")
+}
+model FinanceBudgetLines {
+  approved_amount Decimal?
+  budget_id String @db.Uuid
+  category_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  description String @db.Text
+  id String @db.Uuid @id @default(uuid())
+  line_number Int
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  planned_amount Decimal
+  project_id String? @db.Uuid
+  status E_FinanceBudgetLinesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_budget_lines_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_budget_lines_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budget_lines_budget_id_finance_budgets FinanceBudgets @relation("R_fk_budget_lines_budget_id_finance_budgets", fields: [budget_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budget_lines_category_id_finance_budget_categories FinanceBudgetCategories @relation("R_fk_budget_lines_category_id_finance_budget_categories", fields: [category_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budget_lines_project_id_project_projects ProjectProjects? @relation("R_fk_budget_lines_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budget_lines_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_budget_lines_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_budget_lines_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_budget_lines_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_finance_commitments_fk_commitments_budget_line_id_finance_budget_lines FinanceCommitments[] @relation("R_fk_commitments_budget_line_id_finance_budget_lines")
+  @@unique([id, organisation_id], map: "budget_lines_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "budget_lines_id_workspace_organisation_uq")
+  @@unique([budget_id, line_number], map: "budget_lines_budget_id_line_number_uq")
+  @@index([organisation_id, status], map: "budget_lines_organisation_status_idx")
+  @@index([workspace_id, status], map: "budget_lines_workspace_status_idx")
+  @@index([created_at], map: "budget_lines_created_idx")
+  @@map("finance_budget_lines")
+}
+model FinanceBudgets {
+  approved_amount Decimal?
+  budget_status E_FinanceBudgetsBudgetStatus @default(draft)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  fiscal_period String @db.VarChar(40)
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  owner_user_id String? @db.Uuid
+  project_id String @db.Uuid
+  total_amount Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_budgets_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_budgets_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budgets_project_id_project_projects ProjectProjects @relation("R_fk_budgets_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_budgets_owner_user_id_identity_users IdentityUsers? @relation("R_fk_budgets_owner_user_id_identity_users", fields: [owner_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_budgets_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_budgets_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_budgets_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_budgets_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_finance_budget_lines_fk_budget_lines_budget_id_finance_budgets FinanceBudgetLines[] @relation("R_fk_budget_lines_budget_id_finance_budgets")
+  @@unique([id, organisation_id], map: "budgets_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "budgets_id_workspace_organisation_uq")
+  @@unique([project_id, fiscal_period, name], map: "budgets_project_id_fiscal_period_name_uq")
+  @@index([organisation_id, budget_status], map: "budgets_organisation_status_idx")
+  @@index([workspace_id, budget_status], map: "budgets_workspace_status_idx")
+  @@index([created_at], map: "budgets_created_idx")
+  @@map("finance_budgets")
+}
+model FinanceCommitments {
+  budget_line_id String? @db.Uuid
+  commitment_number String @db.VarChar(80)
+  commitment_status E_FinanceCommitmentsCommitmentStatus @default(open)
+  committed_amount Decimal
+  committed_on DateTime @db.Date
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  description String @db.Text
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  purchase_order_id String? @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String? @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_commitments_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_commitments_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_commitments_project_id_project_projects ProjectProjects @relation("R_fk_commitments_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_commitments_budget_line_id_finance_budget_lines FinanceBudgetLines? @relation("R_fk_commitments_budget_line_id_finance_budget_lines", fields: [budget_line_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_commitments_purchase_order_id_marketplace_purchase_orders MarketplacePurchaseOrders? @relation("R_fk_commitments_purchase_order_id_marketplace_purchase_orders", fields: [purchase_order_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_commitments_vendor_id_marketplace_vendors MarketplaceVendors? @relation("R_fk_commitments_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_commitments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_commitments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_commitments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_commitments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_finance_vendor_invoices_fk_vendor_invoices_commitment_id_finance_commitments FinanceVendorInvoices[] @relation("R_fk_vendor_invoices_commitment_id_finance_commitments")
+  @@unique([id, organisation_id], map: "commitments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "commitments_id_workspace_organisation_uq")
+  @@index([organisation_id, commitment_status], map: "commitments_organisation_status_idx")
+  @@index([workspace_id, commitment_status], map: "commitments_workspace_status_idx")
+  @@index([created_at], map: "commitments_created_idx")
+  @@map("finance_commitments")
+}
+model FinancePayments {
+  amount Decimal
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  invoice_id String? @db.Uuid
+  organisation_id String @db.Uuid
+  payment_date DateTime? @db.Date
+  payment_method String @db.VarChar(40)
+  payment_reference String @db.VarChar(100)
+  payment_status E_FinancePaymentsPaymentStatus @default(pending)
+  provider_reference String? @db.VarChar(160)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String? @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_payments_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_payments_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_payments_vendor_id_marketplace_vendors MarketplaceVendors? @relation("R_fk_payments_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_payments_invoice_id_finance_vendor_invoices FinanceVendorInvoices? @relation("R_fk_payments_invoice_id_finance_vendor_invoices", fields: [invoice_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_payments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_payments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_payments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_payments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_investor_returns_fk_investor_returns_payment_id_finance_payments InvestorInvestorReturns[] @relation("R_fk_investor_returns_payment_id_finance_payments")
+  @@unique([id, organisation_id], map: "payments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "payments_id_workspace_organisation_uq")
+  @@index([organisation_id, payment_status], map: "payments_organisation_status_idx")
+  @@index([workspace_id, payment_status], map: "payments_workspace_status_idx")
+  @@index([created_at], map: "payments_created_idx")
+  @@map("finance_payments")
+}
+model FinanceVendorInvoices {
+  commitment_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  due_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  invoice_number String @db.VarChar(100)
+  invoice_status E_FinanceVendorInvoicesInvoiceStatus @default(received)
+  issued_on DateTime @db.Date
+  organisation_id String @db.Uuid
+  purchase_order_id String? @db.Uuid
+  subtotal Decimal
+  tax_total Decimal?
+  total Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_vendor_invoices_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_vendor_invoices_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_invoices_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_invoices_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_invoices_purchase_order_id_marketplace_purchase_or MarketplacePurchaseOrders? @relation("R_fk_vendor_invoices_purchase_order_id_marketplace_purchase_or", fields: [purchase_order_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_invoices_commitment_id_finance_commitments FinanceCommitments? @relation("R_fk_vendor_invoices_commitment_id_finance_commitments", fields: [commitment_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_invoices_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_invoices_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendor_invoices_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_invoices_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_finance_payments_fk_payments_invoice_id_finance_vendor_invoices FinancePayments[] @relation("R_fk_payments_invoice_id_finance_vendor_invoices")
+  @@unique([id, organisation_id], map: "vendor_invoices_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_invoices_id_workspace_organisation_uq")
+  @@index([organisation_id, invoice_status], map: "vendor_invoices_organisation_status_idx")
+  @@index([workspace_id, invoice_status], map: "vendor_invoices_workspace_status_idx")
+  @@index([created_at], map: "vendor_invoices_created_idx")
+  @@map("finance_vendor_invoices")
+}
+model IdentityUsers {
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  email String @db.VarChar(320)
+  email_verified_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  status E_IdentityUsersAccountStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  back_evidence_evidence_items_evidence_items_uploader_fk EvidenceEvidenceItems[] @relation("R_evidence_items_uploader_fk")
+  back_finance_budget_categories_fk_budget_categories_created_by_user_id_identity_users FinanceBudgetCategories[] @relation("R_fk_budget_categories_created_by_user_id_identity_users")
+  back_finance_budget_lines_fk_budget_lines_created_by_user_id_identity_users FinanceBudgetLines[] @relation("R_fk_budget_lines_created_by_user_id_identity_users")
+  back_finance_budgets_fk_budgets_owner_user_id_identity_users FinanceBudgets[] @relation("R_fk_budgets_owner_user_id_identity_users")
+  back_finance_budgets_fk_budgets_created_by_user_id_identity_users FinanceBudgets[] @relation("R_fk_budgets_created_by_user_id_identity_users")
+  back_finance_commitments_fk_commitments_created_by_user_id_identity_users FinanceCommitments[] @relation("R_fk_commitments_created_by_user_id_identity_users")
+  back_finance_payments_fk_payments_created_by_user_id_identity_users FinancePayments[] @relation("R_fk_payments_created_by_user_id_identity_users")
+  back_finance_vendor_invoices_fk_vendor_invoices_created_by_user_id_identity_users FinanceVendorInvoices[] @relation("R_fk_vendor_invoices_created_by_user_id_identity_users")
+  back_investor_deal_room_members_fk_deal_room_members_user_id_identity_users InvestorDealRoomMembers[] @relation("R_fk_deal_room_members_user_id_identity_users")
+  back_investor_deal_room_members_fk_deal_room_members_invited_by_user_id_identity_users InvestorDealRoomMembers[] @relation("R_fk_deal_room_members_invited_by_user_id_identity_users")
+  back_investor_deal_room_members_fk_deal_room_members_created_by_user_id_identity_users InvestorDealRoomMembers[] @relation("R_fk_deal_room_members_created_by_user_id_identity_users")
+  back_investor_deal_rooms_fk_deal_rooms_created_by_user_id_identity_users InvestorDealRooms[] @relation("R_fk_deal_rooms_created_by_user_id_identity_users")
+  back_investor_disclosures_fk_disclosures_created_by_user_id_identity_users InvestorDisclosures[] @relation("R_fk_disclosures_created_by_user_id_identity_users")
+  back_investor_distribution_channels_fk_distribution_channels_created_by_user_id_identity_users InvestorDistributionChannels[] @relation("R_fk_distribution_channels_created_by_user_id_identity_users")
+  back_investor_distribution_deals_fk_distribution_deals_created_by_user_id_identity_users InvestorDistributionDeals[] @relation("R_fk_distribution_deals_created_by_user_id_identity_users")
+  back_investor_due_diligence_items_fk_due_diligence_items_assigned_to_user_id_identity_users InvestorDueDiligenceItems[] @relation("R_fk_due_diligence_items_assigned_to_user_id_identity_users")
+  back_investor_due_diligence_items_fk_due_diligence_items_created_by_user_id_identity_users InvestorDueDiligenceItems[] @relation("R_fk_due_diligence_items_created_by_user_id_identity_users")
+  back_investor_funding_requirements_fk_funding_requirements_created_by_user_id_identity_users InvestorFundingRequirements[] @relation("R_fk_funding_requirements_created_by_user_id_identity_users")
+  back_investor_investment_opportunities_fk_investment_opportunities_created_by_user_id_identity_user InvestorInvestmentOpportunities[] @relation("R_fk_investment_opportunities_created_by_user_id_identity_user")
+  back_investor_investment_profiles_fk_investment_profiles_user_id_identity_users InvestorInvestmentProfiles[] @relation("R_fk_investment_profiles_user_id_identity_users")
+  back_investor_investment_profiles_fk_investment_profiles_created_by_user_id_identity_users InvestorInvestmentProfiles[] @relation("R_fk_investment_profiles_created_by_user_id_identity_users")
+  back_investor_investment_tranches_fk_investment_tranches_created_by_user_id_identity_users InvestorInvestmentTranches[] @relation("R_fk_investment_tranches_created_by_user_id_identity_users")
+  back_investor_investor_accounts_fk_investor_accounts_verified_by_user_id_identity_users InvestorInvestorAccounts[] @relation("R_fk_investor_accounts_verified_by_user_id_identity_users")
+  back_investor_investor_accounts_fk_investor_accounts_created_by_user_id_identity_users InvestorInvestorAccounts[] @relation("R_fk_investor_accounts_created_by_user_id_identity_users")
+  back_investor_investor_commitments_fk_investor_commitments_created_by_user_id_identity_users InvestorInvestorCommitments[] @relation("R_fk_investor_commitments_created_by_user_id_identity_users")
+  back_investor_investor_evidence_links_fk_investor_evidence_links_created_by_user_id_identity_users InvestorInvestorEvidenceLinks[] @relation("R_fk_investor_evidence_links_created_by_user_id_identity_users")
+  back_investor_investor_progress_reports_fk_investor_progress_reports_created_by_user_id_identity_use InvestorInvestorProgressReports[] @relation("R_fk_investor_progress_reports_created_by_user_id_identity_use")
+  back_investor_investor_returns_fk_investor_returns_created_by_user_id_identity_users InvestorInvestorReturns[] @relation("R_fk_investor_returns_created_by_user_id_identity_users")
+  back_investor_pitch_decks_fk_pitch_decks_uploaded_by_user_id_identity_users InvestorPitchDecks[] @relation("R_fk_pitch_decks_uploaded_by_user_id_identity_users")
+  back_investor_pitch_decks_fk_pitch_decks_created_by_user_id_identity_users InvestorPitchDecks[] @relation("R_fk_pitch_decks_created_by_user_id_identity_users")
+  back_investor_recoupment_models_fk_recoupment_models_created_by_user_id_identity_users InvestorRecoupmentModels[] @relation("R_fk_recoupment_models_created_by_user_id_identity_users")
+  back_investor_recoupment_tiers_fk_recoupment_tiers_created_by_user_id_identity_users InvestorRecoupmentTiers[] @relation("R_fk_recoupment_tiers_created_by_user_id_identity_users")
+  back_investor_revenue_entries_fk_revenue_entries_created_by_user_id_identity_users InvestorRevenueEntries[] @relation("R_fk_revenue_entries_created_by_user_id_identity_users")
+  back_investor_rights_fk_rights_created_by_user_id_identity_users InvestorRights[] @relation("R_fk_rights_created_by_user_id_identity_users")
+  back_investor_rights_windows_fk_rights_windows_created_by_user_id_identity_users InvestorRightsWindows[] @relation("R_fk_rights_windows_created_by_user_id_identity_users")
+  back_marketplace_procurement_awards_fk_procurement_awards_decided_by_user_id_identity_users MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_decided_by_user_id_identity_users")
+  back_marketplace_procurement_awards_fk_procurement_awards_created_by_user_id_identity_users MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_created_by_user_id_identity_users")
+  back_marketplace_purchase_orders_fk_purchase_orders_issued_by_user_id_identity_users MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_issued_by_user_id_identity_users")
+  back_marketplace_purchase_orders_fk_purchase_orders_created_by_user_id_identity_users MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_created_by_user_id_identity_users")
+  back_marketplace_quotes_fk_quotes_submitted_by_user_id_identity_users MarketplaceQuotes[] @relation("R_fk_quotes_submitted_by_user_id_identity_users")
+  back_marketplace_quotes_fk_quotes_created_by_user_id_identity_users MarketplaceQuotes[] @relation("R_fk_quotes_created_by_user_id_identity_users")
+  back_marketplace_rfqs_fk_rfqs_requester_user_id_identity_users MarketplaceRfqs[] @relation("R_fk_rfqs_requester_user_id_identity_users")
+  back_marketplace_rfqs_fk_rfqs_created_by_user_id_identity_users MarketplaceRfqs[] @relation("R_fk_rfqs_created_by_user_id_identity_users")
+  back_marketplace_vendors_fk_vendors_owner_user_id_identity_users MarketplaceVendors[] @relation("R_fk_vendors_owner_user_id_identity_users")
+  back_marketplace_vendors_fk_vendors_created_by_user_id_identity_users MarketplaceVendors[] @relation("R_fk_vendors_created_by_user_id_identity_users")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  back_project_project_members_project_members_user_fk ProjectProjectMembers[] @relation("R_project_members_user_fk")
+  back_project_project_members_project_members_adder_fk ProjectProjectMembers[] @relation("R_project_members_adder_fk")
+  back_project_projects_projects_creator_user_fk ProjectProjects[] @relation("R_projects_creator_user_fk")
+  @@unique([email], map: "users_email_unique")
+  @@index([status], map: "users_status_idx")
+  @@map("identity_users")
+}
+model InvestorDealRoomMembers {
+  accepted_at DateTime? @db.Timestamptz(6)
+  access_status E_InvestorDealRoomMembersAccessStatus @default(invited)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deal_room_id String @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  invited_at DateTime @db.Timestamptz(6)
+  invited_by_user_id String? @db.Uuid
+  last_viewed_at DateTime? @db.Timestamptz(6)
+  member_role String @db.VarChar(40)
+  organisation_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_deal_room_members_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_deal_room_members_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deal_room_members_deal_room_id_investor_deal_rooms InvestorDealRooms @relation("R_fk_deal_room_members_deal_room_id_investor_deal_rooms", fields: [deal_room_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deal_room_members_user_id_identity_users IdentityUsers @relation("R_fk_deal_room_members_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deal_room_members_invited_by_user_id_identity_users IdentityUsers? @relation("R_fk_deal_room_members_invited_by_user_id_identity_users", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_deal_room_members_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_deal_room_members_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deal_room_members_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_deal_room_members_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "deal_room_members_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "deal_room_members_id_workspace_organisation_uq")
+  @@unique([deal_room_id, user_id], map: "deal_room_members_deal_room_id_user_id_uq")
+  @@index([organisation_id, access_status], map: "deal_room_members_organisation_status_idx")
+  @@index([workspace_id, access_status], map: "deal_room_members_workspace_status_idx")
+  @@index([created_at], map: "deal_room_members_created_idx")
+  @@map("investor_deal_room_members")
+}
+model InvestorDealRooms {
+  access_policy String @db.VarChar(40)
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(200)
+  opened_at DateTime? @db.Timestamptz(6)
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  room_status E_InvestorDealRoomsRoomStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_deal_rooms_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_deal_rooms_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deal_rooms_opportunity_id_investor_investment_opportuniti InvestorInvestmentOpportunities @relation("R_fk_deal_rooms_opportunity_id_investor_investment_opportuniti", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deal_rooms_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_deal_rooms_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_deal_rooms_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_deal_rooms_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_deal_room_members_fk_deal_room_members_deal_room_id_investor_deal_rooms InvestorDealRoomMembers[] @relation("R_fk_deal_room_members_deal_room_id_investor_deal_rooms")
+  back_investor_investor_commitments_fk_investor_commitments_deal_room_id_investor_deal_rooms InvestorInvestorCommitments[] @relation("R_fk_investor_commitments_deal_room_id_investor_deal_rooms")
+  @@unique([id, organisation_id], map: "deal_rooms_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "deal_rooms_id_workspace_organisation_uq")
+  @@index([organisation_id, room_status], map: "deal_rooms_organisation_status_idx")
+  @@index([workspace_id, room_status], map: "deal_rooms_workspace_status_idx")
+  @@index([created_at], map: "deal_rooms_created_idx")
+  @@map("investor_deal_rooms")
+}
+model InvestorDisclosures {
+  ack_required Boolean @default(false)
+  body String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  disclosure_kind String @db.VarChar(60)
+  document_uri String? @db.VarChar(500)
+  effective_at DateTime @db.Timestamptz(6)
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  status E_InvestorDisclosuresStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_disclosures_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_disclosures_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_disclosures_opportunity_id_investor_investment_opportunit InvestorInvestmentOpportunities @relation("R_fk_disclosures_opportunity_id_investor_investment_opportunit", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_disclosures_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_disclosures_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_disclosures_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_disclosures_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_disclosures_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_disclosures_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "disclosures_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "disclosures_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "disclosures_organisation_status_idx")
+  @@index([workspace_id, status], map: "disclosures_workspace_status_idx")
+  @@index([created_at], map: "disclosures_created_idx")
+  @@map("investor_disclosures")
+}
+model InvestorDistributionChannels {
+  channel_kind String @db.VarChar(60)
+  channel_status E_InvestorDistributionChannelsChannelStatus @default(active)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  terms_uri String? @db.VarChar(500)
+  territories Json?
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_distribution_channels_organisation_id_organisation_organi OrganisationOrganisations @relation("R_fk_distribution_channels_organisation_id_organisation_organi", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_distribution_channels_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_distribution_channels_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_distribution_channels_workspace_id_organisation_workspace OrganisationWorkspaces @relation("R_fk_distribution_channels_workspace_id_organisation_workspace", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_distribution_deals_fk_distribution_deals_channel_id_investor_distribution_chann InvestorDistributionDeals[] @relation("R_fk_distribution_deals_channel_id_investor_distribution_chann")
+  @@unique([id, organisation_id], map: "distribution_channels_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "distribution_channels_id_workspace_organisation_uq")
+  @@index([organisation_id, channel_status], map: "distribution_channels_organisation_status_idx")
+  @@index([workspace_id, channel_status], map: "distribution_channels_workspace_status_idx")
+  @@index([created_at], map: "distribution_channels_created_idx")
+  @@map("investor_distribution_channels")
+}
+model InvestorDistributionDeals {
+  channel_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deal_number String @db.VarChar(80)
+  deal_status E_InvestorDistributionDealsDealStatus @default(draft)
+  ends_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  minimum_guarantee Decimal?
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  rights_scope Json
+  starts_on DateTime? @db.Date
+  territory String @db.VarChar(120)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_distribution_deals_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_distribution_deals_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_distribution_deals_opportunity_id_investor_investment_opp InvestorInvestmentOpportunities @relation("R_fk_distribution_deals_opportunity_id_investor_investment_opp", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_distribution_deals_channel_id_investor_distribution_chann InvestorDistributionChannels @relation("R_fk_distribution_deals_channel_id_investor_distribution_chann", fields: [channel_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_distribution_deals_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_distribution_deals_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_distribution_deals_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_distribution_deals_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_revenue_entries_fk_revenue_entries_distribution_deal_id_investor_distributio InvestorRevenueEntries[] @relation("R_fk_revenue_entries_distribution_deal_id_investor_distributio")
+  back_investor_rights_windows_fk_rights_windows_distribution_deal_id_investor_distribution InvestorRightsWindows[] @relation("R_fk_rights_windows_distribution_deal_id_investor_distribution")
+  @@unique([id, organisation_id], map: "distribution_deals_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "distribution_deals_id_workspace_organisation_uq")
+  @@index([organisation_id, deal_status], map: "distribution_deals_organisation_status_idx")
+  @@index([workspace_id, deal_status], map: "distribution_deals_workspace_status_idx")
+  @@index([created_at], map: "distribution_deals_created_idx")
+  @@map("investor_distribution_deals")
+}
+model InvestorDueDiligenceItems {
+  assigned_to_user_id String? @db.Uuid
+  category String @db.VarChar(80)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  due_on DateTime? @db.Date
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  item_status E_InvestorDueDiligenceItemsItemStatus @default(open)
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  priority String @db.VarChar(24)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_due_diligence_items_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_due_diligence_items_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_due_diligence_items_opportunity_id_investor_investment_op InvestorInvestmentOpportunities @relation("R_fk_due_diligence_items_opportunity_id_investor_investment_op", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_due_diligence_items_assigned_to_user_id_identity_users IdentityUsers? @relation("R_fk_due_diligence_items_assigned_to_user_id_identity_users", fields: [assigned_to_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_due_diligence_items_evidence_item_id_evidence_evidence_it EvidenceEvidenceItems? @relation("R_fk_due_diligence_items_evidence_item_id_evidence_evidence_it", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_due_diligence_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_due_diligence_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_due_diligence_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_due_diligence_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "due_diligence_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "due_diligence_items_id_workspace_organisation_uq")
+  @@index([organisation_id, item_status], map: "due_diligence_items_organisation_status_idx")
+  @@index([workspace_id, item_status], map: "due_diligence_items_workspace_status_idx")
+  @@index([created_at], map: "due_diligence_items_created_idx")
+  @@map("investor_due_diligence_items")
+}
+model InvestorFundingRequirements {
+  amount Decimal
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  due_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(160)
+  notes String? @db.Text
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  requirement_status E_InvestorFundingRequirementsRequirementStatus @default(proposed)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_funding_requirements_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_funding_requirements_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_funding_requirements_opportunity_id_investor_investment_o InvestorInvestmentOpportunities @relation("R_fk_funding_requirements_opportunity_id_investor_investment_o", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_funding_requirements_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_funding_requirements_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_funding_requirements_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_funding_requirements_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_investment_tranches_fk_investment_tranches_funding_requirement_id_investor_fundi InvestorInvestmentTranches[] @relation("R_fk_investment_tranches_funding_requirement_id_investor_fundi")
+  @@unique([id, organisation_id], map: "funding_requirements_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "funding_requirements_id_workspace_organisation_uq")
+  @@index([organisation_id, requirement_status], map: "funding_requirements_organisation_status_idx")
+  @@index([workspace_id, requirement_status], map: "funding_requirements_workspace_status_idx")
+  @@index([created_at], map: "funding_requirements_created_idx")
+  @@map("investor_funding_requirements")
+}
+model InvestorInvestmentOpportunities {
+  closes_on DateTime? @db.Date
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  instrument String @db.VarChar(60)
+  minimum_investment Decimal?
+  opportunity_status E_InvestorInvestmentOpportunitiesOpportunityStatus @default(draft)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  summary String? @db.Text
+  target_amount Decimal
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_investment_opportunities_organisation_id_organisation_org OrganisationOrganisations @relation("R_fk_investment_opportunities_organisation_id_organisation_org", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_opportunities_project_id_project_projects ProjectProjects @relation("R_fk_investment_opportunities_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_opportunities_created_by_user_id_identity_user IdentityUsers? @relation("R_fk_investment_opportunities_created_by_user_id_identity_user", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investment_opportunities_workspace_id_organisation_worksp OrganisationWorkspaces @relation("R_fk_investment_opportunities_workspace_id_organisation_worksp", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_deal_rooms_fk_deal_rooms_opportunity_id_investor_investment_opportuniti InvestorDealRooms[] @relation("R_fk_deal_rooms_opportunity_id_investor_investment_opportuniti")
+  back_investor_disclosures_fk_disclosures_opportunity_id_investor_investment_opportunit InvestorDisclosures[] @relation("R_fk_disclosures_opportunity_id_investor_investment_opportunit")
+  back_investor_distribution_deals_fk_distribution_deals_opportunity_id_investor_investment_opp InvestorDistributionDeals[] @relation("R_fk_distribution_deals_opportunity_id_investor_investment_opp")
+  back_investor_due_diligence_items_fk_due_diligence_items_opportunity_id_investor_investment_op InvestorDueDiligenceItems[] @relation("R_fk_due_diligence_items_opportunity_id_investor_investment_op")
+  back_investor_funding_requirements_fk_funding_requirements_opportunity_id_investor_investment_o InvestorFundingRequirements[] @relation("R_fk_funding_requirements_opportunity_id_investor_investment_o")
+  back_investor_investment_tranches_fk_investment_tranches_opportunity_id_investor_investment_op InvestorInvestmentTranches[] @relation("R_fk_investment_tranches_opportunity_id_investor_investment_op")
+  back_investor_investor_commitments_fk_investor_commitments_opportunity_id_investor_investment_o InvestorInvestorCommitments[] @relation("R_fk_investor_commitments_opportunity_id_investor_investment_o")
+  back_investor_investor_evidence_links_fk_investor_evidence_links_opportunity_id_investor_investmen InvestorInvestorEvidenceLinks[] @relation("R_fk_investor_evidence_links_opportunity_id_investor_investmen")
+  back_investor_investor_progress_reports_fk_investor_progress_reports_opportunity_id_investor_investm InvestorInvestorProgressReports[] @relation("R_fk_investor_progress_reports_opportunity_id_investor_investm")
+  back_investor_pitch_decks_fk_pitch_decks_opportunity_id_investor_investment_opportunit InvestorPitchDecks[] @relation("R_fk_pitch_decks_opportunity_id_investor_investment_opportunit")
+  back_investor_recoupment_models_fk_recoupment_models_opportunity_id_investor_investment_oppo InvestorRecoupmentModels[] @relation("R_fk_recoupment_models_opportunity_id_investor_investment_oppo")
+  back_investor_rights_fk_rights_opportunity_id_investor_investment_opportunities InvestorRights[] @relation("R_fk_rights_opportunity_id_investor_investment_opportunities")
+  @@unique([id, organisation_id], map: "investment_opportunities_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investment_opportunities_id_workspace_organisation_uq")
+  @@index([organisation_id, opportunity_status], map: "investment_opportunities_organisation_status_idx")
+  @@index([workspace_id, opportunity_status], map: "investment_opportunities_workspace_status_idx")
+  @@index([created_at], map: "investment_opportunities_created_idx")
+  @@map("investor_investment_opportunities")
+}
+model InvestorInvestmentProfiles {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  display_name String @db.VarChar(160)
+  id String @db.Uuid @id @default(uuid())
+  investor_kind String @db.VarChar(60)
+  mandate String? @db.Text
+  organisation_id String @db.Uuid
+  risk_profile String? @db.VarChar(40)
+  status E_InvestorInvestmentProfilesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String? @db.Uuid
+  website String? @db.VarChar(500)
+  workspace_id String @db.Uuid
+  rel_fk_investment_profiles_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_investment_profiles_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_profiles_user_id_identity_users IdentityUsers? @relation("R_fk_investment_profiles_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_profiles_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_investment_profiles_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investment_profiles_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_investment_profiles_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_investor_accounts_fk_investor_accounts_investor_profile_id_investor_investment InvestorInvestorAccounts[] @relation("R_fk_investor_accounts_investor_profile_id_investor_investment")
+  back_investor_investor_commitments_fk_investor_commitments_investor_profile_id_investor_investm InvestorInvestorCommitments[] @relation("R_fk_investor_commitments_investor_profile_id_investor_investm")
+  back_investor_investor_evidence_links_fk_investor_evidence_links_investor_profile_id_investor_inve InvestorInvestorEvidenceLinks[] @relation("R_fk_investor_evidence_links_investor_profile_id_investor_inve")
+  back_investor_investor_progress_reports_fk_investor_progress_reports_investor_profile_id_investor_in InvestorInvestorProgressReports[] @relation("R_fk_investor_progress_reports_investor_profile_id_investor_in")
+  @@unique([id, organisation_id], map: "investment_profiles_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investment_profiles_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "investment_profiles_organisation_status_idx")
+  @@index([workspace_id, status], map: "investment_profiles_workspace_status_idx")
+  @@index([created_at], map: "investment_profiles_created_idx")
+  @@map("investor_investment_profiles")
+}
+model InvestorInvestmentTranches {
+  amount Decimal
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  funding_requirement_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(120)
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  released_on DateTime? @db.Date
+  scheduled_on DateTime? @db.Date
+  tranche_number Int
+  tranche_status E_InvestorInvestmentTranchesTrancheStatus @default(planned)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_investment_tranches_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_investment_tranches_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_tranches_opportunity_id_investor_investment_op InvestorInvestmentOpportunities @relation("R_fk_investment_tranches_opportunity_id_investor_investment_op", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_tranches_funding_requirement_id_investor_fundi InvestorFundingRequirements? @relation("R_fk_investment_tranches_funding_requirement_id_investor_fundi", fields: [funding_requirement_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investment_tranches_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_investment_tranches_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investment_tranches_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_investment_tranches_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "investment_tranches_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investment_tranches_id_workspace_organisation_uq")
+  @@unique([opportunity_id, tranche_number], map: "investment_tranches_opportunity_id_tranche_number_uq")
+  @@index([organisation_id, tranche_status], map: "investment_tranches_organisation_status_idx")
+  @@index([workspace_id, tranche_status], map: "investment_tranches_workspace_status_idx")
+  @@index([created_at], map: "investment_tranches_created_idx")
+  @@map("investor_investment_tranches")
+}
+model InvestorInvestorAccounts {
+  account_kind String @db.VarChar(40)
+  account_reference String @db.VarChar(100)
+  account_status E_InvestorInvestorAccountsAccountStatus @default(pending)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  investor_profile_id String @db.Uuid
+  organisation_id String @db.Uuid
+  provider String? @db.VarChar(80)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  verified_at DateTime? @db.Timestamptz(6)
+  verified_by_user_id String? @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_investor_accounts_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_investor_accounts_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_accounts_investor_profile_id_investor_investment InvestorInvestmentProfiles @relation("R_fk_investor_accounts_investor_profile_id_investor_investment", fields: [investor_profile_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_accounts_verified_by_user_id_identity_users IdentityUsers? @relation("R_fk_investor_accounts_verified_by_user_id_identity_users", fields: [verified_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investor_accounts_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_investor_accounts_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_accounts_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_investor_accounts_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "investor_accounts_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investor_accounts_id_workspace_organisation_uq")
+  @@index([organisation_id, account_status], map: "investor_accounts_organisation_status_idx")
+  @@index([workspace_id, account_status], map: "investor_accounts_workspace_status_idx")
+  @@index([created_at], map: "investor_accounts_created_idx")
+  @@map("investor_investor_accounts")
+}
+model InvestorInvestorCommitments {
+  amount Decimal
+  commitment_number String @db.VarChar(80)
+  commitment_status E_InvestorInvestorCommitmentsCommitmentStatus @default(indication)
+  committed_at DateTime @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  deal_room_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  investor_profile_id String @db.Uuid
+  notes String? @db.Text
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_investor_commitments_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_investor_commitments_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_commitments_opportunity_id_investor_investment_o InvestorInvestmentOpportunities @relation("R_fk_investor_commitments_opportunity_id_investor_investment_o", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_commitments_investor_profile_id_investor_investm InvestorInvestmentProfiles @relation("R_fk_investor_commitments_investor_profile_id_investor_investm", fields: [investor_profile_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_commitments_deal_room_id_investor_deal_rooms InvestorDealRooms? @relation("R_fk_investor_commitments_deal_room_id_investor_deal_rooms", fields: [deal_room_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_commitments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_investor_commitments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investor_commitments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_investor_commitments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_investor_returns_fk_investor_returns_commitment_id_investor_investor_commitme InvestorInvestorReturns[] @relation("R_fk_investor_returns_commitment_id_investor_investor_commitme")
+  @@unique([id, organisation_id], map: "investor_commitments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investor_commitments_id_workspace_organisation_uq")
+  @@index([organisation_id, commitment_status], map: "investor_commitments_organisation_status_idx")
+  @@index([workspace_id, commitment_status], map: "investor_commitments_workspace_status_idx")
+  @@index([created_at], map: "investor_commitments_created_idx")
+  @@map("investor_investor_commitments")
+}
+model InvestorInvestorEvidenceLinks {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  evidence_item_id String @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  investor_profile_id String? @db.Uuid
+  link_kind String @db.VarChar(60)
+  linked_at DateTime @db.Timestamptz(6)
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  status E_InvestorInvestorEvidenceLinksStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  visibility String @db.VarChar(40)
+  workspace_id String @db.Uuid
+  rel_fk_investor_evidence_links_organisation_id_organisation_orga OrganisationOrganisations @relation("R_fk_investor_evidence_links_organisation_id_organisation_orga", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_evidence_links_opportunity_id_investor_investmen InvestorInvestmentOpportunities @relation("R_fk_investor_evidence_links_opportunity_id_investor_investmen", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_evidence_links_investor_profile_id_investor_inve InvestorInvestmentProfiles? @relation("R_fk_investor_evidence_links_investor_profile_id_investor_inve", fields: [investor_profile_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_evidence_links_evidence_item_id_evidence_evidenc EvidenceEvidenceItems @relation("R_fk_investor_evidence_links_evidence_item_id_evidence_evidenc", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_evidence_links_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_investor_evidence_links_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investor_evidence_links_workspace_id_organisation_workspa OrganisationWorkspaces @relation("R_fk_investor_evidence_links_workspace_id_organisation_workspa", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "investor_evidence_links_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investor_evidence_links_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "investor_evidence_links_organisation_status_idx")
+  @@index([workspace_id, status], map: "investor_evidence_links_workspace_status_idx")
+  @@index([created_at], map: "investor_evidence_links_created_idx")
+  @@map("investor_investor_evidence_links")
+}
+model InvestorInvestorProgressReports {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  investor_profile_id String @db.Uuid
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  progress_percent Decimal?
+  report_period String @db.VarChar(40)
+  reported_at DateTime @db.Timestamptz(6)
+  status E_InvestorInvestorProgressReportsStatus @default(draft)
+  summary String @db.Text
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  visibility String @db.VarChar(40)
+  workspace_id String @db.Uuid
+  rel_fk_investor_progress_reports_organisation_id_organisation_or OrganisationOrganisations @relation("R_fk_investor_progress_reports_organisation_id_organisation_or", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_progress_reports_opportunity_id_investor_investm InvestorInvestmentOpportunities @relation("R_fk_investor_progress_reports_opportunity_id_investor_investm", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_progress_reports_investor_profile_id_investor_in InvestorInvestmentProfiles @relation("R_fk_investor_progress_reports_investor_profile_id_investor_in", fields: [investor_profile_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_progress_reports_created_by_user_id_identity_use IdentityUsers? @relation("R_fk_investor_progress_reports_created_by_user_id_identity_use", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investor_progress_reports_workspace_id_organisation_works OrganisationWorkspaces @relation("R_fk_investor_progress_reports_workspace_id_organisation_works", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "investor_progress_reports_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investor_progress_reports_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "investor_progress_reports_organisation_status_idx")
+  @@index([workspace_id, status], map: "investor_progress_reports_workspace_status_idx")
+  @@index([created_at], map: "investor_progress_reports_created_idx")
+  @@map("investor_investor_progress_reports")
+}
+model InvestorInvestorReturns {
+  commitment_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  payment_id String? @db.Uuid
+  period_end DateTime @db.Date
+  period_start DateTime @db.Date
+  principal_returned Decimal
+  profit_share Decimal
+  recoupment_model_id String? @db.Uuid
+  return_status E_InvestorInvestorReturnsReturnStatus @default(estimated)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_investor_returns_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_investor_returns_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_returns_commitment_id_investor_investor_commitme InvestorInvestorCommitments @relation("R_fk_investor_returns_commitment_id_investor_investor_commitme", fields: [commitment_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_returns_recoupment_model_id_investor_recoupment_ InvestorRecoupmentModels? @relation("R_fk_investor_returns_recoupment_model_id_investor_recoupment_", fields: [recoupment_model_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_returns_payment_id_finance_payments FinancePayments? @relation("R_fk_investor_returns_payment_id_finance_payments", fields: [payment_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_investor_returns_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_investor_returns_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_investor_returns_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_investor_returns_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "investor_returns_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "investor_returns_id_workspace_organisation_uq")
+  @@index([organisation_id, return_status], map: "investor_returns_organisation_status_idx")
+  @@index([workspace_id, return_status], map: "investor_returns_workspace_status_idx")
+  @@index([created_at], map: "investor_returns_created_idx")
+  @@map("investor_investor_returns")
+}
+model InvestorPitchDecks {
+  content_uri String @db.VarChar(500)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  published_at DateTime? @db.Timestamptz(6)
+  status E_InvestorPitchDecksStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  uploaded_by_user_id String? @db.Uuid
+  version_number Int
+  visibility String @db.VarChar(40)
+  workspace_id String @db.Uuid
+  rel_fk_pitch_decks_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_pitch_decks_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_pitch_decks_opportunity_id_investor_investment_opportunit InvestorInvestmentOpportunities @relation("R_fk_pitch_decks_opportunity_id_investor_investment_opportunit", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_pitch_decks_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_pitch_decks_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_pitch_decks_uploaded_by_user_id_identity_users IdentityUsers? @relation("R_fk_pitch_decks_uploaded_by_user_id_identity_users", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_pitch_decks_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_pitch_decks_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_pitch_decks_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_pitch_decks_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "pitch_decks_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "pitch_decks_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "pitch_decks_organisation_status_idx")
+  @@index([workspace_id, status], map: "pitch_decks_workspace_status_idx")
+  @@index([created_at], map: "pitch_decks_created_idx")
+  @@map("investor_pitch_decks")
+}
+model InvestorRecoupmentModels {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  effective_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  model_status E_InvestorRecoupmentModelsModelStatus @default(draft)
+  name String @db.VarChar(160)
+  opportunity_id String @db.Uuid
+  organisation_id String @db.Uuid
+  priority_order Int
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  waterfall Json
+  workspace_id String @db.Uuid
+  rel_fk_recoupment_models_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_recoupment_models_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recoupment_models_opportunity_id_investor_investment_oppo InvestorInvestmentOpportunities @relation("R_fk_recoupment_models_opportunity_id_investor_investment_oppo", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recoupment_models_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_recoupment_models_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_recoupment_models_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_recoupment_models_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_investor_returns_fk_investor_returns_recoupment_model_id_investor_recoupment_ InvestorInvestorReturns[] @relation("R_fk_investor_returns_recoupment_model_id_investor_recoupment_")
+  back_investor_recoupment_tiers_fk_recoupment_tiers_recoupment_model_id_investor_recoupment_ InvestorRecoupmentTiers[] @relation("R_fk_recoupment_tiers_recoupment_model_id_investor_recoupment_")
+  @@unique([id, organisation_id], map: "recoupment_models_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "recoupment_models_id_workspace_organisation_uq")
+  @@index([organisation_id, model_status], map: "recoupment_models_organisation_status_idx")
+  @@index([workspace_id, model_status], map: "recoupment_models_workspace_status_idx")
+  @@index([created_at], map: "recoupment_models_created_idx")
+  @@map("investor_recoupment_models")
+}
+model InvestorRecoupmentTiers {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  participant_kind String @db.VarChar(60)
+  recoupment_model_id String @db.Uuid
+  share_percent Decimal
+  status E_InvestorRecoupmentTiersStatus @default(draft)
+  threshold_amount Decimal
+  tier_number Int
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_recoupment_tiers_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_recoupment_tiers_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recoupment_tiers_recoupment_model_id_investor_recoupment_ InvestorRecoupmentModels @relation("R_fk_recoupment_tiers_recoupment_model_id_investor_recoupment_", fields: [recoupment_model_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recoupment_tiers_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_recoupment_tiers_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recoupment_tiers_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_recoupment_tiers_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "recoupment_tiers_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "recoupment_tiers_id_workspace_organisation_uq")
+  @@unique([recoupment_model_id, tier_number], map: "recoupment_tiers_recoupment_model_id_tier_number_uq")
+  @@index([organisation_id, status], map: "recoupment_tiers_organisation_status_idx")
+  @@index([workspace_id, status], map: "recoupment_tiers_workspace_status_idx")
+  @@index([created_at], map: "recoupment_tiers_created_idx")
+  @@map("investor_recoupment_tiers")
+}
+model InvestorRevenueEntries {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  distribution_deal_id String? @db.Uuid
+  gross_amount Decimal
+  id String @db.Uuid @id @default(uuid())
+  net_amount Decimal
+  organisation_id String @db.Uuid
+  period_end DateTime @db.Date
+  period_start DateTime @db.Date
+  project_id String @db.Uuid
+  recognized_at DateTime @db.Timestamptz(6)
+  source String? @db.VarChar(120)
+  status E_InvestorRevenueEntriesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_revenue_entries_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_revenue_entries_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_revenue_entries_project_id_project_projects ProjectProjects @relation("R_fk_revenue_entries_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_revenue_entries_distribution_deal_id_investor_distributio InvestorDistributionDeals? @relation("R_fk_revenue_entries_distribution_deal_id_investor_distributio", fields: [distribution_deal_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_revenue_entries_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_revenue_entries_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_revenue_entries_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_revenue_entries_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "revenue_entries_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "revenue_entries_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "revenue_entries_organisation_status_idx")
+  @@index([workspace_id, status], map: "revenue_entries_workspace_status_idx")
+  @@index([created_at], map: "revenue_entries_created_idx")
+  @@map("investor_revenue_entries")
+}
+model InvestorRights {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_on DateTime? @db.Date
+  exclusivity String @db.VarChar(40)
+  id String @db.Uuid @id @default(uuid())
+  opportunity_id String? @db.Uuid
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  right_kind String @db.VarChar(80)
+  rights_status E_InvestorRightsRightsStatus @default(proposed)
+  starts_on DateTime? @db.Date
+  terms String? @db.Text
+  territory String @db.VarChar(120)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_rights_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_rights_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rights_project_id_project_projects ProjectProjects @relation("R_fk_rights_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rights_opportunity_id_investor_investment_opportunities InvestorInvestmentOpportunities? @relation("R_fk_rights_opportunity_id_investor_investment_opportunities", fields: [opportunity_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rights_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_rights_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rights_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_rights_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_investor_rights_windows_fk_rights_windows_right_id_investor_rights InvestorRightsWindows[] @relation("R_fk_rights_windows_right_id_investor_rights")
+  @@unique([id, organisation_id], map: "rights_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "rights_id_workspace_organisation_uq")
+  @@index([organisation_id, rights_status], map: "rights_organisation_status_idx")
+  @@index([workspace_id, rights_status], map: "rights_workspace_status_idx")
+  @@index([created_at], map: "rights_created_idx")
+  @@map("investor_rights")
+}
+model InvestorRightsWindows {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  distribution_deal_id String? @db.Uuid
+  ends_on DateTime @db.Date
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  platform String? @db.VarChar(120)
+  right_id String @db.Uuid
+  starts_on DateTime @db.Date
+  status E_InvestorRightsWindowsStatus @default(draft)
+  territory String @db.VarChar(120)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  window_kind String @db.VarChar(60)
+  workspace_id String @db.Uuid
+  rel_fk_rights_windows_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_rights_windows_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rights_windows_right_id_investor_rights InvestorRights @relation("R_fk_rights_windows_right_id_investor_rights", fields: [right_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rights_windows_distribution_deal_id_investor_distribution InvestorDistributionDeals? @relation("R_fk_rights_windows_distribution_deal_id_investor_distribution", fields: [distribution_deal_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rights_windows_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_rights_windows_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rights_windows_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_rights_windows_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "rights_windows_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "rights_windows_id_workspace_organisation_uq")
+  @@unique([right_id, window_kind, starts_on], map: "rights_windows_right_id_window_kind_starts_on_uq")
+  @@index([organisation_id, status], map: "rights_windows_organisation_status_idx")
+  @@index([workspace_id, status], map: "rights_windows_workspace_status_idx")
+  @@index([created_at], map: "rights_windows_created_idx")
+  @@map("investor_rights_windows")
+}
+model MarketplaceProcurementAwards {
+  award_number String @db.VarChar(80)
+  awarded_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  decided_by_user_id String? @db.Uuid
+  decision E_MarketplaceProcurementAwardsDecision @default(pending)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  quote_id String? @db.Uuid
+  rationale String? @db.Text
+  rfq_id String @db.Uuid
+  status E_MarketplaceProcurementAwardsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String? @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_procurement_awards_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_procurement_awards_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_procurement_awards_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_quote_id_marketplace_quotes MarketplaceQuotes? @relation("R_fk_procurement_awards_quote_id_marketplace_quotes", fields: [quote_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_vendor_id_marketplace_vendors MarketplaceVendors? @relation("R_fk_procurement_awards_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_decided_by_user_id_identity_users IdentityUsers? @relation("R_fk_procurement_awards_decided_by_user_id_identity_users", fields: [decided_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_procurement_awards_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_procurement_awards_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_procurement_awards_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_purchase_orders_fk_purchase_orders_award_id_marketplace_procurement_awards MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_award_id_marketplace_procurement_awards")
+  @@unique([id, organisation_id], map: "procurement_awards_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "procurement_awards_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "procurement_awards_organisation_status_idx")
+  @@index([workspace_id, status], map: "procurement_awards_workspace_status_idx")
+  @@index([created_at], map: "procurement_awards_created_idx")
+  @@map("marketplace_procurement_awards")
+}
+model MarketplacePurchaseOrders {
+  award_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  expected_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  issued_at DateTime? @db.Timestamptz(6)
+  issued_by_user_id String? @db.Uuid
+  order_status E_MarketplacePurchaseOrdersOrderStatus @default(draft)
+  organisation_id String @db.Uuid
+  po_number String @db.VarChar(80)
+  project_id String? @db.Uuid
+  subtotal Decimal
+  tax_total Decimal?
+  total Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_purchase_orders_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_purchase_orders_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_purchase_orders_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_award_id_marketplace_procurement_awards MarketplaceProcurementAwards? @relation("R_fk_purchase_orders_award_id_marketplace_procurement_awards", fields: [award_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_project_id_project_projects ProjectProjects? @relation("R_fk_purchase_orders_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_issued_by_user_id_identity_users IdentityUsers? @relation("R_fk_purchase_orders_issued_by_user_id_identity_users", fields: [issued_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_purchase_orders_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_purchase_orders_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_purchase_orders_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_finance_commitments_fk_commitments_purchase_order_id_marketplace_purchase_orders FinanceCommitments[] @relation("R_fk_commitments_purchase_order_id_marketplace_purchase_orders")
+  back_finance_vendor_invoices_fk_vendor_invoices_purchase_order_id_marketplace_purchase_or FinanceVendorInvoices[] @relation("R_fk_vendor_invoices_purchase_order_id_marketplace_purchase_or")
+  @@unique([id, organisation_id], map: "purchase_orders_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "purchase_orders_id_workspace_organisation_uq")
+  @@index([organisation_id, order_status], map: "purchase_orders_organisation_status_idx")
+  @@index([workspace_id, order_status], map: "purchase_orders_workspace_status_idx")
+  @@index([created_at], map: "purchase_orders_created_idx")
+  @@map("marketplace_purchase_orders")
+}
+model MarketplaceQuotes {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  quote_number String @db.VarChar(80)
+  quote_status E_MarketplaceQuotesQuoteStatus @default(draft)
+  rfq_id String @db.Uuid
+  submitted_by_user_id String? @db.Uuid
+  subtotal Decimal
+  tax_total Decimal?
+  total Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  valid_until DateTime? @db.Date
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_quotes_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_quotes_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_quotes_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_quotes_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_submitted_by_user_id_identity_users IdentityUsers? @relation("R_fk_quotes_submitted_by_user_id_identity_users", fields: [submitted_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_quotes_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_quotes_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_quotes_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_procurement_awards_fk_procurement_awards_quote_id_marketplace_quotes MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_quote_id_marketplace_quotes")
+  @@unique([id, organisation_id], map: "quotes_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "quotes_id_workspace_organisation_uq")
+  @@index([organisation_id, quote_status], map: "quotes_organisation_status_idx")
+  @@index([workspace_id, quote_status], map: "quotes_workspace_status_idx")
+  @@index([created_at], map: "quotes_created_idx")
+  @@map("marketplace_quotes")
+}
+model MarketplaceRfqs {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String? @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  project_id String? @db.Uuid
+  requester_user_id String? @db.Uuid
+  requirements String? @db.Text
+  response_deadline DateTime? @db.Timestamptz(6)
+  rfq_number String @db.VarChar(80)
+  rfq_status E_MarketplaceRfqsRfqStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_rfqs_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_rfqs_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfqs_project_id_project_projects ProjectProjects? @relation("R_fk_rfqs_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfqs_requester_user_id_identity_users IdentityUsers? @relation("R_fk_rfqs_requester_user_id_identity_users", fields: [requester_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rfqs_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_rfqs_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rfqs_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_rfqs_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_marketplace_procurement_awards_fk_procurement_awards_rfq_id_marketplace_rfqs MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_rfq_id_marketplace_rfqs")
+  back_marketplace_quotes_fk_quotes_rfq_id_marketplace_rfqs MarketplaceQuotes[] @relation("R_fk_quotes_rfq_id_marketplace_rfqs")
+  @@unique([id, organisation_id], map: "rfqs_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "rfqs_id_workspace_organisation_uq")
+  @@index([organisation_id, rfq_status], map: "rfqs_organisation_status_idx")
+  @@index([workspace_id, rfq_status], map: "rfqs_workspace_status_idx")
+  @@index([created_at], map: "rfqs_created_idx")
+  @@map("marketplace_rfqs")
+}
+model MarketplaceVendors {
+  country_code String? @db.VarChar(2)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  display_name String @db.VarChar(160)
+  id String @db.Uuid @id @default(uuid())
+  legal_name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  owner_user_id String? @db.Uuid
+  risk_level String? @db.VarChar(24)
+  tax_identifier String? @db.VarChar(80)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_code String? @db.VarChar(80)
+  vendor_status E_MarketplaceVendorsVendorStatus @default(pending)
+  workspace_id String @db.Uuid
+  rel_fk_vendors_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_vendors_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendors_owner_user_id_identity_users IdentityUsers? @relation("R_fk_vendors_owner_user_id_identity_users", fields: [owner_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendors_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendors_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendors_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendors_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_finance_commitments_fk_commitments_vendor_id_marketplace_vendors FinanceCommitments[] @relation("R_fk_commitments_vendor_id_marketplace_vendors")
+  back_finance_payments_fk_payments_vendor_id_marketplace_vendors FinancePayments[] @relation("R_fk_payments_vendor_id_marketplace_vendors")
+  back_finance_vendor_invoices_fk_vendor_invoices_vendor_id_marketplace_vendors FinanceVendorInvoices[] @relation("R_fk_vendor_invoices_vendor_id_marketplace_vendors")
+  back_marketplace_procurement_awards_fk_procurement_awards_vendor_id_marketplace_vendors MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_vendor_id_marketplace_vendors")
+  back_marketplace_purchase_orders_fk_purchase_orders_vendor_id_marketplace_vendors MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_vendor_id_marketplace_vendors")
+  back_marketplace_quotes_fk_quotes_vendor_id_marketplace_vendors MarketplaceQuotes[] @relation("R_fk_quotes_vendor_id_marketplace_vendors")
+  @@unique([id, organisation_id], map: "vendors_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendors_id_workspace_organisation_uq")
+  @@index([organisation_id, vendor_status], map: "vendors_organisation_status_idx")
+  @@index([workspace_id, vendor_status], map: "vendors_workspace_status_idx")
+  @@index([created_at], map: "vendors_created_idx")
+  @@map("marketplace_vendors")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
+  @@index([user_id, status], map: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  slug String @db.VarChar(120)
+  status E_OrganisationOrganisationsOrganisationStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_evidence_evidence_items_evidence_items_organisation_fk EvidenceEvidenceItems[] @relation("R_evidence_items_organisation_fk")
+  back_finance_budget_categories_fk_budget_categories_organisation_id_organisation_organisati FinanceBudgetCategories[] @relation("R_fk_budget_categories_organisation_id_organisation_organisati")
+  back_finance_budget_lines_fk_budget_lines_organisation_id_organisation_organisations FinanceBudgetLines[] @relation("R_fk_budget_lines_organisation_id_organisation_organisations")
+  back_finance_budgets_fk_budgets_organisation_id_organisation_organisations FinanceBudgets[] @relation("R_fk_budgets_organisation_id_organisation_organisations")
+  back_finance_commitments_fk_commitments_organisation_id_organisation_organisations FinanceCommitments[] @relation("R_fk_commitments_organisation_id_organisation_organisations")
+  back_finance_payments_fk_payments_organisation_id_organisation_organisations FinancePayments[] @relation("R_fk_payments_organisation_id_organisation_organisations")
+  back_finance_vendor_invoices_fk_vendor_invoices_organisation_id_organisation_organisation FinanceVendorInvoices[] @relation("R_fk_vendor_invoices_organisation_id_organisation_organisation")
+  back_investor_deal_room_members_fk_deal_room_members_organisation_id_organisation_organisati InvestorDealRoomMembers[] @relation("R_fk_deal_room_members_organisation_id_organisation_organisati")
+  back_investor_deal_rooms_fk_deal_rooms_organisation_id_organisation_organisations InvestorDealRooms[] @relation("R_fk_deal_rooms_organisation_id_organisation_organisations")
+  back_investor_disclosures_fk_disclosures_organisation_id_organisation_organisations InvestorDisclosures[] @relation("R_fk_disclosures_organisation_id_organisation_organisations")
+  back_investor_distribution_channels_fk_distribution_channels_organisation_id_organisation_organi InvestorDistributionChannels[] @relation("R_fk_distribution_channels_organisation_id_organisation_organi")
+  back_investor_distribution_deals_fk_distribution_deals_organisation_id_organisation_organisat InvestorDistributionDeals[] @relation("R_fk_distribution_deals_organisation_id_organisation_organisat")
+  back_investor_due_diligence_items_fk_due_diligence_items_organisation_id_organisation_organisa InvestorDueDiligenceItems[] @relation("R_fk_due_diligence_items_organisation_id_organisation_organisa")
+  back_investor_funding_requirements_fk_funding_requirements_organisation_id_organisation_organis InvestorFundingRequirements[] @relation("R_fk_funding_requirements_organisation_id_organisation_organis")
+  back_investor_investment_opportunities_fk_investment_opportunities_organisation_id_organisation_org InvestorInvestmentOpportunities[] @relation("R_fk_investment_opportunities_organisation_id_organisation_org")
+  back_investor_investment_profiles_fk_investment_profiles_organisation_id_organisation_organisa InvestorInvestmentProfiles[] @relation("R_fk_investment_profiles_organisation_id_organisation_organisa")
+  back_investor_investment_tranches_fk_investment_tranches_organisation_id_organisation_organisa InvestorInvestmentTranches[] @relation("R_fk_investment_tranches_organisation_id_organisation_organisa")
+  back_investor_investor_accounts_fk_investor_accounts_organisation_id_organisation_organisati InvestorInvestorAccounts[] @relation("R_fk_investor_accounts_organisation_id_organisation_organisati")
+  back_investor_investor_commitments_fk_investor_commitments_organisation_id_organisation_organis InvestorInvestorCommitments[] @relation("R_fk_investor_commitments_organisation_id_organisation_organis")
+  back_investor_investor_evidence_links_fk_investor_evidence_links_organisation_id_organisation_orga InvestorInvestorEvidenceLinks[] @relation("R_fk_investor_evidence_links_organisation_id_organisation_orga")
+  back_investor_investor_progress_reports_fk_investor_progress_reports_organisation_id_organisation_or InvestorInvestorProgressReports[] @relation("R_fk_investor_progress_reports_organisation_id_organisation_or")
+  back_investor_investor_returns_fk_investor_returns_organisation_id_organisation_organisatio InvestorInvestorReturns[] @relation("R_fk_investor_returns_organisation_id_organisation_organisatio")
+  back_investor_pitch_decks_fk_pitch_decks_organisation_id_organisation_organisations InvestorPitchDecks[] @relation("R_fk_pitch_decks_organisation_id_organisation_organisations")
+  back_investor_recoupment_models_fk_recoupment_models_organisation_id_organisation_organisati InvestorRecoupmentModels[] @relation("R_fk_recoupment_models_organisation_id_organisation_organisati")
+  back_investor_recoupment_tiers_fk_recoupment_tiers_organisation_id_organisation_organisatio InvestorRecoupmentTiers[] @relation("R_fk_recoupment_tiers_organisation_id_organisation_organisatio")
+  back_investor_revenue_entries_fk_revenue_entries_organisation_id_organisation_organisation InvestorRevenueEntries[] @relation("R_fk_revenue_entries_organisation_id_organisation_organisation")
+  back_investor_rights_fk_rights_organisation_id_organisation_organisations InvestorRights[] @relation("R_fk_rights_organisation_id_organisation_organisations")
+  back_investor_rights_windows_fk_rights_windows_organisation_id_organisation_organisations InvestorRightsWindows[] @relation("R_fk_rights_windows_organisation_id_organisation_organisations")
+  back_marketplace_procurement_awards_fk_procurement_awards_organisation_id_organisation_organisat MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_organisation_id_organisation_organisat")
+  back_marketplace_purchase_orders_fk_purchase_orders_organisation_id_organisation_organisation MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_organisation_id_organisation_organisation")
+  back_marketplace_quotes_fk_quotes_organisation_id_organisation_organisations MarketplaceQuotes[] @relation("R_fk_quotes_organisation_id_organisation_organisations")
+  back_marketplace_rfqs_fk_rfqs_organisation_id_organisation_organisations MarketplaceRfqs[] @relation("R_fk_rfqs_organisation_id_organisation_organisations")
+  back_marketplace_vendors_fk_vendors_organisation_id_organisation_organisations MarketplaceVendors[] @relation("R_fk_vendors_organisation_id_organisation_organisations")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  @@unique([slug], map: "organisations_slug_unique")
+  @@index([status], map: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
+  @@index([user_id, status], map: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_OrganisationWorkspacesWorkspaceStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_finance_budget_categories_fk_budget_categories_workspace_id_organisation_workspaces FinanceBudgetCategories[] @relation("R_fk_budget_categories_workspace_id_organisation_workspaces")
+  back_finance_budget_lines_fk_budget_lines_workspace_id_organisation_workspaces FinanceBudgetLines[] @relation("R_fk_budget_lines_workspace_id_organisation_workspaces")
+  back_finance_budgets_fk_budgets_workspace_id_organisation_workspaces FinanceBudgets[] @relation("R_fk_budgets_workspace_id_organisation_workspaces")
+  back_finance_commitments_fk_commitments_workspace_id_organisation_workspaces FinanceCommitments[] @relation("R_fk_commitments_workspace_id_organisation_workspaces")
+  back_finance_payments_fk_payments_workspace_id_organisation_workspaces FinancePayments[] @relation("R_fk_payments_workspace_id_organisation_workspaces")
+  back_finance_vendor_invoices_fk_vendor_invoices_workspace_id_organisation_workspaces FinanceVendorInvoices[] @relation("R_fk_vendor_invoices_workspace_id_organisation_workspaces")
+  back_investor_deal_room_members_fk_deal_room_members_workspace_id_organisation_workspaces InvestorDealRoomMembers[] @relation("R_fk_deal_room_members_workspace_id_organisation_workspaces")
+  back_investor_deal_rooms_fk_deal_rooms_workspace_id_organisation_workspaces InvestorDealRooms[] @relation("R_fk_deal_rooms_workspace_id_organisation_workspaces")
+  back_investor_disclosures_fk_disclosures_workspace_id_organisation_workspaces InvestorDisclosures[] @relation("R_fk_disclosures_workspace_id_organisation_workspaces")
+  back_investor_distribution_channels_fk_distribution_channels_workspace_id_organisation_workspace InvestorDistributionChannels[] @relation("R_fk_distribution_channels_workspace_id_organisation_workspace")
+  back_investor_distribution_deals_fk_distribution_deals_workspace_id_organisation_workspaces InvestorDistributionDeals[] @relation("R_fk_distribution_deals_workspace_id_organisation_workspaces")
+  back_investor_due_diligence_items_fk_due_diligence_items_workspace_id_organisation_workspaces InvestorDueDiligenceItems[] @relation("R_fk_due_diligence_items_workspace_id_organisation_workspaces")
+  back_investor_funding_requirements_fk_funding_requirements_workspace_id_organisation_workspaces InvestorFundingRequirements[] @relation("R_fk_funding_requirements_workspace_id_organisation_workspaces")
+  back_investor_investment_opportunities_fk_investment_opportunities_workspace_id_organisation_worksp InvestorInvestmentOpportunities[] @relation("R_fk_investment_opportunities_workspace_id_organisation_worksp")
+  back_investor_investment_profiles_fk_investment_profiles_workspace_id_organisation_workspaces InvestorInvestmentProfiles[] @relation("R_fk_investment_profiles_workspace_id_organisation_workspaces")
+  back_investor_investment_tranches_fk_investment_tranches_workspace_id_organisation_workspaces InvestorInvestmentTranches[] @relation("R_fk_investment_tranches_workspace_id_organisation_workspaces")
+  back_investor_investor_accounts_fk_investor_accounts_workspace_id_organisation_workspaces InvestorInvestorAccounts[] @relation("R_fk_investor_accounts_workspace_id_organisation_workspaces")
+  back_investor_investor_commitments_fk_investor_commitments_workspace_id_organisation_workspaces InvestorInvestorCommitments[] @relation("R_fk_investor_commitments_workspace_id_organisation_workspaces")
+  back_investor_investor_evidence_links_fk_investor_evidence_links_workspace_id_organisation_workspa InvestorInvestorEvidenceLinks[] @relation("R_fk_investor_evidence_links_workspace_id_organisation_workspa")
+  back_investor_investor_progress_reports_fk_investor_progress_reports_workspace_id_organisation_works InvestorInvestorProgressReports[] @relation("R_fk_investor_progress_reports_workspace_id_organisation_works")
+  back_investor_investor_returns_fk_investor_returns_workspace_id_organisation_workspaces InvestorInvestorReturns[] @relation("R_fk_investor_returns_workspace_id_organisation_workspaces")
+  back_investor_pitch_decks_fk_pitch_decks_workspace_id_organisation_workspaces InvestorPitchDecks[] @relation("R_fk_pitch_decks_workspace_id_organisation_workspaces")
+  back_investor_recoupment_models_fk_recoupment_models_workspace_id_organisation_workspaces InvestorRecoupmentModels[] @relation("R_fk_recoupment_models_workspace_id_organisation_workspaces")
+  back_investor_recoupment_tiers_fk_recoupment_tiers_workspace_id_organisation_workspaces InvestorRecoupmentTiers[] @relation("R_fk_recoupment_tiers_workspace_id_organisation_workspaces")
+  back_investor_revenue_entries_fk_revenue_entries_workspace_id_organisation_workspaces InvestorRevenueEntries[] @relation("R_fk_revenue_entries_workspace_id_organisation_workspaces")
+  back_investor_rights_fk_rights_workspace_id_organisation_workspaces InvestorRights[] @relation("R_fk_rights_workspace_id_organisation_workspaces")
+  back_investor_rights_windows_fk_rights_windows_workspace_id_organisation_workspaces InvestorRightsWindows[] @relation("R_fk_rights_windows_workspace_id_organisation_workspaces")
+  back_marketplace_procurement_awards_fk_procurement_awards_workspace_id_organisation_workspaces MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_workspace_id_organisation_workspaces")
+  back_marketplace_purchase_orders_fk_purchase_orders_workspace_id_organisation_workspaces MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_workspace_id_organisation_workspaces")
+  back_marketplace_quotes_fk_quotes_workspace_id_organisation_workspaces MarketplaceQuotes[] @relation("R_fk_quotes_workspace_id_organisation_workspaces")
+  back_marketplace_rfqs_fk_rfqs_workspace_id_organisation_workspaces MarketplaceRfqs[] @relation("R_fk_rfqs_workspace_id_organisation_workspaces")
+  back_marketplace_vendors_fk_vendors_workspace_id_organisation_workspaces MarketplaceVendors[] @relation("R_fk_vendors_workspace_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  back_project_projects_projects_workspace_tenant_fk ProjectProjects[] @relation("R_projects_workspace_tenant_fk")
+  @@unique([organisation_id, slug], map: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], map: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], map: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}
+model ProjectProjectMembers {
+  added_by_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  role E_ProjectProjectMembersProjectRole
+  status E_ProjectProjectMembersMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_project_members_project_tenant_fk ProjectProjects @relation("R_project_members_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_project_members_user_fk IdentityUsers @relation("R_project_members_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_project_members_adder_fk IdentityUsers? @relation("R_project_members_adder_fk", fields: [added_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([project_id, user_id], map: "project_members_pair_unique")
+  @@index([user_id, status], map: "project_members_user_status_idx")
+  @@map("project_project_members")
+}
+model ProjectProjects {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_ProjectProjectsProjectStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_projects_workspace_tenant_fk OrganisationWorkspaces @relation("R_projects_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_projects_creator_user_fk IdentityUsers? @relation("R_projects_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_evidence_evidence_items_evidence_items_project_tenant_fk EvidenceEvidenceItems[] @relation("R_evidence_items_project_tenant_fk")
+  back_finance_budget_lines_fk_budget_lines_project_id_project_projects FinanceBudgetLines[] @relation("R_fk_budget_lines_project_id_project_projects")
+  back_finance_budgets_fk_budgets_project_id_project_projects FinanceBudgets[] @relation("R_fk_budgets_project_id_project_projects")
+  back_finance_commitments_fk_commitments_project_id_project_projects FinanceCommitments[] @relation("R_fk_commitments_project_id_project_projects")
+  back_investor_investment_opportunities_fk_investment_opportunities_project_id_project_projects InvestorInvestmentOpportunities[] @relation("R_fk_investment_opportunities_project_id_project_projects")
+  back_investor_revenue_entries_fk_revenue_entries_project_id_project_projects InvestorRevenueEntries[] @relation("R_fk_revenue_entries_project_id_project_projects")
+  back_investor_rights_fk_rights_project_id_project_projects InvestorRights[] @relation("R_fk_rights_project_id_project_projects")
+  back_marketplace_purchase_orders_fk_purchase_orders_project_id_project_projects MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_project_id_project_projects")
+  back_marketplace_rfqs_fk_rfqs_project_id_project_projects MarketplaceRfqs[] @relation("R_fk_rfqs_project_id_project_projects")
+  back_project_project_members_project_members_project_tenant_fk ProjectProjectMembers[] @relation("R_project_members_project_tenant_fk")
+  @@unique([workspace_id, slug], map: "projects_workspace_slug_unique")
+  @@unique([id, organisation_id], map: "projects_id_organisation_unique")
+  @@index([organisation_id, status], map: "projects_tenant_status_idx")
+  @@index([workspace_id, status], map: "projects_workspace_status_idx")
+  @@map("project_projects")
+}

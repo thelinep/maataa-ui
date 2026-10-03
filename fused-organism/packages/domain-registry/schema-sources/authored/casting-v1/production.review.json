@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewStatus": "REVIEWED",
+  "decision": "APPROVE",
+  "reviewer": "thelinep",
+  "reviewedAt": "2026-10-02T23:33:00.948Z",
+  "scope": "MAATAA-authored production context schema for the casting composition",
+  "context": "production",
+  "contractCount": 19,
+  "contractSetHash": "0adac1cec6284cec517aa27444e6cadb6de7282ad11f8c5310fdf1c105e19836",
+  "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+  "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+  "contractIds": [
+    "production.call_sheet_acknowledgements",
+    "production.call_sheet_recipients",
+    "production.call_sheet_versions",
+    "production.call_sheets",
+    "production.daily_production_reports",
+    "production.delays",
+    "production.incidents",
+    "production.live_attendance",
+    "production.production_calendars",
+    "production.production_days",
+    "production.scene_progress",
+    "production.schedule_items",
+    "production.schedule_versions",
+    "production.schedules",
+    "production.shoot_days",
+    "production.shot_progress",
+    "production.stripboards",
+    "production.strips",
+    "production.wrap_reports"
+  ],
+  "coreProposalIds": [],
+  "approvalBasis": "Approved the exact 19-contract production context set after contract structure, provenance, relation/FK closure, ownership, lifecycle, and provider-preview review. Definitions are MAATAA-authored design proposals; no external database authority is claimed. Global identity.users references follow CAST-DRAFT-004 and require application checks for active organisation/workspace membership and applicable project access. This context review does not approve migrations or deployment.",
+  "validations": {
+    "structuralContracts": "19/19 PASS",
+    "foreignKeyClosure": "PASS (160-table composition closure)",
+    "logicalSchema": "PASS",
+    "prisma": {
+      "postgresql": "PASS",
+      "sqlite": "PASS",
+      "scope": "Prisma model projection only"
+    },
+    "migrationApproved": false,
+    "deploymentApproved": false,
+    "unitTests": "28/28 PASS"
+  },
+  "retainedBoundaries": {
+    "applicationMembershipAuthorizationImplemented": false,
+    "compositionSchemaReady": true,
+    "legalReviewed": false,
+    "migrationApproved": false,
+    "deploymentApproved": false
+  },
+  "canonicalizedAt": "2026-10-02T23:33:00.948Z",
+  "proofRefreshedAt": "2026-10-03",
+  "hashRefresh": {
+    "amendmentId": "organisation-scope-integrity-v1.2.0",
+    "reviewer": "thelinep",
+    "refreshedAt": "2026-10-03T00:00:21.130Z",
+    "previous": {
+      "contractSetHash": "8789255de24c57fb57b83adde87e77fed65c6fc9f8d1c4bd9d744062a57c5e8c",
+      "logicalSchemaHash": "9df0040ac7fdaf62972ed51020bf25eb53e77915dca84d1702def245ac5cc3db"
+    },
+    "current": {
+      "contractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+      "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+    }
+  }
+}

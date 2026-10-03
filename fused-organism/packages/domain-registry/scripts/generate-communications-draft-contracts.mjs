@@ -18,7 +18,13 @@ const evidence = (tableId) => [
 function makeContract(table) {
   const [context, name] = table.id.split(".");
   const tableName = name;
-  const provenance = { kind: "MAATAA_AUTHORED", evidence: evidence(table.id), reviewedBy: null };
+  const decisionReview = table.decisionProvenance ?? {};
+  const provenance = {
+    kind: "MAATAA_AUTHORED",
+    evidence: evidence(table.id),
+    reviewedBy: decisionReview.reviewStatus === "approved" ? decisionReview.reviewedBy : null,
+    ...(decisionReview.reviewedAt ? { reviewedAt: decisionReview.reviewedAt } : {}),
+  };
   const enums = [];
   const fields = Object.fromEntries(Object.entries(table.fields).map(([name, definition]) => {
     const field = {

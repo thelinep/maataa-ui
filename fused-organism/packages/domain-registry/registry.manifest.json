@@ -15,13 +15,13 @@
     "publishable": true,
     "compilerConsumable": true,
     "registryCompilerReady": true,
-    "compilerReady": false,
+    "compilerReady": true,
     "schemaCompilerReadiness": {
-      "status": "SCHEMA_INCOMPLETE",
+      "status": "SCHEMA_READY",
       "total": 352,
-      "complete": 10,
+      "complete": 352,
       "partial": 0,
-      "nameOnly": 342,
+      "nameOnly": 0,
       "reason": "Registry package validity does not imply database schema readiness; incomplete contracts fail closed."
     },
     "domainRegistry": {
@@ -327,7 +327,7 @@
         }
       }
     ],
-    "registryHash": "d524b287badaae4993a37c7c8e9a06c7076b9a897bea0cc22b53052da176c1d9",
+    "registryHash": "b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d",
     "contentHashes": [
       {
         "path": "./applications/README.md",
@@ -335,43 +335,43 @@
       },
       {
         "path": "./applications/campaign-os-reference.ir.json",
-        "sha256": "9ceb449576dd48867cbd30db4ea4b7f2a5eeae672b9fce63806b9c9e0299d144"
+        "sha256": "9e0ac4394f4ba1c137030a610115559f11c1efcfe2a3d8ef4a90267c98bc38f5"
       },
       {
         "path": "./applications/campaign-os-reference.schema-preview.json",
-        "sha256": "3c04c2c787d42988cb8d9fc93de9c5be818dcbc3169f445e0e6b6ce9a6487314"
+        "sha256": "00f1378df3ea2bdb707eae56a430b34eea5fe3bcfc8940f60ffbf3eb280cfab9"
       },
       {
         "path": "./applications/casting-pipeline-demo.ir.json",
-        "sha256": "22a5d9ef1001ffbde9393ae98a7cfd3f1d3ddc0a3cf07c813674d46d217fa29a"
+        "sha256": "ff6681507f2af950cc7b79999c9412d8128e6c9ea758f83c90849251c9c4fbc1"
       },
       {
         "path": "./applications/casting-pipeline-demo.schema-preview.json",
-        "sha256": "f5590bc1aac31e701ec22936a7f105481c0927dde8f6d273caf56d8f554ef924"
+        "sha256": "8a36550cee844c52278e6ef1d3fa8738552bd240bb952205e30ea3684aaccd69"
       },
       {
         "path": "./applications/casting-pipeline.explainability.json",
-        "sha256": "ea30a3a925db5deae5ac25c1efcd2a5299c3e44ff53cde52a1210a74c055c5e0"
+        "sha256": "34c4523813ded789519c9c60192bea5035b985b354f7310ece35d8a89fdb5277"
       },
       {
         "path": "./applications/events-wedding-spatial-reference.ir.json",
-        "sha256": "59461b46c7ccf56bdb4194949e91929d8dbc60b364108bc809ef222ffcba60ad"
+        "sha256": "64a326fcb4d41a78b40d395ab508740f915bd6f26fa269d4861b06a69fce110c"
       },
       {
         "path": "./applications/events-wedding-spatial-reference.schema-preview.json",
-        "sha256": "63a6965cd1162be2203b1244f7191c6254cb2c2bd4774a60b83f8d6ee4fd9551"
+        "sha256": "f7a55b1367fa90c22be3aacfa15a1c17086edc64ef9e2b9a46fe5c1218edafd3"
       },
       {
         "path": "./applications/investorhub-reference.ir.json",
-        "sha256": "b59aa6959e58c1b94879193b4658457569dbdf2304a9231d42260e69f44e8166"
+        "sha256": "90a60ca0d41324f5f5a0a1576f9fa77a0982ae6ebe0c6a59fe26cb1cbed78f41"
       },
       {
         "path": "./applications/investorhub-reference.schema-preview.json",
-        "sha256": "dc96d78e0b44e4c6b74d6dbb2cad1e014eeb29247b70336ea932990341797ae6"
+        "sha256": "20c3a5c14e088865662f2fcec3bef6036d229ba9f1437d75e8aef0ba286420bc"
       },
       {
         "path": "./applications/registry.json",
-        "sha256": "ca44b35cb3efff91d73b8006b4724d4f03d7d2aca41521ca753f275bcac200f8"
+        "sha256": "4f45fd981c237bfde7bb6cffaffe411761b4d33776b3a6346971270930ef9142"
       },
       {
         "path": "./catalog/future-production-tables.json",
@@ -507,7 +507,7 @@
       },
       {
         "path": "./data/table-contracts.json",
-        "sha256": "3b7ab86425e2e7b5bbfd1ca35924a42c7215f5157bbd7fd53ba8849d1c81d9f1"
+        "sha256": "c7f3328d6fe86f5512b660e4214a2da49d913927007a53a7365eb05ef202898c"
       },
       {
         "path": "./flows/flow-classifications.json",
@@ -606,20 +606,80 @@
         "sha256": "6273064ad0c8b5379776172854692e259761dbf4fc7399a440004e5bd7ee54bd"
       },
       {
+        "path": "./schema-sources/authored/casting-v1/README.md",
+        "sha256": "5659120f5a7936b57efe690e1d9c732f139e03da51f055d05dc7ba94fa4586cc"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/contracts.draft.json",
+        "sha256": "bf81fca18d457e0478ea5e472c78bc358890b3e9deec9ffc23cc7ec90070a72e"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/evidence.review.json",
+        "sha256": "87548e5c6c0de822360ca2dc2e689441cd81c51469271bb8e5d39b5ec56b8d4b"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/identity.review.json",
+        "sha256": "3c474d2855ab7821906efd66995bbce5382328cb48ff7686d572f5120133d56c"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/logical-schema.draft.json",
+        "sha256": "9b08e83103a24d1cbff12f3ec863ceca6ec21f3700a5e60d99daba9db7b4fe1f"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/people.review.json",
+        "sha256": "59219c00025ab669616e628d4cb3cbb37b448e3aec42fe9578ae8ac1ecb8de46"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/platform.review.json",
+        "sha256": "d7a48c8d04333c2ecb230a3a0d8ecc1be0c3cea3c18e856524ddb795bfd76e82"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "e50a8b9a8af02cdd69688d5df4eda33e78c48bc048b8d86c0be126d1122f5127"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/prisma-preview.postgresql.draft.prisma",
+        "sha256": "0117981ce29fb6c8d65bb8089b00909b6f1c7b46c25d76ae10fc25a973b41cb7"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "67d9757ca0ab38999a0ff7abf12a43c6ba39d5d83ca0f1f0dff00fd62e3f6870"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/prisma-preview.sqlite.draft.prisma",
+        "sha256": "31a551b87ac1b69cf15995d648a208b8c1cbee66821121bb6465d87f2df0cf37"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/production.review.json",
+        "sha256": "fdb5b0f0d62f58bb74c5fe0cff7943bb9877f7fe55cd50dc9228919b7fe436ac"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/project.review.json",
+        "sha256": "ca3c91208e75f1df249fc87c88bc4601de0722cf7580392099e07cf58435a4f8"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/projection-findings.json",
+        "sha256": "0b9ae736986c12ca53a856e165f9c7d14d29ae7134347a82ae7015892719863e"
+      },
+      {
+        "path": "./schema-sources/authored/casting-v1/readiness.draft.json",
+        "sha256": "5a25ce13b1eed6e4740880f9f4a65f52b33678209bc2519924f6bcb4a7af1349"
+      },
+      {
         "path": "./schema-sources/authored/maataa-communications-v1/communications-schema.json",
         "sha256": "6b758b7842da9c64319741a033dbe4dfc5eadbbc264830974c1c7ad328ed9709"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/contract-review-corrections.json",
-        "sha256": "dee4641345de3337af9f137550262b4ae80f7e87588e4fe926b20a9030dc38c2"
+        "sha256": "cabcbbe14fd9b4f98cafa782a2b92fe48f003007c92fdf14c958dd7231fb62a2"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
-        "sha256": "1c1326d2a2cb0482485249e8ca447a44cadf46cab6c73496563c47a7dc631bf4"
+        "sha256": "a8a5d694c0ecfadf8a0cde3c896e4ffe99ae97483efe44f80bf0ab3f79833046"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/contracts.review.json",
-        "sha256": "c595a696b0ba638d9645beaab76aab81d1dfc50d0f4c56cd29901800151c4761"
+        "sha256": "103d9c17db54ac319078218a1fc7bc35781e295d9686e82836311ec066f44428"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/decisions.json",
@@ -631,11 +691,27 @@
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/logical-schema.draft.json",
-        "sha256": "3d67292fd1c3165be0d9518be2f8646f7f462e459c9bcca0e03f178c0ec9e8b6"
+        "sha256": "c259251e5457ef1f722368b0c2114728247d492a9173e22ad77c18e17f15cb56"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/migration-preview.postgresql.draft.metadata.json",
+        "sha256": "52b63747bd198b608f0f2d4147552351b356efb46865672842ec26cba7f52480"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/migration-preview.postgresql.draft.sql",
+        "sha256": "2c3c0917311e36a36764f12be425c5f09e71e6eef4f824c07a06b49483f974cf"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/migration-preview.sqlite.draft.metadata.json",
+        "sha256": "3d3086423a6a243bf922482afa0415bed8e75438de04ec92a2dc84c59ee8c7f1"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/migration-preview.sqlite.draft.sql",
+        "sha256": "b41aae0b469c733960734935f5cd964301022d4cc9868622b9d2f3d985a755e5"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.metadata.json",
-        "sha256": "616a9825b039e2b709e2daee9b77dc6c828eb29ff02d620c0d49eb040b8dcc9a"
+        "sha256": "a6dba3b0da70947c2ba104ee11bd374e7035084ce8d7d6d441ef89e56c389164"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
@@ -643,7 +719,7 @@
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.metadata.json",
-        "sha256": "16c20dbc0d705e984b4dac38330be523a5b01f04e0ca756b62fd6061a856983d"
+        "sha256": "f21713b1f6079c61e3a3df45441e420aba27ae899a8ca493732f4f6d68f37d18"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
@@ -651,11 +727,23 @@
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/projection-findings.json",
-        "sha256": "3f4294c3dd50fdbbe37da6c1b72faadf1726f0249716e72f4775736f109bacff"
+        "sha256": "a38955966cc17d2add11a7b46ae60fd9feb4da634edaf9db57ab0eb314df85f4"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/provenance.json",
         "sha256": "126a300f9c46819d7fcb98bd16c314c39e636a97b457ea35bdc720f7c3cade5f"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/provider-enforcement-plan.json",
+        "sha256": "61f0e586485d49910d100f0bb6be9084c46d81fe60621d93280a8ffbb2d82a05"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/provider-enforcement.postgresql.sql",
+        "sha256": "af5a7c18400ef633eb6462ca08525b2df42ad3b37a22de4ddc11ff531561b97c"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-communications-v1/provider-enforcement.sqlite.sql",
+        "sha256": "471fb610ef907a7108f180c1ba0137bf5054992f2880793b564cddf522c30370"
       },
       {
         "path": "./schema-sources/authored/maataa-communications-v1/review.json",
@@ -668,6 +756,482 @@
       {
         "path": "./schema-sources/authored/maataa-core-v1/contracts.json",
         "sha256": "b1023d82cc7b3f14876c14f7b69a5789e70b80c7f3b945841010dc8ed5d5a3c0"
+      },
+      {
+        "path": "./schema-sources/authored/maataa-core-v1/organisation-scope-integrity-amendment.v1.2.0.json",
+        "sha256": "734ce05c39b127d8a5379f2a889c4db3392f224b08ba25450a25861957aa5ea5"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/contracts.canonicalized.json",
+        "sha256": "ce341683d768b7bd9e45233e2f89e4dc51a86b6a6e46ae0c17b2eae4dc34e27d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/contracts.draft.json",
+        "sha256": "45bd5de7c5133c0bb6f4e4fe6b6a4684ded60e137dd171fa94fac84d208af406"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/contracts.review.json",
+        "sha256": "e4b30c1b1f32aaa65b720ef068a117db8e912994d8cbc5751ee2fd56b59b4d2b"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/logical-schema.canonical.json",
+        "sha256": "e225a6b86b718fd1542a5c2ebf7b493adae51a9431e25993257f41ae82b5d49b"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "f2bfd6c2e78427e680b60e5c67c739f2231d597e958751927891adb25762fc8e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "40fb3a82785ca7b3202766183fded1860f48bdb5fa073b81901eeff036f96d42"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "f2e5038715fb3160066f71d0f58fee0b720475d5172f1f23ba3d203b3ad75851"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.postgresql.draft.prisma",
+        "sha256": "40fb3a82785ca7b3202766183fded1860f48bdb5fa073b81901eeff036f96d42"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "92be5264677e512e021a4f7650e6d50ea969320ae72af2fc48d3d7c826ae9c30"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "89ecd79cb57392568b51f1d00a561608e95ddb5318cee6edfe52a5c7abc0c2b6"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "7b91dc31c6afbee4195f44ea2552be0046ba3f6251d11079b09160a44f25a7bb"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/campaign/prisma-preview.sqlite.draft.prisma",
+        "sha256": "89ecd79cb57392568b51f1d00a561608e95ddb5318cee6edfe52a5c7abc0c2b6"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/contracts.canonicalized.json",
+        "sha256": "618fb51bef2ab640c370c6c2d485e148e5b7bf8748b9a1d1a3605836a62a6069"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/contracts.draft.json",
+        "sha256": "7da00b73c48bcf1e82b5d20c49ca1b48d7754f964bb73a136eebd8c593970255"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/contracts.review.json",
+        "sha256": "f25f4123e4f8e9de9751cde2254cbaf34d9e4f47cd7bcd9e02dda61355828489"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/logical-schema.canonical.json",
+        "sha256": "3f032b420910966f2bea216f5099915a619daf992d14f3273577835e308f0990"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "e5bcccd435cbf9b8a4f295180f856158912b5268a72b2ef546ba7c2e55afcadb"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "a38fc7ef8157071115527f4f3be9c8ad0555ac6cceb1db61aff7235ee851bfb0"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "812be2440d6904d38c69f41904997ba3474cffdaaad1c8ad0ee64a083af0df83"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.postgresql.draft.prisma",
+        "sha256": "a38fc7ef8157071115527f4f3be9c8ad0555ac6cceb1db61aff7235ee851bfb0"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "2e11de612291262f1e28899a6e34dcf36ea1e66630d728644aee0da75f214c6b"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "2477dacd75bf6c7edb2bbe318414bb099084683e27214074af26c8bc3abb6725"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "bcfd0886d6163d5949e3a3cf04b1f17f606942eaf2ca60fbcb04c7b50ae85d32"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/creative/prisma-preview.sqlite.draft.prisma",
+        "sha256": "2477dacd75bf6c7edb2bbe318414bb099084683e27214074af26c8bc3abb6725"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/contracts.canonicalized.json",
+        "sha256": "4f8b23c042321f29c86b47060bc8797cae46e5bd12647a15a1513a4ce7e3500a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/contracts.draft.json",
+        "sha256": "ae442601a8b751e8ab50dd1a6de8b4066a3ca85dc2bd9e172febebce8536f5de"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/contracts.review.json",
+        "sha256": "9d67d0551f143b9abad31464caa4c73a238b0dd5964290d8032ab822360bc9c9"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/logical-schema.canonical.json",
+        "sha256": "04c4464fa7acfa7a4742ed7a5307fa545bb2f76bba02a5f0823b628c56a11229"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "7b5acea76ba5758e21ebb8cf54a0b3118a43cbaa594843809dc6d9f1a2e4d365"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "4204ee8bbae5da147319c8db39fe5119b55e8af796b09f34e3236f0fcbec1549"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "1c0de8f633592d0df748dffcddd032d9caf67dac219827705229a65b74b6b075"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.postgresql.draft.prisma",
+        "sha256": "4204ee8bbae5da147319c8db39fe5119b55e8af796b09f34e3236f0fcbec1549"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "692a5afb8c365edafd906c7174fcedb195f62fc64a25b9672e0a3a6231e611f5"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "5dea81b86cdc31fc3aa6c616d89f8a834d1b9a8b0e41dcf232a6c01aec8d527d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "9a8bdb2f65c33efcfc29375fe55daf7f3ced79261ca8e66bc5b5fbd87a0e6b18"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/eventsSpatial/prisma-preview.sqlite.draft.prisma",
+        "sha256": "5dea81b86cdc31fc3aa6c616d89f8a834d1b9a8b0e41dcf232a6c01aec8d527d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/contracts.canonicalized.json",
+        "sha256": "b4eb974ce869310ca66d67b125d1b1dd7a819854d18e07ab9a3019e8729013cc"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/contracts.draft.json",
+        "sha256": "6a6208c3e9fbecef727c28f023c5fd6119f512fd84693c89feb4f0af096a6e32"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/contracts.review.json",
+        "sha256": "1962fe0f35d971f53498ae212a68b0ebc3a13be468a2727d1159e78e2956d126"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/logical-schema.canonical.json",
+        "sha256": "6a230b0a5ea8e0e528cabe002e7cb4d5a1def7948248b418e319d59210d8aca0"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "04ef6736a3603e8c34d88cf89b70011987df36f8c1c6b50eca3e2b8e6f448e3d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "5794bf94cae76cb1fba00c6b0115658f76664b8c359bf12b99bdb03ad140a6a9"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "2779d3ab6c4435344891efab7d9bf3e4137795e3e12d7e0d0a7d61dbfa2d59e3"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.postgresql.draft.prisma",
+        "sha256": "5794bf94cae76cb1fba00c6b0115658f76664b8c359bf12b99bdb03ad140a6a9"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "0fe56d6e01ecdd268cee7fa70dfa3cccdefa7d8569a6330020deaf0a53232775"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "201bd5a32c0273fb290115b3b38300a399adea6a2dec4c8b8fd5fde79c3ebf72"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "23864623d1fb005077b991bb91bf7e839c4c3f6cb757545e331cc19355174872"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/finance/prisma-preview.sqlite.draft.prisma",
+        "sha256": "201bd5a32c0273fb290115b3b38300a399adea6a2dec4c8b8fd5fde79c3ebf72"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/logical-schema.canonical.json",
+        "sha256": "28ba887c3d4a4cbb12fa81823f36ab47fc1d2db2c46145e9c9df0dc6fb4d1418"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "2eba533a8651caea06b47007791ef75a2d5c0711e74ae11e3c42a69f6474acf5"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "ae087b0d8df61300f5e087fc1338152c78309d09140674657c9efb3d81081b96"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "dcde28fc66391e3aff4df0b41b52e92888289316bb63b3750d8236291fd7cc10"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.draft.prisma",
+        "sha256": "ae087b0d8df61300f5e087fc1338152c78309d09140674657c9efb3d81081b96"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "14c17d2a1b41384b41a3355efe07c6b70ec3e56ddfa23c926fef3823c523249d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "9288da76ef27d75b4460ec533b54d9a9375ed1bf2989e9d1f485a2f0d5bad481"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.draft.prisma",
+        "sha256": "e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/global/readiness.json",
+        "sha256": "a014d08382b2df3d638006fd1d81a62e2e08c2bd5890c4a4aaaa54e95f4ed212"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/contracts.canonicalized.json",
+        "sha256": "461ed6da24367a962b839ed272f8c89187f1ebf934cebb4eb6aad67a35e1f278"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/contracts.draft.json",
+        "sha256": "75760f423aa68d94801f48eacaa630ef4afeae35f24f90ea5f45b2f9d6e37518"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/contracts.review.json",
+        "sha256": "39ac4500971e6612d935886e30990e3cf8edcc8f581d4e77134cde6ac3a95ff6"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/logical-schema.canonical.json",
+        "sha256": "c2c6c27d1896b86b90fd2451be8d96a682bab754ec3099bf7af760177597bf9d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "cd8a8bb59e386283a57546ded9845caccc524c3ca06c0b2a97610c66481820f9"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "019fa4bfdc4b96cc030ea8a2a6761f6cb4ee419b9eff6b04a5f032639868045a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "cb88072928a7d425ce72ac5a7f12fb83f82422a1b883418f8fe3acbd6a2821e7"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.postgresql.draft.prisma",
+        "sha256": "019fa4bfdc4b96cc030ea8a2a6761f6cb4ee419b9eff6b04a5f032639868045a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "0ce160403036127538b250b86977cc069f0a363849945717cd1592534053357e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "ea0c36f9e8894e0aea55e328d34aa9befcb88211ec604287b0e66534621eb3ba"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "a7d4aceeae736e7b7c29d6b0f26f01eaa0b381f83ff43089a1e61fe5eeded13a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/intelligence/prisma-preview.sqlite.draft.prisma",
+        "sha256": "ea0c36f9e8894e0aea55e328d34aa9befcb88211ec604287b0e66534621eb3ba"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/contracts.canonicalized.json",
+        "sha256": "547fe67391e64780fc57ba66a5d5170d817c4bbe3982f675d1731310ee1011e2"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/contracts.draft.json",
+        "sha256": "3c47a45749c9305e8573921527919d09570a269b513ab9a3781ba0f15a22e73c"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/contracts.review.json",
+        "sha256": "1740f16dcae09334ecb200cc0a3684c240efdc2a7c8d76fedda42596525bbf18"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/logical-schema.canonical.json",
+        "sha256": "9e8d85294355bd2381898d2cd51a0b45a6945fa2d50d33d12a145fc36999452f"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "b53f1fd2ed071a5e724c750d644ca96af013f0627e91b73b7bd574e176a36a3e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "087f3815eee8e35d98a914f12b33b5f132441cbcdb497ea8ac3408eca76a434a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "0bd3eee4a938a590e573bfd758d1685f806d5da13519547e0e8572c39ebd26f4"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.postgresql.draft.prisma",
+        "sha256": "087f3815eee8e35d98a914f12b33b5f132441cbcdb497ea8ac3408eca76a434a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "6bfe442612b4fd14e56c7f90ae7c6e795cbed248ecc836b042f6bcb8fe656c33"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "b7c2f0b106897295b30823a64bd450639587d2ac6852729248de4a4f8484078d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "cdd42a64e1105eb9c4cf4a9bcd586cb0d9cee71c0de6b2e68a9f39c6d8ea329a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/investor/prisma-preview.sqlite.draft.prisma",
+        "sha256": "b7c2f0b106897295b30823a64bd450639587d2ac6852729248de4a4f8484078d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/contracts.canonicalized.json",
+        "sha256": "28439a49994715f49bd67fa96b4dd71ff9c55ed89d2e4712cba05fb61a1577e5"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/contracts.draft.json",
+        "sha256": "08168419bcb6ad56892b6dba291e41478dccc741c597cf179e15925a7d2b773a"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/contracts.review.json",
+        "sha256": "a45a6e8a971b2cde309cd290594761984a80b0b97fafa83a544f50ff0b30412c"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/logical-schema.canonical.json",
+        "sha256": "081856b16b56bd8b520b467b81b70797e5a7c6a3f012500a62386b7554ab60dc"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "abea5f2d8be4b46084efd0fe0ef547c9e5e9cc9e2a69dfd9c935185dbdb30ad5"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "bee035d56004fcf04476c30016d640a0e1801950b57beb2c7761a95256b426cd"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "9f61dc108fff78ed2aba1e63d965cb1030b5ceeacca21abd962ad74154b2a57d"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.postgresql.draft.prisma",
+        "sha256": "bee035d56004fcf04476c30016d640a0e1801950b57beb2c7761a95256b426cd"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "e59369d92255d50f20086ddfd693c93e7ea22482abe44b2daece61b96f23c943"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "705453a9330eb010b22873bae841b8dda9ac500d0e831382c9298451f8e51c7e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "436aecb808a1c760cc7d80f6e4ff0ca28e9f676c7bfb9075e1362ea737bd626e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/logistics/prisma-preview.sqlite.draft.prisma",
+        "sha256": "705453a9330eb010b22873bae841b8dda9ac500d0e831382c9298451f8e51c7e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/contracts.canonicalized.json",
+        "sha256": "2575a77fdbdcaa1a67196f03a5e17b752fde9027ad2cbd03230cd93b9040c715"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/contracts.draft.json",
+        "sha256": "d79b1fa8e1a5d4c97c8ccf113e644e1e19d9a8f03b4a631b4aaf59b8b7aabaa7"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/contracts.review.json",
+        "sha256": "60e6b221b961c3b2c11af1937882cc05af59b90642c8321686fe542d196c88cb"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/logical-schema.canonical.json",
+        "sha256": "47e502af4453d3566b285f759617a34ff71b60e8a473f6603247a6d1685e24be"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "c53cff43fd77456cb8d985df56ce91158c9ad9dce1af0b39277b7468fd5dfd30"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "799c763e7e7b850dcc5d24883eb205f7ed67e29c2c13abd22d981ffe8b503827"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "9ed6ef6b87a2f08e72fa129e83f848562e0175833722b7fe29b24979e278b0a9"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.postgresql.draft.prisma",
+        "sha256": "799c763e7e7b850dcc5d24883eb205f7ed67e29c2c13abd22d981ffe8b503827"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "5c7572b930ddcedceaf081c4d85810b029133ba2204ebd85fa2499f725077421"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "d66691cb1d41845d0a57aeec13714fd3b556c30cca0c163c9db26057ef3f0580"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "62e9be73239496ac2b2f47fea787d82a46fa5395d91c52672f55f7d71124a0cc"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/marketplace/prisma-preview.sqlite.draft.prisma",
+        "sha256": "d66691cb1d41845d0a57aeec13714fd3b556c30cca0c163c9db26057ef3f0580"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/contracts.canonicalized.json",
+        "sha256": "0292d35fab228b1e28220863ea9b324b63d893116b97efdb59d44d66f6fe6e55"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/contracts.draft.json",
+        "sha256": "909d37f40a4a572a09ff257c165c1bf6c254576ae1e269077f38c8ddf91ba1a8"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/contracts.review.json",
+        "sha256": "1c5aead56d9126096f5a3d1e40dcb7c6ade2faf2fd98d90d341ba64cb275fa51"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/logical-schema.canonical.json",
+        "sha256": "c7663e473b351fea8ce1d3919e289834d80fdbf0f6afb8b381d92680563fbf40"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.postgresql.canonical.metadata.json",
+        "sha256": "eca9525fcd1aed0ef8dc2229eec2bcedf861d52dbc2ba41fced14c4c7cc0f014"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.postgresql.canonical.prisma",
+        "sha256": "0a6c7ac6faead8b4c3a39d15642a4a2e65f5fccbf3269d0c714e9daf60d3756e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.postgresql.draft.metadata.json",
+        "sha256": "002288374d8afe7bed6099fe7558afa40173f1034f9e15bf7c9322af973a7b4e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.postgresql.draft.prisma",
+        "sha256": "0a6c7ac6faead8b4c3a39d15642a4a2e65f5fccbf3269d0c714e9daf60d3756e"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.sqlite.canonical.metadata.json",
+        "sha256": "bca8a2f4fbcf4c416b619dd1f32e9495334f7ef986a0845ab17aea4391b9286c"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.sqlite.canonical.prisma",
+        "sha256": "1c694da5c1f409b937c657d228dc4aecdef45c121ba0a48d104fcfb09f50ed79"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.sqlite.draft.metadata.json",
+        "sha256": "5e763915b74f8013d96fa487fd65775465f236183883c23f480672f078f134ff"
+      },
+      {
+        "path": "./schema-sources/authored/schema-factory-v1/public/prisma-preview.sqlite.draft.prisma",
+        "sha256": "1c694da5c1f409b937c657d228dc4aecdef45c121ba0a48d104fcfb09f50ed79"
       },
       {
         "path": "./schema-sources/candidates/neroevents-postgres-migrations.json",
@@ -939,78 +1503,78 @@
       "path": "./data/table-contracts.json",
       "version": "1.0.0",
       "status": "canonical-approved",
-      "records": 10,
+      "records": 352,
       "catalogTables": 352,
       "total": 352,
-      "complete": 10,
+      "complete": 352,
       "partial": 0,
-      "nameOnly": 342,
+      "nameOnly": 0,
       "byContext": {
         "campaign": {
           "total": 22,
-          "complete": 0,
+          "complete": 22,
           "partial": 0,
-          "nameOnly": 22
+          "nameOnly": 0
         },
         "communications": {
           "total": 9,
-          "complete": 0,
+          "complete": 9,
           "partial": 0,
-          "nameOnly": 9
+          "nameOnly": 0
         },
         "creative": {
           "total": 20,
-          "complete": 0,
+          "complete": 20,
           "partial": 0,
-          "nameOnly": 20
+          "nameOnly": 0
         },
         "eventsspatial": {
           "total": 25,
-          "complete": 0,
+          "complete": 25,
           "partial": 0,
-          "nameOnly": 25
+          "nameOnly": 0
         },
         "evidence": {
           "total": 23,
-          "complete": 0,
+          "complete": 23,
           "partial": 0,
-          "nameOnly": 23
+          "nameOnly": 0
         },
         "finance": {
           "total": 22,
-          "complete": 0,
+          "complete": 22,
           "partial": 0,
-          "nameOnly": 22
+          "nameOnly": 0
         },
         "identity": {
           "total": 25,
-          "complete": 0,
+          "complete": 25,
           "partial": 0,
-          "nameOnly": 25
+          "nameOnly": 0
         },
         "intelligence": {
           "total": 22,
-          "complete": 0,
+          "complete": 22,
           "partial": 0,
-          "nameOnly": 22
+          "nameOnly": 0
         },
         "investor": {
           "total": 21,
-          "complete": 0,
+          "complete": 21,
           "partial": 0,
-          "nameOnly": 21
+          "nameOnly": 0
         },
         "logistics": {
           "total": 26,
-          "complete": 0,
+          "complete": 26,
           "partial": 0,
-          "nameOnly": 26
+          "nameOnly": 0
         },
         "marketplace": {
           "total": 22,
-          "complete": 0,
+          "complete": 22,
           "partial": 0,
-          "nameOnly": 22
+          "nameOnly": 0
         },
         "organisation": {
           "total": 10,
@@ -1020,33 +1584,33 @@
         },
         "people": {
           "total": 32,
-          "complete": 0,
+          "complete": 32,
           "partial": 0,
-          "nameOnly": 32
+          "nameOnly": 0
         },
         "platform": {
           "total": 25,
-          "complete": 0,
+          "complete": 25,
           "partial": 0,
-          "nameOnly": 25
+          "nameOnly": 0
         },
         "production": {
           "total": 19,
-          "complete": 0,
+          "complete": 19,
           "partial": 0,
-          "nameOnly": 19
+          "nameOnly": 0
         },
         "project": {
           "total": 17,
-          "complete": 0,
+          "complete": 17,
           "partial": 0,
-          "nameOnly": 17
+          "nameOnly": 0
         },
         "public": {
           "total": 12,
-          "complete": 0,
+          "complete": 12,
           "partial": 0,
-          "nameOnly": 12
+          "nameOnly": 0
         }
       }
     },
@@ -1055,21 +1619,21 @@
       "sourceId": "maataa-core-v1",
       "status": "AUTHORING_COMPLETE_REVIEW_PENDING",
       "records": 13,
-      "canonicalized": 4,
-      "pendingReview": 9
+      "canonicalized": 13,
+      "pendingReview": 0
     },
     "communicationsDraftContracts": {
       "path": "./schema-sources/authored/maataa-communications-v1/contracts.draft.json",
       "schemaLifecycle": "DRAFT",
       "records": 9,
-      "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
+      "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
       "readiness": {
         "compileTestable": true,
         "fkClosure": "PASS",
         "schemaReady": false,
         "logicalPreviewValid": true,
         "prismaPreviewValid": true,
-        "migrationPreviewValid": false,
+        "migrationPreviewValid": true,
         "migrationApproved": false,
         "deploymentApproved": false,
         "legalReviewed": false,
@@ -1090,7 +1654,8 @@
           "organisation.workspace_memberships",
           "organisation.workspaces"
         ],
-        "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f"
+        "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
+        "providerInvariantEnforcement": "PASS"
       },
       "correctionSetId": "maataa-communications-contract-review-corrections-v1",
       "correctionDecisionStatus": "ACCEPTED_FOR_SCHEMA_CORRECTION",
@@ -1098,10 +1663,10 @@
         "path": "./schema-sources/authored/maataa-communications-v1/contracts.review.json",
         "status": "REVIEWED",
         "reviewer": "thelinep",
-        "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
-        "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f",
+        "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+        "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
         "schemaReady": false,
-        "canonicalPromotion": false
+        "canonicalPromotion": true
       },
       "prismaPreviews": [
         {
@@ -1109,7 +1674,7 @@
           "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
           "validation": "PASS",
           "validationTool": "Prisma CLI 7.9.1",
-          "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
+          "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
           "deployable": false,
           "migrationExecutable": false,
           "unprojectedLogicalInvariants": [
@@ -1139,6 +1704,22 @@
               "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
             },
             {
+              "tableId": "communications.direct_message_threads",
+              "kind": "referenced-row-predicate",
+              "name": "direct_message_parent_thread_is_direct",
+              "predicate": {
+                "equals": "direct",
+                "field": "kind"
+              },
+              "scopeFields": [
+                "organisation_id",
+                "thread_id",
+                "workspace_id"
+              ],
+              "target": "communications.communication_threads",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
               "tableId": "communications.thread_members",
               "activeWhenNull": "left_at",
               "keyFields": [
@@ -1149,6 +1730,22 @@
               ],
               "kind": "at-most-one-active-row",
               "name": "one_active_thread_membership_episode",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
+              "tableId": "communications.thread_members",
+              "immutableFields": [
+                "organisation_id",
+                "workspace_id",
+                "thread_id",
+                "workspace_membership_id",
+                "joined_at",
+                "created_at"
+              ],
+              "kind": "immutable-episode-identity-and-terminal-state",
+              "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+              "terminalField": "left_at",
+              "terminalTransition": "null-to-non-null-once; ended episodes cannot be reopened or have their end time rewritten",
               "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
             }
           ]
@@ -1158,7 +1755,7 @@
           "path": "./schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
           "validation": "PASS",
           "validationTool": "Prisma CLI 7.9.1",
-          "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
+          "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
           "deployable": false,
           "migrationExecutable": false,
           "unprojectedLogicalInvariants": [
@@ -1188,6 +1785,22 @@
               "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
             },
             {
+              "tableId": "communications.direct_message_threads",
+              "kind": "referenced-row-predicate",
+              "name": "direct_message_parent_thread_is_direct",
+              "predicate": {
+                "equals": "direct",
+                "field": "kind"
+              },
+              "scopeFields": [
+                "organisation_id",
+                "thread_id",
+                "workspace_id"
+              ],
+              "target": "communications.communication_threads",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
               "tableId": "communications.thread_members",
               "activeWhenNull": "left_at",
               "keyFields": [
@@ -1199,10 +1812,158 @@
               "kind": "at-most-one-active-row",
               "name": "one_active_thread_membership_episode",
               "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+            },
+            {
+              "tableId": "communications.thread_members",
+              "immutableFields": [
+                "organisation_id",
+                "workspace_id",
+                "thread_id",
+                "workspace_membership_id",
+                "joined_at",
+                "created_at"
+              ],
+              "kind": "immutable-episode-identity-and-terminal-state",
+              "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+              "terminalField": "left_at",
+              "terminalTransition": "null-to-non-null-once; ended episodes cannot be reopened or have their end time rewritten",
+              "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
             }
           ]
         }
       ]
+    },
+    "castingDraftContracts": {
+      "path": "./schema-sources/authored/casting-v1/contracts.draft.json",
+      "schemaLifecycle": "DRAFT",
+      "composition": {
+        "applicationId": "casting-pipeline-demo",
+        "irHash": "1775fe118b757a26fab339181fd6430a34fc98ba360ab08c9eb775fc0c57a768",
+        "contextIds": [
+          "communications",
+          "evidence",
+          "identity",
+          "organisation",
+          "people",
+          "platform",
+          "production",
+          "project"
+        ],
+        "selectedFlowIds": [
+          "TLPS-FLOW-027",
+          "TLPS-FLOW-028",
+          "TLPS-FLOW-029",
+          "TLPS-FLOW-030",
+          "TLPS-FLOW-031"
+        ],
+        "tableCount": 160
+      },
+      "resolvedContractCount": 160,
+      "authoredDraftCount": 0,
+      "contractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+      "readiness": {
+        "compileTestable": true,
+        "fkClosure": "PASS",
+        "logicalPreviewValid": true,
+        "schemaReady": true,
+        "canonicalCoverage": {
+          "total": 160,
+          "complete": 160,
+          "partial": 0,
+          "nameOnly": 0
+        },
+        "closureCoverage": {
+          "total": 160,
+          "complete": 160,
+          "partial": 0,
+          "nameOnly": 0
+        },
+        "prismaPreviewValid": true,
+        "migrationPreviewValid": false,
+        "migrationApproved": false,
+        "deploymentApproved": false,
+        "legalReviewed": false,
+        "authoredDraftCount": 0,
+        "effectiveContractCount": 160,
+        "closureTableCount": 160,
+        "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+      },
+      "peopleReview": {
+        "path": "./schema-sources/authored/casting-v1/people.review.json",
+        "status": "REVIEWED",
+        "reviewer": "thelinep",
+        "contractCount": 32,
+        "contractSetHash": "8ea1f93f7b411e560abec4afd749725b75437f0b68ed34afca98c1eb847d6bdb",
+        "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+        "identityContextCanonical": true,
+        "compositionSchemaReady": true,
+        "applicationMembershipAuthorizationImplemented": false,
+        "canonicalizedContracts": 32,
+        "canonicalPromotion": true
+      },
+      "projectReview": {
+        "path": "./schema-sources/authored/casting-v1/project.review.json",
+        "status": "REVIEWED",
+        "reviewer": "thelinep",
+        "contractCount": 17,
+        "contractSetHash": "b9e1a35a3d6f1cf3c18a0c2966e0f7db45cf7033dbff1650c8535a8243b96540",
+        "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+        "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+        "compositionSchemaReady": true,
+        "canonicalizedContracts": 17,
+        "canonicalPromotion": true
+      },
+      "contextReviews": {
+        "identity": {
+          "path": "./schema-sources/authored/casting-v1/identity.review.json",
+          "status": "REVIEWED",
+          "reviewer": "thelinep",
+          "contractCount": 25,
+          "contractSetHash": "f873757dc6030c305d80d52f55c7f18772b1677eadd1045f4c841129afdb3c83",
+          "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+          "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+          "compositionSchemaReady": true,
+          "canonicalizedContracts": 25,
+          "canonicalPromotion": true
+        },
+        "evidence": {
+          "path": "./schema-sources/authored/casting-v1/evidence.review.json",
+          "status": "REVIEWED",
+          "reviewer": "thelinep",
+          "contractCount": 23,
+          "contractSetHash": "56cae63f78f9ba4bfbe6ce5b0b53b3514ab2d9d569431d4475f02298a572fd60",
+          "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+          "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+          "compositionSchemaReady": true,
+          "canonicalizedContracts": 23,
+          "canonicalPromotion": true
+        },
+        "platform": {
+          "path": "./schema-sources/authored/casting-v1/platform.review.json",
+          "status": "REVIEWED",
+          "reviewer": "thelinep",
+          "contractCount": 25,
+          "contractSetHash": "337f7199af20b5dc6f342a5187af0db4003039aaebbc2df569aa269f8cd5a607",
+          "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+          "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+          "compositionSchemaReady": true,
+          "canonicalizedContracts": 25,
+          "canonicalPromotion": true
+        },
+        "production": {
+          "path": "./schema-sources/authored/casting-v1/production.review.json",
+          "status": "REVIEWED",
+          "reviewer": "thelinep",
+          "contractCount": 19,
+          "contractSetHash": "0adac1cec6284cec517aa27444e6cadb6de7282ad11f8c5310fdf1c105e19836",
+          "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+          "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+          "compositionSchemaReady": true,
+          "canonicalizedContracts": 19,
+          "canonicalPromotion": true
+        }
+      }
     },
     "scalarTypes": {
       "path": "./data/scalar-types.json",
@@ -1390,7 +2151,7 @@
     "m1PoliciesApplied": "2026-10-02",
     "gitAvailable": true,
     "gitRepository": "packages/domain-registry",
-    "packageHash": "d524b287badaae4993a37c7c8e9a06c7076b9a897bea0cc22b53052da176c1d9",
+    "packageHash": "b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d",
     "packageHashMethod": "SHA-256 over sorted package asset paths and their SHA-256 digests; excludes registry.manifest.json."
   },
   "milestones": {

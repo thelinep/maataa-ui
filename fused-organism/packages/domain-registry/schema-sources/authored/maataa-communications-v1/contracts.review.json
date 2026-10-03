@@ -3,11 +3,11 @@
   "reviewStatus": "REVIEWED",
   "decision": "APPROVE",
   "reviewer": "thelinep",
-  "reviewedAt": "2026-10-02T21:00:40.449Z",
-  "approvalBasis": "Conditional reviewer approval supplied with the four Communications contract-review corrections; all stated structural, provider-preview, test, and registry checks passed.",
+  "reviewedAt": "2026-10-02T23:03:43.000Z",
+  "approvalBasis": "Reviewer thelinep approved the direct-message parent-thread predicate and immutable membership-episode terminal-state invariants in response to the exact Communication review request. Approval binds only this reviewed Communications contract set and dependency closure.",
   "correctionSetId": "maataa-communications-contract-review-corrections-v1",
-  "contractSetHash": "643155b4a3c95f838e2c5ff915d5fb62775051e65e3195495f7a7cb3852b9cc9",
-  "logicalSchemaHash": "a18b26eb42d1ea22ed1fd1b678bed542413b1f1eda59176ed37e4e236457670f",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
   "contractIds": [
     "communications.announcements",
     "communications.communication_threads",
@@ -46,47 +46,45 @@
       "scope": "Prisma model projection only"
     },
     "unitTests": "25/25 PASS",
-    "registry": "PASS (0 blockers, 0 errors, 0 warnings)"
+    "registry": "PASS (0 blockers, 0 errors, 0 warnings; 11 informational deferred routes)",
+    "postgresProjection": "PASS (Prisma validation plus static migration-overlay review; no runtime PostgreSQL execution)",
+    "sqliteProjection": "PASS (Prisma validation plus behavioral migration-overlay checks)",
+    "migrationPreviews": "PASS (PostgreSQL and SQLite generated; execution not approved)"
   },
-  "deferredLogicalInvariants": [
-    {
-      "provider": "postgresql",
-      "tableId": "communications.announcements",
-      "invariant": "announcement_audience_matches_workspace_scope"
-    },
-    {
-      "provider": "postgresql",
-      "tableId": "communications.direct_message_threads",
-      "invariant": "direct_message_membership_pair_is_normalized"
-    },
-    {
-      "provider": "postgresql",
-      "tableId": "communications.thread_members",
-      "invariant": "one_active_thread_membership_episode"
-    },
-    {
-      "provider": "sqlite",
-      "tableId": "communications.announcements",
-      "invariant": "announcement_audience_matches_workspace_scope"
-    },
-    {
-      "provider": "sqlite",
-      "tableId": "communications.direct_message_threads",
-      "invariant": "direct_message_membership_pair_is_normalized"
-    },
-    {
-      "provider": "sqlite",
-      "tableId": "communications.thread_members",
-      "invariant": "one_active_thread_membership_episode"
-    }
-  ],
+  "deferredLogicalInvariants": [],
   "scope": "MAATAA-authored Communications relational design review",
   "retainedBoundaries": {
     "schemaReady": false,
     "identityUsersCanonical": false,
-    "canonicalPromotion": false,
+    "canonicalPromotion": true,
     "legalComplianceApproved": false,
     "migrationApproved": false,
     "deploymentApproved": false
+  },
+  "additionalApprovedInvariants": [
+    "communications.direct_message_threads:direct_message_parent_thread_is_direct",
+    "communications.thread_members:thread_membership_episode_cannot_be_reopened_or_rekeyed"
+  ],
+  "providerEnforcement": {
+    "planHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+    "postgresql": "PASS_STATIC_REVIEW; runtime database execution not performed",
+    "sqlite": "PASS_BEHAVIORAL_CHECKS",
+    "migrationExecutionApproved": false,
+    "deploymentApproved": false
+  },
+  "canonicalizedAt": "2026-10-02T23:03:43.000Z",
+  "dependencyClosureContractSetHash": "fa37616e7096b93736cb8664530a5ed757e2327cd7322e82bd858da5b1b17a50",
+  "hashRefresh": {
+    "amendmentId": "organisation-scope-integrity-v1.2.0",
+    "reviewer": "thelinep",
+    "refreshedAt": "2026-10-03T00:00:21.130Z",
+    "previous": {
+      "logicalSchemaHash": "2272ee12688dbc73740eaf297154ec275aac13a321b991254baba72b1e39986d",
+      "dependencyClosureContractSetHash": null
+    },
+    "current": {
+      "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
+      "dependencyClosureContractSetHash": "fa37616e7096b93736cb8664530a5ed757e2327cd7322e82bd858da5b1b17a50"
+    }
   }
 }

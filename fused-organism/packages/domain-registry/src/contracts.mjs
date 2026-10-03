@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { sha256 } from "./hash.mjs";
 
 const REQUIRED_SECTIONS = ["fields", "enums", "primaryKey", "uniqueConstraints", "foreignKeys", "relations", "indexes", "ownership", "lifecycle"];
 const REQUIRED_REVIEW = "approved";
@@ -6,6 +6,7 @@ const sorted = (items) => [...items].sort((a, b) => String(a).localeCompare(Stri
 const has = (value, key) => Object.hasOwn(value ?? {}, key);
 const allContracts = (source) => {
   const contracts = new Map((source.authoredContracts ?? []).map((contract) => [contract.id, contract]));
+  for (const contract of source.castingDraftContracts ?? []) contracts.set(contract.id, contract);
   for (const contract of source.draftContracts ?? []) contracts.set(contract.id, contract);
   for (const contract of source.tableContracts?.contracts ?? []) contracts.set(contract.id, contract);
   return [...contracts.values()];
@@ -94,6 +95,21 @@ function validateContract(contract, source, { requireApproval }) {
       checkFields(`invariant ${invariant.name}`, [...(invariant.keyFields ?? []), invariant.activeWhenNull]);
       if (!invariant.keyFields?.length || invariant.keyFields.includes(invariant.activeWhenNull)) errors.push(`Invariant ${invariant.name} needs key fields distinct from its active marker.`);
       if (fields[invariant.activeWhenNull]?.nullable !== true) errors.push(`Invariant ${invariant.name} active marker ${invariant.activeWhenNull} must be nullable.`);
+    } else if (invariant.kind === "referenced-row-predicate") {
+      checkFields(`invariant ${invariant.name}`, invariant.scopeFields);
+      const targetContract = contractById.get(invariant.target);
+      const targetField = targetContract?.fields?.[invariant.predicate?.field];
+      const targetEnum = targetContract?.enums?.find((item) => item.id === targetField?.enumId);
+      const matchingForeignKey = (contract.foreignKeys ?? []).some((item) => item.references === invariant.target && JSON.stringify(item.fields) === JSON.stringify(invariant.scopeFields));
+      if (!targetContract) errors.push(`Invariant ${invariant.name} target contract is missing: ${invariant.target ?? "<missing>"}.`);
+      if (!targetField) errors.push(`Invariant ${invariant.name} target predicate field is missing: ${invariant.target}.${invariant.predicate?.field ?? "<missing>"}.`);
+      if (!targetEnum?.values?.includes(invariant.predicate?.equals)) errors.push(`Invariant ${invariant.name} predicate value is not declared by ${invariant.target}.${invariant.predicate?.field}.`);
+      if (!matchingForeignKey) errors.push(`Invariant ${invariant.name} scope fields must match a foreign key to ${invariant.target}.`);
+    } else if (invariant.kind === "immutable-episode-identity-and-terminal-state") {
+      checkFields(`invariant ${invariant.name}`, [...(invariant.immutableFields ?? []), invariant.terminalField]);
+      if (!invariant.immutableFields?.length || invariant.immutableFields.includes(invariant.terminalField)) errors.push(`Invariant ${invariant.name} requires immutable identity fields distinct from its terminal field.`);
+      if (fields[invariant.terminalField]?.nullable !== true) errors.push(`Invariant ${invariant.name} terminal field ${invariant.terminalField} must be nullable.`);
+      if (!invariant.terminalTransition?.trim()) errors.push(`Invariant ${invariant.name} must define its terminal transition.`);
     } else errors.push(`Invariant ${invariant.name ?? "<missing>"} has unsupported kind ${invariant.kind ?? "<missing>"}.`);
   }
   for (const key of contract.foreignKeys ?? []) {
@@ -151,7 +167,7 @@ function validateContract(contract, source, { requireApproval }) {
   for (const section of REQUIRED_SECTIONS) if (!has(contract, section)) errors.push(`Missing required section: ${section}.`);
   const retentionPolicy = contract.lifecycle?.retentionPolicy;
   const retentionDefined = typeof retentionPolicy === "string" && retentionPolicy.trim().length > 0;
-  const retentionResolved = retentionDefined && (!requireApproval || !/^(?:PENDING_REVIEW|UNRESOLVED|TBD|TODO|PROPOSED)(?:\b|:)/i.test(retentionPolicy.trim()));
+  const retentionResolved = retentionDefined && (!requireApproval || !/^(?:PENDING_REVIEW|UNRESOLVED|TBD|TODO)(?:\b|:)/i.test(retentionPolicy.trim()));
   if (!retentionResolved) errors.push(requireApproval ? "Lifecycle must declare a concrete retention policy or an explicit approved no-retention policy." : "Lifecycle must declare a retention policy for compiler modeling.");
   const sectionValues = {
     fields: Object.keys(fields).length > 0,
@@ -203,7 +219,7 @@ export function assessContractCoverage(tableIds, source) {
 function validateStructuralClosure(root, source) {
   const canonicalRows = source.tableContracts?.contracts ?? [];
   const canonicalIds = new Set(canonicalRows.map((item) => item.id));
-  const draftRows = source.draftContracts ?? [];
+  const draftRows = [...(source.castingDraftContracts ?? []), ...(source.draftContracts ?? [])];
   const draftIds = new Set(draftRows.map((item) => item.id));
   const rows = [
     ...(source.authoredContracts ?? []).filter((item) => !canonicalIds.has(item.id) && !draftIds.has(item.id)),
@@ -291,7 +307,7 @@ function createLogicalModel(tableIds, contracts, source, readiness, { authority,
     requestedTableIds: [...new Set(tableIds)].sort(),
     dependencyTableIds: [...closure].filter((id) => !tableIds.includes(id)).sort(),
     model,
-    schemaHash: createHash("sha256").update(serialized).digest("hex"),
+    schemaHash: sha256(serialized),
   };
 }
 

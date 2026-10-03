@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "applicationId": "casting-pipeline-demo",
-  "irHash": "14a3d7cc43fdbb0e42393fecba896b575783af64393e73a06fe115231bd6b80b",
+  "irHash": "1775fe118b757a26fab339181fd6430a34fc98ba360ab08c9eb775fc0c57a768",
   "examples": [
     {
       "question": "Why is people.talent_profiles here?",
@@ -262,8 +262,8 @@
       "downstreamArtifacts": {
         "schemaChanged": false,
         "generatedArtifacts": "not-connected",
-        "currentIrHash": "14a3d7cc43fdbb0e42393fecba896b575783af64393e73a06fe115231bd6b80b",
-        "draftIrHash": "14a3d7cc43fdbb0e42393fecba896b575783af64393e73a06fe115231bd6b80b"
+        "currentIrHash": "1775fe118b757a26fab339181fd6430a34fc98ba360ab08c9eb775fc0c57a768",
+        "draftIrHash": "1775fe118b757a26fab339181fd6430a34fc98ba360ab08c9eb775fc0c57a768"
       }
     },
     "summary": {

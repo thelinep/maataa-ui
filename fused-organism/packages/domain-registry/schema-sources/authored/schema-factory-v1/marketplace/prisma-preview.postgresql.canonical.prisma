@@ -1,0 +1,1218 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for PostgreSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum E_EvidenceEvidenceItemsEvidenceKind {
+  document
+  image
+  video
+  audio
+  dataset
+  other
+  @@map("evidence.evidence_items#evidence_kind")
+}
+enum E_EvidenceEvidenceItemsEvidenceStatus {
+  active
+  quarantined
+  withdrawn
+  @@map("evidence.evidence_items#evidence_status")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_LogisticsLogisticsTasksTaskStatus {
+  open
+  in_progress
+  blocked
+  done
+  @@map("logistics.logistics_tasks#task_status")
+}
+enum E_LogisticsShipmentsShipmentStatus {
+  preparing
+  in_transit
+  delivered
+  returned
+  @@map("logistics.shipments#shipment_status")
+}
+enum E_MarketplaceCapabilityPacksPackStatus {
+  active
+  retired
+  @@map("marketplace.capability_packs#pack_status")
+}
+enum E_MarketplaceDeliveriesDeliveryStatus {
+  planned
+  in_transit
+  delivered
+  exception
+  @@map("marketplace.deliveries#delivery_status")
+}
+enum E_MarketplaceMarketplaceCategoriesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.marketplace_categories#status")
+}
+enum E_MarketplaceMarketplaceServicesServiceStatus {
+  draft
+  active
+  retired
+  @@map("marketplace.marketplace_services#service_status")
+}
+enum E_MarketplaceProcurementAwardsDecision {
+  pending
+  awarded
+  not_awarded
+  @@map("marketplace.procurement_awards#decision")
+}
+enum E_MarketplaceProcurementAwardsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.procurement_awards#status")
+}
+enum E_MarketplacePurchaseOrderItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.purchase_order_items#status")
+}
+enum E_MarketplacePurchaseOrdersOrderStatus {
+  draft
+  issued
+  acknowledged
+  fulfilled
+  cancelled
+  @@map("marketplace.purchase_orders#order_status")
+}
+enum E_MarketplaceQuoteComparisonsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.quote_comparisons#status")
+}
+enum E_MarketplaceQuoteItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.quote_items#status")
+}
+enum E_MarketplaceQuotesQuoteStatus {
+  draft
+  submitted
+  accepted
+  rejected
+  expired
+  @@map("marketplace.quotes#quote_status")
+}
+enum E_MarketplaceRfqItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.rfq_items#status")
+}
+enum E_MarketplaceRfqRecipientsResponseStatus {
+  invited
+  viewed
+  declined
+  responded
+  @@map("marketplace.rfq_recipients#response_status")
+}
+enum E_MarketplaceRfqsRfqStatus {
+  draft
+  issued
+  closed
+  awarded
+  cancelled
+  @@map("marketplace.rfqs#rfq_status")
+}
+enum E_MarketplaceServiceDeliveriesAcceptanceStatus {
+  pending
+  accepted
+  rejected
+  @@map("marketplace.service_deliveries#acceptance_status")
+}
+enum E_MarketplaceServiceSkusSkuStatus {
+  active
+  retired
+  @@map("marketplace.service_skus#sku_status")
+}
+enum E_MarketplaceVendorAvailabilityAvailabilityStatus {
+  available
+  held
+  unavailable
+  @@map("marketplace.vendor_availability#availability_status")
+}
+enum E_MarketplaceVendorCapabilitiesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.vendor_capabilities#status")
+}
+enum E_MarketplaceVendorPerformanceStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.vendor_performance#status")
+}
+enum E_MarketplaceVendorPortfoliosStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("marketplace.vendor_portfolios#status")
+}
+enum E_MarketplaceVendorProfilesProfileStatus {
+  draft
+  published
+  hidden
+  @@map("marketplace.vendor_profiles#profile_status")
+}
+enum E_MarketplaceVendorRatingsRatingStatus {
+  pending
+  published
+  hidden
+  @@map("marketplace.vendor_ratings#rating_status")
+}
+enum E_MarketplaceVendorsVendorStatus {
+  pending
+  verified
+  suspended
+  retired
+  @@map("marketplace.vendors#vendor_status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+enum E_ProjectProjectMembersMembershipStatus {
+  active
+  invited
+  suspended
+  removed
+  @@map("project.project_members#membership_status")
+}
+enum E_ProjectProjectMembersProjectRole {
+  owner
+  admin
+  contributor
+  viewer
+  @@map("project.project_members#project_role")
+}
+enum E_ProjectProjectsProjectStatus {
+  draft
+  active
+  on_hold
+  completed
+  archived
+  @@map("project.projects#project_status")
+}
+model EvidenceEvidenceItems {
+  captured_at DateTime? @db.Timestamptz(6)
+  content_sha256 String @db.VarChar(64)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  description String? @db.Text
+  id String @db.Uuid @id
+  kind E_EvidenceEvidenceItemsEvidenceKind
+  media_type String @db.VarChar(127)
+  metadata Json @default("{}")
+  organisation_id String @db.Uuid
+  project_id String? @db.Uuid
+  retention_until DateTime? @db.Timestamptz(6)
+  size_bytes Int?
+  status E_EvidenceEvidenceItemsEvidenceStatus @default(active)
+  storage_uri String @db.Text
+  title String @db.VarChar(240)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  uploaded_by_user_id String? @db.Uuid
+  withdrawn_at DateTime? @db.Timestamptz(6)
+  rel_evidence_items_organisation_fk OrganisationOrganisations @relation("R_evidence_items_organisation_fk", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_project_tenant_fk ProjectProjects? @relation("R_evidence_items_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_uploader_fk IdentityUsers? @relation("R_evidence_items_uploader_fk", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_vendor_portfolios_fk_vendor_portfolios_evidence_item_id_evidence_evidence_item MarketplaceVendorPortfolios[] @relation("R_fk_vendor_portfolios_evidence_item_id_evidence_evidence_item")
+  @@unique([id, organisation_id], map: "evidence_items_id_organisation_unique")
+  @@index([organisation_id, project_id, created_at], map: "evidence_items_project_created_idx")
+  @@index([organisation_id, content_sha256], map: "evidence_items_hash_idx")
+  @@index([organisation_id, retention_until], map: "evidence_items_retention_idx")
+  @@map("evidence_evidence_items")
+}
+model IdentityUsers {
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  email String @db.VarChar(320)
+  email_verified_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  status E_IdentityUsersAccountStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  back_evidence_evidence_items_evidence_items_uploader_fk EvidenceEvidenceItems[] @relation("R_evidence_items_uploader_fk")
+  back_logistics_logistics_tasks_fk_logistics_tasks_assigned_to_user_id_identity_users LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_assigned_to_user_id_identity_users")
+  back_logistics_logistics_tasks_fk_logistics_tasks_created_by_user_id_identity_users LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_created_by_user_id_identity_users")
+  back_logistics_shipments_fk_shipments_created_by_user_id_identity_users LogisticsShipments[] @relation("R_fk_shipments_created_by_user_id_identity_users")
+  back_marketplace_capability_packs_fk_capability_packs_created_by_user_id_identity_users MarketplaceCapabilityPacks[] @relation("R_fk_capability_packs_created_by_user_id_identity_users")
+  back_marketplace_deliveries_fk_deliveries_created_by_user_id_identity_users MarketplaceDeliveries[] @relation("R_fk_deliveries_created_by_user_id_identity_users")
+  back_marketplace_marketplace_categories_fk_marketplace_categories_created_by_user_id_identity_users MarketplaceMarketplaceCategories[] @relation("R_fk_marketplace_categories_created_by_user_id_identity_users")
+  back_marketplace_marketplace_services_fk_marketplace_services_created_by_user_id_identity_users MarketplaceMarketplaceServices[] @relation("R_fk_marketplace_services_created_by_user_id_identity_users")
+  back_marketplace_procurement_awards_fk_procurement_awards_decided_by_user_id_identity_users MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_decided_by_user_id_identity_users")
+  back_marketplace_procurement_awards_fk_procurement_awards_created_by_user_id_identity_users MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_created_by_user_id_identity_users")
+  back_marketplace_purchase_order_items_fk_purchase_order_items_created_by_user_id_identity_users MarketplacePurchaseOrderItems[] @relation("R_fk_purchase_order_items_created_by_user_id_identity_users")
+  back_marketplace_purchase_orders_fk_purchase_orders_issued_by_user_id_identity_users MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_issued_by_user_id_identity_users")
+  back_marketplace_purchase_orders_fk_purchase_orders_created_by_user_id_identity_users MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_created_by_user_id_identity_users")
+  back_marketplace_quote_comparisons_fk_quote_comparisons_created_by_user_id_identity_users MarketplaceQuoteComparisons[] @relation("R_fk_quote_comparisons_created_by_user_id_identity_users")
+  back_marketplace_quote_items_fk_quote_items_created_by_user_id_identity_users MarketplaceQuoteItems[] @relation("R_fk_quote_items_created_by_user_id_identity_users")
+  back_marketplace_quotes_fk_quotes_submitted_by_user_id_identity_users MarketplaceQuotes[] @relation("R_fk_quotes_submitted_by_user_id_identity_users")
+  back_marketplace_quotes_fk_quotes_created_by_user_id_identity_users MarketplaceQuotes[] @relation("R_fk_quotes_created_by_user_id_identity_users")
+  back_marketplace_rfq_items_fk_rfq_items_created_by_user_id_identity_users MarketplaceRfqItems[] @relation("R_fk_rfq_items_created_by_user_id_identity_users")
+  back_marketplace_rfq_recipients_fk_rfq_recipients_invited_by_user_id_identity_users MarketplaceRfqRecipients[] @relation("R_fk_rfq_recipients_invited_by_user_id_identity_users")
+  back_marketplace_rfq_recipients_fk_rfq_recipients_created_by_user_id_identity_users MarketplaceRfqRecipients[] @relation("R_fk_rfq_recipients_created_by_user_id_identity_users")
+  back_marketplace_rfqs_fk_rfqs_requester_user_id_identity_users MarketplaceRfqs[] @relation("R_fk_rfqs_requester_user_id_identity_users")
+  back_marketplace_rfqs_fk_rfqs_created_by_user_id_identity_users MarketplaceRfqs[] @relation("R_fk_rfqs_created_by_user_id_identity_users")
+  back_marketplace_service_deliveries_fk_service_deliveries_accepted_by_user_id_identity_users MarketplaceServiceDeliveries[] @relation("R_fk_service_deliveries_accepted_by_user_id_identity_users")
+  back_marketplace_service_deliveries_fk_service_deliveries_created_by_user_id_identity_users MarketplaceServiceDeliveries[] @relation("R_fk_service_deliveries_created_by_user_id_identity_users")
+  back_marketplace_service_skus_fk_service_skus_created_by_user_id_identity_users MarketplaceServiceSkus[] @relation("R_fk_service_skus_created_by_user_id_identity_users")
+  back_marketplace_vendor_availability_fk_vendor_availability_created_by_user_id_identity_users MarketplaceVendorAvailability[] @relation("R_fk_vendor_availability_created_by_user_id_identity_users")
+  back_marketplace_vendor_capabilities_fk_vendor_capabilities_created_by_user_id_identity_users MarketplaceVendorCapabilities[] @relation("R_fk_vendor_capabilities_created_by_user_id_identity_users")
+  back_marketplace_vendor_performance_fk_vendor_performance_calculated_by_user_id_identity_users MarketplaceVendorPerformance[] @relation("R_fk_vendor_performance_calculated_by_user_id_identity_users")
+  back_marketplace_vendor_performance_fk_vendor_performance_created_by_user_id_identity_users MarketplaceVendorPerformance[] @relation("R_fk_vendor_performance_created_by_user_id_identity_users")
+  back_marketplace_vendor_portfolios_fk_vendor_portfolios_created_by_user_id_identity_users MarketplaceVendorPortfolios[] @relation("R_fk_vendor_portfolios_created_by_user_id_identity_users")
+  back_marketplace_vendor_profiles_fk_vendor_profiles_created_by_user_id_identity_users MarketplaceVendorProfiles[] @relation("R_fk_vendor_profiles_created_by_user_id_identity_users")
+  back_marketplace_vendor_ratings_fk_vendor_ratings_rated_by_user_id_identity_users MarketplaceVendorRatings[] @relation("R_fk_vendor_ratings_rated_by_user_id_identity_users")
+  back_marketplace_vendor_ratings_fk_vendor_ratings_created_by_user_id_identity_users MarketplaceVendorRatings[] @relation("R_fk_vendor_ratings_created_by_user_id_identity_users")
+  back_marketplace_vendors_fk_vendors_owner_user_id_identity_users MarketplaceVendors[] @relation("R_fk_vendors_owner_user_id_identity_users")
+  back_marketplace_vendors_fk_vendors_created_by_user_id_identity_users MarketplaceVendors[] @relation("R_fk_vendors_created_by_user_id_identity_users")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  back_project_project_members_project_members_user_fk ProjectProjectMembers[] @relation("R_project_members_user_fk")
+  back_project_project_members_project_members_adder_fk ProjectProjectMembers[] @relation("R_project_members_adder_fk")
+  back_project_projects_projects_creator_user_fk ProjectProjects[] @relation("R_projects_creator_user_fk")
+  @@unique([email], map: "users_email_unique")
+  @@index([status], map: "users_status_idx")
+  @@map("identity_users")
+}
+model LogisticsLogisticsTasks {
+  assigned_to_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  details String? @db.Text
+  due_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  priority String @db.VarChar(24)
+  project_id String @db.Uuid
+  task_kind String @db.VarChar(60)
+  task_status E_LogisticsLogisticsTasksTaskStatus @default(open)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_logistics_tasks_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_logistics_tasks_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_logistics_tasks_project_id_project_projects ProjectProjects @relation("R_fk_logistics_tasks_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_logistics_tasks_assigned_to_user_id_identity_users IdentityUsers? @relation("R_fk_logistics_tasks_assigned_to_user_id_identity_users", fields: [assigned_to_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_logistics_tasks_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_logistics_tasks_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_logistics_tasks_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_logistics_tasks_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_shipments_fk_shipments_logistics_task_id_logistics_logistics_tasks LogisticsShipments[] @relation("R_fk_shipments_logistics_task_id_logistics_logistics_tasks")
+  @@unique([id, organisation_id], map: "logistics_tasks_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "logistics_tasks_id_workspace_organisation_uq")
+  @@index([organisation_id, task_status], map: "logistics_tasks_organisation_status_idx")
+  @@index([workspace_id, task_status], map: "logistics_tasks_workspace_status_idx")
+  @@index([created_at], map: "logistics_tasks_created_idx")
+  @@map("logistics_logistics_tasks")
+}
+model LogisticsShipments {
+  carrier String? @db.VarChar(120)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  expected_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  logistics_task_id String? @db.Uuid
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  ship_from String? @db.Text
+  ship_to String? @db.Text
+  shipment_status E_LogisticsShipmentsShipmentStatus @default(preparing)
+  shipped_at DateTime? @db.Timestamptz(6)
+  tracking_number String? @db.VarChar(120)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_shipments_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_shipments_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shipments_project_id_project_projects ProjectProjects @relation("R_fk_shipments_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shipments_logistics_task_id_logistics_logistics_tasks LogisticsLogisticsTasks? @relation("R_fk_shipments_logistics_task_id_logistics_logistics_tasks", fields: [logistics_task_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shipments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_shipments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_shipments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_shipments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_marketplace_deliveries_fk_deliveries_shipment_id_logistics_shipments MarketplaceDeliveries[] @relation("R_fk_deliveries_shipment_id_logistics_shipments")
+  @@unique([id, organisation_id], map: "shipments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "shipments_id_workspace_organisation_uq")
+  @@index([organisation_id, shipment_status], map: "shipments_organisation_status_idx")
+  @@index([workspace_id, shipment_status], map: "shipments_workspace_status_idx")
+  @@index([created_at], map: "shipments_created_idx")
+  @@map("logistics_shipments")
+}
+model MarketplaceCapabilityPacks {
+  capabilities Json
+  code String @db.VarChar(80)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  pack_status E_MarketplaceCapabilityPacksPackStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_capability_packs_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_capability_packs_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_capability_packs_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_capability_packs_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_capability_packs_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_capability_packs_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "capability_packs_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "capability_packs_id_workspace_organisation_uq")
+  @@unique([code], map: "capability_packs_code_uq")
+  @@index([organisation_id, pack_status], map: "capability_packs_organisation_status_idx")
+  @@index([workspace_id, pack_status], map: "capability_packs_workspace_status_idx")
+  @@index([created_at], map: "capability_packs_created_idx")
+  @@map("marketplace_capability_packs")
+}
+model MarketplaceDeliveries {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  delivered_at DateTime? @db.Timestamptz(6)
+  delivery_number String @db.VarChar(80)
+  delivery_status E_MarketplaceDeliveriesDeliveryStatus @default(planned)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  proof_uri String? @db.VarChar(500)
+  purchase_order_id String @db.Uuid
+  scheduled_at DateTime? @db.Timestamptz(6)
+  shipment_id String? @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_deliveries_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_deliveries_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deliveries_purchase_order_id_marketplace_purchase_orders MarketplacePurchaseOrders @relation("R_fk_deliveries_purchase_order_id_marketplace_purchase_orders", fields: [purchase_order_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deliveries_shipment_id_logistics_shipments LogisticsShipments? @relation("R_fk_deliveries_shipment_id_logistics_shipments", fields: [shipment_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_deliveries_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_deliveries_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_deliveries_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_deliveries_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "deliveries_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "deliveries_id_workspace_organisation_uq")
+  @@index([organisation_id, delivery_status], map: "deliveries_organisation_status_idx")
+  @@index([workspace_id, delivery_status], map: "deliveries_workspace_status_idx")
+  @@index([created_at], map: "deliveries_created_idx")
+  @@map("marketplace_deliveries")
+}
+model MarketplaceMarketplaceCategories {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  parent_category_id String? @db.Uuid
+  slug String @db.VarChar(120)
+  status E_MarketplaceMarketplaceCategoriesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_marketplace_categories_organisation_id_organisation_organ OrganisationOrganisations @relation("R_fk_marketplace_categories_organisation_id_organisation_organ", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_marketplace_categories_parent_category_id_marketplace_mar MarketplaceMarketplaceCategories? @relation("R_fk_marketplace_categories_parent_category_id_marketplace_mar", fields: [parent_category_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_marketplace_categories_workspace_id_organisation_workspac OrganisationWorkspaces @relation("R_fk_marketplace_categories_workspace_id_organisation_workspac", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_marketplace_categories_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_marketplace_categories_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_marketplace_categories_fk_marketplace_categories_parent_category_id_marketplace_mar MarketplaceMarketplaceCategories[] @relation("R_fk_marketplace_categories_parent_category_id_marketplace_mar")
+  back_marketplace_marketplace_services_fk_marketplace_services_category_id_marketplace_marketplace_ MarketplaceMarketplaceServices[] @relation("R_fk_marketplace_services_category_id_marketplace_marketplace_")
+  @@unique([id, organisation_id], map: "marketplace_categories_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "marketplace_categories_id_workspace_organisation_uq")
+  @@unique([slug], map: "marketplace_categories_slug_uq")
+  @@index([organisation_id, status], map: "marketplace_categories_organisation_status_idx")
+  @@index([workspace_id, status], map: "marketplace_categories_workspace_status_idx")
+  @@index([created_at], map: "marketplace_categories_created_idx")
+  @@map("marketplace_marketplace_categories")
+}
+model MarketplaceMarketplaceServices {
+  category_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  delivery_mode String @db.VarChar(40)
+  description String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  service_kind String @db.VarChar(80)
+  service_status E_MarketplaceMarketplaceServicesServiceStatus @default(draft)
+  slug String @db.VarChar(140)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_marketplace_services_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_marketplace_services_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_marketplace_services_category_id_marketplace_marketplace_ MarketplaceMarketplaceCategories @relation("R_fk_marketplace_services_category_id_marketplace_marketplace_", fields: [category_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_marketplace_services_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_marketplace_services_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_marketplace_services_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_marketplace_services_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_marketplace_rfq_items_fk_rfq_items_service_id_marketplace_marketplace_services MarketplaceRfqItems[] @relation("R_fk_rfq_items_service_id_marketplace_marketplace_services")
+  back_marketplace_service_deliveries_fk_service_deliveries_service_id_marketplace_marketplace_ser MarketplaceServiceDeliveries[] @relation("R_fk_service_deliveries_service_id_marketplace_marketplace_ser")
+  back_marketplace_service_skus_fk_service_skus_service_id_marketplace_marketplace_services MarketplaceServiceSkus[] @relation("R_fk_service_skus_service_id_marketplace_marketplace_services")
+  back_marketplace_vendor_capabilities_fk_vendor_capabilities_service_id_marketplace_marketplace_se MarketplaceVendorCapabilities[] @relation("R_fk_vendor_capabilities_service_id_marketplace_marketplace_se")
+  @@unique([id, organisation_id], map: "marketplace_services_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "marketplace_services_id_workspace_organisation_uq")
+  @@unique([slug], map: "marketplace_services_slug_uq")
+  @@index([organisation_id, service_status], map: "marketplace_services_organisation_status_idx")
+  @@index([workspace_id, service_status], map: "marketplace_services_workspace_status_idx")
+  @@index([created_at], map: "marketplace_services_created_idx")
+  @@map("marketplace_marketplace_services")
+}
+model MarketplaceProcurementAwards {
+  award_number String @db.VarChar(80)
+  awarded_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  decided_by_user_id String? @db.Uuid
+  decision E_MarketplaceProcurementAwardsDecision @default(pending)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  quote_id String? @db.Uuid
+  rationale String? @db.Text
+  rfq_id String @db.Uuid
+  status E_MarketplaceProcurementAwardsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String? @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_procurement_awards_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_procurement_awards_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_procurement_awards_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_quote_id_marketplace_quotes MarketplaceQuotes? @relation("R_fk_procurement_awards_quote_id_marketplace_quotes", fields: [quote_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_vendor_id_marketplace_vendors MarketplaceVendors? @relation("R_fk_procurement_awards_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_decided_by_user_id_identity_users IdentityUsers? @relation("R_fk_procurement_awards_decided_by_user_id_identity_users", fields: [decided_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_procurement_awards_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_procurement_awards_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_procurement_awards_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_procurement_awards_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_purchase_orders_fk_purchase_orders_award_id_marketplace_procurement_awards MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_award_id_marketplace_procurement_awards")
+  @@unique([id, organisation_id], map: "procurement_awards_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "procurement_awards_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "procurement_awards_organisation_status_idx")
+  @@index([workspace_id, status], map: "procurement_awards_workspace_status_idx")
+  @@index([created_at], map: "procurement_awards_created_idx")
+  @@map("marketplace_procurement_awards")
+}
+model MarketplacePurchaseOrderItems {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  delivered_quantity Decimal?
+  description String @db.Text
+  id String @db.Uuid @id @default(uuid())
+  line_total Decimal
+  organisation_id String @db.Uuid
+  purchase_order_id String @db.Uuid
+  quantity Decimal
+  rfq_item_id String? @db.Uuid
+  sku_id String? @db.Uuid
+  status E_MarketplacePurchaseOrderItemsStatus @default(draft)
+  unit String @db.VarChar(40)
+  unit_price Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_purchase_order_items_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_purchase_order_items_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_order_items_purchase_order_id_marketplace_purcha MarketplacePurchaseOrders @relation("R_fk_purchase_order_items_purchase_order_id_marketplace_purcha", fields: [purchase_order_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_order_items_sku_id_marketplace_service_skus MarketplaceServiceSkus? @relation("R_fk_purchase_order_items_sku_id_marketplace_service_skus", fields: [sku_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_order_items_rfq_item_id_marketplace_rfq_items MarketplaceRfqItems? @relation("R_fk_purchase_order_items_rfq_item_id_marketplace_rfq_items", fields: [rfq_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_order_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_purchase_order_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_order_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_purchase_order_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_service_deliveries_fk_service_deliveries_purchase_order_item_id_marketplace_pur MarketplaceServiceDeliveries[] @relation("R_fk_service_deliveries_purchase_order_item_id_marketplace_pur")
+  @@unique([id, organisation_id], map: "purchase_order_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "purchase_order_items_id_workspace_organisation_uq")
+  @@unique([purchase_order_id, rfq_item_id], map: "purchase_order_items_purchase_order_id_rfq_item_id_uq")
+  @@index([organisation_id, status], map: "purchase_order_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "purchase_order_items_workspace_status_idx")
+  @@index([created_at], map: "purchase_order_items_created_idx")
+  @@map("marketplace_purchase_order_items")
+}
+model MarketplacePurchaseOrders {
+  award_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  expected_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  issued_at DateTime? @db.Timestamptz(6)
+  issued_by_user_id String? @db.Uuid
+  order_status E_MarketplacePurchaseOrdersOrderStatus @default(draft)
+  organisation_id String @db.Uuid
+  po_number String @db.VarChar(80)
+  project_id String? @db.Uuid
+  subtotal Decimal
+  tax_total Decimal?
+  total Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_purchase_orders_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_purchase_orders_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_purchase_orders_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_award_id_marketplace_procurement_awards MarketplaceProcurementAwards? @relation("R_fk_purchase_orders_award_id_marketplace_procurement_awards", fields: [award_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_project_id_project_projects ProjectProjects? @relation("R_fk_purchase_orders_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_issued_by_user_id_identity_users IdentityUsers? @relation("R_fk_purchase_orders_issued_by_user_id_identity_users", fields: [issued_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_purchase_orders_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_purchase_orders_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_purchase_orders_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_purchase_orders_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_deliveries_fk_deliveries_purchase_order_id_marketplace_purchase_orders MarketplaceDeliveries[] @relation("R_fk_deliveries_purchase_order_id_marketplace_purchase_orders")
+  back_marketplace_purchase_order_items_fk_purchase_order_items_purchase_order_id_marketplace_purcha MarketplacePurchaseOrderItems[] @relation("R_fk_purchase_order_items_purchase_order_id_marketplace_purcha")
+  @@unique([id, organisation_id], map: "purchase_orders_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "purchase_orders_id_workspace_organisation_uq")
+  @@index([organisation_id, order_status], map: "purchase_orders_organisation_status_idx")
+  @@index([workspace_id, order_status], map: "purchase_orders_workspace_status_idx")
+  @@index([created_at], map: "purchase_orders_created_idx")
+  @@map("marketplace_purchase_orders")
+}
+model MarketplaceQuoteComparisons {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  criteria Json
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  rfq_id String @db.Uuid
+  selected_quote_id String? @db.Uuid
+  status E_MarketplaceQuoteComparisonsStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_quote_comparisons_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_quote_comparisons_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_comparisons_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_quote_comparisons_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_comparisons_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_quote_comparisons_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_quote_comparisons_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_quote_comparisons_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "quote_comparisons_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "quote_comparisons_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "quote_comparisons_organisation_status_idx")
+  @@index([workspace_id, status], map: "quote_comparisons_workspace_status_idx")
+  @@index([created_at], map: "quote_comparisons_created_idx")
+  @@map("marketplace_quote_comparisons")
+}
+model MarketplaceQuoteItems {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  delivery_days Int?
+  description String @db.Text
+  id String @db.Uuid @id @default(uuid())
+  line_total Decimal
+  organisation_id String @db.Uuid
+  quantity Decimal
+  quote_id String @db.Uuid
+  rfq_item_id String? @db.Uuid
+  sku_id String? @db.Uuid
+  status E_MarketplaceQuoteItemsStatus @default(draft)
+  unit String @db.VarChar(40)
+  unit_price Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_quote_items_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_quote_items_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_items_quote_id_marketplace_quotes MarketplaceQuotes @relation("R_fk_quote_items_quote_id_marketplace_quotes", fields: [quote_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_items_rfq_item_id_marketplace_rfq_items MarketplaceRfqItems? @relation("R_fk_quote_items_rfq_item_id_marketplace_rfq_items", fields: [rfq_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_items_sku_id_marketplace_service_skus MarketplaceServiceSkus? @relation("R_fk_quote_items_sku_id_marketplace_service_skus", fields: [sku_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_quote_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quote_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_quote_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "quote_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "quote_items_id_workspace_organisation_uq")
+  @@unique([quote_id, rfq_item_id], map: "quote_items_quote_id_rfq_item_id_uq")
+  @@index([organisation_id, status], map: "quote_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "quote_items_workspace_status_idx")
+  @@index([created_at], map: "quote_items_created_idx")
+  @@map("marketplace_quote_items")
+}
+model MarketplaceQuotes {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  quote_number String @db.VarChar(80)
+  quote_status E_MarketplaceQuotesQuoteStatus @default(draft)
+  rfq_id String @db.Uuid
+  submitted_by_user_id String? @db.Uuid
+  subtotal Decimal
+  tax_total Decimal?
+  total Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  valid_until DateTime? @db.Date
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_quotes_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_quotes_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_quotes_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_quotes_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_submitted_by_user_id_identity_users IdentityUsers? @relation("R_fk_quotes_submitted_by_user_id_identity_users", fields: [submitted_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_quotes_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_quotes_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_quotes_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_quotes_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_procurement_awards_fk_procurement_awards_quote_id_marketplace_quotes MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_quote_id_marketplace_quotes")
+  back_marketplace_quote_items_fk_quote_items_quote_id_marketplace_quotes MarketplaceQuoteItems[] @relation("R_fk_quote_items_quote_id_marketplace_quotes")
+  @@unique([id, organisation_id], map: "quotes_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "quotes_id_workspace_organisation_uq")
+  @@index([organisation_id, quote_status], map: "quotes_organisation_status_idx")
+  @@index([workspace_id, quote_status], map: "quotes_workspace_status_idx")
+  @@index([created_at], map: "quotes_created_idx")
+  @@map("marketplace_quotes")
+}
+model MarketplaceRfqItems {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String @db.Text
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  quantity Decimal
+  required_by DateTime? @db.Date
+  rfq_id String @db.Uuid
+  service_id String? @db.Uuid
+  sku_id String? @db.Uuid
+  sort_order Int
+  status E_MarketplaceRfqItemsStatus @default(draft)
+  unit String @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_rfq_items_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_rfq_items_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_items_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_rfq_items_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_items_service_id_marketplace_marketplace_services MarketplaceMarketplaceServices? @relation("R_fk_rfq_items_service_id_marketplace_marketplace_services", fields: [service_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_items_sku_id_marketplace_service_skus MarketplaceServiceSkus? @relation("R_fk_rfq_items_sku_id_marketplace_service_skus", fields: [sku_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_rfq_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_rfq_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_marketplace_purchase_order_items_fk_purchase_order_items_rfq_item_id_marketplace_rfq_items MarketplacePurchaseOrderItems[] @relation("R_fk_purchase_order_items_rfq_item_id_marketplace_rfq_items")
+  back_marketplace_quote_items_fk_quote_items_rfq_item_id_marketplace_rfq_items MarketplaceQuoteItems[] @relation("R_fk_quote_items_rfq_item_id_marketplace_rfq_items")
+  @@unique([id, organisation_id], map: "rfq_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "rfq_items_id_workspace_organisation_uq")
+  @@unique([rfq_id, sort_order], map: "rfq_items_rfq_id_sort_order_uq")
+  @@index([organisation_id, status], map: "rfq_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "rfq_items_workspace_status_idx")
+  @@index([created_at], map: "rfq_items_created_idx")
+  @@map("marketplace_rfq_items")
+}
+model MarketplaceRfqRecipients {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  invited_at DateTime @db.Timestamptz(6)
+  invited_by_user_id String? @db.Uuid
+  organisation_id String @db.Uuid
+  responded_at DateTime? @db.Timestamptz(6)
+  response_status E_MarketplaceRfqRecipientsResponseStatus @default(invited)
+  rfq_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_rfq_recipients_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_rfq_recipients_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_recipients_rfq_id_marketplace_rfqs MarketplaceRfqs @relation("R_fk_rfq_recipients_rfq_id_marketplace_rfqs", fields: [rfq_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_recipients_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_rfq_recipients_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_recipients_invited_by_user_id_identity_users IdentityUsers? @relation("R_fk_rfq_recipients_invited_by_user_id_identity_users", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rfq_recipients_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_rfq_recipients_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfq_recipients_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_rfq_recipients_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "rfq_recipients_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "rfq_recipients_id_workspace_organisation_uq")
+  @@index([organisation_id, response_status], map: "rfq_recipients_organisation_status_idx")
+  @@index([workspace_id, response_status], map: "rfq_recipients_workspace_status_idx")
+  @@index([created_at], map: "rfq_recipients_created_idx")
+  @@map("marketplace_rfq_recipients")
+}
+model MarketplaceRfqs {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String? @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  project_id String? @db.Uuid
+  requester_user_id String? @db.Uuid
+  requirements String? @db.Text
+  response_deadline DateTime? @db.Timestamptz(6)
+  rfq_number String @db.VarChar(80)
+  rfq_status E_MarketplaceRfqsRfqStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_rfqs_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_rfqs_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfqs_project_id_project_projects ProjectProjects? @relation("R_fk_rfqs_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_rfqs_requester_user_id_identity_users IdentityUsers? @relation("R_fk_rfqs_requester_user_id_identity_users", fields: [requester_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rfqs_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_rfqs_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_rfqs_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_rfqs_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_marketplace_procurement_awards_fk_procurement_awards_rfq_id_marketplace_rfqs MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_rfq_id_marketplace_rfqs")
+  back_marketplace_quote_comparisons_fk_quote_comparisons_rfq_id_marketplace_rfqs MarketplaceQuoteComparisons[] @relation("R_fk_quote_comparisons_rfq_id_marketplace_rfqs")
+  back_marketplace_quotes_fk_quotes_rfq_id_marketplace_rfqs MarketplaceQuotes[] @relation("R_fk_quotes_rfq_id_marketplace_rfqs")
+  back_marketplace_rfq_items_fk_rfq_items_rfq_id_marketplace_rfqs MarketplaceRfqItems[] @relation("R_fk_rfq_items_rfq_id_marketplace_rfqs")
+  back_marketplace_rfq_recipients_fk_rfq_recipients_rfq_id_marketplace_rfqs MarketplaceRfqRecipients[] @relation("R_fk_rfq_recipients_rfq_id_marketplace_rfqs")
+  @@unique([id, organisation_id], map: "rfqs_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "rfqs_id_workspace_organisation_uq")
+  @@index([organisation_id, rfq_status], map: "rfqs_organisation_status_idx")
+  @@index([workspace_id, rfq_status], map: "rfqs_workspace_status_idx")
+  @@index([created_at], map: "rfqs_created_idx")
+  @@map("marketplace_rfqs")
+}
+model MarketplaceServiceDeliveries {
+  acceptance_status E_MarketplaceServiceDeliveriesAcceptanceStatus @default(pending)
+  accepted_by_user_id String? @db.Uuid
+  completed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  purchase_order_item_id String @db.Uuid
+  service_id String @db.Uuid
+  started_at DateTime? @db.Timestamptz(6)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_service_deliveries_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_service_deliveries_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_service_deliveries_purchase_order_item_id_marketplace_pur MarketplacePurchaseOrderItems @relation("R_fk_service_deliveries_purchase_order_item_id_marketplace_pur", fields: [purchase_order_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_service_deliveries_service_id_marketplace_marketplace_ser MarketplaceMarketplaceServices @relation("R_fk_service_deliveries_service_id_marketplace_marketplace_ser", fields: [service_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_service_deliveries_accepted_by_user_id_identity_users IdentityUsers? @relation("R_fk_service_deliveries_accepted_by_user_id_identity_users", fields: [accepted_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_service_deliveries_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_service_deliveries_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_service_deliveries_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_service_deliveries_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "service_deliveries_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "service_deliveries_id_workspace_organisation_uq")
+  @@index([organisation_id, acceptance_status], map: "service_deliveries_organisation_status_idx")
+  @@index([workspace_id, acceptance_status], map: "service_deliveries_workspace_status_idx")
+  @@index([created_at], map: "service_deliveries_created_idx")
+  @@map("marketplace_service_deliveries")
+}
+model MarketplaceServiceSkus {
+  base_price Decimal?
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String? @db.VarChar(3)
+  description String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  service_id String @db.Uuid
+  sku_code String @db.VarChar(80)
+  sku_status E_MarketplaceServiceSkusSkuStatus @default(active)
+  unit String @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_service_skus_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_service_skus_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_service_skus_service_id_marketplace_marketplace_services MarketplaceMarketplaceServices @relation("R_fk_service_skus_service_id_marketplace_marketplace_services", fields: [service_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_service_skus_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_service_skus_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_service_skus_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_service_skus_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_marketplace_purchase_order_items_fk_purchase_order_items_sku_id_marketplace_service_skus MarketplacePurchaseOrderItems[] @relation("R_fk_purchase_order_items_sku_id_marketplace_service_skus")
+  back_marketplace_quote_items_fk_quote_items_sku_id_marketplace_service_skus MarketplaceQuoteItems[] @relation("R_fk_quote_items_sku_id_marketplace_service_skus")
+  back_marketplace_rfq_items_fk_rfq_items_sku_id_marketplace_service_skus MarketplaceRfqItems[] @relation("R_fk_rfq_items_sku_id_marketplace_service_skus")
+  @@unique([id, organisation_id], map: "service_skus_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "service_skus_id_workspace_organisation_uq")
+  @@unique([sku_code], map: "service_skus_sku_code_uq")
+  @@index([organisation_id, sku_status], map: "service_skus_organisation_status_idx")
+  @@index([workspace_id, sku_status], map: "service_skus_workspace_status_idx")
+  @@index([created_at], map: "service_skus_created_idx")
+  @@map("marketplace_service_skus")
+}
+model MarketplaceVendorAvailability {
+  availability_status E_MarketplaceVendorAvailabilityAvailabilityStatus @default(available)
+  capacity Int?
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_at DateTime @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  starts_at DateTime @db.Timestamptz(6)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_vendor_availability_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_vendor_availability_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_availability_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_availability_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_availability_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_availability_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendor_availability_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_availability_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vendor_availability_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_availability_id_workspace_organisation_uq")
+  @@unique([vendor_id, starts_at, ends_at], map: "vendor_availability_vendor_id_starts_at_ends_at_uq")
+  @@index([organisation_id, availability_status], map: "vendor_availability_organisation_status_idx")
+  @@index([workspace_id, availability_status], map: "vendor_availability_workspace_status_idx")
+  @@index([created_at], map: "vendor_availability_created_idx")
+  @@map("marketplace_vendor_availability")
+}
+model MarketplaceVendorCapabilities {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  evidence_uri String? @db.VarChar(500)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  proficiency String @db.VarChar(40)
+  service_id String @db.Uuid
+  status E_MarketplaceVendorCapabilitiesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  verified_at DateTime? @db.Timestamptz(6)
+  workspace_id String @db.Uuid
+  years_experience Int?
+  rel_fk_vendor_capabilities_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_vendor_capabilities_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_capabilities_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_capabilities_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_capabilities_service_id_marketplace_marketplace_se MarketplaceMarketplaceServices @relation("R_fk_vendor_capabilities_service_id_marketplace_marketplace_se", fields: [service_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_capabilities_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_capabilities_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendor_capabilities_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_capabilities_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vendor_capabilities_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_capabilities_id_workspace_organisation_uq")
+  @@unique([vendor_id, service_id], map: "vendor_capabilities_vendor_id_service_id_uq")
+  @@index([organisation_id, status], map: "vendor_capabilities_organisation_status_idx")
+  @@index([workspace_id, status], map: "vendor_capabilities_workspace_status_idx")
+  @@index([created_at], map: "vendor_capabilities_created_idx")
+  @@map("marketplace_vendor_capabilities")
+}
+model MarketplaceVendorPerformance {
+  calculated_by_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  delivery_on_time_rate Decimal?
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  period_end DateTime @db.Date
+  period_start DateTime @db.Date
+  quality_score Decimal?
+  score Decimal
+  status E_MarketplaceVendorPerformanceStatus @default(draft)
+  summary String? @db.Text
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_vendor_performance_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_vendor_performance_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_performance_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_performance_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_performance_calculated_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_performance_calculated_by_user_id_identity_users", fields: [calculated_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendor_performance_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_performance_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_performance_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_performance_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vendor_performance_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_performance_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "vendor_performance_organisation_status_idx")
+  @@index([workspace_id, status], map: "vendor_performance_workspace_status_idx")
+  @@index([created_at], map: "vendor_performance_created_idx")
+  @@map("marketplace_vendor_performance")
+}
+model MarketplaceVendorPortfolios {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  evidence_item_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  media_uri String? @db.VarChar(500)
+  organisation_id String @db.Uuid
+  sort_order Int
+  status E_MarketplaceVendorPortfoliosStatus @default(draft)
+  summary String? @db.Text
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  visibility String @db.VarChar(24)
+  workspace_id String @db.Uuid
+  rel_fk_vendor_portfolios_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_vendor_portfolios_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_portfolios_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_portfolios_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_portfolios_evidence_item_id_evidence_evidence_item EvidenceEvidenceItems? @relation("R_fk_vendor_portfolios_evidence_item_id_evidence_evidence_item", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_portfolios_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_portfolios_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendor_portfolios_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_portfolios_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vendor_portfolios_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_portfolios_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "vendor_portfolios_organisation_status_idx")
+  @@index([workspace_id, status], map: "vendor_portfolios_workspace_status_idx")
+  @@index([created_at], map: "vendor_portfolios_created_idx")
+  @@map("marketplace_vendor_portfolios")
+}
+model MarketplaceVendorProfiles {
+  contact_email String? @db.VarChar(320)
+  contact_phone String? @db.VarChar(40)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  description String? @db.Text
+  headline String @db.VarChar(200)
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  profile_status E_MarketplaceVendorProfilesProfileStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  website String? @db.VarChar(500)
+  workspace_id String @db.Uuid
+  rel_fk_vendor_profiles_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_vendor_profiles_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_profiles_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_profiles_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_profiles_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_profiles_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_profiles_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_profiles_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vendor_profiles_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_profiles_id_workspace_organisation_uq")
+  @@unique([vendor_id], map: "vendor_profiles_vendor_id_uq")
+  @@index([organisation_id, profile_status], map: "vendor_profiles_organisation_status_idx")
+  @@index([workspace_id, profile_status], map: "vendor_profiles_workspace_status_idx")
+  @@index([created_at], map: "vendor_profiles_created_idx")
+  @@map("marketplace_vendor_profiles")
+}
+model MarketplaceVendorRatings {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  project_id String? @db.Uuid
+  rated_at DateTime @db.Timestamptz(6)
+  rated_by_user_id String? @db.Uuid
+  rating_status E_MarketplaceVendorRatingsRatingStatus @default(pending)
+  review_text String? @db.Text
+  score Decimal
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_fk_vendor_ratings_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_vendor_ratings_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_ratings_vendor_id_marketplace_vendors MarketplaceVendors @relation("R_fk_vendor_ratings_vendor_id_marketplace_vendors", fields: [vendor_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_ratings_project_id_project_projects ProjectProjects? @relation("R_fk_vendor_ratings_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_ratings_rated_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_ratings_rated_by_user_id_identity_users", fields: [rated_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendor_ratings_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendor_ratings_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendor_ratings_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendor_ratings_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vendor_ratings_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendor_ratings_id_workspace_organisation_uq")
+  @@index([organisation_id, rating_status], map: "vendor_ratings_organisation_status_idx")
+  @@index([workspace_id, rating_status], map: "vendor_ratings_workspace_status_idx")
+  @@index([created_at], map: "vendor_ratings_created_idx")
+  @@map("marketplace_vendor_ratings")
+}
+model MarketplaceVendors {
+  country_code String? @db.VarChar(2)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  display_name String @db.VarChar(160)
+  id String @db.Uuid @id @default(uuid())
+  legal_name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  owner_user_id String? @db.Uuid
+  risk_level String? @db.VarChar(24)
+  tax_identifier String? @db.VarChar(80)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  vendor_code String? @db.VarChar(80)
+  vendor_status E_MarketplaceVendorsVendorStatus @default(pending)
+  workspace_id String @db.Uuid
+  rel_fk_vendors_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_vendors_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vendors_owner_user_id_identity_users IdentityUsers? @relation("R_fk_vendors_owner_user_id_identity_users", fields: [owner_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendors_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vendors_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vendors_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vendors_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_marketplace_procurement_awards_fk_procurement_awards_vendor_id_marketplace_vendors MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_vendor_id_marketplace_vendors")
+  back_marketplace_purchase_orders_fk_purchase_orders_vendor_id_marketplace_vendors MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_vendor_id_marketplace_vendors")
+  back_marketplace_quotes_fk_quotes_vendor_id_marketplace_vendors MarketplaceQuotes[] @relation("R_fk_quotes_vendor_id_marketplace_vendors")
+  back_marketplace_rfq_recipients_fk_rfq_recipients_vendor_id_marketplace_vendors MarketplaceRfqRecipients[] @relation("R_fk_rfq_recipients_vendor_id_marketplace_vendors")
+  back_marketplace_vendor_availability_fk_vendor_availability_vendor_id_marketplace_vendors MarketplaceVendorAvailability[] @relation("R_fk_vendor_availability_vendor_id_marketplace_vendors")
+  back_marketplace_vendor_capabilities_fk_vendor_capabilities_vendor_id_marketplace_vendors MarketplaceVendorCapabilities[] @relation("R_fk_vendor_capabilities_vendor_id_marketplace_vendors")
+  back_marketplace_vendor_performance_fk_vendor_performance_vendor_id_marketplace_vendors MarketplaceVendorPerformance[] @relation("R_fk_vendor_performance_vendor_id_marketplace_vendors")
+  back_marketplace_vendor_portfolios_fk_vendor_portfolios_vendor_id_marketplace_vendors MarketplaceVendorPortfolios[] @relation("R_fk_vendor_portfolios_vendor_id_marketplace_vendors")
+  back_marketplace_vendor_profiles_fk_vendor_profiles_vendor_id_marketplace_vendors MarketplaceVendorProfiles[] @relation("R_fk_vendor_profiles_vendor_id_marketplace_vendors")
+  back_marketplace_vendor_ratings_fk_vendor_ratings_vendor_id_marketplace_vendors MarketplaceVendorRatings[] @relation("R_fk_vendor_ratings_vendor_id_marketplace_vendors")
+  @@unique([id, organisation_id], map: "vendors_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vendors_id_workspace_organisation_uq")
+  @@index([organisation_id, vendor_status], map: "vendors_organisation_status_idx")
+  @@index([workspace_id, vendor_status], map: "vendors_workspace_status_idx")
+  @@index([created_at], map: "vendors_created_idx")
+  @@map("marketplace_vendors")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
+  @@index([user_id, status], map: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  slug String @db.VarChar(120)
+  status E_OrganisationOrganisationsOrganisationStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_evidence_evidence_items_evidence_items_organisation_fk EvidenceEvidenceItems[] @relation("R_evidence_items_organisation_fk")
+  back_logistics_logistics_tasks_fk_logistics_tasks_organisation_id_organisation_organisation LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_organisation_id_organisation_organisation")
+  back_logistics_shipments_fk_shipments_organisation_id_organisation_organisations LogisticsShipments[] @relation("R_fk_shipments_organisation_id_organisation_organisations")
+  back_marketplace_capability_packs_fk_capability_packs_organisation_id_organisation_organisatio MarketplaceCapabilityPacks[] @relation("R_fk_capability_packs_organisation_id_organisation_organisatio")
+  back_marketplace_deliveries_fk_deliveries_organisation_id_organisation_organisations MarketplaceDeliveries[] @relation("R_fk_deliveries_organisation_id_organisation_organisations")
+  back_marketplace_marketplace_categories_fk_marketplace_categories_organisation_id_organisation_organ MarketplaceMarketplaceCategories[] @relation("R_fk_marketplace_categories_organisation_id_organisation_organ")
+  back_marketplace_marketplace_services_fk_marketplace_services_organisation_id_organisation_organis MarketplaceMarketplaceServices[] @relation("R_fk_marketplace_services_organisation_id_organisation_organis")
+  back_marketplace_procurement_awards_fk_procurement_awards_organisation_id_organisation_organisat MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_organisation_id_organisation_organisat")
+  back_marketplace_purchase_order_items_fk_purchase_order_items_organisation_id_organisation_organis MarketplacePurchaseOrderItems[] @relation("R_fk_purchase_order_items_organisation_id_organisation_organis")
+  back_marketplace_purchase_orders_fk_purchase_orders_organisation_id_organisation_organisation MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_organisation_id_organisation_organisation")
+  back_marketplace_quote_comparisons_fk_quote_comparisons_organisation_id_organisation_organisati MarketplaceQuoteComparisons[] @relation("R_fk_quote_comparisons_organisation_id_organisation_organisati")
+  back_marketplace_quote_items_fk_quote_items_organisation_id_organisation_organisations MarketplaceQuoteItems[] @relation("R_fk_quote_items_organisation_id_organisation_organisations")
+  back_marketplace_quotes_fk_quotes_organisation_id_organisation_organisations MarketplaceQuotes[] @relation("R_fk_quotes_organisation_id_organisation_organisations")
+  back_marketplace_rfq_items_fk_rfq_items_organisation_id_organisation_organisations MarketplaceRfqItems[] @relation("R_fk_rfq_items_organisation_id_organisation_organisations")
+  back_marketplace_rfq_recipients_fk_rfq_recipients_organisation_id_organisation_organisations MarketplaceRfqRecipients[] @relation("R_fk_rfq_recipients_organisation_id_organisation_organisations")
+  back_marketplace_rfqs_fk_rfqs_organisation_id_organisation_organisations MarketplaceRfqs[] @relation("R_fk_rfqs_organisation_id_organisation_organisations")
+  back_marketplace_service_deliveries_fk_service_deliveries_organisation_id_organisation_organisat MarketplaceServiceDeliveries[] @relation("R_fk_service_deliveries_organisation_id_organisation_organisat")
+  back_marketplace_service_skus_fk_service_skus_organisation_id_organisation_organisations MarketplaceServiceSkus[] @relation("R_fk_service_skus_organisation_id_organisation_organisations")
+  back_marketplace_vendor_availability_fk_vendor_availability_organisation_id_organisation_organisa MarketplaceVendorAvailability[] @relation("R_fk_vendor_availability_organisation_id_organisation_organisa")
+  back_marketplace_vendor_capabilities_fk_vendor_capabilities_organisation_id_organisation_organisa MarketplaceVendorCapabilities[] @relation("R_fk_vendor_capabilities_organisation_id_organisation_organisa")
+  back_marketplace_vendor_performance_fk_vendor_performance_organisation_id_organisation_organisat MarketplaceVendorPerformance[] @relation("R_fk_vendor_performance_organisation_id_organisation_organisat")
+  back_marketplace_vendor_portfolios_fk_vendor_portfolios_organisation_id_organisation_organisati MarketplaceVendorPortfolios[] @relation("R_fk_vendor_portfolios_organisation_id_organisation_organisati")
+  back_marketplace_vendor_profiles_fk_vendor_profiles_organisation_id_organisation_organisation MarketplaceVendorProfiles[] @relation("R_fk_vendor_profiles_organisation_id_organisation_organisation")
+  back_marketplace_vendor_ratings_fk_vendor_ratings_organisation_id_organisation_organisations MarketplaceVendorRatings[] @relation("R_fk_vendor_ratings_organisation_id_organisation_organisations")
+  back_marketplace_vendors_fk_vendors_organisation_id_organisation_organisations MarketplaceVendors[] @relation("R_fk_vendors_organisation_id_organisation_organisations")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  @@unique([slug], map: "organisations_slug_unique")
+  @@index([status], map: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
+  @@index([user_id, status], map: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_OrganisationWorkspacesWorkspaceStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_logistics_logistics_tasks_fk_logistics_tasks_workspace_id_organisation_workspaces LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_workspace_id_organisation_workspaces")
+  back_logistics_shipments_fk_shipments_workspace_id_organisation_workspaces LogisticsShipments[] @relation("R_fk_shipments_workspace_id_organisation_workspaces")
+  back_marketplace_capability_packs_fk_capability_packs_workspace_id_organisation_workspaces MarketplaceCapabilityPacks[] @relation("R_fk_capability_packs_workspace_id_organisation_workspaces")
+  back_marketplace_deliveries_fk_deliveries_workspace_id_organisation_workspaces MarketplaceDeliveries[] @relation("R_fk_deliveries_workspace_id_organisation_workspaces")
+  back_marketplace_marketplace_categories_fk_marketplace_categories_workspace_id_organisation_workspac MarketplaceMarketplaceCategories[] @relation("R_fk_marketplace_categories_workspace_id_organisation_workspac")
+  back_marketplace_marketplace_services_fk_marketplace_services_workspace_id_organisation_workspaces MarketplaceMarketplaceServices[] @relation("R_fk_marketplace_services_workspace_id_organisation_workspaces")
+  back_marketplace_procurement_awards_fk_procurement_awards_workspace_id_organisation_workspaces MarketplaceProcurementAwards[] @relation("R_fk_procurement_awards_workspace_id_organisation_workspaces")
+  back_marketplace_purchase_order_items_fk_purchase_order_items_workspace_id_organisation_workspaces MarketplacePurchaseOrderItems[] @relation("R_fk_purchase_order_items_workspace_id_organisation_workspaces")
+  back_marketplace_purchase_orders_fk_purchase_orders_workspace_id_organisation_workspaces MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_workspace_id_organisation_workspaces")
+  back_marketplace_quote_comparisons_fk_quote_comparisons_workspace_id_organisation_workspaces MarketplaceQuoteComparisons[] @relation("R_fk_quote_comparisons_workspace_id_organisation_workspaces")
+  back_marketplace_quote_items_fk_quote_items_workspace_id_organisation_workspaces MarketplaceQuoteItems[] @relation("R_fk_quote_items_workspace_id_organisation_workspaces")
+  back_marketplace_quotes_fk_quotes_workspace_id_organisation_workspaces MarketplaceQuotes[] @relation("R_fk_quotes_workspace_id_organisation_workspaces")
+  back_marketplace_rfq_items_fk_rfq_items_workspace_id_organisation_workspaces MarketplaceRfqItems[] @relation("R_fk_rfq_items_workspace_id_organisation_workspaces")
+  back_marketplace_rfq_recipients_fk_rfq_recipients_workspace_id_organisation_workspaces MarketplaceRfqRecipients[] @relation("R_fk_rfq_recipients_workspace_id_organisation_workspaces")
+  back_marketplace_rfqs_fk_rfqs_workspace_id_organisation_workspaces MarketplaceRfqs[] @relation("R_fk_rfqs_workspace_id_organisation_workspaces")
+  back_marketplace_service_deliveries_fk_service_deliveries_workspace_id_organisation_workspaces MarketplaceServiceDeliveries[] @relation("R_fk_service_deliveries_workspace_id_organisation_workspaces")
+  back_marketplace_service_skus_fk_service_skus_workspace_id_organisation_workspaces MarketplaceServiceSkus[] @relation("R_fk_service_skus_workspace_id_organisation_workspaces")
+  back_marketplace_vendor_availability_fk_vendor_availability_workspace_id_organisation_workspaces MarketplaceVendorAvailability[] @relation("R_fk_vendor_availability_workspace_id_organisation_workspaces")
+  back_marketplace_vendor_capabilities_fk_vendor_capabilities_workspace_id_organisation_workspaces MarketplaceVendorCapabilities[] @relation("R_fk_vendor_capabilities_workspace_id_organisation_workspaces")
+  back_marketplace_vendor_performance_fk_vendor_performance_workspace_id_organisation_workspaces MarketplaceVendorPerformance[] @relation("R_fk_vendor_performance_workspace_id_organisation_workspaces")
+  back_marketplace_vendor_portfolios_fk_vendor_portfolios_workspace_id_organisation_workspaces MarketplaceVendorPortfolios[] @relation("R_fk_vendor_portfolios_workspace_id_organisation_workspaces")
+  back_marketplace_vendor_profiles_fk_vendor_profiles_workspace_id_organisation_workspaces MarketplaceVendorProfiles[] @relation("R_fk_vendor_profiles_workspace_id_organisation_workspaces")
+  back_marketplace_vendor_ratings_fk_vendor_ratings_workspace_id_organisation_workspaces MarketplaceVendorRatings[] @relation("R_fk_vendor_ratings_workspace_id_organisation_workspaces")
+  back_marketplace_vendors_fk_vendors_workspace_id_organisation_workspaces MarketplaceVendors[] @relation("R_fk_vendors_workspace_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  back_project_projects_projects_workspace_tenant_fk ProjectProjects[] @relation("R_projects_workspace_tenant_fk")
+  @@unique([organisation_id, slug], map: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], map: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], map: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}
+model ProjectProjectMembers {
+  added_by_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  role E_ProjectProjectMembersProjectRole
+  status E_ProjectProjectMembersMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_project_members_project_tenant_fk ProjectProjects @relation("R_project_members_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_project_members_user_fk IdentityUsers @relation("R_project_members_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_project_members_adder_fk IdentityUsers? @relation("R_project_members_adder_fk", fields: [added_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([project_id, user_id], map: "project_members_pair_unique")
+  @@index([user_id, status], map: "project_members_user_status_idx")
+  @@map("project_project_members")
+}
+model ProjectProjects {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_ProjectProjectsProjectStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_projects_workspace_tenant_fk OrganisationWorkspaces @relation("R_projects_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_projects_creator_user_fk IdentityUsers? @relation("R_projects_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_evidence_evidence_items_evidence_items_project_tenant_fk EvidenceEvidenceItems[] @relation("R_evidence_items_project_tenant_fk")
+  back_logistics_logistics_tasks_fk_logistics_tasks_project_id_project_projects LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_project_id_project_projects")
+  back_logistics_shipments_fk_shipments_project_id_project_projects LogisticsShipments[] @relation("R_fk_shipments_project_id_project_projects")
+  back_marketplace_purchase_orders_fk_purchase_orders_project_id_project_projects MarketplacePurchaseOrders[] @relation("R_fk_purchase_orders_project_id_project_projects")
+  back_marketplace_rfqs_fk_rfqs_project_id_project_projects MarketplaceRfqs[] @relation("R_fk_rfqs_project_id_project_projects")
+  back_marketplace_vendor_ratings_fk_vendor_ratings_project_id_project_projects MarketplaceVendorRatings[] @relation("R_fk_vendor_ratings_project_id_project_projects")
+  back_project_project_members_project_members_project_tenant_fk ProjectProjectMembers[] @relation("R_project_members_project_tenant_fk")
+  @@unique([workspace_id, slug], map: "projects_workspace_slug_unique")
+  @@unique([id, organisation_id], map: "projects_id_organisation_unique")
+  @@index([organisation_id, status], map: "projects_tenant_status_idx")
+  @@index([workspace_id, status], map: "projects_workspace_status_idx")
+  @@map("project_projects")
+}
