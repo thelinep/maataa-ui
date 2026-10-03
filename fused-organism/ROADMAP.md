@@ -27,14 +27,16 @@ Historical M0 omission is recorded without rewriting the sequence. `docs/M0R-FIN
 - exact certified surface + explicit not-certified list
 - M0R findings fully dispositioned
 
-## M3 — Camera experimental package — NEXT / UNBLOCKED BY M2 CLOSEOUT
+## M3 — Product integration + camera experimental package — NEXT / SCOPE DEFINED
 
-- camera contracts and capability negotiation
-- simulator parity with kernel command lifecycle
-- discovery/stream/PTZ adapter boundaries
-- failure matrix
-- integration pressure for deferred generic React hooks where justified
-- no production hardware claim yet
+Status: **SCOPE DEFINED · IMPLEMENTATION NOT STARTED**. M3 is one milestone with two coordinated workstreams, not two competing M3 definitions:
+
+- **Product slice:** integrate a rendered spatial scene / camera-control preview in TLPS using `@tlps/domain-primitives`, MAATAA tokens/primitives, and only the React adapter hooks required by that scenario.
+- **Experimental camera package:** define camera contracts and capability negotiation; establish simulator parity with the kernel command lifecycle; define discovery/stream/PTZ adapter boundaries; and exercise the failure matrix.
+- Close the route and flow gaps that intersect the slice, and publish reproducible integration evidence with explicit exclusions.
+- The initial slice is a rendered preview. It does not certify physical camera capture, real ONVIF/RTSP/WebRTC interoperability, or production hardware control.
+
+Acceptance criteria and the 11-route disposition boundary are defined in [`docs/M3-PRODUCT-INTEGRATION-SCOPE.md`](docs/M3-PRODUCT-INTEGRATION-SCOPE.md).
 
 ## M4 — Real camera certification — 0.5.0
 
