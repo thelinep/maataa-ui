@@ -1,0 +1,1519 @@
+{
+  "format": "MAATAA_API_CONTRACT_PROPOSAL",
+  "formatVersion": "1.0.0",
+  "id": "tlps.spatial-preview",
+  "version": "1.0.0-draft.1",
+  "lifecycle": "DRAFT",
+  "application": "@maataa-app/tlps-application",
+  "route": {
+    "pageId": "223",
+    "path": "/mobile/223/3d-cad-previz"
+  },
+  "domainDecision": {
+    "status": "DECIDED",
+    "authoritativeWorkingLayout": "eventsspatial.spatial_layouts",
+    "parentProject": "eventsspatial.spatial_projects",
+    "exhibitionDeliverable": "eventsspatial.exhibition_layouts",
+    "roles": {
+      "eventsspatial.spatial_layouts": [
+        "project-scoped generic spatial/CAD working layout",
+        "owns canvas geometry, layout_data, working versions, and generic spatial authoring lifecycle"
+      ],
+      "eventsspatial.exhibition_layouts": [
+        "venue/exhibition-specific deliverable",
+        "owns venue_area, exhibition-specific layout_data, and review/approval/publication lifecycle"
+      ]
+    },
+    "dualWrite": false,
+    "spatialToExhibitionConversion": "EXPLICIT_LATER_WORKFLOW_ONLY",
+    "newSchemaOrForeignKey": false,
+    "decisionSource": "user decision in M3.3 conversation"
+  },
+  "sourceBindings": {
+    "tableContracts": [
+      {
+        "id": "eventsspatial.spatial_projects",
+        "source": "packages/domain-registry/data/table-contracts.json"
+      },
+      {
+        "id": "eventsspatial.spatial_layouts",
+        "source": "packages/domain-registry/data/table-contracts.json"
+      },
+      {
+        "id": "eventsspatial.exhibition_layouts",
+        "source": "packages/domain-registry/data/table-contracts.json",
+        "usage": "role distinction only; not read or written by this route contract"
+      }
+    ],
+    "editorSources": [
+      "apps/tlps-application/src/spatialDraft.mjs",
+      "packages/domain-primitives/src/CanvasSurface.tsx",
+      "packages/domain-primitives/src/Model3D.ts",
+      "packages/domain-primitives/src/math3d.ts"
+    ],
+    "flows": [
+      "TLPS-FLOW-093",
+      "TLPS-FLOW-095",
+      "TLPS-FLOW-096"
+    ],
+    "flowSource": "packages/domain-registry/data/flow-registry.json",
+    "flowEnforcementStatus": "CLIENT_FILTER_ONLY; not server authorization evidence",
+    "flowLineageStatus": "Flows provide route/actor context but their canonical table bindings do not include spatial_projects or spatial_layouts; operation-to-table links below are this DRAFT's explicit proposal."
+  },
+  "security": {
+    "actorRequired": true,
+    "actorContract": "LOCAL_FIXTURE_ACTOR_ID; permissions and tenant keys are fixture values only",
+    "tenantScope": {
+      "source": "authenticated actor and resolved spatial project",
+      "clientMayOverride": false,
+      "requiredChecks": [
+        "resolve the project within the authenticated actor's organisation and workspace",
+        "scope every layout read/write to the resolved project's organisation_id and workspace_id",
+        "preserve the composite spatial_project_id + workspace_id + organisation_id relation"
+      ]
+    },
+    "enforcement": "LOCAL_FIXTURE_HOST_CHECKS; not real identity or production authorization",
+    "permissions": [
+      {
+        "code": "spatial.layout.view",
+        "status": "LOCAL_FIXTURE_PERMISSION; real Identity assignment and host enforcement unresolved"
+      },
+      {
+        "code": "spatial.layout.create",
+        "status": "LOCAL_FIXTURE_PERMISSION; real Identity assignment and host enforcement unresolved"
+      },
+      {
+        "code": "spatial.layout.edit",
+        "status": "LOCAL_FIXTURE_PERMISSION; real Identity assignment and host enforcement unresolved"
+      }
+    ],
+    "excludedPermissions": [
+      "spatial.layout.publish is outside this route's current save behavior",
+      "spatial.snapshot.export is outside this API slice; current export is local and derived",
+      "exhibition.layout.* actions belong to the separate exhibition workflow"
+    ],
+    "fixtureActors": {
+      "identitySource": "fixture data",
+      "browserRoleIsActor": false,
+      "tenantKeysDerivedFromActor": true,
+      "permissions": [
+        "spatial.layout.view",
+        "spatial.layout.create",
+        "spatial.layout.edit"
+      ],
+      "realAuthentication": false
+    }
+  },
+  "layoutDataContract": {
+    "status": "MAATAA_AUTHORED_DRAFT_FROM_CURRENT_EDITOR_MODEL; LOCAL_CONFORMANCE_RULES_FROZEN",
+    "schemaId": "tlps.spatial-layout-data.v1",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "canvas2d",
+        "scene3d"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "tlps.spatial-layout-data/v1"
+        },
+        "canvas2d": {
+          "type": "object",
+          "required": [
+            "coordinateSpace",
+            "width",
+            "height",
+            "origin",
+            "units",
+            "items"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "coordinateSpace": {
+              "const": "maataa-canvas-world-v1"
+            },
+            "width": {
+              "const": 1200
+            },
+            "height": {
+              "const": 760
+            },
+            "origin": {
+              "const": "top-left; x increases right; y increases down"
+            },
+            "units": {
+              "const": "canvas-world-units"
+            },
+            "items": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "kind",
+                  "x",
+                  "y",
+                  "width",
+                  "height",
+                  "title"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "kind": {
+                    "enum": [
+                      "rectangle",
+                      "note",
+                      "ellipse"
+                    ]
+                  },
+                  "x": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1200
+                  },
+                  "y": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 760
+                  },
+                  "width": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 1200
+                  },
+                  "height": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 760
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "color": {
+                    "type": "string",
+                    "pattern": "^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "scene3d": {
+          "type": "object",
+          "required": [
+            "coordinateUnits",
+            "rotationUnit",
+            "models"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "coordinateUnits": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Must equal the parent spatial_project.units value."
+            },
+            "rotationUnit": {
+              "const": "radian"
+            },
+            "models": {
+              "type": "array",
+              "maxItems": 250,
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "name",
+                  "geometry",
+                  "position",
+                  "rotation",
+                  "scale",
+                  "material"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 160
+                  },
+                  "geometry": {
+                    "enum": [
+                      "box",
+                      "sphere",
+                      "plane"
+                    ]
+                  },
+                  "position": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": -10000,
+                      "maximum": 10000
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "rotation": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": -10000,
+                      "maximum": 10000
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "scale": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": 0.05,
+                      "maximum": 100
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "material": {
+                    "type": "object",
+                    "required": [
+                      "color",
+                      "opacity",
+                      "unlit"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$"
+                      },
+                      "opacity": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "unlit": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "$defs": {
+        "vector3": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "editorStateExcluded": [
+      "selected canvas/model item",
+      "canvas pan and zoom",
+      "3D camera position and orbit mode",
+      "WebGL context state",
+      "camera simulator status and telemetry",
+      "export timestamp and generated snapshot artifacts"
+    ],
+    "semanticChecksNotExpressibleByThisSchema": [
+      "canvas item ids are unique within canvas2d.items",
+      "model ids are unique within scene3d.models",
+      "canvas item x + width must not exceed 1200 and y + height must not exceed 760",
+      "scene3d.coordinateUnits must equal spatial_projects.units",
+      "all numeric values must be finite",
+      "layoutData is a complete replacement value on PATCH; no nested merge"
+    ],
+    "editorStateClassification": {
+      "persisted": {
+        "fields": [
+          "canvasItems[].id",
+          "canvasItems[].kind",
+          "canvasItems[].x",
+          "canvasItems[].y",
+          "canvasItems[].width",
+          "canvasItems[].height",
+          "canvasItems[].title",
+          "canvasItems[].color",
+          "models[].id",
+          "models[].name",
+          "models[].geometry",
+          "models[].position",
+          "models[].rotation",
+          "models[].scale",
+          "models[].material.color",
+          "models[].material.opacity",
+          "models[].material.unlit"
+        ]
+      },
+      "runtimeOnly": [
+        "selected canvas/model item",
+        "canvas pan and zoom",
+        "3D camera position and orbit mode",
+        "WebGL context state",
+        "camera simulator status and telemetry"
+      ],
+      "derived": [
+        "layout JSON export timestamp",
+        "PNG snapshot bytes",
+        "rendered 2D/3D projections"
+      ],
+      "fixtureOnly": [
+        "starter layout labels and geometry values",
+        "fixture project/layout ids",
+        "fixture organisation and workspace ids"
+      ],
+      "unsupported": [
+        "camera simulator state",
+        "physical camera state or stream",
+        "WebGL buffers or renderer objects",
+        "application shell/navigation state",
+        "browser role selector state",
+        "localStorage metadata"
+      ]
+    }
+  },
+  "operations": [
+    {
+      "id": "listSpatialProjectLayouts",
+      "method": "GET",
+      "path": "/spatial-projects/{projectId}/layouts",
+      "lifecycle": "DRAFT; local conformance only",
+      "errorsRef": "#/errorModel",
+      "actorRolesFromFlow": [
+        "client",
+        "producer",
+        "executiveProducer",
+        "lineProducer",
+        "fabricator",
+        "admin"
+      ],
+      "permission": "spatial.layout.view",
+      "reads": [
+        "eventsspatial.spatial_projects",
+        "eventsspatial.spatial_layouts"
+      ],
+      "writes": [],
+      "request": {
+        "pathParams": {
+          "projectId": {
+            "type": "uuid",
+            "required": true
+          }
+        },
+        "query": {
+          "limit": {
+            "type": "integer",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0
+          },
+          "includesArchived": true
+        },
+        "ordering": [
+          "updated_at DESC",
+          "id ASC"
+        ],
+        "includesArchived": true
+      },
+      "response": {
+        "status": 200,
+        "resource": "eventsspatial.spatial_layouts[]",
+        "fields": [
+          "id",
+          "organisation_id",
+          "workspace_id",
+          "spatial_project_id",
+          "name",
+          "version_number",
+          "canvas_width",
+          "canvas_height",
+          "layout_data",
+          "layout_status",
+          "created_at",
+          "updated_at",
+          "created_by_user_id"
+        ],
+        "layout_dataSchema": "#/layoutDataContract/schema"
+      },
+      "requestSchema": "#/requestSchemas/listSpatialProjectLayouts",
+      "responseSchema": "#/responseSchemas/listSpatialProjectLayouts"
+    },
+    {
+      "id": "getSpatialLayout",
+      "method": "GET",
+      "path": "/spatial-layouts/{layoutId}",
+      "lifecycle": "DRAFT; local conformance only",
+      "errorsRef": "#/errorModel",
+      "actorRolesFromFlow": [
+        "client",
+        "producer",
+        "executiveProducer",
+        "lineProducer",
+        "fabricator",
+        "admin"
+      ],
+      "permission": "spatial.layout.view",
+      "reads": [
+        "eventsspatial.spatial_projects",
+        "eventsspatial.spatial_layouts"
+      ],
+      "writes": [],
+      "request": {
+        "pathParams": {
+          "layoutId": {
+            "type": "uuid",
+            "required": true
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "resource": "eventsspatial.spatial_layouts",
+        "fields": [
+          "id",
+          "organisation_id",
+          "workspace_id",
+          "spatial_project_id",
+          "name",
+          "version_number",
+          "canvas_width",
+          "canvas_height",
+          "layout_data",
+          "layout_status",
+          "created_at",
+          "updated_at",
+          "created_by_user_id"
+        ],
+        "layout_dataSchema": "#/layoutDataContract/schema"
+      },
+      "requestSchema": "#/requestSchemas/getSpatialLayout",
+      "responseSchema": "#/responseSchemas/getSpatialLayout"
+    },
+    {
+      "id": "createSpatialProjectLayout",
+      "method": "POST",
+      "path": "/spatial-projects/{projectId}/layouts",
+      "lifecycle": "DRAFT; local conformance only",
+      "errorsRef": "#/errorModel",
+      "actorRolesFromFlow": [
+        "producer",
+        "executiveProducer",
+        "lineProducer",
+        "fabricator",
+        "admin"
+      ],
+      "permission": "spatial.layout.create",
+      "reads": [
+        "eventsspatial.spatial_projects"
+      ],
+      "writes": [
+        "eventsspatial.spatial_layouts"
+      ],
+      "request": {
+        "pathParams": {
+          "projectId": {
+            "type": "uuid",
+            "required": true
+          }
+        },
+        "body": {
+          "name": {
+            "type": "string",
+            "maxLength": 160,
+            "required": true
+          },
+          "canvasWidth": {
+            "type": "decimal",
+            "precision": 14,
+            "scale": 2,
+            "required": false,
+            "nullable": true
+          },
+          "canvasHeight": {
+            "type": "decimal",
+            "precision": 14,
+            "scale": 2,
+            "required": false,
+            "nullable": true
+          },
+          "layoutData": {
+            "type": "json",
+            "required": true,
+            "schema": "#/layoutDataContract/schema"
+          }
+        },
+        "serverOwnedOrDerived": [
+          "id generated as UUID v4",
+          "organisation_id and workspace_id from fixture actor; project must match both",
+          "spatial_project_id from resolved project",
+          "version_number initialized to 1 on row creation",
+          "layout_status defaults to draft",
+          "created_at and updated_at generated by host clock",
+          "created_by_user_id from fixture actor user_id when present"
+        ],
+        "mustNotAcceptFromClient": [
+          "id",
+          "organisation_id",
+          "workspace_id",
+          "spatial_project_id",
+          "version_number",
+          "layout_status",
+          "created_at",
+          "updated_at",
+          "created_by_user_id",
+          "expectedVersion"
+        ]
+      },
+      "response": {
+        "status": 201,
+        "resource": "eventsspatial.spatial_layouts",
+        "layout_dataSchema": "#/layoutDataContract/schema"
+      },
+      "requestSchema": "#/requestSchemas/createSpatialProjectLayout",
+      "responseSchema": "#/responseSchemas/createSpatialProjectLayout"
+    },
+    {
+      "id": "updateSpatialLayout",
+      "method": "PATCH",
+      "path": "/spatial-layouts/{layoutId}",
+      "lifecycle": "DRAFT; local conformance only",
+      "errorsRef": "#/errorModel",
+      "actorRolesFromFlow": [
+        "producer",
+        "executiveProducer",
+        "lineProducer",
+        "fabricator",
+        "admin"
+      ],
+      "permission": "spatial.layout.edit",
+      "reads": [
+        "eventsspatial.spatial_projects",
+        "eventsspatial.spatial_layouts"
+      ],
+      "writes": [
+        "eventsspatial.spatial_layouts"
+      ],
+      "request": {
+        "pathParams": {
+          "layoutId": {
+            "type": "uuid",
+            "required": true
+          }
+        },
+        "body": {
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "required": true,
+            "semantics": "compare-and-swap token; never persisted"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 160,
+            "required": false
+          },
+          "canvasWidth": {
+            "type": "decimal",
+            "precision": 14,
+            "scale": 2,
+            "required": false,
+            "nullable": true
+          },
+          "canvasHeight": {
+            "type": "decimal",
+            "precision": 14,
+            "scale": 2,
+            "required": false,
+            "nullable": true
+          },
+          "layoutData": {
+            "type": "json",
+            "required": false,
+            "semantics": "full replacement of the entire layoutData object",
+            "schema": "#/layoutDataContract/schema"
+          }
+        },
+        "serverOwnedOrImmutable": [
+          "id",
+          "organisation_id",
+          "workspace_id",
+          "spatial_project_id",
+          "version_number increments once on same row after accepted save",
+          "layout_status is not changed by this PATCH",
+          "created_at",
+          "created_by_user_id"
+        ],
+        "semantics": "PATCH allows only name, canvasWidth, canvasHeight, layoutData plus required expectedVersion; layoutData is full replacement; accepted save increments this row version by one.",
+        "patchSemantics": {
+          "mediaType": "application/json",
+          "allowedTopLevelFields": [
+            "name",
+            "canvasWidth",
+            "canvasHeight",
+            "layoutData",
+            "expectedVersion"
+          ],
+          "layoutData": "FULL_REPLACEMENT",
+          "unknownProperties": "REJECT",
+          "identityAndCreatedFields": "REJECT",
+          "version": "REJECT_CLIENT_VALUE; host increments same row exactly once after accepted save",
+          "emptyMutablePatch": "REJECT"
+        },
+        "conflict": {
+          "required": true,
+          "status": 409,
+          "code": "SPATIAL_LAYOUT_VERSION_CONFLICT",
+          "currentVersionReturned": true,
+          "writePerformed": false,
+          "automaticMerge": false,
+          "automaticRetry": false
+        },
+        "lifecycleRule": "Only draft spatial layouts are editable through this working-layout PATCH; status transitions are outside this contract."
+      },
+      "response": {
+        "status": 200,
+        "resource": "eventsspatial.spatial_layouts",
+        "layout_dataSchema": "#/layoutDataContract/schema"
+      },
+      "requestSchema": "#/requestSchemas/updateSpatialLayout",
+      "responseSchema": "#/responseSchemas/updateSpatialLayout"
+    }
+  ],
+  "errorModel": {
+    "status": "FROZEN_LOCAL_ERROR_MODEL",
+    "mediaType": "application/json",
+    "body": {
+      "type": "object",
+      "required": [
+        "code",
+        "message",
+        "requestId",
+        "details"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "VALIDATION_FAILED",
+            "UNAUTHENTICATED",
+            "FORBIDDEN",
+            "SPATIAL_PROJECT_NOT_FOUND",
+            "SPATIAL_LAYOUT_NOT_FOUND",
+            "SPATIAL_LAYOUT_VERSION_CONFLICT",
+            "UNSUPPORTED_OPERATION"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "candidateStatusCodes": [
+      400,
+      401,
+      403,
+      404,
+      409,
+      501
+    ],
+    "openSemantics": [],
+    "codes": [
+      {
+        "code": "VALIDATION_FAILED",
+        "status": 400,
+        "meaning": "Request path, query, body, or layoutData fails frozen local contract validation."
+      },
+      {
+        "code": "UNAUTHENTICATED",
+        "status": 401,
+        "meaning": "No known local fixture actor was supplied."
+      },
+      {
+        "code": "FORBIDDEN",
+        "status": 403,
+        "meaning": "Known fixture actor lacks the operation permission."
+      },
+      {
+        "code": "SPATIAL_PROJECT_NOT_FOUND",
+        "status": 404,
+        "meaning": "Project is absent or outside actor organisation/workspace; no tenant enumeration."
+      },
+      {
+        "code": "SPATIAL_LAYOUT_NOT_FOUND",
+        "status": 404,
+        "meaning": "Layout is absent or outside actor organisation/workspace; no tenant enumeration."
+      },
+      {
+        "code": "SPATIAL_LAYOUT_VERSION_CONFLICT",
+        "status": 409,
+        "meaning": "expectedVersion differs from the current version; no write or increment occurs."
+      },
+      {
+        "code": "UNSUPPORTED_OPERATION",
+        "status": 501,
+        "meaning": "Operation is outside the frozen local contract or cannot be safely represented by the fixture host."
+      }
+    ]
+  },
+  "openDecisions": [],
+  "runtimeBinding": {
+    "status": "UNKNOWN",
+    "environmentId": null,
+    "baseUrl": null,
+    "verificationEvidence": null
+  },
+  "readiness": {
+    "localConformance": "PASS_AFTER_LOCAL_VALIDATION",
+    "blockers": [],
+    "productionRuntime": "NOT_CONFIGURED",
+    "externalBlockers": [
+      "real-identity-binding",
+      "real-host",
+      "environment"
+    ]
+  },
+  "sourceHashes": {
+    "tableContractsSha256": "c7f3328d6fe86f5512b660e4214a2da49d913927007a53a7365eb05ef202898c",
+    "flowRegistrySha256": "eb1163bc1147164f693e43c7ba51d97afa351eca16ef7f88465d35e6c99051a1"
+  },
+  "provenance": {
+    "kind": "MAATAA_AUTHORED",
+    "evidence": [
+      "user-domain-decision:spatial_layouts-authoritative-for-M3.3",
+      "packages/domain-registry/data/table-contracts.json",
+      "packages/domain-registry/data/flow-registry.json",
+      "apps/tlps-application/src/SpatialWorkspace.jsx",
+      "apps/tlps-application/PRODUCT.md"
+    ],
+    "reviewStatus": "DRAFT",
+    "reviewedBy": null
+  },
+  "claims": {
+    "canonicalSchemaChanged": false,
+    "productionRuntimeExists": false,
+    "serverAuthorizationImplemented": false,
+    "persistentReadWriteImplemented": false,
+    "migrationOrDeploymentApproved": false
+  },
+  "schemaVersion": "maataa.api-contract-proposal/v1",
+  "serviceId": "tlps.spatial-preview",
+  "requestSchemas": {
+    "listSpatialProjectLayouts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pathParams"
+      ],
+      "properties": {
+        "pathParams": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "projectId"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "query": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        }
+      }
+    },
+    "getSpatialLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pathParams"
+      ],
+      "properties": {
+        "pathParams": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "layoutId"
+          ],
+          "properties": {
+            "layoutId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    "createSpatialProjectLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pathParams",
+        "body"
+      ],
+      "properties": {
+        "pathParams": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "projectId"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "layoutData"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "canvasWidth": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0,
+              "maximum": 1000000000000
+            },
+            "canvasHeight": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0,
+              "maximum": 1000000000000
+            },
+            "layoutData": {
+              "$ref": "#/layoutDataContract/schema"
+            }
+          }
+        }
+      }
+    },
+    "updateSpatialLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pathParams",
+        "body"
+      ],
+      "properties": {
+        "pathParams": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "layoutId"
+          ],
+          "properties": {
+            "layoutId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedVersion"
+          ],
+          "minProperties": 2,
+          "properties": {
+            "expectedVersion": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "canvasWidth": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0,
+              "maximum": 1000000000000
+            },
+            "canvasHeight": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0,
+              "maximum": 1000000000000
+            },
+            "layoutData": {
+              "$ref": "#/layoutDataContract/schema",
+              "description": "Complete replacement; editor array order is retained."
+            }
+          }
+        }
+      }
+    }
+  },
+  "responseSchemas": {
+    "listSpatialProjectLayouts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data",
+        "page"
+      ],
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "organisation_id",
+              "workspace_id",
+              "spatial_project_id",
+              "name",
+              "version_number",
+              "canvas_width",
+              "canvas_height",
+              "layout_data",
+              "layout_status",
+              "created_at",
+              "updated_at",
+              "created_by_user_id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "organisation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "workspace_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "spatial_project_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "version_number": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "canvas_width": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "canvas_height": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "layout_data": {
+                "$ref": "#/layoutDataContract/schema"
+              },
+              "layout_status": {
+                "enum": [
+                  "draft",
+                  "published",
+                  "archived"
+                ]
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "created_by_user_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              }
+            }
+          }
+        },
+        "page": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "limit",
+            "offset",
+            "nextOffset",
+            "total",
+            "orderBy",
+            "includesArchived"
+          ],
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nextOffset": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "orderBy": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "updated_at:desc",
+                  "id:asc"
+                ]
+              }
+            },
+            "includesArchived": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "getSpatialLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "organisation_id",
+            "workspace_id",
+            "spatial_project_id",
+            "name",
+            "version_number",
+            "canvas_width",
+            "canvas_height",
+            "layout_data",
+            "layout_status",
+            "created_at",
+            "updated_at",
+            "created_by_user_id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "organisation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workspace_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "spatial_project_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "version_number": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "canvas_width": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "canvas_height": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "layout_data": {
+              "$ref": "#/layoutDataContract/schema"
+            },
+            "layout_status": {
+              "enum": [
+                "draft",
+                "published",
+                "archived"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "created_by_user_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    "createSpatialProjectLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "organisation_id",
+            "workspace_id",
+            "spatial_project_id",
+            "name",
+            "version_number",
+            "canvas_width",
+            "canvas_height",
+            "layout_data",
+            "layout_status",
+            "created_at",
+            "updated_at",
+            "created_by_user_id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "organisation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workspace_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "spatial_project_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "version_number": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "canvas_width": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "canvas_height": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "layout_data": {
+              "$ref": "#/layoutDataContract/schema"
+            },
+            "layout_status": {
+              "enum": [
+                "draft",
+                "published",
+                "archived"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "created_by_user_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    "updateSpatialLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "organisation_id",
+            "workspace_id",
+            "spatial_project_id",
+            "name",
+            "version_number",
+            "canvas_width",
+            "canvas_height",
+            "layout_data",
+            "layout_status",
+            "created_at",
+            "updated_at",
+            "created_by_user_id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "organisation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workspace_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "spatial_project_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "version_number": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "canvas_width": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "canvas_height": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "layout_data": {
+              "$ref": "#/layoutDataContract/schema"
+            },
+            "layout_status": {
+              "enum": [
+                "draft",
+                "published",
+                "archived"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "created_by_user_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    }
+  },
+  "externalBlockers": [
+    {
+      "id": "real-identity-binding",
+      "class": "IDENTITY",
+      "status": "EXTERNAL",
+      "detail": "No verified host identity/session binding is configured."
+    },
+    {
+      "id": "real-host",
+      "class": "REAL_HOST",
+      "status": "EXTERNAL",
+      "detail": "No API server or durable database host is configured."
+    },
+    {
+      "id": "environment",
+      "class": "ENVIRONMENT",
+      "status": "EXTERNAL",
+      "detail": "No verified target environment or deployment evidence exists."
+    }
+  ],
+  "blockerAudit": [
+    {
+      "id": "layout-contract-semantics",
+      "class": "CONTRACT_SEMANTICS",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "The selected route reads/writes spatial_projects → spatial_layouts; exhibition_layouts remains distinct; no dual-write or new schema relation."
+    },
+    {
+      "id": "layout-data-payload",
+      "class": "PAYLOAD",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "Strict versioned 2D/3D editor payload, unknown-field rejection, finite numeric and geometry bounds, stable IDs, array ordering, and runtime exclusions are specified."
+    },
+    {
+      "id": "patch-replacement",
+      "class": "PATCH",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "Allowlist is name, canvasWidth, canvasHeight, layoutData, expectedVersion; layoutData is complete replacement; unknown/client-owned fields are rejected."
+    },
+    {
+      "id": "query-order",
+      "class": "QUERY",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "Project layout collection has deterministic updated_at DESC, id ASC order and includes all lifecycle statuses."
+    },
+    {
+      "id": "offset-pagination",
+      "class": "PAGINATION",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "Offset pagination defaults to limit 50, bounds limit to 1..100, and returns nextOffset."
+    },
+    {
+      "id": "same-row-write-conflict",
+      "class": "CONFLICT",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "Create starts at version 1; accepted save increments the same fixture row once; expectedVersion mismatch returns 409 with no mutation, merge, or retry."
+    },
+    {
+      "id": "fixture-action-checks",
+      "class": "AUTHORIZATION",
+      "status": "RESOLVED_LOCAL",
+      "resolution": "Fixture-only view/create/edit permission checks and actor-derived tenant/workspace scope are tested; no real authorization claim."
+    },
+    {
+      "id": "host-identity",
+      "class": "IDENTITY",
+      "status": "EXTERNAL",
+      "resolution": "A verified host identity/session source has not been provided."
+    },
+    {
+      "id": "service-runtime",
+      "class": "REAL_HOST",
+      "status": "EXTERNAL",
+      "resolution": "No real API service or durable storage host is configured."
+    },
+    {
+      "id": "runtime-environment",
+      "class": "ENVIRONMENT",
+      "status": "EXTERNAL",
+      "resolution": "No verified app environment or target binding is configured."
+    }
+  ]
+}

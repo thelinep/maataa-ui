@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://maataa.dev/schemas/api-contract-proposal.schema.json",
+  "title": "MAATAA API Contract Proposal",
+  "description": "Draft API design artifact. Validation does not imply runtime conformance, authorization, or deployability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format", "formatVersion", "schemaVersion", "serviceId", "id", "version", "lifecycle", "application", "route",
+    "domainDecision", "sourceBindings", "security", "layoutDataContract", "operations",
+    "errorModel", "openDecisions", "externalBlockers", "blockerAudit", "requestSchemas", "responseSchemas", "runtimeBinding", "readiness", "sourceHashes", "provenance", "claims"
+  ],
+  "properties": {
+    "format": { "const": "MAATAA_API_CONTRACT_PROPOSAL" },
+    "formatVersion": { "type": "string", "minLength": 1 },
+    "schemaVersion": { "type": "string", "minLength": 1 },
+    "serviceId": { "type": "string", "pattern": "^[a-z][a-z0-9.-]+$" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$" },
+    "version": { "type": "string", "minLength": 1 },
+    "lifecycle": { "const": "DRAFT" },
+    "application": { "type": "string", "minLength": 1 },
+    "route": {
+      "type": "object", "additionalProperties": false, "required": ["pageId", "path"],
+      "properties": {
+        "pageId": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "pattern": "^/" }
+      }
+    },
+    "domainDecision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "authoritativeWorkingLayout", "parentProject", "exhibitionDeliverable", "roles", "dualWrite", "spatialToExhibitionConversion", "newSchemaOrForeignKey", "decisionSource"],
+      "properties": {
+        "status": { "enum": ["PROPOSED", "DECIDED"] },
+        "authoritativeWorkingLayout": { "$ref": "#/$defs/tableId" },
+        "parentProject": { "$ref": "#/$defs/tableId" },
+        "exhibitionDeliverable": { "$ref": "#/$defs/tableId" },
+        "roles": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "array", "items": { "type": "string" } } },
+        "dualWrite": { "type": "boolean" },
+        "spatialToExhibitionConversion": { "type": "string", "minLength": 1 },
+        "newSchemaOrForeignKey": { "type": "boolean" },
+        "decisionSource": { "type": "string", "minLength": 1 }
+      }
+    },
+    "sourceBindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tableContracts", "editorSources", "flows", "flowSource", "flowEnforcementStatus", "flowLineageStatus"],
+      "properties": {
+        "tableContracts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/tableBinding" } },
+        "editorSources": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "flows": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "flowSource": { "type": "string", "minLength": 1 },
+        "flowEnforcementStatus": { "type": "string", "minLength": 1 },
+        "flowLineageStatus": { "type": "string", "minLength": 1 }
+      }
+    },
+    "security": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actorRequired", "actorContract", "tenantScope", "enforcement", "permissions", "excludedPermissions", "fixtureActors"],
+      "properties": {
+        "actorRequired": { "type": "boolean" },
+        "actorContract": { "type": "string", "minLength": 1 },
+        "tenantScope": {
+          "type": "object", "additionalProperties": false, "required": ["source", "clientMayOverride", "requiredChecks"],
+          "properties": {
+            "source": { "type": "string", "minLength": 1 },
+            "clientMayOverride": { "type": "boolean" },
+            "requiredChecks": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          }
+        },
+        "enforcement": { "type": "string", "minLength": 1 },
+        "permissions": { "type": "array", "items": { "$ref": "#/$defs/permission" } },
+        "excludedPermissions": { "type": "array", "items": { "type": "string" } },
+        "fixtureActors": { "type": "object", "additionalProperties": false, "required": ["identitySource", "browserRoleIsActor", "tenantKeysDerivedFromActor", "permissions", "realAuthentication"], "properties": { "identitySource": { "type": "string", "minLength": 1 }, "browserRoleIsActor": { "type": "boolean" }, "tenantKeysDerivedFromActor": { "type": "boolean" }, "permissions": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }, "realAuthentication": { "type": "boolean" } } }
+      }
+    },
+    "layoutDataContract": {
+      "type": "object", "additionalProperties": false, "required": ["status", "schemaId", "schema", "editorStateExcluded", "semanticChecksNotExpressibleByThisSchema", "editorStateClassification"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 },
+        "schemaId": { "type": "string", "minLength": 1 },
+        "schema": { "type": "object", "minProperties": 1 },
+        "editorStateExcluded": { "type": "array", "items": { "type": "string" } },
+        "semanticChecksNotExpressibleByThisSchema": { "type": "array", "items": { "type": "string" } },
+        "editorStateClassification": { "type": "object", "additionalProperties": false, "required": ["persisted", "runtimeOnly", "derived", "fixtureOnly", "unsupported"], "properties": { "persisted": { "type": "object", "additionalProperties": false, "required": ["fields"], "properties": { "fields": { "type": "array", "uniqueItems": true, "items": { "type": "string" } } } }, "runtimeOnly": { "type": "array", "items": { "type": "string" } }, "derived": { "type": "array", "items": { "type": "string" } }, "fixtureOnly": { "type": "array", "items": { "type": "string" } }, "unsupported": { "type": "array", "items": { "type": "string" } } } }
+      }
+    },
+    "operations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/operation" } },
+    "errorModel": {
+      "type": "object", "additionalProperties": false, "required": ["status", "mediaType", "body", "candidateStatusCodes", "openSemantics", "codes"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "body": { "type": "object", "minProperties": 1 },
+        "candidateStatusCodes": { "type": "array", "uniqueItems": true, "items": { "type": "integer", "minimum": 100, "maximum": 599 } },
+        "openSemantics": { "type": "array", "items": { "type": "string" } },
+        "codes": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["code", "status", "meaning"], "properties": { "code": { "type": "string", "minLength": 1 }, "status": { "type": "integer", "minimum": 100, "maximum": 599 }, "meaning": { "type": "string", "minLength": 1 } } } }
+      }
+    },
+    "openDecisions": { "type": "array", "items": { "$ref": "#/$defs/openDecision" } },
+    "externalBlockers": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["id", "class", "status", "detail"], "properties": { "id": { "type": "string", "minLength": 1 }, "class": { "enum": ["IDENTITY", "REAL_HOST", "ENVIRONMENT", "OTHER"] }, "status": { "const": "EXTERNAL" }, "detail": { "type": "string", "minLength": 1 } } } },
+    "blockerAudit": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["id", "class", "status", "resolution"], "properties": { "id": { "type": "string", "minLength": 1 }, "class": { "enum": ["CONTRACT_SEMANTICS", "PAYLOAD", "PATCH", "QUERY", "PAGINATION", "CONFLICT", "AUTHORIZATION", "IDENTITY", "REAL_HOST", "ENVIRONMENT", "OTHER"] }, "status": { "enum": ["RESOLVED_LOCAL", "EXTERNAL"] }, "resolution": { "type": "string", "minLength": 1 } } } },
+    "requestSchemas": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "object", "minProperties": 1 } },
+    "responseSchemas": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "object", "minProperties": 1 } },
+    "runtimeBinding": {
+      "type": "object", "additionalProperties": false, "required": ["status", "environmentId", "baseUrl", "verificationEvidence"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 },
+        "environmentId": { "type": ["string", "null"] },
+        "baseUrl": { "type": ["string", "null"] },
+        "verificationEvidence": { "type": ["string", "null"] }
+      }
+    },
+    "readiness": {
+      "type": "object", "additionalProperties": false, "required": ["localConformance", "blockers", "productionRuntime", "externalBlockers"],
+      "properties": {
+        "localConformance": { "type": "string", "minLength": 1 },
+        "blockers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "productionRuntime": { "type": "string", "minLength": 1 },
+        "externalBlockers": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "sourceHashes": {
+      "type": "object", "additionalProperties": false, "required": ["tableContractsSha256", "flowRegistrySha256"],
+      "properties": {
+        "tableContractsSha256": { "$ref": "#/$defs/sha256" },
+        "flowRegistrySha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "evidence", "reviewStatus", "reviewedBy"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "reviewStatus": { "type": "string", "minLength": 1 },
+        "reviewedBy": { "type": ["string", "null"] }
+      }
+    },
+    "claims": {
+      "type": "object", "additionalProperties": false,
+      "required": ["canonicalSchemaChanged", "productionRuntimeExists", "serverAuthorizationImplemented", "persistentReadWriteImplemented", "migrationOrDeploymentApproved"],
+      "properties": {
+        "canonicalSchemaChanged": { "type": "boolean" },
+        "productionRuntimeExists": { "type": "boolean" },
+        "serverAuthorizationImplemented": { "type": "boolean" },
+        "persistentReadWriteImplemented": { "type": "boolean" },
+        "migrationOrDeploymentApproved": { "type": "boolean" }
+      }
+    }
+  },
+  "$defs": {
+    "tableId": { "type": "string", "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "tableBinding": {
+      "type": "object", "required": ["id", "source"], "additionalProperties": false,
+      "properties": { "id": { "$ref": "#/$defs/tableId" }, "source": { "type": "string", "minLength": 1 }, "usage": { "type": "string" } }
+    },
+    "permission": {
+      "type": "object", "additionalProperties": false, "required": ["code", "status"],
+      "properties": { "code": { "type": "string", "minLength": 1 }, "status": { "type": "string", "minLength": 1 } }
+    },
+    "openDecision": {
+      "type": "object", "additionalProperties": false, "required": ["id", "question", "blocks"],
+      "properties": { "id": { "type": "string", "minLength": 1 }, "question": { "type": "string", "minLength": 1 }, "blocks": { "type": "array", "items": { "type": "string", "minLength": 1 } } }
+    },
+    "pathParameter": {
+      "type": "object", "additionalProperties": false, "required": ["type", "required"],
+      "properties": { "type": { "enum": ["uuid", "string", "int"] }, "required": { "type": "boolean" } }
+    },
+    "fieldDefinition": {
+      "type": "object", "required": ["type"], "additionalProperties": true,
+      "properties": {
+        "type": { "enum": ["uuid", "string", "int", "integer", "decimal", "json", "boolean", "datetime"] },
+        "required": { "type": "boolean" },
+        "maxLength": { "type": "integer", "minimum": 1 },
+        "precision": { "type": "integer", "minimum": 1 },
+        "scale": { "type": "integer", "minimum": 0 },
+        "schema": { "type": "string" },
+        "semantics": { "type": "string" }
+      }
+    },
+    "operation": {
+      "type": "object", "additionalProperties": false,
+        "required": ["id", "method", "path", "lifecycle", "errorsRef", "actorRolesFromFlow", "permission", "reads", "writes", "request", "response", "requestSchema", "responseSchema"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]*$" },
+        "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+        "path": { "type": "string", "pattern": "^/" },
+        "lifecycle": { "type": "string", "minLength": 1 },
+        "errorsRef": { "const": "#/errorModel" },
+        "actorRolesFromFlow": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "permission": { "type": "string", "minLength": 1 },
+          "requestSchema": { "type": "string", "pattern": "^#/requestSchemas/[A-Za-z][A-Za-z0-9]*$" },
+          "responseSchema": { "type": "string", "pattern": "^#/responseSchemas/[A-Za-z][A-Za-z0-9]*$" },
+        "reads": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/tableId" } },
+        "writes": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/tableId" } },
+        "request": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "pathParams": { "type": "object", "additionalProperties": { "$ref": "#/$defs/pathParameter" } },
+            "query": { "type": ["string", "object"] },
+            "ordering": { "type": "array", "items": { "type": "string" } },
+            "includesArchived": { "type": "boolean" },
+            "patchSemantics": { "type": "object", "minProperties": 1 },
+            "conflict": { "type": "object", "minProperties": 1 },
+            "lifecycleRule": { "type": "string", "minLength": 1 },
+            "body": { "type": "object", "additionalProperties": { "$ref": "#/$defs/fieldDefinition" } },
+            "serverOwnedOrDerived": { "type": "array", "items": { "type": "string" } },
+            "mustNotAcceptFromClient": { "type": "array", "items": { "type": "string" } },
+            "serverOwnedOrImmutable": { "type": "array", "items": { "type": "string" } },
+            "semantics": { "type": "string" }
+          }
+        },
+        "response": {
+          "type": "object", "additionalProperties": false, "required": ["status", "resource"],
+          "properties": {
+            "status": { "type": "integer", "minimum": 100, "maximum": 599 },
+            "resource": { "type": "string", "minLength": 1 },
+            "fields": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+            "layout_dataSchema": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

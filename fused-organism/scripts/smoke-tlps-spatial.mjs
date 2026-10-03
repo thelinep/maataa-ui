@@ -110,6 +110,41 @@ try {
 
   await page.goto(`${baseUrl}#/mobile/223/3d-cad-previz`, { waitUntil: "networkidle" });
   await page.getByRole("heading", { name: "3D / CAD Previz" }).waitFor();
+  await page.getByText("LOCAL CONFORMANCE SIMULATION", { exact: true }).waitFor();
+  await page.getByText("FIXTURE DATA", { exact: true }).waitFor();
+  await page.getByText("NOT AUTHENTICATED", { exact: true }).waitFor();
+  await page.getByText("NOT DURABLE", { exact: true }).waitFor();
+  await page.getByText("Sample spatial layout").waitFor();
+  await page.getByText("Local fixture save", { exact: false }).waitFor();
+  await page.screenshot({
+    path: process.env.TLPS_SPATIAL_SIMULATION_SCREENSHOT || path.join(os.tmpdir(), "tlps-spatial-simulation-desktop.png"),
+    fullPage: true,
+  });
+  const localDraftBeforeBlockedSave = await page.evaluate(() =>
+    window.localStorage.getItem("tlps:spatial-workspace:layout-draft:v1"),
+  );
+  await page.getByRole("tab", { name: "2D layout canvas" }).click();
+  assert.equal(await page.getByRole("button", { name: "Add shape" }).isDisabled(), false);
+  await page.getByRole("button", { name: "Add shape" }).click();
+  await page.getByRole("button", { name: "Save layout" }).click();
+  await page.getByText(/Saved local fixture row · version 2/).waitFor();
+  await page.getByRole("button", { name: "Save layout" }).click();
+  await page.getByText(/Saved local fixture row · version 3/).waitFor();
+  await page.getByRole("tab", { name: "3D preview" }).click();
+  const simulationSnapshotPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Save snapshot" }).click();
+  const simulationSnapshot = await simulationSnapshotPromise;
+  assert.equal(simulationSnapshot.suggestedFilename(), "tlps-spatial-preview.png");
+  const simulationPng = await readFile(await simulationSnapshot.path());
+  assert.ok(simulationPng.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])));
+  assert.equal(
+    await page.evaluate(() => window.localStorage.getItem("tlps:spatial-workspace:layout-draft:v1")),
+    localDraftBeforeBlockedSave,
+    "contract fixture save must not alter the separate browser-local demo draft",
+  );
+  console.log("PASS local conformance labels, tenant-scoped fixture read, editable fixture, same-row saves, version increments, and localStorage isolation");
+
+  await page.getByRole("button", { name: "Local demo editor" }).click();
   await page.getByText("Spatial preview sample fixture").waitFor();
   await page
     .getByText(
@@ -171,6 +206,10 @@ try {
   await mobilePage.goto(`${baseUrl}#/mobile/223/3d-cad-previz`, { waitUntil: "networkidle" });
   await mobilePage.getByRole("heading", { name: "3D / CAD Previz" }).waitFor();
   const mobileCanvas = mobilePage.locator("canvas[aria-label='Exhibition 3D preview WebGL viewport']");
+  await mobilePage.screenshot({
+    path: process.env.TLPS_SPATIAL_MOBILE_SCREENSHOT || path.join(os.tmpdir(), "tlps-spatial-simulation-mobile.png"),
+    fullPage: true,
+  });
   const mobileBox = await mobileCanvas.boundingBox();
   assert.ok(mobileBox && mobileBox.width > 280);
   const overflowAt390 = await mobilePage.evaluate(

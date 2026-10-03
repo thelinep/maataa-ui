@@ -28,6 +28,7 @@
     "test:e2e": "node --test tests/e2e/*.test.mjs",
     "test:product": "npm test && npm run test:react && npm run test:ui && npm run test:admin",
     "test:admin": "node --test apps/admin-template/*.test.mjs apps/tlps-application/*.test.mjs",
+    "test:api-contract": "node --test packages/api-contract/test/*.test.mjs",
     "test:spatial:browser": "npm run build:ui && node scripts/smoke-tlps-spatial.mjs",
     "test:ui": "node_modules/vitest/vitest.mjs run --root packages/maataa-ui --config vitest.config.ts",
     "test:ui:smoke": "node --loader ./scripts/extensionless-loader.mjs scripts/smoke-ui-product.mjs",

@@ -1,6 +1,8 @@
 # M3 — Product Integration + Camera Experimental Package Scope and Acceptance
 
-Status: **SCOPE DEFINED · IMPLEMENTATION NOT STARTED**
+Status: **IN PROGRESS**
+
+Progress: M3.1 baseline inventory and M3.2 runtime/simulator-adapter integration are complete for `/mobile/223/3d-cad-previz`. M3.3A selected `eventsspatial.spatial_layouts` as the authoritative save target, with `eventsspatial.exhibition_layouts` reserved for a distinct venue/exhibition deliverable. M3.3B freezes locally validated DRAFT API semantics for payload, query/pagination, PATCH, errors, fixture permissions, and expected-version conflict handling. M3.3C's in-memory conformance fixture supports list/get/create/update, and M3.3D connects the editable route through its adapter. These are local fixture behaviors only; real identity/session binding, a durable host, database transaction behavior, environment verification, and overall M3 acceptance remain open. Canonical Domain Registry schemas are unchanged.
 
 M3 is a single milestone with two coordinated workstreams: a bounded TLPS product integration, and the experimental camera package needed to support that scenario. The camera package is not a separate milestone numbered M3.
 

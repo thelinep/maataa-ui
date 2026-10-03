@@ -1,57 +1,37 @@
 # MAATAA UI Roadmap
 
-## M0R — Retrospective foundation reconciliation — 0.3.3 — COMPLETE
+This file is the concise milestone index. The detailed critical path, dependencies, and exit evidence are maintained in [`docs/FINAL-RELEASE-ROADMAP.md`](docs/FINAL-RELEASE-ROADMAP.md). M2's 0.4.1 closeout remains a completed historical baseline; it is not the current product release or evidence of production readiness.
 
-Historical M0 omission is recorded without rewriting the sequence. `docs/M0R-FINDINGS.md` now carries the complete findings/disposition ledger; **0 blocking findings remain** before M3, while non-blocking future certification work is explicitly deferred.
+## M0R — Retrospective foundation reconciliation — COMPLETE
+
+Historical foundation findings were recorded and dispositioned in `docs/M0R-FINDINGS.md`. Deferred certification remains outside the M2 claim.
 
 ## M1 — Contract/API freeze — 0.3.3 — COMPLETE AFTER RECONCILIATION
 
-- v1 semantic contract freeze
-- public API compatibility baseline
-- registry compatibility baseline with executable bindings
-- deprecation metadata gate
-- lifecycle invariant hardening
+Compatibility contracts, public API and registry baselines, deprecation metadata, and lifecycle invariants were frozen and reconciled.
 
-## M2 — Browser & React Adapter Certification — 0.4.1 — COMPLETE WITH CLOSEOUT
+## M2 — Browser and React adapter certification — 0.4.1 — COMPLETE HISTORICAL BASELINE
 
-- exact Chromium 144.0.7559.96 pin
-- direct CDP browser lane; Playwright/axe-core decision documented
-- React adapter host-contract version and validation
-- shipped/deferred React hook map
-- accessibility-tree semantics
-- keyboard/focus/live-region certification
-- responsive 390/768/1440 matrix
-- reduced-motion and forced-colors emulation
-- guarded PNG visual regression at DPR 1
-- INV-001…INV-022 published mapping
-- exact certified surface + explicit not-certified list
-- M0R findings fully dispositioned
+The 0.4.1 closeout is complete under `docs/M2-CLOSEOUT.md` and `RELEASE.md`'s historical acceptance record. It certifies only the documented M2 surface and exclusions; it does not establish broader product integration, migration readiness, or production deployment.
 
-## M3 — Product integration + camera experimental package — NEXT / SCOPE DEFINED
+## M3 — Product integration — IN PROGRESS
 
-Status: **SCOPE DEFINED · IMPLEMENTATION NOT STARTED**. M3 is one milestone with two coordinated workstreams, not two competing M3 definitions:
+Scope is the bounded TLPS spatial-preview route `/mobile/223/3d-cad-previz`. M3.1 baseline inventory and M3.2 runtime/simulator-adapter integration are complete. M3.3A selected `eventsspatial.spatial_layouts` as the authoritative save target, with `exhibition_layouts` retained as a distinct venue/exhibition deliverable. M3.3 local contract semantics, fixture host, and route conformance are implemented and validated; verified host binding and overall M3 acceptance remain incomplete.
 
-- **Product slice:** integrate a rendered spatial scene / camera-control preview in TLPS using `@tlps/domain-primitives`, MAATAA tokens/primitives, and only the React adapter hooks required by that scenario.
-- **Experimental camera package:** define camera contracts and capability negotiation; establish simulator parity with the kernel command lifecycle; define discovery/stream/PTZ adapter boundaries; and exercise the failure matrix.
-- Close the route and flow gaps that intersect the slice, and publish reproducible integration evidence with explicit exclusions.
-- The initial slice is a rendered preview. It does not certify physical camera capture, real ONVIF/RTSP/WebRTC interoperability, or production hardware control.
+M3 does not claim physical-camera certification, a production host, all-route completeness, migration readiness, or deployment approval. The 11 unresolved route findings remain open for broader product-completeness claims. See [`docs/M3-PRODUCT-INTEGRATION-SCOPE.md`](docs/M3-PRODUCT-INTEGRATION-SCOPE.md) and the detailed release roadmap.
 
-Acceptance criteria and the 11-route disposition boundary are defined in [`docs/M3-PRODUCT-INTEGRATION-SCOPE.md`](docs/M3-PRODUCT-INTEGRATION-SCOPE.md).
+## M4 — Migration readiness — BLOCKED / INCOMPLETE
 
-## M4 — Real camera certification — 0.5.0
+Prepare a target-bound, reviewed migration plan. Real provider/version, target baseline/history, upgrade diffs, compatibility rehearsal, backup/restore proof, and recovery ownership remain required. A reviewed plan is not execution approval. See [`packages/domain-registry/MIGRATION-READINESS-PLAN.md`](packages/domain-registry/MIGRATION-READINESS-PLAN.md).
 
-- real ONVIF discovery
-- authenticated capability read
-- RTSP/WebRTC viewing path
-- PTZ command + ACK/NACK
-- observed-state verification
-- evidence receipt
-- reconnect, timeout and mismatch recovery
+## M5 — Migration execution — NOT AUTHORIZED
 
-## M5 — Edge/control runtime — 0.6.0
+Execution requires separate explicit approval bound to the provider, target environment, exact migration hash, execution window, and operator. Record the result and post-migration checks.
 
-- edge gateway lifecycle
-- reconnect/replay/idempotency
-- lease enforcement
-- telemetry ingestion and ordering
-- device/gateway restart and failure-mode certification
+## M6 — Deployment and final release — NOT AUTHORIZED
+
+Deployment requires a separate explicit approval bound to exact application artifacts, environment, rollout window, health gates, and responsible operator. Publish a release record only after the declared production checks pass.
+
+## Release boundary
+
+The completed 0.4.1/M2 baseline is historical certification evidence. The spatial M3 slice is not yet complete. No roadmap status grants migration or deployment authority. Detailed sequencing and release-wide exit criteria are in [`docs/FINAL-RELEASE-ROADMAP.md`](docs/FINAL-RELEASE-ROADMAP.md).

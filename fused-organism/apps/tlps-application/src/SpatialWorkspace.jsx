@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { CanvasSurface, Scene3D } from "@tlps/domain-primitives";
 import {
   readSpatialDraft,
-  SPATIAL_DRAFT_KEY,
   starterSpatialDraft,
   writeSpatialDraft,
 } from "./spatialDraft.mjs";
+import { createSpatialSimulationClient, spatialDraftToLayoutData, layoutDataToSpatialDraft } from "./spatial-api/spatialSimulation.mjs";
 import {
   createSpatialPreviewAdapter,
   initialSpatialPreviewState,
@@ -32,13 +32,23 @@ function downloadBlob(filename, content, type) {
 }
 
 export default function SpatialWorkspace({ page, role }) {
-  const [draft, setDraft] = useState(() => readSpatialDraft(browserStorage()) || starterSpatialDraft);
+  const [draft, setDraft] = useState(() =>
+    page.id === "223" ? starterSpatialDraft : readSpatialDraft(browserStorage()) || starterSpatialDraft,
+  );
   const latestDraft = useRef(draft);
   latestDraft.current = draft;
+  const modeRef = useRef(page.id === "223" ? "simulation" : "local");
+  const [workspaceMode, setWorkspaceMode] = useState(modeRef.current);
   const cameraPreviewRef = useRef(null);
   const [cameraState, setCameraState] = useState(initialSpatialPreviewState);
   const [view, setView] = useState(page.id === "223" ? "3d" : "canvas");
   const [saveState, setSaveState] = useState("saved");
+  const [simulation, setSimulation] = useState({ status: "loading", result: null, error: null });
+  const [simulationDraft, setSimulationDraft] = useState(null);
+  const [writeResponse, setWriteResponse] = useState(null);
+  const simulationClientRef = useRef(null);
+  const simulationMode = page.id === "223" && workspaceMode === "simulation";
+  modeRef.current = workspaceMode;
 
   useEffect(() => {
     const adapter = createSpatialPreviewAdapter();
@@ -53,25 +63,50 @@ export default function SpatialWorkspace({ page, role }) {
   }, []);
 
   useEffect(() => {
+    if (!simulationMode) return undefined;
+    let active = true;
+    setSimulation({ status: "loading", result: null, error: null });
+    setWriteResponse(null);
+    const client = createSpatialSimulationClient();
+    simulationClientRef.current = client;
+    void client.loadProjectLayout().then((result) => {
+      if (!active) return;
+      setSimulation(result.ok
+        ? { status: "ready", result, error: null }
+        : { status: "error", result: null, error: result.body });
+      if (result.ok) setSimulationDraft(result.draft);
+    }).catch((error) => {
+      if (active) setSimulation({ status: "error", result: null, error: { message: error.message } });
+    });
+    return () => {
+      active = false;
+      if (simulationClientRef.current === client) simulationClientRef.current = null;
+    };
+  }, [simulationMode]);
+
+  useEffect(() => {
+    if (workspaceMode !== "local") return undefined;
     setSaveState("saving");
     const timeout = window.setTimeout(() => {
       const saved = writeSpatialDraft(browserStorage(), draft);
       setSaveState(saved ? "saved" : "unavailable");
     }, 250);
     return () => window.clearTimeout(timeout);
-  }, [draft]);
+  }, [draft, workspaceMode]);
 
   useEffect(() => {
     setView(page.id === "223" ? "3d" : "canvas");
+    const nextMode = page.id === "223" ? "simulation" : "local";
+    modeRef.current = nextMode;
+    setWorkspaceMode(nextMode);
   }, [page.id]);
 
   useEffect(() => {
-    const flushDraft = () => writeSpatialDraft(browserStorage(), latestDraft.current);
-    window.addEventListener("pagehide", flushDraft);
-    return () => {
-      window.removeEventListener("pagehide", flushDraft);
-      flushDraft();
+    const flushDraft = () => {
+      if (modeRef.current === "local") writeSpatialDraft(browserStorage(), latestDraft.current);
     };
+    window.addEventListener("pagehide", flushDraft);
+    return () => window.removeEventListener("pagehide", flushDraft);
   }, []);
 
   const reset = () => {
@@ -85,6 +120,32 @@ export default function SpatialWorkspace({ page, role }) {
       JSON.stringify({ ...draft, exportedAt: new Date().toISOString() }, null, 2),
       "application/json",
     );
+  const switchToLocalDemo = () => {
+    setDraft(readSpatialDraft(browserStorage()) || starterSpatialDraft);
+    setWorkspaceMode("local");
+    setWriteResponse(null);
+  };
+  const switchToSimulation = () => setWorkspaceMode("simulation");
+  const saveFixtureLayout = () => {
+    const client = simulationClientRef.current;
+    const layout = simulation.result?.layout;
+    if (!client || !layout) return;
+    const response = client.requestUpdate(layout.id, {
+      expectedVersion: layout.version_number,
+      layoutData: spatialDraftToLayoutData(simulationDraft, simulation.result.project.units),
+    });
+    setWriteResponse(response);
+    if (response.status === 200) {
+      const savedLayout = response.body.data;
+      const savedDraft = layoutDataToSpatialDraft(savedLayout.layout_data);
+      setSimulation((current) => ({
+        ...current,
+        result: { ...current.result, layout: savedLayout, draft: savedDraft },
+      }));
+      setSimulationDraft(savedDraft);
+    }
+  };
+  const activeDraft = simulationMode ? simulationDraft : draft;
   const saveSnapshot = (dataUrl) => {
     const anchor = document.createElement("a");
     anchor.href = dataUrl;
@@ -129,7 +190,7 @@ export default function SpatialWorkspace({ page, role }) {
           <h1 id="spatial-heading">{page.name}</h1>
           <p>Arrange the exhibition footprint, then review a matching 3D preview.</p>
         </div>
-        <div className="spatial-save-state" role="status" aria-live="polite">
+        {!simulationMode && <div className="spatial-save-state" role="status" aria-live="polite">
           <i className={`save-dot save-${saveState}`} />
           <span>
             {saveState === "saved"
@@ -138,8 +199,51 @@ export default function SpatialWorkspace({ page, role }) {
                 ? "Saving local draft…"
                 : "Browser storage unavailable"}
           </span>
-        </div>
+        </div>}
       </header>
+      {page.id === "223" && (
+        <div className="spatial-mode-switch" role="group" aria-label="Spatial preview mode">
+          <span>Data view</span>
+          <button type="button" aria-pressed={simulationMode} onClick={switchToSimulation}>Contract fixture</button>
+          <button type="button" aria-pressed={!simulationMode} onClick={switchToLocalDemo}>Local demo editor</button>
+        </div>
+      )}
+      {simulationMode ? (
+        <section className="spatial-simulation-banner" aria-label="Local simulation boundary">
+          <div className="spatial-simulation-heading">
+            <b>LOCAL CONFORMANCE SIMULATION</b>
+            <span>FIXTURE DATA</span>
+            <span>NOT AUTHENTICATED</span>
+            <span>NOT DURABLE</span>
+          </div>
+          <p>
+            Local in-memory fixture operations for <code>eventsspatial.spatial_projects</code> and
+            <code> eventsspatial.spatial_layouts</code>. The selected browser role does not supply identity; a fixed fixture actor and fixture permission set drive local checks.
+          </p>
+          {simulation.status === "loading" && <div className="spatial-simulation-loading" role="status" aria-live="polite">Loading fixture project and layout…</div>}
+          {simulation.status === "error" && (
+            <p className="spatial-simulation-error" role="alert">
+              Fixture read failed: {simulation.error?.message || simulation.error?.code || "unknown error"}
+            </p>
+          )}
+          {simulation.status === "ready" && (
+            <div className="spatial-simulation-record" aria-label="Loaded fixture records">
+              <span>Project <b>{simulation.result.project.name}</b></span>
+              <span>Layout <b>{simulation.result.layout.name}</b></span>
+              <span>Lifecycle <b>{simulation.result.layout.layout_status}</b></span>
+              <span>Version <b>{simulation.result.layout.version_number}</b></span>
+            </div>
+          )}
+          <div className="spatial-simulation-write">
+            <span><b>Local fixture save</b> Accepted saves update the same in-memory row and increment its version. Refresh clears these changes.</span>
+            <button type="button" onClick={saveFixtureLayout} disabled={simulation.status !== "ready" || !simulationDraft}>
+              Save layout
+            </button>
+          </div>
+          {writeResponse?.status === 200 && <p className="spatial-simulation-success" role="status">Saved local fixture row · version {writeResponse.body.data.version_number}. No durable data changed.</p>}
+          {writeResponse && writeResponse.status !== 200 && <p className="spatial-simulation-error" role="alert">{writeResponse.body.code}: {writeResponse.body.message} No data was changed. {writeResponse.body.code === "SPATIAL_LAYOUT_VERSION_CONFLICT" ? "Reload the layout and explicitly reapply your edit." : ""}</p>}
+        </section>
+      ) : (
       <section className="spatial-draft-banner" aria-label="Draft storage information">
         <div>
           <b>Spatial preview sample fixture</b>
@@ -157,6 +261,7 @@ export default function SpatialWorkspace({ page, role }) {
           </button>
         </div>
       </section>
+      )}
       <section className="spatial-camera-status" aria-labelledby="camera-status-heading">
         <div className="spatial-camera-copy">
           <div>
@@ -248,14 +353,18 @@ export default function SpatialWorkspace({ page, role }) {
         className="spatial-editor-panel"
         hidden={view !== "canvas"}
       >
-        {view === "canvas" && (
+        {view === "canvas" && activeDraft && (
           <CanvasSurface
             className="tlps-control-room-canvas"
             label="Exhibition layout"
-            items={draft.canvasItems}
-            onItemsChange={(canvasItems) => setDraft((current) => ({ ...current, canvasItems }))}
+            items={activeDraft.canvasItems}
+            readOnly={false}
+            onItemsChange={(canvasItems) => simulationMode
+              ? setSimulationDraft((current) => ({ ...current, canvasItems }))
+              : setDraft((current) => ({ ...current, canvasItems }))}
           />
         )}
+        {view === "canvas" && simulation.status === "loading" && <div className="spatial-simulation-skeleton" aria-label="Loading spatial canvas" />}
       </section>
       <section
         id="spatial-3d-panel"
@@ -265,12 +374,15 @@ export default function SpatialWorkspace({ page, role }) {
         className="spatial-editor-panel"
         hidden={view !== "3d"}
       >
-        {view === "3d" && (
+        {view === "3d" && activeDraft && (
           <Scene3D
             className="tlps-control-room-scene"
             label="Exhibition 3D preview"
-            models={draft.models}
-            onModelsChange={(models) => setDraft((current) => ({ ...current, models }))}
+            models={activeDraft.models}
+            readOnly={false}
+            onModelsChange={(models) => simulationMode
+              ? setSimulationDraft((current) => ({ ...current, models }))
+              : setDraft((current) => ({ ...current, models }))}
             environment={{
               background: "#101F2D",
               grid: true,
@@ -281,10 +393,12 @@ export default function SpatialWorkspace({ page, role }) {
             onSnapshot={saveSnapshot}
           />
         )}
+        {view === "3d" && simulation.status === "loading" && <div className="spatial-simulation-skeleton" aria-label="Loading 3D scene" />}
       </section>
       <p className="spatial-preview-boundary">
-        <b>Preview boundary:</b> This draft stays in this browser. It is not saved to a TLPS account or
-        server, and it does not submit an approval or alter production plans.
+        <b>Preview boundary:</b> {simulationMode
+          ? "This editable view uses local fixture data and an in-memory conformance host. It is not authenticated or durable; refreshing resets fixture edits."
+          : "This local demo draft stays in this browser. It is not saved to a TLPS account or server, and it does not submit an approval or alter production plans."}
       </p>
     </div>
   );
