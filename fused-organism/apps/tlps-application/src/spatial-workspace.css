@@ -113,6 +113,139 @@
   border-color: #85b9bd;
   color: #006d73;
 }
+.spatial-camera-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 20px;
+  align-items: center;
+  padding: 13px 14px;
+  margin: 0 0 14px;
+  border: 1px solid #dce6eb;
+  border-radius: 9px;
+  background: #fff;
+}
+.spatial-camera-copy {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.spatial-camera-copy h2 {
+  margin: 0 0 3px;
+  color: #28435b;
+  font-size: 12px;
+  font-weight: 700;
+}
+.spatial-camera-copy p {
+  margin: 0;
+  color: #64798b;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.camera-status-chip {
+  display: inline-flex;
+  min-height: 25px;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 0 9px;
+  border: 1px solid #dfe6eb;
+  border-radius: 999px;
+  color: #526b7e;
+  background: #f7fafb;
+  font-size: 10px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.camera-status-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8a9aa8;
+}
+.camera-status-ready {
+  border-color: #b9ded1;
+  color: #176d52;
+  background: #edf8f3;
+}
+.camera-status-ready i {
+  background: #1c9569;
+}
+.camera-status-connecting {
+  border-color: #f0d6a8;
+  color: #795516;
+  background: #fff8e9;
+}
+.camera-status-connecting i {
+  background: #dc8d26;
+}
+.camera-status-error,
+.camera-status-unavailable {
+  border-color: #ecc4c1;
+  color: #8d3e38;
+  background: #fff3f2;
+}
+.camera-status-error i,
+.camera-status-unavailable i {
+  background: #bb544c;
+}
+.spatial-camera-telemetry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.spatial-camera-telemetry div {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.spatial-camera-telemetry dt {
+  color: #718497;
+  font-size: 9px;
+}
+.spatial-camera-telemetry dd {
+  margin: 0;
+  color: #28435b;
+  font-size: 10px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.spatial-camera-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #8d3e38;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.spatial-camera-action {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 32px;
+  padding: 0 11px;
+  border: 1px solid #d5e0e6;
+  border-radius: 6px;
+  color: #31566c;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.spatial-camera-action:hover:not(:disabled) {
+  border-color: #85b9bd;
+  color: #006d73;
+}
+.spatial-camera-action:focus-visible {
+  outline: 3px solid rgba(0, 126, 131, 0.4);
+  outline-offset: 2px;
+}
+.spatial-camera-action:disabled {
+  cursor: not-allowed;
+  color: #8898a4;
+  background: #f4f7f8;
+}
 .spatial-view-tabs {
   display: flex;
   gap: 5px;
@@ -167,6 +300,21 @@
   }
   .spatial-draft-actions button {
     flex: 1;
+  }
+  .spatial-camera-status {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .spatial-camera-copy {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .spatial-camera-action {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+  .spatial-camera-telemetry {
+    gap: 8px 14px;
   }
   .spatial-crumbs {
     flex-wrap: wrap;

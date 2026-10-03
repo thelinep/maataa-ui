@@ -6,6 +6,11 @@ import {
   starterSpatialDraft,
   writeSpatialDraft,
 } from "./spatialDraft.mjs";
+import {
+  createSpatialPreviewAdapter,
+  initialSpatialPreviewState,
+  SPATIAL_PREVIEW_STATUS,
+} from "./spatialPreviewAdapter.mjs";
 import "./spatial-workspace.css";
 
 function browserStorage() {
@@ -30,8 +35,22 @@ export default function SpatialWorkspace({ page, role }) {
   const [draft, setDraft] = useState(() => readSpatialDraft(browserStorage()) || starterSpatialDraft);
   const latestDraft = useRef(draft);
   latestDraft.current = draft;
+  const cameraPreviewRef = useRef(null);
+  const [cameraState, setCameraState] = useState(initialSpatialPreviewState);
   const [view, setView] = useState(page.id === "223" ? "3d" : "canvas");
   const [saveState, setSaveState] = useState("saved");
+
+  useEffect(() => {
+    const adapter = createSpatialPreviewAdapter();
+    cameraPreviewRef.current = adapter;
+    const unsubscribe = adapter.subscribe(setCameraState);
+    void adapter.connect();
+    return () => {
+      unsubscribe();
+      if (cameraPreviewRef.current === adapter) cameraPreviewRef.current = null;
+      void adapter.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     setSaveState("saving");
@@ -72,6 +91,28 @@ export default function SpatialWorkspace({ page, role }) {
     anchor.download = "tlps-spatial-preview.png";
     anchor.click();
   };
+  const toggleCameraSimulator = () => {
+    const adapter = cameraPreviewRef.current;
+    if (!adapter) return;
+    if (cameraState.status === SPATIAL_PREVIEW_STATUS.READY) void adapter.disconnect();
+    else void adapter.connect();
+  };
+  const cameraStatusLabel = {
+    [SPATIAL_PREVIEW_STATUS.IDLE]: "Idle",
+    [SPATIAL_PREVIEW_STATUS.CONNECTING]: "Connecting",
+    [SPATIAL_PREVIEW_STATUS.READY]: "Ready · simulator",
+    [SPATIAL_PREVIEW_STATUS.DISCONNECTED]: "Disconnected",
+    [SPATIAL_PREVIEW_STATUS.UNAVAILABLE]: "Unavailable",
+    [SPATIAL_PREVIEW_STATUS.ERROR]: "Connection error",
+  }[cameraState.status];
+  const cameraButtonLabel =
+    cameraState.status === SPATIAL_PREVIEW_STATUS.READY
+      ? "Disconnect simulator"
+      : cameraState.status === SPATIAL_PREVIEW_STATUS.CONNECTING
+        ? "Connecting…"
+        : cameraState.status === SPATIAL_PREVIEW_STATUS.ERROR
+          ? "Retry connection"
+          : "Connect simulator";
 
   return (
     <div className="spatial-workspace" aria-labelledby="spatial-heading">
@@ -101,9 +142,10 @@ export default function SpatialWorkspace({ page, role }) {
       </header>
       <section className="spatial-draft-banner" aria-label="Draft storage information">
         <div>
-          <b>Local workspace draft</b>
+          <b>Spatial preview sample fixture</b>
           <span>
-            Changes are stored in this browser and shared between Exhibition Layout and 3D / CAD Previz.
+            Illustrative starter content. Edits stay in this browser and are shared between Exhibition Layout
+            and 3D / CAD Previz.
           </span>
         </div>
         <div className="spatial-draft-actions">
@@ -114,6 +156,67 @@ export default function SpatialWorkspace({ page, role }) {
             Reset sample
           </button>
         </div>
+      </section>
+      <section className="spatial-camera-status" aria-labelledby="camera-status-heading">
+        <div className="spatial-camera-copy">
+          <div>
+            <h2 id="camera-status-heading">Camera preview connection</h2>
+            <p>
+              Experimental simulator status only. This does not display live video or control a physical
+              camera.
+            </p>
+          </div>
+          <span
+            className={`camera-status-chip camera-status-${cameraState.status.toLowerCase()}`}
+            role="status"
+            aria-live="polite"
+          >
+            <i aria-hidden="true" />
+            {cameraStatusLabel}
+          </span>
+        </div>
+        {cameraState.telemetry && (
+          <dl className="spatial-camera-telemetry" aria-label="Simulated camera telemetry">
+            <div>
+              <dt>Pan</dt>
+              <dd>{cameraState.telemetry.pan ?? "—"}°</dd>
+            </div>
+            <div>
+              <dt>Tilt</dt>
+              <dd>{cameraState.telemetry.tilt ?? "—"}°</dd>
+            </div>
+            <div>
+              <dt>Zoom</dt>
+              <dd>{cameraState.telemetry.zoom ?? "—"}×</dd>
+            </div>
+            <div>
+              <dt>Simulated signal</dt>
+              <dd>{cameraState.telemetry.streamState ?? "No reading"}</dd>
+            </div>
+          </dl>
+        )}
+        {cameraState.status === SPATIAL_PREVIEW_STATUS.ERROR && (
+          <p className="spatial-camera-error" role="alert">
+            The simulator could not provide a camera state ({cameraState.error || "unknown error"}). Retry the
+            connection.
+          </p>
+        )}
+        {cameraState.status === SPATIAL_PREVIEW_STATUS.UNAVAILABLE && (
+          <p className="spatial-camera-error" role="status">
+            The camera preview adapter is unavailable in this build.
+          </p>
+        )}
+        <button
+          type="button"
+          className="spatial-camera-action"
+          onClick={toggleCameraSimulator}
+          disabled={
+            cameraState.status === SPATIAL_PREVIEW_STATUS.CONNECTING ||
+            cameraState.status === SPATIAL_PREVIEW_STATUS.UNAVAILABLE
+          }
+        >
+          {cameraButtonLabel}
+        </button>
       </section>
       <div className="spatial-view-tabs" role="tablist" aria-label="Spatial editor view">
         <button

@@ -110,6 +110,19 @@ try {
 
   await page.goto(`${baseUrl}#/mobile/223/3d-cad-previz`, { waitUntil: "networkidle" });
   await page.getByRole("heading", { name: "3D / CAD Previz" }).waitFor();
+  await page.getByText("Spatial preview sample fixture").waitFor();
+  await page
+    .getByText(
+      "Experimental simulator status only. This does not display live video or control a physical camera.",
+    )
+    .waitFor();
+  await page.getByText("Ready · simulator").waitFor();
+  await page.getByRole("button", { name: "Disconnect simulator" }).click();
+  await page.getByText("Disconnected", { exact: true }).waitFor();
+  await page.getByRole("button", { name: "Connect simulator" }).click();
+  await page.getByText("Ready · simulator").waitFor();
+  assert.equal(await page.locator('dl[aria-label="Simulated camera telemetry"]').count(), 1);
+  console.log("PASS camera simulator adapter connect/disconnect and demo boundary");
   await page.getByRole("tab", { name: "2D layout canvas" }).click();
   assert.equal(await page.getByRole("button", { name: "Saved visitor path, rectangle" }).count(), 1);
   await page.getByRole("tab", { name: "3D preview" }).click();
