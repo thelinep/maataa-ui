@@ -1,0 +1,300 @@
+/**
+ * ProjectList - Display all projects from Phase 2
+ *
+ * Shows projects in a sortable, filterable data table.
+ * Integrates with Phase 2 EntityManager for CRUD operations.
+ * Real-time sync via Phase 5 WebSocket.
+ */
+
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { Button, DataTable, Card, FormInput } from '@/components';
+import { useEntity } from '@/hooks';
+import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
+import { getRoutePath } from '@/nav/routes';
+
+// Types
+export interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  status: 'planning' | 'active' | 'paused' | 'completed';
+  teamSize: number;
+  created_at: string;
+  updated_at: string;
+}
+
+// Styled Components
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing.lg};
+  padding: ${spacing.lg};
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: ${spacing.md};
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+const Title = styled.h1`
+  font-size: ${typography.heading2.fontSize};
+  font-weight: 600;
+  color: ${colorTokens.text.primary};
+  margin: 0;
+`;
+
+const Controls = styled.div`
+  display: flex;
+  gap: ${spacing.md};
+  align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const SearchInput = styled(FormInput)`
+  width: 250px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const StatusBadge = styled.span<{ status: Project['status'] }>`
+  display: inline-flex;
+  align-items: center;
+  padding: 4px ${spacing.sm};
+  border-radius: ${borderRadius.md};
+  font-size: ${typography.bodySmall.fontSize};
+  font-weight: 500;
+  background-color: ${(props) => {
+    switch (props.status) {
+      case 'active':
+        return colorTokens.interactive.success;
+      case 'planning':
+        return colorTokens.interactive.info;
+      case 'paused':
+        return colorTokens.interactive.warning;
+      case 'completed':
+        return colorTokens.interactive.secondary;
+      default:
+        return colorTokens.border.primary;
+    }
+  }};
+  color: ${colorTokens.background.primary};
+`;
+
+const EmptyState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: ${spacing.xl};
+  text-align: center;
+  color: ${colorTokens.text.secondary};
+
+  h3 {
+    font-size: ${typography.body.fontSize};
+    color: ${colorTokens.text.primary};
+    margin-bottom: ${spacing.sm};
+  }
+
+  p {
+    font-size: ${typography.bodySmall.fontSize};
+    margin-bottom: ${spacing.md};
+  }
+`;
+
+const LoadingState = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ${spacing.xl};
+  color: ${colorTokens.text.secondary};
+  font-size: ${typography.bodySmall.fontSize};
+`;
+
+/**
+ * ProjectList Component
+ *
+ * @example
+ * <ProjectList />
+ */
+export const ProjectList: React.FC = () => {
+  const navigate = useNavigate();
+
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig] = useState<{
+    key: keyof Project;
+    direction: 'asc' | 'desc';
+  }>({ key: 'name', direction: 'asc' });
+
+  const { loading, error, getEntitiesByType } = useEntity({ type: 'project' });
+
+  // Fetch projects from Phase 2 EntityManager
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const entities = await getEntitiesByType('project');
+        const projects: Project[] = entities.map(entity => ({
+          id: entity.id,
+          name: entity.data.name,
+          description: entity.data.description,
+          status: entity.data.status || 'planning',
+          teamSize: entity.data.teamSize || 0,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        }));
+
+        setProjects(projects);
+        setFilteredProjects(projects);
+      } catch (err) {
+        console.error('Failed to load projects:', err);
+      }
+    };
+
+    loadProjects();
+  }, [getEntitiesByType]);
+
+  // Handle search and filtering
+  useEffect(() => {
+    const filtered = projects.filter((project) =>
+      project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Apply sorting
+    const sorted = [...filtered].sort((a, b) => {
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+
+      if (typeof aValue === 'string') {
+        return sortConfig.direction === 'asc'
+          ? aValue.localeCompare(String(bValue))
+          : String(bValue).localeCompare(aValue);
+      }
+
+      if (typeof aValue === 'number') {
+        return sortConfig.direction === 'asc'
+          ? (aValue as number) - (bValue as number)
+          : (bValue as number) - (aValue as number);
+      }
+
+      return 0;
+    });
+
+    setFilteredProjects(sorted);
+  }, [searchTerm, projects, sortConfig]);
+
+  // TODO: Implement sorting in DataTable component
+  void sortConfig;
+
+  if (loading) {
+    return (
+      <Container>
+        <LoadingState>Loading projects...</LoadingState>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <Card>
+          <div style={{ padding: spacing.md, color: colorTokens.interactive.error }}>
+            Error loading projects: {error.message}
+          </div>
+        </Card>
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      <Header>
+        <Title>Projects</Title>
+        <Controls>
+          <SearchInput
+            type="text"
+            placeholder="Search projects..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.currentTarget.value)}
+          />
+          <Button onClick={() => navigate(getRoutePath('PROJECT_CREATE'))}>
+            + Create Project
+          </Button>
+        </Controls>
+      </Header>
+
+      {filteredProjects.length === 0 ? (
+        <EmptyState>
+          <h3>No projects yet</h3>
+          <p>
+            {searchTerm
+              ? 'Try adjusting your search terms'
+              : 'Create your first project to get started'}
+          </p>
+          <Button onClick={() => navigate(getRoutePath('PROJECT_CREATE'))}>
+            Create Project
+          </Button>
+        </EmptyState>
+      ) : (
+        <Card>
+          <DataTable
+            columns={[
+              {
+                id: 'name',
+                header: 'Project Name',
+                width: '30%',
+                accessor: (row: Project) => row.name,
+              },
+              {
+                id: 'status',
+                header: 'Status',
+                width: '15%',
+                accessor: (row: Project) => (
+                  <StatusBadge status={row.status}>{row.status}</StatusBadge>
+                ),
+              },
+              {
+                id: 'teamSize',
+                header: 'Team Size',
+                width: '12%',
+                accessor: (row: Project) => `${row.teamSize} members`,
+              },
+              {
+                id: 'updated_at',
+                header: 'Last Updated',
+                width: '20%',
+                accessor: (row: Project) => new Date(row.updated_at).toLocaleDateString(),
+              },
+            ]}
+            data={filteredProjects}
+            onRowClick={(row: Project) => {
+              navigate(getRoutePath('PROJECT_DETAIL', { projectId: row.id }));
+            }}
+          />
+        </Card>
+      )}
+
+    </Container>
+  );
+};
+
+ProjectList.displayName = 'ProjectList';
+
+export default ProjectList;

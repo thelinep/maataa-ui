@@ -1,11 +1,13 @@
 /**
  * useEntity - Hook for managing Phase 2 entities
  *
- * Provides access to entity CRUD operations, validation, and schema information.
+ * Provides access to entity CRUD operations via Phase 2 EntityManager.
  * Integrates with Phase 5 for real-time sync.
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { getEntityManager } from '@/core/entity-manager-singleton';
+import type { Organization } from '@/core/phase2-entity-manager';
 
 export interface Entity {
   id: string;
@@ -58,6 +60,26 @@ export interface UseEntityReturn {
   fetchSchema: (type: string) => Promise<EntitySchema>;
   /** Validate entity data against schema */
   validateEntity: (data: Record<string, any>) => { valid: boolean; errors?: Record<string, string> };
+  /** Get all entities of a type */
+  getEntitiesByType: (type: string) => Promise<Entity[]>;
+}
+
+/**
+ * Convert Phase 2 Organization to Entity format
+ */
+function organizationToEntity(org: Organization): Entity {
+  return {
+    id: org.id,
+    type: 'project',
+    data: {
+      name: org.name,
+      description: org.description,
+      status: org.metadata?.status || 'planning',
+      teamSize: org.metadata?.teamSize || 0,
+    },
+    created_at: org.createdAt.toISOString(),
+    updated_at: org.updatedAt.toISOString(),
+  };
 }
 
 /**
@@ -70,37 +92,36 @@ export interface UseEntityReturn {
  * const { entity, loading } = useEntity({ entityId: 'proj-123', autoFetch: true });
  */
 export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
-  const { entityId, type, autoFetch = false } = options;
+  const { entityId, type = 'project', autoFetch = false } = options;
 
   const [entity, setEntity] = useState<Entity | null>(null);
   const [schema, setSchema] = useState<EntitySchema | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const manager = getEntityManager();
+
   /**
-   * Fetch entity by ID
-   * In production, this would call the Phase 2 EntityManager
+   * Fetch entity by ID from Phase 2 EntityManager
    */
   const fetchEntity = useCallback(
     async (id: string): Promise<Entity> => {
       setLoading(true);
       setError(null);
       try {
-        // TODO: Call Phase 2 EntityManager
-        // const data = await entityManager.getEntity(id);
-        // Then sync with Phase 5
-        // await phase5.syncEntity(data);
+        const phase2Entity = manager.getEntity(id);
+        if (!phase2Entity) {
+          throw new Error(`Entity not found: ${id}`);
+        }
 
-        const mockEntity: Entity = {
-          id,
-          type: type || 'unknown',
-          data: {},
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        };
+        // Convert Phase 2 entity to our format
+        const convertedEntity = organizationToEntity(phase2Entity as Organization);
+        setEntity(convertedEntity);
 
-        setEntity(mockEntity);
-        return mockEntity;
+        // TODO: Sync with Phase 5
+        // await phase5.syncEntity(convertedEntity);
+
+        return convertedEntity;
       } catch (err) {
         const error = err instanceof Error ? err : new Error('Failed to fetch entity');
         setError(error);
@@ -109,31 +130,59 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
         setLoading(false);
       }
     },
-    [type]
+    [manager]
   );
 
   /**
-   * Create new entity
+   * Get all entities of a type from Phase 2
+   */
+  const getEntitiesByType = useCallback(
+    async (queryType: string): Promise<Entity[]> => {
+      try {
+        // Projects are stored as organizations with 'project' tag
+        const phase2Entities = queryType === 'project'
+          ? manager.getEntitiesByTag('project')
+          : manager.getEntitiesByType(queryType as any);
+
+        return phase2Entities
+          .filter((e): e is Organization => e.type === 'organization')
+          .map(organizationToEntity);
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error('Failed to fetch entities');
+        setError(error);
+        throw error;
+      }
+    },
+    [manager]
+  );
+
+  /**
+   * Create new entity via Phase 2
    */
   const createEntity = useCallback(
     async (data: Record<string, any>): Promise<Entity> => {
       setLoading(true);
       setError(null);
       try {
-        // TODO: Call Phase 2 EntityManager
-        // const newEntity = await entityManager.createEntity(type, data);
-        // await phase5.broadcastEntityCreated(newEntity);
+        // Create as organization with 'project' tag
+        const phase2Entity = manager.createEntity({
+          type: 'organization',
+          name: data.name || 'Untitled',
+          description: data.description,
+          tags: ['project'],
+          metadata: {
+            status: data.status || 'planning',
+            teamSize: data.teamSize || 0,
+          },
+        } as any);
 
-        const newEntity: Entity = {
-          id: `${type}-${Date.now()}`,
-          type: type || 'unknown',
-          data,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        };
+        const convertedEntity = organizationToEntity(phase2Entity as Organization);
+        setEntity(convertedEntity);
 
-        setEntity(newEntity);
-        return newEntity;
+        // TODO: Broadcast via Phase 5
+        // await phase5.broadcastEntityCreated(convertedEntity);
+
+        return convertedEntity;
       } catch (err) {
         const error = err instanceof Error ? err : new Error('Failed to create entity');
         setError(error);
@@ -142,37 +191,37 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
         setLoading(false);
       }
     },
-    [type]
+    [manager]
   );
 
   /**
-   * Update entity
+   * Update entity via Phase 2
    */
   const updateEntity = useCallback(
     async (id: string, data: Partial<Entity['data']>): Promise<Entity> => {
       setLoading(true);
       setError(null);
       try {
-        // TODO: Call Phase 2 EntityManager with OT conflict resolution
-        // const updated = await entityManager.updateEntity(id, data);
-        // await phase5.broadcastEntityUpdated(updated);
+        const updated = manager.updateEntity(id, {
+          name: data.name,
+          description: data.description,
+          metadata: {
+            status: data.status,
+            teamSize: data.teamSize,
+          },
+        } as any);
 
-        const updated: Entity = entity
-          ? {
-              ...entity,
-              data: { ...entity.data, ...data },
-              updated_at: new Date().toISOString(),
-            }
-          : {
-              id,
-              type: type || 'unknown',
-              data,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            };
+        if (!updated) {
+          throw new Error(`Entity not found: ${id}`);
+        }
 
-        setEntity(updated);
-        return updated;
+        const convertedEntity = organizationToEntity(updated as Organization);
+        setEntity(convertedEntity);
+
+        // TODO: Broadcast via Phase 5
+        // await phase5.broadcastEntityUpdated(convertedEntity);
+
+        return convertedEntity;
       } catch (err) {
         const error = err instanceof Error ? err : new Error('Failed to update entity');
         setError(error);
@@ -181,23 +230,22 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
         setLoading(false);
       }
     },
-    [entity, type]
+    [manager]
   );
 
   /**
-   * Delete entity
+   * Delete entity via Phase 2
    */
   const deleteEntity = useCallback(
-    async (entityId: string): Promise<void> => {
+    async (id: string): Promise<void> => {
       setLoading(true);
       setError(null);
       try {
-        // TODO: Call Phase 2 EntityManager with entityId parameter
-        // await entityManager.deleteEntity(entityId);
-        // await phase5.broadcastEntityDeleted(entityId);
-        void entityId; // Placeholder for future implementation
-
+        manager.deleteEntity(id);
         setEntity(null);
+
+        // TODO: Broadcast via Phase 5
+        // await phase5.broadcastEntityDeleted(id);
       } catch (err) {
         const error = err instanceof Error ? err : new Error('Failed to delete entity');
         setError(error);
@@ -206,35 +254,27 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
         setLoading(false);
       }
     },
-    []
+    [manager]
   );
 
   /**
-   * Fetch entity schema
+   * Fetch entity schema (mock for now)
    */
   const fetchSchema = useCallback(
-    async (entityType: string): Promise<EntitySchema> => {
-      try {
-        // TODO: Call Phase 2 to get schema
-        // const schema = await entityManager.getEntitySchema(entityType);
+    async (schemaType: string): Promise<EntitySchema> => {
+      const mockSchema: EntitySchema = {
+        id: schemaType,
+        type: schemaType,
+        fields: [
+          { name: 'name', type: 'string', required: true },
+          { name: 'description', type: 'string' },
+          { name: 'status', type: 'string' },
+          { name: 'teamSize', type: 'number' },
+        ],
+      };
 
-        const mockSchema: EntitySchema = {
-          id: entityType,
-          type: entityType,
-          fields: [
-            { name: 'name', type: 'string', required: true },
-            { name: 'description', type: 'string' },
-            { name: 'created_at', type: 'date', required: true },
-          ],
-        };
-
-        setSchema(mockSchema);
-        return mockSchema;
-      } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to fetch schema');
-        setError(error);
-        throw error;
-      }
+      setSchema(mockSchema);
+      return mockSchema;
     },
     []
   );
@@ -265,15 +305,18 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
   );
 
   // Auto-fetch entity if ID provided
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  if (autoFetch && entityId && !entity && !loading) {
-    fetchEntity(entityId).catch(console.error);
-  }
+  useEffect(() => {
+    if (autoFetch && entityId && !entity && !loading) {
+      fetchEntity(entityId).catch(console.error);
+    }
+  }, [autoFetch, entityId, entity, loading, fetchEntity]);
 
   // Auto-fetch schema if type provided
-  if (autoFetch && type && !schema && !loading) {
-    fetchSchema(type).catch(console.error);
-  }
+  useEffect(() => {
+    if (autoFetch && type && !schema && !loading) {
+      fetchSchema(type).catch(console.error);
+    }
+  }, [autoFetch, type, schema, loading, fetchSchema]);
 
   return {
     entity,
@@ -286,6 +329,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
     deleteEntity,
     fetchSchema,
     validateEntity,
+    getEntitiesByType,
   };
 }
 
