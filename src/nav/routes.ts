@@ -60,25 +60,31 @@ export const ROUTES: Record<string, RouteConfig> = {
     parent: 'projects',
   },
 
-  // Team
-  TEAM: {
-    id: 'team',
-    path: '/team',
-    label: 'Team',
+  // Teams
+  TEAMS: {
+    id: 'teams',
+    path: '/teams',
+    label: 'Teams',
     section: 'main',
-    entity_type: 'person',
+    entity_type: 'team',
   },
   TEAM_LIST: {
-    id: 'team-list',
-    path: '/team',
-    label: 'Team Members',
-    parent: 'team',
+    id: 'teams-list',
+    path: '/teams',
+    label: 'All Teams',
+    parent: 'teams',
   },
-  TEAM_MEMBER: {
-    id: 'team-member',
-    path: '/team/:memberId',
-    label: 'Team Member',
-    parent: 'team',
+  TEAM_CREATE: {
+    id: 'teams-create',
+    path: '/teams/new',
+    label: 'New Team',
+    parent: 'teams',
+  },
+  TEAM_DETAIL: {
+    id: 'team-detail',
+    path: '/teams/:teamId',
+    label: 'Team Details',
+    parent: 'teams',
   },
 
   // Budget

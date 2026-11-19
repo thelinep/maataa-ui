@@ -14,7 +14,7 @@ import { getMainNavSections, getSecondaryNavSections, ROUTES } from './routes';
 const NAV_ICONS: Record<string, string> = {
   workspace: '🏢',
   projects: '📋',
-  team: '👥',
+  teams: '👥',
   budget: '💰',
   schedule: '📅',
   settings: '⚙️',

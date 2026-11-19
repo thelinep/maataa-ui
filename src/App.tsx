@@ -8,6 +8,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { AppShell } from '@/layout/AppShell';
 import { ProjectList, ProjectDetail, CreateProject } from '@/pages/Projects';
+import { TeamList, TeamDetail, CreateTeam } from '@/pages/Teams';
 import { getRoute } from '@/nav/routes';
 
 /**
@@ -37,12 +38,25 @@ export const App: React.FC = () => {
             element={<ProjectDetailWrapper />}
           />
 
+          {/* Teams Workflow */}
+          <Route
+            path={getRoute('TEAM_LIST').path}
+            element={<TeamList />}
+          />
+          <Route
+            path={getRoute('TEAM_CREATE').path}
+            element={<CreateTeam />}
+          />
+          <Route
+            path={getRoute('TEAM_DETAIL').path}
+            element={<TeamDetailWrapper />}
+          />
+
           {/* Redirect home to projects */}
           <Route path="/" element={<Navigate to="/projects" replace />} />
 
           {/* TODO: Add more workflows */}
-          {/* <Route path="/team" element={<TeamList />} />
-          <Route path="/budget" element={<BudgetOverview />} />
+          {/* <Route path="/budget" element={<BudgetOverview />} />
           <Route path="/schedule" element={<ScheduleCalendar />} /> */}
 
           {/* 404 Fallback */}
@@ -64,6 +78,19 @@ const ProjectDetailWrapper: React.FC = () => {
   }
 
   return <ProjectDetail projectId={projectId} />;
+};
+
+/**
+ * TeamDetailWrapper - Extract teamId from URL params
+ */
+const TeamDetailWrapper: React.FC = () => {
+  const { teamId } = useParams<{ teamId: string }>();
+
+  if (!teamId) {
+    return <Navigate to="/teams" replace />;
+  }
+
+  return <TeamDetail teamId={teamId} />;
 };
 
 App.displayName = 'App';
