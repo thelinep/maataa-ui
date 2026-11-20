@@ -4,13 +4,11 @@ on:
   workflow_dispatch:
   pull_request:
     paths-ignore:
-      - "fused-organism/**"
       - "docs/**"
       - "**/*.md"
   push:
     branches: [master, main]
     paths-ignore:
-      - "fused-organism/**"
       - "docs/**"
       - "**/*.md"
 
@@ -22,22 +20,37 @@ jobs:
   verify:
     name: Type-check, test, build
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+    env:
+      # fused-organism's devDependencies include Electron/Playwright/Prisma;
+      # their binaries are not needed to build the UI packages.
+      ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.22.0 # react-router 8 requires >= 22.22
+          node-version: 22.22.0 # react-router 8 requires >= 22.22; fused-organism requires < 23
           cache: npm
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            fused-organism/package-lock.json
+
+      # The app consumes @maataa/* from fused-organism via file: dependencies,
+      # so those packages must be installed and built first.
+      - name: Install fused-organism
+        run: npm run fused:install
+
+      - name: Build fused-organism UI packages
+        run: npm run fused:build
 
       - run: npm ci --no-audit --no-fund
 
       - name: Type-check
         run: npm run type-check
 
-      - name: Unit + e2e tests
+      - name: Unit, integration + e2e tests
         run: npx vitest run
 
       - name: Production build

@@ -13,6 +13,8 @@ pnpm-lock.yaml
 .yarn/
 .yarn/install-state.gz
 .npmrc
+# The root .npmrc only holds install-links (no credentials) and must be committed
+!/.npmrc
 .yarnrc
 
 # ============================================================================
