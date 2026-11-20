@@ -12,7 +12,7 @@ Each workflow suite has its own bundle chunk:
 - admin.js (180 KB) - Admin components
 - reporting.js (220 KB) - Reporting components
 
-Configure in vite.config.performance.ts
+Configure in `vite.config.performance.mts` (Vite 8 / Rolldown `codeSplitting.groups`); build with `npx vite build --config vite.config.performance.mts --outDir dist-perf`.
 
 ## Lazy Loading
 
