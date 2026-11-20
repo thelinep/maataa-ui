@@ -126,3 +126,33 @@ describe("DataTable row actions", () => {
     expect(screen.getByText("Alpha").closest("tr")).not.toHaveAttribute("tabindex");
   });
 });
+
+describe("DataTable with typed rows", () => {
+  interface Person {
+    id: string;
+    name: string;
+    age: number;
+  }
+  const people: Person[] = [
+    { id: "p1", name: "Asha", age: 31 },
+    { id: "p2", name: "Ravi", age: 27 },
+  ];
+
+  it("accepts interface rows and passes them to render and onRowClick", () => {
+    const onRowClick = vi.fn<(row: Person, index: number) => void>();
+    render(
+      <DataTable<Person>
+        columns={[
+          { key: "name", header: "Name", sortable: true },
+          { key: "age", header: "Age", render: (_value, row) => `${row.age} yrs` },
+        ]}
+        data={people}
+        getRowKey={(row) => row.id}
+        onRowClick={onRowClick}
+      />
+    );
+    expect(screen.getByText("31 yrs")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Ravi"));
+    expect(onRowClick).toHaveBeenCalledWith(people[1], 1);
+  });
+});
