@@ -15,7 +15,7 @@ test("kernel package surface stays bounded and the visual product is a separate 
       pkg.name.startsWith("@maataa/") &&
       !["@maataa/tokens", "@maataa/primitives", "@maataa/ui"].includes(pkg.name),
   );
-  assert.equal(kernel.length, 11);
+  assert.equal(kernel.length, 12);
   assert.equal(
     manifests.filter((pkg) => pkg.maataaPolicy?.classification === "visual-host-package").length,
     1,

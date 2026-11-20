@@ -1,7 +1,7 @@
 {
   "schemaLifecycle": "DRAFT",
   "targetProvider": "sqlite",
-  "intendedCompatibility": "SQLite/libSQL",
+  "intendedCompatibility": "SQLite",
   "deployable": false,
   "migrationExecutable": false,
   "migrationApproved": false,

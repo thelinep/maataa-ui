@@ -1,6 +1,6 @@
 # MAATAA Kernel Public API
 
-Generated from the 11 certified kernel package entry points. The separate TypeScript React product package maintains its own export map. Do not edit manually.
+Generated from all 20 public kernel and TLPS package entry points. The separate TypeScript React product package maintains its own export map. Do not edit manually.
 
 ## `@maataa/adapter-sdk`
 
@@ -17,6 +17,14 @@ Entry: `./src/index.mjs`
 - `createHeadlessComponent`
 - `recommendationViewModel`
 - `usageSnapshot`
+
+## `@tlps/composites`
+
+Entry: `./dist/index.js`
+
+- `CompositesCatalog`
+- `CompositesCategories`
+- `implementedComposites`
 
 ## `@maataa/contracts`
 
@@ -57,6 +65,68 @@ Entry: `./src/index.mjs`
 - `primitiveNames`
 - `semanticTokens`
 
+## `@tlps/domain-primitives`
+
+Entry: `./dist/index.js`
+
+- `Canvas`
+- `CanvasSurface`
+- `DomainPrimitivesCatalog`
+- `DomainPrimitivesCategories`
+- `Environment`
+- `Lighting`
+- `Material`
+- `OrbitControl`
+- `Rotate`
+- `Scale`
+- `Scene3D`
+- `Snapshot`
+- `SpatialCanvas`
+- `TransformControl`
+- `Translate`
+- `Viewport`
+- `createGeometry3D`
+- `createModel3D`
+- `defaultCamera3D`
+- `implementedDomainPrimitives`
+- `modelMatrix`
+- `multiply4`
+- `perspective4`
+- `viewMatrix`
+
+## `@maataa/domain-registry`
+
+Entry: `./src/index.mjs`
+
+- `assertRegistryPublishable`
+- `getContextDependencies`
+- `getContextDependents`
+- `getRegistryGate`
+- `getRegistryHeatmap`
+- `lookupDependencies`
+- `manifest`
+- `registry`
+- `resolveProductComposition`
+- `resolveRoute`
+- `searchRegistry`
+- `validateRegistry`
+
+## `@tlps/evidence-primitives`
+
+Entry: `./dist/index.js`
+
+- `EvidencePrimitivesCatalog`
+- `EvidencePrimitivesCategories`
+- `implementedEvidencePrimitives`
+
+## `@tlps/generative-primitives`
+
+Entry: `./dist/index.js`
+
+- `GenerativePrimitivesCatalog`
+- `GenerativePrimitivesCategories`
+- `implementedGenerativePrimitives`
+
 ## `@maataa/governance`
 
 Entry: `./src/index.mjs`
@@ -65,6 +135,27 @@ Entry: `./src/index.mjs`
 - `createHeadlessComponent`
 - `evidenceReceipt`
 - `policyOutcomes`
+
+## `@maataa/primitives`
+
+Entry: `./dist/index.js`
+
+- `AspectRatio`
+- `Badge`
+- `Box`
+- `Button`
+- `Card`
+- `Container`
+- `Divider`
+- `Flex`
+- `Grid`
+- `Input`
+- `Portal`
+- `ScrollArea`
+- `Spacer`
+- `Stack`
+- `VisuallyHidden`
+- `primitiveComponents`
 
 ## `@maataa/react`
 
@@ -96,6 +187,14 @@ Entry: `./src/index.mjs`
 - `createRenderPlan`
 - `renderText`
 
+## `@tlps/templates`
+
+Entry: `./dist/index.js`
+
+- `TemplatesCatalog`
+- `TemplatesCategories`
+- `implementedTemplates`
+
 ## `@maataa/testing`
 
 Entry: `./src/index.mjs`
@@ -104,3 +203,24 @@ Entry: `./src/index.mjs`
 - `approvedPolicy`
 - `assertTerminal`
 - `connectedCameraSimulator`
+
+## `@maataa/tokens`
+
+Entry: `./dist/index.js`
+
+- `chartTokens`
+- `colorTokens`
+- `darkChartTokens`
+- `darkColorTokens`
+- `radiusTokens`
+- `spacingTokens`
+- `transitionTokens`
+- `typographyTokens`
+
+## `@tlps/workflow-primitives`
+
+Entry: `./dist/index.js`
+
+- `WorkflowPrimitivesCatalog`
+- `WorkflowPrimitivesCategories`
+- `implementedWorkflowPrimitives`

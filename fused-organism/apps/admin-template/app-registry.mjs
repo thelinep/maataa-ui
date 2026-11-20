@@ -91,6 +91,15 @@ export const applicationRegistry = [
     environments: [{ id: "local-preview", name: "Local preview", kind: "preview", deployments: [] }],
   },
   {
+    id: "tlps-api",
+    name: "TLPS API",
+    summary: "API service intended for api.tlps.in.",
+    routes: [],
+    domains: [{ id: "api-tlps-in", hostname: "api.tlps.in", environmentId: "", verification: "unverified", routeMappings: [] }],
+    repository: { url: "https://github.com/thelinep/maataa-api", defaultBranch: "main", buildCommand: "", outputDirectory: "" },
+    environments: [],
+  },
+  {
     id: "nevoevents",
     name: "NEVO Events",
     summary: "NEVO Events Platform",

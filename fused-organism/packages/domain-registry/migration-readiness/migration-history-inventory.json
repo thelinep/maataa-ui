@@ -1,22 +1,68 @@
 {
   "schemaVersion": "1.0.0",
-  "status": "TARGET_MIGRATION_HISTORY_UNAVAILABLE",
-  "repositoryHead": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90",
-  "targetMigrationHistories": [],
+  "status": "NONLOCAL_TARGET_MIGRATION_HISTORY_UNAVAILABLE_LOCAL_INVENTORIES_RECORDED",
+  "repositoryHead": "99d19bd507d43a4b1d095322e4c0230085b0833a",
+  "targetMigrationHistories": [
+    {
+      "applicationId": "maataa",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "maataa-local-sqlite",
+      "targetClass": "LOCAL_DEVELOPMENT",
+      "provider": "sqlite",
+      "migrationHistory": {
+        "id": "maataa-local-migration-history",
+        "kind": "migration-history",
+        "sha256": "a4f4a0a17cb3ef4305673e0e5ee0da17723abab73bb21ad812c603d13f9726fe",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/maataa-migration-history.json"
+      },
+      "migrationHistoryAvailable": true
+    },
+    {
+      "applicationId": "shared-data-service",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "shared-local-sqlite",
+      "targetClass": "LOCAL_DEVELOPMENT",
+      "provider": "sqlite",
+      "migrationHistory": {
+        "id": "shared-local-migration-history",
+        "kind": "migration-history",
+        "sha256": "4cf4d0ce6715221d4020c67b7823ca2e2be6f049a03ea0dc9e4cd175cb8259f0",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/shared-migration-history.json"
+      },
+      "migrationHistoryAvailable": true
+    },
+    {
+      "applicationId": "tlps",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "tlps-local-sqlite",
+      "targetClass": "LOCAL_DEVELOPMENT",
+      "provider": "sqlite",
+      "migrationHistory": {
+        "id": "tlps-local-migration-history",
+        "kind": "migration-history",
+        "sha256": "0fde0746f5edec4f9685929c8a0885bb9479ccf46f3ea71cb33c63a4b1a115f9",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/tlps-migration-history.json"
+      },
+      "migrationHistoryAvailable": true
+    }
+  ],
   "repositoryMigrationDirectories": [],
   "nonTargetArtifacts": [
     {
       "kind": "empty-database-bootstrap-preview",
       "provider": "postgresql",
       "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
-      "sha256": "db52e638eb6fd0268b1a0a79676444e93888cc4b7056eb80b6613eda9ad2eb11",
+      "sha256": "e195cf475a8aecaf1259c8c76846ec7e7d1229aee1f0627edd04a45790d53c71",
       "isTargetHistory": false
     },
     {
       "kind": "empty-database-bootstrap-preview",
       "provider": "sqlite",
       "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
-      "sha256": "5c5253ce7afbdcaa2a57c84e13024729357d490a857ec5e391b8262db2a9b36f",
+      "sha256": "f232aded3034253a85bfc469d0029fcd3339a7e691b39dbd3168fa91c9292021",
       "isTargetHistory": false
     },
     {
@@ -33,5 +79,5 @@
       "isMaataaTarget": false
     }
   ],
-  "finding": "No authoritative migration history from any intended target is available. Candidate/import SQL and generated previews are not target migration history."
+  "finding": "The local databases were initialized from generated owner-local schemas and have no incremental migration history. No non-local target migration history is declared."
 }

@@ -3,13 +3,13 @@
   "proofType": "MAATAA_GLOBAL_SCHEMA_READINESS",
   "evidenceBoundary": "Schema readiness proof only; it does not authorize or prove a migration or deployment.",
   "sourceSnapshot": {
-    "gitHead": "89dd322467863fed5c4eb40fd49a0cca4b6cd253",
-    "branch": "feat/fused-organism-parent",
+    "gitHead": "99d19bd507d43a4b1d095322e4c0230085b0833a",
+    "branch": "feat/full-infra-setup",
     "workingTreeDirty": true,
-    "trackedChangeCount": 67,
-    "untrackedFileCount": 496,
+    "trackedChangeCount": 87,
+    "untrackedFileCount": 36,
     "registryVersion": "1.0.0",
-    "registryHash": "c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
+    "registryHash": "581b7df1a87592e24e955c8ca0460fe97ef40e1e398afc5dce6d21ac1701d58f",
     "prismaVersionPinned": "7.9.1"
   },
   "schema": {
@@ -280,7 +280,7 @@
       "provider": "sqlite",
       "status": "PASS",
       "validationCommand": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.canonical.prisma",
-      "schemaSha256": "e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017",
+      "schemaSha256": "cb21e1ca1324d929cb2c28568a9d699cc8c63fe40237aaad976c7f8670c73c14",
       "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
       "deployable": false,
       "migrationExecutable": false,
@@ -341,7 +341,7 @@
         "provider": "sqlite",
         "status": "PASS",
         "validationCommand": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/schema-factory-v1/global/prisma-preview.sqlite.canonical.prisma",
-        "schemaSha256": "e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017"
+        "schemaSha256": "cb21e1ca1324d929cb2c28568a9d699cc8c63fe40237aaad976c7f8670c73c14"
       }
     ],
     "registryTests": {
@@ -359,7 +359,7 @@
         "Domain registry: VALID · Route registry: VALID · Registry publishable: YES · Schema compiler ready: YES",
         "Routes: 284 registered static, 0 registered dynamic, 0 declared only, 0 approved aliases, 11 unresolved.",
         "Application IR artifacts: PASS · 4 records pinned to M1",
-        "Reproducible package hash: PASS · c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
+        "Reproducible package hash: PASS · 581b7df1a87592e24e955c8ca0460fe97ef40e1e398afc5dce6d21ac1701d58f",
         "Registry validation PASS: publishable; warnings and info are recorded above."
       ]
     },

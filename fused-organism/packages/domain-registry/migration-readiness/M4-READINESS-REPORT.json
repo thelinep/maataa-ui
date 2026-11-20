@@ -2,52 +2,87 @@
   "schemaVersion": "1.0.0",
   "reportId": "maataa-m4-readiness-2026-10-03",
   "createdAt": "2026-10-03",
-  "branch": "feat/fused-organism-parent",
-  "sourceHead": "89dd322467863fed5c4eb40fd49a0cca4b6cd253",
+  "branch": "feat/full-infra-setup",
+  "sourceHead": "99d19bd507d43a4b1d095322e4c0230085b0833a",
   "scope": [
     "M4.1 target/baseline/history inventory",
-    "M4.2 provider preview inventory and invariant crosswalk"
+    "M4.2 provider preview inventory and invariant crosswalk",
+    "five Communications provider invariants reconciled into both global empty-state bootstrap previews"
   ],
   "m4_1": {
     "status": "BLOCKED",
-    "targetBaselineCount": 0,
-    "targetMigrationHistoryCount": 0,
-    "reason": "TARGET_BASELINE_UNAVAILABLE",
-    "targetSelection": "NONE_DECLARED",
-    "targetsDeclared": 0,
-    "targetsVerified": 0,
+    "targetBaselineCount": 3,
+    "targetMigrationHistoryCount": 3,
+    "reason": "NO_NONLOCAL_TARGET_DECLARED",
+    "targetSelection": "LOCAL_ONLY",
+    "targetsDeclared": 3,
+    "targetsVerified": 3,
     "targetsConflicted": 0,
-    "targetsUnknown": 0
+    "targetsUnknown": 0,
+    "localDevelopmentTargetCount": 3,
+    "nonLocalTargetCount": 0
   },
   "m4_2": {
     "status": "PARTIAL",
     "targetDiffGenerated": false,
-    "reason": "TARGET_BASELINE_UNAVAILABLE",
+    "reason": "NO_NONLOCAL_TARGET_DIFF_INPUT",
     "emptyDatabaseBootstraps": [
       {
         "provider": "postgresql",
         "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
-        "sha256": "620e60f89da9f73c1d7f966c5ec9bd1ba8e1b42e06a3ee2536b15f9d61054d26",
+        "sha256": "e195cf475a8aecaf1259c8c76846ec7e7d1229aee1f0627edd04a45790d53c71",
         "tableCount": 352,
         "deployable": false,
         "migrationExecutable": false,
         "migrationApproved": false,
-        "invariantsEnforcedInArtifact": false
+        "invariantsEnforcedInArtifact": true,
+        "invariantCount": 5
       },
       {
         "provider": "sqlite",
         "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
-        "sha256": "b7f9f40b43b842fa467809ce090b875346b7b1436b00641398bee5af45ab8637",
+        "sha256": "f232aded3034253a85bfc469d0029fcd3339a7e691b39dbd3168fa91c9292021",
         "tableCount": 352,
         "deployable": false,
         "migrationExecutable": false,
         "migrationApproved": false,
-        "invariantsEnforcedInArtifact": false
+        "invariantsEnforcedInArtifact": true,
+        "invariantCount": 5
       }
     ],
     "providerInvariantCount": 5,
     "providerInvariantCrosswalk": "provider-invariant-plan.json",
-    "semanticOperationReview": "NOT_PERFORMED"
+    "semanticOperationReview": "NOT_PERFORMED",
+    "targetDiffScope": "NO_NONLOCAL_TARGET_DIFF; THREE_LOCAL_OWNER_PROJECTION_DIFFS_ARE_NO_OP",
+    "localTargetDiffs": [
+      {
+        "target": "maataa-local-sqlite",
+        "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+        "file": "maataa.sqlite.target-diff.sql",
+        "sha256": "661a659a91b983c583351c988961cf5792d867a60f558c6ab8a005100007f665",
+        "owner": "maataa",
+        "tableCount": 25,
+        "sourceDatabaseSha256": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7"
+      },
+      {
+        "target": "shared-local-sqlite",
+        "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+        "file": "shared.sqlite.target-diff.sql",
+        "sha256": "58827d15a7f25b8b9100bb4517edd2a08d651b9643e18f9185f8c5f20307e23a",
+        "owner": "shared",
+        "tableCount": 118,
+        "sourceDatabaseSha256": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38"
+      },
+      {
+        "target": "tlps-local-sqlite",
+        "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+        "file": "tlps.sqlite.target-diff.sql",
+        "sha256": "57044fa3a678af83c4621cac9d803e72b08947b3661c3673d229f90f66b77ecb",
+        "owner": "tlps",
+        "tableCount": 209,
+        "sourceDatabaseSha256": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426"
+      }
+    ]
   },
   "schemaProof": {
     "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
@@ -60,60 +95,70 @@
     "registryValidation": "PASS",
     "unresolvedRoutes": 11,
     "routeSeverity": "INFORMATIONAL",
-    "registryHash": "c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54",
+    "registryHash": "581b7df1a87592e24e955c8ca0460fe97ef40e1e398afc5dce6d21ac1701d58f",
     "sourceWorktreeDirty": true
   },
   "providerFindings": [
     {
       "provider": "postgresql",
-      "finding": "Prisma projection omits five Communications logical invariants; overlay separately reviewed statically, but is not included in full bootstrap."
+      "finding": "Prisma does not represent the five Communications invariants. The reviewed PostgreSQL overlay is now appended to the full 352-table empty-state bootstrap; this remains static-reviewed and has not been executed against PostgreSQL."
     },
     {
       "provider": "sqlite",
-      "finding": "Prisma projection omits five Communications logical invariants; separate overlay behavior checks pass in in-memory SQLite, but overlay is not included in full bootstrap."
+      "finding": "Prisma does not represent the five Communications invariants. The SQLite trigger/index overlay is now appended to the full 352-table empty-state bootstrap and present in the local shared SQLite fixture; in-memory behavior checks pass. This is not libSQL compatibility evidence."
     },
     {
-      "provider": "sqlite/libsql",
-      "finding": "No selected runtime/version; SQLite validation is not libSQL compatibility evidence."
+      "provider": "libsql",
+      "finding": "No libSQL runtime/version is selected or verified. SQLite validation and SQLite trigger checks do not establish libSQL compatibility."
     }
   ],
   "invariants": {
     "required": 5,
     "crosswalked": 5,
-    "integratedIntoGlobalBootstrap": 0,
+    "integratedIntoGlobalBootstrap": 5,
     "postgresqlReview": "PASS_STATIC_REVIEW",
     "sqliteBehavioralChecks": "PASS",
     "executionAgainstRealDatabase": false
   },
-  "databaseContacted": false,
-  "databaseMutated": false,
+  "databaseContacted": true,
+  "databaseMutated": true,
+  "localDatabaseContacted": true,
+  "localDatabaseMutated": true,
+  "nonLocalDatabaseContacted": false,
+  "nonLocalDatabaseMutated": false,
   "migrationExecutionApproved": false,
   "deploymentApproved": false,
   "pushPerformed": false,
   "stopGates": [
-    "M4-TARGET-UNKNOWN",
-    "M4-TARGET-BASELINE",
-    "M4-TARGET-HISTORY",
-    "M4-INVARIANT-OVERLAY-INTEGRATION"
+    "M4-APPROVALS",
+    "M4-NONLOCAL-BASELINE",
+    "M4-NONLOCAL-HISTORY",
+    "M4-NONLOCAL-RECOVERY",
+    "M4-NONLOCAL-TARGET"
   ],
-  "nextSafeAction": "Record an owner-approved target/provider/version and either capture a read-only schema/history baseline or attest a genuinely new empty target; then generate a target-bound diff without applying it.",
+  "nextSafeAction": "Declare and verify the intended non-local staging or production target, including accountable owner, provider/version, exact identity, baseline, and migration history; then generate and review a target-bound diff without executing it.",
   "evidenceFiles": [
     "targets.json",
     "baseline-inventory.json",
     "migration-history-inventory.json",
-    "provider-invariant-plan.json"
+    "provider-invariant-plan.json",
+    "target-diffs/local-development/maataa.sqlite.target-diff.json",
+    "target-diffs/local-development/shared.sqlite.target-diff.json",
+    "target-diffs/local-development/tlps.sqlite.target-diff.json",
+    "fused-organism/packages/domain-registry/migration-readiness/recovery-rehearsals/sqlite-local-recovery-20261003T231201Z.json",
+    "local-evidence-manifest.json"
   ],
   "providerEnforcement": {
-    "postgresql": "PARTIAL",
-    "sqlite": "PARTIAL",
-    "reason": "All five invariants are crosswalked and separately reviewed/tested, but the overlays are not integrated into the full global bootstrap or a target diff."
+    "postgresql": "INTEGRATED_IN_EMPTY_STATE_BOOTSTRAP_PREVIEW_REVIEW_REQUIRED",
+    "sqlite": "INTEGRATED_IN_EMPTY_STATE_BOOTSTRAP_AND_LOCAL_FIXTURE",
+    "reason": "All five canonical Communications invariants match the provider crosswalk. Provider overlays are appended after all base DDL in both global bootstraps; SQLite behavior checks pass and PostgreSQL has static review only. No target-bound diff or live provider execution exists."
   },
   "m4_gates": {
     "M4.1_TARGETS_AND_BASELINES": "BLOCKED",
     "M4.2_PROVIDER_DIFFS": "PARTIAL",
     "M4.3_COMPATIBILITY_REHEARSAL": "BLOCKED",
-    "M4.4_BACKUP_AND_RESTORE": "BLOCKED",
-    "M4.5_RECOVERY_PLAN": "BLOCKED",
+    "M4.4_BACKUP_AND_RESTORE": "LOCAL_SQLITE_REHEARSAL_PASS_NONLOCAL_RELEASE_BLOCKED",
+    "M4.5_RECOVERY_PLAN": "BLOCKED_NO_TARGET_SPECIFIC_MIGRATION_TO_REHEARSE",
     "M4.6_PLAN_REVIEW": "NOT_READY"
   },
   "validationCommands": {
@@ -126,48 +171,104 @@
   "pushStatus": "NONE",
   "worktreeSnapshot": "DIRTY; unrelated existing work preserved",
   "targetSummary": {
-    "targetsDiscovered": 0,
-    "targetsDeclared": 0,
-    "targetsVerified": 0,
+    "targetsDiscovered": 3,
+    "targetsDeclared": 3,
+    "targetsVerified": 3,
     "targetsConflicted": 0,
     "targetsUnknown": 0,
-    "state": "NO_TARGET_DECLARED",
+    "state": "LOCAL_DEVELOPMENT_TARGETS_ONLY",
+    "localDevelopmentTargets": 3,
+    "nonLocalTargets": 0,
     "provider": "PER_TARGET",
     "version": "PER_TARGET",
-    "baseline": "NO_TARGET_DECLARED",
-    "migrationHistory": "NO_TARGET_DECLARED",
+    "baseline": "AVAILABLE_LOCAL_ONLY",
+    "migrationHistory": "LOCAL_BOOTSTRAP_NO_INCREMENTAL_HISTORY",
     "targetDiffHash": null,
     "destructiveOperations": "NOT_ASSESSED_WITHOUT_TARGET_DIFF",
     "backfillRequirements": "NOT_ASSESSED_WITHOUT_TARGET_DIFF",
     "byProvider": {
       "postgresql": 0,
-      "sqlite": 0,
+      "sqlite": 3,
       "libsql": 0,
       "mysql": 0,
       "other": 0
     },
-    "targetSelection": "NONE_DECLARED"
+    "targetSelection": "LOCAL_ONLY"
   },
   "controlPlane": {
     "canonicalManifestPath": "../control-plane/generated/control-plane.canonical.json",
     "targetInventoryPath": "../control-plane/generated/control-plane.target-inventory.json",
     "hashDocumentPath": "../control-plane/generated/control-plane.hash.json",
-    "hash": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780",
-    "targetInventoryHash": "ef36f3f82342da4bd1118bc1bdd249c83e7806a5a1f0e0741716738b2062e3e6",
-    "applicationCount": 4,
-    "environmentCount": 0,
+    "hash": "1cadfce380dddbc86f1b2aa54be3402b5f4d2c5380e1f94b7329508339732629",
+    "targetInventoryHash": "2aae8b4e1aacf3bb425b8502fdbf7aa56c745ef8ca547852fa5b0d1b6ab75308",
+    "applicationCount": 3,
+    "environmentCount": 3,
     "targetCounts": {
-      "declared": 0,
-      "verified": 0,
+      "declared": 3,
+      "verified": 3,
       "conflicted": 0,
       "unknown": 0,
       "byProvider": {
         "postgresql": 0,
-        "sqlite": 0,
+        "sqlite": 3,
         "libsql": 0,
         "mysql": 0,
         "other": 0
       }
     }
+  },
+  "localDatabaseFilesCreated": true,
+  "localDatabaseFilesVerified": true,
+  "hostedDatabaseContacted": false,
+  "hostedDatabaseMutated": false,
+  "m4_4": {
+    "status": "BLOCKED_FOR_RELEASE_LOCAL_SQLITE_REHEARSAL_PASS",
+    "reason": "No non-local target, representative business data, backup service, or approved recovery objectives are available.",
+    "localRehearsal": "fused-organism/packages/domain-registry/migration-readiness/recovery-rehearsals/sqlite-local-recovery-20261003T231201Z.json"
+  },
+  "m4_5": {
+    "status": "BLOCKED_NO_TARGET_SPECIFIC_CHANGE_TO_REHEARSE",
+    "reason": "The three local target diffs are no-op projections. No release migration or representative data exists for rollback/forward-recovery rehearsal."
+  },
+  "recoveryRehearsal": {
+    "status": "PASS_LOCAL_SQLITE_BACKUP_RESTORE_REHEARSAL",
+    "evidenceFile": "fused-organism/packages/domain-registry/migration-readiness/recovery-rehearsals/sqlite-local-recovery-20261003T231201Z.json",
+    "targetCount": 3,
+    "allRestoresVerified": true,
+    "allTargetsEmpty": true,
+    "limitations": [
+      "These are empty local development database fixtures; row preservation was verified but representative business-data recovery was not rehearsed.",
+      "No staging or production target, PostgreSQL target, or libSQL runtime was available.",
+      "Recovery rehearsal does not authorize migration execution or deployment."
+    ]
+  },
+  "migrationApproval": {
+    "status": "NOT_GRANTED_NOT_READY_FOR_TARGET_BOUND_REVIEW",
+    "writtenApprovalRecorded": false,
+    "migrationExecutionApproved": false,
+    "bindingRequired": [
+      "provider",
+      "target environment and database identity",
+      "target baseline hash",
+      "target migration hash",
+      "execution window",
+      "operator"
+    ]
+  },
+  "deploymentApproval": {
+    "status": "NOT_GRANTED_NO_RELEASE_ARTIFACT_OR_TARGET",
+    "deploymentApproved": false,
+    "writtenApprovalRecorded": false,
+    "bindingRequired": [
+      "application artifact hash",
+      "environment",
+      "rollout and health gates",
+      "rollback owner"
+    ]
+  },
+  "localEvidenceManifest": {
+    "path": "local-evidence-manifest.json",
+    "sha256": "bb75441720ff87cb3c6efc58e253857592428046d8be9829a7a892c7cd2329b6",
+    "status": "LOCAL_EVIDENCE_HASHES_VERIFIED"
   }
 }

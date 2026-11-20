@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-migration-history-inventory",
+  "status": "NO_MIGRATION_RECORDS",
+  "targetPath": "fused-organism/.local-dev/databases/shared.db",
+  "databaseSha256": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38",
+  "initialization": "Created directly from generated owner-local SQLite schema SQL, including the five reviewed Communications provider invariants in shared.db; no incremental migrations were executed.",
+  "remoteOrProductionHistory": "NOT_ASSESSED"
+}

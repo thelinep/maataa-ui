@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-schema-baseline",
+  "owner": "maataa",
+  "databasePath": "fused-organism/.local-dev/databases/maataa.db",
+  "databaseSha256": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7",
+  "databaseBytes": 786432,
+  "schemaSqlPath": "fused-organism/.local-dev/databases/maataa.schema.sql",
+  "schemaSqlSha256": "7e38dcd8c2a6d256a8f9732db53e3c9e30320c4e9fd1f80344020de52cfb7db6",
+  "schemaSqlBytes": 30698,
+  "provider": "sqlite",
+  "engineVersion": "3.43.1",
+  "tableCount": 25,
+  "triggerCount": 0,
+  "communicationsInvariantCount": 0,
+  "schemaLifecycle": "CANONICAL",
+  "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa"
+}

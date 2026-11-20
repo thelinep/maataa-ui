@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "algorithm": "SHA-256",
   "canonicalDocument": "./control-plane.canonical.json",
-  "sha256": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780",
-  "canonicalByteLength": 627,
+  "sha256": "1cadfce380dddbc86f1b2aa54be3402b5f4d2c5380e1f94b7329508339732629",
+  "canonicalByteLength": 4343,
   "auditRecordShape": {
     "fields": [
       "manifestHash",

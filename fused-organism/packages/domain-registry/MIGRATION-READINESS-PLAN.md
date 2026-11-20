@@ -6,16 +6,16 @@
 
 | Gate | Status | Evidence / blocker |
 |---|---|---|
-| M4.1 Targets and baselines | **BLOCKED** | No intended database target, exact engine version, existing schema baseline, or migration history is recorded. |
-| M4.2 Provider diffs | **PARTIAL — bootstrap candidates generated** | Full empty-database PostgreSQL and SQLite previews now exist for all 352 canonical tables. They are not target-specific upgrade diffs, omit five deferred logical invariants, and have not received operation-by-operation review. |
+| M4.1 Targets and baselines | **BLOCKED** | No non-local release target, exact target identity, production baseline, or production migration history is recorded. Three local SQLite targets are inventoried and verified. |
+| M4.2 Provider diffs | **PARTIAL — bootstrap candidates generated** | Full empty-state PostgreSQL and SQLite previews exist for all 352 canonical tables and include the five Communications enforcement overlays. Three owner-scoped local SQLite target diffs are no-op comparisons; no non-local upgrade diff exists. |
 | M4.3 Application/data compatibility | **BLOCKED** | No representative dataset, target baseline, backfill plan, or compatibility rehearsal is available. |
-| M4.4 Backup/restore | **BLOCKED** | No selected backup method, recovery objectives, operator evidence, or restore rehearsal is recorded. |
-| M4.5 Rollback/forward recovery | **BLOCKED** | No target-specific recovery plan, rehearsal, or named decision/on-call owners are recorded. |
+| M4.4 Backup/restore | **LOCAL REHEARSAL PASS; RELEASE BLOCKED** | Online backup and restore passed for three empty local SQLite fixtures. Production backup policy, recovery objectives, representative data, and non-local restore evidence remain absent. |
+| M4.5 Rollback/forward recovery | **BLOCKED** | No release migration exists for a target-specific recovery rehearsal; the three local diffs are no-op comparisons. |
 | M4.6 Migration-plan review | **NOT READY FOR APPROVAL** | The plan is not bound to target baselines or complete enforcement/rehearsal evidence. Review approval, if later granted, will not authorize execution. |
 
 The bootstrap files are schema-to-SQL previews from an empty state, not upgrade diffs and not executable migrations. Their generation advances M4.2 only; it does not make the global migration preview valid for any real target.
 
-The exact target, baseline, migration-history, and provider-invariant inventories for this snapshot are recorded in [`migration-readiness/M4-READINESS-REPORT.md`](migration-readiness/M4-READINESS-REPORT.md), with machine-readable evidence and SHA-256 sidecar in the same directory. The snapshot has no concrete target and therefore intentionally contains no target-specific diff.
+The exact target, baseline, migration-history, provider-invariant, local diff, and local recovery evidence for this snapshot are recorded in [`migration-readiness/M4-READINESS-REPORT.md`](migration-readiness/M4-READINESS-REPORT.md) and [`migration-readiness/local-evidence-manifest.json`](migration-readiness/local-evidence-manifest.json), with SHA-256 sidecar in the same directory. The snapshot has no non-local target and therefore contains no release target-specific diff. Three local owner-projection diffs are recorded as no-op comparisons.
 
 ## Current evidence and boundary
 
@@ -26,13 +26,13 @@ The current global schema proof is recorded at `fused-organism/certification/glo
 | Canonical contract set | 352 tables; SHA-256 `023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa` |
 | Logical schema | SHA-256 `5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5` |
 | PostgreSQL / SQLite Prisma previews | Both validate against that logical hash |
-| Global target-specific upgrade diffs | `migrationPreviewValid: false` for both providers; no target baseline or migration-history input exists |
-| Global empty-database bootstrap previews | Generated from each canonical Prisma schema for all 352 tables; review-required, non-deployable, non-executable; omit provider overlays for five deferred logical invariants |
+| Global target-specific upgrade diffs | `migrationPreviewValid: false` for both providers; no non-local target baseline or migration-history input exists; three local SQLite baselines are recorded |
+| Global empty-database bootstrap previews | Generated from each canonical Prisma schema for all 352 tables; review-required, non-deployable, non-executable; include the five Communications provider overlays |
 | Available migration SQL | Communications DRAFT closure only: 14 tables (9 Communications, 4 Organisation, `identity.users`) |
 | Communications preview state | DRAFT; SQL preview metadata says valid, but migration approval and deployment approval are false |
-| Target environments | No provider version, target database, existing schema/migration history, data volume, or operational SLO is recorded here |
+| Target environments | Three local SQLite targets have verified local baselines and histories; no non-local release target, provider/version, data volume, or operational SLO is recorded here |
 
-Therefore, the current proof establishes **schema readiness**, not compatibility with a live database, a complete global migration diff, a backup capability, or a recoverable production change.
+Therefore, the current proof establishes **schema readiness** and a local restore rehearsal for three empty SQLite fixtures. It does not establish compatibility with a release database, a complete global upgrade diff, production backup capability, or a recoverable production change.
 
 ### Generated global bootstrap candidates
 
@@ -40,12 +40,12 @@ Prisma CLI **7.9.1** generated the following empty-state schema previews using t
 
 | Provider | Artifact | SHA-256 | Tables | Indexes | FK clauses | Destructive/data writes |
 |---|---|---|---:|---:|---:|---:|
-| PostgreSQL | `schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql` | `db52e638eb6fd0268b1a0a79676444e93888cc4b7056eb80b6613eda9ad2eb11` | 352 | 1,809 | 1,491 | 0 / 0 |
-| SQLite | `schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql` | `5c5253ce7afbdcaa2a57c84e13024729357d490a857ec5e391b8262db2a9b36f` | 352 | 1,809 | 1,491 | 0 / 0 |
+| PostgreSQL | `schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql` | `e195cf475a8aecaf1259c8c76846ec7e7d1229aee1f0627edd04a45790d53c71` | 352 | 1,809 | 1,491 | 0 / 0 |
+| SQLite | `schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql` | `f232aded3034253a85bfc469d0029fcd3339a7e691b39dbd3168fa91c9292021` | 352 | 1,809 | 1,491 | 0 / 0 |
 
 Provider-specific metadata sits beside each SQL preview. It binds the artifact hash to the canonical contract-set/logical-schema hashes, Prisma version, provider schema, source commit, and absent target-baseline fields. Both are marked `GENERATED_REVIEW_REQUIRED`, `deployable: false`, and `migrationExecutable: false`. PostgreSQL output also emits 368 enums and 1,491 FK `ALTER TABLE` statements; SQLite declares FKs inline. These are mechanical output counts, not semantic review or database rehearsal results.
 
-Both provider schemas report five `DEFERRED_TO_PROVIDER_MIGRATION` invariants: announcement audience/workspace conditional nullability; normalized ordered direct-message membership IDs; a direct-message parent-row predicate; at most one active thread-membership episode; and immutable/terminal thread-membership episode identity. The full bootstrap previews do **not** include the Communications provider-enforcement overlays. Those overlays remain separate 14-table DRAFT artifacts; they must be reconciled, provider-reviewed, and included in the final target-bound plan before M4.2 can exit.
+The Prisma projections still cannot represent five Communications invariants directly; their PostgreSQL/SQLite enforcement is appended to the full SQL bootstrap previews: announcement audience/workspace conditional nullability; normalized ordered direct-message membership IDs; a direct-message parent-row predicate; at most one active thread-membership episode; and immutable/terminal thread-membership episode identity. The overlays are integrated into the empty-state bootstrap candidates and have static/in-memory evidence, but still need provider/version-specific review and target-bound rehearsal before M4.2 can exit.
 
 ## Provider-specific findings
 
@@ -78,7 +78,7 @@ Capture an authoritative schema-only baseline and migration history from each ex
 
 The empty-database bootstrap candidates are generated and hash-bound above. For every real target, still generate an upgrade diff from the exact captured target baseline and pending migration history to the canonical contract/logical hashes above. Bind each output to its provider, exact engine version, schema hash, target baseline/history hashes, generator/Prisma version, and source commit. Keep bootstrap and upgrade artifacts separate; generate both an empty-database bootstrap and each required existing-target upgrade path.
 
-Review SQL operation by operation: object creation/deletion/rename, type conversions, nullability/default changes, unique and partial indexes, FK actions, enum representation, triggers/functions/checks, physical identifiers, lock/rewrite risk, statement ordering, and any data backfill. Compare the Prisma-produced SQL with the separately authored enforcement overlays. Prisma `migrate deploy` does not detect schema drift or prove the order is safe, so independently compare the target baseline and pending migration history before any application.
+Review SQL operation by operation: object creation/deletion/rename, type conversions, nullability/default changes, unique and partial indexes, FK actions, enum representation, triggers/functions/checks, physical identifiers, lock/rewrite risk, statement ordering, and any data backfill. Review the generated bootstrap and integrated enforcement overlays together; provider-specific SQL remains subject to target-version review. Prisma `migrate deploy` does not detect schema drift or prove the order is safe, so independently compare the target baseline and pending migration history before any application.
 
 For SQLite, identify table-rebuild operations, FK enforcement and connection settings, trigger/index preservation, and WAL/journal-mode effects. For PostgreSQL, identify index-build strategy, long-running locks, extension/role privileges, trigger/function ownership, and transaction boundaries. Use the actual provider versions and representative data to establish compatibility; do not infer it from `prisma validate`.
 
@@ -98,7 +98,7 @@ For PostgreSQL, choose the recovery objective first. The operator plan should sp
 
 For SQLite, record journal mode, file placement, concurrent-reader/writer behavior, and backup mechanism. Prefer a consistent live-database backup mechanism such as the SQLite Online Backup API or `VACUUM INTO` over an uncoordinated file copy. Restore the resulting snapshot into an isolated location, run integrity checks, and verify application-level invariants. Include WAL handling in the rehearsed procedure: [SQLite Online Backup API](https://www.sqlite.org/backup.html) and [Write-Ahead Logging](https://www.sqlite.org/wal.html).
 
-The current repository does not identify an operator, backup service, retention window, encryption/key recovery process, restore target, or completed restore rehearsal. These remain open planning items.
+The local rehearsal used SQLite online backup and an isolated restore for all three empty owner-local fixtures; see `migration-readiness/recovery-rehearsals/` and the local evidence manifest. A production operator, backup service, retention window, encryption/key recovery process, representative data restore target, and non-local rehearsal are still open.
 
 **Exit:** backup is fresh, integrity-checked, restorable, access-controlled, and meets the recorded recovery objectives; the restore rehearsal is attached to the exact migration candidate.
 
@@ -130,11 +130,11 @@ The actual deploy workflow should use committed, reviewed migrations and the pro
 
 1. No target database/provider versions or authoritative target baselines are recorded.
 2. Target-specific 352-table upgrade diffs are absent; `migrationPreviewValid: false` remains correct for both providers.
-3. The generated full-schema bootstrap candidates omit five deferred logical invariants; provider overlay reconciliation and semantic review are open.
+3. The generated full-schema bootstrap candidates include five Communications provider-specific enforcement overlays; provider overlay reconciliation and semantic review are open.
 4. Existing Communications SQL previews are DRAFT and cover only the 14-table closure, not the global schema.
 5. No production-like data compatibility rehearsal has been recorded.
-6. No backup service, recovery objectives, or successful restore rehearsal are recorded.
-7. No tested rollback/forward-recovery procedure or named operator/decision owner is recorded.
+6. A local SQLite restore rehearsal passed for three empty fixtures; production backup policy, recovery objectives, representative data, and non-local recovery evidence are still missing.
+7. No target-specific rollback/forward-recovery rehearsal or release operator/decision owner is recorded.
 8. Migration execution and deployment approvals are both **NOT GRANTED**.
 
 ## Release boundary

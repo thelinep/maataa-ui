@@ -106,7 +106,10 @@ export function generatePrismaPreview(logicalResult, { targetProvider } = {}) {
     `  @@map("${item.id}")`,
     `}`,
   ].join("\n"));
-  const providerLabel = targetProvider === "postgresql" ? "PostgreSQL" : "SQLite/libSQL";
+  // Prisma's `sqlite` provider targets SQLite specifically. libSQL compatibility
+  // is a separate runtime claim and must be verified against a selected libSQL
+  // engine rather than inferred from the shared schema syntax.
+  const providerLabel = targetProvider === "postgresql" ? "PostgreSQL" : "SQLite";
   const schema = [
     `// GENERATED PREVIEW: MAATAA DRAFT logical model for ${providerLabel}; not deployable or migration executable.`,
     "// Logical enum values and contract semantics remain governed by the database-neutral model.",
@@ -129,7 +132,7 @@ export function generatePrismaPreview(logicalResult, { targetProvider } = {}) {
     metadata: {
       schemaLifecycle: "DRAFT",
       targetProvider,
-      intendedCompatibility: targetProvider === "sqlite" ? "SQLite/libSQL" : "PostgreSQL",
+      intendedCompatibility: targetProvider === "sqlite" ? "SQLite" : "PostgreSQL",
       deployable: false,
       migrationExecutable: false,
       migrationApproved: false,

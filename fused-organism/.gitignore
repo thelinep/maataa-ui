@@ -1,10 +1,91 @@
+# Dependencies and package-manager caches
 node_modules/
+.npm/
+.pnpm-store/
+.pnp.*
+
+# Build output and generated test reports
 dist/
+build/
+out/
+release/
 coverage/
+.nyc_output/
 playwright-report/
 test-results/
-.DS_Store
+blob-report/
+storybook-static/
+
+# Tool caches
+.cache/
+.vite/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Local application data and database sidecars
+.local-dev/
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
+
+# Environment files and local-only variables
 .env
 .env.*
 !.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Cloudflare Wrangler local state
+.wrangler/
+
+# Supabase local CLI state and credentials
+supabase/.temp/
+supabase/.branches/
+supabase/.env
+supabase/.env.*
+
+# Terraform local state, plans, credentials, and overrides
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Secret key material generated for local development
+*.key
+*.p12
+*.pfx
+
+# Logs and temporary files
 *.log
+*.log.*
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# IDE/editor state
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json

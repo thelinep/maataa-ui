@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-migration-history-inventory",
+  "status": "NO_MIGRATION_RECORDS",
+  "targetPath": "fused-organism/.local-dev/databases/maataa.db",
+  "databaseSha256": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7",
+  "initialization": "Created directly from generated owner-local SQLite schema SQL, including the five reviewed Communications provider invariants in shared.db; no incremental migrations were executed.",
+  "remoteOrProductionHistory": "NOT_ASSESSED"
+}

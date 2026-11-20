@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+  "scope": "Local-development SQLite target only; not a staging/production migration diff.",
+  "target": {
+    "applicationId": "tlps",
+    "environmentId": "local-development",
+    "databaseTargetId": "tlps-local-sqlite",
+    "provider": "sqlite",
+    "engineVersionDeclared": "3.43.1",
+    "engineVersionRuntime": "3.43.1",
+    "databasePath": "fused-organism/.local-dev/databases/tlps.db",
+    "baselineArtifact": "control-plane/evidence/local-development/tlps-baseline.json",
+    "baselineArtifactSha256": "f1f8803f36cc11e7ae3b062d09ea951613eaa38ed271f791ee5eaa3e853f3539",
+    "databaseSha256Before": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426",
+    "databaseSha256After": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426",
+    "migrationHistorySha256": "0fde0746f5edec4f9685929c8a0885bb9479ccf46f3ea71cb33c63a4b1a115f9"
+  },
+  "desiredState": {
+    "ownershipBoundary": "tlps",
+    "canonicalContractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+    "expectedTableCount": 209,
+    "desiredOwnerSchemaSha256": "23b9f6fabf1f57045b80d5db82ad895516f613779fd1c693fefab7da3d7b6480"
+  },
+  "diff": {
+    "generator": "Prisma migrate diff",
+    "prismaVersion": "7.9.1",
+    "command": "prisma migrate diff --config <tlps target config> --from-config-datasource --to-schema <tlps owner projection> --script",
+    "readOnly": true,
+    "sqlFile": "tlps.sqlite.target-diff.sql",
+    "sqlSha256": "57044fa3a678af83c4621cac9d803e72b08947b3661c3673d229f90f66b77ecb",
+    "changesDetected": false,
+    "databaseObjectsObserved": 1395
+  },
+  "communicationsInvariants": {
+    "invariantCount": 0
+  },
+  "approval": {
+    "migrationPlanReviewed": false,
+    "migrationExecutionApproved": false,
+    "deploymentApproved": false
+  }
+}

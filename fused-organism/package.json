@@ -1,9 +1,12 @@
 {
   "name": "maataa-ui-v3",
   "version": "0.4.1",
+  "description": "MAATAA Control Plane and TLPS Operations Workspace desktop preview",
+  "author": "MAATAA UI Team",
   "private": true,
   "type": "module",
   "packageManager": "npm@10.9.2",
+  "main": "desktop/electron-main.mjs",
   "engines": {
     "node": ">=22.16.0 <23",
     "npm": ">=10.9.0 <11"
@@ -14,6 +17,9 @@
   ],
   "scripts": {
     "generate": "node scripts/generate.mjs",
+    "desktop:build": "node scripts/build-desktop.mjs",
+    "desktop:launch": "electron .",
+    "desktop:package": "npm run desktop:build && electron-builder",
     "gate:toolchain": "node scripts/check-toolchain.mjs",
     "gate:drift": "node scripts/check-drift.mjs",
     "lint": "node scripts/lint.mjs",
@@ -28,6 +34,7 @@
     "test:e2e": "node --test tests/e2e/*.test.mjs",
     "test:product": "npm test && npm run test:react && npm run test:ui && npm run test:admin",
     "test:admin": "node --test apps/admin-template/*.test.mjs apps/tlps-application/*.test.mjs",
+    "dev:tlps-api": "node scripts/run-local-tlps-api.mjs",
     "test:spatial:browser": "npm run build:ui && node scripts/smoke-tlps-spatial.mjs",
     "test:ui": "node_modules/vitest/vitest.mjs run --root packages/maataa-ui --config vitest.config.ts",
     "test:ui:smoke": "node --loader ./scripts/extensionless-loader.mjs scripts/smoke-ui-product.mjs",
@@ -65,5 +72,35 @@
     "certify:m2": "npm run gate:m2-closeout && npm run gate:visual-policy && npm run gate:browser-runtime && npm run check:react-policy && npm run test:react && npm run certify:browser",
     "gate:m2-closeout": "node scripts/check-m2-closeout.mjs",
     "gate:visual-policy": "node scripts/check-visual-policy.mjs"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "in.maataa.desktop",
+    "productName": "MAATAA",
+    "asar": true,
+    "directories": {
+      "output": "release/desktop"
+    },
+    "files": [
+      "desktop/electron-main.mjs",
+      "desktop/preload.cjs",
+      "dist/apps/admin-template/**/*",
+      "dist/apps/tlps-application/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis"]
+    },
+    "linux": {
+      "target": ["AppImage"]
+    },
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
   }
 }

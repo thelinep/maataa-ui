@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+  "scope": "Local-development SQLite target only; not a staging/production migration diff.",
+  "target": {
+    "applicationId": "shared-data-service",
+    "environmentId": "local-development",
+    "databaseTargetId": "shared-local-sqlite",
+    "provider": "sqlite",
+    "engineVersionDeclared": "3.43.1",
+    "engineVersionRuntime": "3.43.1",
+    "databasePath": "fused-organism/.local-dev/databases/shared.db",
+    "baselineArtifact": "control-plane/evidence/local-development/shared-baseline.json",
+    "baselineArtifactSha256": "bd4899805bca80478eac3598427278d2a37bfe53cab4e5b4486b7a3e83cbf585",
+    "databaseSha256Before": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38",
+    "databaseSha256After": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38",
+    "migrationHistorySha256": "4cf4d0ce6715221d4020c67b7823ca2e2be6f049a03ea0dc9e4cd175cb8259f0"
+  },
+  "desiredState": {
+    "ownershipBoundary": "shared",
+    "canonicalContractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+    "expectedTableCount": 118,
+    "desiredOwnerSchemaSha256": "dd3ba61ad17154e95ac6d889b0d1dc4b4e03032346b44feba9f27b2867214612"
+  },
+  "diff": {
+    "generator": "Prisma migrate diff",
+    "prismaVersion": "7.9.1",
+    "command": "prisma migrate diff --config <shared target config> --from-config-datasource --to-schema <shared owner projection> --script",
+    "readOnly": true,
+    "sqlFile": "shared.sqlite.target-diff.sql",
+    "sqlSha256": "58827d15a7f25b8b9100bb4517edd2a08d651b9643e18f9185f8c5f20307e23a",
+    "changesDetected": false,
+    "databaseObjectsObserved": 621
+  },
+  "communicationsInvariants": {
+    "invariantCount": 5,
+    "expectedEnforcementObjects": [
+      "trg_communications_announcements_audience_scope_insert",
+      "trg_communications_announcements_audience_scope_update",
+      "trg_communications_direct_message_pair_order_insert",
+      "trg_communications_direct_message_pair_order_update",
+      "trg_communications_direct_message_parent_insert",
+      "trg_communications_direct_message_parent_update",
+      "trg_communications_direct_thread_kind_update",
+      "trg_communications_thread_membership_episode_update",
+      "uq_communications_thread_members_active_episode"
+    ],
+    "missingEnforcementObjects": [],
+    "prismaDiffWouldDropEnforcement": false,
+    "evidenceBoundary": "SQLite local target only; no libSQL compatibility claim"
+  },
+  "approval": {
+    "migrationPlanReviewed": false,
+    "migrationExecutionApproved": false,
+    "deploymentApproved": false
+  }
+}

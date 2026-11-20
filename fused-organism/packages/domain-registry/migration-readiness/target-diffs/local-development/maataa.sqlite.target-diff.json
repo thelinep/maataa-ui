@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+  "scope": "Local-development SQLite target only; not a staging/production migration diff.",
+  "target": {
+    "applicationId": "maataa",
+    "environmentId": "local-development",
+    "databaseTargetId": "maataa-local-sqlite",
+    "provider": "sqlite",
+    "engineVersionDeclared": "3.43.1",
+    "engineVersionRuntime": "3.43.1",
+    "databasePath": "fused-organism/.local-dev/databases/maataa.db",
+    "baselineArtifact": "control-plane/evidence/local-development/maataa-baseline.json",
+    "baselineArtifactSha256": "63d9f85ffa681feedcd5bbce6d2e03431199fb3e1f29146697ac9aa28613fbb8",
+    "databaseSha256Before": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7",
+    "databaseSha256After": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7",
+    "migrationHistorySha256": "a4f4a0a17cb3ef4305673e0e5ee0da17723abab73bb21ad812c603d13f9726fe"
+  },
+  "desiredState": {
+    "ownershipBoundary": "maataa",
+    "canonicalContractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+    "expectedTableCount": 25,
+    "desiredOwnerSchemaSha256": "913518228e3b56b7e770583d3119ee3f3484e9105fab8b2138c2661a5bcb3d81"
+  },
+  "diff": {
+    "generator": "Prisma migrate diff",
+    "prismaVersion": "7.9.1",
+    "command": "prisma migrate diff --config <maataa target config> --from-config-datasource --to-schema <maataa owner projection> --script",
+    "readOnly": true,
+    "sqlFile": "maataa.sqlite.target-diff.sql",
+    "sqlSha256": "661a659a91b983c583351c988961cf5792d867a60f558c6ab8a005100007f665",
+    "changesDetected": false,
+    "databaseObjectsObserved": 154
+  },
+  "communicationsInvariants": {
+    "invariantCount": 0
+  },
+  "approval": {
+    "migrationPlanReviewed": false,
+    "migrationExecutionApproved": false,
+    "deploymentApproved": false
+  }
+}

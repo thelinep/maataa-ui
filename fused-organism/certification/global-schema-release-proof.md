@@ -12,15 +12,15 @@ Generated deterministically by `fused-organism/packages/domain-registry/scripts/
 - Relation closure: **PASS**
 - Contract-set SHA-256: `023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa`
 - Logical-schema SHA-256: `5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5`
-- Registry hash: `c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54`
-- Source commit: `89dd322467863fed5c4eb40fd49a0cca4b6cd253` (feat/fused-organism-parent; worktree dirty: 67 tracked changes, 496 untracked files)
+- Registry hash: `581b7df1a87592e24e955c8ca0460fe97ef40e1e398afc5dce6d21ac1701d58f`
+- Source commit: `99d19bd507d43a4b1d095322e4c0230085b0833a` (feat/full-infra-setup; worktree dirty: 87 tracked changes, 36 untracked files)
 
 ## Provider previews
 
 | Provider | Validation | Schema SHA-256 | Deferred logical findings |
 |---|---|---|---:|
 | postgresql | PASS | ae087b0d8df61300f5e087fc1338152c78309d09140674657c9efb3d81081b96 | 5 |
-| sqlite | PASS | e635e1cde76737c0053f343044f4d3726ce292e12debd1b72f286b82ec278017 | 5 |
+| sqlite | PASS | cb21e1ca1324d929cb2c28568a9d699cc8c63fe40237aaad976c7f8670c73c14 | 5 |
 
 Prisma validation confirms each generated schema is syntactically and structurally valid for its Prisma provider. It does not prove runtime database behavior or implement the deferred invariants below.
 
@@ -65,7 +65,7 @@ Prisma validation confirms each generated schema is syntactically and structural
 - Domain registry: VALID · Route registry: VALID · Registry publishable: YES · Schema compiler ready: YES
 - Routes: 284 registered static, 0 registered dynamic, 0 declared only, 0 approved aliases, 11 unresolved.
 - Application IR artifacts: PASS · 4 records pinned to M1
-- Reproducible package hash: PASS · c67988927dc3303a0687a89de2f2394fbcd85821ab57a38da804abdb39d5af54
+- Reproducible package hash: PASS · 581b7df1a87592e24e955c8ca0460fe97ef40e1e398afc5dce6d21ac1701d58f
 - Registry validation PASS: publishable; warnings and info are recorded above.
 - `git diff --check` (tracked diff): **PASS**.
 - Proof generator syntax: **PASS**.

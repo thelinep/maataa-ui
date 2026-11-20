@@ -1,35 +1,41 @@
-# MAATAA Data Ownership Declaration
+# MAATAA / TLPS Data Ownership Declaration
 
-**Version:** 0.1
-**Status:** PROPOSED — ownership allocation not approved
-**Snapshot base:** `b25ee75e1f7ac6a2b378a531a4249fb4846d1475`
+**Version:** 0.2
 
-## Declaration
+**Status:** DECIDED FOR LOCAL DEVELOPMENT; production ownership approval and deployment targets remain unverified
 
-This version records the currently supportable data boundary. It does not assign canonical tables to MAATAA, TLPS, or another product, and it does not authorize creating, migrating, or deploying a database.
+**Canonical contract-set SHA-256:** `023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa`
 
-- The Domain Registry is the canonical, database-neutral definition of 352 table contracts. A context label identifies a schema context; it does not by itself identify the application or product that owns the persisted data.
-- The current Control Plane manifest represents four reference applications and declares zero environments and zero database targets. It does not yet register MAATAA and TLPS as deployment owners.
-- No local SQLite database files or verified database targets are present in the inspected repository state.
-- The canonical table contracts contain 1,491 foreign keys. Of these, 1,154 cross context boundaries, spanning 64 directed context edges. A per-application or per-context database split therefore requires an explicit ownership map and a reviewed plan for every cross-owner relationship.
-- PostgreSQL and SQLite bootstrap files are schema previews. They are not target-bound migrations. SQLite validation does not establish libSQL compatibility.
+## Product boundary
 
-## Ownership rule for this version
+All 352 canonical table contracts are assigned to one of three logical data owners:
 
-Until a table-level ownership map is reviewed and approved, physical owner for every canonical table is **UNASSIGNED**. No database named `maataa.db`, `tlps.db`, or `<domain>.db` is implied by this declaration.
+- **MAATAA** owns the `platform` context (25 tables): platform control-plane settings, integrations, feature flags, and retention capabilities.
+- **Shared** owns `identity`, `organisation`, `project`, `evidence`, `intelligence`, `communications`, and `public` (118 tables): cross-product identity, tenancy, project, governance, intelligence, communication, and public-surface capabilities.
+- **TLPS** owns `creative`, `people`, `production`, `logistics`, `campaign`, `marketplace`, `finance`, `investor`, and `eventsSpatial` (209 tables): event, production, commerce, finance, investor, and spatial business workflows.
 
-Future target declarations should be scoped to an application environment. A database-per-product layout may be evaluated after the table ownership map and cross-product relation strategy are complete. Bounded contexts remain logical schema boundaries and do not automatically become database boundaries.
+The table-level assignment is recorded in [`data/ownership/product-ownership.v1.json`](data/ownership/product-ownership.v1.json). Context names remain domain boundaries; this document explicitly supplies the product/service owner. Shared data has one shared service authority and is not duplicated into the MAATAA or TLPS databases.
 
-## Release and migration boundary
+## Cross-owner foreign keys
 
-The 352-table logical schema and provider projections remain schema artifacts. A real target still requires an accountable owner, application and environment assignment, provider and engine version, target identity, verified baseline or verified-empty evidence, migration history, and runtime compatibility evidence. Migration-plan review, migration execution approval, and deployment approval remain separate decisions.
+The canonical database-neutral contracts remain unchanged. All **1,491** canonical foreign-key constraints divide into **654 same-owner physical constraints** and **837 cross-owner service references**. The full edge-by-edge map is in [`data/ownership/cross-owner-references.v1.json`](data/ownership/cross-owner-references.v1.json).
 
-## Conditions to advance this declaration
+An owner-local SQLite projection keeps the source reference columns and removes a physical SQLite FK only when its target lives in another owner's database. The source service validates new references with the target owner's authenticated `reference.resolve` operation and records an inbound reference with idempotent retry. The target owner enforces `restrict` by checking its inbound-reference index; for `set-null`, it asks the source owner to clear the nullable reference and waits for acknowledgement before final deletion. These cross-service operations require durable retry/outbox behavior; cross-service cascades are not used. An unavailable target/reference service fails closed for writes and deletion.
 
-1. Register MAATAA and TLPS as distinct applications in the authoritative application registry.
-2. Assign each canonical table to an owning product or explicitly shared service.
-3. Resolve cross-owner foreign keys through a shared relational boundary or reviewed service/API references; do not silently drop referential guarantees.
-4. Select actual environment targets and record their verified identities and baselines.
-5. Reconcile provider-specific invariants into the full provider bootstrap and target-bound diffs.
+These operation names define the boundary only. They do not claim that API endpoints, authentication, inbound indexes, or retry workers have already been implemented. Service URLs and trusted actor/scope claims must be bound in the API/control-plane work before runtime use. Application code must not query another owner's local SQLite file directly.
 
-This declaration is a versioned proposal for review. It becomes an approved ownership policy only through a separate explicit review decision bound to this exact commit/tag.
+## Local development databases
+
+Three empty schema-only SQLite development databases have been created under `fused-organism/.local-dev/databases/`:
+
+- `maataa.db` — 25 tables, 129 indexes, 12 same-owner FK constraints, 75 cross-owner references.
+- `tlps.db` — 209 tables, 1,186 indexes, 255 same-owner FK constraints, 762 cross-owner references.
+- `shared.db` — 118 tables, 494 indexes, 387 same-owner FK constraints, 0 outbound cross-owner references.
+
+The checked-in generator [`scripts/create-local-owner-databases.py`](scripts/create-local-owner-databases.py) derives these from the canonical SQLite bootstrap and ownership map; it refuses to replace existing databases unless `--replace` is given because replacement discards local data. Generated files are git-ignored.
+
+SQLite needs JSON object/array defaults expressed as quoted text, so the local projection normalizes `DEFAULT {}` to `DEFAULT '{}'` and `DEFAULT []` to `DEFAULT '[]'`. The canonical contracts are not changed by that SQLite-specific representation. `PRAGMA foreign_key_check` passes on each empty database. The source SQLite bootstrap reports five logical invariants not projected into provider constraints; these files do not claim complete invariant enforcement. They are local development fixtures, not production targets, migration baselines, or libSQL compatibility certification.
+
+## Release boundary
+
+This allocation and the three local files do **not** establish production ownership sign-off, a verified environment, provider/version baselines, migration approval, or deployment approval. Production targets still need accountable service owners, registered application environments, exact database identities, secrets by reference, and compatibility evidence. Migration planning and execution remain separately gated.
