@@ -41,3 +41,8 @@ export { ActivityFeed, type ActivityFeedProps } from './collaboration/ActivityFe
 export { BudgetCategories, type BudgetCategoriesProps, type BudgetCategory } from './budget/BudgetCategories';
 export { BudgetForecast, type BudgetForecastProps, type SpendingTrend } from './budget/BudgetForecast';
 export { BudgetAlerts, type BudgetAlertsProps, type SpendingAlert } from './budget/BudgetAlerts';
+
+// Team (Phase D Enhancements)
+export { TeamRoles, type TeamRolesProps, type TeamRole } from './team/TeamRoles';
+export { TeamPermissions, type TeamPermissionsProps, type Permission, type RolePermission } from './team/TeamPermissions';
+export { MemberApproval, type MemberApprovalProps, type MemberRequest } from './team/MemberApproval';
