@@ -57,7 +57,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
             width: "100%",
             padding: "10px",
             fontSize: typographyTokens.fontSize.md,
-            border: `2px solid ${error ? colorTokens.interactive.error : colorTokens.interactive.secondary}`,
+            border: `2px solid ${error ? colorTokens.interactive.error : colorTokens.border.control}`,
             borderRadius: radiusTokens.md,
             outline: "none",
             backgroundColor: props.disabled

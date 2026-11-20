@@ -114,7 +114,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
               fontWeight: typographyTokens.fontWeight.medium,
               color: colorTokens.text.primary,
               backgroundColor: colorTokens.background.secondary,
-              border: `1px solid ${error ? colorTokens.interactive.error : colorTokens.border.primary}`,
+              border: `1px solid ${error ? colorTokens.interactive.error : colorTokens.border.control}`,
               borderRadius: radiusTokens.md,
               cursor: disabled ? "not-allowed" : "pointer",
               opacity: disabled ? 0.6 : 1,

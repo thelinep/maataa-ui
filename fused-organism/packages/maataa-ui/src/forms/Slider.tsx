@@ -120,7 +120,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
             appearance: "none",
             outline: "none",
             cursor: "pointer",
-            background: `linear-gradient(to right, ${colorTokens.interactive.primary} ${percent}%, ${colorTokens.interactive.secondary} ${percent}%)`,
+            background: `linear-gradient(to right, ${colorTokens.interactive.primary} ${percent}%, ${colorTokens.border.control} ${percent}%)`,
             ...style,
           }}
           {...props}

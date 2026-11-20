@@ -18,10 +18,13 @@
 // before since they already matched.
 export const colorTokens = {
   // Text colors
+  // Contrast (WCAG 2.2 AA, measured on all three backgrounds below):
+  // primary 11+:1; secondary 6.0:1 or more; tertiary 4.6:1 or more, so it is
+  // still readable as text (placeholders, captions). disabled is exempt.
   text: {
     primary: "#3D2817",
-    secondary: "#A0826D",
-    tertiary: "#B39A82",
+    secondary: "#6B5546",
+    tertiary: "#80664E",
     inverse: "#FFFAF0",
     disabled: "#C9B8A8",
   },
@@ -35,10 +38,14 @@ export const colorTokens = {
   },
 
   // Border colors
+  // primary/secondary/tertiary are decorative (cards, dividers) and need no
+  // contrast. control outlines things you type in or click (inputs, checkboxes,
+  // radios, select fields): 3.3:1 or more on every background (WCAG 1.4.11).
   border: {
     primary: "#D4AF9F",
     secondary: "#EDD8CF",
     tertiary: "#F5E9E1",
+    control: "#9C7C66",
   },
 
   // Interactive colors
@@ -47,7 +54,8 @@ export const colorTokens = {
   // borders on the light paper background. For a soft filled badge/toast
   // background + matching text pair, use `colorTokens.semantic` instead.
   interactive: {
-    primary: "#8B6F47",
+    // 4.6:1 or more as text on every background; white on it 5.4:1
+    primary: "#806641",
     secondary: "#D4AF9F",
     success: "#2D6A3E",
     warning: "#7A6100",
@@ -89,7 +97,8 @@ export const darkColorTokens = {
   text: {
     primary: "#F4F6F8",
     secondary: "#7C8A96",
-    tertiary: "#54626D",
+    // 4.6:1 or more on every dark background
+    tertiary: "#798A98",
     inverse: "#0B1622",
     disabled: "#3A4550",
   },
@@ -105,6 +114,8 @@ export const darkColorTokens = {
     primary: "#2A3D4B",
     secondary: "#1B2833",
     tertiary: "#121C27",
+    // Outline for inputs and controls: 3.3:1 or more on every dark background
+    control: "#50748E",
   },
 
   interactive: {

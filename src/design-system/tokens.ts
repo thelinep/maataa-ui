@@ -5,8 +5,7 @@
  * This module keeps the token names root components already use
  * (colorTokens.primary.main, spacing.md, typography.heading2, zIndex.modal, …)
  * and fills every value from @maataa/tokens. Root-only names are aliases onto
- * existing palette entries; nothing here defines a new colour, except the one
- * accessibility override noted below.
+ * existing palette entries; nothing here defines a new colour.
  *
  * Colours stay 6-digit hex so components can append an alpha suffix
  * (e.g. `${colorTokens.primary.light}30`).
@@ -20,18 +19,11 @@ import {
   typographyTokens,
 } from '@maataa/tokens';
 
-/**
- * Accessibility override. @maataa/tokens' text.secondary (#A0826D) is 3.42:1 on
- * its paper background, below WCAG AA (4.5:1) for body-size text. #816654 is the
- * same hue, darkened until it passes on all three background tones
- * (paper 5.09:1, tertiary 4.57:1). Remove once fixed upstream.
- */
-const TEXT_SECONDARY_AA = '#816654';
 
 export const colorTokens = {
   text: {
     primary: fused.text.primary,
-    secondary: TEXT_SECONDARY_AA,
+    secondary: fused.text.secondary,
     tertiary: fused.text.tertiary,
     inverse: fused.text.inverse,
     disabled: fused.text.disabled,
@@ -46,6 +38,8 @@ export const colorTokens = {
     primary: fused.border.primary,
     secondary: fused.border.secondary,
     tertiary: fused.border.tertiary,
+    /** Outline of inputs and controls, 3:1 or more (WCAG 1.4.11) */
+    control: fused.border.control,
     light: fused.border.secondary,
   },
   interactive: {

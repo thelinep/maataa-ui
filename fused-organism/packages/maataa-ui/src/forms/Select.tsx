@@ -477,7 +477,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     ? colorTokens.interactive.error
     : focused || isOpen
       ? colorTokens.interactive.primary
-      : colorTokens.border.primary;
+      : colorTokens.border.control;
 
   const comboboxProps = {
     id: controlId,

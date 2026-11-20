@@ -164,7 +164,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: `2px solid ${checked ? colorTokens.interactive.primary : colorTokens.border.primary}`,
+                border: `2px solid ${checked ? colorTokens.interactive.primary : colorTokens.border.control}`,
                 borderRadius: "50%",
                 backgroundColor: colorTokens.background.primary,
                 cursor: disabled ? "not-allowed" : "pointer",
