@@ -447,7 +447,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
         {/* Action Buttons */}
         <ButtonGroup>
           <Button
-            variant="outline"
+            variant="tertiary"
             onClick={onCancel}
             disabled={isSubmitting}
           >

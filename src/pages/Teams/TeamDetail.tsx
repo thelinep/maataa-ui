@@ -279,7 +279,7 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
             Edit
           </Button>
           {onNavigateBack && (
-            <Button variant="outline" onClick={onNavigateBack}>
+            <Button variant="tertiary" onClick={onNavigateBack}>
               Back
             </Button>
           )}

@@ -314,7 +314,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
         {/* Action Buttons */}
         <ButtonGroup>
           <Button
-            variant="outline"
+            variant="tertiary"
             onClick={onCancel}
             disabled={isSubmitting}
           >

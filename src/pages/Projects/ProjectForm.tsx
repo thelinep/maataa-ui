@@ -271,7 +271,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
         {/* Action Buttons */}
         <ButtonGroup>
           <Button
-            variant="outline"
+            variant="tertiary"
             onClick={onCancel}
             disabled={isSubmitting}
           >

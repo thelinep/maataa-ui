@@ -13,7 +13,8 @@ export { Select, type SelectProps, type SelectOption } from './forms/Select';
 export { MultiSelect, type MultiSelectProps, type MultiSelectOption } from './forms/MultiSelect';
 
 // Buttons
-export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './buttons/Button';
+// Canonical Button from the fused design system (@maataa/primitives).
+export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from '@maataa/primitives';
 
 // Navigation
 export { Tabs, type TabsProps, type TabItem } from './navigation/Tabs';

@@ -243,7 +243,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
             Edit
           </Button>
           {onNavigateBack && (
-            <Button variant="outline" onClick={onNavigateBack}>
+            <Button variant="tertiary" onClick={onNavigateBack}>
               Back
             </Button>
           )}

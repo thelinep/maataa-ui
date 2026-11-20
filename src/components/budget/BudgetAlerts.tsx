@@ -340,7 +340,7 @@ export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
               Create Alert
             </Button>
             <Button
-              variant="outline"
+              variant="tertiary"
               size="sm"
               onClick={() => {
                 setShowForm(false);
@@ -388,7 +388,7 @@ export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
                     title={alert.isActive ? 'Disable' : 'Enable'}
                   />
                   <Button
-                    variant="outline"
+                    variant="tertiary"
                     size="sm"
                     onClick={() => onDeleteAlert?.(alert.id)}
                   >

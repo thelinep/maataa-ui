@@ -8,7 +8,7 @@
     "setup": "npm run fused:install && npm run fused:build && npm install",
     "fused:install": "npm --prefix fused-organism ci --ignore-scripts --no-audit --no-fund",
     "fused:build": "npm --prefix fused-organism run build:ui",
-    "fused:sync": "npm run fused:build && npm install",
+    "fused:sync": "npm run fused:build && node scripts/sync-fused-packages.mjs",
     "postinstall": "node scripts/check-fused-packages.mjs",
     "dev": "vite",
     "build": "tsc && vite build",

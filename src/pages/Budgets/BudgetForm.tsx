@@ -445,7 +445,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
         {/* Action Buttons */}
         <ButtonGroup>
           <Button
-            variant="outline"
+            variant="tertiary"
             onClick={onCancel}
             disabled={isSubmitting}
           >
