@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
+import { colorTokens, spacing, borderRadius } from '@/utils/tokens';
 import { usePresence } from '@/hooks/usePresence';
+import { formatMoney } from '@/utils/formatMoney';
 
 export interface Product {
   id: string;
@@ -81,7 +82,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
       {products.map(p => (
         <StyledCard key={p.id}>
           <StyledTitle>{p.name}</StyledTitle>
-          <StyledPrice>${p.price.toFixed(2)}</StyledPrice>
+          <StyledPrice>{formatMoney(p.price, p.currency || currency)}</StyledPrice>
           <div style={{ fontSize: '12px', marginBottom: spacing.md }}>
             ★ {p.rating} ({p.reviewCount} reviews)
           </div>

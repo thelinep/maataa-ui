@@ -141,7 +141,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({
               placeholder="Card Number (last 4 digits)"
               value={formData.cardLast4 || ''}
               onChange={e => setFormData({ ...formData, cardLast4: e.target.value })}
-              maxLength="4"
+              maxLength={4}
               required
             />
             <div style={{ padding: spacing.md, background: colorTokens.background.tertiary, borderRadius: borderRadius.md }}>

@@ -5,9 +5,8 @@
  * UI component for switching between light/dark themes
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../../hooks/useTheme';
 
 /**
  * Styled Components
@@ -174,7 +173,7 @@ const ThemeToggleContent: React.FC<{
   showLabel: boolean;
   showDropdown: boolean;
   compact: boolean;
-}> = ({ showLabel, showDropdown, compact }) => {
+}> = ({ showLabel, showDropdown }) => {
   // Placeholder for actual theme context usage
   // In real implementation: const { themeName, switchTheme } = useTheme();
   

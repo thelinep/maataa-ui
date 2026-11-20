@@ -5,9 +5,8 @@
  * UI component for switching between languages
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useTranslation } from '../../hooks/useTranslation';
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from '../../i18n/config';
 
 /**

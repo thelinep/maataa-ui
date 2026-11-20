@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
+import { colorTokens, spacing, borderRadius } from '@/utils/tokens';
+import { formatMoney } from '@/utils/formatMoney';
 
 export interface CartItem {
   productId: string;
@@ -89,12 +90,29 @@ export const ShoppingCart: React.FC<ShoppingCartProps> = ({
               {item.productName}
             </div>
             <div style={{ fontSize: '12px', color: colorTokens.text.secondary }}>
-              ${item.price.toFixed(2)} × {item.quantity}
+              {formatMoney(item.price, currency)} × {item.quantity}
             </div>
           </div>
           <div style={{ display: 'flex', gap: spacing.md, alignItems: 'center' }}>
+            {onUpdateQuantity && (
+              <div style={{ display: 'flex', gap: spacing.xs, alignItems: 'center' }}>
+                <button
+                  aria-label={`Decrease quantity of ${item.productName}`}
+                  disabled={item.quantity <= 1}
+                  onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
+                >
+                  −
+                </button>
+                <button
+                  aria-label={`Increase quantity of ${item.productName}`}
+                  onClick={() => onUpdateQuantity(item.productId, item.quantity + 1)}
+                >
+                  +
+                </button>
+              </div>
+            )}
             <div style={{ fontWeight: 600, color: colorTokens.interactive.primary }}>
-              ${(item.price * item.quantity).toFixed(2)}
+              {formatMoney(item.price * item.quantity, currency)}
             </div>
             <button 
               onClick={() => onRemoveItem?.(item.productId)}
@@ -108,7 +126,7 @@ export const ShoppingCart: React.FC<ShoppingCartProps> = ({
 
       <StyledTotal>
         <span>Total:</span>
-        <span>${total.toFixed(2)}</span>
+        <span>{formatMoney(total, currency)}</span>
       </StyledTotal>
 
       <StyledButton onClick={onCheckout}>

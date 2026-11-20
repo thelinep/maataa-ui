@@ -154,7 +154,7 @@ describe('ConceptForm', () => {
   it('disables submit while an async submit is pending', async () => {
     let resolve!: () => void;
     const onSubmit = vi.fn(() => new Promise<void>((r) => (resolve = r)));
-    render(<ConceptForm onSubmit={onSubmit} initialData={{ title: 'T', vision: 'V', genre: [], format: 'feature', duration: 90, budgetEstimate: 100000 }} />);
+    render(<ConceptForm onSubmit={onSubmit} initialData={{ title: 'T', vision: 'V', genre: [], format: 'feature', duration: 90, budgetEstimate: 1 }} />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Save Concept' }));
     expect(await screen.findByRole('button', { name: 'Saving…' })).toBeDisabled();

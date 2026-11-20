@@ -1,9 +1,9 @@
+import { vi } from 'vitest';
 /**
  * Accessibility Tests
  * Phase I Day 3: Advanced Accessibility
  */
 
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import {
   generateId,
@@ -143,7 +143,7 @@ describe('Accessibility (WCAG 2.1 AAA)', () => {
     });
 
     test('calls onEscape handler', () => {
-      const handleEscape = jest.fn();
+      const handleEscape = vi.fn();
       
       render(
         <FocusTrap onEscape={handleEscape}>
@@ -227,7 +227,9 @@ describe('Accessibility (WCAG 2.1 AAA)', () => {
 
     test('high contrast colors are used', () => {
       const whiteOnBlack = meetsWCAG_AAA('#FFFFFF', '#000000');
-      const whiteOnGray = meetsWCAG_AA('#FFFFFF', '#808080');
+      // #767676 is the lightest grey with >= 4.5:1 contrast on white (#808080 is ~3.95:1)
+      const whiteOnGray = meetsWCAG_AA('#FFFFFF', '#767676');
+      expect(meetsWCAG_AA('#FFFFFF', '#808080')).toBe(false);
       
       expect(whiteOnBlack).toBe(true);
       expect(whiteOnGray).toBe(true);

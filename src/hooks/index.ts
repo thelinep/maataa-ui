@@ -25,7 +25,7 @@ export { useWindowResize } from './utils/useWindowResize';
 export { usePrevious } from './utils/usePrevious';
 
 // Theme & Accessibility (from other phases)
-export { useTheme } from './useTheme';
+export { useTheme } from '../providers/ThemeProvider';
 export { useTranslation } from './useTranslation';
 export { useAccessibility } from './useAccessibility';
 

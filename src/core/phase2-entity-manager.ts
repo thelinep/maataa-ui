@@ -173,7 +173,9 @@ export class EntityManager {
       ...updates,
       id: entity.id,
       createdAt: entity.createdAt,
-      updatedAt: new Date(),
+      // Strictly increasing, even for two edits within the same millisecond,
+      // so updatedAt can order changes (e.g. last-write-wins sync)
+      updatedAt: new Date(Math.max(Date.now(), entity.updatedAt.getTime() + 1)),
     } as Entity;
 
     if (updates.tags) {

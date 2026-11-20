@@ -115,8 +115,14 @@ export function useTranslation(): UseTranslationReturn {
     [t]
   );
 
+  const translate = useCallback(
+    (key: string, defaultValue?: string): string =>
+      defaultValue === undefined ? t(key) : t(key, { defaultValue }),
+    [t]
+  );
+
   return {
-    t,
+    t: translate,
     i18n: i18nInstance,
     language,
     changeLanguage,

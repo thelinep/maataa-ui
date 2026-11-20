@@ -5,7 +5,7 @@
  * Complete theme objects with colors, typography, spacing
  */
 
-import { ColorPalette, lightTheme, darkTheme, createCustomPalette } from './theme-colors';
+import { ColorPalette, PaletteOverrides, lightTheme, darkTheme, createCustomPalette } from './theme-colors';
 
 export type ThemeName = 'light' | 'dark' | 'custom';
 
@@ -164,8 +164,8 @@ export const themes: Record<ThemeName, Theme> = {
  * Builder function for user-defined themes
  */
 export function createTheme(
-  name: string,
-  colorOverrides: Partial<ColorPalette>,
+  _name: string,
+  colorOverrides: PaletteOverrides,
   baseThemeName: 'light' | 'dark' = 'light'
 ): Theme {
   const baseThemeData = themes[baseThemeName];

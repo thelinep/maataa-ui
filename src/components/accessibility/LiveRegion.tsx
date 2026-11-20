@@ -24,7 +24,7 @@ interface LiveRegionProps {
   message: string;
   priority?: 'polite' | 'assertive';
   atomic?: boolean;
-  relevant?: 'additions' | 'removals' | 'text' | 'all';
+  relevant?: React.AriaAttributes['aria-relevant'];
   delay?: number;
   children?: React.ReactNode;
 }
@@ -42,7 +42,7 @@ export const LiveRegion: React.FC<LiveRegionProps> = ({
   children,
 }) => {
   const liveRegionRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     if (!liveRegionRef.current || !message) return;

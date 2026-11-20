@@ -3,12 +3,12 @@
  *
  * Typed, async CRUD for the 8 film-production workflows, backed by the Phase 2
  * EntityManager. The API is Promise-based so the in-memory EntityManager can
- * later be swapped for a remote store (or Phase 5 real-time sync) without
+ * be backed by persistence (./persistence) and real-time sync (./sync) without
  * touching components.
  */
 
 import EntityManager, { type FilmEntity } from '../phase2-entity-manager';
-import { createFilmSeed, type FilmSeed } from './seed';
+import { createFilmSeed, type FilmSeed, type FilmSeedRecord } from './seed';
 import {
   FILM_KINDS,
   toEntityType,
@@ -24,7 +24,25 @@ export class FilmEntityNotFoundError extends Error {
   }
 }
 
-export type FilmChangeListener = (kind: FilmKind) => void;
+export type FilmChangeOp = 'create' | 'update' | 'delete' | 'seed';
+
+/**
+ * Describes one change. `origin: 'remote'` marks changes applied from another
+ * client via applyRemoteChange, so sync bridges don't echo them back.
+ */
+export type FilmChange = {
+  [K in FilmKind]: {
+    kind: K;
+    op: FilmChangeOp;
+    /** Absent for `seed` */
+    id?: string;
+    /** Present for create/update */
+    record?: FilmRecord<K>;
+    origin: 'local' | 'remote';
+  };
+}[FilmKind];
+
+export type FilmChangeListener = (kind: FilmKind, change: FilmChange) => void;
 
 export interface GetEntitiesOptions<K extends FilmKind> {
   filter?: (record: FilmRecord<K>) => boolean;
@@ -54,6 +72,23 @@ function toRecord<K extends FilmKind>(entity: FilmEntity): FilmRecord<K> {
   } as FilmRecord<K>;
 }
 
+function toEntity<K extends FilmKind>(kind: K, record: FilmSeedRecord<K>): FilmEntity {
+  return {
+    id: record.id,
+    type: toEntityType(kind),
+    name: deriveName(kind, record.data),
+    data: record.data as unknown as Record<string, unknown>,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
+  };
+}
+
+/** Split a flattened record back into entity metadata + payload */
+export function splitRecord<K extends FilmKind>(record: FilmRecord<K>): FilmSeedRecord<K> {
+  const { id, createdAt, updatedAt, ...data } = record as FilmRecord<K> & Record<string, unknown>;
+  return { id, createdAt, updatedAt, data: data as unknown as FilmDataMap[K] };
+}
+
 function isFilmEntityOfKind(entity: unknown, kind: FilmKind): entity is FilmEntity {
   return !!entity && (entity as FilmEntity).type === toEntityType(kind);
 }
@@ -65,13 +100,7 @@ export class FilmEntityService {
 
   /** Read all records of a workflow, in insertion order unless `sort` is given */
   async getEntities<K extends FilmKind>(kind: K, options: GetEntitiesOptions<K> = {}): Promise<FilmRecord<K>[]> {
-    let records = this.manager
-      .getEntitiesByType(toEntityType(kind))
-      .filter((e): e is FilmEntity => isFilmEntityOfKind(e, kind))
-      .map((e) => toRecord<K>(e));
-    if (options.filter) records = records.filter(options.filter);
-    if (options.sort) records = records.slice().sort(options.sort);
-    return records;
+    return this.list(kind, options);
   }
 
   /** Read one record; resolves to null if missing or of a different kind */
@@ -86,8 +115,9 @@ export class FilmEntityService {
       name: deriveName(kind, data),
       data: data as unknown as Record<string, unknown>,
     } as Omit<FilmEntity, 'id' | 'createdAt' | 'updatedAt'>) as FilmEntity;
-    this.emit(kind);
-    return toRecord<K>(entity);
+    const record = toRecord<K>(entity);
+    this.emit({ kind, op: 'create', id: record.id, record, origin: 'local' } as FilmChange);
+    return record;
   }
 
   /** Shallow-merge `patch` into the record's payload */
@@ -104,18 +134,19 @@ export class FilmEntityService {
       name: deriveName(kind, data),
       data: data as unknown as Record<string, unknown>,
     } as Partial<FilmEntity>) as FilmEntity;
-    this.emit(kind);
-    return toRecord<K>(updated);
+    const record = toRecord<K>(updated);
+    this.emit({ kind, op: 'update', id, record, origin: 'local' } as FilmChange);
+    return record;
   }
 
   async deleteEntity(kind: FilmKind, id: string): Promise<void> {
     const existing = this.manager.getEntity(id);
     if (!isFilmEntityOfKind(existing, kind)) throw new FilmEntityNotFoundError(kind, id);
     this.manager.deleteEntity(id);
-    this.emit(kind);
+    this.emit({ kind, op: 'delete', id, origin: 'local' } as FilmChange);
   }
 
-  /** Notified after every create/update/delete with the affected workflow */
+  /** Notified after every change with the affected workflow and details */
   subscribe(listener: FilmChangeListener): () => void {
     this.listeners.add(listener);
     return () => {
@@ -127,33 +158,71 @@ export class FilmEntityService {
   seed(seed: Partial<FilmSeed> = createFilmSeed()): void {
     const entities: FilmEntity[] = [];
     for (const kind of FILM_KINDS) {
-      for (const record of seed[kind] ?? []) {
-        entities.push({
-          id: record.id,
-          type: toEntityType(kind),
-          name: deriveName(kind, record.data as FilmDataMap[typeof kind]),
-          data: record.data as unknown as Record<string, unknown>,
-          createdAt: record.createdAt,
-          updatedAt: record.updatedAt,
-        });
+      for (const record of (seed[kind] ?? []) as FilmSeedRecord<typeof kind>[]) {
+        entities.push(toEntity(kind, record));
       }
     }
     this.manager.importEntities(entities);
     FILM_KINDS.forEach((kind) => {
-      if (seed[kind]?.length) this.emit(kind);
+      if (seed[kind]?.length) this.emit({ kind, op: 'seed', origin: 'local' } as FilmChange);
     });
   }
 
-  private emit(kind: FilmKind): void {
-    this.listeners.forEach((listener) => listener(kind));
+  /** Every film record, grouped by workflow — the inverse of seed() */
+  snapshot(): FilmSeed {
+    const out = {} as Record<FilmKind, FilmSeedRecord<FilmKind>[]>;
+    for (const kind of FILM_KINDS) {
+      out[kind] = this.list(kind).map((record) => splitRecord(record));
+    }
+    return out as FilmSeed;
+  }
+
+  /** True when no film records are loaded */
+  isEmpty(): boolean {
+    return FILM_KINDS.every((kind) => this.manager.getEntitiesByType(toEntityType(kind)).length === 0);
+  }
+
+  /**
+   * Apply a change that happened on another client. Last write wins; the
+   * resulting event is emitted with origin 'remote'.
+   */
+  applyRemoteChange(change: Pick<FilmChange, 'kind' | 'op' | 'id' | 'record'>): void {
+    const { kind, op } = change;
+    if (op === 'delete') {
+      if (!change.id || !isFilmEntityOfKind(this.manager.getEntity(change.id), kind)) return;
+      this.manager.deleteEntity(change.id);
+      this.emit({ kind, op, id: change.id, origin: 'remote' } as FilmChange);
+      return;
+    }
+    if ((op === 'create' || op === 'update') && change.record) {
+      const existing = this.manager.getEntity(change.record.id);
+      if (existing && !isFilmEntityOfKind(existing, kind)) return; // id collision across kinds
+      if (existing && existing.updatedAt.getTime() > change.record.updatedAt.getTime()) return; // stale
+      this.manager.importEntities([toEntity(kind, splitRecord(change.record as FilmRecord<typeof kind>))]);
+      this.emit({ kind, op, id: change.record.id, record: change.record, origin: 'remote' } as FilmChange);
+    }
+  }
+
+  private list<K extends FilmKind>(kind: K, options: GetEntitiesOptions<K> = {}): FilmRecord<K>[] {
+    let records = this.manager
+      .getEntitiesByType(toEntityType(kind))
+      .filter((e): e is FilmEntity => isFilmEntityOfKind(e, kind))
+      .map((e) => toRecord<K>(e));
+    if (options.filter) records = records.filter(options.filter);
+    if (options.sort) records = records.slice().sort(options.sort);
+    return records;
+  }
+
+  private emit(change: FilmChange): void {
+    this.listeners.forEach((listener) => listener(change.kind, change));
   }
 }
 
 let defaultService: FilmEntityService | null = null;
 
 /**
- * App-wide service used when no <FilmEntityProvider> is mounted.
- * Seeded with sample data until a persistent backend is wired in.
+ * Fallback service used when no <FilmEntityProvider> is mounted (e.g. a
+ * component rendered standalone in Storybook). Seeded with sample data.
  */
 export function getDefaultFilmEntityService(): FilmEntityService {
   if (!defaultService) {

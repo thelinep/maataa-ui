@@ -7,7 +7,6 @@
  */
 
 import { EventEmitter } from 'events';
-import { v4 as uuidv4 } from 'uuid';
 
 // ============================================================================
 // Types & Interfaces
@@ -67,7 +66,7 @@ export interface UserPresenceData {
 export class PresenceManager extends EventEmitter {
   private channels: Map<string, PresenceChannel> = new Map();
   private userPresence: Map<string, UserPresenceData> = new Map();
-  private statusTimeouts: Map<string, NodeJS.Timer> = new Map();
+  private statusTimeouts: Map<string, ReturnType<typeof setTimeout>> = new Map();
   private idleTimeout: number = 300000; // 5 minutes
   private typingTimeout: number = 5000; // 5 seconds
 

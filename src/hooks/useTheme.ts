@@ -5,9 +5,8 @@
  * Custom hook for accessing and managing theme
  */
 
-import { useContext } from 'react';
-import { Theme, ThemeName, themes } from '../design-system/themes';
-import { ColorPalette } from '../design-system/theme-colors';
+import { Theme, ThemeName } from '../design-system/themes';
+import { ColorPalette, PaletteOverrides } from '../design-system/theme-colors';
 
 // Re-export from provider (assume ThemeContext is exported there)
 // This file serves as the main hook entry point
@@ -144,7 +143,7 @@ export function getContrastingTextColor(bgColor: string): 'light' | 'dark' {
  */
 export function mergePalettes(
   base: ColorPalette,
-  overrides: Partial<ColorPalette>
+  overrides: PaletteOverrides
 ): ColorPalette {
   return {
     primary: { ...base.primary, ...overrides.primary },

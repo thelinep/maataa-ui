@@ -35,7 +35,7 @@ export function useFetch<T = any>(
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   const fetchData = useCallback(async () => {
     if (!url || options?.skip) return;

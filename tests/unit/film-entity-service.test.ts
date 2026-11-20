@@ -152,7 +152,7 @@ describe('FilmEntityService', () => {
       await service.deleteEntity('concept', created.id);
 
       expect(listener).toHaveBeenCalledTimes(3);
-      expect(listener).toHaveBeenNthCalledWith(1, 'concept');
+      expect(listener).toHaveBeenNthCalledWith(1, 'concept', expect.objectContaining({ op: 'create', origin: 'local' }));
     });
 
     it('stops notifying after unsubscribe', async () => {

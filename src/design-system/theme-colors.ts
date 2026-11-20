@@ -191,8 +191,11 @@ export const darkTheme: ColorPalette = {
  * Custom Palette Builder
  * Creates a custom theme by overriding specific colors
  */
+/** Per-group partial overrides, e.g. { primary: { 500: '#f00' } } */
+export type PaletteOverrides = { [K in keyof ColorPalette]?: Partial<ColorPalette[K]> };
+
 export function createCustomPalette(
-  overrides: Partial<ColorPalette>,
+  overrides: PaletteOverrides,
   baseTheme: ColorPalette = lightTheme
 ): ColorPalette {
   return {
@@ -278,6 +281,16 @@ export const colorTokens = {
   background: {
     primary: lightTheme.surface.background,
     secondary: lightTheme.surface.surface,
+    tertiary: lightTheme.surface.surfaceVariant,
+  },
+  /** Colours for interactive elements and status feedback */
+  interactive: {
+    primary: lightTheme.primary[500],
+    primaryHover: lightTheme.primary[700],
+    success: lightTheme.semantic.success,
+    warning: lightTheme.semantic.warning,
+    error: lightTheme.semantic.error,
+    info: lightTheme.semantic.info,
   },
   text: {
     primary: lightTheme.text.primary,
@@ -300,6 +313,20 @@ export const spacing = {
   lg: '1.5rem',
   xl: '2rem',
   '2xl': '3rem',
+} as const;
+
+export const borderRadius = {
+  none: '0',
+  sm: '0.25rem',
+  md: '0.5rem',
+  lg: '0.75rem',
+  full: '9999px',
+} as const;
+
+export const shadows = {
+  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
 } as const;
 
 const SYSTEM_FONT_STACK =

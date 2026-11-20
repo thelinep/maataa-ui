@@ -11,7 +11,6 @@ import {
   hasAccessibleName,
   isKeyboardAccessible,
   meetsWCAG_AA,
-  meetsWCAG_AAA,
   getAccessibleName,
 } from '../../utils/accessibility';
 

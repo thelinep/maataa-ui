@@ -282,7 +282,7 @@ const ConceptForm: React.FC<ConceptFormProps> = ({ onSubmit, onCancel, initialDa
               value={formData.budgetEstimate}
               onChange={handleInputChange}
               min="0"
-              step="100000"
+              step="any"
             />
           </FormGroup>
         </FormSection>

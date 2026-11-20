@@ -27,11 +27,11 @@ const StyledTitle = styled.h3`
   font-size: 16px;
 `;
 
-const StyledBarChart = styled.div`
+const StyledBarChart = styled.div<{ $height: number }>`
   display: flex;
   align-items: flex-end;
   gap: ${spacing.md};
-  height: ${props => props.height}px;
+  height: ${props => props.$height}px;
 `;
 
 const StyledBar = styled.div<{ height: number; color: string }>`
@@ -98,7 +98,7 @@ export const ChartWidget: React.FC<ChartWidgetProps> = ({
     return (
       <StyledContainer>
         <StyledTitle>{title}</StyledTitle>
-        <StyledBarChart height={height}>
+        <StyledBarChart $height={height}>
           {data.map((item, index) => (
             <div key={item.label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <StyledBar

@@ -18,7 +18,7 @@ import {
 /**
  * Focus management hook
  */
-export function useFocusManagement(containerRef: React.RefObject<HTMLElement>) {
+export function useFocusManagement(containerRef: React.RefObject<HTMLElement | null>) {
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export function useFocusManagement(containerRef: React.RefObject<HTMLElement>) {
  * Keyboard navigation hook
  */
 export function useKeyboardNavigation(
-  containerRef: React.RefObject<HTMLElement>,
+  containerRef: React.RefObject<HTMLElement | null>,
   options?: {
     onEscape?: () => void;
     onEnter?: () => void;
@@ -168,7 +168,7 @@ export function useAccessibilityLabels() {
  * Combine all accessibility hooks
  */
 export function useAccessibility(
-  containerRef: React.RefObject<HTMLElement>,
+  containerRef: React.RefObject<HTMLElement | null>,
   options?: {
     onEscape?: () => void;
     onEnter?: () => void;

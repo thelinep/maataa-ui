@@ -67,9 +67,7 @@ export interface UndoRedoStack {
 
 export class OperationalTransformEngine {
   private operationHistory: Map<string, OperationHistory> = new Map();
-  private entityStates: Map<string, EntityState> = new Map();
   private undoRedoStacks: Map<string, UndoRedoStack> = new Map();
-  private pendingOperations: Map<string, Operation[]> = new Map();
 
   /**
    * Transform incoming operation against local operations
@@ -196,7 +194,7 @@ export class OperationalTransformEngine {
    * Handle delete-insert conflict
    */
   private handleDeleteInsertConflict(
-    op1: Operation,
+    _op1: Operation,
     op2: Operation
   ): { operation: Operation; conflict: ConflictInfo } {
     // Delete wins - cancel the delete or let insert recreate
@@ -443,6 +441,16 @@ export class OperationalTransformEngine {
 
     history.operations.push(op);
     history.currentVersion = op.version;
+
+    // New operations become undoable and invalidate the redo stack
+    const stack = this.getUndoRedoStack(op.entityId);
+    stack.undoStack.push(op);
+    stack.redoStack = [];
+    stack.version = op.version;
+    if (stack.undoStack.length > 100) {
+      stack.undoStack = stack.undoStack.slice(-100);
+    }
+    this.undoRedoStacks.set(op.entityId, stack);
 
     // Keep history size reasonable (last 1000 operations)
     if (history.operations.length > 1000) {

@@ -3,7 +3,6 @@
  * Phase I: i18n
  */
 
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useTranslation } from '../../hooks/useTranslation';
 import {
@@ -11,8 +10,10 @@ import {
   getStoredLanguage,
   saveLanguageToStorage,
   SUPPORTED_LANGUAGES,
+  initializeI18n,
 } from '../../i18n/config';
 import { getLanguageName, getLanguageFlag } from '../../hooks/useTranslation';
+import type { SupportedLanguage } from '../../i18n/config';
 
 /**
  * Test Component
@@ -32,6 +33,10 @@ const TestComponent = () => {
 };
 
 describe('Internationalization (i18n)', () => {
+  beforeAll(async () => {
+    await initializeI18n();
+  });
+
   beforeEach(() => {
     localStorage.clear();
   });
@@ -182,7 +187,7 @@ describe('Internationalization (i18n)', () => {
       
       for (const lang of languages) {
         const button = screen.getByRole('button', { 
-          name: new RegExp(SUPPORTED_LANGUAGES[lang as any].name, 'i') 
+          name: new RegExp(SUPPORTED_LANGUAGES[lang as SupportedLanguage].name, 'i') 
         });
         fireEvent.click(button);
 

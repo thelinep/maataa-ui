@@ -39,11 +39,6 @@ const StyledLabel = styled.label`
   font-weight: 500;
 `;
 
-const StyledToggle = styled.input`
-  width: 50px;
-  height: 28px;
-`;
-
 const StyledInput = styled.input`
   padding: ${spacing.sm} ${spacing.md};
   border: 1px solid ${colorTokens.border.primary};

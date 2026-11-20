@@ -44,8 +44,9 @@ const TrackName = styled.div`
 const Fader = styled.input`
   width: 60px;
   height: 120px;
-  -webkit-appearance: slider-vertical;
-  writing-mode: bt-lr;
+  /* Standard vertical range input: bottom = min, top = max */
+  writing-mode: vertical-lr;
+  direction: rtl;
   cursor: pointer;
   accent-color: ${colorTokens.primary.main};
 `;

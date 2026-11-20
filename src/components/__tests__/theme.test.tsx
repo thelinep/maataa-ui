@@ -3,7 +3,6 @@
  * Phase I: Theme Customization
  */
 
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, useTheme } from '../../providers/ThemeProvider';
 import { themes, createTheme } from '../../design-system/themes';

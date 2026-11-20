@@ -109,7 +109,7 @@ export class KnowledgeBase {
 
   search(text: string): Fact[] {
     const terms = text.toLowerCase().split(/\s+/);
-    const resultSets = terms.map(term => this.fullTextIndex.get(term) || new Set());
+    const resultSets = terms.map(term => this.fullTextIndex.get(term) || new Set<string>());
 
     if (resultSets.length === 0) return [];
     if (resultSets.length === 1) {

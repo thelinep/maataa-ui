@@ -6,6 +6,7 @@
  */
 
 import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 export type SupportedLanguage = 'en' | 'hi' | 'es';
 
@@ -94,7 +95,7 @@ export async function initializeI18n(): Promise<void> {
   const esTranslations = await import('./locales/es.json');
 
   if (!i18n.isInitialized) {
-    i18n.init({
+    await i18n.use(initReactI18next).init({
       fallbackLng: FALLBACK_LANGUAGE,
       lng: getStoredLanguage() || getSystemLanguage(),
       ns: Object.values(NAMESPACES),

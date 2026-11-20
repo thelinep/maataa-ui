@@ -9,7 +9,7 @@ export interface GestureHandlers {
 
 export function useTouchGestures(handlers: GestureHandlers) {
   const lastTapRef = useRef<{ x: number; y: number; timestamp: number } | null>(null);
-  const longPressTimeoutRef = useRef<NodeJS.Timeout>();
+  const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchDetector.recordTouchStart(e as any);

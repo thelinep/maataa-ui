@@ -9,4 +9,4 @@ export type { Theme, ThemeName } from './themes';
 
 // Colors
 export { lightTheme, darkTheme, createCustomPalette, semanticColorMap } from './theme-colors';
-export type { ColorPalette, SemanticColor } from './theme-colors';
+export type { ColorPalette, SemanticColor, PaletteOverrides } from './theme-colors';

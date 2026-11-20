@@ -4,10 +4,10 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import EntityManager, { Entity, Person, Organization } from '../../src/core/phase2-entity-manager';
+import EntityManager, { Person, Organization } from '../../src/core/phase2-entity-manager';
 import RelationshipManager from '../../src/core/phase2-relationship-manager';
 import KnowledgeBase from '../../src/core/phase2-knowledge-base';
-import { DataPersistence, MemoryStorage, LocalStorageBackend } from '../../src/core/phase2-storage';
+import { DataPersistence, MemoryStorage } from '../../src/core/phase2-storage';
 
 describe('Phase 2: Core Implementation', () => {
   describe('EntityManager', () => {

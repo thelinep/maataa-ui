@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colorTokens, spacing, borderRadius, typography } from '@/utils/tokens';
+import { colorTokens, spacing, borderRadius } from '@/utils/tokens';
 
 export interface Metric {
   id: string;

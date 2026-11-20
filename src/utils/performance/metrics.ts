@@ -68,13 +68,25 @@ class PerformanceMonitor {
 
 export const performanceMonitor = new PerformanceMonitor();
 
+/** LargestContentfulPaint entry fields (not yet in TS's DOM lib) */
+interface LCPEntry extends PerformanceEntry {
+  renderTime?: number;
+  loadTime?: number;
+}
+
+declare global {
+  interface Window {
+    __analyticsQueue?: Array<Record<string, unknown>>;
+  }
+}
+
 // Web Vitals tracking
 export function trackWebVitals(): void {
   if ('PerformanceObserver' in window) {
     // Track Largest Contentful Paint
     const lcpObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      const lastEntry = entries[entries.length - 1];
+      const lastEntry = entries[entries.length - 1] as LCPEntry;
       console.log('LCP:', lastEntry.renderTime || lastEntry.loadTime);
     });
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });

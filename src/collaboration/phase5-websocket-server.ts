@@ -27,6 +27,8 @@ export interface ClientSession {
   orgId: string;
   connected: boolean;
   lastHeartbeat: number;
+  /** Epoch ms when the client registered */
+  joinedAt: number;
   messageQueue: WebSocketMessage[];
   subscriptions: Set<string>;
   metadata: Record<string, any>;
@@ -68,7 +70,7 @@ export class WebSocketServer extends EventEmitter {
   private sessions: Map<string, ClientSession> = new Map();
   private subscriptions: Map<string, SubscriptionChannel> = new Map();
   private messageQueue: Map<string, MessageQueueEntry[]> = new Map();
-  private heartbeatIntervals: Map<string, NodeJS.Timer> = new Map();
+  private heartbeatIntervals: Map<string, ReturnType<typeof setInterval>> = new Map();
 
   constructor(config: WebSocketConfig) {
     super();
@@ -87,6 +89,7 @@ export class WebSocketServer extends EventEmitter {
       orgId,
       connected: true,
       lastHeartbeat: Date.now(),
+      joinedAt: Date.now(),
       messageQueue: [],
       subscriptions: new Set(),
       metadata: {},

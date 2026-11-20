@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
 /**
  * Custom Hooks Tests
  * Phase I Day 4: Custom Hooks Library
  */
 
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useFetch } from '../data/useFetch';
 import { useAsync } from '../data/useAsync';
 import { usePagination } from '../data/usePagination';
@@ -11,9 +12,6 @@ import { useLocalStorage } from '../data/useLocalStorage';
 import { useForm } from '../forms/useForm';
 import { useModal } from '../ui/useModal';
 import { useToast } from '../ui/useToast';
-import { useDebounce } from '../utils/useDebounce';
-import { useThrottle } from '../utils/useThrottle';
-import { useWindowResize } from '../utils/useWindowResize';
 import { usePrevious } from '../utils/usePrevious';
 
 describe('Custom Hooks Library', () => {
@@ -25,7 +23,7 @@ describe('Custom Hooks Library', () => {
     });
 
     test('useAsync manages async operations', async () => {
-      const asyncFn = jest.fn().mockResolvedValue({ data: 'test' });
+      const asyncFn = vi.fn().mockResolvedValue({ data: 'test' });
       const { result } = renderHook(() => useAsync(asyncFn, false));
 
       expect(result.current.status).toBe('idle');
@@ -52,7 +50,7 @@ describe('Custom Hooks Library', () => {
       const { result } = renderHook(() =>
         useForm({
           initialValues: { email: '' },
-          onSubmit: jest.fn(),
+          onSubmit: vi.fn(),
         })
       );
 
@@ -64,7 +62,7 @@ describe('Custom Hooks Library', () => {
       const { result } = renderHook(() =>
         useForm({
           initialValues: { name: '' },
-          onSubmit: jest.fn(),
+          onSubmit: vi.fn(),
         })
       );
 

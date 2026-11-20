@@ -5,7 +5,7 @@
  * Persist state to localStorage
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 export interface UseLocalStorageOptions {
   serialize?: (value: any) => string;

@@ -64,9 +64,9 @@ export interface PermissionCheck {
   role?: Role;
 }
 
-export interface PermissionMatrix {
+export type PermissionMatrix = {
   [role in Role]: Set<Permission>;
-}
+};
 
 // ============================================================================
 // RBAC Engine
@@ -454,7 +454,7 @@ export class RBACEngine {
       deniedPermissions: this.permissionAudit.filter((c) => !c.allowed).length,
     };
 
-    for (const [userId, roles] of this.userRoles.entries()) {
+    for (const roles of this.userRoles.values()) {
       for (const role of roles) {
         stats.roleDistribution[role.role] = (stats.roleDistribution[role.role] || 0) + 1;
       }
