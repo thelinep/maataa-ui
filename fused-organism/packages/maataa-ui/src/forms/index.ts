@@ -5,7 +5,13 @@
  */
 
 // Select
-export { Select, type SelectProps, type SelectOption } from "./Select";
+export {
+  Select,
+  type SelectProps,
+  type SelectOption,
+  type SelectOptionState,
+  type SelectView,
+} from "./Select";
 
 // Checkbox
 export { Checkbox, type CheckboxProps } from "./Checkbox";

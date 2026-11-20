@@ -10,9 +10,10 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Select, MultiSelect, Button, TypingIndicator } from '@/components';
+import { Button, TypingIndicator } from '@/components';
 import { Input } from '@maataa/primitives';
-import { FieldShell } from '@maataa/ui/forms';
+import { FieldShell, Select } from '@maataa/ui/forms';
+import { withAvatars } from '@/components/people/InitialsAvatar';
 import { usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -160,6 +161,10 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
   onCancel,
   availableAttendees = ATTENDEES,
 }) => {
+  const attendeeOptions = React.useMemo(
+    () => withAvatars(availableAttendees),
+    [availableAttendees]
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -250,9 +255,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                     placeholder="Enter event title"
                     {...field}
                     onFocus={() => setCurrentField('title')}
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                     aria-invalid={!!errors.title}
                   />
@@ -271,9 +276,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   {...field}
                   options={EVENT_TYPES}
                   placeholder="Select type"
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                 />
               )}
@@ -291,9 +296,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   placeholder="Enter location"
                   {...field}
                   onFocus={() => setCurrentField('location')}
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                 />
               )}
@@ -314,9 +319,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   <Input
                     type="datetime-local"
                     {...field}
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                     aria-invalid={!!errors.startTime}
                   />
@@ -336,9 +341,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   <Input
                     type="datetime-local"
                     {...field}
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                     aria-invalid={!!errors.endTime}
                   />
@@ -365,9 +370,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                     type="text"
                     placeholder="Event description (optional)"
                     {...field}
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                   />
                 )}
@@ -386,13 +391,15 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 name="attendees"
                 control={control}
                 render={({ field }) => (
-                  <MultiSelect
+                  <Select
+                    multiSelect
+                    selectedDisplay="chips"
                     {...field}
-                    options={availableAttendees}
+                    options={attendeeOptions}
                     placeholder="Select attendees"
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                   />
                 )}
@@ -407,7 +414,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 name="resourcesRequired"
                 control={control}
                 render={({ field }) => (
-                  <MultiSelect
+                  <Select
+                    multiSelect
+                    selectedDisplay="chips"
                     {...field}
                     options={[
                       { label: 'Conference Room', value: 'room-1' },
@@ -416,9 +425,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                       { label: 'Video Equipment', value: 'video' },
                     ]}
                     placeholder="Select resources"
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                   />
                 )}

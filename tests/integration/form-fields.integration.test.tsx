@@ -4,7 +4,7 @@
  * from react-hook-form + zod are linked to the field they belong to.
  */
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BudgetForm } from '@/pages/Budgets/BudgetForm';
 import { ProjectForm } from '@/pages/Projects/ProjectForm';
@@ -39,8 +39,26 @@ describe('Form fields', () => {
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
-  it('names the custom multi-select trigger from the field label', async () => {
+  it('picks team members and a status with the keyboard', async () => {
     render(<ProjectForm onSubmit={vi.fn()} onCancel={vi.fn()} />);
-    expect(await screen.findByRole('button', { name: /Team Members/ })).toHaveAttribute('aria-haspopup', 'listbox');
+    const members = await screen.findByRole('combobox', { name: /Team Members/ });
+    members.focus();
+    await userEvent.keyboard('{ArrowDown}{Enter}{ArrowDown}{Enter}{Escape}');
+    expect(members).toHaveTextContent('2 selected');
+    const chips = screen.getByRole('list', { name: /Selected Team Members/ });
+    expect(within(chips).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
+      'AJAlice Johnson×',
+      'BSBob Smith×',
+    ]);
+    await userEvent.click(screen.getByRole('button', { name: 'Remove Alice Johnson' }));
+    expect(within(chips).getAllByRole('listitem')).toHaveLength(1);
+
+    const status = screen.getByRole('combobox', { name: /Status/ });
+    status.focus();
+    expect(status).toHaveTextContent('Planning'); // form default
+    // Type-ahead from the current option moves to the next "P…" option.
+    await userEvent.keyboard('p{Enter}');
+    expect(status).toHaveTextContent('Paused');
+    expect(status).toHaveAttribute('aria-required', 'true');
   });
 });
