@@ -13,6 +13,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
+  /**
+   * Content shown while `isLoading` is true. Pass a translated string in
+   * localised apps.
+   * @default "Loading..."
+   */
+  loadingText?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -70,12 +76,27 @@ const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant = "primary", size = "md", isLoading = false, children, className, style, disabled, ...props },
+    {
+      variant = "primary",
+      size = "md",
+      isLoading = false,
+      loadingText = "Loading...",
+      type = "button",
+      children,
+      className,
+      style,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     return (
       <button
         ref={ref}
+        // Default to "button" so a button inside a <form> only submits when
+        // it explicitly asks to (type="submit").
+        type={type}
+        aria-busy={isLoading || undefined}
         className={className}
         style={{
           ...variantStyles[variant],
@@ -100,7 +121,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         {...props}
       >
-        {isLoading ? "Loading..." : children}
+        {isLoading ? loadingText : children}
       </button>
     );
   },

@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Button } from "./Button";
 
 describe("Button", () => {
@@ -70,3 +71,37 @@ describe("Button", () => {
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
 });
+
+describe("Button form and loading behaviour", () => {
+  it("defaults to type=button so it does not submit an enclosing form", async () => {
+    const onSubmit = vi.fn((e: React.FormEvent) => e.preventDefault());
+    render(
+      <form onSubmit={onSubmit}>
+        <Button>Cancel</Button>
+        <Button type="submit">Save</Button>
+      </form>
+    );
+    expect(screen.getByRole("button", { name: "Cancel" })).toHaveAttribute("type", "button");
+    await userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(onSubmit).not.toHaveBeenCalled();
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows custom loading text and marks itself busy", () => {
+    render(
+      <Button isLoading loadingText="Enregistrement…">
+        Save
+      </Button>
+    );
+    const button = screen.getByRole("button", { name: "Enregistrement…" });
+    expect(button).toHaveAttribute("aria-busy", "true");
+    expect(button).toBeDisabled();
+  });
+
+  it("is not marked busy when idle", () => {
+    render(<Button>Save</Button>);
+    expect(screen.getByRole("button", { name: "Save" })).not.toHaveAttribute("aria-busy");
+  });
+});
+
