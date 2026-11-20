@@ -251,6 +251,40 @@ export interface SoundData {
 // Registry
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Management (Projects / Teams / Budgets)
+// ---------------------------------------------------------------------------
+
+export type ProjectStatus = 'planning' | 'active' | 'paused' | 'completed';
+
+export interface ProjectData {
+  name: string;
+  description?: string;
+  status: ProjectStatus;
+  /** Person ids */
+  teamMembers: string[];
+}
+
+export interface TeamData {
+  name: string;
+  description?: string;
+  /** Person id */
+  lead?: string;
+  /** Person ids */
+  members: string[];
+}
+
+export interface BudgetData {
+  name: string;
+  description?: string;
+  allocated: number;
+  spent: number;
+  /** ISO 4217 code, e.g. INR */
+  currency: string;
+  /** Person id */
+  owner?: string;
+}
+
 export interface FilmDataMap {
   concept: ConceptData;
   script: ScriptData;
@@ -260,6 +294,9 @@ export interface FilmDataMap {
   editing: EditingData;
   color: ColorData;
   sound: SoundData;
+  project: ProjectData;
+  team: TeamData;
+  budget: BudgetData;
 }
 
 export type FilmKind = keyof FilmDataMap;
@@ -273,6 +310,9 @@ export const FILM_KINDS: readonly FilmKind[] = [
   'editing',
   'color',
   'sound',
+  'project',
+  'team',
+  'budget',
 ];
 
 export interface FilmRecordMeta {
@@ -292,6 +332,9 @@ export type ScreeningRecord = FilmRecord<'screening'>;
 export type EditingRecord = FilmRecord<'editing'>;
 export type ColorRecord = FilmRecord<'color'>;
 export type SoundRecord = FilmRecord<'sound'>;
+export type ProjectRecord = FilmRecord<'project'>;
+export type TeamRecord = FilmRecord<'team'>;
+export type BudgetRecord = FilmRecord<'budget'>;
 
 export function toEntityType(kind: FilmKind): FilmEntityType {
   return `film.${kind}` as FilmEntityType;

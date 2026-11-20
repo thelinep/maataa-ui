@@ -8,7 +8,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Card } from '@/components';
-import { useEntity } from '@/hooks';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import { spacing, typography, colorTokens } from '@/utils/tokens';
 import ProjectForm, { ProjectFormData } from './ProjectForm';
 
@@ -48,28 +48,22 @@ const Subtitle = styled.p`
  */
 export const CreateProject: React.FC = () => {
   const navigate = useNavigate();
-  const { createEntity } = useEntity({ type: 'project' });
+  const { create } = useFilmEntities('project');
 
+  // Errors propagate to the form, which shows them in its alert region.
   const handleSubmit = async (data: ProjectFormData) => {
-    void data; // TODO: Use this data to create entity via useEntity
-    try {
-      // TODO: Call useEntity.createEntity with form data
-      // const newProject = await createEntity(data);
-      // navigate(`/projects/${newProject.id}`);
-
-      // For now, just navigate back to list
-      navigate('/projects');
-    } catch (error) {
-      console.error('Failed to create project:', error);
-      throw error;
-    }
+    const created = await create({
+      name: data.name,
+      description: data.description || undefined,
+      status: data.status,
+      teamMembers: data.teamMembers ?? [],
+    });
+    navigate(`/projects/${created.id}`);
   };
 
   const handleCancel = () => {
     navigate('/projects');
   };
-
-  void createEntity; // Placeholder for future use
 
   return (
     <Container>

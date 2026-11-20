@@ -17,7 +17,9 @@ import {
 } from '@/components';
 import { Modal } from '@maataa/ui/surfaces';
 import { Tabs } from '@maataa/ui/navigation';
-import { useEntity, useActivityStream, usePresence } from '@/hooks';
+import { useActivityStream, usePresence } from '@/hooks';
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { personName } from '../shared/people';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import TeamForm, { TeamFormData } from './TeamForm';
 import type { Activity } from '@/hooks/useActivityStream';
@@ -169,11 +171,8 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-  const { entity: team, loading: entityLoading, error: entityError } = useEntity({
-    entityId: teamId,
-    type: 'team',
-    autoFetch: true,
-  });
+  const { item: team, loading: entityLoading, error: entityError, update } = useFilmEntity('team', teamId);
+  const [savedMessage, setSavedMessage] = useState('');
 
   const { activities, loading: activitiesLoading } = useActivityStream({
     entityId: teamId,
@@ -212,23 +211,21 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
     };
   }, [teamId, subscribeActivity, unsubscribeActivity, setStatus]);
 
+  // Errors propagate to the form, which shows them in its alert region.
   const handleEditSubmit = async (data: TeamFormData) => {
-    void data; // TODO: Use this data to update entity via useEntity
+    setTyping(true);
     try {
-      // Track typing status during edit
-      setTyping(true);
-
-      // TODO: Call useEntity.updateEntity with the form data
-      // const updated = await updateEntity(teamId, data);
-      // Phase 5 will broadcast the change automatically
-
+      await update({
+        name: data.name,
+        description: data.description || undefined,
+        lead: data.lead || undefined,
+        members: data.members ?? [],
+      });
+    } finally {
       setTyping(false);
-      setIsEditModalOpen(false);
-    } catch (error) {
-      console.error('Failed to update team:', error);
-      setTyping(false);
-      throw error;
     }
+    setSavedMessage('Team saved.');
+    setIsEditModalOpen(false);
   };
 
   if (entityLoading) {
@@ -256,7 +253,7 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
     );
   }
 
-  const teamData = team.data || {};
+  const teamData = team;
   const memberCount = teamData.members?.length || 0;
 
   return (
@@ -286,6 +283,11 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
         </Actions>
       </Header>
 
+      {/* Announced after saving an edit; visible so sighted users see it too */}
+      <div role="status" style={{ minHeight: '1.2em', color: colorTokens.text.primary }}>
+        {savedMessage}
+      </div>
+
       {/* Metadata */}
       <Card>
         <MetadataGrid>
@@ -295,21 +297,21 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
           </MetadataItem>
           <MetadataItem>
             <MetadataLabel>Team Lead</MetadataLabel>
-            <MetadataValue>{teamData.lead || 'Unassigned'}</MetadataValue>
+            <MetadataValue>{personName(teamData.lead) || 'Unassigned'}</MetadataValue>
           </MetadataItem>
           <MetadataItem>
             <MetadataLabel>Created</MetadataLabel>
             <MetadataValue>
-              {teamData.created_at
-                ? new Date(teamData.created_at).toLocaleDateString()
+              {teamData.createdAt
+                ? new Date(teamData.createdAt).toLocaleDateString()
                 : 'N/A'}
             </MetadataValue>
           </MetadataItem>
           <MetadataItem>
             <MetadataLabel>Last Updated</MetadataLabel>
             <MetadataValue>
-              {teamData.updated_at
-                ? new Date(teamData.updated_at).toLocaleDateString()
+              {teamData.updatedAt
+                ? new Date(teamData.updatedAt).toLocaleDateString()
                 : 'N/A'}
             </MetadataValue>
           </MetadataItem>
@@ -347,7 +349,7 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
                       {teamData.members.map((member: string, idx: number) => (
                         <MemberItem key={idx}>
                           <div>
-                            <MemberName>{member}</MemberName>
+                            <MemberName>{personName(member)}</MemberName>
                             {teamData.lead === member && (
                               <MemberRole>Team Lead</MemberRole>
                             )}
@@ -403,6 +405,12 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
           )}
           <TeamForm
             teamId={teamId}
+            initialValues={{
+              name: team.name,
+              description: team.description ?? '',
+              lead: team.lead ?? '',
+              members: team.members,
+            }}
             onSubmit={handleEditSubmit}
             onCancel={() => setIsEditModalOpen(false)}
           />

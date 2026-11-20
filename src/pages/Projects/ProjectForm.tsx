@@ -5,7 +5,7 @@
  * Integrates with Phase 5 real-time sync.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
@@ -13,8 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
 import { FieldShell, Select } from '@maataa/ui/forms';
-import { withAvatars } from '@/components/people/InitialsAvatar';
-import { useEntity, usePresence } from '@/hooks';
+import { usePresence } from '@/hooks';
+import { PEOPLE_OPTIONS } from '../shared/people';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
 // Zod schema for validation
@@ -29,6 +29,8 @@ export type ProjectFormData = z.infer<typeof ProjectSchema>;
 
 export interface ProjectFormProps {
   projectId?: string;
+  /** Values to edit; omit when creating */
+  initialValues?: Partial<ProjectFormData>;
   onSubmit: (data: ProjectFormData) => Promise<void>;
   onCancel?: () => void;
 }
@@ -83,20 +85,7 @@ const SuccessMessage = styled.div`
   font-size: ${typography.bodySmall.fontSize};
 `;
 
-const LoadingText = styled.span`
-  opacity: 0.6;
-  font-size: ${typography.bodySmall.fontSize};
-`;
 
-// Mock team members - TODO: Replace with Phase 2 EntityManager.getEntitiesByType('person')
-const TEAM_MEMBERS = [
-  { label: 'Alice Johnson', value: 'user-001' },
-  { label: 'Bob Smith', value: 'user-002' },
-  { label: 'Carol Williams', value: 'user-003' },
-  { label: 'David Brown', value: 'user-004' },
-  { label: 'Eve Davis', value: 'user-005' },
-];
-const MEMBER_OPTIONS = withAvatars(TEAM_MEMBERS);
 
 const STATUS_OPTIONS = [
   { label: 'Planning', value: 'planning' },
@@ -117,6 +106,7 @@ const STATUS_OPTIONS = [
  */
 export const ProjectForm: React.FC<ProjectFormProps> = ({
   projectId,
+  initialValues,
   onSubmit,
   onCancel,
 }) => {
@@ -124,11 +114,6 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const { entity: project, loading: entityLoading } = useEntity({
-    entityId: projectId,
-    type: 'project',
-    autoFetch: !!projectId,
-  });
 
   const { setTyping } = usePresence({ entityId: projectId });
 
@@ -145,20 +130,10 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
       description: '',
       status: 'planning',
       teamMembers: [],
+      ...initialValues,
     },
   });
 
-  // Load existing project data
-  useEffect(() => {
-    if (project?.data) {
-      reset({
-        name: project.data.name || '',
-        description: project.data.description || '',
-        status: project.data.status || 'planning',
-        teamMembers: project.data.teamMembers || [],
-      });
-    }
-  }, [project, reset]);
 
   const handleFormSubmit = async (data: ProjectFormData) => {
     setIsSubmitting(true);
@@ -169,7 +144,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
     try {
       await onSubmit(data);
       setSubmitSuccess(true);
-      reset();
+      reset(data);
 
       // Clear success message after 3 seconds
       setTimeout(() => setSubmitSuccess(false), 3000);
@@ -183,19 +158,12 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
     }
   };
 
-  if (entityLoading) {
-    return (
-      <Container>
-        <LoadingText>Loading project...</LoadingText>
-      </Container>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Container>
-        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
-        {submitSuccess && <SuccessMessage>Project saved successfully!</SuccessMessage>}
+        <div role="alert">{submitError && <ErrorMessage>{submitError}</ErrorMessage>}</div>
+        <div role="status">{submitSuccess && <SuccessMessage>Project saved.</SuccessMessage>}</div>
 
         <FormGrid>
           {/* Project Name */}
@@ -259,7 +227,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
                     multiSelect
                     selectedDisplay="chips"
                     {...field}
-                    options={MEMBER_OPTIONS}
+                    options={PEOPLE_OPTIONS}
                     placeholder="Select team members"
                   />
                 )}

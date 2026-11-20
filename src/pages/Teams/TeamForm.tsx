@@ -13,8 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
 import { FieldShell, Select } from '@maataa/ui/forms';
-import { withAvatars } from '@/components/people/InitialsAvatar';
-import { useEntity, usePresence } from '@/hooks';
+import { usePresence } from '@/hooks';
+import { PEOPLE_OPTIONS } from '../shared/people';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
 // Zod schema for validation
@@ -29,6 +29,8 @@ export type TeamFormData = z.infer<typeof TeamSchema>;
 
 export interface TeamFormProps {
   teamId?: string;
+  /** Values to edit; omit when creating */
+  initialValues?: Partial<TeamFormData>;
   onSubmit: (data: TeamFormData) => Promise<void>;
   onCancel?: () => void;
 }
@@ -83,20 +85,7 @@ const SuccessMessage = styled.div`
   font-size: ${typography.bodySmall.fontSize};
 `;
 
-const LoadingText = styled.span`
-  opacity: 0.6;
-  font-size: ${typography.bodySmall.fontSize};
-`;
 
-// Mock team members - TODO: Replace with Phase 2 EntityManager.getEntitiesByType('person')
-const TEAM_MEMBERS = [
-  { label: 'Alice Johnson', value: 'user-001' },
-  { label: 'Bob Smith', value: 'user-002' },
-  { label: 'Carol Williams', value: 'user-003' },
-  { label: 'David Brown', value: 'user-004' },
-  { label: 'Eve Davis', value: 'user-005' },
-];
-const MEMBER_OPTIONS = withAvatars(TEAM_MEMBERS);
 
 /**
  * TeamForm Component
@@ -110,6 +99,7 @@ const MEMBER_OPTIONS = withAvatars(TEAM_MEMBERS);
  */
 export const TeamForm: React.FC<TeamFormProps> = ({
   teamId,
+  initialValues,
   onSubmit,
   onCancel,
 }) => {
@@ -118,11 +108,6 @@ export const TeamForm: React.FC<TeamFormProps> = ({
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { entity: team, loading: entityLoading } = useEntity({
-    entityId: teamId,
-    type: 'team',
-    autoFetch: !!teamId,
-  });
 
   const { setTyping } = usePresence({ entityId: teamId });
 
@@ -138,20 +123,10 @@ export const TeamForm: React.FC<TeamFormProps> = ({
       description: '',
       lead: '',
       members: [],
+      ...initialValues,
     },
   });
 
-  // Load existing team data
-  useEffect(() => {
-    if (team?.data) {
-      reset({
-        name: team.data.name || '',
-        description: team.data.description || '',
-        lead: team.data.lead || '',
-        members: team.data.members || [],
-      });
-    }
-  }, [team, reset]);
 
   // Handle field changes with debounced typing indicator
   const handleFieldChange = () => {
@@ -186,7 +161,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
       await onSubmit(data);
       setSubmitSuccess(true);
       setTyping(false);
-      reset();
+      reset(data);
 
       // Clear success message after 3 seconds
       setTimeout(() => setSubmitSuccess(false), 3000);
@@ -199,19 +174,12 @@ export const TeamForm: React.FC<TeamFormProps> = ({
     }
   };
 
-  if (entityLoading) {
-    return (
-      <Container>
-        <LoadingText>Loading team...</LoadingText>
-      </Container>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Container>
-        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
-        {submitSuccess && <SuccessMessage>Team saved successfully!</SuccessMessage>}
+        <div role="alert">{submitError && <ErrorMessage>{submitError}</ErrorMessage>}</div>
+        <div role="status">{submitSuccess && <SuccessMessage>Team saved.</SuccessMessage>}</div>
 
         <FormGrid>
           {/* Team Name */}
@@ -249,7 +217,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
               render={({ field }) => (
                 <Select
                   {...field}
-                  options={MEMBER_OPTIONS}
+                  options={PEOPLE_OPTIONS}
                   placeholder="Select team lead"
                   onChange={(value) => {
                     handleFieldChange();
@@ -298,7 +266,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                     multiSelect
                     selectedDisplay="chips"
                     {...field}
-                    options={MEMBER_OPTIONS}
+                    options={PEOPLE_OPTIONS}
                     placeholder="Select team members"
                     onChange={(value) => {
                       handleFieldChange();

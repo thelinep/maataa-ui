@@ -8,7 +8,8 @@
 import type { StorageBackend } from '../phase2-storage';
 import { decodeFilmData, encodeFilmData } from './codec';
 import type { FilmEntityService } from './FilmEntityService';
-import type { FilmSeed } from './seed';
+import { createFilmSeed, type FilmSeed } from './seed';
+import { FILM_KINDS } from './types';
 
 export const FILM_STORAGE_KEY = 'film-production';
 const FORMAT_VERSION = 1;
@@ -59,10 +60,21 @@ export async function attachFilmPersistence(
   };
 
   let source: FilmPersistenceHandle['source'] = 'empty';
+  let backfilled = false;
   try {
     const stored = await storage.load(key);
     if (isStoredSnapshot(stored)) {
-      service.seed(decodeFilmData<FilmSeed>(stored.data));
+      const restored = decodeFilmData<Partial<FilmSeed>>(stored.data);
+      // Snapshots saved before a workflow existed have no key for it (an
+      // emptied workflow is saved as []); give those workflows sample data.
+      const samples = createFilmSeed();
+      for (const kind of FILM_KINDS) {
+        if (!(kind in restored)) {
+          (restored as Record<string, unknown>)[kind] = samples[kind];
+          backfilled = true;
+        }
+      }
+      service.seed(restored);
       source = 'storage';
     } else if (stored !== undefined && stored !== null) {
       reportError(new Error(`Unrecognised film snapshot under "${key}"; starting fresh`));
@@ -76,7 +88,7 @@ export async function attachFilmPersistence(
   }
 
   let timer: ReturnType<typeof setTimeout> | null = null;
-  let pending = source === 'seed'; // persist the initial seed too
+  let pending = source === 'seed' || backfilled; // persist the initial seed / backfill too
 
   const write = async () => {
     if (timer) {

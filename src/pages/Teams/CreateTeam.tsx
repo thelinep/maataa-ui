@@ -8,7 +8,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Card } from '@/components';
-import { useEntity } from '@/hooks';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import { spacing, typography, colorTokens } from '@/utils/tokens';
 import TeamForm, { TeamFormData } from './TeamForm';
 
@@ -48,28 +48,22 @@ const Subtitle = styled.p`
  */
 export const CreateTeam: React.FC = () => {
   const navigate = useNavigate();
-  const { createEntity } = useEntity({ type: 'team' });
+  const { create } = useFilmEntities('team');
 
+  // Errors propagate to the form, which shows them in its alert region.
   const handleSubmit = async (data: TeamFormData) => {
-    void data; // TODO: Use this data to create entity via useEntity
-    try {
-      // TODO: Call useEntity.createEntity with form data
-      // const newTeam = await createEntity(data);
-      // navigate(`/teams/${newTeam.id}`);
-
-      // For now, just navigate back to list
-      navigate('/teams');
-    } catch (error) {
-      console.error('Failed to create team:', error);
-      throw error;
-    }
+    const created = await create({
+      name: data.name,
+      description: data.description || undefined,
+      lead: data.lead || undefined,
+      members: data.members ?? [],
+    });
+    navigate(`/teams/${created.id}`);
   };
 
   const handleCancel = () => {
     navigate('/teams');
   };
-
-  void createEntity; // Placeholder for future use
 
   return (
     <Container>
