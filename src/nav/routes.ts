@@ -87,18 +87,31 @@ export const ROUTES: Record<string, RouteConfig> = {
     parent: 'teams',
   },
 
-  // Budget
-  BUDGET: {
-    id: 'budget',
-    path: '/budget',
-    label: 'Budget',
+  // Budgets
+  BUDGETS: {
+    id: 'budgets',
+    path: '/budgets',
+    label: 'Budgets',
     section: 'main',
+    entity_type: 'budget',
   },
-  BUDGET_OVERVIEW: {
-    id: 'budget-overview',
-    path: '/budget',
-    label: 'Budget Overview',
-    parent: 'budget',
+  BUDGET_LIST: {
+    id: 'budgets-list',
+    path: '/budgets',
+    label: 'All Budgets',
+    parent: 'budgets',
+  },
+  BUDGET_CREATE: {
+    id: 'budgets-create',
+    path: '/budgets/new',
+    label: 'New Budget',
+    parent: 'budgets',
+  },
+  BUDGET_DETAIL: {
+    id: 'budget-detail',
+    path: '/budgets/:budgetId',
+    label: 'Budget Details',
+    parent: 'budgets',
   },
 
   // Schedule

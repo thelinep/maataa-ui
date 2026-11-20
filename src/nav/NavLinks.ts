@@ -15,7 +15,7 @@ const NAV_ICONS: Record<string, string> = {
   workspace: '🏢',
   projects: '📋',
   teams: '👥',
-  budget: '💰',
+  budgets: '💰',
   schedule: '📅',
   settings: '⚙️',
 };

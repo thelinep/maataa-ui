@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'rea
 import { AppShell } from '@/layout/AppShell';
 import { ProjectList, ProjectDetail, CreateProject } from '@/pages/Projects';
 import { TeamList, TeamDetail, CreateTeam } from '@/pages/Teams';
+import { BudgetList, BudgetDetail, CreateBudget } from '@/pages/Budgets';
 import { getRoute } from '@/nav/routes';
 
 /**
@@ -52,6 +53,20 @@ export const App: React.FC = () => {
             element={<TeamDetailWrapper />}
           />
 
+          {/* Budgets Workflow */}
+          <Route
+            path={getRoute('BUDGET_LIST').path}
+            element={<BudgetList />}
+          />
+          <Route
+            path={getRoute('BUDGET_CREATE').path}
+            element={<CreateBudget />}
+          />
+          <Route
+            path={getRoute('BUDGET_DETAIL').path}
+            element={<BudgetDetailWrapper />}
+          />
+
           {/* Redirect home to projects */}
           <Route path="/" element={<Navigate to="/projects" replace />} />
 
@@ -91,6 +106,19 @@ const TeamDetailWrapper: React.FC = () => {
   }
 
   return <TeamDetail teamId={teamId} />;
+};
+
+/**
+ * BudgetDetailWrapper - Extract budgetId from URL params
+ */
+const BudgetDetailWrapper: React.FC = () => {
+  const { budgetId } = useParams<{ budgetId: string }>();
+
+  if (!budgetId) {
+    return <Navigate to="/budgets" replace />;
+  }
+
+  return <BudgetDetail budgetId={budgetId} />;
 };
 
 App.displayName = 'App';
