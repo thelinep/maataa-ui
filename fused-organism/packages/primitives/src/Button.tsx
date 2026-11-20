@@ -35,12 +35,15 @@ const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
   },
   tertiary: {
     backgroundColor: "transparent",
-    color: colorTokens.interactive.primary,
+    // Brand-coloured outline; the label uses text.primary because
+    // interactive.primary text is under 4.5:1 on background.secondary.
+    color: colorTokens.text.primary,
     border: `2px solid ${colorTokens.interactive.primary}`,
   },
   danger: {
-    backgroundColor: colorTokens.semantic.error.bg,
-    color: colorTokens.semantic.error.text,
+    // Solid fill: semantic.error.text on semantic.error.bg is only 4.40:1.
+    backgroundColor: colorTokens.interactive.error,
+    color: colorTokens.text.inverse,
     border: "none",
   },
 };

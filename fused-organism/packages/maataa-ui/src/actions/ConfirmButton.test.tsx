@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef } from "react";
 import { ConfirmButton } from "./ConfirmButton";
+import { colorTokens } from "../tokens";
 
 describe("ConfirmButton", () => {
   it("renders its label initially", () => {
@@ -68,7 +69,7 @@ describe("ConfirmButton", () => {
   it("defaults to the danger variant", () => {
     render(<ConfirmButton onConfirm={() => {}}>Delete</ConfirmButton>);
     expect(screen.getByRole("button", { name: "Delete" })).toHaveStyle({
-      backgroundColor: "#F5B5A6",
+      backgroundColor: colorTokens.interactive.error,
     });
   });
 
