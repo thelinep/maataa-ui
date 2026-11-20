@@ -51,3 +51,9 @@ export { MemberApproval, type MemberApprovalProps, type MemberRequest } from './
 export { ProjectDependencies, type ProjectDependenciesProps, type ProjectTask, type TaskDependency } from './project/ProjectDependencies';
 export { ProjectTimeline, type ProjectTimelineProps, type ProjectMilestone, type ProjectPhase } from './project/ProjectTimeline';
 export { GanttChart, type GanttChartProps, type GanttTask } from './project/GanttChart';
+
+// Schedule (Phase D Enhancements)
+export { ScheduleList, type ScheduleListProps, type ScheduledEvent } from './schedule/ScheduleList';
+export { ConflictDetection, type ConflictDetectionProps, type ResourceConflict } from './schedule/ConflictDetection';
+export { ScheduleForm, type ScheduleFormProps, type ScheduleFormData } from './schedule/ScheduleForm';
+export { ResourceAvailability, type ResourceAvailabilityProps, type TimeSlotAvailability } from './schedule/ResourceAvailability';
