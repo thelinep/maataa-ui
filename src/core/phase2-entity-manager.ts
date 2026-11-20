@@ -1,14 +1,46 @@
 /**
  * Phase 2: Entity Manager
  * Handles creation, retrieval, update, and deletion of entities
- * Supports entities like persons, organizations, events, and concepts
+ * Supports entities like persons, organizations, events, and concepts,
+ * plus namespaced film-production entities (`film.*`) used by Phase J.
  */
 
 import { v4 as uuidv4 } from 'uuid';
 
+export type CoreEntityType = 'person' | 'organization' | 'event' | 'concept' | 'location';
+
+/**
+ * Film production entity types (Phase J). Namespaced so they never collide
+ * with the knowledge-graph `concept` type above.
+ */
+export type FilmEntityType =
+  | 'film.concept'
+  | 'film.script'
+  | 'film.storyboard'
+  | 'film.filming'
+  | 'film.screening'
+  | 'film.editing'
+  | 'film.color'
+  | 'film.sound';
+
+export type EntityType = CoreEntityType | FilmEntityType;
+
+export const CORE_ENTITY_TYPES: readonly CoreEntityType[] = ['person', 'organization', 'event', 'concept', 'location'];
+
+export const FILM_ENTITY_TYPES: readonly FilmEntityType[] = [
+  'film.concept',
+  'film.script',
+  'film.storyboard',
+  'film.filming',
+  'film.screening',
+  'film.editing',
+  'film.color',
+  'film.sound',
+];
+
 export interface BaseEntity {
   id: string;
-  type: 'person' | 'organization' | 'event' | 'concept' | 'location';
+  type: EntityType;
   name: string;
   description?: string;
   metadata?: Record<string, any>;
@@ -61,7 +93,16 @@ export interface Location extends BaseEntity {
   city?: string;
 }
 
-export type Entity = Person | Organization | Event | Concept | Location;
+/**
+ * Generic film-production entity. The workflow-specific record lives in `data`;
+ * see src/core/film/types.ts for the typed payloads.
+ */
+export interface FilmEntity<TData = Record<string, unknown>> extends BaseEntity {
+  type: FilmEntityType;
+  data: TData;
+}
+
+export type Entity = Person | Organization | Event | Concept | Location | FilmEntity;
 
 export class EntityManager {
   private entities: Map<string, Entity> = new Map();
@@ -69,8 +110,7 @@ export class EntityManager {
   private tagIndices: Map<string, Set<string>> = new Map();
 
   constructor() {
-    const types: BaseEntity['type'][] = ['person', 'organization', 'event', 'concept', 'location'];
-    types.forEach(type => {
+    [...CORE_ENTITY_TYPES, ...FILM_ENTITY_TYPES].forEach(type => {
       this.typeIndices.set(type, new Set());
     });
   }
@@ -107,7 +147,7 @@ export class EntityManager {
     return this.entities.get(id) || null;
   }
 
-  getEntitiesByType(type: BaseEntity['type']): Entity[] {
+  getEntitiesByType(type: EntityType): Entity[] {
     const ids = this.typeIndices.get(type) || new Set();
     return Array.from(ids).map(id => this.entities.get(id)!).filter(Boolean);
   }
@@ -184,9 +224,15 @@ export class EntityManager {
       total: this.entities.size,
     };
 
-    const types: BaseEntity['type'][] = ['person', 'organization', 'event', 'concept', 'location'];
-    types.forEach(type => {
+    CORE_ENTITY_TYPES.forEach(type => {
       stats[type] = this.typeIndices.get(type)?.size || 0;
+    });
+
+    // Film types are only reported once they hold entities, so existing
+    // consumers of getStats() see the same keys as before.
+    FILM_ENTITY_TYPES.forEach(type => {
+      const size = this.typeIndices.get(type)?.size || 0;
+      if (size > 0) stats[type] = size;
     });
 
     return stats;
@@ -220,7 +266,7 @@ export class EntityManager {
     this.tagIndices.forEach(set => set.clear());
   }
 
-  getEntityReferences(entityId: string): { incoming: Set<string>; outgoing: Set<string> } {
+  getEntityReferences(_entityId: string): { incoming: Set<string>; outgoing: Set<string> } {
     return {
       incoming: new Set(),
       outgoing: new Set(),

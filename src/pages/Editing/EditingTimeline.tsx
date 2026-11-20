@@ -1,22 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface TimelineClip {
-  id: string;
-  startTime: number;
-  endTime: number;
-  shotNumber: number;
-  notes: string;
-  status: 'locked' | 'draft' | 'approved';
-}
-
-interface EditingTrack {
-  trackId: string;
-  trackName: string;
-  clips: TimelineClip[];
-  type: 'video' | 'audio';
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const TimelineContainer = styled.div`
   padding: ${spacing.lg};
@@ -184,29 +171,23 @@ const StatValue = styled.span`
   color: ${colorTokens.text.primary};
 `;
 
-const EditingTimeline: React.FC = () => {
-  const [tracks] = useState<EditingTrack[]>([
-    {
-      trackId: 'v1',
-      trackName: 'Video 1',
-      type: 'video',
-      clips: [
-        { id: 'c1', startTime: 0, endTime: 3.2, shotNumber: 1, notes: 'Wide shot', status: 'locked' },
-        { id: 'c2', startTime: 3.2, endTime: 5.8, shotNumber: 2, notes: 'Close-up', status: 'locked' },
-        { id: 'c3', startTime: 5.8, endTime: 9.0, shotNumber: 3, notes: 'POV', status: 'approved' },
-      ],
-    },
-    {
-      trackId: 'a1',
-      trackName: 'Audio 1',
-      type: 'audio',
-      clips: [
-        { id: 'a1', startTime: 0, endTime: 9.0, shotNumber: 0, notes: 'Dialogue', status: 'locked' },
-      ],
-    },
-  ]);
+export interface EditingTimelineProps {
+  editId?: string;
+}
 
-  const totalDuration = 120; // seconds
+const EditingTimeline: React.FC<EditingTimelineProps> = ({ editId }) => {
+  const { item: edit, loading, error } = useFilmEntity('editing', editId);
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading timeline…" />;
+  if (!edit) return <NotFoundState label="Edit not found." />;
+
+  const { tracks, totalDuration } = edit;
+  const latestVersion = edit.versions.reduce<(typeof edit.versions)[number] | null>(
+    (latest, v) => (!latest || v.version > latest.version ? v : latest),
+    null
+  );
+  const rulerMarks = Array.from({ length: Math.floor(totalDuration / 15) + 1 }, (_, i) => i * 15);
   const usedDuration = tracks.reduce((max, track) => {
     const trackMax = track.clips.reduce((m, clip) => Math.max(m, clip.endTime), 0);
     return Math.max(max, trackMax);
@@ -236,7 +217,7 @@ const EditingTimeline: React.FC = () => {
       <TimelineWrapper>
         <TimelineContent>
           <TimelineRuler>
-            {[0, 15, 30, 45, 60, 75, 90, 105, 120].map((time) => (
+            {rulerMarks.map((time) => (
               <TimelineMarker key={time}>{time}s</TimelineMarker>
             ))}
           </TimelineRuler>
@@ -279,7 +260,9 @@ const EditingTimeline: React.FC = () => {
         </StatItem>
         <StatItem>
           <StatLabel>Status</StatLabel>
-          <StatValue>Draft</StatValue>
+          <StatValue>
+            {latestVersion ? latestVersion.status.charAt(0).toUpperCase() + latestVersion.status.slice(1) : 'Draft'}
+          </StatValue>
         </StatItem>
       </StatsPanel>
     </TimelineContainer>

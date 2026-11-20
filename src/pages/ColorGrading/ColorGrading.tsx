@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface ColorCorrection {
-  sceneNumber: number;
-  status: 'pending' | 'in-progress' | 'approved';
-  colorist: string;
-  lut: string;
-}
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { ColorRecord } from '@/core/film/types';
+import { ErrorState, LoadingState } from '../shared/AsyncState';
 
 const Container = styled.div`
   padding: ${spacing.lg};
@@ -94,19 +91,20 @@ const Info = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
+const bySceneNumber = (a: ColorRecord, b: ColorRecord) => a.sceneNumber - b.sceneNumber;
+
 const ColorGrading: React.FC = () => {
-  const [scenes] = useState<ColorCorrection[]>([
-    { sceneNumber: 1, status: 'approved', colorist: 'Colorist A', lut: 'Cinematic Warm' },
-    { sceneNumber: 2, status: 'in-progress', colorist: 'Colorist B', lut: 'Cool Tone' },
-    { sceneNumber: 3, status: 'pending', colorist: '', lut: '' },
-  ]);
+  const { items: scenes, loading, error } = useFilmEntities('color', { sort: bySceneNumber });
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading color grades…" />;
 
   return (
     <Container>
       <Title>🎨 Color Grading</Title>
       <Grid>
         {scenes.map((scene) => (
-          <SceneCard key={scene.sceneNumber}>
+          <SceneCard key={scene.id}>
             <SceneLabel>Scene {scene.sceneNumber}</SceneLabel>
             <Preview>🎥</Preview>
             <StatusBadge status={scene.status}>

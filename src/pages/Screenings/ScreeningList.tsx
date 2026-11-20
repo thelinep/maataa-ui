@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Screening {
-  id: string;
-  title: string;
-  type: 'internal' | 'test' | 'premiere';
-  date: Date;
-  location: string;
-  audienceSize: number;
-  status: 'scheduled' | 'completed' | 'cancelled';
-  avgRating?: number;
-  feedbackCount?: number;
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { ScreeningFeedback, ScreeningRecord } from '@/core/film/types';
+import { ErrorState, LoadingState } from '../shared/AsyncState';
+
+/** Average rating rounded to 1 decimal, or null with no feedback */
+export function averageRating(feedback: ScreeningFeedback[]): number | null {
+  if (feedback.length === 0) return null;
+  const avg = feedback.reduce((sum, f) => sum + f.rating, 0) / feedback.length;
+  return Math.round(avg * 10) / 10;
 }
 
 const ListContainer = styled.div`
@@ -188,38 +187,15 @@ const EmptyState = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
-const ScreeningList: React.FC = () => {
-  const [screenings] = useState<Screening[]>([
-    {
-      id: 'screening-1',
-      title: 'Internal Team Screening',
-      type: 'internal',
-      date: new Date('2026-11-15'),
-      location: 'Post Production Suite',
-      audienceSize: 12,
-      status: 'completed',
-      avgRating: 4.2,
-      feedbackCount: 10,
-    },
-    {
-      id: 'screening-2',
-      title: 'Test Screening - Focus Group',
-      type: 'test',
-      date: new Date('2026-11-25'),
-      location: 'Cinema Multiplex',
-      audienceSize: 60,
-      status: 'scheduled',
-    },
-    {
-      id: 'screening-3',
-      title: 'Film Festival Premiere',
-      type: 'premiere',
-      date: new Date('2026-12-10'),
-      location: 'Main Theater - Film Fest',
-      audienceSize: 500,
-      status: 'scheduled',
-    },
-  ]);
+export interface ScreeningListProps {
+  onSelect?: (screeningId: string) => void;
+  onCreate?: () => void;
+}
+
+const sortByDateAsc = (a: ScreeningRecord, b: ScreeningRecord) => a.date.getTime() - b.date.getTime();
+
+const ScreeningList: React.FC<ScreeningListProps> = ({ onSelect, onCreate }) => {
+  const { items: screenings, loading, error } = useFilmEntities('screening', { sort: sortByDateAsc });
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-IN', {
@@ -241,15 +217,29 @@ const ScreeningList: React.FC = () => {
     <ListContainer>
       <Header>
         <Title>🎬 Screenings</Title>
-        <CreateButton onClick={() => alert('Create screening')}>
+        <CreateButton onClick={() => onCreate?.()}>
           + Schedule Screening
         </CreateButton>
       </Header>
 
-      {screenings.length > 0 ? (
+      {error ? (
+        <ErrorState error={error} />
+      ) : loading ? (
+        <LoadingState label="Loading screenings…" />
+      ) : screenings.length > 0 ? (
         <Grid>
-          {screenings.map((screening) => (
-            <ScreeningCard key={screening.id} onClick={() => alert(`View: ${screening.id}`)}>
+          {screenings.map((screening) => {
+            const avgRating = averageRating(screening.feedback);
+            return (
+            <ScreeningCard
+              key={screening.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => onSelect?.(screening.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') onSelect?.(screening.id);
+              }}
+            >
               <CardTitle>{screening.title}</CardTitle>
               
               <CardRow>
@@ -281,15 +271,16 @@ const ScreeningList: React.FC = () => {
                 <CardValue>{screening.audienceSize} people</CardValue>
               </CardRow>
 
-              {screening.status === 'completed' && screening.avgRating && (
+              {screening.status === 'completed' && avgRating !== null && (
                 <RatingContainer>
-                  <Stars>{renderStars(screening.avgRating)}</Stars>
-                  <RatingValue>{screening.avgRating}/5</RatingValue>
-                  <FeedbackLink>({screening.feedbackCount} responses)</FeedbackLink>
+                  <Stars>{renderStars(avgRating)}</Stars>
+                  <RatingValue>{avgRating}/5</RatingValue>
+                  <FeedbackLink>({screening.feedback.length} responses)</FeedbackLink>
                 </RatingContainer>
               )}
             </ScreeningCard>
-          ))}
+            );
+          })}
         </Grid>
       ) : (
         <EmptyState>

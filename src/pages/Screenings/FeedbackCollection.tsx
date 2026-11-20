@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Feedback {
-  id: string;
-  name: string;
-  rating: number;
-  comment: string;
-  timestamp: Date;
-  sentiment: 'positive' | 'neutral' | 'negative';
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import type { ScreeningFeedback } from '@/core/film/types';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 interface FeedbackStats {
   avgRating: number;
@@ -18,6 +13,21 @@ interface FeedbackStats {
     positive: number;
     neutral: number;
     negative: number;
+  };
+}
+
+export function calculateFeedbackStats(feedbackList: ScreeningFeedback[]): FeedbackStats {
+  const avgRating = feedbackList.length
+    ? feedbackList.reduce((sum, f) => sum + f.rating, 0) / feedbackList.length
+    : 0;
+  return {
+    avgRating: Math.round(avgRating * 10) / 10,
+    totalResponses: feedbackList.length,
+    sentimentBreakdown: {
+      positive: feedbackList.filter((f) => f.sentiment === 'positive').length,
+      neutral: feedbackList.filter((f) => f.sentiment === 'neutral').length,
+      negative: feedbackList.filter((f) => f.sentiment === 'negative').length,
+    },
   };
 }
 
@@ -152,68 +162,21 @@ const EmptyState = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
-const FeedbackCollection: React.FC<{ screeningId?: string }> = ({ screeningId }) => {
-  // Mock data
-  const [feedbackList] = useState<Feedback[]>([
-    {
-      id: 'f1',
-      name: 'Abhishek D.',
-      rating: 5,
-      comment: 'Outstanding cinematography and compelling narrative. The highway scenes are absolutely stunning.',
-      timestamp: new Date('2026-11-15 20:30'),
-      sentiment: 'positive',
-    },
-    {
-      id: 'f2',
-      name: 'Priya S.',
-      rating: 4,
-      comment: 'Strong first half, pacing could be tighter in Act 2. Character development is excellent.',
-      timestamp: new Date('2026-11-15 20:45'),
-      sentiment: 'neutral',
-    },
-    {
-      id: 'f3',
-      name: 'Rajesh K.',
-      rating: 5,
-      comment: 'This is cinema. Every frame tells a story. The music elevates the narrative beautifully.',
-      timestamp: new Date('2026-11-15 21:00'),
-      sentiment: 'positive',
-    },
-    {
-      id: 'f4',
-      name: 'Meera P.',
-      rating: 3,
-      comment: 'Good attempt but the ending felt rushed. Too many plot threads left unresolved.',
-      timestamp: new Date('2026-11-15 21:15'),
-      sentiment: 'negative',
-    },
-    {
-      id: 'f5',
-      name: 'Amit S.',
-      rating: 4,
-      comment: 'Well-crafted thriller with excellent performances. Minor issues with sound mixing.',
-      timestamp: new Date('2026-11-15 21:30'),
-      sentiment: 'neutral',
-    },
-  ]);
+export interface FeedbackCollectionProps {
+  screeningId?: string;
+}
 
-  const calculateStats = (): FeedbackStats => {
-    const avgRating = feedbackList.reduce((sum, f) => sum + f.rating, 0) / feedbackList.length;
-    const sentimentCounts = {
-      positive: feedbackList.filter((f) => f.sentiment === 'positive').length,
-      neutral: feedbackList.filter((f) => f.sentiment === 'neutral').length,
-      negative: feedbackList.filter((f) => f.sentiment === 'negative').length,
-    };
+const FeedbackCollection: React.FC<FeedbackCollectionProps> = ({ screeningId }) => {
+  const { item: screening, loading, error } = useFilmEntity('screening', screeningId);
 
-    return {
-      avgRating: Math.round(avgRating * 10) / 10,
-      totalResponses: feedbackList.length,
-      sentimentBreakdown: sentimentCounts,
-    };
-  };
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading feedback…" />;
+  if (!screening) return <NotFoundState label="Screening not found." />;
 
-  const stats = calculateStats();
-  const sentimentTotal = stats.sentimentBreakdown.positive + stats.sentimentBreakdown.neutral + stats.sentimentBreakdown.negative;
+  const feedbackList = screening.feedback;
+  const stats = calculateFeedbackStats(feedbackList);
+  const sentimentTotal = stats.totalResponses;
+  const pct = (count: number) => (sentimentTotal ? Math.round((count / sentimentTotal) * 100) : 0);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -235,7 +198,7 @@ const FeedbackCollection: React.FC<{ screeningId?: string }> = ({ screeningId })
   return (
     <Container>
       <Header>
-        <Title>📊 Feedback Results</Title>
+        <Title>📊 Feedback Results: {screening.title}</Title>
       </Header>
 
       <StatsGrid>
@@ -253,17 +216,17 @@ const FeedbackCollection: React.FC<{ screeningId?: string }> = ({ screeningId })
             <SentimentSegment
               percentage={stats.sentimentBreakdown.positive}
               sentiment="positive"
-              title={`Positive: ${stats.sentimentBreakdown.positive}`}
+              title={`Positive: ${stats.sentimentBreakdown.positive} (${pct(stats.sentimentBreakdown.positive)}%)`}
             />
             <SentimentSegment
               percentage={stats.sentimentBreakdown.neutral}
               sentiment="neutral"
-              title={`Neutral: ${stats.sentimentBreakdown.neutral}`}
+              title={`Neutral: ${stats.sentimentBreakdown.neutral} (${pct(stats.sentimentBreakdown.neutral)}%)`}
             />
             <SentimentSegment
               percentage={stats.sentimentBreakdown.negative}
               sentiment="negative"
-              title={`Negative: ${stats.sentimentBreakdown.negative}`}
+              title={`Negative: ${stats.sentimentBreakdown.negative} (${pct(stats.sentimentBreakdown.negative)}%)`}
             />
           </SentimentBar>
         </StatCard>

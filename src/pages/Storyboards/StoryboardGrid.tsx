@@ -2,20 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Shot {
-  shotNumber: number;
-  sceneNumber: number;
-  description: string;
-  duration: number;
-  cameraMove: string;
-  imageUrl?: string;
-}
-
-interface Scene {
-  sceneNumber: number;
-  title: string;
-  shots: Shot[];
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import type { StoryboardShot as Shot } from '@/core/film/types';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const GridContainer = styled.div`
   padding: ${spacing.lg};
@@ -161,61 +150,43 @@ const ShotFooter = styled.div`
   border-top: 1px solid ${colorTokens.border.primary};
 `;
 
-const StoryboardGrid: React.FC<{ storyboardId?: string }> = ({ storyboardId }) => {
-  // Mock data
-  const [scenes] = useState<Scene[]>([
-    {
-      sceneNumber: 1,
-      title: 'EXT. HIGHWAY - NIGHT',
-      shots: [
-        {
-          shotNumber: 1,
-          sceneNumber: 1,
-          description: 'Wide establishing shot of empty highway',
-          duration: 3,
-          cameraMove: 'Static',
-        },
-        {
-          shotNumber: 2,
-          sceneNumber: 1,
-          description: 'Close-up of road markings',
-          duration: 2,
-          cameraMove: 'Push in',
-        },
-      ],
-    },
-    {
-      sceneNumber: 2,
-      title: 'INT. CAR - CONTINUOUS',
-      shots: [
-        {
-          shotNumber: 3,
-          sceneNumber: 2,
-          description: 'Driver POV through windshield',
-          duration: 4,
-          cameraMove: 'Steady cam',
-        },
-        {
-          shotNumber: 4,
-          sceneNumber: 2,
-          description: 'Profile of driver in dim light',
-          duration: 3,
-          cameraMove: 'Pan right',
-        },
-      ],
-    },
-  ]);
+export interface StoryboardGridProps {
+  storyboardId?: string;
+  onImport?: (storyboardId: string) => void;
+  onExport?: (storyboardId: string) => void;
+}
 
+const StoryboardGrid: React.FC<StoryboardGridProps> = ({ storyboardId, onImport, onExport }) => {
+  const { item: storyboard, loading, error, update } = useFilmEntity('storyboard', storyboardId);
   const [selectedShot, setSelectedShot] = useState<Shot | null>(null);
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading storyboard…" />;
+  if (!storyboard) return <NotFoundState label="Storyboard not found." />;
+
+  const scenes = storyboard.scenes;
+
+  const handleAddScene = async () => {
+    const nextNumber = Math.max(0, ...scenes.map((s) => s.sceneNumber)) + 1;
+    try {
+      await update({ scenes: [...scenes, { sceneNumber: nextNumber, title: `Scene ${nextNumber}`, shots: [] }] });
+    } catch {
+      // surfaced via `error`
+    }
+  };
 
   return (
     <GridContainer>
       <Header>
-        <Title>🎬 Storyboard: {storyboardId}</Title>
+        <Title>🎬 Storyboard: {storyboard.title}</Title>
         <ActionBar>
-          <Button variant="secondary">📥 Import</Button>
-          <Button variant="secondary">📤 Export</Button>
-          <Button>Add Scene</Button>
+          <Button variant="secondary" onClick={() => onImport?.(storyboard.id)}>
+            📥 Import
+          </Button>
+          <Button variant="secondary" onClick={() => onExport?.(storyboard.id)}>
+            📤 Export
+          </Button>
+          <Button onClick={handleAddScene}>Add Scene</Button>
         </ActionBar>
       </Header>
 
@@ -229,7 +200,16 @@ const StoryboardGrid: React.FC<{ storyboardId?: string }> = ({ storyboardId }) =
             </SceneHeader>
             <ShotsGrid>
               {scene.shots.map((shot) => (
-                <ShotCell key={shot.shotNumber} onClick={() => setSelectedShot(shot)}>
+                <ShotCell
+                  key={shot.shotNumber}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={selectedShot?.shotNumber === shot.shotNumber}
+                  onClick={() => setSelectedShot(shot)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') setSelectedShot(shot);
+                  }}
+                >
                   <ShotThumbnail>🎥</ShotThumbnail>
                   <ShotContent>
                     <ShotNumber>Shot {shot.shotNumber}</ShotNumber>

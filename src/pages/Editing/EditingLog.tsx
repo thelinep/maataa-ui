@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface EditVersion {
-  version: number;
-  date: Date;
-  editor: string;
-  changes: string;
-  duration: number;
-  status: 'draft' | 'review' | 'approved';
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const LogContainer = styled.div`
   padding: ${spacing.lg};
@@ -102,12 +96,18 @@ const StatusBadge = styled.span<{ status: string }>`
   }};
 `;
 
-const EditingLog: React.FC = () => {
-  const [versions] = useState<EditVersion[]>([
-    { version: 5, date: new Date('2026-11-20'), editor: 'Editor Team', changes: 'Final color pass & sound mix', duration: 118, status: 'approved' },
-    { version: 4, date: new Date('2026-11-18'), editor: 'Lead Editor', changes: 'Scene reordering and pacing', duration: 125, status: 'review' },
-    { version: 3, date: new Date('2026-11-15'), editor: 'Assistant Editor', changes: 'Initial assembly from selects', duration: 140, status: 'draft' },
-  ]);
+export interface EditingLogProps {
+  editId?: string;
+}
+
+const EditingLog: React.FC<EditingLogProps> = ({ editId }) => {
+  const { item: edit, loading, error } = useFilmEntity('editing', editId);
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading edit history…" />;
+  if (!edit) return <NotFoundState label="Edit not found." />;
+
+  const versions = edit.versions.slice().sort((a, b) => b.version - a.version);
 
   return (
     <LogContainer>

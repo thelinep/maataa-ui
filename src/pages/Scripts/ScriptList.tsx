@@ -2,19 +2,9 @@ import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Script {
-  id: string;
-  title: string;
-  conceptId: string;
-  format: 'feature' | 'short';
-  pages: number;
-  currentVersion: number;
-  status: 'draft' | 'locked' | 'approved';
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: string;
-  lastEditedBy: string;
-}
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { ScriptRecord } from '@/core/film/types';
+import { ErrorState, LoadingState } from '../shared/AsyncState';
 
 const ListContainer = styled.div`
   padding: ${spacing.lg};
@@ -184,52 +174,23 @@ const EmptyState = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
-const ScriptList: React.FC = () => {
+export interface ScriptListProps {
+  onSelect?: (scriptId: string) => void;
+  /** Called after "+ New Script" persists a blank draft */
+  onCreated?: (script: ScriptRecord) => void;
+  /** Concept the new draft belongs to */
+  conceptId?: string;
+  currentUser?: string;
+}
+
+const sortByUpdatedDesc = (a: ScriptRecord, b: ScriptRecord) => b.updatedAt.getTime() - a.updatedAt.getTime();
+
+const ScriptList: React.FC<ScriptListProps> = ({ onSelect, onCreated, conceptId = '', currentUser = 'You' }) => {
+  const { items: scripts, loading, error, create } = useFilmEntities('script', { sort: sortByUpdatedDesc });
+  const [creating, setCreating] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  // Mock data - replace with Phase 2 EntityManager
-  const [scripts] = useState<Script[]>([
-    {
-      id: 'script-1',
-      title: 'The Lost Highway - Revised',
-      conceptId: 'concept-1',
-      format: 'feature',
-      pages: 127,
-      currentVersion: 5,
-      status: 'locked',
-      createdAt: new Date('2026-11-01'),
-      updatedAt: new Date('2026-11-18'),
-      createdBy: 'Hemant',
-      lastEditedBy: 'Hemant',
-    },
-    {
-      id: 'script-2',
-      title: 'Street Voices - Final Draft',
-      conceptId: 'concept-2',
-      format: 'short',
-      pages: 32,
-      currentVersion: 3,
-      status: 'approved',
-      createdAt: new Date('2026-11-05'),
-      updatedAt: new Date('2026-11-15'),
-      createdBy: 'Dev',
-      lastEditedBy: 'Hemant',
-    },
-    {
-      id: 'script-3',
-      title: 'Neon Dreams - WIP',
-      conceptId: 'concept-3',
-      format: 'short',
-      pages: 8,
-      currentVersion: 1,
-      status: 'draft',
-      createdAt: new Date('2026-11-10'),
-      updatedAt: new Date('2026-11-20'),
-      createdBy: 'Hemant',
-      lastEditedBy: 'Hemant',
-    },
-  ]);
 
   const filteredScripts = useMemo(() => {
     return scripts.filter((script) => {
@@ -238,6 +199,30 @@ const ScriptList: React.FC = () => {
       return matchesSearch && matchesStatus;
     });
   }, [searchTerm, statusFilter, scripts]);
+
+  const handleCreate = async () => {
+    if (creating) return;
+    setCreating(true);
+    try {
+      const now = new Date();
+      const script = await create({
+        title: 'Untitled Script',
+        conceptId,
+        format: 'feature',
+        pages: 0,
+        currentVersion: 1,
+        status: 'draft',
+        createdBy: currentUser,
+        lastEditedBy: currentUser,
+        versions: [{ version: 1, content: '', changesSummary: 'New draft', createdAt: now, createdBy: currentUser }],
+      });
+      onCreated?.(script);
+    } catch {
+      // surfaced via `error`
+    } finally {
+      setCreating(false);
+    }
+  };
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-IN', {
@@ -250,7 +235,7 @@ const ScriptList: React.FC = () => {
     <ListContainer>
       <Header>
         <Title>📝 Scripts</Title>
-        <CreateButton onClick={() => alert('Navigate to create script')}>
+        <CreateButton onClick={handleCreate} disabled={creating}>
           + New Script
         </CreateButton>
       </Header>
@@ -270,10 +255,22 @@ const ScriptList: React.FC = () => {
         </StatusFilter>
       </FilterContainer>
 
-      {filteredScripts.length > 0 ? (
+      {error ? (
+        <ErrorState error={error} />
+      ) : loading ? (
+        <LoadingState label="Loading scripts…" />
+      ) : filteredScripts.length > 0 ? (
         <Grid>
           {filteredScripts.map((script) => (
-            <ScriptCard key={script.id} onClick={() => alert(`View script: ${script.id}`)}>
+            <ScriptCard
+              key={script.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => onSelect?.(script.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') onSelect?.(script.id);
+              }}
+            >
               <ScriptTitle>{script.title}</ScriptTitle>
               <ScriptMeta>
                 <span>{script.pages} pages</span>

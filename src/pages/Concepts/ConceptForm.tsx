@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface ConceptFormData {
-  title: string;
-  vision: string;
-  genre: string[];
-  format: 'feature' | 'short' | 'series';
-  duration: number;
-  budgetEstimate: number;
-}
+import type { ConceptData } from '@/core/film/types';
+
+export type ConceptFormData = Pick<ConceptData, 'title' | 'vision' | 'genre' | 'format' | 'duration' | 'budgetEstimate'>;
 
 const FormContainer = styled.div`
   padding: ${spacing.lg};
@@ -169,10 +164,15 @@ const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
 
 const GENRES = ['Drama', 'Thriller', 'Comedy', 'Sci-Fi', 'Documentary', 'Animation', 'Experimental'];
 
-const ConceptForm: React.FC<{ onSubmit?: (data: ConceptFormData) => void; initialData?: ConceptFormData }> = ({
-  onSubmit,
-  initialData,
-}) => {
+export interface ConceptFormProps {
+  onSubmit?: (data: ConceptFormData) => void | Promise<void>;
+  onCancel?: () => void;
+  initialData?: ConceptFormData;
+  submitLabel?: string;
+}
+
+const ConceptForm: React.FC<ConceptFormProps> = ({ onSubmit, onCancel, initialData, submitLabel = 'Save Concept' }) => {
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState<ConceptFormData>(
     initialData || {
       title: '',
@@ -207,10 +207,14 @@ const ConceptForm: React.FC<{ onSubmit?: (data: ConceptFormData) => void; initia
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (onSubmit) {
-      onSubmit(formData);
+    if (!onSubmit || submitting) return;
+    setSubmitting(true);
+    try {
+      await onSubmit(formData);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -300,10 +304,12 @@ const ConceptForm: React.FC<{ onSubmit?: (data: ConceptFormData) => void; initia
         </FormGroup>
 
         <ButtonContainer>
-          <Button variant="secondary" type="button">
+          <Button variant="secondary" type="button" onClick={() => onCancel?.()}>
             Cancel
           </Button>
-          <Button type="submit">Save Concept</Button>
+          <Button type="submit" disabled={submitting}>
+            {submitting ? 'Saving…' : submitLabel}
+          </Button>
         </ButtonContainer>
       </Form>
     </FormContainer>

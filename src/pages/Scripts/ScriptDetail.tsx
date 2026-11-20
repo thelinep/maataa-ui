@@ -1,23 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface ScriptVersion {
-  version: number;
-  createdAt: Date;
-  createdBy: string;
-  changesSummary: string;
-}
-
-interface ScriptData {
-  id: string;
-  title: string;
-  format: 'feature' | 'short';
-  pages: number;
-  currentVersion: number;
-  status: 'draft' | 'locked' | 'approved';
-  versions: ScriptVersion[];
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const DetailContainer = styled.div`
   padding: ${spacing.lg};
@@ -219,48 +205,15 @@ const ChangesSummary = styled.div`
   margin-top: ${spacing.sm};
 `;
 
-const ScriptDetail: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
-  // Mock data
-  const [scriptData] = useState<ScriptData>({
-    id: scriptId || 'script-1',
-    title: 'The Lost Highway - Revised',
-    format: 'feature',
-    pages: 127,
-    currentVersion: 5,
-    status: 'locked',
-    versions: [
-      {
-        version: 1,
-        createdAt: new Date('2026-11-01'),
-        createdBy: 'Hemant',
-        changesSummary: 'Initial draft - full screenplay written',
-      },
-      {
-        version: 2,
-        createdAt: new Date('2026-11-05'),
-        createdBy: 'Dev',
-        changesSummary: 'Scene revisions - improved pacing in Act 2',
-      },
-      {
-        version: 3,
-        createdAt: new Date('2026-11-10'),
-        createdBy: 'Hemant',
-        changesSummary: 'Character development - deepened protagonist backstory',
-      },
-      {
-        version: 4,
-        createdAt: new Date('2026-11-15'),
-        createdBy: 'Hemant',
-        changesSummary: 'Dialogue polish - refined key conversations',
-      },
-      {
-        version: 5,
-        createdAt: new Date('2026-11-18'),
-        createdBy: 'Hemant',
-        changesSummary: 'Final revision - locked for pre-production',
-      },
-    ],
-  });
+export interface ScriptDetailProps {
+  scriptId?: string;
+  onOpenEditor?: (scriptId: string) => void;
+  onShare?: (scriptId: string) => void;
+  onDownload?: (scriptId: string) => void;
+}
+
+const ScriptDetail: React.FC<ScriptDetailProps> = ({ scriptId, onOpenEditor, onShare, onDownload }) => {
+  const { item: scriptData, loading, error } = useFilmEntity('script', scriptId);
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-IN', {
@@ -270,6 +223,10 @@ const ScriptDetail: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
     }).format(date);
   };
 
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading script…" />;
+  if (!scriptData) return <NotFoundState label="Script not found." />;
+
   return (
     <DetailContainer>
       <Header>
@@ -277,9 +234,13 @@ const ScriptDetail: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
           <Title>{scriptData.title}</Title>
         </TitleSection>
         <ActionButtons>
-          <Button variant="secondary">Share</Button>
-          <Button variant="secondary">Download PDF</Button>
-          <Button>Open Editor</Button>
+          <Button variant="secondary" onClick={() => onShare?.(scriptData.id)}>
+            Share
+          </Button>
+          <Button variant="secondary" onClick={() => onDownload?.(scriptData.id)}>
+            Download PDF
+          </Button>
+          <Button onClick={() => onOpenEditor?.(scriptData.id)}>Open Editor</Button>
         </ActionButtons>
       </Header>
 
@@ -309,7 +270,7 @@ const ScriptDetail: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
         <Timeline>
           {scriptData.versions
             .slice()
-            .reverse()
+            .sort((a, b) => b.version - a.version)
             .map((version) => (
               <TimelineItem key={version.version}>
                 <TimelineDate>{formatDate(version.createdAt)}</TimelineDate>

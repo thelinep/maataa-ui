@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface AudioTrack {
-  name: string;
-  level: number;
-  muted: boolean;
-  solo: boolean;
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import type { AudioTrack } from '@/core/film/types';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const Container = styled.div`
   padding: ${spacing.lg};
@@ -80,24 +77,30 @@ const Button = styled.button`
   }
 `;
 
-const SoundMixing: React.FC = () => {
-  const [tracks, setTracks] = useState<AudioTrack[]>([
-    { name: 'Dialogue', level: -3, muted: false, solo: false },
-    { name: 'Music', level: -6, muted: false, solo: false },
-    { name: 'Foley', level: -9, muted: false, solo: false },
-    { name: 'Ambient', level: -12, muted: false, solo: false },
-  ]);
+export interface SoundMixingProps {
+  mixId?: string;
+}
+
+const SoundMixing: React.FC<SoundMixingProps> = ({ mixId }) => {
+  const { item: mix, loading, error, update } = useFilmEntity('sound', mixId);
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading mix…" />;
+  if (!mix) return <NotFoundState label="Mix session not found." />;
+
+  const tracks = mix.tracks;
+  const setTracks = (next: AudioTrack[]) => {
+    update({ tracks: next }).catch(() => {
+      // surfaced via `error`
+    });
+  };
 
   const handleLevelChange = (index: number, newLevel: number) => {
-    const updated = [...tracks];
-    updated[index].level = newLevel;
-    setTracks(updated);
+    setTracks(tracks.map((t, i) => (i === index ? { ...t, level: newLevel } : t)));
   };
 
   const handleMute = (index: number) => {
-    const updated = [...tracks];
-    updated[index].muted = !updated[index].muted;
-    setTracks(updated);
+    setTracks(tracks.map((t, i) => (i === index ? { ...t, muted: !t.muted } : t)));
   };
 
   const handleSolo = (index: number) => {
@@ -113,23 +116,24 @@ const SoundMixing: React.FC = () => {
       <Title>🔊 Sound Mixing</Title>
       <MixerGrid>
         {tracks.map((track, index) => (
-          <TrackFader key={index}>
+          <TrackFader key={track.name}>
             <TrackName>{track.name}</TrackName>
             <Fader
               type="range"
               min="-24"
               max="0"
               value={track.level}
-              onChange={(e) => handleLevelChange(index, parseInt(e.target.value))}
+              aria-label={`${track.name} level`}
+              onChange={(e) => handleLevelChange(index, parseInt(e.target.value, 10))}
             />
             <div style={{ fontSize: '11px', color: colorTokens.text.secondary }}>
               {track.level}dB
             </div>
             <ControlButtons>
-              <Button data-active={track.muted} onClick={() => handleMute(index)}>
+              <Button data-active={track.muted} aria-pressed={track.muted} aria-label={`Mute ${track.name}`} onClick={() => handleMute(index)}>
                 M
               </Button>
-              <Button data-active={track.solo} onClick={() => handleSolo(index)}>
+              <Button data-active={track.solo} aria-pressed={track.solo} aria-label={`Solo ${track.name}`} onClick={() => handleSolo(index)}>
                 S
               </Button>
             </ControlButtons>

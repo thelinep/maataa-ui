@@ -1,22 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface ScriptVersion {
-  version: number;
-  content: string;
-  createdAt: Date;
-  createdBy: string;
-}
-
-interface ScriptData {
-  id: string;
-  title: string;
-  format: 'feature' | 'short';
-  currentVersion: number;
-  versions: ScriptVersion[];
-  status: 'draft' | 'locked' | 'approved';
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const EditorContainer = styled.div`
   display: grid;
@@ -141,11 +128,11 @@ const VersionList = styled.div`
   gap: ${spacing.sm};
 `;
 
-const VersionItem = styled.button<{ active?: boolean }>`
+const VersionItem = styled.button<{ $active?: boolean }>`
   padding: ${spacing.sm} ${spacing.md};
-  background: ${(props) => (props.active ? colorTokens.primary.main : 'transparent')};
-  color: ${(props) => (props.active ? 'white' : colorTokens.text.secondary)};
-  border: 1px solid ${(props) => (props.active ? colorTokens.primary.main : colorTokens.border.primary)};
+  background: ${(props) => (props.$active ? colorTokens.primary.main : 'transparent')};
+  color: ${(props) => (props.$active ? 'white' : colorTokens.text.secondary)};
+  border: 1px solid ${(props) => (props.$active ? colorTokens.primary.main : colorTokens.border.primary)};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.bodySmall.fontSize};
@@ -155,7 +142,7 @@ const VersionItem = styled.button<{ active?: boolean }>`
 
   &:hover {
     border-color: ${colorTokens.primary.main};
-    background: ${(props) => (props.active ? colorTokens.primary.dark : colorTokens.primary.light)}20;
+    background: ${(props) => (props.$active ? colorTokens.primary.dark : colorTokens.primary.light)}20;
   }
 `;
 
@@ -183,28 +170,75 @@ const StatValue = styled.span`
   color: ${colorTokens.text.primary};
 `;
 
-const ScriptEditor: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
-  // Mock data
-  const [scriptData] = useState<ScriptData>({
-    id: scriptId || 'script-1',
-    title: 'The Lost Highway - Revised',
-    format: 'feature',
-    currentVersion: 5,
-    status: 'locked',
-    versions: [
-      { version: 1, content: 'FADE IN:\n\nEXT. HIGHWAY - NIGHT\n\n(Initial draft)', createdAt: new Date('2026-11-01'), createdBy: 'Hemant' },
-      { version: 2, content: 'FADE IN:\n\nEXT. DESERTED HIGHWAY - NIGHT\n\n(Revised)', createdAt: new Date('2026-11-05'), createdBy: 'Dev' },
-      { version: 3, content: 'FADE IN:\n\nEXT. DESERTED HIGHWAY - NIGHT\n\nA lone figure...', createdAt: new Date('2026-11-10'), createdBy: 'Hemant' },
-      { version: 4, content: 'FADE IN:\n\nEXT. DESERTED HIGHWAY - NIGHT\n\nA lone figure walks...', createdAt: new Date('2026-11-15'), createdBy: 'Hemant' },
-      { version: 5, content: 'FADE IN:\n\nEXT. DESERTED HIGHWAY - NIGHT\n\nA lone figure walks slowly...', createdAt: new Date('2026-11-18'), createdBy: 'Hemant' },
-    ],
-  });
+export interface ScriptEditorProps {
+  scriptId?: string;
+  /** Recorded as the author of new versions */
+  currentUser?: string;
+}
 
-  const [activeVersion, setActiveVersion] = useState(scriptData.currentVersion);
-  const [scriptContent, setScriptContent] = useState(scriptData.versions[activeVersion - 1].content);
+const ScriptEditor: React.FC<ScriptEditorProps> = ({ scriptId, currentUser = 'You' }) => {
+  const { item: scriptData, loading, error, update } = useFilmEntity('script', scriptId);
+  const [activeVersion, setActiveVersion] = useState<number | null>(null);
+  const [scriptContent, setScriptContent] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const currentVersionData = scriptData.versions[activeVersion - 1];
+  // Load the current version into the editor whenever a different script opens
+  const loadedId = scriptData?.id;
+  useEffect(() => {
+    if (!scriptData) return;
+    const current =
+      scriptData.versions.find((v) => v.version === scriptData.currentVersion) ??
+      scriptData.versions[scriptData.versions.length - 1];
+    setActiveVersion(current?.version ?? null);
+    setScriptContent(current?.content ?? '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadedId]);
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading script…" />;
+  if (!scriptData) return <NotFoundState label="Script not found." />;
+
+  const currentVersionData = scriptData.versions.find((v) => v.version === activeVersion);
+  const isLocked = scriptData.status === 'locked';
+  const isDirty = scriptContent !== (currentVersionData?.content ?? '');
   const pageCount = scriptContent.split('\n').length / 3; // Rough estimate
+  const wordCount = scriptContent.trim() ? scriptContent.trim().split(/\s+/).length : 0;
+
+  /** Saving never overwrites history: each save appends a new version */
+  const handleSave = async () => {
+    if (!isDirty || isLocked || saving) return;
+    setSaving(true);
+    try {
+      const nextVersion = Math.max(0, ...scriptData.versions.map((v) => v.version)) + 1;
+      await update({
+        versions: [
+          ...scriptData.versions,
+          {
+            version: nextVersion,
+            content: scriptContent,
+            changesSummary: `Edited from v${activeVersion ?? scriptData.currentVersion}`,
+            createdAt: new Date(),
+            createdBy: currentUser,
+          },
+        ],
+        currentVersion: nextVersion,
+        lastEditedBy: currentUser,
+      });
+      setActiveVersion(nextVersion);
+    } catch {
+      // surfaced via `error`
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleToggleLock = async () => {
+    try {
+      await update({ status: isLocked ? 'draft' : 'locked', lastEditedBy: currentUser });
+    } catch {
+      // surfaced via `error`
+    }
+  };
 
   return (
     <EditorContainer>
@@ -212,8 +246,10 @@ const ScriptEditor: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
         <EditorHeader>
           <EditorTitle>{scriptData.title}</EditorTitle>
           <ActionButtons>
-            <Button variant="secondary">Save</Button>
-            <Button>Lock Version</Button>
+            <Button variant="secondary" onClick={handleSave} disabled={!isDirty || isLocked || saving}>
+              {saving ? 'Saving…' : 'Save'}
+            </Button>
+            <Button onClick={handleToggleLock}>{isLocked ? 'Unlock' : 'Lock Version'}</Button>
           </ActionButtons>
         </EditorHeader>
 
@@ -221,6 +257,8 @@ const ScriptEditor: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
           value={scriptContent}
           onChange={(e) => setScriptContent(e.target.value)}
           placeholder="Start typing your script..."
+          readOnly={isLocked}
+          aria-label="Script content"
         />
       </EditorPanel>
 
@@ -231,7 +269,8 @@ const ScriptEditor: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
             {scriptData.versions.map((v) => (
               <VersionItem
                 key={v.version}
-                active={activeVersion === v.version}
+                $active={activeVersion === v.version}
+                aria-current={activeVersion === v.version ? "true" : undefined}
                 onClick={() => {
                   setActiveVersion(v.version);
                   setScriptContent(v.content);
@@ -253,7 +292,7 @@ const ScriptEditor: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
             </StatItem>
             <StatItem>
               <span>Words</span>
-              <StatValue>{scriptContent.split(/\s+/).length}</StatValue>
+              <StatValue>{wordCount}</StatValue>
             </StatItem>
             <StatItem>
               <span>Format</span>
@@ -268,18 +307,24 @@ const ScriptEditor: React.FC<{ scriptId?: string }> = ({ scriptId }) => {
 
         <PanelCard>
           <PanelTitle>Current Version</PanelTitle>
-          <StatsList>
-            <StatItem>
-              <span>Version</span>
-              <StatValue>{currentVersionData.version}</StatValue>
-            </StatItem>
-            <StatItem style={{ flexDirection: 'column', borderBottom: 'none' }}>
-              <span>By {currentVersionData.createdBy}</span>
-              <span style={{ fontSize: '11px', marginTop: spacing.xs }}>
-                {new Intl.DateTimeFormat('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(currentVersionData.createdAt)}
-              </span>
-            </StatItem>
-          </StatsList>
+          {currentVersionData ? (
+            <StatsList>
+              <StatItem>
+                <span>Version</span>
+                <StatValue>{currentVersionData.version}</StatValue>
+              </StatItem>
+              <StatItem style={{ flexDirection: 'column', borderBottom: 'none' }}>
+                <span>By {currentVersionData.createdBy}</span>
+                <span style={{ fontSize: '11px', marginTop: spacing.xs }}>
+                  {new Intl.DateTimeFormat('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(currentVersionData.createdAt)}
+                </span>
+              </StatItem>
+            </StatsList>
+          ) : (
+            <StatsList>
+              <StatItem>No versions yet</StatItem>
+            </StatsList>
+          )}
         </PanelCard>
       </SidePanel>
     </EditorContainer>

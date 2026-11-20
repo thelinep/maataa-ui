@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
-import ConceptForm from './ConceptForm';
+import ConceptForm, { type ConceptFormData } from './ConceptForm';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { ConceptRecord } from '@/core/film/types';
+import { ErrorState } from '../shared/AsyncState';
 
 const CreateContainer = styled.div`
   padding: ${spacing.lg};
@@ -30,12 +33,18 @@ const ContextDescription = styled.p`
   line-height: 1.5;
 `;
 
-const CreateConcept: React.FC = () => {
-  const handleSubmit = (data: any) => {
-    console.log('Creating concept:', data);
-    // TODO: Call Phase 2 EntityManager to create entity
-    // Then navigate back to ConceptList
-    alert('Concept created! (Navigation would happen here)');
+export interface CreateConceptProps {
+  /** Called with the persisted concept, e.g. to navigate to its detail view */
+  onCreated?: (concept: ConceptRecord) => void;
+  onCancel?: () => void;
+}
+
+const CreateConcept: React.FC<CreateConceptProps> = ({ onCreated, onCancel }) => {
+  const { create, error } = useFilmEntities('concept');
+
+  const handleSubmit = async (data: ConceptFormData) => {
+    const concept = await create({ ...data, status: 'ideation', attachments: [] });
+    onCreated?.(concept);
   };
 
   return (
@@ -46,7 +55,8 @@ const CreateConcept: React.FC = () => {
           Start your creative journey by defining your film concept. What story do you want to tell?
         </ContextDescription>
       </ContextHeader>
-      <ConceptForm onSubmit={handleSubmit} />
+      {error && <ErrorState error={error} />}
+      <ConceptForm onSubmit={handleSubmit} onCancel={onCancel} />
     </CreateContainer>
   );
 };

@@ -1,20 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
-import { useTranslation } from '@/hooks/useTranslation';
-
-interface Concept {
-  id: string;
-  title: string;
-  vision: string;
-  genre: string[];
-  format: 'feature' | 'short' | 'series';
-  duration: number;
-  status: 'ideation' | 'pitch' | 'approved';
-  budgetEstimate: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { ConceptRecord } from '@/core/film/types';
+import { ErrorState, LoadingState } from '../shared/AsyncState';
 
 const ListContainer = styled.div`
   padding: ${spacing.lg};
@@ -199,50 +188,18 @@ const EmptyState = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
-const ConceptList: React.FC = () => {
-  const { t } = useTranslation();
+export interface ConceptListProps {
+  onSelect?: (conceptId: string) => void;
+  onCreate?: () => void;
+}
+
+const sortByUpdatedDesc = (a: ConceptRecord, b: ConceptRecord) => b.updatedAt.getTime() - a.updatedAt.getTime();
+
+const ConceptList: React.FC<ConceptListProps> = ({ onSelect, onCreate }) => {
+  const { items: concepts, loading, error } = useFilmEntities('concept', { sort: sortByUpdatedDesc });
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  // Mock data - replace with Phase 2 EntityManager
-  const [concepts] = useState<Concept[]>([
-    {
-      id: 'concept-1',
-      title: 'The Lost Highway',
-      vision: 'A noir thriller about a jazz musician searching for his past',
-      genre: ['Thriller', 'Drama'],
-      format: 'feature',
-      duration: 120,
-      status: 'approved',
-      budgetEstimate: 2500000,
-      createdAt: new Date('2026-11-01'),
-      updatedAt: new Date('2026-11-15'),
-    },
-    {
-      id: 'concept-2',
-      title: 'Street Voices',
-      vision: 'Documentary exploring street musicians in urban centers',
-      genre: ['Documentary'],
-      format: 'short',
-      duration: 45,
-      status: 'pitch',
-      budgetEstimate: 150000,
-      createdAt: new Date('2026-11-05'),
-      updatedAt: new Date('2026-11-18'),
-    },
-    {
-      id: 'concept-3',
-      title: 'Neon Dreams',
-      vision: 'Experimental short on virtual reality and identity',
-      genre: ['Sci-Fi', 'Experimental'],
-      format: 'short',
-      duration: 15,
-      status: 'ideation',
-      budgetEstimate: 75000,
-      createdAt: new Date('2026-11-10'),
-      updatedAt: new Date('2026-11-20'),
-    },
-  ]);
 
   const filteredConcepts = useMemo(() => {
     return concepts.filter((concept) => {
@@ -273,7 +230,7 @@ const ConceptList: React.FC = () => {
     <ListContainer>
       <Header>
         <Title>🎬 Concepts</Title>
-        <CreateButton onClick={() => alert('Navigate to create concept')}>
+        <CreateButton onClick={() => onCreate?.()}>
           + New Concept
         </CreateButton>
       </Header>
@@ -293,7 +250,11 @@ const ConceptList: React.FC = () => {
         </StatusFilter>
       </FilterContainer>
 
-      {filteredConcepts.length > 0 ? (
+      {error ? (
+        <ErrorState error={error} />
+      ) : loading ? (
+        <LoadingState label="Loading concepts…" />
+      ) : filteredConcepts.length > 0 ? (
         <Table>
           <TableHeader>
             <tr>
@@ -308,7 +269,14 @@ const ConceptList: React.FC = () => {
           </TableHeader>
           <TableBody>
             {filteredConcepts.map((concept) => (
-              <TableRow key={concept.id} onClick={() => alert(`View concept: ${concept.id}`)}>
+              <TableRow
+                key={concept.id}
+                onClick={() => onSelect?.(concept.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') onSelect?.(concept.id);
+                }}
+                tabIndex={0}
+              >
                 <TableCell style={{ fontWeight: 600, color: colorTokens.text.primary }}>
                   {concept.title}
                 </TableCell>

@@ -252,3 +252,63 @@ export const semanticColorMap = {
 };
 
 export type SemanticColor = keyof typeof semanticColorMap;
+
+/**
+ * Component Token Aliases (Phase 1 → component layer)
+ *
+ * Flat, semantic aliases consumed by page-level components (Phase J film
+ * production workflows). Values are derived from `lightTheme` so they stay in
+ * sync with the palette; spacing/typography mirror `baseTheme` in themes.ts.
+ * Colour values are 6-digit hex so components can append an alpha suffix
+ * (e.g. `${colorTokens.primary.light}30`).
+ */
+export const colorTokens = {
+  primary: {
+    main: lightTheme.primary[500],
+    dark: lightTheme.primary[700],
+    light: lightTheme.primary[300],
+  },
+  secondary: {
+    light: lightTheme.neutral[200],
+  },
+  neutral: {
+    light: lightTheme.neutral[100],
+    lighter: lightTheme.neutral[50],
+  },
+  background: {
+    primary: lightTheme.surface.background,
+    secondary: lightTheme.surface.surface,
+  },
+  text: {
+    primary: lightTheme.text.primary,
+    secondary: lightTheme.text.secondary,
+    disabled: lightTheme.text.disabled,
+    inverse: lightTheme.text.inverse,
+  },
+  border: {
+    primary: lightTheme.surface.border,
+    light: lightTheme.surface.borderLight,
+  },
+  semantic: lightTheme.semantic,
+  shadow: lightTheme.neutral[900],
+} as const;
+
+export const spacing = {
+  xs: '0.25rem',
+  sm: '0.5rem',
+  md: '1rem',
+  lg: '1.5rem',
+  xl: '2rem',
+  '2xl': '3rem',
+} as const;
+
+const SYSTEM_FONT_STACK =
+  '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+
+export const typography = {
+  heading1: { fontFamily: SYSTEM_FONT_STACK, fontSize: '2rem', fontWeight: 700, lineHeight: 1.25 },
+  heading2: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1.5rem', fontWeight: 600, lineHeight: 1.25 },
+  heading3: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.25 },
+  body: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1rem', fontWeight: 400, lineHeight: 1.5 },
+  bodySmall: { fontFamily: SYSTEM_FONT_STACK, fontSize: '0.875rem', fontWeight: 400, lineHeight: 1.5 },
+} as const;

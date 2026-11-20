@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Concept {
-  id: string;
-  title: string;
-  vision: string;
-  genre: string[];
-  format: 'feature' | 'short' | 'series';
-  duration: number;
-  status: 'ideation' | 'pitch' | 'approved';
-  budgetEstimate: number;
-  createdAt: Date;
-  updatedAt: Date;
-  attachments?: Array<{ url: string; type: string; name: string }>;
-}
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const DetailContainer = styled.div`
   padding: ${spacing.lg};
@@ -203,21 +192,14 @@ const AttachmentItem = styled.div`
   }
 `;
 
-const ConceptDetail: React.FC<{ conceptId?: string }> = ({ conceptId }) => {
-  // Mock data - replace with Phase 2 EntityManager
-  const [concept] = useState<Concept>({
-    id: conceptId || 'concept-1',
-    title: 'The Lost Highway',
-    vision: 'A noir thriller following a jazz musician who discovers a mysterious past life.',
-    genre: ['Thriller', 'Drama', 'Neo-Noir'],
-    format: 'feature',
-    duration: 120,
-    status: 'approved',
-    budgetEstimate: 2500000,
-    createdAt: new Date('2026-11-01'),
-    updatedAt: new Date('2026-11-15'),
-    attachments: [],
-  });
+export interface ConceptDetailProps {
+  conceptId?: string;
+  onEdit?: (conceptId: string) => void;
+  onShare?: (conceptId: string) => void;
+}
+
+const ConceptDetail: React.FC<ConceptDetailProps> = ({ conceptId, onEdit, onShare }) => {
+  const { item: concept, loading, error } = useFilmEntity('concept', conceptId);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -235,6 +217,10 @@ const ConceptDetail: React.FC<{ conceptId?: string }> = ({ conceptId }) => {
     }).format(date);
   };
 
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading concept…" />;
+  if (!concept) return <NotFoundState label="Concept not found." />;
+
   return (
     <DetailContainer>
       <Header>
@@ -243,8 +229,10 @@ const ConceptDetail: React.FC<{ conceptId?: string }> = ({ conceptId }) => {
           <Subtitle>{concept.format.toUpperCase()} • {concept.duration} min</Subtitle>
         </TitleSection>
         <ActionButtons>
-          <Button variant="secondary">Share</Button>
-          <Button>Edit Concept</Button>
+          <Button variant="secondary" onClick={() => onShare?.(concept.id)}>
+            Share
+          </Button>
+          <Button onClick={() => onEdit?.(concept.id)}>Edit Concept</Button>
         </ActionButtons>
       </Header>
 

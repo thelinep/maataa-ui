@@ -2,28 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Take {
-  takeNumber: number;
-  duration: number;
-  status: 'kept' | 'retake' | 'review';
-  notes: string;
-  timestamp: Date;
-}
-
-interface DailyShot {
-  shotNumber: number;
-  sceneNumber: number;
-  takes: Take[];
-  totalTakes: number;
-}
-
-interface FilmingDay {
-  date: Date;
-  location: string;
-  camera: string;
-  operator: string;
-  shots: DailyShot[];
-}
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { FilmingRecord, Take } from '@/core/film/types';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
 
 const LogContainer = styled.div`
   padding: ${spacing.lg};
@@ -217,42 +198,40 @@ const AddButton = styled.button`
   }
 `;
 
-const FilmingLog: React.FC = () => {
-  const [expandedShot, setExpandedShot] = useState<number | null>(0);
+export interface FilmingLogProps {
+  /** Shooting day to show; defaults to the most recent day */
+  filmingDayId?: string;
+}
 
-  // Mock data
-  const filmingDay: FilmingDay = {
-    date: new Date('2026-11-20'),
-    location: 'Highway overpass - Mile 23',
-    camera: 'RED Monstro 8K',
-    operator: 'Cinematographer Team',
-    shots: [
-      {
-        shotNumber: 1,
-        sceneNumber: 1,
-        totalTakes: 7,
-        takes: [
-          { takeNumber: 1, duration: 3.2, status: 'retake', notes: 'Focus missed on car entrance', timestamp: new Date('2026-11-20 06:30') },
-          { takeNumber: 2, duration: 3.1, status: 'retake', notes: 'Lighting not ready', timestamp: new Date('2026-11-20 06:45') },
-          { takeNumber: 3, duration: 3.0, status: 'review', notes: 'Good lighting, check focus', timestamp: new Date('2026-11-20 07:00') },
-          { takeNumber: 4, duration: 2.9, status: 'retake', notes: 'Wind mic picked up', timestamp: new Date('2026-11-20 07:15') },
-          { takeNumber: 5, duration: 3.2, status: 'kept', notes: 'Perfect - all elements aligned', timestamp: new Date('2026-11-20 07:30') },
-          { takeNumber: 6, duration: 3.1, status: 'kept', notes: 'Alternate angle', timestamp: new Date('2026-11-20 07:45') },
-          { takeNumber: 7, duration: 3.0, status: 'kept', notes: 'Wide shot backup', timestamp: new Date('2026-11-20 08:00') },
-        ],
-      },
-      {
-        shotNumber: 2,
-        sceneNumber: 1,
-        totalTakes: 4,
-        takes: [
-          { takeNumber: 1, duration: 2.5, status: 'retake', notes: 'Boom shadow visible', timestamp: new Date('2026-11-20 08:30') },
-          { takeNumber: 2, duration: 2.4, status: 'review', notes: 'Good but slightly soft', timestamp: new Date('2026-11-20 08:45') },
-          { takeNumber: 3, duration: 2.6, status: 'kept', notes: 'Strong detail', timestamp: new Date('2026-11-20 09:00') },
-          { takeNumber: 4, duration: 2.5, status: 'kept', notes: 'Alt version', timestamp: new Date('2026-11-20 09:15') },
-        ],
-      },
-    ],
+const sortByDateDesc = (a: FilmingRecord, b: FilmingRecord) => b.date.getTime() - a.date.getTime();
+
+const FilmingLog: React.FC<FilmingLogProps> = ({ filmingDayId }) => {
+  const [expandedShot, setExpandedShot] = useState<number | null>(0);
+  const { items: days, loading, error, update } = useFilmEntities('filming', { sort: sortByDateDesc });
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading filming log…" />;
+
+  const filmingDay = filmingDayId ? days.find((day) => day.id === filmingDayId) : days[0];
+  if (!filmingDay) return <NotFoundState label="No shooting days logged yet." />;
+
+  const handleAddTake = async (shotNumber: number) => {
+    const shots = filmingDay.shots.map((shot) => {
+      if (shot.shotNumber !== shotNumber) return shot;
+      const newTake: Take = {
+        takeNumber: Math.max(0, ...shot.takes.map((t) => t.takeNumber)) + 1,
+        duration: 0,
+        status: 'review',
+        notes: '',
+        timestamp: new Date(),
+      };
+      return { ...shot, takes: [...shot.takes, newTake] };
+    });
+    try {
+      await update(filmingDay.id, { shots });
+    } catch {
+      // surfaced via `error`
+    }
   };
 
   const formatDate = (date: Date) => {
@@ -300,16 +279,24 @@ const FilmingLog: React.FC = () => {
       <ShotsAccordion>
         {filmingDay.shots.map((shot, index) => (
           <ShotAccordionItem key={shot.shotNumber}>
-            <ShotHeader onClick={() => setExpandedShot(expandedShot === index ? null : index)}>
+            <ShotHeader
+              role="button"
+              tabIndex={0}
+              aria-expanded={expandedShot === index}
+              onClick={() => setExpandedShot(expandedShot === index ? null : index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') setExpandedShot(expandedShot === index ? null : index);
+              }}
+            >
               <ShotTitle>
                 <ShotNumber>Shot {shot.shotNumber}</ShotNumber>
                 <ShotInfo>Scene {shot.sceneNumber}</ShotInfo>
               </ShotTitle>
-              <TakeCount>{shot.totalTakes} takes</TakeCount>
+              <TakeCount>{shot.takes.length} takes</TakeCount>
             </ShotHeader>
             {expandedShot === index && (
               <TakesContainer>
-                <AddButton onClick={() => alert('Add new take')}>+ Log New Take</AddButton>
+                <AddButton onClick={() => handleAddTake(shot.shotNumber)}>+ Log New Take</AddButton>
                 {shot.takes.map((take) => (
                   <TakeItem key={take.takeNumber}>
                     <TakeNumber>T{take.takeNumber}</TakeNumber>

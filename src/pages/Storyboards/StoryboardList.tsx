@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 
-interface Storyboard {
-  id: string;
-  title: string;
-  scriptId: string;
-  sceneCount: number;
-  shotCount: number;
-  status: 'in-progress' | 'review' | 'approved';
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: string;
-}
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import type { StoryboardRecord } from '@/core/film/types';
+import { ErrorState, LoadingState } from '../shared/AsyncState';
 
 const ListContainer = styled.div`
   padding: ${spacing.lg};
@@ -163,31 +155,19 @@ const EmptyState = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
-const StoryboardList: React.FC = () => {
-  const [storyboards] = useState<Storyboard[]>([
-    {
-      id: 'storyboard-1',
-      title: 'The Lost Highway - Full',
-      scriptId: 'script-1',
-      sceneCount: 12,
-      shotCount: 47,
-      status: 'approved',
-      createdAt: new Date('2026-11-10'),
-      updatedAt: new Date('2026-11-18'),
-      createdBy: 'Storyboard Artist',
-    },
-    {
-      id: 'storyboard-2',
-      title: 'Street Voices - Rough Pass',
-      scriptId: 'script-2',
-      sceneCount: 8,
-      shotCount: 24,
-      status: 'in-progress',
-      createdAt: new Date('2026-11-15'),
-      updatedAt: new Date('2026-11-20'),
-      createdBy: 'Visual Director',
-    },
-  ]);
+export interface StoryboardListProps {
+  onSelect?: (storyboardId: string) => void;
+  onCreate?: () => void;
+}
+
+const sortByUpdatedDesc = (a: StoryboardRecord, b: StoryboardRecord) => b.updatedAt.getTime() - a.updatedAt.getTime();
+
+/** Scene/shot totals are derived from the storyboard's scenes */
+export const countShots = (storyboard: Pick<StoryboardRecord, 'scenes'>) =>
+  storyboard.scenes.reduce((sum, scene) => sum + scene.shots.length, 0);
+
+const StoryboardList: React.FC<StoryboardListProps> = ({ onSelect, onCreate }) => {
+  const { items: storyboards, loading, error } = useFilmEntities('storyboard', { sort: sortByUpdatedDesc });
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-IN', {
@@ -200,15 +180,27 @@ const StoryboardList: React.FC = () => {
     <ListContainer>
       <Header>
         <Title>🎞️ Storyboards</Title>
-        <CreateButton onClick={() => alert('Create storyboard')}>
+        <CreateButton onClick={() => onCreate?.()}>
           + New Storyboard
         </CreateButton>
       </Header>
 
-      {storyboards.length > 0 ? (
+      {error ? (
+        <ErrorState error={error} />
+      ) : loading ? (
+        <LoadingState label="Loading storyboards…" />
+      ) : storyboards.length > 0 ? (
         <Grid>
           {storyboards.map((storyboard) => (
-            <StoryboardCard key={storyboard.id} onClick={() => alert(`View: ${storyboard.id}`)}>
+            <StoryboardCard
+              key={storyboard.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => onSelect?.(storyboard.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') onSelect?.(storyboard.id);
+              }}
+            >
               <CardThumbnail>🎬</CardThumbnail>
               <CardContent>
                 <CardTitle>{storyboard.title}</CardTitle>
@@ -219,11 +211,11 @@ const StoryboardList: React.FC = () => {
                 <CardStats>
                   <StatItem>
                     <StatLabel>Scenes</StatLabel>
-                    <StatValue>{storyboard.sceneCount}</StatValue>
+                    <StatValue>{storyboard.scenes.length}</StatValue>
                   </StatItem>
                   <StatItem>
                     <StatLabel>Shots</StatLabel>
-                    <StatValue>{storyboard.shotCount}</StatValue>
+                    <StatValue>{countShots(storyboard)}</StatValue>
                   </StatItem>
                 </CardStats>
                 <StatusBadge status={storyboard.status}>
