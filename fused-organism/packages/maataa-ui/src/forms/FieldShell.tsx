@@ -3,7 +3,8 @@
  * Shared label / helper-text / error-message wrapper for form controls
  */
 
-import React from "react";
+import React, { useId } from "react";
+import { FieldContext } from "../primitives/Input";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
 export interface FieldShellProps {
@@ -66,6 +67,20 @@ export const FieldShell: React.FC<FieldShellProps> = ({
   className,
   style,
 }) => {
+  // The control's id: the one given, or a generated one the control picks up
+  // from FieldContext (e.g. @maataa/primitives Input, or any control that
+  // calls useField()).
+  const generatedId = useId();
+  const controlId = htmlFor ?? generatedId;
+  const errorId = `${controlId}-error`;
+  const helpId = `${controlId}-help`;
+  const labelId = label ? `${controlId}-label` : undefined;
+  const describedBy = error ? errorId : helperText ? helpId : undefined;
+  const context = React.useMemo(
+    () => ({ id: controlId, labelId, describedBy, invalid: Boolean(error), required }),
+    [controlId, labelId, describedBy, error, required]
+  );
+
   return (
     <div
       className={className}
@@ -79,7 +94,8 @@ export const FieldShell: React.FC<FieldShellProps> = ({
     >
       {label && (
         <label
-          htmlFor={htmlFor}
+          id={labelId}
+          htmlFor={controlId}
           style={{
             fontSize: typographyTokens.fontSize.md,
             fontWeight: typographyTokens.fontWeight.medium,
@@ -97,16 +113,21 @@ export const FieldShell: React.FC<FieldShellProps> = ({
           )}
         </label>
       )}
-      {children}
+      <FieldContext.Provider value={context}>{children}</FieldContext.Provider>
       {error && (
         <span
+          id={errorId}
+          role="alert"
           style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.interactive.error }}
         >
           {error}
         </span>
       )}
       {helperText && !error && (
-        <span style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}>
+        <span
+          id={helpId}
+          style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}
+        >
           {helperText}
         </span>
       )}

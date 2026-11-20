@@ -147,6 +147,7 @@ Entry: `./dist/index.js`
 - `Card`
 - `Container`
 - `Divider`
+- `FieldContext`
 - `Flex`
 - `Grid`
 - `Input`
@@ -156,6 +157,7 @@ Entry: `./dist/index.js`
 - `Stack`
 - `VisuallyHidden`
 - `primitiveComponents`
+- `useField`
 
 ## `@maataa/react`
 
