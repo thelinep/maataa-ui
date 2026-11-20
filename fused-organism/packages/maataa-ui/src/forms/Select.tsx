@@ -20,6 +20,30 @@ export interface SelectOption {
   value: string;
   label: string;
   disabled?: boolean;
+  /** Small decorative visual before the label (an icon element). */
+  icon?: React.ReactNode;
+  /**
+   * Image URL. Shown as a thumbnail in the "thumbnail" and "grid" views and
+   * as a small leading image elsewhere. Decorative: the label names the option.
+   */
+  thumbnail?: string;
+  /** Secondary text under the label (not shown in the "compact" view). */
+  description?: string;
+}
+
+/**
+ * How options are laid out in the popup:
+ * - "list": icon/thumbnail, label and description (default)
+ * - "compact": one line per option, small visual, no description
+ * - "thumbnail": a larger image beside the label and description
+ * - "grid": tiles in `gridColumns` columns, image above the label
+ */
+export type SelectView = "list" | "compact" | "thumbnail" | "grid";
+
+export interface SelectOptionState {
+  selected: boolean;
+  active: boolean;
+  disabled: boolean;
 }
 
 export interface SelectProps extends Omit<
@@ -43,6 +67,20 @@ export interface SelectProps extends Omit<
   name?: string;
   /** Shown when a search matches nothing. */
   noOptionsText?: string;
+  /** Popup layout. @default "list" */
+  view?: SelectView;
+  /** Columns in the "grid" view. @default 3 */
+  gridColumns?: number;
+  /**
+   * How a multi-select shows its selection: as text in the control, or as
+   * removable chips under it. @default "text"
+   */
+  selectedDisplay?: "text" | "chips";
+  /**
+   * Custom option content (inside the option element, which keeps its role,
+   * selection state and keyboard handling). The option is named by its label.
+   */
+  renderOption?: (option: SelectOption, state: SelectOptionState) => React.ReactNode;
 }
 
 const joinIds = (...ids: Array<string | undefined | false>) =>
@@ -79,6 +117,10 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     size = "md",
     name,
     noOptionsText = "No options found",
+    view = "list",
+    gridColumns = 3,
+    selectedDisplay = "text",
+    renderOption,
     id,
     "aria-label": ariaLabel,
     "aria-labelledby": ariaLabelledBy,
@@ -133,7 +175,10 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     for (let i = filtered.length - 1; i >= 0; i--) if (!filtered[i].disabled) return i;
     return -1;
   };
-  const step = (from: number, delta: 1 | -1) => {
+  const isGrid = view === "grid";
+  // In the grid view Up/Down move a whole row.
+  const rowStep = isGrid ? Math.max(1, Math.floor(gridColumns)) : 1;
+  const step = (from: number, delta: number) => {
     for (let i = from + delta; i >= 0 && i < filtered.length; i += delta)
       if (isEnabled(i)) return i;
     return from;
@@ -202,6 +247,18 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     if (disabled) return;
     const { key, altKey } = event;
 
+    if (
+      key === "Backspace" &&
+      multiSelect &&
+      selectedDisplay === "chips" &&
+      selected.length > 0 &&
+      !(searchable && query)
+    ) {
+      event.preventDefault();
+      onChange?.(selected.slice(0, -1));
+      return;
+    }
+
     if (!isOpen) {
       if (
         key === "ArrowDown" ||
@@ -228,14 +285,21 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     switch (key) {
       case "ArrowDown":
         event.preventDefault();
-        setActiveIndex((i) => (i < 0 ? firstEnabled() : step(i, 1)));
+        setActiveIndex((i) => (i < 0 ? firstEnabled() : step(i, rowStep)));
         break;
       case "ArrowUp":
         event.preventDefault();
         if (altKey) {
           if (!multiSelect && activeIndex >= 0) commit(activeIndex);
           else close();
-        } else setActiveIndex((i) => (i < 0 ? lastEnabled() : step(i, -1)));
+        } else setActiveIndex((i) => (i < 0 ? lastEnabled() : step(i, -rowStep)));
+        break;
+      case "ArrowRight":
+      case "ArrowLeft":
+        // Columns only exist in the grid; in a search box these move the caret.
+        if (!isGrid || searchable) break;
+        event.preventDefault();
+        setActiveIndex((i) => (i < 0 ? firstEnabled() : step(i, key === "ArrowRight" ? 1 : -1)));
         break;
       case "Home":
         if (searchable) break;
@@ -315,13 +379,21 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
       // The listbox is portalled to <body>, so it would not inherit the app's
       // font; copy it from the control.
       const font = window.getComputedStyle(anchor);
+      const width = Math.min(
+        window.innerWidth - 16,
+        Math.max(rect.width, isGrid ? Math.floor(gridColumns) * 120 + 16 : 0)
+      );
+      const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
       setPosition({
         fontFamily: font.fontFamily,
         fontSize: font.fontSize,
-        left: rect.left,
-        width: rect.width,
+        left,
+        width,
         ...(above ? { bottom: window.innerHeight - rect.top + gap } : { top: rect.bottom + gap }),
-        maxHeight: Math.max(120, Math.min(300, (above ? rect.top : spaceBelow) - gap * 2)),
+        maxHeight: Math.max(
+          120,
+          Math.min(isGrid ? 420 : 300, (above ? rect.top : spaceBelow) - gap * 2)
+        ),
       });
     };
     place();
@@ -331,7 +403,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
       window.removeEventListener("scroll", place, true);
       window.removeEventListener("resize", place);
     };
-  }, [isOpen]);
+  }, [isOpen, isGrid, gridColumns]);
 
   // Keep the active option valid as the search narrows the list.
   useEffect(() => {
@@ -341,15 +413,64 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
   }, [query]);
 
   // --- rendering --------------------------------------------------------------
-  const selectedLabels = options.filter((o) => selected.includes(o.value)).map((o) => o.label);
+  // Selected options in the order they were chosen.
+  const selectedOptions = selected
+    .map((v) => options.find((o) => o.value === v))
+    .filter((o): o is SelectOption => Boolean(o));
+  const selectedLabels = selectedOptions.map((o) => o.label);
+  const showChips = multiSelect && selectedDisplay === "chips";
+  const chipsLabelTarget = labelId ?? field?.labelId;
   const displayText =
     selectedLabels.length === 0
       ? ""
       : multiSelect
-        ? selectedLabels.length <= 2
+        ? selectedLabels.length <= 2 && !showChips
           ? selectedLabels.join(", ")
           : `${selectedLabels.length} selected`
         : selectedLabels[0];
+  const singleSelected = !multiSelect ? selectedOptions[0] : undefined;
+
+  /** Decorative image or icon for an option; the label carries the meaning. */
+  const renderVisual = (option: SelectOption, px: number, fill = false) => {
+    if (option.thumbnail) {
+      return (
+        <img
+          src={option.thumbnail}
+          alt=""
+          aria-hidden="true"
+          style={{
+            width: fill ? "100%" : px,
+            height: px,
+            flex: "none",
+            objectFit: "cover",
+            borderRadius: radiusTokens.sm,
+            display: "block",
+          }}
+        />
+      );
+    }
+    if (option.icon) {
+      return (
+        <span
+          aria-hidden="true"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: fill ? "100%" : px,
+            height: px,
+            flex: "none",
+            fontSize: Math.round(px * 0.75),
+            lineHeight: 1,
+          }}
+        >
+          {option.icon}
+        </span>
+      );
+    }
+    return null;
+  };
+  const visualSize = { compact: 16, list: 20, thumbnail: 40, grid: 72 }[view];
 
   const sizeStyle = sizeMap[size];
   const borderColor = invalid
@@ -449,6 +570,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
           transition: "border-color 0.2s ease",
         }}
       >
+        {searchable && !isOpen && singleSelected && renderVisual(singleSelected, 20)}
         {searchable ? (
           <input
             {...comboboxProps}
@@ -488,19 +610,85 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
               flex: 1,
               minWidth: 0,
               outline: "none",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: spacingTokens.sm,
               color: displayText ? colorTokens.text.primary : colorTokens.text.secondary,
             }}
           >
-            {displayText || placeholder}
+            {singleSelected && renderVisual(singleSelected, 20)}
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {displayText || placeholder}
+            </span>
           </div>
         )}
         <span aria-hidden="true" style={{ color: colorTokens.text.secondary, fontSize: "11px" }}>
           ▼
         </span>
       </div>
+
+      {showChips && selectedOptions.length > 0 && chipsLabelTarget && (
+        <span id={`${uid}-chips-prefix`} hidden>
+          Selected
+        </span>
+      )}
+      {showChips && selectedOptions.length > 0 && (
+        <ul
+          // "Selected <field label>", whether the label is our own or a FieldShell's.
+          aria-labelledby={chipsLabelTarget ? `${uid}-chips-prefix ${chipsLabelTarget}` : undefined}
+          aria-label={chipsLabelTarget ? undefined : "Selected options"}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: spacingTokens.xs,
+            listStyle: "none",
+            margin: `${spacingTokens.sm} 0 0`,
+            padding: 0,
+          }}
+        >
+          {selectedOptions.map((option) => (
+            <li
+              key={option.value}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: disabled ? "2px 10px" : "2px 4px 2px 8px",
+                borderRadius: 999,
+                border: `1px solid ${colorTokens.border.primary}`,
+                backgroundColor: colorTokens.background.secondary,
+                color: colorTokens.text.primary,
+                fontSize: "13px",
+                maxWidth: "100%",
+              }}
+            >
+              {renderVisual(option, 16)}
+              <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {option.label}
+              </span>
+              {!disabled && (
+                <button
+                  type="button"
+                  aria-label={`Remove ${option.label}`}
+                  onClick={() => onChange?.(selected.filter((v) => v !== option.value))}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    padding: "0 4px",
+                    fontSize: "15px",
+                    lineHeight: 1,
+                    color: colorTokens.text.primary,
+                    borderRadius: 999,
+                  }}
+                >
+                  ×
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {error && (
         <p
@@ -531,9 +719,17 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
               position: "fixed",
               zIndex: 1100,
               margin: 0,
-              padding: `${spacingTokens.xs} 0`,
+              padding: isGrid ? spacingTokens.xs : `${spacingTokens.xs} 0`,
               listStyle: "none",
               overflowY: "auto",
+              ...(isGrid
+                ? {
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${rowStep}, minmax(0, 1fr))`,
+                    gap: spacingTokens.xs,
+                    alignContent: "start",
+                  }
+                : {}),
               boxSizing: "border-box",
               backgroundColor: colorTokens.background.primary,
               border: `1px solid ${colorTokens.border.primary}`,
@@ -547,7 +743,11 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
                 role="option"
                 aria-disabled="true"
                 aria-selected={false}
-                style={{ padding: spacingTokens.md, color: colorTokens.text.secondary }}
+                style={{
+                  padding: spacingTokens.md,
+                  color: colorTokens.text.secondary,
+                  gridColumn: "1 / -1",
+                }}
               >
                 {noOptionsText}
               </li>
@@ -555,26 +755,144 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
               filtered.map((option, index) => {
                 const isSelected = selected.includes(option.value);
                 const isActive = index === activeIndex;
+                const isDisabled = Boolean(option.disabled);
+                const id = optionId(index);
+                const showDescription = Boolean(option.description) && view !== "compact";
+                const state = { selected: isSelected, active: isActive, disabled: isDisabled };
+
+                const indicator = multiSelect ? (
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: 14,
+                      height: 14,
+                      flex: "none",
+                      boxSizing: "border-box",
+                      border: `2px solid ${colorTokens.interactive.primary}`,
+                      borderRadius: 3,
+                      backgroundColor: isSelected ? colorTokens.interactive.primary : "transparent",
+                      color: colorTokens.text.inverse,
+                      fontSize: 10,
+                      lineHeight: "10px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {isSelected ? "✓" : ""}
+                  </span>
+                ) : (
+                  <span aria-hidden="true" style={{ width: 14, flex: "none" }}>
+                    {isSelected ? "✓" : ""}
+                  </span>
+                );
+
+                const text = (
+                  <span
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      minWidth: 0,
+                      gap: 2,
+                      alignItems: isGrid ? "center" : "flex-start",
+                    }}
+                  >
+                    <span
+                      id={`${id}-label`}
+                      style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: view === "compact" || isGrid ? "nowrap" : "normal",
+                        maxWidth: "100%",
+                      }}
+                    >
+                      {option.label}
+                    </span>
+                    {showDescription && (
+                      <span
+                        id={`${id}-description`}
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: 400,
+                          color: colorTokens.text.secondary,
+                        }}
+                      >
+                        {option.description}
+                      </span>
+                    )}
+                  </span>
+                );
+
+                const content = renderOption ? (
+                  renderOption(option, state)
+                ) : isGrid ? (
+                  <>
+                    {renderVisual(option, visualSize, true)}
+                    {text}
+                    {isSelected && (
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          top: 6,
+                          right: 6,
+                          width: 18,
+                          height: 18,
+                          borderRadius: 999,
+                          backgroundColor: colorTokens.interactive.primary,
+                          color: colorTokens.text.inverse,
+                          fontSize: 11,
+                          lineHeight: "18px",
+                          textAlign: "center",
+                        }}
+                      >
+                        ✓
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {indicator}
+                    {renderVisual(option, visualSize)}
+                    {text}
+                  </>
+                );
+
                 return (
                   <li
                     key={option.value}
-                    id={optionId(index)}
+                    id={id}
                     role="option"
                     aria-selected={isSelected}
-                    aria-disabled={option.disabled || undefined}
+                    aria-disabled={isDisabled || undefined}
+                    // Custom content may hold anything; name the option by its label.
+                    aria-label={renderOption ? option.label : undefined}
+                    aria-labelledby={renderOption ? undefined : `${id}-label`}
+                    aria-describedby={
+                      !renderOption && showDescription ? `${id}-description` : undefined
+                    }
                     // Keep focus on the combobox while clicking an option.
                     onMouseDown={(e) => e.preventDefault()}
                     onMouseMove={() =>
-                      !option.disabled && activeIndex !== index && setActiveIndex(index)
+                      !isDisabled && activeIndex !== index && setActiveIndex(index)
                     }
                     onClick={() => commit(index)}
                     style={{
+                      position: "relative",
                       display: "flex",
-                      alignItems: "center",
-                      gap: spacingTokens.sm,
-                      padding: `${spacingTokens.sm} ${spacingTokens.md}`,
-                      cursor: option.disabled ? "not-allowed" : "pointer",
-                      opacity: option.disabled ? 0.6 : 1,
+                      flexDirection: isGrid ? "column" : "row",
+                      alignItems: isGrid ? "stretch" : "center",
+                      gap: isGrid ? spacingTokens.xs : spacingTokens.sm,
+                      padding: isGrid
+                        ? spacingTokens.xs
+                        : view === "compact"
+                          ? `4px ${spacingTokens.md}`
+                          : `${spacingTokens.sm} ${spacingTokens.md}`,
+                      borderRadius: isGrid ? radiusTokens.md : 0,
+                      border: isGrid
+                        ? `2px solid ${isSelected ? colorTokens.interactive.primary : "transparent"}`
+                        : undefined,
+                      textAlign: isGrid ? "center" : "left",
+                      cursor: isDisabled ? "not-allowed" : "pointer",
+                      opacity: isDisabled ? 0.6 : 1,
                       color: colorTokens.text.primary,
                       backgroundColor: isActive ? colorTokens.background.secondary : "transparent",
                       outline: isActive ? `2px solid ${colorTokens.interactive.primary}` : "none",
@@ -582,32 +900,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
                       fontWeight: isSelected ? 600 : 400,
                     }}
                   >
-                    {multiSelect ? (
-                      <span
-                        aria-hidden="true"
-                        style={{
-                          width: 14,
-                          height: 14,
-                          flex: "none",
-                          border: `2px solid ${colorTokens.interactive.primary}`,
-                          borderRadius: 3,
-                          backgroundColor: isSelected
-                            ? colorTokens.interactive.primary
-                            : "transparent",
-                          color: colorTokens.text.inverse,
-                          fontSize: 10,
-                          lineHeight: "10px",
-                          textAlign: "center",
-                        }}
-                      >
-                        {isSelected ? "✓" : ""}
-                      </span>
-                    ) : (
-                      <span aria-hidden="true" style={{ width: 14, flex: "none" }}>
-                        {isSelected ? "✓" : ""}
-                      </span>
-                    )}
-                    <span>{option.label}</span>
+                    {content}
                   </li>
                 );
               })
