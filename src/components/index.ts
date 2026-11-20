@@ -46,3 +46,8 @@ export { BudgetAlerts, type BudgetAlertsProps, type SpendingAlert } from './budg
 export { TeamRoles, type TeamRolesProps, type TeamRole } from './team/TeamRoles';
 export { TeamPermissions, type TeamPermissionsProps, type Permission, type RolePermission } from './team/TeamPermissions';
 export { MemberApproval, type MemberApprovalProps, type MemberRequest } from './team/MemberApproval';
+
+// Project (Phase D Enhancements)
+export { ProjectDependencies, type ProjectDependenciesProps, type ProjectTask, type TaskDependency } from './project/ProjectDependencies';
+export { ProjectTimeline, type ProjectTimelineProps, type ProjectMilestone, type ProjectPhase } from './project/ProjectTimeline';
+export { GanttChart, type GanttChartProps, type GanttTask } from './project/GanttChart';
