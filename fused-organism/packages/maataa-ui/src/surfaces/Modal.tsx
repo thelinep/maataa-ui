@@ -34,6 +34,9 @@ const modalSizes = {
  * </Modal>
  * ```
  */
+const FOCUSABLE =
+  'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
@@ -43,12 +46,65 @@ export const Modal: React.FC<ModalProps> = ({
   size = "md",
   children,
 }) => {
+  const titleId = React.useId();
+  const dialogRef = React.useRef<HTMLDivElement | null>(null);
+  const onCloseRef = React.useRef(onClose);
+  onCloseRef.current = onClose;
+
+  // Lock page scroll while open, restoring whatever was there before.
   React.useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    }
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previous;
+    };
+  }, [isOpen]);
+
+  // Focus management: move focus into the dialog on open, keep Tab inside
+  // it, close on Escape, and return focus to the opener on close.
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const opener = document.activeElement as HTMLElement | null;
+    const dialog = dialogRef.current;
+    const focusables = () =>
+      dialog
+        ? Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+            (el) => !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true"
+          )
+        : [];
+
+    const first = focusables()[0];
+    (first ?? dialog)?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        onCloseRef.current();
+        return;
+      }
+      if (event.key !== "Tab" || !dialog) return;
+      const items = focusables();
+      if (items.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+      const firstItem = items[0];
+      const lastItem = items[items.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey && (active === firstItem || active === dialog)) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && active === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      if (opener && typeof opener.focus === "function" && document.contains(opener)) opener.focus();
     };
   }, [isOpen]);
 
@@ -72,6 +128,11 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title ? titleId : undefined}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: colorTokens.background.primary,
@@ -80,6 +141,8 @@ export const Modal: React.FC<ModalProps> = ({
           maxHeight: "90vh",
           overflowY: "auto",
           ...modalSizes[size],
+          maxWidth: "calc(100vw - 32px)",
+          outline: "none",
           animation: "slideUp 0.3s ease",
         }}
       >
@@ -95,6 +158,7 @@ export const Modal: React.FC<ModalProps> = ({
           >
             {title && (
               <h2
+                id={titleId}
                 style={{
                   margin: "0",
                   fontSize: "18px",
@@ -107,6 +171,7 @@ export const Modal: React.FC<ModalProps> = ({
             )}
             {closeButton && (
               <button
+                type="button"
                 onClick={onClose}
                 aria-label="Close"
                 style={{

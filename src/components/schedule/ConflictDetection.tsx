@@ -343,7 +343,7 @@ export const ConflictDetection: React.FC<ConflictDetectionProps> = ({
                   Resolve
                 </Button>
                 <Button
-                  variant="outline"
+                  variant="tertiary"
                   size="sm"
                   onClick={() => onShowAlternatives?.(conflict.id)}
                 >

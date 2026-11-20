@@ -13,6 +13,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
+  /**
+   * Content shown while `isLoading` is true. Pass a translated string in
+   * localised apps.
+   * @default "Loading..."
+   */
+  loadingText?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -29,12 +35,15 @@ const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
   },
   tertiary: {
     backgroundColor: "transparent",
-    color: colorTokens.interactive.primary,
+    // Brand-coloured outline; the label uses text.primary because
+    // interactive.primary text is under 4.5:1 on background.secondary.
+    color: colorTokens.text.primary,
     border: `2px solid ${colorTokens.interactive.primary}`,
   },
   danger: {
-    backgroundColor: colorTokens.semantic.error.bg,
-    color: colorTokens.semantic.error.text,
+    // Solid fill: semantic.error.text on semantic.error.bg is only 4.40:1.
+    backgroundColor: colorTokens.interactive.error,
+    color: colorTokens.text.inverse,
     border: "none",
   },
 };
@@ -70,12 +79,27 @@ const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant = "primary", size = "md", isLoading = false, children, className, style, disabled, ...props },
+    {
+      variant = "primary",
+      size = "md",
+      isLoading = false,
+      loadingText = "Loading...",
+      type = "button",
+      children,
+      className,
+      style,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     return (
       <button
         ref={ref}
+        // Default to "button" so a button inside a <form> only submits when
+        // it explicitly asks to (type="submit").
+        type={type}
+        aria-busy={isLoading || undefined}
         className={className}
         style={{
           ...variantStyles[variant],
@@ -100,7 +124,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         {...props}
       >
-        {isLoading ? "Loading..." : children}
+        {isLoading ? loadingText : children}
       </button>
     );
   },

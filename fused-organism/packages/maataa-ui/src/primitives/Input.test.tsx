@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Input } from "./Input";
 
@@ -68,5 +69,40 @@ describe("Input", () => {
     const ref = React.createRef<HTMLInputElement>();
     render(<Input ref={ref} placeholder="Email" />);
     expect(ref.current).toBeInstanceOf(HTMLInputElement);
+  });
+});
+
+describe("Input accessibility and form-library wiring", () => {
+  it("names the input with its label", () => {
+    render(<Input label="Email" />);
+    expect(screen.getByRole("textbox", { name: "Email" })).toBeInTheDocument();
+  });
+
+  it("marks errors invalid and links the message", () => {
+    render(<Input label="Email" error="Email is required" />);
+    const input = screen.getByRole("textbox", { name: "Email" });
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAccessibleDescription("Email is required");
+  });
+
+  it("links helper text when there is no error", () => {
+    render(<Input label="Email" helperText="We never share it" />);
+    expect(screen.getByRole("textbox", { name: "Email" })).toHaveAccessibleDescription(
+      "We never share it"
+    );
+  });
+
+  it("chains onBlur/onFocus instead of replacing its own handlers", () => {
+    const onBlur = vi.fn();
+    const onFocus = vi.fn();
+    render(<Input label="Email" onBlur={onBlur} onFocus={onFocus} />);
+    const input = screen.getByRole("textbox", { name: "Email" });
+    fireEvent.focus(input);
+    const focusedBorder = input.style.border;
+    fireEvent.blur(input);
+    expect(onFocus).toHaveBeenCalledTimes(1);
+    expect(onBlur).toHaveBeenCalledTimes(1);
+    // Own focus styling still toggles back after blur.
+    expect(input.style.border).not.toBe(focusedBorder);
   });
 });

@@ -10,13 +10,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import {
   Card,
-  Tabs,
   Button,
-  Modal,
   ActivityFeed,
   PresenceIndicator,
   TypingIndicator,
 } from '@/components';
+import { Modal } from '@maataa/ui/surfaces';
+import { Tabs } from '@maataa/ui/navigation';
 import { useEntity, useActivityStream, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import TeamForm, { TeamFormData } from './TeamForm';
@@ -279,7 +279,7 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
             Edit
           </Button>
           {onNavigateBack && (
-            <Button variant="outline" onClick={onNavigateBack}>
+            <Button variant="tertiary" onClick={onNavigateBack}>
               Back
             </Button>
           )}
@@ -319,7 +319,7 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
       {/* Content Tabs */}
       <Card>
         <Tabs
-          items={[
+          tabs={[
             {
               id: 'overview',
               label: 'Overview',
@@ -378,8 +378,8 @@ export const TeamDetail: React.FC<TeamDetailProps> = ({
               ),
             },
           ]}
-          activeTabId={['overview', 'members', 'activity'][activeTabIndex]}
-          onSelectTab={(id: string) => {
+          activeTab={['overview', 'members', 'activity'][activeTabIndex]}
+          onChange={(id) => {
             const index = ['overview', 'members', 'activity'].indexOf(id);
             setActiveTabIndex(index >= 0 ? index : 0);
           }}

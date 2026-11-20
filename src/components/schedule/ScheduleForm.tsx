@@ -10,14 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  FormInput,
-  FormFieldWrapper,
-  Select,
-  MultiSelect,
-  Button,
-  TypingIndicator,
-} from '@/components';
+import { Select, MultiSelect, Button, TypingIndicator } from '@/components';
+import { Input } from '@maataa/primitives';
+import { FieldShell } from '@maataa/ui/forms';
 import { usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -241,7 +236,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
         <FormGrid>
           {/* Title */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Event Title"
               error={errors.title?.message}
               required
@@ -250,7 +245,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 name="title"
                 control={control}
                 render={({ field }) => (
-                  <FormInput
+                  <Input
                     type="text"
                     placeholder="Enter event title"
                     {...field}
@@ -263,11 +258,11 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
 
           {/* Event Type */}
-          <FormFieldWrapper label="Event Type" error={errors.eventType?.message} required>
+          <FieldShell label="Event Type" error={errors.eventType?.message} required>
             <Controller
               name="eventType"
               control={control}
@@ -283,15 +278,15 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Location */}
-          <FormFieldWrapper label="Location" error={errors.location?.message}>
+          <FieldShell label="Location" error={errors.location?.message}>
             <Controller
               name="location"
               control={control}
               render={({ field }) => (
-                <FormInput
+                <Input
                   type="text"
                   placeholder="Enter location"
                   {...field}
@@ -303,11 +298,11 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Time Inputs */}
           <TimeInputWrapper>
-            <FormFieldWrapper
+            <FieldShell
               label="Start Time"
               error={errors.startTime?.message}
               required
@@ -316,7 +311,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 name="startTime"
                 control={control}
                 render={({ field }) => (
-                  <FormInput
+                  <Input
                     type="datetime-local"
                     {...field}
                     onChange={(e) => {
@@ -327,9 +322,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
 
-            <FormFieldWrapper
+            <FieldShell
               label="End Time"
               error={errors.endTime?.message}
               required
@@ -338,7 +333,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 name="endTime"
                 control={control}
                 render={({ field }) => (
-                  <FormInput
+                  <Input
                     type="datetime-local"
                     {...field}
                     onChange={(e) => {
@@ -349,7 +344,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </TimeInputWrapper>
 
           {/* Duration Display */}
@@ -361,12 +356,12 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
 
           {/* Description */}
           <FullWidth>
-            <FormFieldWrapper label="Description" error={errors.description?.message}>
+            <FieldShell label="Description" error={errors.description?.message}>
               <Controller
                 name="description"
                 control={control}
                 render={({ field }) => (
-                  <FormInput
+                  <Input
                     type="text"
                     placeholder="Event description (optional)"
                     {...field}
@@ -377,12 +372,12 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
 
           {/* Attendees */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Attendees"
               error={errors.attendees?.message}
               required
@@ -402,12 +397,12 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
 
           {/* Resources */}
           <FullWidth>
-            <FormFieldWrapper label="Resources Required" error={errors.resourcesRequired?.message}>
+            <FieldShell label="Resources Required" error={errors.resourcesRequired?.message}>
               <Controller
                 name="resourcesRequired"
                 control={control}
@@ -428,7 +423,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
 
           {/* Typing Indicator */}
@@ -447,7 +442,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
         {/* Action Buttons */}
         <ButtonGroup>
           <Button
-            variant="outline"
+            variant="tertiary"
             onClick={onCancel}
             disabled={isSubmitting}
           >

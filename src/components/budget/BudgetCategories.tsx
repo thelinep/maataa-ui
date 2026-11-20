@@ -246,7 +246,7 @@ export const BudgetCategories: React.FC<BudgetCategoriesProps> = ({
             <Button variant="primary" size="sm" onClick={handleAddClick}>
               Save
             </Button>
-            <Button variant="outline" size="sm" onClick={() => setIsAddingCategory(false)}>
+            <Button variant="tertiary" size="sm" onClick={() => setIsAddingCategory(false)}>
               Cancel
             </Button>
           </div>

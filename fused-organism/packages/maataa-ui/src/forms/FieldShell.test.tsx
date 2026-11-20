@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { FieldShell } from "./FieldShell";
+import { Input, useField } from "../primitives/Input";
 
 describe("FieldShell", () => {
   it("renders children", () => {
@@ -80,5 +81,67 @@ describe("FieldShell", () => {
 
   it("sets displayName", () => {
     expect(FieldShell.displayName).toBe("FieldShell");
+  });
+});
+
+describe("FieldShell field context", () => {
+  it("wires its label, required state and error to an Input inside it", () => {
+    render(
+      <FieldShell label="Budget name" required error="Name is required">
+        <Input />
+      </FieldShell>
+    );
+    const input = screen.getByRole("textbox", { name: /Budget name/ });
+    // Announced as required without enabling native constraint validation.
+    expect(input).toHaveAttribute("aria-required", "true");
+    expect(input).not.toHaveAttribute("required");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAccessibleDescription("Name is required");
+  });
+
+  it("gives any control the label target and description ids via useField", () => {
+    const NativeSelect = () => {
+      const field = useField();
+      return (
+        <select id={field?.id} aria-describedby={field?.describedBy}>
+          <option>USD</option>
+        </select>
+      );
+    };
+    render(
+      <FieldShell label="Currency" helperText="ISO code">
+        <NativeSelect />
+      </FieldShell>
+    );
+    const select = screen.getByRole("combobox", { name: "Currency" });
+    expect(select).toHaveAccessibleDescription("ISO code");
+  });
+
+  it("keeps an explicit htmlFor", () => {
+    render(
+      <FieldShell label="Title" htmlFor="title-field">
+        <Input />
+      </FieldShell>
+    );
+    expect(screen.getByRole("textbox", { name: "Title" })).toHaveAttribute("id", "title-field");
+  });
+});
+
+describe("FieldShell labelId for non-labelable controls", () => {
+  it("lets a custom control be named by the visible label", () => {
+    const CustomTrigger = () => {
+      const field = useField();
+      return (
+        <div role="button" tabIndex={0} id={field?.id} aria-labelledby={field?.labelId}>
+          2 selected
+        </div>
+      );
+    };
+    render(
+      <FieldShell label="Team members">
+        <CustomTrigger />
+      </FieldShell>
+    );
+    expect(screen.getByRole("button", { name: "Team members" })).toBeInTheDocument();
   });
 });

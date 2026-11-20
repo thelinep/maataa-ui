@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Modal } from "./Modal";
 
 describe("Modal", () => {
@@ -96,5 +97,82 @@ describe("Modal", () => {
       </Modal>
     );
     expect(screen.getByText("Content")).toBeInTheDocument();
+  });
+});
+
+describe("Modal accessibility", () => {
+  const Harness = ({ onClose = () => {} }: { onClose?: () => void }) => {
+    const [open, setOpen] = React.useState(false);
+    return (
+      <>
+        <button onClick={() => setOpen(true)}>Open</button>
+        <Modal
+          isOpen={open}
+          onClose={() => {
+            onClose();
+            setOpen(false);
+          }}
+          title="Edit budget"
+          footer={<button>Save</button>}
+        >
+          <input aria-label="Name" />
+        </Modal>
+      </>
+    );
+  };
+
+  it("is a modal dialog labelled by its title", async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole("button", { name: "Open" }));
+    const dialog = screen.getByRole("dialog", { name: "Edit budget" });
+    expect(dialog).toHaveAttribute("aria-modal", "true");
+  });
+
+  it("moves focus into the dialog when it opens", async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole("button", { name: "Open" }));
+    expect(screen.getByRole("dialog")).toContainElement(document.activeElement as HTMLElement);
+  });
+
+  it("closes on Escape and returns focus to the opener", async () => {
+    const onClose = vi.fn();
+    render(<Harness onClose={onClose} />);
+    const opener = screen.getByRole("button", { name: "Open" });
+    await userEvent.click(opener);
+    await userEvent.keyboard("{Escape}");
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(opener).toHaveFocus();
+  });
+
+  it("keeps Tab focus inside the dialog", async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole("button", { name: "Open" }));
+    const dialog = screen.getByRole("dialog");
+    for (let i = 0; i < 5; i++) {
+      await userEvent.tab();
+      expect(dialog).toContainElement(document.activeElement as HTMLElement);
+    }
+    for (let i = 0; i < 5; i++) {
+      await userEvent.tab({ shift: true });
+      expect(dialog).toContainElement(document.activeElement as HTMLElement);
+    }
+  });
+
+  it("restores the previous body overflow when closed", async () => {
+    document.body.style.overflow = "scroll";
+    const { rerender } = render(
+      <Modal isOpen onClose={() => {}}>
+        x
+      </Modal>
+    );
+    expect(document.body.style.overflow).toBe("hidden");
+    rerender(
+      <Modal isOpen={false} onClose={() => {}}>
+        x
+      </Modal>
+    );
+    expect(document.body.style.overflow).toBe("scroll");
+    document.body.style.overflow = "";
   });
 });

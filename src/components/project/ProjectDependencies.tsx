@@ -238,7 +238,7 @@ export const ProjectDependencies: React.FC<ProjectDependenciesProps> = ({
                     {isCritical && <span style={{ color: colorTokens.interactive.error, fontWeight: 'bold' }}>⚡ Critical</span>}
                   </div>
                   <Button
-                    variant="outline"
+                    variant="tertiary"
                     size="sm"
                     onClick={() => onRemoveDependency?.(dep.id)}
                   >

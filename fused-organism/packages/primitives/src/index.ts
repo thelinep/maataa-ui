@@ -8,7 +8,7 @@
 
 // Core Components
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from "./Button";
-export { Input, type InputProps } from "./Input";
+export { Input, type InputProps, FieldContext, useField, type FieldContextValue } from "./Input";
 export { Card, type CardProps } from "./Card";
 export { Badge, type BadgeProps, type BadgeVariant, type BadgeSize } from "./Badge";
 

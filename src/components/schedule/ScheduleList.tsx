@@ -324,7 +324,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
 
                 <ActionButtons>
                   <Button
-                    variant="outline"
+                    variant="tertiary"
                     size="sm"
                     onClick={() => onViewEvent?.(event.id)}
                   >

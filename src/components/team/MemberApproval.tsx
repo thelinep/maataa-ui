@@ -335,7 +335,7 @@ export const MemberApproval: React.FC<MemberApprovalProps> = ({
                         ✓ Approve
                       </Button>
                       <Button
-                        variant="destructive"
+                        variant="danger"
                         size="sm"
                         onClick={() => setRejectReason(request.id)}
                       >

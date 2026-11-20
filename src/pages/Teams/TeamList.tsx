@@ -9,7 +9,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, DataTable, Card, FormInput } from '@/components';
+import { Button, Card } from '@/components';
+import { SearchInput } from '@maataa/ui/forms';
+import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
@@ -64,7 +66,7 @@ const Controls = styled.div`
   }
 `;
 
-const SearchInput = styled(FormInput)`
+const SearchBox = styled.div`
   width: 250px;
 
   @media (max-width: 768px) {
@@ -204,12 +206,14 @@ export const TeamList: React.FC = () => {
       <Header>
         <Title>Teams</Title>
         <Controls>
-          <SearchInput
-            type="text"
-            placeholder="Search teams..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.currentTarget.value)}
-          />
+          <SearchBox>
+            <SearchInput
+              aria-label="Search teams"
+              placeholder="Search teams..."
+              value={searchTerm}
+              onChange={setSearchTerm}
+            />
+          </SearchBox>
           <Button onClick={() => navigate(getRoutePath('TEAM_CREATE'))}>
             + Create Team
           </Button>
@@ -230,35 +234,32 @@ export const TeamList: React.FC = () => {
         </EmptyState>
       ) : (
         <Card>
-          <DataTable
+          <DataTable<Team>
             columns={[
               {
-                id: 'name',
+                key: 'name',
                 header: 'Team Name',
-                width: '40%',
-                accessor: (row: Team) => row.name,
+                render: (_value, row) => row.name,
               },
               {
-                id: 'memberCount',
+                key: 'memberCount',
                 header: 'Members',
-                width: '15%',
-                accessor: (row: Team) => `${row.memberCount} members`,
+                render: (_value, row) => `${row.memberCount} members`,
               },
               {
-                id: 'lead',
+                key: 'lead',
                 header: 'Team Lead',
-                width: '25%',
-                accessor: (row: Team) => row.lead || 'Unassigned',
+                render: (_value, row) => row.lead || 'Unassigned',
               },
               {
-                id: 'updated_at',
+                key: 'updated_at',
                 header: 'Last Updated',
-                width: '20%',
-                accessor: (row: Team) => new Date(row.updated_at).toLocaleDateString(),
+                render: (_value, row) => new Date(row.updated_at).toLocaleDateString(),
               },
             ]}
+            getRowKey={(row) => row.id}
             data={filteredTeams}
-            onRowClick={(row: Team) => {
+            onRowClick={(row) => {
               navigate(getRoutePath('TEAM_DETAIL', { teamId: row.id }));
             }}
           />

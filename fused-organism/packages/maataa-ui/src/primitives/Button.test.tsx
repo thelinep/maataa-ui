@@ -1,7 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Button } from "./Button";
+import { colorTokens } from "../tokens";
 
 describe("Button", () => {
   it("renders its children", () => {
@@ -69,4 +71,77 @@ describe("Button", () => {
     render(<Button ref={ref}>Save</Button>);
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
+});
+
+describe("Button form and loading behaviour", () => {
+  it("defaults to type=button so it does not submit an enclosing form", async () => {
+    const onSubmit = vi.fn((e: React.FormEvent) => e.preventDefault());
+    render(
+      <form onSubmit={onSubmit}>
+        <Button>Cancel</Button>
+        <Button type="submit">Save</Button>
+      </form>
+    );
+    expect(screen.getByRole("button", { name: "Cancel" })).toHaveAttribute("type", "button");
+    await userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(onSubmit).not.toHaveBeenCalled();
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows custom loading text and marks itself busy", () => {
+    render(
+      <Button isLoading loadingText="Enregistrement…">
+        Save
+      </Button>
+    );
+    const button = screen.getByRole("button", { name: "Enregistrement…" });
+    expect(button).toHaveAttribute("aria-busy", "true");
+    expect(button).toBeDisabled();
+  });
+
+  it("is not marked busy when idle", () => {
+    render(<Button>Save</Button>);
+    expect(screen.getByRole("button", { name: "Save" })).not.toHaveAttribute("aria-busy");
+  });
+});
+
+describe("Button colour contrast (WCAG AA, 4.5:1 for normal text)", () => {
+  const luminance = (hex: string) => {
+    const [r, g, b] = [1, 3, 5]
+      .map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const toHex = (rgb: string) => {
+    const m = rgb.match(/\d+/g);
+    if (!m) return rgb;
+    return (
+      "#" +
+      m
+        .slice(0, 3)
+        .map((n) => Number(n).toString(16).padStart(2, "0"))
+        .join("")
+        .toUpperCase()
+    );
+  };
+  const contrast = (a: string, b: string) => {
+    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  const surfaces = [colorTokens.background.primary, colorTokens.background.secondary];
+
+  it.each(["primary", "secondary", "tertiary", "danger"] as const)(
+    "%s label meets 4.5:1",
+    (variant) => {
+      render(<Button variant={variant}>Label</Button>);
+      const style = screen.getByRole("button", { name: "Label" }).style;
+      const fg = toHex(style.color);
+      const fill = style.backgroundColor;
+      const backgrounds = fill === "transparent" || fill === "" ? surfaces : [toHex(fill)];
+      for (const bg of backgrounds) {
+        expect(contrast(fg, bg)).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+  );
 });

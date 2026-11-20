@@ -171,6 +171,7 @@
         "Card",
         "Container",
         "Divider",
+        "FieldContext",
         "Flex",
         "Grid",
         "Input",
@@ -179,7 +180,8 @@
         "Spacer",
         "Stack",
         "VisuallyHidden",
-        "primitiveComponents"
+        "primitiveComponents",
+        "useField"
       ]
     },
     {

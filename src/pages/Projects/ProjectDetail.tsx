@@ -10,12 +10,12 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import {
   Card,
-  Tabs,
   Button,
-  Modal,
   ActivityFeed,
   PresenceIndicator,
 } from '@/components';
+import { Modal } from '@maataa/ui/surfaces';
+import { Tabs } from '@maataa/ui/navigation';
 import { useEntity, useActivityStream, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import ProjectForm, { ProjectFormData } from './ProjectForm';
@@ -243,7 +243,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
             Edit
           </Button>
           {onNavigateBack && (
-            <Button variant="outline" onClick={onNavigateBack}>
+            <Button variant="tertiary" onClick={onNavigateBack}>
               Back
             </Button>
           )}
@@ -285,7 +285,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
       {/* Content Tabs */}
       <Card>
         <Tabs
-          items={[
+          tabs={[
             {
               id: 'overview',
               label: 'Overview',
@@ -349,8 +349,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
               ),
             },
           ]}
-          activeTabId={['overview', 'activity', 'team'][activeTabIndex]}
-          onSelectTab={(id: string) => {
+          activeTab={['overview', 'activity', 'team'][activeTabIndex]}
+          onChange={(id) => {
             const index = ['overview', 'activity', 'team'].indexOf(id);
             setActiveTabIndex(index >= 0 ? index : 0);
           }}
