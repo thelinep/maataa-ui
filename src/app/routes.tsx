@@ -40,6 +40,8 @@ import {
 } from '@/config/lazyLoad';
 import { ErrorState, LoadingState, NotFoundState } from '@/pages/shared/AsyncState';
 import { AppLayout, WorkflowTabs } from './AppLayout';
+
+const AccessibilityGuide = React.lazy(() => import('@/pages/Help/AccessibilityGuide'));
 import { useCurrentUser } from './CurrentUser';
 
 const BackBar = styled.div`
@@ -320,6 +322,9 @@ export const appRoutes: RouteObject[] = [
       { path: 'budgets', element: <BudgetList /> },
       { path: 'budgets/new', element: <CreateBudget /> },
       { path: 'budgets/:budgetId', element: <BudgetDetailRoute /> },
+
+      { path: 'help', element: <Navigate to="/help/accessibility" replace /> },
+      { path: 'help/accessibility', element: <AccessibilityGuide /> },
 
       { path: '*', element: <NotFoundRoute /> },
     ],

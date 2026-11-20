@@ -7,12 +7,14 @@ import styled from 'styled-components';
 import { NavLink, Outlet } from 'react-router';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 import { LoadingState } from '@/pages/shared/AsyncState';
+import { A11yToolbar, A11yTools, MAIN_ID, NAV_ID, SkipLink } from '@/accessibility/A11yTools';
 import { NAV_SECTIONS } from './navigation';
 
 const Shell = styled.div`
   display: grid;
   grid-template-columns: 240px 1fr;
-  min-height: 100vh;
+  /* Divide by the text-size zoom: zoom does not rescale vh */
+  min-height: calc(100vh / var(--a11y-zoom, 1));
   background: ${colorTokens.background.primary};
   font-family: ${typography.body.fontFamily};
   color: ${colorTokens.text.primary};
@@ -26,7 +28,7 @@ const Shell = styled.div`
 const Sidebar = styled.nav`
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: calc(100vh / var(--a11y-zoom, 1));
   overflow-y: auto;
   padding: ${spacing.lg} ${spacing.md};
   background: ${colorTokens.neutral.lighter};
@@ -121,14 +123,17 @@ const NavItemLink = styled(NavLink)`
 
 const Main = styled.main`
   min-width: 0;
+  outline: none;
   /* Wide tables scroll inside the content area instead of the whole page */
   overflow-x: auto;
 `;
 
 export const AppLayout: React.FC = () => (
   <Shell>
-    <Sidebar aria-label="Film production workflows">
+    <SkipLink />
+    <Sidebar id={NAV_ID} aria-label="Film production workflows">
       <Brand>🎬 MAATAA Film</Brand>
+      <A11yToolbar />
       {NAV_SECTIONS.map((section) => (
         <Section key={section.title}>
           <SectionTitle>{section.title}</SectionTitle>
@@ -145,11 +150,12 @@ export const AppLayout: React.FC = () => (
         </Section>
       ))}
     </Sidebar>
-    <Main>
+    <Main id={MAIN_ID} tabIndex={-1}>
       <Suspense fallback={<LoadingState />}>
         <Outlet />
       </Suspense>
     </Main>
+    <A11yTools />
   </Shell>
 );
 
