@@ -11,7 +11,7 @@ const EditorContainer = styled.div`
   gap: ${spacing.lg};
   padding: ${spacing.lg};
   background: ${colorTokens.background.primary};
-  min-height: 100vh;
+  min-height: calc(100vh / var(--a11y-zoom, 1));
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;

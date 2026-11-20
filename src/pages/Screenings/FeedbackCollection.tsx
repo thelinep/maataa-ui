@@ -5,6 +5,7 @@ import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 import { useFilmEntity } from '@/hooks/data/useFilmEntities';
 import type { ScreeningFeedback } from '@/core/film/types';
 import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
+import { ScreeningAccessibilitySection } from './ScreeningAccessibility';
 
 interface FeedbackStats {
   avgRating: number;
@@ -167,7 +168,7 @@ export interface FeedbackCollectionProps {
 }
 
 const FeedbackCollection: React.FC<FeedbackCollectionProps> = ({ screeningId }) => {
-  const { item: screening, loading, error } = useFilmEntity('screening', screeningId);
+  const { item: screening, loading, error, update } = useFilmEntity('screening', screeningId);
 
   if (error) return <ErrorState error={error} />;
   if (loading) return <LoadingState label="Loading feedback…" />;
@@ -250,6 +251,11 @@ const FeedbackCollection: React.FC<FeedbackCollectionProps> = ({ screeningId }) 
       ) : (
         <EmptyState>No feedback collected yet</EmptyState>
       )}
+
+      <ScreeningAccessibilitySection
+        accessibility={screening.accessibility}
+        onSave={(accessibility) => update({ accessibility })}
+      />
     </Container>
   );
 };

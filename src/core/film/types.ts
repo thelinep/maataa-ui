@@ -129,6 +129,45 @@ export interface ScreeningFeedback {
   sentiment: FeedbackSentiment;
 }
 
+/** Production status of one accessibility deliverable for the film. */
+export type DeliverableStatus = 'not-started' | 'in-progress' | 'delivered' | 'not-needed';
+
+export interface AccessibilityDeliverable {
+  status: DeliverableStatus;
+  /** Person or vendor responsible */
+  owner?: string;
+  /** Language codes or names, e.g. ['Hindi', 'English'] */
+  languages?: string[];
+  notes?: string;
+}
+
+export interface SignLanguageDeliverable extends AccessibilityDeliverable {
+  /** e.g. 'ISL' (Indian Sign Language) */
+  signLanguage?: string;
+  /** Interpreter credited on the in-picture interpreter track */
+  interpreter?: string;
+}
+
+/** What the venue offers on the day of the screening. */
+export interface ScreeningVenueAccess {
+  openCaptions: boolean;
+  liveInterpreter: boolean;
+  audioDescriptionHeadsets: boolean;
+  wheelchairAccess: boolean;
+  hearingLoop: boolean;
+  relaxedScreening: boolean;
+}
+
+export interface ScreeningAccessibility {
+  /** Closed captions / subtitles for deaf and hard-of-hearing viewers (SDH) */
+  captions: AccessibilityDeliverable;
+  /** Audio description track for blind and low-vision viewers */
+  audioDescription: AccessibilityDeliverable;
+  /** Sign language interpreter track (picture-in-picture) */
+  signLanguage: SignLanguageDeliverable;
+  venue: ScreeningVenueAccess;
+}
+
 export interface ScreeningData {
   title: string;
   type: ScreeningType;
@@ -137,6 +176,8 @@ export interface ScreeningData {
   audienceSize: number;
   status: ScreeningStatus;
   feedback: ScreeningFeedback[];
+  /** Optional: accessibility deliverables and venue access for this screening */
+  accessibility?: ScreeningAccessibility;
 }
 
 // ---------------------------------------------------------------------------
