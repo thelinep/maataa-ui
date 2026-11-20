@@ -503,19 +503,51 @@ describe('RBAC and Access Control E2E', () => {
   });
 
   describe('Custom Permissions', () => {
-    it('should grant custom permissions', () => {
+    // Policy: per-entity permissions add to app-wide roles, never replace them.
+    it('should grant a custom permission on top of an app-wide role', () => {
       rbac.grantRole('user1', 'viewer', 'admin');
-      rbac.grantCustomPermission('user1', 'entity:e1', 'comment:add');
+      expect(rbac.hasPermission('user1', 'entity:update', 'entity:e1').allowed).toBe(false);
 
-      expect(rbac.hasPermission('user1', 'comment:add', 'entity:e1').allowed).toBe(true);
+      expect(rbac.grantCustomPermission('user1', 'entity:e1', 'entity:update')).toBe(true);
+
+      expect(rbac.hasPermission('user1', 'entity:update', 'entity:e1').allowed).toBe(true);
+      // still has the app-wide viewer permissions on that entity
+      expect(rbac.hasPermission('user1', 'entity:read', 'entity:e1').allowed).toBe(true);
+      // scoped to that entity only
+      expect(rbac.hasPermission('user1', 'entity:update', 'entity:e2').allowed).toBe(false);
+      expect(rbac.hasPermission('user1', 'entity:update').allowed).toBe(false);
     });
 
     it('should revoke custom permissions', () => {
       rbac.grantRole('user1', 'viewer', 'admin');
+      rbac.grantCustomPermission('user1', 'entity:e1', 'entity:update');
+
+      expect(rbac.revokeCustomPermission('user1', 'entity:e1', 'entity:update')).toBe(true);
+      expect(rbac.hasPermission('user1', 'entity:update', 'entity:e1').allowed).toBe(false);
+      expect(rbac.revokeCustomPermission('user1', 'entity:e1', 'entity:update')).toBe(false);
+    });
+
+    it('revoking a custom grant does not remove app-wide permissions', () => {
+      // Policy: viewers can comment
+      rbac.grantRole('user1', 'viewer', 'admin');
       rbac.grantCustomPermission('user1', 'entity:e1', 'comment:add');
       rbac.revokeCustomPermission('user1', 'entity:e1', 'comment:add');
 
-      expect(rbac.hasPermission('user1', 'comment:add', 'entity:e1').allowed).toBe(false);
+      expect(rbac.hasPermission('user1', 'comment:add', 'entity:e1').allowed).toBe(true);
+    });
+
+    it('custom grants add to entity roles too', () => {
+      rbac.grantEntityRole('user1', 'entity:e1', 'viewer', 'admin');
+      rbac.grantCustomPermission('user1', 'entity:e1', 'task:create');
+
+      expect(rbac.hasPermission('user1', 'task:create', 'entity:e1').allowed).toBe(true);
+      expect(rbac.hasPermission('user1', 'entity:read', 'entity:e1').allowed).toBe(true);
+    });
+
+    it('viewers can comment', () => {
+      rbac.grantRole('user1', 'viewer', 'admin');
+      expect(rbac.hasPermission('user1', 'comment:add').allowed).toBe(true);
+      expect(rbac.hasPermission('user1', 'comment:delete').allowed).toBe(false);
     });
   });
 
