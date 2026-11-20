@@ -36,3 +36,8 @@ export { DataTable, type DataTableProps, type DataTableColumn } from './layout/D
 // Collaboration
 export { PresenceIndicator, type PresenceIndicatorProps } from './collaboration/PresenceIndicator';
 export { ActivityFeed, type ActivityFeedProps } from './collaboration/ActivityFeed';
+
+// Budget (Phase D Enhancements)
+export { BudgetCategories, type BudgetCategoriesProps, type BudgetCategory } from './budget/BudgetCategories';
+export { BudgetForecast, type BudgetForecastProps, type SpendingTrend } from './budget/BudgetForecast';
+export { BudgetAlerts, type BudgetAlertsProps, type SpendingAlert } from './budget/BudgetAlerts';
