@@ -1,0 +1,103 @@
+name: fused-organism
+
+# Runs fused-organism's own gates whenever the design system changes.
+# The maataa-ui workflow only checks that the root app still works against
+# fused; this one checks the fused packages themselves (772 UI tests,
+# kernel tests, types, lint, format, API compatibility, generated-file drift).
+#
+# These are the gates of fused-organism's `npm run certify`, minus the three
+# that need a real browser or a full re-clone (gate:browser-runtime,
+# certify:browser, fresh-clone). `certify` also rewrites certification/*,
+# which CI should not do.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/fused-organism.yml"
+      - "fused-organism/**"
+  push:
+    branches: [master, main]
+    paths:
+      - ".github/workflows/fused-organism.yml"
+      - "fused-organism/**"
+
+concurrency:
+  group: fused-organism-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: Gates, UI tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: fused-organism
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # fused-organism requires Node >= 22.16 < 23 with npm 10.9.x
+          # (enforced by gate:toolchain); same Node as the maataa-ui job.
+          node-version: 22.22.3
+          cache: npm
+          cache-dependency-path: fused-organism/package-lock.json
+
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Toolchain and milestone gates
+        run: |
+          npm run gate:toolchain
+          npm run gate:m0
+          npm run gate:m2-closeout
+          npm run gate:version-sync
+
+      # Build first: the drift gate regenerates the public API manifest by
+      # importing each package's built dist/.
+      - name: Build
+        run: |
+          npm run build
+          npm run build:ui
+
+      - name: Generated files are up to date (drift)
+        run: npm run gate:drift
+
+      - name: Policy, registry and API compatibility
+        run: |
+          npm run gate:visual-policy
+          npm run check:registry-bindings
+          npm run check:react-policy
+          npm run check:compat
+          npm run check:boundaries
+          npm run check:exports
+
+      - name: Lint and format (kernel)
+        run: |
+          npm run lint
+          npm run format:check
+
+      - name: Kernel and React adapter tests
+        run: |
+          npm test
+          npm run test:react
+          npm run test:admin
+
+      - name: UI types, lint and format
+        run: |
+          npm run check:ui-types
+          npm run lint:ui
+          npm run format:check:ui
+
+      - name: UI tests
+        run: npm run test:ui
+
+      - name: UI product smoke
+        run: npm run test:ui:smoke
+
+      - name: Generated files still clean after build and tests
+        run: git diff --exit-code -- .
