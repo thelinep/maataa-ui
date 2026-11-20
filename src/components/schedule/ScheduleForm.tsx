@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, TypingIndicator } from '@/components';
 import { Input } from '@maataa/primitives';
 import { FieldShell, Select } from '@maataa/ui/forms';
+import { withAvatars } from '@/components/people/InitialsAvatar';
 import { usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -160,6 +161,10 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
   onCancel,
   availableAttendees = ATTENDEES,
 }) => {
+  const attendeeOptions = React.useMemo(
+    () => withAvatars(availableAttendees),
+    [availableAttendees]
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -388,8 +393,9 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 render={({ field }) => (
                   <Select
                     multiSelect
+                    selectedDisplay="chips"
                     {...field}
-                    options={availableAttendees}
+                    options={attendeeOptions}
                     placeholder="Select attendees"
                     onChange={(value) => {
                       handleFieldChange();
@@ -410,6 +416,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
                 render={({ field }) => (
                   <Select
                     multiSelect
+                    selectedDisplay="chips"
                     {...field}
                     options={[
                       { label: 'Conference Room', value: 'room-1' },

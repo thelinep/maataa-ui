@@ -4,7 +4,7 @@
  * from react-hook-form + zod are linked to the field they belong to.
  */
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BudgetForm } from '@/pages/Budgets/BudgetForm';
 import { ProjectForm } from '@/pages/Projects/ProjectForm';
@@ -44,7 +44,14 @@ describe('Form fields', () => {
     const members = await screen.findByRole('combobox', { name: /Team Members/ });
     members.focus();
     await userEvent.keyboard('{ArrowDown}{Enter}{ArrowDown}{Enter}{Escape}');
-    expect(members).toHaveTextContent('Alice Johnson, Bob Smith');
+    expect(members).toHaveTextContent('2 selected');
+    const chips = screen.getByRole('list', { name: /Selected Team Members/ });
+    expect(within(chips).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
+      'AJAlice Johnson×',
+      'BSBob Smith×',
+    ]);
+    await userEvent.click(screen.getByRole('button', { name: 'Remove Alice Johnson' }));
+    expect(within(chips).getAllByRole('listitem')).toHaveLength(1);
 
     const status = screen.getByRole('combobox', { name: /Status/ });
     status.focus();

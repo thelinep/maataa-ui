@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
 import { FieldShell, Select } from '@maataa/ui/forms';
+import { withAvatars } from '@/components/people/InitialsAvatar';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -95,6 +96,7 @@ const TEAM_MEMBERS = [
   { label: 'David Brown', value: 'user-004' },
   { label: 'Eve Davis', value: 'user-005' },
 ];
+const MEMBER_OPTIONS = withAvatars(TEAM_MEMBERS);
 
 /**
  * TeamForm Component
@@ -247,7 +249,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
               render={({ field }) => (
                 <Select
                   {...field}
-                  options={TEAM_MEMBERS}
+                  options={MEMBER_OPTIONS}
                   placeholder="Select team lead"
                   onChange={(value) => {
                     handleFieldChange();
@@ -294,8 +296,9 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                 render={({ field }) => (
                   <Select
                     multiSelect
+                    selectedDisplay="chips"
                     {...field}
-                    options={TEAM_MEMBERS}
+                    options={MEMBER_OPTIONS}
                     placeholder="Select team members"
                     onChange={(value) => {
                       handleFieldChange();
