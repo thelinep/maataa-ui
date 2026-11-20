@@ -5,6 +5,7 @@ import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import type { ScreeningFeedback, ScreeningRecord } from '@/core/film/types';
 import { ErrorState, LoadingState } from '../shared/AsyncState';
+import { AccessibilityBadges } from './ScreeningAccessibility';
 
 /** Average rating rounded to 1 decimal, or null with no feedback */
 export function averageRating(feedback: ScreeningFeedback[]): number | null {
@@ -270,6 +271,13 @@ const ScreeningList: React.FC<ScreeningListProps> = ({ onSelect, onCreate }) => 
                 <CardLabel>Audience</CardLabel>
                 <CardValue>{screening.audienceSize} people</CardValue>
               </CardRow>
+
+              {screening.accessibility && (
+                <CardRow>
+                  <CardLabel>Access</CardLabel>
+                  <AccessibilityBadges accessibility={screening.accessibility} />
+                </CardRow>
+              )}
 
               {screening.status === 'completed' && avgRating !== null && (
                 <RatingContainer>
