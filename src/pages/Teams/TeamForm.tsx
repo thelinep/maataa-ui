@@ -10,9 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Select, MultiSelect, Button } from '@/components';
+import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
-import { FieldShell } from '@maataa/ui/forms';
+import { FieldShell, Select } from '@maataa/ui/forms';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -226,9 +226,9 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                   type="text"
                   placeholder="Enter team name"
                   {...field}
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                   aria-invalid={!!errors.name}
                 />
@@ -249,9 +249,9 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                   {...field}
                   options={TEAM_MEMBERS}
                   placeholder="Select team lead"
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                 />
               )}
@@ -272,9 +272,9 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                     type="text"
                     placeholder="Enter team description (optional)"
                     {...field}
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                   />
                 )}
@@ -292,13 +292,14 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                 name="members"
                 control={control}
                 render={({ field }) => (
-                  <MultiSelect
+                  <Select
+                    multiSelect
                     {...field}
                     options={TEAM_MEMBERS}
                     placeholder="Select team members"
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                   />
                 )}

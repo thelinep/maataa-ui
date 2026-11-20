@@ -6,10 +6,6 @@
  * than directly from their individual files.
  */
 
-// Forms
-export { Select, type SelectProps, type SelectOption } from './forms/Select';
-export { MultiSelect, type MultiSelectProps, type MultiSelectOption } from './forms/MultiSelect';
-
 // Buttons
 // Canonical Button from the fused design system (@maataa/primitives).
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from '@maataa/primitives';

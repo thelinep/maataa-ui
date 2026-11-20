@@ -10,9 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Select, Button } from '@/components';
+import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
-import { FieldShell } from '@maataa/ui/forms';
+import { FieldShell, Select } from '@maataa/ui/forms';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -311,9 +311,9 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                   type="text"
                   placeholder="Enter budget name"
                   {...field}
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                   aria-invalid={!!errors.name}
                 />
@@ -335,9 +335,9 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                   {...field}
                   options={CURRENCY_OPTIONS}
                   placeholder="Select currency"
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                 />
               )}
@@ -405,9 +405,9 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                   {...field}
                   options={OWNER_OPTIONS}
                   placeholder="Select owner"
-                  onChange={(e) => {
+                  onChange={(value) => {
                     handleFieldChange();
-                    field.onChange(e);
+                    field.onChange(value);
                   }}
                 />
               )}
@@ -428,9 +428,9 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                     type="text"
                     placeholder="Enter budget description (optional)"
                     {...field}
-                    onChange={(e) => {
+                    onChange={(value) => {
                       handleFieldChange();
-                      field.onChange(e);
+                      field.onChange(value);
                     }}
                   />
                 )}

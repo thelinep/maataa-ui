@@ -39,8 +39,19 @@ describe('Form fields', () => {
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
-  it('names the custom multi-select trigger from the field label', async () => {
+  it('picks team members and a status with the keyboard', async () => {
     render(<ProjectForm onSubmit={vi.fn()} onCancel={vi.fn()} />);
-    expect(await screen.findByRole('button', { name: /Team Members/ })).toHaveAttribute('aria-haspopup', 'listbox');
+    const members = await screen.findByRole('combobox', { name: /Team Members/ });
+    members.focus();
+    await userEvent.keyboard('{ArrowDown}{Enter}{ArrowDown}{Enter}{Escape}');
+    expect(members).toHaveTextContent('Alice Johnson, Bob Smith');
+
+    const status = screen.getByRole('combobox', { name: /Status/ });
+    status.focus();
+    expect(status).toHaveTextContent('Planning'); // form default
+    // Type-ahead from the current option moves to the next "P…" option.
+    await userEvent.keyboard('p{Enter}');
+    expect(status).toHaveTextContent('Paused');
+    expect(status).toHaveAttribute('aria-required', 'true');
   });
 });

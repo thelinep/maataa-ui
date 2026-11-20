@@ -10,9 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Select, MultiSelect, Button } from '@/components';
+import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
-import { FieldShell } from '@maataa/ui/forms';
+import { FieldShell, Select } from '@maataa/ui/forms';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -253,7 +253,8 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
                 name="teamMembers"
                 control={control}
                 render={({ field }) => (
-                  <MultiSelect
+                  <Select
+                    multiSelect
                     {...field}
                     options={TEAM_MEMBERS}
                     placeholder="Select team members"
