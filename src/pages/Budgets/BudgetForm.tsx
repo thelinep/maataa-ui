@@ -10,12 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  FormInput,
-  FormFieldWrapper,
-  Select,
-  Button,
-} from '@/components';
+import { Select, Button } from '@/components';
+import { Input } from '@maataa/primitives';
+import { FieldShell } from '@maataa/ui/forms';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -301,7 +298,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
 
         <FormGrid>
           {/* Budget Name */}
-          <FormFieldWrapper
+          <FieldShell
             label="Budget Name"
             error={errors.name?.message}
             required
@@ -310,7 +307,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
               name="name"
               control={control}
               render={({ field }) => (
-                <FormInput
+                <Input
                   type="text"
                   placeholder="Enter budget name"
                   {...field}
@@ -322,10 +319,10 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Currency */}
-          <FormFieldWrapper
+          <FieldShell
             label="Currency"
             error={errors.currency?.message}
             required
@@ -345,10 +342,10 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Allocated Amount */}
-          <FormFieldWrapper
+          <FieldShell
             label="Allocated Amount"
             error={errors.allocated?.message}
             required
@@ -357,7 +354,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
               name="allocated"
               control={control}
               render={({ field }) => (
-                <FormInput
+                <Input
                   type="number"
                   placeholder="0"
                   {...field}
@@ -369,10 +366,10 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Spent Amount */}
-          <FormFieldWrapper
+          <FieldShell
             label="Spent Amount"
             error={errors.spent?.message}
             required
@@ -381,7 +378,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
               name="spent"
               control={control}
               render={({ field }) => (
-                <FormInput
+                <Input
                   type="number"
                   placeholder="0"
                   {...field}
@@ -393,10 +390,10 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Budget Owner */}
-          <FormFieldWrapper
+          <FieldShell
             label="Budget Owner"
             error={errors.owner?.message}
           >
@@ -415,11 +412,11 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Description */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Description"
               error={errors.description?.message}
             >
@@ -427,7 +424,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                 name="description"
                 control={control}
                 render={({ field }) => (
-                  <FormInput
+                  <Input
                     type="text"
                     placeholder="Enter budget description (optional)"
                     {...field}
@@ -438,7 +435,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
         </FormGrid>
 

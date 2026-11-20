@@ -15,7 +15,7 @@
 import { forwardRef, useState, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
-import { useFormField } from './FormFieldWrapper';
+import { useField } from '@maataa/primitives';
 
 export interface MultiSelectOption {
   value: string;
@@ -293,11 +293,11 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   ) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const field = useFormField();
+    const field = useField();
     const generatedId = useId();
     const selectId = id || field?.id || `multiselect-${generatedId}`;
     const labelId = `${selectId}-label`;
-    const hasError = !!error;
+    const hasError = !!error || !!field?.invalid;
 
     const selectedLabels = options
       .filter((opt) => value.includes(opt.value))
@@ -338,7 +338,12 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           role="button"
           aria-haspopup="listbox"
           aria-expanded={isOpen}
-          aria-labelledby={label ? labelId : undefined}
+          aria-labelledby={label ? labelId : field?.labelId}
+          aria-required={required || field?.required || undefined}
+          aria-invalid={hasError || undefined}
+          aria-describedby={
+            (error ? `${selectId}-error` : hint ? `${selectId}-hint` : undefined) ?? field?.describedBy
+          }
           aria-disabled={disabled || undefined}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           onKeyDown={(e) => {

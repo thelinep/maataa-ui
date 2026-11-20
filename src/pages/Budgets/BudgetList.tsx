@@ -8,7 +8,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, Card, FormInput } from '@/components';
+import { Button, Card } from '@/components';
+import { SearchInput } from '@maataa/ui/forms';
 import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
@@ -67,7 +68,7 @@ const Controls = styled.div`
   }
 `;
 
-const SearchInput = styled(FormInput)`
+const SearchBox = styled.div`
   width: 250px;
 
   @media (max-width: 768px) {
@@ -240,12 +241,14 @@ export const BudgetList: React.FC = () => {
       <Header>
         <Title>Budgets</Title>
         <Controls>
-          <SearchInput
-            type="text"
-            placeholder="Search budgets..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.currentTarget.value)}
-          />
+          <SearchBox>
+            <SearchInput
+              aria-label="Search budgets"
+              placeholder="Search budgets..."
+              value={searchTerm}
+              onChange={setSearchTerm}
+            />
+          </SearchBox>
           <Button onClick={() => navigate(getRoutePath('BUDGET_CREATE'))}>
             + Create Budget
           </Button>

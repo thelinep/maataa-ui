@@ -10,13 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  FormInput,
-  FormFieldWrapper,
-  Select,
-  MultiSelect,
-  Button,
-} from '@/components';
+import { Select, MultiSelect, Button } from '@/components';
+import { Input } from '@maataa/primitives';
+import { FieldShell } from '@maataa/ui/forms';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -201,21 +197,21 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
 
         <FormGrid>
           {/* Project Name */}
-          <FormFieldWrapper
+          <FieldShell
             label="Project Name"
             error={errors.name?.message}
             required
           >
-            <FormInput
+            <Input
               type="text"
               placeholder="Enter project name"
               {...register('name')}
               aria-invalid={!!errors.name}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Status */}
-          <FormFieldWrapper
+          <FieldShell
             label="Status"
             error={errors.status?.message}
             required
@@ -231,25 +227,25 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Description */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Description"
               error={errors.description?.message}
             >
-              <FormInput
+              <Input
                 type="text"
                 placeholder="Enter project description (optional)"
                 {...register('description')}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
 
           {/* Team Members */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Team Members"
               error={errors.teamMembers?.message}
             >
@@ -264,7 +260,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
         </FormGrid>
 

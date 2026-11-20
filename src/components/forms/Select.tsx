@@ -15,7 +15,7 @@
 import { forwardRef, SelectHTMLAttributes, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
-import { useFormField } from './FormFieldWrapper';
+import { useField } from '@maataa/primitives';
 
 export interface SelectOption {
   value: string;
@@ -214,8 +214,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
-    const hasError = !!error;
-    const field = useFormField();
+    const field = useField();
+    const hasError = !!error || !!field?.invalid;
     const generatedId = useId();
     const selectId = id || field?.id || `select-${generatedId}`;
 
@@ -235,8 +235,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             disabled={disabled}
             $hasError={hasError}
             $size={size}
-            aria-invalid={hasError}
-            aria-describedby={hasError ? `${selectId}-error` : hint ? `${selectId}-hint` : undefined}
+            aria-required={required || field?.required || undefined}
+            aria-invalid={hasError || undefined}
+            aria-describedby={
+              (error ? `${selectId}-error` : hint ? `${selectId}-hint` : undefined) ?? field?.describedBy
+            }
             {...props}
           >
             {placeholder && (

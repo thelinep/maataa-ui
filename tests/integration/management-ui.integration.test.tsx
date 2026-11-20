@@ -57,4 +57,13 @@ describe('Management pages on @maataa/ui', () => {
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     expect(edit).toHaveFocus();
   });
+
+  it('has a named search box that filters the list', async () => {
+    renderApp('/projects');
+    const search = await screen.findByRole('searchbox', { name: 'Search projects' });
+    const table = await screen.findByRole('table');
+    const before = within(table).getAllByRole('row').length;
+    await userEvent.type(search, 'zzzz-no-match');
+    await waitFor(() => expect(screen.queryByRole('table')?.querySelectorAll('tbody tr').length ?? 0).toBeLessThan(before - 1));
+  });
 });

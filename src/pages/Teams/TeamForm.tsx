@@ -10,13 +10,9 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  FormInput,
-  FormFieldWrapper,
-  Select,
-  MultiSelect,
-  Button,
-} from '@/components';
+import { Select, MultiSelect, Button } from '@/components';
+import { Input } from '@maataa/primitives';
+import { FieldShell } from '@maataa/ui/forms';
 import { useEntity, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
@@ -217,7 +213,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
 
         <FormGrid>
           {/* Team Name */}
-          <FormFieldWrapper
+          <FieldShell
             label="Team Name"
             error={errors.name?.message}
             required
@@ -226,7 +222,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
               name="name"
               control={control}
               render={({ field }) => (
-                <FormInput
+                <Input
                   type="text"
                   placeholder="Enter team name"
                   {...field}
@@ -238,10 +234,10 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Team Lead */}
-          <FormFieldWrapper
+          <FieldShell
             label="Team Lead"
             error={errors.lead?.message}
           >
@@ -260,11 +256,11 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                 />
               )}
             />
-          </FormFieldWrapper>
+          </FieldShell>
 
           {/* Description */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Description"
               error={errors.description?.message}
             >
@@ -272,7 +268,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                 name="description"
                 control={control}
                 render={({ field }) => (
-                  <FormInput
+                  <Input
                     type="text"
                     placeholder="Enter team description (optional)"
                     {...field}
@@ -283,12 +279,12 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
 
           {/* Team Members */}
           <FullWidth>
-            <FormFieldWrapper
+            <FieldShell
               label="Team Members"
               error={errors.members?.message}
             >
@@ -307,7 +303,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
                   />
                 )}
               />
-            </FormFieldWrapper>
+            </FieldShell>
           </FullWidth>
         </FormGrid>
 

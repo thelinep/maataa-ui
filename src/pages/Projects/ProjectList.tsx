@@ -9,7 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, Card, FormInput } from '@/components';
+import { Button, Card } from '@/components';
+import { SearchInput } from '@maataa/ui/forms';
 import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
@@ -65,7 +66,7 @@ const Controls = styled.div`
   }
 `;
 
-const SearchInput = styled(FormInput)`
+const SearchBox = styled.div`
   width: 250px;
 
   @media (max-width: 768px) {
@@ -229,12 +230,14 @@ export const ProjectList: React.FC = () => {
       <Header>
         <Title>Projects</Title>
         <Controls>
-          <SearchInput
-            type="text"
-            placeholder="Search projects..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.currentTarget.value)}
-          />
+          <SearchBox>
+            <SearchInput
+              aria-label="Search projects"
+              placeholder="Search projects..."
+              value={searchTerm}
+              onChange={setSearchTerm}
+            />
+          </SearchBox>
           <Button onClick={() => navigate(getRoutePath('PROJECT_CREATE'))}>
             + Create Project
           </Button>

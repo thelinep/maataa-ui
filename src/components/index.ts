@@ -7,8 +7,6 @@
  */
 
 // Forms
-export { FormInput, type FormInputProps, type InputType } from './forms/FormInput';
-export { FormFieldWrapper, type FormFieldWrapperProps } from './forms/FormFieldWrapper';
 export { Select, type SelectProps, type SelectOption } from './forms/Select';
 export { MultiSelect, type MultiSelectProps, type MultiSelectOption } from './forms/MultiSelect';
 

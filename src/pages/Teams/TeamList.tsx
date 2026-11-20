@@ -9,7 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, Card, FormInput } from '@/components';
+import { Button, Card } from '@/components';
+import { SearchInput } from '@maataa/ui/forms';
 import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
@@ -65,7 +66,7 @@ const Controls = styled.div`
   }
 `;
 
-const SearchInput = styled(FormInput)`
+const SearchBox = styled.div`
   width: 250px;
 
   @media (max-width: 768px) {
@@ -205,12 +206,14 @@ export const TeamList: React.FC = () => {
       <Header>
         <Title>Teams</Title>
         <Controls>
-          <SearchInput
-            type="text"
-            placeholder="Search teams..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.currentTarget.value)}
-          />
+          <SearchBox>
+            <SearchInput
+              aria-label="Search teams"
+              placeholder="Search teams..."
+              value={searchTerm}
+              onChange={setSearchTerm}
+            />
+          </SearchBox>
           <Button onClick={() => navigate(getRoutePath('TEAM_CREATE'))}>
             + Create Team
           </Button>
