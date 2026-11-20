@@ -16,13 +16,8 @@ export { MultiSelect, type MultiSelectProps, type MultiSelectOption } from './fo
 // Canonical Button from the fused design system (@maataa/primitives).
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from '@maataa/primitives';
 
-// Navigation
-export { Tabs, type TabsProps, type TabItem } from './navigation/Tabs';
-
 // Layout
 export { Card, type CardProps } from '@maataa/primitives';
-export { Modal, type ModalProps } from './layout/Modal';
-export { DataTable, type DataTableProps, type DataTableColumn } from './layout/DataTable';
 
 // Collaboration
 export { PresenceIndicator, type PresenceIndicatorProps } from './collaboration/PresenceIndicator';

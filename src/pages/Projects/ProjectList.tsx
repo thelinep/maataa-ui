@@ -9,7 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, DataTable, Card, FormInput } from '@/components';
+import { Button, Card, FormInput } from '@/components';
+import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
@@ -254,37 +255,34 @@ export const ProjectList: React.FC = () => {
         </EmptyState>
       ) : (
         <Card>
-          <DataTable
+          <DataTable<Project>
             columns={[
               {
-                id: 'name',
+                key: 'name',
                 header: 'Project Name',
-                width: '30%',
-                accessor: (row: Project) => row.name,
+                render: (_value, row) => row.name,
               },
               {
-                id: 'status',
+                key: 'status',
                 header: 'Status',
-                width: '15%',
-                accessor: (row: Project) => (
+                render: (_value, row) => (
                   <StatusBadge status={row.status}>{row.status}</StatusBadge>
                 ),
               },
               {
-                id: 'teamSize',
+                key: 'teamSize',
                 header: 'Team Size',
-                width: '12%',
-                accessor: (row: Project) => `${row.teamSize} members`,
+                render: (_value, row) => `${row.teamSize} members`,
               },
               {
-                id: 'updated_at',
+                key: 'updated_at',
                 header: 'Last Updated',
-                width: '20%',
-                accessor: (row: Project) => new Date(row.updated_at).toLocaleDateString(),
+                render: (_value, row) => new Date(row.updated_at).toLocaleDateString(),
               },
             ]}
+            getRowKey={(row) => row.id}
             data={filteredProjects}
-            onRowClick={(row: Project) => {
+            onRowClick={(row) => {
               navigate(getRoutePath('PROJECT_DETAIL', { projectId: row.id }));
             }}
           />

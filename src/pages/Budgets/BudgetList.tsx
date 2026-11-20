@@ -8,7 +8,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, DataTable, Card, FormInput } from '@/components';
+import { Button, Card, FormInput } from '@/components';
+import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
@@ -265,31 +266,27 @@ export const BudgetList: React.FC = () => {
         </EmptyState>
       ) : (
         <Card>
-          <DataTable
+          <DataTable<Budget>
             columns={[
               {
-                id: 'name',
+                key: 'name',
                 header: 'Budget Name',
-                width: '25%',
-                accessor: (row: Budget) => row.name,
+                render: (_value, row) => row.name,
               },
               {
-                id: 'allocated',
+                key: 'allocated',
                 header: 'Allocated',
-                width: '15%',
-                accessor: (row: Budget) => `${row.currency} ${row.allocated.toLocaleString()}`,
+                render: (_value, row) => `${row.currency} ${row.allocated.toLocaleString()}`,
               },
               {
-                id: 'spent',
+                key: 'spent',
                 header: 'Spent',
-                width: '15%',
-                accessor: (row: Budget) => `${row.currency} ${row.spent.toLocaleString()}`,
+                render: (_value, row) => `${row.currency} ${row.spent.toLocaleString()}`,
               },
               {
-                id: 'progress',
+                key: 'progress',
                 header: 'Progress',
-                width: '30%',
-                accessor: (row: Budget) => (
+                render: (_value, row) => (
                   <BudgetMetric>
                     <ProgressBar percentage={(row.spent / row.allocated) * 100} />
                     <MetricValue>{((row.spent / row.allocated) * 100).toFixed(0)}%</MetricValue>
@@ -297,14 +294,14 @@ export const BudgetList: React.FC = () => {
                 ),
               },
               {
-                id: 'updated_at',
+                key: 'updated_at',
                 header: 'Last Updated',
-                width: '15%',
-                accessor: (row: Budget) => new Date(row.updated_at).toLocaleDateString(),
+                render: (_value, row) => new Date(row.updated_at).toLocaleDateString(),
               },
             ]}
+            getRowKey={(row) => row.id}
             data={filteredBudgets}
-            onRowClick={(row: Budget) => {
+            onRowClick={(row) => {
               navigate(getRoutePath('BUDGET_DETAIL', { budgetId: row.id }));
             }}
           />

@@ -9,7 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Button, DataTable, Card, FormInput } from '@/components';
+import { Button, Card, FormInput } from '@/components';
+import { DataTable } from '@maataa/ui/data';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
@@ -230,35 +231,32 @@ export const TeamList: React.FC = () => {
         </EmptyState>
       ) : (
         <Card>
-          <DataTable
+          <DataTable<Team>
             columns={[
               {
-                id: 'name',
+                key: 'name',
                 header: 'Team Name',
-                width: '40%',
-                accessor: (row: Team) => row.name,
+                render: (_value, row) => row.name,
               },
               {
-                id: 'memberCount',
+                key: 'memberCount',
                 header: 'Members',
-                width: '15%',
-                accessor: (row: Team) => `${row.memberCount} members`,
+                render: (_value, row) => `${row.memberCount} members`,
               },
               {
-                id: 'lead',
+                key: 'lead',
                 header: 'Team Lead',
-                width: '25%',
-                accessor: (row: Team) => row.lead || 'Unassigned',
+                render: (_value, row) => row.lead || 'Unassigned',
               },
               {
-                id: 'updated_at',
+                key: 'updated_at',
                 header: 'Last Updated',
-                width: '20%',
-                accessor: (row: Team) => new Date(row.updated_at).toLocaleDateString(),
+                render: (_value, row) => new Date(row.updated_at).toLocaleDateString(),
               },
             ]}
+            getRowKey={(row) => row.id}
             data={filteredTeams}
-            onRowClick={(row: Team) => {
+            onRowClick={(row) => {
               navigate(getRoutePath('TEAM_DETAIL', { teamId: row.id }));
             }}
           />

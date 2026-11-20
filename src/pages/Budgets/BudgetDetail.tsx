@@ -11,11 +11,11 @@ import { useNavigate } from 'react-router';
 import {
   Card,
   Button,
-  Modal,
   ActivityFeed,
   PresenceIndicator,
   TypingIndicator,
 } from '@/components';
+import { Modal } from '@maataa/ui/surfaces';
 import { useEntity, useActivityStream, usePresence } from '@/hooks';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import BudgetForm, { BudgetFormData } from './BudgetForm';
