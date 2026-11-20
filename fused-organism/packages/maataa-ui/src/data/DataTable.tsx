@@ -26,6 +26,12 @@ export interface DataTableProps {
 
   /** Rendered instead of the table body when `data` is empty. */
   emptyState?: React.ReactNode;
+  /**
+   * Makes each row actionable (e.g. open a detail view). Rows become
+   * focusable and respond to Enter and Space as well as clicks. `index` is
+   * the row's position in the current (sorted) order.
+   */
+  onRowClick?: (row: Record<string, unknown>, index: number) => void;
 
   className?: string;
   style?: React.CSSProperties;
@@ -53,7 +59,8 @@ type SortDirection = "asc" | "desc";
  * ```
  */
 export const DataTable = React.forwardRef<HTMLTableElement, DataTableProps>(
-  ({ columns, data, getRowKey, emptyState, className, style }, ref) => {
+  ({ columns, data, getRowKey, emptyState, onRowClick, className, style }, ref) => {
+    const [activeRow, setActiveRow] = useState<number | null>(null);
     const [sortKey, setSortKey] = useState<string | null>(null);
     const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
@@ -148,7 +155,37 @@ export const DataTable = React.forwardRef<HTMLTableElement, DataTableProps>(
           </thead>
           <tbody>
             {sortedData.map((row, index) => (
-              <tr key={getRowKey ? getRowKey(row, index) : index}>
+              <tr
+                key={getRowKey ? getRowKey(row, index) : index}
+                {...(onRowClick
+                  ? {
+                      tabIndex: 0,
+                      onClick: () => onRowClick(row, index),
+                      onKeyDown: (event: React.KeyboardEvent<HTMLTableRowElement>) => {
+                        if (event.target !== event.currentTarget) return;
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          onRowClick(row, index);
+                        }
+                      },
+                      onMouseEnter: () => setActiveRow(index),
+                      onMouseLeave: () =>
+                        setActiveRow((current) => (current === index ? null : current)),
+                      onFocus: () => setActiveRow(index),
+                      onBlur: () => setActiveRow((current) => (current === index ? null : current)),
+                      style: {
+                        cursor: "pointer",
+                        backgroundColor:
+                          activeRow === index ? colorTokens.background.secondary : undefined,
+                        outline:
+                          activeRow === index
+                            ? `2px solid ${colorTokens.interactive.primary}`
+                            : undefined,
+                        outlineOffset: "-2px",
+                      },
+                    }
+                  : {})}
+              >
                 {columns.map((column) => {
                   const value = row[column.key];
                   return (
