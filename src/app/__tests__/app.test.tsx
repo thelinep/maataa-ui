@@ -25,13 +25,13 @@ describe('App routing', () => {
     expect(router.state.location.pathname).toBe('/concepts');
   });
 
-  it('shows all 8 workflows in the sidebar, grouped by phase', async () => {
+  it('shows every workflow in the sidebar, grouped by section', async () => {
     renderApp('/concepts');
     await screen.findByText('The Lost Highway');
     const nav = screen.getByRole('navigation', { name: 'Film production workflows' });
     const labels = within(nav).getAllByRole('link').map((l) => l.textContent?.replace(/^\W+/u, ''));
     expect(labels).toEqual(NAV_SECTIONS.flatMap((s) => s.items.map((i) => i.label)));
-    expect(labels).toHaveLength(8);
+    expect(labels).toHaveLength(11);
     expect(within(nav).getByText('Post-production')).toBeInTheDocument();
   });
 
@@ -62,6 +62,23 @@ describe('App routing', () => {
   ])('renders %s', async (path, text) => {
     renderApp(path);
     expect(await screen.findByText(text)).toBeInTheDocument();
+  });
+
+  it.each([
+    ['/projects', 'Projects'],
+    ['/teams', 'Teams'],
+    ['/budgets', 'Budgets'],
+  ])('mounts the %s management page and marks it active', async (path, label) => {
+    const { router } = renderApp(path);
+    const nav = screen.getByRole('navigation', { name: 'Film production workflows' });
+    await waitFor(() => expect(within(nav).getByRole('link', { name: new RegExp(label) })).toHaveClass('active'));
+    expect(router.state.location.pathname).toBe(path);
+    expect((await screen.findAllByRole('heading', { name: new RegExp(label, 'i') })).length).toBeGreaterThan(0);
+  });
+
+  it.each(['/projects/new', '/teams/new', '/budgets/new'])('renders the create page at %s', async (path) => {
+    renderApp(path);
+    expect(await screen.findByRole('button', { name: /create|save/i })).toBeInTheDocument();
   });
 
   it('shows a not-found page for unknown paths', async () => {

@@ -33,3 +33,8 @@ export * from './data/index';
 export * from './forms/index';
 export * from './ui/index';
 export * from './utils/index';
+
+// Collaboration & entity hooks (Phase 5)
+export { useEntity, type UseEntityOptions, type UseEntityReturn, type Entity, type EntitySchema } from './useEntity';
+export { usePresence, type UsePresenceOptions, type UsePresenceReturn, type Presence } from './usePresence';
+export { useActivityStream, type UseActivityStreamOptions, type UseActivityStreamReturn, type Activity } from './useActivityStream';

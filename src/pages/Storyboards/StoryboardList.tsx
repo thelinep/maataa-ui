@@ -93,7 +93,7 @@ const CardMeta = styled.div`
 
 const CardStats = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing.md};
   margin-bottom: ${spacing.md};
   padding-bottom: ${spacing.md};

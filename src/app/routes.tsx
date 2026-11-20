@@ -28,6 +28,15 @@ import {
   EditingLog,
   ColorGrading,
   SoundMixing,
+  ProjectList,
+  ProjectDetail,
+  CreateProject,
+  TeamList,
+  TeamDetail,
+  CreateTeam,
+  BudgetList,
+  BudgetDetail,
+  CreateBudget,
 } from '@/config/lazyLoad';
 import { ErrorState, LoadingState, NotFoundState } from '@/pages/shared/AsyncState';
 import { AppLayout, WorkflowTabs } from './AppLayout';
@@ -205,6 +214,31 @@ function ScreeningFeedbackRoute() {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Management (Projects / Teams / Budgets) — pages navigate on their own
+// ---------------------------------------------------------------------------
+
+function ProjectDetailRoute() {
+  const { projectId } = useParams();
+  const navigate = useNavigate();
+  if (!projectId) return <Navigate to="/projects" replace />;
+  return <ProjectDetail projectId={projectId} onNavigateBack={() => navigate('/projects')} />;
+}
+
+function TeamDetailRoute() {
+  const { teamId } = useParams();
+  const navigate = useNavigate();
+  if (!teamId) return <Navigate to="/teams" replace />;
+  return <TeamDetail teamId={teamId} onNavigateBack={() => navigate('/teams')} />;
+}
+
+function BudgetDetailRoute() {
+  const { budgetId } = useParams();
+  const navigate = useNavigate();
+  if (!budgetId) return <Navigate to="/budgets" replace />;
+  return <BudgetDetail budgetId={budgetId} onNavigateBack={() => navigate('/budgets')} />;
+}
+
 function NotFoundRoute() {
   return (
     <>
@@ -276,6 +310,16 @@ export const appRoutes: RouteObject[] = [
 
       { path: 'color', element: <ColorGrading /> },
       { path: 'sound', element: <SoundMixing /> },
+
+      { path: 'projects', element: <ProjectList /> },
+      { path: 'projects/new', element: <CreateProject /> },
+      { path: 'projects/:projectId', element: <ProjectDetailRoute /> },
+      { path: 'teams', element: <TeamList /> },
+      { path: 'teams/new', element: <CreateTeam /> },
+      { path: 'teams/:teamId', element: <TeamDetailRoute /> },
+      { path: 'budgets', element: <BudgetList /> },
+      { path: 'budgets/new', element: <CreateBudget /> },
+      { path: 'budgets/:budgetId', element: <BudgetDetailRoute /> },
 
       { path: '*', element: <NotFoundRoute /> },
     ],

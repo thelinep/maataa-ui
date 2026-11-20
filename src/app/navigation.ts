@@ -37,4 +37,12 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: 'Sound', icon: '🔊', to: '/sound' },
     ],
   },
+  {
+    title: 'Management',
+    items: [
+      { label: 'Projects', icon: '📁', to: '/projects' },
+      { label: 'Teams', icon: '👥', to: '/teams' },
+      { label: 'Budgets', icon: '💰', to: '/budgets' },
+    ],
+  },
 ];

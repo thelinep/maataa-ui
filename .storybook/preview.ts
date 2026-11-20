@@ -1,5 +1,10 @@
+/**
+ * Storybook Preview - Global Configuration & Decorators
+ * Applies theme, tokens, and global styles to all stories
+ */
+
 import type { Preview } from '@storybook/react';
-import '../src/index.css';
+import '../src/styles/index.css';
 
 const preview: Preview = {
   parameters: {
@@ -7,13 +12,16 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/i
-      }
+        date: /Date$/i,
+      },
     },
     docs: {
-      theme: 'light'
-    }
-  }
+      description: {
+        component: 'Component documentation and examples',
+      },
+    },
+  },
+  tags: ['autodocs'],
 };
 
 export default preview;

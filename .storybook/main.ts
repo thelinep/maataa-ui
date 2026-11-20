@@ -1,19 +1,20 @@
+/**
+ * Storybook Configuration - Main Config
+ * Specifies the entry point and addon setup
+ */
+
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(ts|tsx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-links'
-  ],
+  stories: ['../src/**/*.stories.@(ts|tsx|js|jsx)'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions'],
   framework: {
     name: '@storybook/react-vite',
-    options: {}
+    options: {},
   },
   docs: {
-    autodocs: 'tag'
-  }
+    autodocs: 'tag',
+  },
 };
 
 export default config;

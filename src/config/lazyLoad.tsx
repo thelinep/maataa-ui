@@ -29,3 +29,14 @@ export const EditingTimeline = lazy(() => import('@/pages/Editing/EditingTimelin
 export const EditingLog = lazy(() => import('@/pages/Editing/EditingLog'));
 export const ColorGrading = lazy(() => import('@/pages/ColorGrading/ColorGrading'));
 export const SoundMixing = lazy(() => import('@/pages/Sound/SoundMixing'));
+
+// Management (Projects / Teams / Budgets)
+export const ProjectList = lazy(() => import('@/pages/Projects/ProjectList'));
+export const ProjectDetail = lazy(() => import('@/pages/Projects/ProjectDetail'));
+export const CreateProject = lazy(() => import('@/pages/Projects/CreateProject'));
+export const TeamList = lazy(() => import('@/pages/Teams/TeamList'));
+export const TeamDetail = lazy(() => import('@/pages/Teams/TeamDetail'));
+export const CreateTeam = lazy(() => import('@/pages/Teams/CreateTeam'));
+export const BudgetList = lazy(() => import('@/pages/Budgets/BudgetList'));
+export const BudgetDetail = lazy(() => import('@/pages/Budgets/BudgetDetail'));
+export const CreateBudget = lazy(() => import('@/pages/Budgets/CreateBudget'));

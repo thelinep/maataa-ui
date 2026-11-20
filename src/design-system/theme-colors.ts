@@ -282,11 +282,13 @@ export const colorTokens = {
     primary: lightTheme.surface.background,
     secondary: lightTheme.surface.surface,
     tertiary: lightTheme.surface.surfaceVariant,
+    inverse: lightTheme.neutral[900],
   },
   /** Colours for interactive elements and status feedback */
   interactive: {
     primary: lightTheme.primary[500],
     primaryHover: lightTheme.primary[700],
+    secondary: lightTheme.neutral[600],
     success: lightTheme.semantic.success,
     warning: lightTheme.semantic.warning,
     error: lightTheme.semantic.error,
@@ -295,11 +297,13 @@ export const colorTokens = {
   text: {
     primary: lightTheme.text.primary,
     secondary: lightTheme.text.secondary,
+    tertiary: lightTheme.neutral[500],
     disabled: lightTheme.text.disabled,
     inverse: lightTheme.text.inverse,
   },
   border: {
     primary: lightTheme.surface.border,
+    secondary: lightTheme.surface.borderLight,
     light: lightTheme.surface.borderLight,
   },
   semantic: lightTheme.semantic,
@@ -313,14 +317,36 @@ export const spacing = {
   lg: '1.5rem',
   xl: '2rem',
   '2xl': '3rem',
+  xxl: '3rem',
+  xxxl: '4rem',
 } as const;
 
 export const borderRadius = {
   none: '0',
+  xs: '0.125rem',
   sm: '0.25rem',
   md: '0.5rem',
   lg: '0.75rem',
   full: '9999px',
+  round: '50%',
+} as const;
+
+export const transitions = {
+  fast: 'all 150ms ease-in-out',
+  normal: 'all 250ms ease-in-out',
+  base: 'all 300ms ease-in-out',
+  slow: 'all 500ms ease-in-out',
+} as const;
+
+/** Stacking order for overlays */
+export const zIndex = {
+  base: 0,
+  dropdown: 1000,
+  sticky: 1100,
+  overlay: 1200,
+  modal: 1300,
+  popover: 1400,
+  toast: 1500,
 } as const;
 
 export const shadows = {
@@ -338,4 +364,17 @@ export const typography = {
   heading3: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.25 },
   body: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1rem', fontWeight: 400, lineHeight: 1.5 },
   bodySmall: { fontFamily: SYSTEM_FONT_STACK, fontSize: '0.875rem', fontWeight: 400, lineHeight: 1.5 },
+  /** Form labels, table headers, section eyebrows */
+  label: { fontFamily: SYSTEM_FONT_STACK, fontSize: '0.75rem', fontWeight: 600, lineHeight: 1.4, textTransform: 'uppercase' },
+  /** Size-scaled headings: typography.heading.sm / md / lg */
+  heading: {
+    sm: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1.125rem', fontWeight: 600, lineHeight: 1.3 },
+    md: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.3 },
+    lg: { fontFamily: SYSTEM_FONT_STACK, fontSize: '1.5rem', fontWeight: 700, lineHeight: 1.25 },
+  },
+  fontFamily: {
+    body: SYSTEM_FONT_STACK,
+    heading: SYSTEM_FONT_STACK,
+    mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+  },
 } as const;
