@@ -20,7 +20,7 @@ export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from '@
 export { Tabs, type TabsProps, type TabItem } from './navigation/Tabs';
 
 // Layout
-export { Card, type CardProps } from './layout/Card';
+export { Card, type CardProps } from '@maataa/primitives';
 export { Modal, type ModalProps } from './layout/Modal';
 export { DataTable, type DataTableProps, type DataTableColumn } from './layout/DataTable';
 
