@@ -8,6 +8,12 @@ import { Portal } from "../primitives/Portal";
 import { Stack } from "../primitives/Stack";
 import { colorTokens, spacingTokens, radiusTokens } from "../tokens";
 
+/** Assigns a node to a forwarded ref (callback or object form). */
+function assignRef<T>(ref: React.ForwardedRef<T>, node: T | null): void {
+  if (typeof ref === "function") ref(node);
+  else if (ref) ref.current = node;
+}
+
 export interface PopoverProps {
   /**
    * Popover content
@@ -51,21 +57,31 @@ export interface PopoverProps {
  * Popover
  * Floating panel with more content than a tooltip
  */
+type PopoverTriggerProps = {
+  onClick?: React.MouseEventHandler<HTMLElement>;
+  "aria-haspopup"?: "dialog";
+  "aria-expanded"?: boolean;
+};
+
 export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
-  ({
-    content,
-    children,
-    position = "bottom",
-    title,
-    isOpen: controlledIsOpen,
-    onOpenChange,
-    disabled = false,
-  }) => {
+  (
+    {
+      content,
+      children,
+      position = "bottom",
+      title,
+      isOpen: controlledIsOpen,
+      onOpenChange,
+      disabled = false,
+    },
+    ref
+  ) => {
     const [uncontrolledIsOpen, setUncontrolledIsOpen] = useState(false);
     const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : uncontrolledIsOpen;
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement | null>(null);
     const popoverRef = useRef<HTMLDivElement>(null);
     const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
+    const trigger = children as React.ReactElement<PopoverTriggerProps>;
 
     const handleOpenChange = (newIsOpen: boolean) => {
       if (!disabled) {
@@ -128,13 +144,23 @@ export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
 
     return (
       <div
-        ref={triggerRef}
+        ref={(node) => {
+          triggerRef.current = node;
+          assignRef(ref, node);
+        }}
         style={{
           display: "inline-block",
         }}
       >
-        {React.cloneElement(children, {
-          onClick: () => handleOpenChange(!isOpen),
+        {React.cloneElement(trigger, {
+          // Keep the trigger's own click handler; a handler that calls
+          // preventDefault() opts out of toggling.
+          onClick: (event: React.MouseEvent<HTMLElement>) => {
+            trigger.props.onClick?.(event);
+            if (!event.defaultPrevented) handleOpenChange(!isOpen);
+          },
+          "aria-haspopup": "dialog",
+          "aria-expanded": isOpen,
         })}
 
         {isOpen && !disabled && (

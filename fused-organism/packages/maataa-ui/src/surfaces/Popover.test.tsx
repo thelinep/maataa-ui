@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import { Popover } from "./Popover";
 
 describe("Popover", () => {
@@ -170,5 +171,46 @@ describe("Popover", () => {
     // Should have both title and content
     expect(screen.getByText("Title")).toBeInTheDocument();
     expect(screen.getByText("Content")).toBeInTheDocument();
+  });
+});
+
+describe("Popover regressions", () => {
+  it("forwards its ref to the trigger wrapper", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Popover ref={ref} content="Content">
+        <button>Open</button>
+      </Popover>
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toContainElement(screen.getByText("Open"));
+  });
+
+  it("keeps the trigger's own onClick and exposes expanded state", () => {
+    const onClick = vi.fn();
+    render(
+      <Popover content="Content">
+        <button onClick={onClick}>Open</button>
+      </Popover>
+    );
+    const trigger = screen.getByRole("button", { name: "Open" });
+    expect(trigger).toHaveAttribute("aria-haspopup", "dialog");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+    fireEvent.click(trigger);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("does not open when the trigger's onClick calls preventDefault", () => {
+    render(
+      <Popover content="Content">
+        <button onClick={(e) => e.preventDefault()}>Open</button>
+      </Popover>
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

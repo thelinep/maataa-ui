@@ -8,6 +8,12 @@ import { Portal } from "../primitives/Portal";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
 import { colorTokens, spacingTokens, radiusTokens } from "../tokens";
 
+/** Assigns a node to a forwarded ref (callback or object form). */
+function assignRef<T>(ref: React.ForwardedRef<T>, node: T | null): void {
+  if (typeof ref === "function") ref(node);
+  else if (ref) ref.current = node;
+}
+
 export interface TooltipProps {
   /**
    * Tooltip content
@@ -43,12 +49,15 @@ export interface TooltipProps {
  * Floating label showing brief information on hover
  */
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
-  ({ content, children, position = "top", delay = 200, disabled = false }) => {
+  ({ content, children, position = "top", delay = 200, disabled = false }, ref) => {
     const [isVisible, setIsVisible] = useState(false);
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement | null>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
-    const timeoutRef = useRef<NodeJS.Timeout>();
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+    // Clear any pending show-timer on unmount.
+    useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
     const showTooltip = () => {
       if (disabled) return;
@@ -98,7 +107,10 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     return (
       <div
-        ref={triggerRef}
+        ref={(node) => {
+          triggerRef.current = node;
+          assignRef(ref, node);
+        }}
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
         onFocus={showTooltip}

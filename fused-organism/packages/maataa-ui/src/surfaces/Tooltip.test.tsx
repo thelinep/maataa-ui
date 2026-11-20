@@ -212,3 +212,35 @@ describe("Tooltip", () => {
     });
   });
 });
+
+describe("Tooltip regressions", () => {
+  it("forwards its ref to the trigger wrapper", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Tooltip ref={ref} content="Info">
+        <button>Trigger</button>
+      </Tooltip>
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toContainElement(screen.getByText("Trigger"));
+  });
+
+  it("does not update state after unmounting while the show-timer is pending", () => {
+    vi.useFakeTimers();
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const { unmount } = render(
+        <Tooltip content="Late" delay={300}>
+          <button>Trigger</button>
+        </Tooltip>
+      );
+      fireEvent.mouseEnter(screen.getByText("Trigger").parentElement as HTMLElement);
+      unmount();
+      vi.advanceTimersByTime(500);
+      expect(errorSpy).not.toHaveBeenCalled();
+    } finally {
+      errorSpy.mockRestore();
+      vi.useRealTimers();
+    }
+  });
+});

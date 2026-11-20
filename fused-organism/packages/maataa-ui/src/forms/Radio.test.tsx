@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Radio, RadioGroup } from "./Radio";
 
 describe("Radio", () => {
@@ -171,5 +172,35 @@ describe("RadioGroup", () => {
     );
     expect(container1.firstChild).toBeInTheDocument();
     expect(container2.firstChild).toBeInTheDocument();
+  });
+});
+
+describe("Radio label association", () => {
+  it("links the label to the input even without an explicit id", () => {
+    render(<Radio value="a" label="Alpha" onChange={() => {}} />);
+    const input = screen.getByLabelText("Alpha");
+    expect(input).toHaveAttribute("type", "radio");
+    expect(input.id).not.toBe("");
+  });
+
+  it("keeps an explicit id", () => {
+    render(<Radio id="custom-id" value="a" label="Alpha" onChange={() => {}} />);
+    expect(screen.getByLabelText("Alpha")).toHaveAttribute("id", "custom-id");
+  });
+
+  it("selects a RadioGroup option when its label is clicked", async () => {
+    const onChange = vi.fn();
+    render(
+      <RadioGroup
+        name="choice"
+        options={[
+          { value: "a", label: "Alpha" },
+          { value: "b", label: "Beta" },
+        ]}
+        onChange={onChange}
+      />
+    );
+    await userEvent.click(screen.getByText("Beta"));
+    expect(onChange).toHaveBeenCalledWith("b");
   });
 });
