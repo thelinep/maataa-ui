@@ -1,8 +1,63 @@
 {
   "schemaVersion": "1.0.0",
-  "status": "TARGET_BASELINE_UNAVAILABLE",
-  "repositoryHead": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90",
-  "targetBaselines": [],
+  "status": "NONLOCAL_TARGET_BASELINE_UNAVAILABLE_LOCAL_BASELINES_RECORDED",
+  "repositoryHead": "99d19bd507d43a4b1d095322e4c0230085b0833a",
+  "targetBaselines": [
+    {
+      "applicationId": "maataa",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "maataa-local-sqlite",
+      "targetClass": "LOCAL_DEVELOPMENT",
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "state": "EXISTING",
+      "verificationStatus": "VERIFIED",
+      "schemaBaseline": {
+        "id": "maataa-local-schema-baseline",
+        "kind": "schema-baseline",
+        "sha256": "63d9f85ffa681feedcd5bbce6d2e03431199fb3e1f29146697ac9aa28613fbb8",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/maataa-baseline.json"
+      },
+      "baselineAvailable": true
+    },
+    {
+      "applicationId": "shared-data-service",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "shared-local-sqlite",
+      "targetClass": "LOCAL_DEVELOPMENT",
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "state": "EXISTING",
+      "verificationStatus": "VERIFIED",
+      "schemaBaseline": {
+        "id": "shared-local-schema-baseline",
+        "kind": "schema-baseline",
+        "sha256": "bd4899805bca80478eac3598427278d2a37bfe53cab4e5b4486b7a3e83cbf585",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/shared-baseline.json"
+      },
+      "baselineAvailable": true
+    },
+    {
+      "applicationId": "tlps",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "tlps-local-sqlite",
+      "targetClass": "LOCAL_DEVELOPMENT",
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "state": "EXISTING",
+      "verificationStatus": "VERIFIED",
+      "schemaBaseline": {
+        "id": "tlps-local-schema-baseline",
+        "kind": "schema-baseline",
+        "sha256": "f1f8803f36cc11e7ae3b062d09ea951613eaa38ed271f791ee5eaa3e853f3539",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/tlps-baseline.json"
+      },
+      "baselineAvailable": true
+    }
+  ],
   "canonicalDesiredState": {
     "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
     "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
@@ -13,15 +68,15 @@
     {
       "provider": "postgresql",
       "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
-      "sha256": "620e60f89da9f73c1d7f966c5ec9bd1ba8e1b42e06a3ee2536b15f9d61054d26",
+      "sha256": "e195cf475a8aecaf1259c8c76846ec7e7d1229aee1f0627edd04a45790d53c71",
       "fromState": "EMPTY_DATABASE"
     },
     {
       "provider": "sqlite",
       "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
-      "sha256": "b7f9f40b43b842fa467809ce090b875346b7b1436b00641398bee5af45ab8637",
+      "sha256": "f232aded3034253a85bfc469d0029fcd3339a7e691b39dbd3168fa91c9292021",
       "fromState": "EMPTY_DATABASE"
     }
   ],
-  "finding": "No target baseline, target environment, or explicit new-empty-target attestation is recorded; no target-specific diff can be generated."
+  "finding": "Local development baselines are recorded. No non-local environment baseline is declared, so release target-diff work remains blocked."
 }

@@ -2,9 +2,15 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AppShell, Sidebar, TopNav } from "@maataa/ui/navigation";
 import { applicationRegistry } from "../../admin-template/app-registry.mjs";
+import LocalWorkspace from "./LocalWorkspace.jsx";
 import SpatialWorkspace from "./SpatialWorkspace.jsx";
+import { addLocalEvent, createLocalRecord } from "./localWorkspaceStore.mjs";
 import data from "./manifest-data.json";
 import "./theme.css";
+
+if (import.meta.env.DEV && import.meta.env.VITE_TLPS_LOCAL_AUTH === "true") {
+  window.MAATAA_AUTH ??= { getAccessToken: async () => "maataa-local-dev-session" };
+}
 
 const tlpsApplication = applicationRegistry.find((application) => application.id === "tlps");
 const registeredPages = tlpsApplication.routes.map((route) => {
@@ -135,8 +141,39 @@ function App() {
     go(target);
   }
 
+  async function signOutPreview() {
+    let endedLocalSession = true;
+    const apiUrl = import.meta.env.VITE_TLPS_API_BASE_URL;
+    if (import.meta.env.DEV && import.meta.env.VITE_TLPS_LOCAL_AUTH === "true" && apiUrl) {
+      try {
+        const response = await fetch(new URL("/v1/local-session", apiUrl), { method: "DELETE", credentials: "include" });
+        endedLocalSession = response.ok;
+      } catch {
+        endedLocalSession = false;
+      }
+    }
+    sessionStorage.removeItem("tlps-preview-role");
+    sessionStorage.removeItem("tlps-preview-return");
+    setRoleId("");
+    setShowRolePicker(false);
+    go("/");
+    setNotice(endedLocalSession ? "Local preview session ended." : "Preview role cleared; the local API session could not be reached to invalidate it.");
+    window.setTimeout(() => setNotice(""), 5000);
+  }
+
   function previewAction(action) {
-    setNotice(`${action} is a preview interaction. Connect the relevant host service to make it operational.`);
+    const route = getRoute();
+    if (/create project/i.test(action)) {
+      const projectPage = pageById.get("033");
+      if (projectPage) {
+        const created = createLocalRecord(projectPage.route, { title: `New local project · ${new Date().toLocaleDateString()}`, owner: role?.label || "Local demo", status: "Planned", notes: "Created from the local workspace launchpad." }, role?.label || "Local demo");
+        if (created) setNotice("Project created in this browser. Open Projects Portfolio to edit it.");
+        else setNotice("Could not save this project in local browser storage.");
+      }
+    } else {
+      addLocalEvent(route, action, "Workspace launchpad interaction", role?.label || "Local demo");
+      setNotice(`${action} recorded in this browser. No external service was contacted.`);
+    }
     window.setTimeout(() => setNotice(""), 4200);
   }
 
@@ -176,10 +213,10 @@ function App() {
     <AppShell className="tlps-shell" sidebar={sidebar} topNav={topNav} toolbar={toolbar} footer={<div className="shell-footer"><span>TLPS interface preview</span><span>Manifest coverage: {data.counts.routes} routes · {data.counts.products} applications</span></div>} navigationPosition={layout.navigationPosition} navigationCollapsed={layout.navigationPosition === "folded"} toolbarPosition={layout.toolbarPosition} footerPosition={layout.footerPosition} navigationLabel="TLPS workspace navigation">
       <div className="page-content" id="tlps-main">
         {notice && <div className="notice-toast" role="status">{notice}<button onClick={() => setNotice("")} aria-label="Dismiss notice">×</button></div>}
-        {query ? <SearchResults pages={searchablePages} query={query} /> : isPublicHome ? <PublicHome onSignIn={() => go("/mobile/004/sign-in")} onExplore={(id) => go(pageForProduct(data.products.find((product) => product.id === id))?.route || "/mobile/004/sign-in")} /> : isHome && role ? <WorkspaceHome role={role} availableApps={availableApps} go={go} onAction={previewAction} onAllApps={() => setShowAllApps(true)} /> : isHome ? <SignInPreview roles={data.roles} onSelect={selectRole} /> : authPage && currentPage.route === "/mobile/004/sign-in" ? <SignInPreview roles={data.roles} onSelect={selectRole} /> : authPage && currentPage ? <AuthRouteView page={currentPage} onAction={previewAction} onSignIn={() => go("/mobile/004/sign-in")} /> : currentPage && !routeAllowed ? <AccessNotice page={currentPage} role={role} onSwitch={() => setShowRolePicker(true)} /> : currentPage && (currentPage.id === "222" || currentPage.id === "223") ? <SpatialWorkspace key="tlps-spatial-layout" page={currentPage} role={role} /> : currentPage ? <RouteView page={currentPage} go={go} onAction={previewAction} role={role} /> : <NotFound go={go} />}
+        {query ? <SearchResults pages={searchablePages} query={query} /> : isPublicHome ? <PublicHome onSignIn={() => go("/mobile/004/sign-in")} onExplore={(id) => go(pageForProduct(data.products.find((product) => product.id === id))?.route || "/mobile/004/sign-in")} /> : isHome && role ? <WorkspaceHome role={role} availableApps={availableApps} go={go} onAction={previewAction} onAllApps={() => setShowAllApps(true)} /> : isHome ? <SignInPreview roles={data.roles} onSelect={selectRole} /> : authPage && currentPage.route === "/mobile/004/sign-in" ? <SignInPreview roles={data.roles} onSelect={selectRole} /> : authPage && currentPage ? <AuthRouteView page={currentPage} onAction={previewAction} onSignIn={() => go("/mobile/004/sign-in")} /> : currentPage && !routeAllowed ? <AccessNotice page={currentPage} role={role} onSwitch={() => setShowRolePicker(true)} /> : currentPage && (currentPage.id === "222" || currentPage.id === "223") ? <SpatialWorkspace key="tlps-spatial-layout" page={currentPage} role={role} /> : currentPage ? <RouteView page={currentPage} go={go} role={role} /> : <NotFound go={go} />}
       </div>
     </AppShell>
-    {showRolePicker && <RoleDialog roles={data.roles} active={roleId} onSelect={selectRole} onClose={() => setShowRolePicker(false)} />}
+    {showRolePicker && <RoleDialog roles={data.roles} active={roleId} onSelect={selectRole} onSignOut={signOutPreview} onClose={() => setShowRolePicker(false)} />}
     {showLayoutDialog && <LayoutDialog layout={layout} onChange={setLayout} onClose={() => setShowLayoutDialog(false)} />}
     {showAllApps && <AppsDialog products={data.products} availableApps={availableApps} onOpen={(product) => { setShowAllApps(false); role ? go(pageForProduct(product)?.route || "/") : go("/mobile/004/sign-in"); }} onClose={() => setShowAllApps(false)} />}
   </div>;
@@ -191,7 +228,7 @@ function PublicHome({ onSignIn, onExplore }) {
     <section className="public-intro"><div><span className="eyebrow">BUILT AROUND REAL OPERATIONS</span><h2>One connected workspace.<br /><span>Every role in context.</span></h2></div><p>Explore the product areas below, then enter the role-based workspace preview. The routes and screens are a user-interface preview; authentication, records, and services are not connected.</p></section>
     <ProductGrid products={data.products.slice(0, 6)} onOpen={onExplore} compact={false} id="products" />
     <div className="public-endcap"><div><span className="eyebrow">START WITH THE WORK IN FRONT OF YOU</span><h2>See the operating layer<br />from your point of view.</h2></div><button className="button-secondary" onClick={onSignIn}>Choose a workspace role <span>→</span></button></div>
-    <div className="public-disclosure">This preview uses illustrative content. It does not connect to customer systems, authenticate users or execute operational actions.</div>
+    <div className="public-disclosure">The local workspace stores preview records in this browser. It does not connect to customer systems, authenticate real users or execute external operations.</div>
   </div>;
 }
 
@@ -230,19 +267,10 @@ function AuthRouteView({ page, onAction, onSignIn }) {
   return <div className="auth-route-wrap"><div className="auth-route-card"><span className="eyebrow">ENTRY & SECURITY · PREVIEW ONLY</span><div className="auth-route-icon">{isExit ? "◇" : "⌑"}</div><h1>{page.name}</h1><p>{page.description || "This entry and security route is represented as a product preview."}</p><div className="auth-route-detail"><span><b>Route</b><code>{page.route}</code></span><span><b>Service state</b>Not connected</span></div><button className="button-primary" onClick={isExit ? () => onAction(page.primaryActions[0] || page.name) : onSignIn}>{actionName(page.primaryActions[0] || "Return to sign in")} <span>→</span></button><small>This page does not authenticate accounts, send email or change security state.</small></div></div>;
 }
 
-function RouteView({ page, go: navigate, onAction, role }) {
+function RouteView({ page, go: navigate, role }) {
   const familyPages = protectedPages.filter((item) => item.family === page.family);
   const siblingPages = familyPages.filter((item) => item.id !== page.id).slice(0, 5);
-  const products = data.products.filter((product) => product.families.includes(page.family));
-  const pageOrdinal = Number.parseInt(page.id.replace(/\D/g, ""), 10) || 0;
-  return <div className="route-view"><div className="route-breadcrumb"><button onClick={() => navigate("/mobile/017/home-dashboard")}>Workspace</button><span>/</span><button onClick={() => navigate(pageForProduct(products[0] || data.products[0])?.route || "/mobile/017/home-dashboard")}>{page.family}</button><span>/</span><b>{page.name}</b></div>
-    <div className="page-heading route-heading"><div><div className="eyebrow">{page.family.toUpperCase()} <span className="dot-separator">·</span> {(role?.label || "PUBLIC").toUpperCase()} VIEW</div><h1>{page.name}</h1><p>{page.description}</p></div><div className="route-heading-actions"><span className="sample-badge"><i /> SAMPLE VIEW</span><button className="button-primary" onClick={() => onAction(page.primaryActions[0] || "Page action")}>{actionName(page.primaryActions[0])} <span>→</span></button></div></div>
-    <div className="route-info-row"><span><b>Route</b><code>{page.route}</code></span><span><b>Application</b>{products.map((product) => product.name.replace("TLPS ", "")).join(" · ") || "TLPS Core"}</span><span><b>Data status</b>Illustrative preview</span></div>
-    <div className="route-metrics">{(page.metrics.length ? page.metrics : ["Work items", "Reviews", "Updates"]).slice(0, 3).map((metric, index) => <div className="route-metric-card" key={metric}><span>{metric}</span><b>{["24", "08", "96%"][(index + pageOrdinal) % 3]}</b><small>{index === 0 ? "Sample records" : "Preview indicator"}</small></div>)}</div>
-    <div className="route-content-grid"><section className="panel route-data-panel"><PanelTitle icon={glyphs[products[0]?.id] || "◫"} title={`${page.name} workspace`} action="Adjust view" onClick={() => onAction("Adjust view")} /><div className="table-controls"><span>Preview records <b>01–05</b></span><button onClick={() => onAction("Filter records")}>☷ Filters</button></div><div className="preview-table"><div className="table-head"><span>RECORD</span><span>STATUS</span><span>OWNER</span><span>UPDATED</span></div>{Array.from({ length: 5 }, (_, index) => <div className="table-row" key={`${page.id}-${index}`}><span><i className={`record-mark mark-${index}`} /><b>{tableLabel(page, index)}</b><small>TLPS sample · {String(index + 1).padStart(2, "0")}</small></span><span><em className={`status-pill status-${index % 3}`}>{["On track", "In review", "Planned"][index % 3]}</em></span><span className="owner-chip"><i>{["JD", "AS", "ML", "RK", "NP"][index]}</i>{["Jordan D.", "Amira S.", "Morgan L.", "Ravi K.", "Nia P."][index]}</span><span className="updated-cell">{["Today, 09:42", "Yesterday", "30 Sep", "29 Sep", "28 Sep"][index]}</span></div>)}</div><div className="table-disclaimer">All rows and statuses on this screen are illustrative sample content.</div></section>
-      <aside className="route-side-column"><section className="panel quick-actions-panel"><PanelTitle icon="↗" title="Available actions" />{page.primaryActions.slice(0, 4).map((action) => <button className="quick-action" key={action} onClick={() => onAction(action)}><span>{actionName(action)}</span><b>→</b></button>)}<small className="action-disclaimer">Actions are visual only; host services are not connected.</small></section><section className="panel related-panel"><PanelTitle icon="◇" title="Related routes" />{siblingPages.length ? siblingPages.map((item) => <button className="related-link" key={item.id} onClick={() => navigate(item.route)}><span><b>{item.name}</b><small>{item.family}</small></span><i>→</i></button>) : <p className="muted-copy">No other routes in this family.</p>}</section></aside></div>
-    <div className="route-source-note"><span>i</span><p><b>Preview boundary</b> This route was generated from manifest metadata. It does not read or write production data, invoke external providers, or perform authenticated authorization.</p></div>
-  </div>;
+  return <LocalWorkspace key={page.route} page={page} role={role} navigate={navigate} relatedRoutes={siblingPages.map((item) => ({ name: item.name, route: item.route, family: item.family }))}/>;
 }
 
 function AccessNotice({ page, role, onSwitch }) {
@@ -253,8 +281,8 @@ function NotFound({ go: navigate }) {
   return <div className="empty-state"><span>404</span><div className="eyebrow">ROUTE NOT FOUND</div><h1>This route is not in the manifest.</h1><p>The supplied manifest contains {data.counts.routes} known routes.</p><button className="button-primary" onClick={() => navigate("/")}>Return to TLPS home <span>→</span></button></div>;
 }
 
-function RoleDialog({ roles, active, onSelect, onClose }) {
-  return <Dialog onClose={onClose} title="Choose a preview role"><p className="dialog-intro">Role choice filters the navigation and sample routes on this device.</p><div className="dialog-role-grid">{roles.map((role) => <button key={role.id} className={`dialog-role ${active === role.id ? "selected" : ""}`} onClick={() => onSelect(role.id)}><span className="avatar">{role.avatar}</span><span><b>{role.label}</b><small>{role.organisation}</small></span></button>)}</div><p className="dialog-disclaimer">This role selector is not an authentication or access-control system.</p></Dialog>;
+function RoleDialog({ roles, active, onSelect, onSignOut, onClose }) {
+  return <Dialog onClose={onClose} title="Choose a preview role"><p className="dialog-intro">Role choice filters the navigation and sample routes on this device.</p><div className="dialog-role-grid">{roles.map((role) => <button key={role.id} className={`dialog-role ${active === role.id ? "selected" : ""}`} onClick={() => onSelect(role.id)}><span className="avatar">{role.avatar}</span><span><b>{role.label}</b><small>{role.organisation}</small></span></button>)}</div>{active && <button type="button" className="toolbar-button" onClick={onSignOut}>End local preview session</button>}<p className="dialog-disclaimer">This role selector is not an authentication or access-control system.</p></Dialog>;
 }
 
 function LayoutDialog({ layout, onChange, onClose }) {
@@ -296,11 +324,6 @@ function Dialog({ onClose, title, children }) {
 
 function actionName(action = "Open workspace") {
   return action.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
-}
-
-function tableLabel(page, index) {
-  const nouns = page.name.replace(/(dashboard|workspace|manager|management|center|overview|list|board|planner|hub)/gi, "").trim() || page.family;
-  return [`${nouns} · North region`, `${nouns} · Q3 workstream`, `${nouns} · Field unit ${index + 1}`, `${nouns} · Planning cycle`, `${nouns} · Shared record`][index];
 }
 
 function AppRoot() {

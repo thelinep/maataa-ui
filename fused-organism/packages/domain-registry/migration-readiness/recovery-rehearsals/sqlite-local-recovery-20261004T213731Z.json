@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "rehearsalId": "sqlite-local-recovery-20261004T213731Z",
+  "status": "PASS_LOCAL_SQLITE_BACKUP_RESTORE_REHEARSAL",
+  "createdAt": "2026-10-04T21:37:32.002690+00:00",
+  "canonicalContractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+  "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+  "targetCount": 3,
+  "targets": [
+    {
+      "target": {
+        "applicationId": "maataa",
+        "environmentId": "local-development",
+        "databaseTargetId": "maataa-local-sqlite",
+        "provider": "sqlite",
+        "engineVersionDeclared": "3.43.1",
+        "engineVersionRuntime": "3.43.1",
+        "databasePath": "fused-organism/.local-dev/databases/maataa.db",
+        "baselineArtifact": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/maataa-baseline.json",
+        "baselineArtifactSha256": "63d9f85ffa681feedcd5bbce6d2e03431199fb3e1f29146697ac9aa28613fbb8",
+        "databaseSha256BeforeAndAfter": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7"
+      },
+      "backup": {
+        "method": "Python sqlite3.Connection.backup (SQLite online backup API wrapper)",
+        "path": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z/maataa.sqlite.backup.db",
+        "sha256": "47aaf01ec4cc4866984aced867da8e014589b6fa1e914553d792250c8385d4ab",
+        "bytes": 786432,
+        "durationSeconds": 0.004603,
+        "inventoryMatchesSource": true
+      },
+      "restore": {
+        "method": "SQLite backup API into an isolated temporary database",
+        "temporaryTargetRemovedAfterVerification": true,
+        "durationSeconds": 0.007842,
+        "inventoryMatchesSource": true,
+        "objectSha256": "65facf186e907cedec5f570f6125a9f91f31949274211491ff152144f57db2c5",
+        "objectCounts": {
+          "table": 25,
+          "index": 129,
+          "trigger": 0,
+          "view": 0
+        },
+        "totalRows": 0,
+        "integrityCheck": "ok",
+        "foreignKeyCheckErrors": 0
+      },
+      "recoveryBoundary": "Local SQLite fixture rehearsal only; does not prove production backup coverage, encryption/key recovery, RPO/RTO objectives, application restore, PostgreSQL recovery, or libSQL recovery."
+    },
+    {
+      "target": {
+        "applicationId": "shared-data-service",
+        "environmentId": "local-development",
+        "databaseTargetId": "shared-local-sqlite",
+        "provider": "sqlite",
+        "engineVersionDeclared": "3.43.1",
+        "engineVersionRuntime": "3.43.1",
+        "databasePath": "fused-organism/.local-dev/databases/shared.db",
+        "baselineArtifact": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/shared-baseline.json",
+        "baselineArtifactSha256": "bd4899805bca80478eac3598427278d2a37bfe53cab4e5b4486b7a3e83cbf585",
+        "databaseSha256BeforeAndAfter": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38"
+      },
+      "backup": {
+        "method": "Python sqlite3.Connection.backup (SQLite online backup API wrapper)",
+        "path": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z/shared.sqlite.backup.db",
+        "sha256": "aedce7ac94ce77591dd50c19ea833dc5da539b6e87cc9cb3c746b39850d7318c",
+        "bytes": 3301376,
+        "durationSeconds": 0.015232,
+        "inventoryMatchesSource": true
+      },
+      "restore": {
+        "method": "SQLite backup API into an isolated temporary database",
+        "temporaryTargetRemovedAfterVerification": true,
+        "durationSeconds": 0.020345,
+        "inventoryMatchesSource": true,
+        "objectSha256": "8ab480fa65ac62f663a85fddbf9a83bf3ea6d04168c56805d89bd58419d23390",
+        "objectCounts": {
+          "table": 118,
+          "index": 495,
+          "trigger": 8,
+          "view": 0
+        },
+        "totalRows": 0,
+        "integrityCheck": "ok",
+        "foreignKeyCheckErrors": 0
+      },
+      "recoveryBoundary": "Local SQLite fixture rehearsal only; does not prove production backup coverage, encryption/key recovery, RPO/RTO objectives, application restore, PostgreSQL recovery, or libSQL recovery."
+    },
+    {
+      "target": {
+        "applicationId": "tlps",
+        "environmentId": "local-development",
+        "databaseTargetId": "tlps-local-sqlite",
+        "provider": "sqlite",
+        "engineVersionDeclared": "3.43.1",
+        "engineVersionRuntime": "3.43.1",
+        "databasePath": "fused-organism/.local-dev/databases/tlps.db",
+        "baselineArtifact": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/tlps-baseline.json",
+        "baselineArtifactSha256": "f1f8803f36cc11e7ae3b062d09ea951613eaa38ed271f791ee5eaa3e853f3539",
+        "databaseSha256BeforeAndAfter": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426"
+      },
+      "backup": {
+        "method": "Python sqlite3.Connection.backup (SQLite online backup API wrapper)",
+        "path": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z/tlps.sqlite.backup.db",
+        "sha256": "dd631557fb900bfa5008e45f82f0a59461d2c830a4df13f30afe7623612a714c",
+        "bytes": 7073792,
+        "durationSeconds": 0.020842,
+        "inventoryMatchesSource": true
+      },
+      "restore": {
+        "method": "SQLite backup API into an isolated temporary database",
+        "temporaryTargetRemovedAfterVerification": true,
+        "durationSeconds": 0.039718,
+        "inventoryMatchesSource": true,
+        "objectSha256": "10234c52e0a53505e9aa4b6356f4d0aae4b8c7651c33468c97a0a2d70a305ee6",
+        "objectCounts": {
+          "table": 209,
+          "index": 1186,
+          "trigger": 0,
+          "view": 0
+        },
+        "totalRows": 0,
+        "integrityCheck": "ok",
+        "foreignKeyCheckErrors": 0
+      },
+      "recoveryBoundary": "Local SQLite fixture rehearsal only; does not prove production backup coverage, encryption/key recovery, RPO/RTO objectives, application restore, PostgreSQL recovery, or libSQL recovery."
+    }
+  ],
+  "approvals": {
+    "migrationPlanReview": "NOT_READY_FOR_TARGET_BOUND_REVIEW",
+    "migrationExecution": "NOT_GRANTED",
+    "deployment": "NOT_GRANTED_NO_RELEASE_ARTIFACT_OR_TARGET"
+  },
+  "limitations": [
+    "These are empty local development database fixtures; row preservation was verified but representative business-data recovery was not rehearsed.",
+    "No staging or production target, PostgreSQL target, or libSQL runtime was available.",
+    "Recovery rehearsal does not authorize migration execution or deployment."
+  ],
+  "evidenceFile": "fused-organism/packages/domain-registry/migration-readiness/recovery-rehearsals/sqlite-local-recovery-20261004T213731Z.json",
+  "backupFilesRetainedUnder": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z"
+}

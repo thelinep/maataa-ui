@@ -159,6 +159,8 @@ export interface ControlPlaneAuthoringManifest {
 export interface RegisteredApplication {
   appId: string;
   name: string;
+  applicationType?: "product" | "shared-service";
+  dataOwner?: string;
 }
 
 export interface ApplicationRegistry {

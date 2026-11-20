@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-database-target-verification",
+  "verifiedAt": "2026-10-04T00:00:00Z",
+  "verificationCommands": [
+    "Python sqlite3 module: PRAGMA integrity_check",
+    "Python sqlite3 module: PRAGMA foreign_key_check",
+    "sqlite_master table and index counts",
+    "SQLite sqlite_master: provider trigger and invariant index counts"
+  ],
+  "targets": [
+    {
+      "owner": "maataa",
+      "databasePath": "fused-organism/.local-dev/databases/maataa.db",
+      "databaseSha256": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7",
+      "databaseBytes": 786432,
+      "schemaSqlPath": "fused-organism/.local-dev/databases/maataa.schema.sql",
+      "schemaSqlSha256": "7e38dcd8c2a6d256a8f9732db53e3c9e30320c4e9fd1f80344020de52cfb7db6",
+      "schemaSqlBytes": 30698,
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "tableCount": 25,
+      "integrityCheck": "ok",
+      "foreignKeyCheckErrors": 0,
+      "triggerCount": 0,
+      "triggerNames": [],
+      "communicationsInvariantIndexCount": 0,
+      "schemaLifecycle": "CANONICAL",
+      "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+      "verificationScope": "Local generated development database file only; no remote target contacted."
+    },
+    {
+      "owner": "tlps",
+      "databasePath": "fused-organism/.local-dev/databases/tlps.db",
+      "databaseSha256": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426",
+      "databaseBytes": 7073792,
+      "schemaSqlPath": "fused-organism/.local-dev/databases/tlps.schema.sql",
+      "schemaSqlSha256": "38f009b480ccf0303322a69d0208b3779b39ec8c689dcae9123dc62588cb6225",
+      "schemaSqlBytes": 319620,
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "tableCount": 209,
+      "integrityCheck": "ok",
+      "foreignKeyCheckErrors": 0,
+      "triggerCount": 0,
+      "triggerNames": [],
+      "communicationsInvariantIndexCount": 0,
+      "schemaLifecycle": "CANONICAL",
+      "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+      "verificationScope": "Local generated development database file only; no remote target contacted."
+    },
+    {
+      "owner": "shared",
+      "databasePath": "fused-organism/.local-dev/databases/shared.db",
+      "databaseSha256": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38",
+      "databaseBytes": 3301376,
+      "schemaSqlPath": "fused-organism/.local-dev/databases/shared.schema.sql",
+      "schemaSqlSha256": "84646b5ba5eefdd5502757ad7adda9386e5c017b78552a4e120d4a2337e60da9",
+      "schemaSqlBytes": 201599,
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "tableCount": 118,
+      "integrityCheck": "ok",
+      "foreignKeyCheckErrors": 0,
+      "triggerCount": 8,
+      "triggerNames": [
+        "trg_communications_announcements_audience_scope_insert",
+        "trg_communications_announcements_audience_scope_update",
+        "trg_communications_direct_message_pair_order_insert",
+        "trg_communications_direct_message_pair_order_update",
+        "trg_communications_direct_message_parent_insert",
+        "trg_communications_direct_message_parent_update",
+        "trg_communications_direct_thread_kind_update",
+        "trg_communications_thread_membership_episode_update"
+      ],
+      "communicationsInvariantIndexCount": 1,
+      "schemaLifecycle": "CANONICAL",
+      "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+      "verificationScope": "Local generated development database file only; no remote target contacted."
+    }
+  ],
+  "limitations": [
+    "Local files only; no network or remote database was contacted.",
+    "Cross-owner references are represented by API policy records, not physical foreign keys in these owner-local databases.",
+    "The shared SQLite development projection contains the five Communications provider-specific invariant overlays; SQLite checks are local fixture evidence and do not establish libSQL compatibility.",
+    "This verification does not authorize migration or deployment."
+  ]
+}

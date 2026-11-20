@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "status": "CROSSWALKED_NOT_INTEGRATED_IN_GLOBAL_BOOTSTRAPS",
+  "status": "INTEGRATED_IN_GLOBAL_EMPTY_BOOTSTRAPS_NOT_TARGET_DIFFED",
   "canonicalContractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
   "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
   "communicationsDraftContractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
   "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
-  "globalBootstrapOverlayIncluded": false,
+  "globalBootstrapOverlayIncluded": true,
   "providerSpecificEquivalentInvariants": [
     {
       "name": "announcement_audience_matches_workspace_scope",
@@ -116,12 +116,31 @@
     "validationCommand": "npm run contracts:communications-enforcement-check",
     "sqliteBehavioralChecks": "PASS",
     "postgresqlProjectionReview": "PASS_STATIC_REVIEW",
-    "scope": "Communications 14-table DRAFT closure only; no live provider execution"
+    "scope": "Five canonical Communications invariants crosswalked against the approved Communications overlay and appended to both 352-table global empty-state bootstrap previews; no live provider execution."
   },
   "requiredBeforeM4_2Exit": [
     "select concrete provider/engine/version targets",
-    "reconcile provider overlays with global bootstrap/target diffs",
-    "review operation ordering and behavior on supported target versions",
-    "generate and review each target-bound upgrade diff"
-  ]
+    "review overlay operation ordering and behavior on supported target versions",
+    "generate and review each target-bound upgrade diff with the integrated provider overlays"
+  ],
+  "globalBootstrapEvidence": {
+    "postgresql": {
+      "file": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
+      "sha256": "e195cf475a8aecaf1259c8c76846ec7e7d1229aee1f0627edd04a45790d53c71",
+      "invariantCount": 5
+    },
+    "sqlite": {
+      "file": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
+      "sha256": "f232aded3034253a85bfc469d0029fcd3339a7e691b39dbd3168fa91c9292021",
+      "invariantCount": 5
+    }
+  },
+  "reconciliation": {
+    "status": "PASS_STATIC_CROSSWALK_AND_GENERATED_PREVIEW_INTEGRATION",
+    "canonicalInvariantNamesMatchPlan": true,
+    "exactInvariantCount": 5,
+    "providerOverlaysAppendedAfterBaseDdl": true,
+    "targetSpecificUpgradeDiffs": "NOT_GENERATED",
+    "liveProviderExecution": "NOT_PERFORMED"
+  }
 }

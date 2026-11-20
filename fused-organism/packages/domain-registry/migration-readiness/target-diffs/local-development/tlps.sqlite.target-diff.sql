@@ -1,0 +1,4 @@
+-- LOCAL TARGET-BOUND DIFF · target=tlps-local-sqlite · provider=sqlite · migrationApproved=false
+-- source database SHA-256=37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426
+-- canonical contract set SHA-256=023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa; logical schema SHA-256=5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5
+-- No schema changes: target matches its owner-scoped canonical SQLite projection.

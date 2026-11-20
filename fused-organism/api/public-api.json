@@ -24,6 +24,16 @@
       ]
     },
     {
+      "name": "@tlps/composites",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "CompositesCatalog",
+        "CompositesCategories",
+        "implementedComposites"
+      ]
+    },
+    {
       "name": "@maataa/contracts",
       "version": "0.4.1",
       "entry": "./src/index.mjs",
@@ -69,6 +79,76 @@
       ]
     },
     {
+      "name": "@tlps/domain-primitives",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "Canvas",
+        "CanvasSurface",
+        "DomainPrimitivesCatalog",
+        "DomainPrimitivesCategories",
+        "Environment",
+        "Lighting",
+        "Material",
+        "OrbitControl",
+        "Rotate",
+        "Scale",
+        "Scene3D",
+        "Snapshot",
+        "SpatialCanvas",
+        "TransformControl",
+        "Translate",
+        "Viewport",
+        "createGeometry3D",
+        "createModel3D",
+        "defaultCamera3D",
+        "implementedDomainPrimitives",
+        "modelMatrix",
+        "multiply4",
+        "perspective4",
+        "viewMatrix"
+      ]
+    },
+    {
+      "name": "@maataa/domain-registry",
+      "version": "0.1.0",
+      "entry": "./src/index.mjs",
+      "namedExports": [
+        "assertRegistryPublishable",
+        "getContextDependencies",
+        "getContextDependents",
+        "getRegistryGate",
+        "getRegistryHeatmap",
+        "lookupDependencies",
+        "manifest",
+        "registry",
+        "resolveProductComposition",
+        "resolveRoute",
+        "searchRegistry",
+        "validateRegistry"
+      ]
+    },
+    {
+      "name": "@tlps/evidence-primitives",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "EvidencePrimitivesCatalog",
+        "EvidencePrimitivesCategories",
+        "implementedEvidencePrimitives"
+      ]
+    },
+    {
+      "name": "@tlps/generative-primitives",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "GenerativePrimitivesCatalog",
+        "GenerativePrimitivesCategories",
+        "implementedGenerativePrimitives"
+      ]
+    },
+    {
       "name": "@maataa/governance",
       "version": "0.4.1",
       "entry": "./src/index.mjs",
@@ -77,6 +157,29 @@
         "createHeadlessComponent",
         "evidenceReceipt",
         "policyOutcomes"
+      ]
+    },
+    {
+      "name": "@maataa/primitives",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "AspectRatio",
+        "Badge",
+        "Box",
+        "Button",
+        "Card",
+        "Container",
+        "Divider",
+        "Flex",
+        "Grid",
+        "Input",
+        "Portal",
+        "ScrollArea",
+        "Spacer",
+        "Stack",
+        "VisuallyHidden",
+        "primitiveComponents"
       ]
     },
     {
@@ -118,6 +221,16 @@
       ]
     },
     {
+      "name": "@tlps/templates",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "TemplatesCatalog",
+        "TemplatesCategories",
+        "implementedTemplates"
+      ]
+    },
+    {
       "name": "@maataa/testing",
       "version": "0.4.1",
       "entry": "./src/index.mjs",
@@ -126,6 +239,31 @@
         "approvedPolicy",
         "assertTerminal",
         "connectedCameraSimulator"
+      ]
+    },
+    {
+      "name": "@maataa/tokens",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "chartTokens",
+        "colorTokens",
+        "darkChartTokens",
+        "darkColorTokens",
+        "radiusTokens",
+        "spacingTokens",
+        "transitionTokens",
+        "typographyTokens"
+      ]
+    },
+    {
+      "name": "@tlps/workflow-primitives",
+      "version": "0.4.1",
+      "entry": "./dist/index.js",
+      "namedExports": [
+        "WorkflowPrimitivesCatalog",
+        "WorkflowPrimitivesCategories",
+        "implementedWorkflowPrimitives"
       ]
     }
   ]

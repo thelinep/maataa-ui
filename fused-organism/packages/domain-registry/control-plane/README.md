@@ -1,6 +1,6 @@
 # MAATAA Control Plane Manifest
 
-This package adds a typed, declarative configuration layer to the existing Domain Registry. The Domain Registry Application Registry remains the authority for application IDs and names; this manifest references those IDs and owns the typed environment, infrastructure, and policy declarations used by migration planning. The admin-template platform screen remains a local preview and is not read as infrastructure truth.
+This package adds a typed, declarative configuration layer to the existing Domain Registry. `control-plane/application-registry.json` is the authority for product/runtime application IDs and names. `applications/registry.json` remains the separate registry for domain-composition proof applications. The Control Plane manifest references product/runtime IDs and owns their typed environment, infrastructure, and policy declarations used by migration planning. The admin-template platform screen remains a local preview and is not read as infrastructure truth.
 
 ## Data flow
 
@@ -17,9 +17,13 @@ TypeScript is the authoring surface. The JSON Schema plus normalized JSON are th
 
 ## Current declaration
 
-The manifest references all four applications in `applications/registry.json`. It intentionally declares **zero environments, database targets, repositories, domains, infrastructure resources, secret references, or policies** because no authoritative infrastructure facts were supplied. Test fixtures exercise these models but are never included in the generated manifest.
+The operational registry contains **MAATAA**, **TLPS**, and the **Shared Data Service**. The third record represents the single owner for shared tables; it is needed to bind `shared.db` without duplicating shared data under either product. MAATAA points to the `maataa-ui` repository; TLPS points to `maataa-api`, the API repository designated for `api.tlps.in`.
 
-`DECLARED`, `VERIFIED`, `CONFLICTED`, and `UNKNOWN` are distinct. A verified database target requires recorded observation and evidence references. `EMPTY` in a declaration is not proof that the real database is empty. SQLite and libSQL are separate providers.
+Each record has a `local-development` environment and one SQLite target: `maataa-local-sqlite`, `tlps-local-sqlite`, or `shared-local-sqlite`. Targets record SQLite **3.43.1**, exact schema/database file paths and hashes, plus baseline, migration-history, and verification evidence under `control-plane/evidence/local-development/`. These are the local files created from the canonical owner projections. They are marked verified only for local file identity and SQLite integrity/FK checks; no hosted environment was contacted. No secret reference is needed for a local SQLite file. No production domains or hosted environments are declared.
+
+The four records in `applications/registry.json` remain composition proof applications and are not promoted to operational environments. Test fixtures are never included in the generated Control Plane manifest.
+
+`DECLARED`, `VERIFIED`, `CONFLICTED`, and `UNKNOWN` are distinct. A verified database target requires recorded observation and evidence references. `EMPTY` in a declaration is not proof that the real database is empty. SQLite and libSQL are separate providers. The local targets are existing schema-bearing files, not empty production databases. Their local verification does not certify provider invariants, API reference enforcement, production targets, migration readiness, or deployment readiness.
 
 ## Commands and outputs
 
@@ -41,7 +45,7 @@ The target inventory distinguishes bootstrap candidacy from verified emptiness a
 
 ## Model coverage
 
-The TypeScript contract covers Application references, Environment, DatabaseTarget, Repository, Domain, Runtime, Storage, Queue, InfrastructureResource, environment-scoped resource assignments, opaque SecretReference, BackupPolicy, MigrationPolicy, and DeploymentPolicy. Existing-app identity and routes are not duplicated. Resource/policy references and environment boundaries are validated before canonicalization.
+The TypeScript contract covers Application references, Environment, DatabaseTarget, Repository, Domain, Runtime, Storage, Queue, InfrastructureResource, environment-scoped resource assignments, opaque SecretReference, BackupPolicy, MigrationPolicy, and DeploymentPolicy. Domain-composition identity and routes are not duplicated. Resource/policy references and environment boundaries are validated before canonicalization.
 
 ## Audit and persistence boundary
 

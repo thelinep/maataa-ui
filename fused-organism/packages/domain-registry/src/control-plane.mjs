@@ -91,6 +91,7 @@ export function deriveMigrationTargets(canonical, controlPlaneHash) {
         targets.push({
           applicationId: application.id,
           environmentId: environment.id,
+          environmentKind: environment.kind,
           databaseTargetId: target.id,
           provider: target.provider,
           engineVersion: target.engineVersion ?? null,

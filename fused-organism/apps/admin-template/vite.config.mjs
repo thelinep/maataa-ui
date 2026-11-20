@@ -7,7 +7,7 @@ const appRoot = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   root: appRoot,
-  base: "/apps/admin-template/",
+  base: process.env.MAATAA_DESKTOP === "true" ? "./" : "/apps/admin-template/",
   plugins: [react()],
   build: {
     outDir: path.resolve(appRoot, "../../dist/apps/admin-template"),

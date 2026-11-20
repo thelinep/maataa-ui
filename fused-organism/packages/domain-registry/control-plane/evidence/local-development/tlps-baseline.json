@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-schema-baseline",
+  "owner": "tlps",
+  "databasePath": "fused-organism/.local-dev/databases/tlps.db",
+  "databaseSha256": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426",
+  "databaseBytes": 7073792,
+  "schemaSqlPath": "fused-organism/.local-dev/databases/tlps.schema.sql",
+  "schemaSqlSha256": "38f009b480ccf0303322a69d0208b3779b39ec8c689dcae9123dc62588cb6225",
+  "schemaSqlBytes": 319620,
+  "provider": "sqlite",
+  "engineVersion": "3.43.1",
+  "tableCount": 209,
+  "triggerCount": 0,
+  "communicationsInvariantCount": 0,
+  "schemaLifecycle": "CANONICAL",
+  "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa"
+}

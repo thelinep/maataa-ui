@@ -1,22 +1,122 @@
 {
   "schemaVersion": "1.0.0",
-  "controlPlaneHash": "1b4f4a18ea9d8d5d33268f52d0f273816fa0d411120a84fa8ab94816cbaa2780",
+  "controlPlaneHash": "1cadfce380dddbc86f1b2aa54be3402b5f4d2c5380e1f94b7329508339732629",
   "targetCounts": {
-    "declared": 0,
-    "verified": 0,
+    "declared": 3,
+    "verified": 3,
     "conflicted": 0,
     "unknown": 0,
     "byProvider": {
       "postgresql": 0,
-      "sqlite": 0,
+      "sqlite": 3,
       "libsql": 0,
       "mysql": 0,
       "other": 0
     }
   },
-  "targets": [],
-  "applicationCount": 4,
-  "environmentCount": 0,
+  "targets": [
+    {
+      "applicationId": "maataa",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "maataa-local-sqlite",
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "databaseState": "EXISTING",
+      "verificationStatus": "VERIFIED",
+      "observed": {
+        "state": "EXISTING",
+        "provider": "sqlite",
+        "engineVersion": "3.43.1"
+      },
+      "schemaBaselineAvailable": true,
+      "schemaBaseline": {
+        "id": "maataa-local-schema-baseline",
+        "kind": "schema-baseline",
+        "sha256": "63d9f85ffa681feedcd5bbce6d2e03431199fb3e1f29146697ac9aa28613fbb8",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/maataa-baseline.json"
+      },
+      "migrationHistoryAvailable": true,
+      "migrationHistory": {
+        "id": "maataa-local-migration-history",
+        "kind": "migration-history",
+        "sha256": "a4f4a0a17cb3ef4305673e0e5ee0da17723abab73bb21ad812c603d13f9726fe",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/maataa-migration-history.json"
+      },
+      "secretRef": null,
+      "backupPolicyRef": null,
+      "migrationPolicyRef": null,
+      "eligibility": "TARGET_DIFF_INPUT_ELIGIBLE"
+    },
+    {
+      "applicationId": "shared-data-service",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "shared-local-sqlite",
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "databaseState": "EXISTING",
+      "verificationStatus": "VERIFIED",
+      "observed": {
+        "state": "EXISTING",
+        "provider": "sqlite",
+        "engineVersion": "3.43.1"
+      },
+      "schemaBaselineAvailable": true,
+      "schemaBaseline": {
+        "id": "shared-local-schema-baseline",
+        "kind": "schema-baseline",
+        "sha256": "bd4899805bca80478eac3598427278d2a37bfe53cab4e5b4486b7a3e83cbf585",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/shared-baseline.json"
+      },
+      "migrationHistoryAvailable": true,
+      "migrationHistory": {
+        "id": "shared-local-migration-history",
+        "kind": "migration-history",
+        "sha256": "4cf4d0ce6715221d4020c67b7823ca2e2be6f049a03ea0dc9e4cd175cb8259f0",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/shared-migration-history.json"
+      },
+      "secretRef": null,
+      "backupPolicyRef": null,
+      "migrationPolicyRef": null,
+      "eligibility": "TARGET_DIFF_INPUT_ELIGIBLE"
+    },
+    {
+      "applicationId": "tlps",
+      "environmentId": "local-development",
+      "environmentKind": "local",
+      "databaseTargetId": "tlps-local-sqlite",
+      "provider": "sqlite",
+      "engineVersion": "3.43.1",
+      "databaseState": "EXISTING",
+      "verificationStatus": "VERIFIED",
+      "observed": {
+        "state": "EXISTING",
+        "provider": "sqlite",
+        "engineVersion": "3.43.1"
+      },
+      "schemaBaselineAvailable": true,
+      "schemaBaseline": {
+        "id": "tlps-local-schema-baseline",
+        "kind": "schema-baseline",
+        "sha256": "f1f8803f36cc11e7ae3b062d09ea951613eaa38ed271f791ee5eaa3e853f3539",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/tlps-baseline.json"
+      },
+      "migrationHistoryAvailable": true,
+      "migrationHistory": {
+        "id": "tlps-local-migration-history",
+        "kind": "migration-history",
+        "sha256": "0fde0746f5edec4f9685929c8a0885bb9479ccf46f3ea71cb33c63a4b1a115f9",
+        "uri": "fused-organism/packages/domain-registry/control-plane/evidence/local-development/tlps-migration-history.json"
+      },
+      "secretRef": null,
+      "backupPolicyRef": null,
+      "migrationPolicyRef": null,
+      "eligibility": "TARGET_DIFF_INPUT_ELIGIBLE"
+    }
+  ],
+  "applicationCount": 3,
+  "environmentCount": 3,
   "migrationApproved": false,
   "deploymentApproved": false
 }

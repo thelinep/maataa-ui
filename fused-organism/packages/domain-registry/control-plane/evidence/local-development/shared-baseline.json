@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-schema-baseline",
+  "owner": "shared",
+  "databasePath": "fused-organism/.local-dev/databases/shared.db",
+  "databaseSha256": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38",
+  "databaseBytes": 3301376,
+  "schemaSqlPath": "fused-organism/.local-dev/databases/shared.schema.sql",
+  "schemaSqlSha256": "84646b5ba5eefdd5502757ad7adda9386e5c017b78552a4e120d4a2337e60da9",
+  "schemaSqlBytes": 201599,
+  "provider": "sqlite",
+  "engineVersion": "3.43.1",
+  "tableCount": 118,
+  "triggerCount": 8,
+  "communicationsInvariantCount": 5,
+  "schemaLifecycle": "CANONICAL",
+  "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa"
+}

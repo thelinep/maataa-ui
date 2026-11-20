@@ -1,0 +1,3249 @@
+{
+  "schemaVersion": "1.0.0",
+  "decisionStatus": "LOCAL_DEVELOPMENT_BOUNDARY",
+  "source": {
+    "canonicalContractSetSha256": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+    "contractRegistryFileSha256": "c7f3328d6fe86f5512b660e4214a2da49d913927007a53a7365eb05ef202898c",
+    "contextRegistrySha256": "0fe9ec05ccaf03a742195c19474a98b003c45483a89d37ab7512719ff6eed00c"
+  },
+  "ownerModel": {
+    "maataa": "MAATAA platform/control-plane capabilities",
+    "tlps": "TLPS event, production, marketplace, finance and spatial business capabilities",
+    "shared": "Cross-product identity, organisation, project, communication, evidence, intelligence and public capabilities"
+  },
+  "contextOwners": {
+    "identity": "shared",
+    "organisation": "shared",
+    "project": "shared",
+    "creative": "tlps",
+    "people": "tlps",
+    "production": "tlps",
+    "logistics": "tlps",
+    "campaign": "tlps",
+    "marketplace": "tlps",
+    "evidence": "shared",
+    "finance": "tlps",
+    "investor": "tlps",
+    "eventsSpatial": "tlps",
+    "intelligence": "shared",
+    "communications": "shared",
+    "platform": "maataa",
+    "public": "shared"
+  },
+  "contextRationale": {
+    "maataa": {
+      "contexts": [
+        "platform"
+      ],
+      "rationale": "Platform control-plane settings, integrations, feature flags, and retention capabilities belong to the MAATAA platform product."
+    },
+    "shared": {
+      "contexts": [
+        "identity",
+        "organisation",
+        "project",
+        "evidence",
+        "intelligence",
+        "communications",
+        "public"
+      ],
+      "rationale": "These are cross-product identity, tenancy, project, governance, shared intelligence, communication, and public-surface capabilities; a shared service remains the authority even when both products consume it."
+    },
+    "tlps": {
+      "contexts": [
+        "creative",
+        "people",
+        "production",
+        "logistics",
+        "campaign",
+        "marketplace",
+        "finance",
+        "investor",
+        "eventsSpatial"
+      ],
+      "rationale": "These contexts model TLPS event and production workflows, their people and assets, commerce/finance, investor, and spatial/event operations."
+    }
+  },
+  "tableCount": 352,
+  "ownerCounts": {
+    "maataa": 25,
+    "tlps": 209,
+    "shared": 118
+  },
+  "tables": [
+    {
+      "tableId": "campaign.activation_calendar_items",
+      "context": "campaign",
+      "table": "activation_calendar_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.activation_feed_events",
+      "context": "campaign",
+      "table": "activation_feed_events",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.activations",
+      "context": "campaign",
+      "table": "activations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.atl_plans",
+      "context": "campaign",
+      "table": "atl_plans",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.btl_plans",
+      "context": "campaign",
+      "table": "btl_plans",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.campaign_briefs",
+      "context": "campaign",
+      "table": "campaign_briefs",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.campaign_markets",
+      "context": "campaign",
+      "table": "campaign_markets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.campaign_metrics",
+      "context": "campaign",
+      "table": "campaign_metrics",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.campaign_results",
+      "context": "campaign",
+      "table": "campaign_results",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.campaign_strategies",
+      "context": "campaign",
+      "table": "campaign_strategies",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.campaigns",
+      "context": "campaign",
+      "table": "campaigns",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.cities",
+      "context": "campaign",
+      "table": "cities",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.dooh_schedules",
+      "context": "campaign",
+      "table": "dooh_schedules",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.dooh_screens",
+      "context": "campaign",
+      "table": "dooh_screens",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.lead_events",
+      "context": "campaign",
+      "table": "lead_events",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.leads",
+      "context": "campaign",
+      "table": "leads",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.markets",
+      "context": "campaign",
+      "table": "markets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.media_plan_items",
+      "context": "campaign",
+      "table": "media_plan_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.media_plans",
+      "context": "campaign",
+      "table": "media_plans",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.ooh_site_bookings",
+      "context": "campaign",
+      "table": "ooh_site_bookings",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.ooh_sites",
+      "context": "campaign",
+      "table": "ooh_sites",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "campaign.site_checkins",
+      "context": "campaign",
+      "table": "site_checkins",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.announcements",
+      "context": "communications",
+      "table": "announcements",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.communication_threads",
+      "context": "communications",
+      "table": "communication_threads",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.direct_message_threads",
+      "context": "communications",
+      "table": "direct_message_threads",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.message_attachments",
+      "context": "communications",
+      "table": "message_attachments",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.messages",
+      "context": "communications",
+      "table": "messages",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.notification_deliveries",
+      "context": "communications",
+      "table": "notification_deliveries",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.notification_preferences",
+      "context": "communications",
+      "table": "notification_preferences",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.notifications",
+      "context": "communications",
+      "table": "notifications",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "communications.thread_members",
+      "context": "communications",
+      "table": "thread_members",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.asset_versions",
+      "context": "creative",
+      "table": "asset_versions",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.character_scene_links",
+      "context": "creative",
+      "table": "character_scene_links",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.characters",
+      "context": "creative",
+      "table": "characters",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.creative_approvals",
+      "context": "creative",
+      "table": "creative_approvals",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.creative_assets",
+      "context": "creative",
+      "table": "creative_assets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.creative_references",
+      "context": "creative",
+      "table": "creative_references",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.ideas",
+      "context": "creative",
+      "table": "ideas",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.production_elements",
+      "context": "creative",
+      "table": "production_elements",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.research_items",
+      "context": "creative",
+      "table": "research_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.scene_elements",
+      "context": "creative",
+      "table": "scene_elements",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.scene_versions",
+      "context": "creative",
+      "table": "scene_versions",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.scenes",
+      "context": "creative",
+      "table": "scenes",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.script_breakdowns",
+      "context": "creative",
+      "table": "script_breakdowns",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.script_versions",
+      "context": "creative",
+      "table": "script_versions",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.scripts",
+      "context": "creative",
+      "table": "scripts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.shot_lists",
+      "context": "creative",
+      "table": "shot_lists",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.shots",
+      "context": "creative",
+      "table": "shots",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.storyboard_frames",
+      "context": "creative",
+      "table": "storyboard_frames",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.storyboards",
+      "context": "creative",
+      "table": "storyboards",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "creative.treatments",
+      "context": "creative",
+      "table": "treatments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.board_items",
+      "context": "eventsSpatial",
+      "table": "board_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.boards",
+      "context": "eventsSpatial",
+      "table": "boards",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.cad_models",
+      "context": "eventsSpatial",
+      "table": "cad_models",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.decision_graph_edges",
+      "context": "eventsSpatial",
+      "table": "decision_graph_edges",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.decision_graph_nodes",
+      "context": "eventsSpatial",
+      "table": "decision_graph_nodes",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.decision_graphs",
+      "context": "eventsSpatial",
+      "table": "decision_graphs",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.event_journeys",
+      "context": "eventsSpatial",
+      "table": "event_journeys",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.event_timeline_items",
+      "context": "eventsSpatial",
+      "table": "event_timeline_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.events",
+      "context": "eventsSpatial",
+      "table": "events",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.exhibition_layouts",
+      "context": "eventsSpatial",
+      "table": "exhibition_layouts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.film_twins",
+      "context": "eventsSpatial",
+      "table": "film_twins",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.presentation_slides",
+      "context": "eventsSpatial",
+      "table": "presentation_slides",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.presentations",
+      "context": "eventsSpatial",
+      "table": "presentations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.run_of_show_items",
+      "context": "eventsSpatial",
+      "table": "run_of_show_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.simulations",
+      "context": "eventsSpatial",
+      "table": "simulations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.spatial_layers",
+      "context": "eventsSpatial",
+      "table": "spatial_layers",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.spatial_layouts",
+      "context": "eventsSpatial",
+      "table": "spatial_layouts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.spatial_objects",
+      "context": "eventsSpatial",
+      "table": "spatial_objects",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.spatial_operations",
+      "context": "eventsSpatial",
+      "table": "spatial_operations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.spatial_projects",
+      "context": "eventsSpatial",
+      "table": "spatial_projects",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.venue_bookings",
+      "context": "eventsSpatial",
+      "table": "venue_bookings",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.venues",
+      "context": "eventsSpatial",
+      "table": "venues",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.wedding_events",
+      "context": "eventsSpatial",
+      "table": "wedding_events",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.wedding_journeys",
+      "context": "eventsSpatial",
+      "table": "wedding_journeys",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "eventsspatial.weddings",
+      "context": "eventsSpatial",
+      "table": "weddings",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.approval_comments",
+      "context": "evidence",
+      "table": "approval_comments",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.approval_decisions",
+      "context": "evidence",
+      "table": "approval_decisions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.approval_steps",
+      "context": "evidence",
+      "table": "approval_steps",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.approvals",
+      "context": "evidence",
+      "table": "approvals",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.audit_events",
+      "context": "evidence",
+      "table": "audit_events",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.before_after_proofs",
+      "context": "evidence",
+      "table": "before_after_proofs",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.chain_of_custody_events",
+      "context": "evidence",
+      "table": "chain_of_custody_events",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.change_requests",
+      "context": "evidence",
+      "table": "change_requests",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.document_links",
+      "context": "evidence",
+      "table": "document_links",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.document_versions",
+      "context": "evidence",
+      "table": "document_versions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.documents",
+      "context": "evidence",
+      "table": "documents",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_gps",
+      "context": "evidence",
+      "table": "evidence_gps",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_items",
+      "context": "evidence",
+      "table": "evidence_items",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_links",
+      "context": "evidence",
+      "table": "evidence_links",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_media",
+      "context": "evidence",
+      "table": "evidence_media",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_metadata",
+      "context": "evidence",
+      "table": "evidence_metadata",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_timeline_events",
+      "context": "evidence",
+      "table": "evidence_timeline_events",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_timestamps",
+      "context": "evidence",
+      "table": "evidence_timestamps",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.evidence_verifications",
+      "context": "evidence",
+      "table": "evidence_verifications",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.legal_holds",
+      "context": "evidence",
+      "table": "legal_holds",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.risk_mitigations",
+      "context": "evidence",
+      "table": "risk_mitigations",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.risks",
+      "context": "evidence",
+      "table": "risks",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "evidence.trusted_timestamps",
+      "context": "evidence",
+      "table": "trusted_timestamps",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.budget_categories",
+      "context": "finance",
+      "table": "budget_categories",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.budget_lines",
+      "context": "finance",
+      "table": "budget_lines",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.budgets",
+      "context": "finance",
+      "table": "budgets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.cashflow_entries",
+      "context": "finance",
+      "table": "cashflow_entries",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.commitments",
+      "context": "finance",
+      "table": "commitments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.cost_sheet_lines",
+      "context": "finance",
+      "table": "cost_sheet_lines",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.cost_sheets",
+      "context": "finance",
+      "table": "cost_sheets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.currencies",
+      "context": "finance",
+      "table": "currencies",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.estimate_lines",
+      "context": "finance",
+      "table": "estimate_lines",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.estimates",
+      "context": "finance",
+      "table": "estimates",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.exchange_rates",
+      "context": "finance",
+      "table": "exchange_rates",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.expense_approvals",
+      "context": "finance",
+      "table": "expense_approvals",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.expense_lines",
+      "context": "finance",
+      "table": "expense_lines",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.expenses",
+      "context": "finance",
+      "table": "expenses",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.invoice_approvals",
+      "context": "finance",
+      "table": "invoice_approvals",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.invoice_lines",
+      "context": "finance",
+      "table": "invoice_lines",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.payment_allocations",
+      "context": "finance",
+      "table": "payment_allocations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.payment_verifications",
+      "context": "finance",
+      "table": "payment_verifications",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.payments",
+      "context": "finance",
+      "table": "payments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.profitability_snapshots",
+      "context": "finance",
+      "table": "profitability_snapshots",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.tax_codes",
+      "context": "finance",
+      "table": "tax_codes",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "finance.vendor_invoices",
+      "context": "finance",
+      "table": "vendor_invoices",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.access_policies",
+      "context": "identity",
+      "table": "access_policies",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.access_reviews",
+      "context": "identity",
+      "table": "access_reviews",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.auth_accounts",
+      "context": "identity",
+      "table": "auth_accounts",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.auth_challenges",
+      "context": "identity",
+      "table": "auth_challenges",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.auth_credentials",
+      "context": "identity",
+      "table": "auth_credentials",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.delegations",
+      "context": "identity",
+      "table": "delegations",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.device_verifications",
+      "context": "identity",
+      "table": "device_verifications",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.devices",
+      "context": "identity",
+      "table": "devices",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.invitations",
+      "context": "identity",
+      "table": "invitations",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.location_verifications",
+      "context": "identity",
+      "table": "location_verifications",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.nda_acceptances",
+      "context": "identity",
+      "table": "nda_acceptances",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.nda_versions",
+      "context": "identity",
+      "table": "nda_versions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.ndas",
+      "context": "identity",
+      "table": "ndas",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.otp_challenges",
+      "context": "identity",
+      "table": "otp_challenges",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.password_reset_tokens",
+      "context": "identity",
+      "table": "password_reset_tokens",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.permissions",
+      "context": "identity",
+      "table": "permissions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.role_permissions",
+      "context": "identity",
+      "table": "role_permissions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.roles",
+      "context": "identity",
+      "table": "roles",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.signatures",
+      "context": "identity",
+      "table": "signatures",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.user_emails",
+      "context": "identity",
+      "table": "user_emails",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.user_phones",
+      "context": "identity",
+      "table": "user_phones",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.user_profiles",
+      "context": "identity",
+      "table": "user_profiles",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.user_roles",
+      "context": "identity",
+      "table": "user_roles",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.user_sessions",
+      "context": "identity",
+      "table": "user_sessions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "identity.users",
+      "context": "identity",
+      "table": "users",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.ai_citations",
+      "context": "intelligence",
+      "table": "ai_citations",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.ai_contexts",
+      "context": "intelligence",
+      "table": "ai_contexts",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.ai_conversations",
+      "context": "intelligence",
+      "table": "ai_conversations",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.ai_messages",
+      "context": "intelligence",
+      "table": "ai_messages",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.ai_suggestions",
+      "context": "intelligence",
+      "table": "ai_suggestions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.analytics_events",
+      "context": "intelligence",
+      "table": "analytics_events",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.evidence_aware_answers",
+      "context": "intelligence",
+      "table": "evidence_aware_answers",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.forecast_runs",
+      "context": "intelligence",
+      "table": "forecast_runs",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.forecast_scenarios",
+      "context": "intelligence",
+      "table": "forecast_scenarios",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.generation_jobs",
+      "context": "intelligence",
+      "table": "generation_jobs",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.intelligence_runs",
+      "context": "intelligence",
+      "table": "intelligence_runs",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.intelligence_signals",
+      "context": "intelligence",
+      "table": "intelligence_signals",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.knowledge_chunks",
+      "context": "intelligence",
+      "table": "knowledge_chunks",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.knowledge_documents",
+      "context": "intelligence",
+      "table": "knowledge_documents",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.kpi_definitions",
+      "context": "intelligence",
+      "table": "kpi_definitions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.kpi_measurements",
+      "context": "intelligence",
+      "table": "kpi_measurements",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.model_registry",
+      "context": "intelligence",
+      "table": "model_registry",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.model_runs",
+      "context": "intelligence",
+      "table": "model_runs",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.prompt_templates",
+      "context": "intelligence",
+      "table": "prompt_templates",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.research_sessions",
+      "context": "intelligence",
+      "table": "research_sessions",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.research_sources",
+      "context": "intelligence",
+      "table": "research_sources",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "intelligence.saved_insights",
+      "context": "intelligence",
+      "table": "saved_insights",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.deal_room_members",
+      "context": "investor",
+      "table": "deal_room_members",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.deal_rooms",
+      "context": "investor",
+      "table": "deal_rooms",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.disclosures",
+      "context": "investor",
+      "table": "disclosures",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.distribution_channels",
+      "context": "investor",
+      "table": "distribution_channels",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.distribution_deals",
+      "context": "investor",
+      "table": "distribution_deals",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.due_diligence_items",
+      "context": "investor",
+      "table": "due_diligence_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.funding_requirements",
+      "context": "investor",
+      "table": "funding_requirements",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investment_opportunities",
+      "context": "investor",
+      "table": "investment_opportunities",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investment_profiles",
+      "context": "investor",
+      "table": "investment_profiles",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investment_tranches",
+      "context": "investor",
+      "table": "investment_tranches",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investor_accounts",
+      "context": "investor",
+      "table": "investor_accounts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investor_commitments",
+      "context": "investor",
+      "table": "investor_commitments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investor_evidence_links",
+      "context": "investor",
+      "table": "investor_evidence_links",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investor_progress_reports",
+      "context": "investor",
+      "table": "investor_progress_reports",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.investor_returns",
+      "context": "investor",
+      "table": "investor_returns",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.pitch_decks",
+      "context": "investor",
+      "table": "pitch_decks",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.recoupment_models",
+      "context": "investor",
+      "table": "recoupment_models",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.recoupment_tiers",
+      "context": "investor",
+      "table": "recoupment_tiers",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.revenue_entries",
+      "context": "investor",
+      "table": "revenue_entries",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.rights",
+      "context": "investor",
+      "table": "rights",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "investor.rights_windows",
+      "context": "investor",
+      "table": "rights_windows",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.accommodations",
+      "context": "logistics",
+      "table": "accommodations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.drivers",
+      "context": "logistics",
+      "table": "drivers",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_bookings",
+      "context": "logistics",
+      "table": "equipment_bookings",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_categories",
+      "context": "logistics",
+      "table": "equipment_categories",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_checkouts",
+      "context": "logistics",
+      "table": "equipment_checkouts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_inventory_events",
+      "context": "logistics",
+      "table": "equipment_inventory_events",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_items",
+      "context": "logistics",
+      "table": "equipment_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_kits",
+      "context": "logistics",
+      "table": "equipment_kits",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_maintenance",
+      "context": "logistics",
+      "table": "equipment_maintenance",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.equipment_returns",
+      "context": "logistics",
+      "table": "equipment_returns",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.location_bookings",
+      "context": "logistics",
+      "table": "location_bookings",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.location_comparisons",
+      "context": "logistics",
+      "table": "location_comparisons",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.location_media",
+      "context": "logistics",
+      "table": "location_media",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.locations",
+      "context": "logistics",
+      "table": "locations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.logistics_tasks",
+      "context": "logistics",
+      "table": "logistics_tasks",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.permit_documents",
+      "context": "logistics",
+      "table": "permit_documents",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.permits",
+      "context": "logistics",
+      "table": "permits",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.recce_media",
+      "context": "logistics",
+      "table": "recce_media",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.recces",
+      "context": "logistics",
+      "table": "recces",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.room_allocations",
+      "context": "logistics",
+      "table": "room_allocations",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.shipments",
+      "context": "logistics",
+      "table": "shipments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.transport_plans",
+      "context": "logistics",
+      "table": "transport_plans",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.travel_legs",
+      "context": "logistics",
+      "table": "travel_legs",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.travel_plans",
+      "context": "logistics",
+      "table": "travel_plans",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.vehicle_assignments",
+      "context": "logistics",
+      "table": "vehicle_assignments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "logistics.vehicles",
+      "context": "logistics",
+      "table": "vehicles",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.capability_packs",
+      "context": "marketplace",
+      "table": "capability_packs",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.deliveries",
+      "context": "marketplace",
+      "table": "deliveries",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.marketplace_categories",
+      "context": "marketplace",
+      "table": "marketplace_categories",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.marketplace_services",
+      "context": "marketplace",
+      "table": "marketplace_services",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.procurement_awards",
+      "context": "marketplace",
+      "table": "procurement_awards",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.purchase_order_items",
+      "context": "marketplace",
+      "table": "purchase_order_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.purchase_orders",
+      "context": "marketplace",
+      "table": "purchase_orders",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.quote_comparisons",
+      "context": "marketplace",
+      "table": "quote_comparisons",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.quote_items",
+      "context": "marketplace",
+      "table": "quote_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.quotes",
+      "context": "marketplace",
+      "table": "quotes",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.rfq_items",
+      "context": "marketplace",
+      "table": "rfq_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.rfq_recipients",
+      "context": "marketplace",
+      "table": "rfq_recipients",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.rfqs",
+      "context": "marketplace",
+      "table": "rfqs",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.service_deliveries",
+      "context": "marketplace",
+      "table": "service_deliveries",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.service_skus",
+      "context": "marketplace",
+      "table": "service_skus",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendor_availability",
+      "context": "marketplace",
+      "table": "vendor_availability",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendor_capabilities",
+      "context": "marketplace",
+      "table": "vendor_capabilities",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendor_performance",
+      "context": "marketplace",
+      "table": "vendor_performance",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendor_portfolios",
+      "context": "marketplace",
+      "table": "vendor_portfolios",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendor_profiles",
+      "context": "marketplace",
+      "table": "vendor_profiles",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendor_ratings",
+      "context": "marketplace",
+      "table": "vendor_ratings",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "marketplace.vendors",
+      "context": "marketplace",
+      "table": "vendors",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "organisation.organisation_memberships",
+      "context": "organisation",
+      "table": "organisation_memberships",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.organisation_settings",
+      "context": "organisation",
+      "table": "organisation_settings",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.organisations",
+      "context": "organisation",
+      "table": "organisations",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspace_activity",
+      "context": "organisation",
+      "table": "workspace_activity",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspace_favourites",
+      "context": "organisation",
+      "table": "workspace_favourites",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspace_invites",
+      "context": "organisation",
+      "table": "workspace_invites",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspace_memberships",
+      "context": "organisation",
+      "table": "workspace_memberships",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspace_roles",
+      "context": "organisation",
+      "table": "workspace_roles",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspace_settings",
+      "context": "organisation",
+      "table": "workspace_settings",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "organisation.workspaces",
+      "context": "organisation",
+      "table": "workspaces",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": null
+    },
+    {
+      "tableId": "people.attendance_records",
+      "context": "people",
+      "table": "attendance_records",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.audition_media",
+      "context": "people",
+      "table": "audition_media",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.audition_submissions",
+      "context": "people",
+      "table": "audition_submissions",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.cast_assignments",
+      "context": "people",
+      "table": "cast_assignments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.cast_messages",
+      "context": "people",
+      "table": "cast_messages",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.cast_schedule_entries",
+      "context": "people",
+      "table": "cast_schedule_entries",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.casting_approvals",
+      "context": "people",
+      "table": "casting_approvals",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.casting_call_roles",
+      "context": "people",
+      "table": "casting_call_roles",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.casting_calls",
+      "context": "people",
+      "table": "casting_calls",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_assignments",
+      "context": "people",
+      "table": "crew_assignments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_availability",
+      "context": "people",
+      "table": "crew_availability",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_contracts",
+      "context": "people",
+      "table": "crew_contracts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_hiring_requests",
+      "context": "people",
+      "table": "crew_hiring_requests",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_messages",
+      "context": "people",
+      "table": "crew_messages",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_profiles",
+      "context": "people",
+      "table": "crew_profiles",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_shortlist_items",
+      "context": "people",
+      "table": "crew_shortlist_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_shortlists",
+      "context": "people",
+      "table": "crew_shortlists",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.crew_skills",
+      "context": "people",
+      "table": "crew_skills",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.department_members",
+      "context": "people",
+      "table": "department_members",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.departments",
+      "context": "people",
+      "table": "departments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.hod_assignments",
+      "context": "people",
+      "table": "hod_assignments",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.performance_reviews",
+      "context": "people",
+      "table": "performance_reviews",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_availability",
+      "context": "people",
+      "table": "talent_availability",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_comparisons",
+      "context": "people",
+      "table": "talent_comparisons",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_contracts",
+      "context": "people",
+      "table": "talent_contracts",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_media",
+      "context": "people",
+      "table": "talent_media",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_offers",
+      "context": "people",
+      "table": "talent_offers",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_portfolios",
+      "context": "people",
+      "table": "talent_portfolios",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_profiles",
+      "context": "people",
+      "table": "talent_profiles",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_shortlist_items",
+      "context": "people",
+      "table": "talent_shortlist_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.talent_shortlists",
+      "context": "people",
+      "table": "talent_shortlists",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "people.timesheets",
+      "context": "people",
+      "table": "timesheets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.api_keys",
+      "context": "platform",
+      "table": "api_keys",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.backup_jobs",
+      "context": "platform",
+      "table": "backup_jobs",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.data_retention_policies",
+      "context": "platform",
+      "table": "data_retention_policies",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.export_jobs",
+      "context": "platform",
+      "table": "export_jobs",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.exports",
+      "context": "platform",
+      "table": "exports",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.feature_flag_assignments",
+      "context": "platform",
+      "table": "feature_flag_assignments",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.feature_flags",
+      "context": "platform",
+      "table": "feature_flags",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.integration_connections",
+      "context": "platform",
+      "table": "integration_connections",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.integration_events",
+      "context": "platform",
+      "table": "integration_events",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.integrations",
+      "context": "platform",
+      "table": "integrations",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.restore_jobs",
+      "context": "platform",
+      "table": "restore_jobs",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.runtime_observations",
+      "context": "platform",
+      "table": "runtime_observations",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.share_links",
+      "context": "platform",
+      "table": "share_links",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.status_events",
+      "context": "platform",
+      "table": "status_events",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.support_comments",
+      "context": "platform",
+      "table": "support_comments",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.support_tickets",
+      "context": "platform",
+      "table": "support_tickets",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.sync_conflicts",
+      "context": "platform",
+      "table": "sync_conflicts",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.sync_jobs",
+      "context": "platform",
+      "table": "sync_jobs",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.sync_queue_items",
+      "context": "platform",
+      "table": "sync_queue_items",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.system_incidents",
+      "context": "platform",
+      "table": "system_incidents",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.user_preferences",
+      "context": "platform",
+      "table": "user_preferences",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.webhook_deliveries",
+      "context": "platform",
+      "table": "webhook_deliveries",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.webhook_subscriptions",
+      "context": "platform",
+      "table": "webhook_subscriptions",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.webhooks",
+      "context": "platform",
+      "table": "webhooks",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "platform.workspace_preferences",
+      "context": "platform",
+      "table": "workspace_preferences",
+      "owner": "maataa",
+      "database": "maataa.db",
+      "service": "maataa-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.call_sheet_acknowledgements",
+      "context": "production",
+      "table": "call_sheet_acknowledgements",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.call_sheet_recipients",
+      "context": "production",
+      "table": "call_sheet_recipients",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.call_sheet_versions",
+      "context": "production",
+      "table": "call_sheet_versions",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.call_sheets",
+      "context": "production",
+      "table": "call_sheets",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.daily_production_reports",
+      "context": "production",
+      "table": "daily_production_reports",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.delays",
+      "context": "production",
+      "table": "delays",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.incidents",
+      "context": "production",
+      "table": "incidents",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.live_attendance",
+      "context": "production",
+      "table": "live_attendance",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.production_calendars",
+      "context": "production",
+      "table": "production_calendars",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.production_days",
+      "context": "production",
+      "table": "production_days",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.scene_progress",
+      "context": "production",
+      "table": "scene_progress",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.schedule_items",
+      "context": "production",
+      "table": "schedule_items",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.schedule_versions",
+      "context": "production",
+      "table": "schedule_versions",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.schedules",
+      "context": "production",
+      "table": "schedules",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.shoot_days",
+      "context": "production",
+      "table": "shoot_days",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.shot_progress",
+      "context": "production",
+      "table": "shot_progress",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.stripboards",
+      "context": "production",
+      "table": "stripboards",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.strips",
+      "context": "production",
+      "table": "strips",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "production.wrap_reports",
+      "context": "production",
+      "table": "wrap_reports",
+      "owner": "tlps",
+      "database": "tlps.db",
+      "service": "tlps-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_activity",
+      "context": "project",
+      "table": "project_activity",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_blockers",
+      "context": "project",
+      "table": "project_blockers",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_briefs",
+      "context": "project",
+      "table": "project_briefs",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_closeouts",
+      "context": "project",
+      "table": "project_closeouts",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_health_snapshots",
+      "context": "project",
+      "table": "project_health_snapshots",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_intakes",
+      "context": "project",
+      "table": "project_intakes",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_members",
+      "context": "project",
+      "table": "project_members",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_milestones",
+      "context": "project",
+      "table": "project_milestones",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_notes",
+      "context": "project",
+      "table": "project_notes",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_status_history",
+      "context": "project",
+      "table": "project_status_history",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_tag_links",
+      "context": "project",
+      "table": "project_tag_links",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_tags",
+      "context": "project",
+      "table": "project_tags",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_tasks",
+      "context": "project",
+      "table": "project_tasks",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.project_types",
+      "context": "project",
+      "table": "project_types",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.projects",
+      "context": "project",
+      "table": "projects",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.task_checklists",
+      "context": "project",
+      "table": "task_checklists",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "project.task_dependencies",
+      "context": "project",
+      "table": "task_dependencies",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.case_studies",
+      "context": "public",
+      "table": "case_studies",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.contact_requests",
+      "context": "public",
+      "table": "contact_requests",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.cookie_consents",
+      "context": "public",
+      "table": "cookie_consents",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.demo_requests",
+      "context": "public",
+      "table": "demo_requests",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.documentation_pages",
+      "context": "public",
+      "table": "documentation_pages",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.industry_pages",
+      "context": "public",
+      "table": "industry_pages",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.legal_documents",
+      "context": "public",
+      "table": "legal_documents",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.marketing_events",
+      "context": "public",
+      "table": "marketing_events",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.marketing_leads",
+      "context": "public",
+      "table": "marketing_leads",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.pricing_plans",
+      "context": "public",
+      "table": "pricing_plans",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.product_pages",
+      "context": "public",
+      "table": "product_pages",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    },
+    {
+      "tableId": "public.solution_pages",
+      "context": "public",
+      "table": "solution_pages",
+      "owner": "shared",
+      "database": "shared.db",
+      "service": "shared-data-service",
+      "schemaLifecycle": "CANONICAL"
+    }
+  ],
+  "limitations": [
+    "This allocation is for local development and service-boundary design; it does not assert production deployment or business/legal ownership approval.",
+    "Canonical foreign-key contracts remain unchanged. Cross-owner SQLite projections omit the physical constraint and retain an explicit service-reference record.",
+    "Generated database files are empty schema fixtures, not production baselines or migration authorization.",
+    "SQLite's Prisma DDL emits bare JSON object/array defaults that SQLite cannot parse; local projections quote those JSON literals as text without changing canonical contracts."
+  ]
+}

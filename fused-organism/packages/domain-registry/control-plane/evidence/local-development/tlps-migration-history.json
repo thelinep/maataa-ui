@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "local-development-migration-history-inventory",
+  "status": "NO_MIGRATION_RECORDS",
+  "targetPath": "fused-organism/.local-dev/databases/tlps.db",
+  "databaseSha256": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426",
+  "initialization": "Created directly from generated owner-local SQLite schema SQL, including the five reviewed Communications provider invariants in shared.db; no incremental migrations were executed.",
+  "remoteOrProductionHistory": "NOT_ASSESSED"
+}

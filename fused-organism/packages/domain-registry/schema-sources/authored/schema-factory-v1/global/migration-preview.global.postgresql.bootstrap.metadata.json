@@ -2,15 +2,12 @@
   "schemaVersion": "1.0.0",
   "artifactStatus": "GENERATED_REVIEW_REQUIRED",
   "artifactKind": "EMPTY_DATABASE_BOOTSTRAP_PREVIEW",
-  "authority": "Canonical database-neutral MAATAA schema projected through Prisma; preview only",
+  "authority": "Canonical database-neutral MAATAA schema projected through Prisma, with reviewed Communications provider enforcement overlay",
   "provider": "postgresql",
   "sourceSnapshot": {
-    "gitHead": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90",
+    "gitHead": "8058945dee3efdab81491e832a994467a7be2c98",
     "branch": "feat/fused-organism-parent",
     "repositoryWorkingTreeDirty": true,
-    "domainRegistryPathsDirty": false,
-    "registryVersion": "1.0.0",
-    "registryHash": "b261f850bcc9565598c03e23bae47efbac38954fc7f072021c3f4da0ff45519d",
     "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
     "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5"
   },
@@ -23,31 +20,42 @@
     "targetSpecificUpgradeDiff": false
   },
   "generator": {
-    "name": "Prisma migrate diff",
+    "name": "Prisma migrate diff plus MAATAA Communications overlay",
     "version": "7.9.1",
-    "command": "prisma migrate diff --config prisma.config.postgresql.ts --from-empty --to-schema schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.prisma --script",
+    "command": "prisma migrate diff --config prisma.config.postgresql.ts --from-empty --to-schema schema-sources/authored/schema-factory-v1/global/prisma-preview.postgresql.canonical.prisma --script; append provider-enforcement.postgresql.sql",
     "mode": "Read-only schema-to-SQL rendering; no datasource connection or execution"
   },
   "output": {
     "file": "migration-preview.global.postgresql.bootstrap.sql",
-    "sha256": "620e60f89da9f73c1d7f966c5ec9bd1ba8e1b42e06a3ee2536b15f9d61054d26",
-    "bytes": 919372,
+    "sha256": "e195cf475a8aecaf1259c8c76846ec7e7d1229aee1f0627edd04a45790d53c71",
+    "bytes": 923454,
     "createSchemas": 1,
     "createEnums": 368,
     "createTables": 352,
-    "createIndexes": 1809,
+    "createIndexes": 1810,
     "foreignKeyClauses": 1491,
-    "alterTableStatements": 1491,
-    "triggerDefinitions": 0,
-    "functionDefinitions": 0,
+    "alterTableStatements": 1493,
+    "triggerDefinitions": 4,
+    "functionDefinitions": 3,
+    "checkConstraints": 2,
     "destructiveStatements": 0,
     "dataWriteStatements": 0
   },
-  "logicalEnforcement": {
-    "status": "INCOMPLETE",
-    "unprojectedInvariantCount": 5,
-    "providerOverlayIncluded": false,
-    "finding": "See canonical Prisma preview metadata. Communications invariant overlays remain separate 14-table DRAFT artifacts and are not merged into this global bootstrap."
+  "communicationsInvariantEnforcement": {
+    "status": "INTEGRATED_IN_EMPTY_STATE_PREVIEW_REVIEW_REQUIRED",
+    "invariantCount": 5,
+    "invariantNames": [
+      "announcement_audience_matches_workspace_scope",
+      "direct_message_membership_pair_is_normalized",
+      "direct_message_parent_thread_is_direct",
+      "one_active_thread_membership_episode",
+      "thread_membership_episode_cannot_be_reopened_or_rekeyed"
+    ],
+    "overlayFile": "schema-sources/authored/maataa-communications-v1/provider-enforcement.postgresql.sql",
+    "overlaySha256": "af5a7c18400ef633eb6462ca08525b2df42ad3b37a22de4ddc11ff531561b97c",
+    "ordering": "after all base DDL, indexes, and foreign keys",
+    "behaviorEvidence": "existing PostgreSQL static projection review; not live PostgreSQL execution",
+    "targetBoundDiff": false
   },
   "permissions": {
     "deployable": false,

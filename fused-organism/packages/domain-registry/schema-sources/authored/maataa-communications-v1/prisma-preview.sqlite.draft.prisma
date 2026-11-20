@@ -1,4 +1,4 @@
-// GENERATED PREVIEW: MAATAA DRAFT logical model for SQLite/libSQL; not deployable or migration executable.
+// GENERATED PREVIEW: MAATAA DRAFT logical model for SQLite; not deployable or migration executable.
 // Logical enum values and contract semantics remain governed by the database-neutral model.
 generator client {
   provider = "prisma-client-js"

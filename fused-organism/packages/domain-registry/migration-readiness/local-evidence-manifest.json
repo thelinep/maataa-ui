@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "LOCAL_EVIDENCE_HASHES_VERIFIED",
+  "scope": "Three local SQLite fixtures only; no non-local migration/deployment approval.",
+  "recoveryReport": {
+    "path": "migration-readiness/recovery-rehearsals/sqlite-local-recovery-20261004T213731Z.json",
+    "sha256": "c4c66c3eb00a0643daa464502cb3d6b3f0b267ccafbdf8dc9cd1f68bd77a731c"
+  },
+  "backups": [
+    {
+      "targetId": "maataa-local-sqlite",
+      "path": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z/maataa.sqlite.backup.db",
+      "sha256": "47aaf01ec4cc4866984aced867da8e014589b6fa1e914553d792250c8385d4ab"
+    },
+    {
+      "targetId": "shared-local-sqlite",
+      "path": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z/shared.sqlite.backup.db",
+      "sha256": "aedce7ac94ce77591dd50c19ea833dc5da539b6e87cc9cb3c746b39850d7318c"
+    },
+    {
+      "targetId": "tlps-local-sqlite",
+      "path": "fused-organism/.local-dev/backups/sqlite-recovery-20261004T213731Z/tlps.sqlite.backup.db",
+      "sha256": "dd631557fb900bfa5008e45f82f0a59461d2c830a4df13f30afe7623612a714c"
+    }
+  ],
+  "localTargetDiffs": [
+    {
+      "targetId": "maataa-local-sqlite",
+      "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+      "databaseSha256": "433b30fa4c8c6e033bf870fd940740dfab143de9f851d274742f839ef98b75a7",
+      "sql": {
+        "path": "migration-readiness/target-diffs/local-development/maataa.sqlite.target-diff.sql",
+        "sha256": "661a659a91b983c583351c988961cf5792d867a60f558c6ab8a005100007f665"
+      },
+      "metadata": {
+        "path": "migration-readiness/target-diffs/local-development/maataa.sqlite.target-diff.json",
+        "sha256": "c7acb3f3f1a06410edc13c4c9eb321bc225b2ccbe26807e91f303c5526d2cb7f"
+      }
+    },
+    {
+      "targetId": "shared-local-sqlite",
+      "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+      "databaseSha256": "019aca98006be5f6668ffb9596440687fe56b97301af4c038e5d090a0e282b38",
+      "sql": {
+        "path": "migration-readiness/target-diffs/local-development/shared.sqlite.target-diff.sql",
+        "sha256": "58827d15a7f25b8b9100bb4517edd2a08d651b9643e18f9185f8c5f20307e23a"
+      },
+      "metadata": {
+        "path": "migration-readiness/target-diffs/local-development/shared.sqlite.target-diff.json",
+        "sha256": "866859b56387584c9a8df2df5251f9ea09fb98d66e9a160373db893dc9f5826a"
+      }
+    },
+    {
+      "targetId": "tlps-local-sqlite",
+      "status": "NO_OP_LOCAL_TARGET_MATCHES_OWNER_PROJECTION",
+      "databaseSha256": "37660eac97e98f9b6b79678bc850356d7eb84ef9778b2088dee89a222edbb426",
+      "sql": {
+        "path": "migration-readiness/target-diffs/local-development/tlps.sqlite.target-diff.sql",
+        "sha256": "57044fa3a678af83c4621cac9d803e72b08947b3661c3673d229f90f66b77ecb"
+      },
+      "metadata": {
+        "path": "migration-readiness/target-diffs/local-development/tlps.sqlite.target-diff.json",
+        "sha256": "b0c9da81dfad5770b8228bbb5a1b803a2a7525e4651d7836c24ba4098ae2ac25"
+      }
+    }
+  ],
+  "approvalStates": {
+    "migrationPlanReview": "NOT_READY_FOR_TARGET_BOUND_REVIEW",
+    "migrationExecution": "NOT_GRANTED",
+    "deployment": "NOT_GRANTED_NO_RELEASE_ARTIFACT_OR_TARGET"
+  }
+}

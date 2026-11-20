@@ -7,7 +7,7 @@ const appRoot = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   root: appRoot,
-  base: "/apps/tlps-application/",
+  base: process.env.MAATAA_DESKTOP === "true" ? "./" : "/apps/tlps-application/",
   plugins: [react()],
   build: {
     outDir: path.resolve(appRoot, "../../dist/apps/tlps-application"),

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryId": "maataa-operational-application-registry",
+  "status": "local-development-declared",
+  "records": [
+    {
+      "appId": "maataa",
+      "name": "MAATAA",
+      "applicationType": "product",
+      "dataOwner": "maataa"
+    },
+    {
+      "appId": "shared-data-service",
+      "name": "Shared Data Service",
+      "applicationType": "shared-service",
+      "dataOwner": "shared"
+    },
+    {
+      "appId": "tlps",
+      "name": "TLPS",
+      "applicationType": "product",
+      "dataOwner": "tlps"
+    }
+  ]
+}
