@@ -12,9 +12,10 @@
  * - Design token integration
  */
 
-import { forwardRef, useState, ReactNode } from 'react';
+import { forwardRef, useState, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
+import { useFormField } from './FormFieldWrapper';
 
 export interface MultiSelectOption {
   value: string;
@@ -59,12 +60,12 @@ const Container = styled.div`
 `;
 
 // Label
-const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
+const Label = styled.label<{ $required?: boolean; $hasError?: boolean }>`
   font-size: ${typography.label.fontSize};
   font-weight: ${typography.label.fontWeight};
   line-height: ${typography.label.lineHeight};
   text-transform: ${typography.label.textTransform};
-  color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
+  color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
   transition: color ${transitions.normal};
 
   .required-asterisk {
@@ -74,14 +75,17 @@ const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
 `;
 
 // Multi-select container
-const MultiSelectContainer = styled.div<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg'; disabled?: boolean }>`
+const MultiSelectContainer = styled.div<{ $hasError?: boolean; $size?: 'sm' | 'md' | 'lg'; $disabled?: boolean }>`
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   /* Base styles */
   display: flex;
   flex-direction: column;
   gap: ${spacing.sm};
   font-family: ${typography.body.fontFamily};
   padding: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return `${spacing.xs} ${spacing.sm}`;
       case 'lg':
@@ -93,8 +97,8 @@ const MultiSelectContainer = styled.div<{ hasError?: boolean; size?: 'sm' | 'md'
 
   /* Colors and borders */
   color: ${colorTokens.text.primary};
-  background-color: ${(props) => (props.disabled ? colorTokens.background.secondary : colorTokens.background.primary)};
-  border: 1px solid ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
+  background-color: ${(props) => (props.$disabled ? colorTokens.background.secondary : colorTokens.background.primary)};
+  border: 1px solid ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
   border-radius: ${borderRadius.md};
 
   /* Transitions */
@@ -105,9 +109,9 @@ const MultiSelectContainer = styled.div<{ hasError?: boolean; size?: 'sm' | 'md'
 
   /* Focus state - when input inside is focused */
   &:has(input:focus) {
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
     box-shadow: 0 0 0 3px ${(props) => {
-      if (props.hasError) return 'rgba(139, 58, 43, 0.1)';
+      if (props.$hasError) return 'rgba(139, 58, 43, 0.1)';
       return 'rgba(139, 111, 71, 0.1)';
     }};
   }
@@ -115,11 +119,11 @@ const MultiSelectContainer = styled.div<{ hasError?: boolean; size?: 'sm' | 'md'
   /* Hover state */
   &:hover {
     border-color: ${(props) =>
-      props.disabled ? colorTokens.border.primary : props.hasError ? colorTokens.interactive.error : colorTokens.border.secondary};
+      props.$disabled ? colorTokens.border.primary : props.$hasError ? colorTokens.interactive.error : colorTokens.border.secondary};
   }
 
   /* Disabled state */
-  ${(props) => props.disabled && `opacity: 0.6; cursor: not-allowed;`}
+  ${(props) => props.$disabled && `opacity: 0.6; cursor: not-allowed;`}
 `;
 
 // Tags container
@@ -180,8 +184,8 @@ const HiddenSelect = styled.select`
 `;
 
 // Options dropdown
-const OptionsDropdown = styled.div<{ isOpen: boolean }>`
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+const OptionsDropdown = styled.div<{ $isOpen: boolean }>`
+  display: ${(props) => (props.$isOpen ? 'flex' : 'none')};
   flex-direction: column;
   position: absolute;
   top: 100%;
@@ -198,7 +202,7 @@ const OptionsDropdown = styled.div<{ isOpen: boolean }>`
 `;
 
 // Option item
-const OptionItem = styled.button<{ isSelected?: boolean; isDisabled?: boolean; isHovered?: boolean }>`
+const OptionItem = styled.button<{ $isSelected?: boolean; $isDisabled?: boolean; $isHovered?: boolean }>`
   display: flex;
   align-items: center;
   gap: ${spacing.sm};
@@ -206,14 +210,14 @@ const OptionItem = styled.button<{ isSelected?: boolean; isDisabled?: boolean; i
   background: none;
   border: none;
   text-align: left;
-  cursor: ${(props) => (props.isDisabled ? 'not-allowed' : 'pointer')};
-  color: ${(props) => (props.isDisabled ? colorTokens.text.disabled : colorTokens.text.primary)};
+  cursor: ${(props) => (props.$isDisabled ? 'not-allowed' : 'pointer')};
+  color: ${(props) => (props.$isDisabled ? colorTokens.text.disabled : colorTokens.text.primary)};
   font-size: ${typography.body.fontSize};
   transition: background-color ${transitions.fast};
-  opacity: ${(props) => (props.isDisabled ? 0.5 : 1)};
+  opacity: ${(props) => (props.$isDisabled ? 0.5 : 1)};
 
   &:hover {
-    background-color: ${(props) => (props.isDisabled ? 'transparent' : colorTokens.background.secondary)};
+    background-color: ${(props) => (props.$isDisabled ? 'transparent' : colorTokens.background.secondary)};
   }
 
   &:focus {
@@ -229,16 +233,16 @@ const OptionItem = styled.button<{ isSelected?: boolean; isDisabled?: boolean; i
     height: 16px;
     border: 1px solid ${colorTokens.border.primary};
     border-radius: ${borderRadius.sm};
-    background-color: ${(props) => (props.isSelected ? colorTokens.interactive.primary : 'transparent')};
+    background-color: ${(props) => (props.$isSelected ? colorTokens.interactive.primary : 'transparent')};
     flex-shrink: 0;
   }
 `;
 
 // Helper text
-const HelperText = styled.div<{ variant?: 'hint' | 'error' }>`
+const HelperText = styled.div<{ $variant?: 'hint' | 'error' }>`
   font-size: ${typography.bodySmall.fontSize};
   line-height: ${typography.bodySmall.lineHeight};
-  color: ${(props) => (props.variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
+  color: ${(props) => (props.$variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
   display: flex;
   align-items: center;
   gap: ${spacing.xs};
@@ -289,7 +293,10 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   ) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const selectId = id || `multiselect-${Math.random().toString(36).substr(2, 9)}`;
+    const field = useFormField();
+    const generatedId = useId();
+    const selectId = id || field?.id || `multiselect-${generatedId}`;
+    const labelId = `${selectId}-label`;
     const hasError = !!error;
 
     const selectedLabels = options
@@ -317,19 +324,39 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     return (
       <Container ref={ref}>
         {label && (
-          <Label htmlFor={selectId} required={required} hasError={hasError}>
+          <Label id={labelId} htmlFor={selectId} $required={required} $hasError={hasError}>
             {label}
             {required && showRequiredAsterisk && <span className="required-asterisk">*</span>}
           </Label>
         )}
 
         <MultiSelectContainer
-          hasError={hasError}
-          size={size}
-          disabled={disabled}
+          $hasError={hasError}
+          $size={size}
+          $disabled={disabled}
+          id={selectId}
+          role="button"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-labelledby={label ? labelId : undefined}
+          aria-disabled={disabled || undefined}
           onClick={() => !disabled && setIsOpen(!isOpen)}
-          onBlur={() => setTimeout(() => setIsOpen(false), 100)}
-          tabIndex={-1}
+          onKeyDown={(e) => {
+            if (disabled) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            } else if (e.key === 'Escape') {
+              setIsOpen(false);
+            }
+          }}
+          onBlur={(e) => {
+            // keep open while focus moves to an option inside
+            if (!e.currentTarget.parentElement?.contains(e.relatedTarget as Node)) {
+              setTimeout(() => setIsOpen(false), 100);
+            }
+          }}
+          tabIndex={disabled ? -1 : 0}
         >
           <TagsContainer>
             {selectedLabels.length > 0 ? (
@@ -351,14 +378,14 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
             )}
           </TagsContainer>
 
-          <OptionsDropdown isOpen={isOpen}>
+          <OptionsDropdown $isOpen={isOpen}>
             {options.map((option, idx) => (
               <OptionItem
                 key={option.value}
                 type="button"
-                isSelected={value.includes(option.value)}
-                isDisabled={!!(option.disabled || (maxSelections && value.length >= maxSelections && !value.includes(option.value)))}
-                isHovered={hoveredIndex === idx}
+                $isSelected={value.includes(option.value)}
+                $isDisabled={!!(option.disabled || (maxSelections && value.length >= maxSelections && !value.includes(option.value)))}
+                $isHovered={hoveredIndex === idx}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => handleToggleOption(option.value)}
@@ -369,7 +396,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           </OptionsDropdown>
         </MultiSelectContainer>
 
-        <HiddenSelect id={selectId} multiple aria-hidden="true">
+        <HiddenSelect multiple aria-hidden="true" tabIndex={-1}>
           {value.map((v) => (
             <option key={v} value={v} selected>
               {options.find((o) => o.value === v)?.label}
@@ -378,14 +405,14 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
         </HiddenSelect>
 
         {error && (
-          <HelperText id={`${selectId}-error`} variant="error" role="alert">
+          <HelperText id={`${selectId}-error`} $variant="error" role="alert">
             <span>⚠</span>
             {error}
           </HelperText>
         )}
 
         {hint && !error && (
-          <HelperText id={`${selectId}-hint`} variant="hint">
+          <HelperText id={`${selectId}-hint`} $variant="hint">
             {hint}
           </HelperText>
         )}

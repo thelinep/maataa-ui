@@ -5,9 +5,8 @@
  * Integrates with Phase 1 design tokens
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Button } from '@/components';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
 export interface ProjectMilestone {
@@ -115,7 +114,7 @@ const ProgressContainer = styled.div`
   height: 32px;
 `;
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.div<{ $progress: number }>`
   flex: 1;
   height: 24px;
   background: ${colorTokens.border.primary};
@@ -129,7 +128,7 @@ const ProgressBar = styled.div`
     top: 0;
     left: 0;
     height: 100%;
-    width: ${(props: any) => `${props.progress}%`};
+    width: ${(props) => `${props.$progress}%`};
     background: linear-gradient(
       to right,
       ${colorTokens.interactive.info},
@@ -162,14 +161,14 @@ const MilestoneContainer = styled.div`
   margin-top: ${spacing.md};
 `;
 
-const MilestoneItem = styled.div`
+const MilestoneItem = styled.div<{ $status?: string }>`
   display: flex;
   align-items: flex-start;
   gap: ${spacing.md};
   padding: ${spacing.md};
   background: ${colorTokens.background.primary};
-  border: 2px solid ${(props: any) => {
-    switch (props.status) {
+  border: 2px solid ${(props) => {
+    switch (props.$status) {
       case 'completed': return colorTokens.interactive.success;
       case 'at-risk': return colorTokens.interactive.error;
       case 'on-track': return colorTokens.interactive.info;
@@ -179,12 +178,12 @@ const MilestoneItem = styled.div`
   border-radius: ${borderRadius.md};
 `;
 
-const MilestoneIcon = styled.div`
+const MilestoneIcon = styled.div<{ $status?: string }>`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: ${(props: any) => {
-    switch (props.status) {
+  background: ${(props) => {
+    switch (props.$status) {
       case 'completed': return colorTokens.interactive.success;
       case 'at-risk': return colorTokens.interactive.error;
       case 'on-track': return colorTokens.interactive.info;
@@ -270,8 +269,6 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
   currentDate = new Date().toISOString().split('T')[0],
   phases,
   milestones,
-  onAddMilestone,
-  onUpdatePhase,
 }) => {
   const totalDays = daysBetween(startDate, endDate);
   const elapsedDays = daysElapsed(startDate, currentDate);
@@ -306,7 +303,7 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
           <ProgressText style={{ display: 'block', marginBottom: spacing.sm }}>
             {projectProgress.toFixed(0)}% complete
           </ProgressText>
-          <ProgressBar progress={projectProgress} style={{ width: '200px' }} />
+          <ProgressBar $progress={projectProgress} style={{ width: '200px' }} />
         </div>
       </TimelineHeader>
 
@@ -315,7 +312,7 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
           <PhaseBar key={phase.id}>
             <PhaseName>{phase.name}</PhaseName>
             <ProgressContainer>
-              <ProgressBar progress={phase.percentComplete || 0} />
+              <ProgressBar $progress={phase.percentComplete || 0} />
               <ProgressText>{phase.percentComplete || 0}%</ProgressText>
             </ProgressContainer>
             <DateRange>
@@ -336,8 +333,8 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
         ) : (
           <MilestoneContainer>
             {milestones.map((milestone) => (
-              <MilestoneItem key={milestone.id} status={milestone.status}>
-                <MilestoneIcon status={milestone.status}>
+              <MilestoneItem key={milestone.id} $status={milestone.status}>
+                <MilestoneIcon $status={milestone.status}>
                   {milestone.status === 'completed'
                     ? '✓'
                     : milestone.status === 'at-risk'

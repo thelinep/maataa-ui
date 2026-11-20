@@ -68,11 +68,6 @@ const TaskLabel = styled.div`
   white-space: nowrap;
 `;
 
-const ChartArea = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const TimelineHeader = styled.div`
   display: flex;
   margin-bottom: ${spacing.sm};
@@ -184,8 +179,10 @@ export const GanttChart: React.FC<GanttChartProps> = ({
     <Container>
       <ChartWrapper>
         <TaskLabels>
-          {tasks.map(() => (
-            <TaskLabel key={Math.random()} />
+          {tasks.map((task) => (
+            <TaskLabel key={task.id} title={task.name}>
+              {task.name}
+            </TaskLabel>
           ))}
         </TaskLabels>
 
@@ -234,7 +231,21 @@ export const GanttChart: React.FC<GanttChartProps> = ({
               const color = getTaskColor(task.status);
 
               return (
-                <g key={task.id} onClick={() => onTaskClick?.(task.id)} style={{ cursor: 'pointer' }}>
+                <g
+                  key={task.id}
+                  onClick={() => onTaskClick?.(task.id)}
+                  onKeyDown={(e) => {
+                    if (onTaskClick && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault();
+                      onTaskClick(task.id);
+                    }
+                  }}
+                  role={onTaskClick ? 'button' : undefined}
+                  tabIndex={onTaskClick ? 0 : undefined}
+                  aria-label={`${task.name}: ${task.progress}% (${task.status.replace('-', ' ')})`}
+                  style={{ cursor: onTaskClick ? 'pointer' : 'default' }}
+                >
+                  <title>{`${task.name} — ${task.progress}%`}</title>
                   {/* Background bar */}
                   <rect
                     x={x}

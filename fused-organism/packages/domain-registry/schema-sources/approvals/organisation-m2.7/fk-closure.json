@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "context": "organisation",
+  "catalogTableCount": 10,
+  "priorKernelClosure": {
+    "status": "PROVEN_IN_EXISTING_M2.7_BRANCH",
+    "note": "The existing four Organisation proposals were part of the previously proven 13-table kernel closure."
+  },
+  "newProposalCount": 6,
+  "newForeignKeyEdges": [
+    {
+      "sourceTable": "organisation.organisation_settings",
+      "foreignKey": "organisation_settings_organisation_fk",
+      "targetTable": "organisation.organisations",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_settings",
+      "foreignKey": "workspace_settings_organisation_fk",
+      "targetTable": "organisation.organisations",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_settings",
+      "foreignKey": "workspace_settings_workspace_fk",
+      "targetTable": "organisation.workspaces",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_roles",
+      "foreignKey": "workspace_roles_organisation_fk",
+      "targetTable": "organisation.organisations",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_roles",
+      "foreignKey": "workspace_roles_workspace_fk",
+      "targetTable": "organisation.workspaces",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_invites",
+      "foreignKey": "workspace_invites_organisation_fk",
+      "targetTable": "organisation.organisations",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_invites",
+      "foreignKey": "workspace_invites_workspace_fk",
+      "targetTable": "organisation.workspaces",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_invites",
+      "foreignKey": "workspace_invites_role_fk",
+      "targetTable": "organisation.workspace_roles",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_invites",
+      "foreignKey": "workspace_invites_inviter_membership_fk",
+      "targetTable": "organisation.workspace_memberships",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_activity",
+      "foreignKey": "workspace_activity_organisation_fk",
+      "targetTable": "organisation.organisations",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_activity",
+      "foreignKey": "workspace_activity_workspace_fk",
+      "targetTable": "organisation.workspaces",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_activity",
+      "foreignKey": "workspace_activity_actor_membership_fk",
+      "targetTable": "organisation.workspace_memberships",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_favourites",
+      "foreignKey": "workspace_favourites_organisation_fk",
+      "targetTable": "organisation.organisations",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_favourites",
+      "foreignKey": "workspace_favourites_workspace_fk",
+      "targetTable": "organisation.workspaces",
+      "status": "CLOSED"
+    },
+    {
+      "sourceTable": "organisation.workspace_favourites",
+      "foreignKey": "workspace_favourites_membership_fk",
+      "targetTable": "organisation.workspace_memberships",
+      "status": "CLOSED"
+    }
+  ],
+  "newForeignKeyCount": 15,
+  "newUnresolvedTargets": [],
+  "contextClosureDecision": "CLOSED",
+  "conditions": [
+    "The existing four drafted contracts remain unchanged in identity and primary-key shape.",
+    "organisation.organisations exposes primary key id:uuid.",
+    "organisation.workspaces exposes primary key id:uuid.",
+    "organisation.workspace_memberships exposes primary key id:uuid."
+  ]
+}

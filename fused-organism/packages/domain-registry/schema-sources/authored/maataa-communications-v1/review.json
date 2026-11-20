@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "1.0.0",
+  "proposalId": "maataa-communications-v1",
+  "reviewStatus": "APPROVED",
+  "assignedReviewer": "thelinep",
+  "reviewedAt": "2026-10-03T01:11:54+05:30",
+  "decision": "ACCEPTED_WITH_SCOPE",
+  "decisionItems": [
+    {
+      "id": "COMM-01",
+      "topic": "tenant/workspace boundary",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "organisation_id root; nullable workspace_id for organisation-wide records; workspace-safe composite reference; no synthetic workspace",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: organisation_id is the tenant root; workspace scope is explicit and nullable; composite references prevent cross-organisation workspace links; no synthetic workspace is introduced."
+    },
+    {
+      "id": "COMM-02",
+      "topic": "identity and membership",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "identity.users attribution plus organisation membership composite references; optional workspace_membership_id for workspace-scoped thread participation; active status remains action-time policy",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: Identity owns user identity; Organisation owns membership; workspace membership is an optional scoped reference. Foreign keys establish existence only; activity and authorization remain runtime policy."
+    },
+    {
+      "id": "COMM-03",
+      "topic": "keys, uniqueness, relations, and indexes",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "generated UUID keys, explicit FK/relation pairs, tenant-safe unique keys, direct-message normalized pair checks, and listed indexes",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: keys, explicit FK/relation pairs, tenant-scoped uniqueness, direct-message normalization, and declared indexes are recorded as MAATAA design decisions. Physical dialect validation remains separate."
+    },
+    {
+      "id": "COMM-04",
+      "topic": "notification semantics",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "separate semantic notification from delivery attempts; unread/read/dismissed state with read/dismiss timestamps",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: notification state represents in-product user state; delivery attempts are separate records. This intentionally revises the retained unreviewed notifications proposal."
+    },
+    {
+      "id": "COMM-05",
+      "topic": "notification preferences",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "recipient policy keyed per organisation, user, notification type, and channel; in-app/email/push; no provider secrets",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: preferences are per organisation/user/type/channel, with in-app/email/push values and no provider secrets or workspace override in v1."
+    },
+    {
+      "id": "COMM-06",
+      "topic": "delivery attempt history",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "queued/sending/sent/delivered and failed/suppressed transitions; retries insert a new attempt; provider metadata stays with each attempt",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: each delivery row is an append-oriented attempt, retries create new rows, and provider metadata belongs to attempts. Provider integration and operational behavior remain unselected."
+    },
+    {
+      "id": "COMM-07",
+      "topic": "threads, membership, and messages",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "organisation/workspace threads; members carry lifecycle/read position; messages carry author/content/order/state; membership authorization remains policy",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: threads, members, and messages use explicit tenant/workspace references and lifecycle fields. Membership authorization and cross-row membership consistency still need application-policy enforcement."
+    },
+    {
+      "id": "COMM-08",
+      "topic": "attachments",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "opaque storage_ref and metadata only; no binary payload or selected provider; retention follows parent message",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: attachments store opaque storage references and metadata only; the provider is unspecified and payload bytes remain outside the relational row."
+    },
+    {
+      "id": "COMM-09",
+      "topic": "direct-message uniqueness",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "workspace-scoped pair of workspace-membership IDs; canonical ascending check plus unique key; no caller-only sorting",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: direct-message pair normalization is enforced by declared database checks and uniqueness, scoped to one workspace. The target dialect must prove the checks and composite references."
+    },
+    {
+      "id": "COMM-10",
+      "topic": "announcement audience and lifecycle",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "organisation or workspace audience; draft/scheduled/published/expired/retired; no opaque audience blob; acknowledgements excluded pending table decision",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: announcement audience is organisation-wide or one workspace, represented relationally; lifecycle transitions are explicit; recipient acknowledgement/snapshot storage is excluded pending a catalog decision."
+    },
+    {
+      "id": "COMM-11",
+      "topic": "retention and hold",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "nine MAATAA retention windows proposed; hold overrides ordinary deletion; legal/compliance approval remains required",
+      "reviewDecision": "APPROVE_WITH_SCOPE",
+      "rationale": "Approved as proposed MAATAA product defaults only. The nine durations and hold override are not legal or statutory determinations; legal/compliance approval remains a mandatory later gate."
+    },
+    {
+      "id": "COMM-12",
+      "topic": "legacy notifications proposal disposition",
+      "status": "REVIEWED_APPROVED",
+      "proposal": "retained as unreviewed evidence; proposed state and tenant keys revise it; reviewer must accept/revise/reject the differences",
+      "reviewDecision": "APPROVE",
+      "rationale": "Approved: the earlier notifications artifact remains unreviewed historical evidence and is not canonical authority; this source records the reviewed replacement semantics without claiming external lineage."
+    }
+  ],
+  "approvalRecord": {
+    "reviewer": "thelinep",
+    "decision": "ACCEPTED_WITH_SCOPE",
+    "reviewedAt": "2026-10-03T01:11:54+05:30",
+    "basis": "Recorded under the user’s explicit instruction; thelinep is the assigned reviewer for all roles.",
+    "scope": "MAATAA-authored Communications design semantics for source admission only.",
+    "exclusions": [
+      "legal or statutory retention approval",
+      "canonical contract promotion",
+      "SCHEMA_READY",
+      "Prisma generation",
+      "migration approval",
+      "production approval"
+    ]
+  },
+  "signature": null,
+  "note": "All twelve group decisions are accepted as MAATAA-authored design semantics by assigned reviewer thelinep, recorded under explicit user instruction. COMM-11 accepts only proposed product defaults and hold precedence; legal/compliance approval remains mandatory. This is a review record, not a cryptographic signature. Approval does not promote canonical table contracts or grant schema, compiler, migration, or production readiness."
+}

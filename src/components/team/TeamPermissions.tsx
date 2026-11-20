@@ -56,7 +56,7 @@ const Matrix = styled.div`
   min-width: 100%;
 `;
 
-const MatrixCell = styled.div`
+const MatrixCell = styled.div<{ $isHeader?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,9 +65,9 @@ const MatrixCell = styled.div`
   border-bottom: 1px solid ${colorTokens.border.primary};
   font-size: ${typography.bodySmall.fontSize};
   min-height: 50px;
-  background: ${(props: any) => props.isHeader ? colorTokens.background.primary : colorTokens.background.secondary};
-  font-weight: ${(props: any) => props.isHeader ? 600 : 400};
-  color: ${(props: any) => props.isHeader ? colorTokens.text.primary : colorTokens.text.secondary};
+  background: ${(props) => props.$isHeader ? colorTokens.background.primary : colorTokens.background.secondary};
+  font-weight: ${(props) => props.$isHeader ? 600 : 400};
+  color: ${(props) => props.$isHeader ? colorTokens.text.primary : colorTokens.text.secondary};
 
   &:last-child {
     border-right: none;
@@ -120,11 +120,11 @@ const PermissionItem = styled.div`
   color: ${colorTokens.text.secondary};
 `;
 
-const PermissionBadge = styled.span`
+const PermissionBadge = styled.span<{ $action?: string }>`
   display: inline-block;
   padding: 2px 6px;
-  background: ${(props: any) => {
-    switch (props.action) {
+  background: ${(props) => {
+    switch (props.$action) {
       case 'view': return colorTokens.interactive.info;
       case 'edit': return colorTokens.interactive.warning;
       case 'delete': return colorTokens.interactive.error;
@@ -177,9 +177,9 @@ export const TeamPermissions: React.FC<TeamPermissionsProps> = ({
       <MatrixContainer>
         <Matrix>
           {/* Header row */}
-          <MatrixCell isHeader>Resource:Action</MatrixCell>
+          <MatrixCell $isHeader>Resource:Action</MatrixCell>
           {sortedRoles.map((role) => (
-            <MatrixCell key={role.id} isHeader>
+            <MatrixCell key={role.id} $isHeader>
               {role.name}
             </MatrixCell>
           ))}
@@ -187,7 +187,7 @@ export const TeamPermissions: React.FC<TeamPermissionsProps> = ({
           {/* Permission rows */}
           {permissions.map((perm) => (
             <React.Fragment key={perm.id}>
-              <MatrixCell isHeader style={{ justifyContent: 'flex-start' }}>
+              <MatrixCell $isHeader style={{ justifyContent: 'flex-start' }}>
                 <div>
                   {perm.resource}
                   <br />
@@ -229,21 +229,24 @@ export const TeamPermissions: React.FC<TeamPermissionsProps> = ({
         return (
           <ResourceGroup key={group.name}>
             <ResourceName
+              as="button"
+              type="button"
+              aria-expanded={expandedResource === group.name}
               onClick={() =>
                 setExpandedResource(
                   expandedResource === group.name ? null : group.name
                 )
               }
-              style={{ cursor: 'pointer', userSelect: 'none' }}
+              style={{ cursor: 'pointer', userSelect: 'none', background: 'none', border: 'none', padding: 0, font: 'inherit', textAlign: 'left' }}
             >
-              {group.label} {expandedResource === group.name ? '▼' : '▶'}
+              {group.label} <span aria-hidden="true">{expandedResource === group.name ? '▼' : '▶'}</span>
             </ResourceName>
 
             {expandedResource === group.name && (
               <PermissionsList>
                 {groupPerms.map((perm) => (
                   <PermissionItem key={perm.id}>
-                    <PermissionBadge action={perm.action}>
+                    <PermissionBadge $action={perm.action}>
                       {perm.action}
                     </PermissionBadge>
                     <span>{perm.description}</span>

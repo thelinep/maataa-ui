@@ -33,7 +33,7 @@ export interface ModalProps {
 }
 
 // Backdrop
-const Backdrop = styled.div<{ isOpen: boolean }>`
+const Backdrop = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -41,7 +41,7 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${zIndex.modal};
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+  display: ${(props) => (props.$isOpen ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
   animation: fadeIn ${transitions.normal};
@@ -57,12 +57,12 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
 `;
 
 // Modal container
-const ModalContainer = styled.div<{ maxWidth?: string; isOpen: boolean }>`
+const ModalContainer = styled.div<{ $maxWidth?: string; $isOpen: boolean }>`
   position: relative;
   background-color: ${colorTokens.background.primary};
   border-radius: 8px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  max-width: ${(props) => props.maxWidth || '500px'};
+  max-width: ${(props) => props.$maxWidth || '500px'};
   width: 90%;
   max-height: 90vh;
   overflow: hidden;
@@ -226,8 +226,8 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <Backdrop isOpen={isOpen} onClick={handleBackdropClick} role="presentation">
-      <ModalContainer ref={modalRef} maxWidth={maxWidth} isOpen={isOpen} role="dialog" aria-modal="true">
+    <Backdrop $isOpen={isOpen} onClick={handleBackdropClick} role="presentation">
+      <ModalContainer ref={modalRef} $maxWidth={maxWidth} $isOpen={isOpen} role="dialog" aria-modal="true">
         {title && (
           <Header>
             <Title>{title}</Title>

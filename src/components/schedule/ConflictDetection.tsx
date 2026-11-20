@@ -58,14 +58,14 @@ const SummaryCard = styled.div`
   gap: ${spacing.md};
 `;
 
-const StatCard = styled.div`
+const StatCard = styled.div<{ $severity?: string }>`
   display: flex;
   flex-direction: column;
   gap: ${spacing.xs || `4px`};
   padding: ${spacing.md};
   background: ${colorTokens.background.secondary};
-  border: 2px solid ${(props: any) => {
-    switch (props.severity) {
+  border: 2px solid ${(props) => {
+    switch (props.$severity) {
       case 'high': return colorTokens.interactive.error;
       case 'medium': return colorTokens.interactive.warning;
       default: return colorTokens.interactive.success;
@@ -91,14 +91,14 @@ const ConflictsList = styled.div`
   gap: ${spacing.md};
 `;
 
-const ConflictItem = styled.div`
+const ConflictItem = styled.div<{ $severity?: string }>`
   display: flex;
   flex-direction: column;
   gap: ${spacing.md};
   padding: ${spacing.md};
   background: ${colorTokens.background.secondary};
-  border: 2px solid ${(props: any) => {
-    switch (props.severity) {
+  border: 2px solid ${(props) => {
+    switch (props.$severity) {
       case 'high': return colorTokens.interactive.error;
       case 'medium': return colorTokens.interactive.warning;
       default: return colorTokens.interactive.info;
@@ -121,11 +121,11 @@ const ResourceName = styled.span`
   color: ${colorTokens.text.primary};
 `;
 
-const SeverityBadge = styled.span`
+const SeverityBadge = styled.span<{ $severity?: string }>`
   display: inline-block;
   padding: 4px 12px;
-  background: ${(props: any) => {
-    switch (props.severity) {
+  background: ${(props) => {
+    switch (props.$severity) {
       case 'high': return colorTokens.interactive.error;
       case 'medium': return colorTokens.interactive.warning;
       default: return colorTokens.interactive.info;
@@ -250,21 +250,21 @@ export const ConflictDetection: React.FC<ConflictDetectionProps> = ({
       </Header>
 
       <SummaryCard>
-        <StatCard severity="high">
+        <StatCard $severity="high">
           <StatLabel>High Severity</StatLabel>
           <StatValue style={{ color: colorTokens.interactive.error }}>
             {conflictStats.high}
           </StatValue>
         </StatCard>
 
-        <StatCard severity="medium">
+        <StatCard $severity="medium">
           <StatLabel>Medium Severity</StatLabel>
           <StatValue style={{ color: colorTokens.interactive.warning }}>
             {conflictStats.medium}
           </StatValue>
         </StatCard>
 
-        <StatCard severity="low">
+        <StatCard $severity="low">
           <StatLabel>Low Severity</StatLabel>
           <StatValue style={{ color: colorTokens.interactive.info }}>
             {conflictStats.low}
@@ -286,10 +286,10 @@ export const ConflictDetection: React.FC<ConflictDetectionProps> = ({
       ) : (
         <ConflictsList>
           {conflicts.map((conflict) => (
-            <ConflictItem key={conflict.id} severity={conflict.severity}>
+            <ConflictItem key={conflict.id} $severity={conflict.severity}>
               <ConflictHeader>
                 <ResourceName>📌 {conflict.resourceName}</ResourceName>
-                <SeverityBadge severity={conflict.severity}>
+                <SeverityBadge $severity={conflict.severity}>
                   {conflict.severity} Severity
                 </SeverityBadge>
               </ConflictHeader>

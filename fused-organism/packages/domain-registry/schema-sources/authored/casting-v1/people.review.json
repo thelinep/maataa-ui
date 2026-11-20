@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewStatus": "REVIEWED",
+  "decision": "APPROVE",
+  "reviewer": "thelinep",
+  "reviewedAt": "2026-10-03T00:00:00+05:30",
+  "scope": "MAATAA-authored People context contracts for the casting composition",
+  "approvalBasis": "Approved the exact 32-contract People set after structural, tenant-key, FK/relation, lifecycle, and provider-preview review. Actor references use global identity.users; application authorization must verify active organisation/workspace membership and applicable project access. The FK proves identity existence only.",
+  "context": "people",
+  "contractCount": 32,
+  "contractSetHash": "8ea1f93f7b411e560abec4afd749725b75437f0b68ed34afca98c1eb847d6bdb",
+  "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+  "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+  "contractIds": [
+    "people.attendance_records",
+    "people.audition_media",
+    "people.audition_submissions",
+    "people.cast_assignments",
+    "people.cast_messages",
+    "people.cast_schedule_entries",
+    "people.casting_approvals",
+    "people.casting_call_roles",
+    "people.casting_calls",
+    "people.crew_assignments",
+    "people.crew_availability",
+    "people.crew_contracts",
+    "people.crew_hiring_requests",
+    "people.crew_messages",
+    "people.crew_profiles",
+    "people.crew_shortlist_items",
+    "people.crew_shortlists",
+    "people.crew_skills",
+    "people.department_members",
+    "people.departments",
+    "people.hod_assignments",
+    "people.performance_reviews",
+    "people.talent_availability",
+    "people.talent_comparisons",
+    "people.talent_contracts",
+    "people.talent_media",
+    "people.talent_offers",
+    "people.talent_portfolios",
+    "people.talent_profiles",
+    "people.talent_shortlist_items",
+    "people.talent_shortlists",
+    "people.timesheets"
+  ],
+  "validations": {
+    "structuralContracts": "32/32 PASS",
+    "tenantOwnedForeignKeys": "PASS; scoped targets use (id, organisation_id)",
+    "globalActorReferences": "PASS; identity.users by id per approved CAST-DRAFT-004",
+    "foreignKeyClosure": "PASS (160-table composition closure)",
+    "logicalSchema": "PASS",
+    "prisma": {
+      "postgresql": "PASS",
+      "sqlite": "PASS",
+      "scope": "Prisma model projection only"
+    },
+    "unitTests": "28/28 PASS",
+    "registry": "PASS; 0 blockers, 0 errors, 0 warnings; 11 explicitly deferred route information findings"
+  },
+  "retainedBoundaries": {
+    "applicationMembershipAuthorizationImplemented": false,
+    "identityContextCanonical": true,
+    "compositionSchemaReady": true,
+    "legalReviewed": false,
+    "migrationApproved": false,
+    "deploymentApproved": false
+  },
+  "canonicalizedAt": "2026-10-03T00:00:00+05:30",
+  "hashRefresh": {
+    "amendmentId": "organisation-scope-integrity-v1.2.0",
+    "reviewer": "thelinep",
+    "refreshedAt": "2026-10-03T00:00:21.130Z",
+    "previous": {
+      "contractSetHash": "8789255de24c57fb57b83adde87e77fed65c6fc9f8d1c4bd9d744062a57c5e8c",
+      "logicalSchemaHash": "9df0040ac7fdaf62972ed51020bf25eb53e77915dca84d1702def245ac5cc3db"
+    },
+    "current": {
+      "contractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+      "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+    }
+  }
+}

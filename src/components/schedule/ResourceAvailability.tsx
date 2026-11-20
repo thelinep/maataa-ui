@@ -46,14 +46,14 @@ const AvailabilityGrid = styled.div`
   gap: ${spacing.md};
 `;
 
-const TimeSlotCard = styled.div`
+const TimeSlotCard = styled.div<{ $score: number }>`
   display: grid;
   grid-template-columns: 150px 1fr 150px;
   gap: ${spacing.md};
   padding: ${spacing.md};
   background: ${colorTokens.background.secondary};
-  border: 2px solid ${(props: any) => {
-    const score = props.score;
+  border: 2px solid ${(props) => {
+    const score = props.$score;
     if (score >= 80) return colorTokens.interactive.success;
     if (score >= 50) return colorTokens.interactive.warning;
     return colorTokens.interactive.error;
@@ -118,7 +118,7 @@ const ScoreSection = styled.div`
   }
 `;
 
-const ScoreBar = styled.div`
+const ScoreBar = styled.div<{ $score: number }>`
   width: 120px;
   height: 8px;
   background: ${colorTokens.border.primary};
@@ -129,9 +129,9 @@ const ScoreBar = styled.div`
     content: '';
     display: block;
     height: 100%;
-    width: ${(props: any) => `${props.score}%`};
-    background: ${(props: any) => {
-      const score = props.score;
+    width: ${(props) => `${props.$score}%`};
+    background: ${(props) => {
+      const score = props.$score;
       if (score >= 80) return colorTokens.interactive.success;
       if (score >= 50) return colorTokens.interactive.warning;
       return colorTokens.interactive.error;
@@ -235,8 +235,6 @@ function generateAvailableSlots(
 export const ResourceAvailability: React.FC<ResourceAvailabilityProps> = ({
   attendees,
   resources,
-  busyTimes,
-  dateRange,
   onSelectSlot,
 }) => {
   const availableSlots = useMemo(() => {
@@ -271,7 +269,7 @@ export const ResourceAvailability: React.FC<ResourceAvailabilityProps> = ({
       ) : (
         <AvailabilityGrid>
           {topSlots.map((slot, idx) => (
-            <TimeSlotCard key={idx} score={slot.score}>
+            <TimeSlotCard key={idx} $score={slot.score}>
               <TimeSlot>
                 <TimeLabel>Time Slot</TimeLabel>
                 <TimeValue>
@@ -299,7 +297,7 @@ export const ResourceAvailability: React.FC<ResourceAvailabilityProps> = ({
               </AvailabilityInfo>
 
               <ScoreSection>
-                <ScoreBar score={slot.score} />
+                <ScoreBar $score={slot.score} />
                 <ScoreLabel>{slot.score}% match</ScoreLabel>
                 <SelectButton
                   variant="primary"

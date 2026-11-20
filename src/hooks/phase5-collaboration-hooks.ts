@@ -6,10 +6,10 @@
  */
 
 import { useState, useEffect, useCallback, useRef, useContext, createContext } from 'react';
-import { WebSocketMessage } from './phase5-websocket-server';
-import { PresenceIndicator } from './phase5-presence';
-import { Activity } from './phase5-activity-stream';
-import { PermissionCheck, Permission } from './phase5-rbac';
+import { WebSocketMessage } from '@/collaboration/phase5-websocket-server';
+import { PresenceIndicator } from '@/collaboration/phase5-presence';
+import { Activity } from '@/collaboration/phase5-activity-stream';
+import { PermissionCheck, Permission } from '@/collaboration/phase5-rbac';
 
 
 // ============================================================================
@@ -90,7 +90,7 @@ export function usePresence(entityId: string) {
   const { sendMessage, onMessage } = useCollaboration();
   const [participants, setParticipants] = useState<PresenceIndicator[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const typingTimeoutRef = useRef<NodeJS.Timeout>();
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Join entity presence channel
   useEffect(() => {
@@ -242,7 +242,6 @@ export function useActivityFeed(options: { userId?: string; entityId?: string; l
  */
 export function usePermission() {
   const { userId } = useCollaboration();
-  const [permissions, setPermissions] = useState<Map<string, boolean>>(new Map());
   const cacheRef = useRef<Map<string, PermissionCheck>>(new Map());
 
   const checkPermission = useCallback(

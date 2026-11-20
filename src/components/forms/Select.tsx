@@ -12,9 +12,10 @@
  * - Design token integration
  */
 
-import { forwardRef, SelectHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, SelectHTMLAttributes, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
+import { useFormField } from './FormFieldWrapper';
 
 export interface SelectOption {
   value: string;
@@ -49,12 +50,12 @@ const Container = styled.div`
 `;
 
 // Label
-const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
+const Label = styled.label<{ $required?: boolean; $hasError?: boolean }>`
   font-size: ${typography.label.fontSize};
   font-weight: ${typography.label.fontWeight};
   line-height: ${typography.label.lineHeight};
   text-transform: ${typography.label.textTransform};
-  color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
+  color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
   transition: color ${transitions.normal};
 
   .required-asterisk {
@@ -71,11 +72,14 @@ const SelectWrapper = styled.div`
 `;
 
 // Styled select
-const StyledSelect = styled.select<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg' }>`
+const StyledSelect = styled.select<{ $hasError?: boolean; $size?: 'sm' | 'md' | 'lg' }>`
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   /* Base styles */
   font-family: ${typography.body.fontFamily};
   font-size: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return '12px';
       case 'lg':
@@ -88,7 +92,7 @@ const StyledSelect = styled.select<{ hasError?: boolean; size?: 'sm' | 'md' | 'l
 
   /* Spacing */
   padding: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return `${spacing.xs} ${spacing.sm}`;
       case 'lg':
@@ -110,7 +114,7 @@ const StyledSelect = styled.select<{ hasError?: boolean; size?: 'sm' | 'md' | 'l
   background-repeat: no-repeat;
   background-position: right ${spacing.md} center;
   background-size: 1.2em;
-  border: 1px solid ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
+  border: 1px solid ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
   border-radius: ${borderRadius.md};
 
   /* Transitions */
@@ -122,16 +126,16 @@ const StyledSelect = styled.select<{ hasError?: boolean; size?: 'sm' | 'md' | 'l
   /* Focus state */
   &:focus {
     outline: none;
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
     box-shadow: 0 0 0 3px ${(props) => {
-      if (props.hasError) return 'rgba(139, 58, 43, 0.1)';
+      if (props.$hasError) return 'rgba(139, 58, 43, 0.1)';
       return 'rgba(139, 111, 71, 0.1)';
     }};
   }
 
   /* Hover state */
   &:hover:not(:disabled) {
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
   }
 
   /* Disabled state */
@@ -154,10 +158,10 @@ const StyledSelect = styled.select<{ hasError?: boolean; size?: 'sm' | 'md' | 'l
 `;
 
 // Helper text
-const HelperText = styled.div<{ variant?: 'hint' | 'error' }>`
+const HelperText = styled.div<{ $variant?: 'hint' | 'error' }>`
   font-size: ${typography.bodySmall.fontSize};
   line-height: ${typography.bodySmall.lineHeight};
-  color: ${(props) => (props.variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
+  color: ${(props) => (props.$variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
   display: flex;
   align-items: center;
   gap: ${spacing.xs};
@@ -211,12 +215,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ref
   ) => {
     const hasError = !!error;
-    const selectId = id || `select-${Math.random().toString(36).substr(2, 9)}`;
+    const field = useFormField();
+    const generatedId = useId();
+    const selectId = id || field?.id || `select-${generatedId}`;
 
     return (
       <Container>
         {label && (
-          <Label htmlFor={selectId} required={required} hasError={hasError}>
+          <Label htmlFor={selectId} $required={required} $hasError={hasError}>
             {label}
             {required && showRequiredAsterisk && <span className="required-asterisk">*</span>}
           </Label>
@@ -227,8 +233,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={selectId}
             disabled={disabled}
-            hasError={hasError}
-            size={size}
+            $hasError={hasError}
+            $size={size}
             aria-invalid={hasError}
             aria-describedby={hasError ? `${selectId}-error` : hint ? `${selectId}-hint` : undefined}
             {...props}
@@ -247,14 +253,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </SelectWrapper>
 
         {error && (
-          <HelperText id={`${selectId}-error`} variant="error" role="alert">
+          <HelperText id={`${selectId}-error`} $variant="error" role="alert">
             <span>⚠</span>
             {error}
           </HelperText>
         )}
 
         {hint && !error && (
-          <HelperText id={`${selectId}-hint`} variant="hint">
+          <HelperText id={`${selectId}-hint`} $variant="hint">
             {hint}
           </HelperText>
         )}

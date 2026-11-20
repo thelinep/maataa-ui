@@ -81,7 +81,7 @@ const CategoryName = styled.div`
   }
 `;
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.div<{ $spent: number; $allocated: number }>`
   width: 100%;
   height: 8px;
   background-color: ${colorTokens.border.primary};
@@ -92,9 +92,9 @@ const ProgressBar = styled.div`
     content: '';
     display: block;
     height: 100%;
-    width: ${(props: any) => `${Math.min((props.spent / props.allocated) * 100, 100)}%`};
-    background-color: ${(props: any) =>
-      props.spent > props.allocated
+    width: ${(props) => `${Math.min((props.$spent / props.$allocated) * 100, 100)}%`};
+    background-color: ${(props) =>
+      props.$spent > props.$allocated
         ? colorTokens.interactive.error
         : colorTokens.interactive.success};
     transition: width 0.3s ease;
@@ -143,8 +143,6 @@ export const BudgetCategories: React.FC<BudgetCategoriesProps> = ({
   categories,
   currency = 'USD',
   onAddCategory,
-  onUpdateCategory,
-  onDeleteCategory,
 }) => {
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [newCategory, setNewCategory] = useState<Partial<BudgetCategory>>({});
@@ -167,7 +165,7 @@ export const BudgetCategories: React.FC<BudgetCategoriesProps> = ({
 
   const totalAllocated = categories.reduce((sum, cat) => sum + cat.allocated, 0);
   const totalSpent = categories.reduce((sum, cat) => sum + cat.spent, 0);
-  const percentAllocated = ((totalSpent / totalAllocated) * 100).toFixed(1);
+  const percentAllocated = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
 
   return (
     <Container>
@@ -206,8 +204,13 @@ export const BudgetCategories: React.FC<BudgetCategoriesProps> = ({
                   </span>
                 )}
                 <ProgressBar
-                  spent={category.spent}
-                  allocated={category.allocated}
+                  $spent={category.spent}
+                  $allocated={category.allocated}
+                  role="progressbar"
+                  aria-label={`${category.name} budget used`}
+                  aria-valuemin={0}
+                  aria-valuemax={category.allocated}
+                  aria-valuenow={Math.min(category.spent, category.allocated)}
                 />
                 <Stats>
                   <StatValue>{currency} {category.spent.toLocaleString()}</StatValue>
@@ -225,6 +228,7 @@ export const BudgetCategories: React.FC<BudgetCategoriesProps> = ({
         <div style={{ padding: spacing.md, border: `1px solid ${colorTokens.border.primary}`, borderRadius: borderRadius.md }}>
           <input
             type="text"
+            aria-label="Category name"
             placeholder="Category name"
             value={newCategory.name || ''}
             onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
@@ -232,6 +236,7 @@ export const BudgetCategories: React.FC<BudgetCategoriesProps> = ({
           />
           <input
             type="number"
+            aria-label="Allocated amount"
             placeholder="Allocated amount"
             value={newCategory.allocated || ''}
             onChange={(e) => setNewCategory({ ...newCategory, allocated: parseFloat(e.target.value) })}

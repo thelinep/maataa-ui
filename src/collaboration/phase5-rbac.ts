@@ -64,9 +64,9 @@ export interface PermissionCheck {
   role?: Role;
 }
 
-export interface PermissionMatrix {
+export type PermissionMatrix = {
   [role in Role]: Set<Permission>;
-}
+};
 
 // ============================================================================
 // RBAC Engine
@@ -86,10 +86,10 @@ export class RBACEngine {
    * Initialize default role hierarchy
    */
   private initializeDefaultRoles(): void {
-    // Viewer: Read-only access
+    // Viewer: read access + can add comments (product decision 2026-11-20)
     this.registerRole({
       name: 'viewer',
-      description: 'Read-only access to entities and relationships',
+      description: 'Read access to entities and relationships; can add comments',
       permissions: new Set([
         'entity:read',
         'relationship:read',
@@ -99,10 +99,10 @@ export class RBACEngine {
       level: 0,
     });
 
-    // Commenter: Viewer + comment capabilities
+    // Commenter: Viewer + comment moderation
     this.registerRole({
       name: 'commenter',
-      description: 'Can view and comment on entities',
+      description: 'Viewer access plus deleting/moderating comments',
       permissions: new Set(['comment:add', 'comment:delete']),
       inherits: 'viewer',
       level: 1,
@@ -365,32 +365,42 @@ export class RBACEngine {
   }
 
   /**
-   * Add custom permission to user role
+   * Grant an extra permission on one entity.
+   *
+   * Per-entity permissions ADD to the user's app-wide roles; they never
+   * replace them (hasPermission checks entity roles and global roles together).
+   * Works whether or not the user already has an entity-specific role: if not,
+   * an entity-scoped 'custom' grant is created to hold the permission.
    */
   public grantCustomPermission(
     userId: string,
     entityId: string,
-    permission: Permission
+    permission: Permission,
+    grantedBy: string = 'system'
   ): boolean {
     const key = `${entityId}:${userId}`;
     const roles = this.entityPermissions.get(key) || [];
 
-    if (roles.length === 0) {
-      return false; // No role granted yet
+    let holder = roles.find((r) => r.role === 'custom') ?? roles[0];
+    if (!holder) {
+      holder = { userId, role: 'custom', entityId, grantedAt: Date.now(), grantedBy, customPermissions: [] };
+      roles.push(holder);
+      this.entityPermissions.set(key, roles);
     }
 
-    for (const role of roles) {
-      role.customPermissions = role.customPermissions || [];
-      if (!role.customPermissions.includes(permission)) {
-        role.customPermissions.push(permission);
-      }
+    holder.customPermissions = holder.customPermissions || [];
+    if (!holder.customPermissions.includes(permission)) {
+      holder.customPermissions.push(permission);
     }
-
     return true;
   }
 
   /**
-   * Revoke custom permission
+   * Revoke an extra permission previously granted on one entity.
+   *
+   * Only removes the per-entity grant: permissions the user holds through an
+   * app-wide role (e.g. viewers can comment) are unaffected.
+   * Returns false if there was no such grant.
    */
   public revokeCustomPermission(
     userId: string,
@@ -399,21 +409,22 @@ export class RBACEngine {
   ): boolean {
     const key = `${entityId}:${userId}`;
     const roles = this.entityPermissions.get(key) || [];
-
-    if (roles.length === 0) {
-      return false;
-    }
+    let revoked = false;
 
     for (const role of roles) {
-      if (role.customPermissions) {
-        const idx = role.customPermissions.indexOf(permission);
-        if (idx >= 0) {
-          role.customPermissions.splice(idx, 1);
-        }
+      const idx = role.customPermissions?.indexOf(permission) ?? -1;
+      if (idx >= 0) {
+        role.customPermissions!.splice(idx, 1);
+        revoked = true;
       }
     }
 
-    return true;
+    // Drop placeholder 'custom' grants that no longer hold anything
+    const remaining = roles.filter((r) => r.role !== 'custom' || (r.customPermissions?.length ?? 0) > 0);
+    if (remaining.length > 0) this.entityPermissions.set(key, remaining);
+    else this.entityPermissions.delete(key);
+
+    return revoked;
   }
 
   /**
@@ -454,7 +465,7 @@ export class RBACEngine {
       deniedPermissions: this.permissionAudit.filter((c) => !c.allowed).length,
     };
 
-    for (const [userId, roles] of this.userRoles.entries()) {
+    for (const roles of this.userRoles.values()) {
       for (const role of roles) {
         stats.roleDistribution[role.role] = (stats.roleDistribution[role.role] || 0) + 1;
       }

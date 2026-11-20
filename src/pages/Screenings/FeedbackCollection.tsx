@@ -1,0 +1,257 @@
+import React from 'react';
+import styled from 'styled-components';
+import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
+
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import type { ScreeningFeedback } from '@/core/film/types';
+import { ErrorState, LoadingState, NotFoundState } from '../shared/AsyncState';
+
+interface FeedbackStats {
+  avgRating: number;
+  totalResponses: number;
+  sentimentBreakdown: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+}
+
+export function calculateFeedbackStats(feedbackList: ScreeningFeedback[]): FeedbackStats {
+  const avgRating = feedbackList.length
+    ? feedbackList.reduce((sum, f) => sum + f.rating, 0) / feedbackList.length
+    : 0;
+  return {
+    avgRating: Math.round(avgRating * 10) / 10,
+    totalResponses: feedbackList.length,
+    sentimentBreakdown: {
+      positive: feedbackList.filter((f) => f.sentiment === 'positive').length,
+      neutral: feedbackList.filter((f) => f.sentiment === 'neutral').length,
+      negative: feedbackList.filter((f) => f.sentiment === 'negative').length,
+    },
+  };
+}
+
+const Container = styled.div`
+  padding: ${spacing.lg};
+  background: ${colorTokens.background.primary};
+`;
+
+const Header = styled.div`
+  margin-bottom: ${spacing.lg};
+`;
+
+const Title = styled.h1`
+  font-family: ${typography.heading2.fontFamily};
+  font-size: ${typography.heading2.fontSize};
+  color: ${colorTokens.text.primary};
+  margin: 0 0 ${spacing.md} 0;
+`;
+
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: ${spacing.lg};
+  margin-bottom: ${spacing.lg};
+`;
+
+const StatCard = styled.div`
+  background: ${colorTokens.background.secondary};
+  padding: ${spacing.lg};
+  border-radius: 8px;
+  border-left: 4px solid ${colorTokens.primary.main};
+`;
+
+const StatLabel = styled.div`
+  font-size: ${typography.bodySmall.fontSize};
+  color: ${colorTokens.text.secondary};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: ${spacing.sm};
+`;
+
+const StatValue = styled.div`
+  font-size: 2em;
+  font-weight: 700;
+  color: ${colorTokens.text.primary};
+`;
+
+const SentimentBar = styled.div`
+  display: flex;
+  height: 8px;
+  gap: 2px;
+  margin-top: ${spacing.md};
+  border-radius: 4px;
+  overflow: hidden;
+`;
+
+const SentimentSegment = styled.div<{ percentage: number; sentiment: string }>`
+  flex: ${(props) => props.percentage};
+  background: ${(props) => {
+    switch (props.sentiment) {
+      case 'positive':
+        return '#28a745';
+      case 'neutral':
+        return '#ffc107';
+      case 'negative':
+        return '#dc3545';
+      default:
+        return '#e9ecef';
+    }
+  }};
+`;
+
+const FeedbackList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing.md};
+`;
+
+const FeedbackCard = styled.div<{ sentiment: string }>`
+  background: ${colorTokens.background.secondary};
+  border: 1px solid ${colorTokens.border.primary};
+  border-radius: 8px;
+  padding: ${spacing.lg};
+  border-left: 4px solid ${(props) => {
+    switch (props.sentiment) {
+      case 'positive':
+        return '#28a745';
+      case 'neutral':
+        return '#ffc107';
+      case 'negative':
+        return '#dc3545';
+      default:
+        return '#e9ecef';
+    }
+  }};
+`;
+
+const FeedbackHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: ${spacing.md};
+`;
+
+const FeedbackName = styled.div`
+  font-weight: 600;
+  color: ${colorTokens.text.primary};
+`;
+
+const RatingStars = styled.div`
+  font-size: 1.1em;
+  letter-spacing: 2px;
+`;
+
+const FeedbackDate = styled.div`
+  font-size: ${typography.bodySmall.fontSize};
+  color: ${colorTokens.text.secondary};
+`;
+
+const FeedbackComment = styled.p`
+  font-size: ${typography.body.fontSize};
+  color: ${colorTokens.text.secondary};
+  line-height: 1.6;
+  margin: 0;
+`;
+
+const EmptyState = styled.div`
+  padding: ${spacing.xl};
+  text-align: center;
+  background: ${colorTokens.background.secondary};
+  border-radius: 8px;
+  color: ${colorTokens.text.secondary};
+`;
+
+export interface FeedbackCollectionProps {
+  screeningId?: string;
+}
+
+const FeedbackCollection: React.FC<FeedbackCollectionProps> = ({ screeningId }) => {
+  const { item: screening, loading, error } = useFilmEntity('screening', screeningId);
+
+  if (error) return <ErrorState error={error} />;
+  if (loading) return <LoadingState label="Loading feedback…" />;
+  if (!screening) return <NotFoundState label="Screening not found." />;
+
+  const feedbackList = screening.feedback;
+  const stats = calculateFeedbackStats(feedbackList);
+  const sentimentTotal = stats.totalResponses;
+  const pct = (count: number) => (sentimentTotal ? Math.round((count / sentimentTotal) * 100) : 0);
+
+  const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(i < rating ? '⭐' : '☆');
+    }
+    return stars.join('');
+  };
+
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('en-IN', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date);
+  };
+
+  return (
+    <Container>
+      <Header>
+        <Title>📊 Feedback Results: {screening.title}</Title>
+      </Header>
+
+      <StatsGrid>
+        <StatCard>
+          <StatLabel>Average Rating</StatLabel>
+          <StatValue>{stats.avgRating}/5 ⭐</StatValue>
+        </StatCard>
+        <StatCard>
+          <StatLabel>Total Responses</StatLabel>
+          <StatValue>{stats.totalResponses}</StatValue>
+        </StatCard>
+        <StatCard>
+          <StatLabel>Sentiment</StatLabel>
+          <SentimentBar>
+            <SentimentSegment
+              percentage={stats.sentimentBreakdown.positive}
+              sentiment="positive"
+              title={`Positive: ${stats.sentimentBreakdown.positive} (${pct(stats.sentimentBreakdown.positive)}%)`}
+            />
+            <SentimentSegment
+              percentage={stats.sentimentBreakdown.neutral}
+              sentiment="neutral"
+              title={`Neutral: ${stats.sentimentBreakdown.neutral} (${pct(stats.sentimentBreakdown.neutral)}%)`}
+            />
+            <SentimentSegment
+              percentage={stats.sentimentBreakdown.negative}
+              sentiment="negative"
+              title={`Negative: ${stats.sentimentBreakdown.negative} (${pct(stats.sentimentBreakdown.negative)}%)`}
+            />
+          </SentimentBar>
+        </StatCard>
+      </StatsGrid>
+
+      {feedbackList.length > 0 ? (
+        <FeedbackList>
+          {feedbackList.map((feedback) => (
+            <FeedbackCard key={feedback.id} sentiment={feedback.sentiment}>
+              <FeedbackHeader>
+                <div>
+                  <FeedbackName>{feedback.name}</FeedbackName>
+                  <FeedbackDate>{formatDate(feedback.timestamp)}</FeedbackDate>
+                </div>
+                <RatingStars>{renderStars(feedback.rating)}</RatingStars>
+              </FeedbackHeader>
+              <FeedbackComment>{feedback.comment}</FeedbackComment>
+            </FeedbackCard>
+          ))}
+        </FeedbackList>
+      ) : (
+        <EmptyState>No feedback collected yet</EmptyState>
+      )}
+    </Container>
+  );
+};
+
+export default FeedbackCollection;

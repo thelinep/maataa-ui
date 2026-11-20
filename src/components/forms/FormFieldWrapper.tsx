@@ -11,7 +11,7 @@
  * - Design token integration
  */
 
-import { ReactNode } from 'react';
+import { createContext, ReactNode, useContext, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, transitions } from '@/utils/tokens';
 
@@ -40,12 +40,12 @@ const Container = styled.div`
 `;
 
 // Label
-const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
+const Label = styled.label<{ $required?: boolean; $hasError?: boolean }>`
   font-size: ${typography.label.fontSize};
   font-weight: ${typography.label.fontWeight};
   line-height: ${typography.label.lineHeight};
   text-transform: ${typography.label.textTransform};
-  color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
+  color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
   transition: color ${transitions.normal};
 
   .required-asterisk {
@@ -55,10 +55,10 @@ const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
 `;
 
 // Helper text
-const HelperText = styled.div<{ variant?: 'hint' | 'error' }>`
+const HelperText = styled.div<{ $variant?: 'hint' | 'error' }>`
   font-size: ${typography.bodySmall.fontSize};
   line-height: ${typography.bodySmall.lineHeight};
-  color: ${(props) => (props.variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
+  color: ${(props) => (props.$variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
   display: flex;
   align-items: center;
   gap: ${spacing.xs};
@@ -89,6 +89,23 @@ const HelperText = styled.div<{ variant?: 'hint' | 'error' }>`
  *   <input type="password" />
  * </FormFieldWrapper>
  */
+/**
+ * Lets the control inside a FormFieldWrapper pick up the wrapper's id, so the
+ * <label htmlFor> and helper/error text are associated with it automatically.
+ */
+export interface FormFieldContextValue {
+  id: string;
+  describedBy?: string;
+  invalid: boolean;
+  required: boolean;
+}
+
+const FormFieldContext = createContext<FormFieldContextValue | null>(null);
+
+export function useFormField(): FormFieldContextValue | null {
+  return useContext(FormFieldContext);
+}
+
 export const FormFieldWrapper: React.FC<FormFieldWrapperProps> = ({
   label,
   hint,
@@ -99,28 +116,32 @@ export const FormFieldWrapper: React.FC<FormFieldWrapperProps> = ({
   id,
 }) => {
   const hasError = !!error;
-  const fieldId = id || `field-${Math.random().toString(36).substr(2, 9)}`;
+  const generatedId = useId();
+  const fieldId = id || `field-${generatedId}`;
+  const describedBy = hasError ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined;
 
   return (
     <Container>
       {label && (
-        <Label htmlFor={fieldId} required={required} hasError={hasError}>
+        <Label htmlFor={fieldId} $required={required} $hasError={hasError}>
           {label}
           {required && showRequiredAsterisk && <span className="required-asterisk">*</span>}
         </Label>
       )}
 
-      {children}
+      <FormFieldContext.Provider value={{ id: fieldId, describedBy, invalid: hasError, required }}>
+        {children}
+      </FormFieldContext.Provider>
 
       {error && (
-        <HelperText id={`${fieldId}-error`} variant="error" role="alert">
+        <HelperText id={`${fieldId}-error`} $variant="error" role="alert">
           <span>⚠</span>
           {error}
         </HelperText>
       )}
 
       {hint && !error && (
-        <HelperText id={`${fieldId}-hint`} variant="hint">
+        <HelperText id={`${fieldId}-hint`} $variant="hint">
           {hint}
         </HelperText>
       )}

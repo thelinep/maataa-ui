@@ -5,7 +5,7 @@
  * Pre-populated with mock project data for initial UI testing
  */
 
-import { EntityManager, Organization } from './phase2-entity-manager';
+import { EntityManager } from './phase2-entity-manager';
 
 let instance: EntityManager | null = null;
 

@@ -11,9 +11,10 @@
  * - Design token integration
  */
 
-import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
+import { useFormField } from './FormFieldWrapper';
 
 export interface DatePickerInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   /** Label text */
@@ -42,12 +43,12 @@ const Container = styled.div`
 `;
 
 // Label
-const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
+const Label = styled.label<{ $required?: boolean; $hasError?: boolean }>`
   font-size: ${typography.label.fontSize};
   font-weight: ${typography.label.fontWeight};
   line-height: ${typography.label.lineHeight};
   text-transform: ${typography.label.textTransform};
-  color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
+  color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
   transition: color ${transitions.normal};
 
   .required-asterisk {
@@ -57,11 +58,14 @@ const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
 `;
 
 // Styled date input
-const StyledDateInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg' }>`
+const StyledDateInput = styled.input<{ $hasError?: boolean; $size?: 'sm' | 'md' | 'lg' }>`
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   /* Base styles */
   font-family: ${typography.body.fontFamily};
   font-size: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return '12px';
       case 'lg':
@@ -74,7 +78,7 @@ const StyledDateInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 
 
   /* Spacing */
   padding: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return `${spacing.xs} ${spacing.sm}`;
       case 'lg':
@@ -87,7 +91,7 @@ const StyledDateInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 
   /* Colors and borders */
   color: ${colorTokens.text.primary};
   background-color: ${colorTokens.background.primary};
-  border: 1px solid ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
+  border: 1px solid ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
   border-radius: ${borderRadius.md};
 
   /* Transitions */
@@ -99,16 +103,16 @@ const StyledDateInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 
   /* Focus state */
   &:focus {
     outline: none;
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
     box-shadow: 0 0 0 3px ${(props) => {
-      if (props.hasError) return 'rgba(139, 58, 43, 0.1)';
+      if (props.$hasError) return 'rgba(139, 58, 43, 0.1)';
       return 'rgba(139, 111, 71, 0.1)';
     }};
   }
 
   /* Hover state */
   &:hover:not(:disabled) {
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
   }
 
   /* Disabled state */
@@ -127,10 +131,10 @@ const StyledDateInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 
 `;
 
 // Helper text
-const HelperText = styled.div<{ variant?: 'hint' | 'error' }>`
+const HelperText = styled.div<{ $variant?: 'hint' | 'error' }>`
   font-size: ${typography.bodySmall.fontSize};
   line-height: ${typography.bodySmall.lineHeight};
-  color: ${(props) => (props.variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
+  color: ${(props) => (props.$variant === 'error' ? colorTokens.interactive.error : colorTokens.text.secondary)};
   display: flex;
   align-items: center;
   gap: ${spacing.xs};
@@ -180,12 +184,14 @@ export const DatePickerInput = forwardRef<HTMLInputElement, DatePickerInputProps
     ref
   ) => {
     const hasError = !!error;
-    const inputId = id || `datepicker-${Math.random().toString(36).substr(2, 9)}`;
+    const field = useFormField();
+    const generatedId = useId();
+    const inputId = id || field?.id || `datepicker-${generatedId}`;
 
     return (
       <Container>
         {label && (
-          <Label htmlFor={inputId} required={required} hasError={hasError}>
+          <Label htmlFor={inputId} $required={required} $hasError={hasError}>
             {label}
             {required && showRequiredAsterisk && <span className="required-asterisk">*</span>}
           </Label>
@@ -196,8 +202,8 @@ export const DatePickerInput = forwardRef<HTMLInputElement, DatePickerInputProps
           id={inputId}
           type="date"
           disabled={disabled}
-          hasError={hasError}
-          size={size}
+          $hasError={hasError}
+          $size={size}
           min={min}
           max={max}
           aria-invalid={hasError}
@@ -206,14 +212,14 @@ export const DatePickerInput = forwardRef<HTMLInputElement, DatePickerInputProps
         />
 
         {error && (
-          <HelperText id={`${inputId}-error`} variant="error" role="alert">
+          <HelperText id={`${inputId}-error`} $variant="error" role="alert">
             <span>⚠</span>
             {error}
           </HelperText>
         )}
 
         {hint && !error && (
-          <HelperText id={`${inputId}-hint`} variant="hint">
+          <HelperText id={`${inputId}-hint`} $variant="hint">
             {hint}
           </HelperText>
         )}

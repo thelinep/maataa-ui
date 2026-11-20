@@ -110,7 +110,7 @@ describe('Button Component', () => {
     it('should accept style prop', () => {
       render(<Button style={{ color: 'red' }}>Styled</Button>);
       const button = screen.getByText('Styled');
-      expect(button).toHaveStyle({ color: 'red' });
+      expect(button).toHaveStyle({ color: 'rgb(255, 0, 0)' });
     });
 
     it('should support children as React nodes', () => {
@@ -129,13 +129,13 @@ describe('Button Component', () => {
     it('should use primary variant by default', () => {
       const { container } = render(<Button>Default</Button>);
       const button = container.querySelector('button');
-      expect(button).toHaveClass('primary');
+      expect(button).toHaveAttribute('data-variant', 'primary');
     });
 
     it('should use md size by default', () => {
       const { container } = render(<Button>Default</Button>);
       const button = container.querySelector('button');
-      expect(button).toHaveClass('md');
+      expect(button).toHaveAttribute('data-size', 'md');
     });
   });
 });

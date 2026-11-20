@@ -52,7 +52,7 @@ const Container = styled.div`
 
 const FormGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing.md};
 
   @media (max-width: 768px) {
@@ -95,20 +95,13 @@ const SuccessMessage = styled.div`
 
 const TimeInputWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing.md};
   grid-column: 1 / -1;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-`;
-
-const SectionTitle = styled.h4`
-  font-size: ${typography.body.fontSize};
-  font-weight: 600;
-  color: ${colorTokens.text.primary};
-  margin: ${spacing.md} 0 ${spacing.sm} 0;
 `;
 
 const DurationInfo = styled.div`
@@ -175,7 +168,8 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [currentField, setCurrentField] = useState<string | null>(null);
+  // Focused field, reserved for field-level presence (who is editing what)
+  const [, setCurrentField] = useState<string | null>(null);
   const typingTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const { setTyping, participants } = usePresence({ entityId: eventId || 'new-event' });

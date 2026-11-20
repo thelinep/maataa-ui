@@ -6,11 +6,15 @@ node_modules/
 .pnp.js
 package-lock.json
 !fused-organism/package-lock.json
+# Root app lockfile is committed so CI (npm ci) installs the tested versions
+!/package-lock.json
 yarn.lock
 pnpm-lock.yaml
 .yarn/
 .yarn/install-state.gz
 .npmrc
+# The root .npmrc only holds install-links (no credentials) and must be committed
+!/.npmrc
 .yarnrc
 
 # ============================================================================

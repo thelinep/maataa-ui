@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewStatus": "REVIEWED",
+  "decision": "APPROVE",
+  "reviewer": "thelinep",
+  "reviewedAt": "2026-10-03T00:23:18.451Z",
+  "context": "public",
+  "contractCount": 12,
+  "contractIds": [
+    "public.case_studies",
+    "public.contact_requests",
+    "public.cookie_consents",
+    "public.demo_requests",
+    "public.documentation_pages",
+    "public.industry_pages",
+    "public.legal_documents",
+    "public.marketing_events",
+    "public.marketing_leads",
+    "public.pricing_plans",
+    "public.product_pages",
+    "public.solution_pages"
+  ],
+  "contractSetHash": "14bb8e51a85acc130f83f323389509161c9ddedfa70b568fac3b3aba23e26fb1",
+  "logicalSchemaHash": "ff9ecf8ae317d06b8bdfb318b4bbda912a8f2dcc4e86d3dd8b727b39395d30f4",
+  "closureTableIds": [
+    "evidence.evidence_items",
+    "identity.users",
+    "organisation.organisation_memberships",
+    "organisation.organisations",
+    "organisation.workspace_memberships",
+    "organisation.workspaces",
+    "project.project_members",
+    "project.projects",
+    "public.case_studies",
+    "public.contact_requests",
+    "public.cookie_consents",
+    "public.demo_requests",
+    "public.documentation_pages",
+    "public.industry_pages",
+    "public.legal_documents",
+    "public.marketing_events",
+    "public.marketing_leads",
+    "public.pricing_plans",
+    "public.product_pages",
+    "public.solution_pages"
+  ],
+  "validations": {
+    "structuralContracts": "12/12 PASS",
+    "foreignKeyClosure": "PASS",
+    "logicalModel": "PASS",
+    "postgresqlPrisma": "PASS",
+    "sqlitePrisma": "PASS"
+  },
+  "sourceBoundary": "MAATAA_AUTHORED; no external schema authority claimed.",
+  "approvalBasis": "Explicit user instruction to close the global schema gate, bound to the exact DRAFT contract-set hash; reviewer identity follows the previously designated reviewer.",
+  "retainedBoundaries": {
+    "schemaReady": true,
+    "migrationApproved": false,
+    "deploymentApproved": false,
+    "legalReviewed": false
+  },
+  "draftContractSetHash": "d423653d2488d8d525dc9e9ca151ebeec8422dfd4a884cb17713caa7bc89513a"
+}

@@ -57,7 +57,7 @@ const AlertsList = styled.div`
   gap: ${spacing.sm};
 `;
 
-const AlertItem = styled.div`
+const AlertItem = styled.div<{ $type?: string }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,8 +65,8 @@ const AlertItem = styled.div`
   background: ${colorTokens.background.secondary};
   border: 1px solid ${colorTokens.border.primary};
   border-radius: ${borderRadius.md};
-  border-left: 4px solid ${(props: any) => {
-    switch (props.type) {
+  border-left: 4px solid ${(props) => {
+    switch (props.$type) {
       case 'threshold':
         return colorTokens.interactive.warning;
       case 'daily-limit':
@@ -134,7 +134,7 @@ const EmptyState = styled.div`
 
 const Form = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing.md};
   padding: ${spacing.md};
   background: ${colorTokens.background.secondary};
@@ -234,9 +234,6 @@ const CHANNEL_COLORS = {
  * />
  */
 export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
-  budgetId,
-  allocated,
-  spent,
   alerts,
   currency = 'USD',
   onAddAlert,
@@ -365,7 +362,7 @@ export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
           {alerts.map((alert) => {
             const typeInfo = ALERT_TYPES[alert.type as keyof typeof ALERT_TYPES];
             return (
-              <AlertItem key={alert.id} type={alert.type}>
+              <AlertItem key={alert.id} $type={alert.type}>
                 <AlertContent>
                   <AlertTitle>
                     {typeInfo.icon} {typeInfo.label} - {alert.triggerValue}

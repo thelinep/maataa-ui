@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "1.0.0",
+  "schemaLifecycle": "DRAFT",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "validationTool": "Prisma CLI 7.9.1",
+  "structuralStatus": "DRAFT_COMPILE_TESTABLE",
+  "providerPlanValid": true,
+  "providerArtifactHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+  "migrationPreviews": {
+    "postgresql": {
+      "valid": true,
+      "status": "PASS",
+      "file": "migration-preview.postgresql.draft.sql",
+      "sha256": "2c3c0917311e36a36764f12be425c5f09e71e6eef4f824c07a06b49483f974cf"
+    },
+    "sqlite": {
+      "valid": true,
+      "status": "PASS",
+      "file": "migration-preview.sqlite.draft.sql",
+      "sha256": "b41aae0b469c733960734935f5cd964301022d4cc9868622b9d2f3d985a755e5"
+    }
+  },
+  "projections": [
+    {
+      "provider": "postgresql",
+      "config": "prisma.config.postgresql.ts",
+      "schema": "schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
+      "status": "PASS",
+      "valid": true,
+      "exitCode": 0,
+      "output": "The schema at schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma is valid 🚀\n\nLoaded Prisma config from prisma.config.postgresql.ts.\n\nPrisma schema loaded from schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma."
+    },
+    {
+      "provider": "sqlite",
+      "config": "prisma.config.sqlite.ts",
+      "schema": "schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
+      "status": "PASS",
+      "valid": true,
+      "exitCode": 0,
+      "output": "The schema at schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma is valid 🚀\n\nLoaded Prisma config from prisma.config.sqlite.ts.\n\nPrisma schema loaded from schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma."
+    }
+  ],
+  "findings": [
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION_ERROR",
+      "status": "RESOLVED",
+      "message": "The initial emitted index names exceeded PostgreSQL's 63-byte identifier limit.",
+      "resolution": "The provider adapter now emits deterministic shortened physical names with a SHA-256 suffix; the database-neutral contract names are unchanged."
+    },
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.postgresql.draft.sql",
+      "validation": "STATIC_SQL_REVIEW_PASS"
+    },
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.postgresql.draft.sql",
+      "validation": "STATIC_SQL_REVIEW_PASS"
+    },
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_parent_thread_is_direct",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.postgresql.draft.sql",
+      "validation": "STATIC_SQL_REVIEW_PASS"
+    },
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.postgresql.draft.sql",
+      "validation": "STATIC_SQL_REVIEW_PASS"
+    },
+    {
+      "provider": "postgresql",
+      "classification": "POSTGRES_PROJECTION",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.thread_members",
+      "invariant": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.postgresql.draft.sql",
+      "validation": "STATIC_SQL_REVIEW_PASS"
+    },
+    {
+      "provider": "sqlite",
+      "classification": "SQLITE_PORTABILITY",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.announcements",
+      "invariant": "announcement_audience_matches_workspace_scope",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.sqlite.draft.sql",
+      "validation": "BEHAVIORAL_CHECKS_PASS"
+    },
+    {
+      "provider": "sqlite",
+      "classification": "SQLITE_PORTABILITY",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_membership_pair_is_normalized",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.sqlite.draft.sql",
+      "validation": "BEHAVIORAL_CHECKS_PASS"
+    },
+    {
+      "provider": "sqlite",
+      "classification": "SQLITE_PORTABILITY",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.direct_message_threads",
+      "invariant": "direct_message_parent_thread_is_direct",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.sqlite.draft.sql",
+      "validation": "BEHAVIORAL_CHECKS_PASS"
+    },
+    {
+      "provider": "sqlite",
+      "classification": "SQLITE_PORTABILITY",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.thread_members",
+      "invariant": "one_active_thread_membership_episode",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.sqlite.draft.sql",
+      "validation": "BEHAVIORAL_CHECKS_PASS"
+    },
+    {
+      "provider": "sqlite",
+      "classification": "SQLITE_PORTABILITY",
+      "status": "ENFORCED_IN_MIGRATION_PREVIEW",
+      "tableId": "communications.thread_members",
+      "invariant": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+      "migrationPreview": "migration-preview.sqlite.draft.sql",
+      "validation": "BEHAVIORAL_CHECKS_PASS"
+    }
+  ]
+}

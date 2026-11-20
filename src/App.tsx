@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router';
 import { AppShell } from '@/layout/AppShell';
 import { ProjectList, ProjectDetail, CreateProject } from '@/pages/Projects';
 import { TeamList, TeamDetail, CreateTeam } from '@/pages/Teams';

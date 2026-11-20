@@ -12,9 +12,10 @@
  * - Design token integration
  */
 
-import { useState, useRef, ReactNode } from 'react';
+import { useState, useRef, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
+import { useFormField } from './FormFieldWrapper';
 
 export interface ComboboxOption {
   value: string;
@@ -55,44 +56,44 @@ const Container = styled.div`
 `;
 
 // Label
-const Label = styled.label<{ hasError?: boolean }>`
+const Label = styled.label<{ $hasError?: boolean }>`
   font-size: ${typography.label.fontSize};
   font-weight: ${typography.label.fontWeight};
   line-height: ${typography.label.lineHeight};
   text-transform: ${typography.label.textTransform};
-  color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
+  color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
 `;
 
 // Input wrapper
-const InputWrapper = styled.div<{ isOpen?: boolean; hasError?: boolean }>`
+const InputWrapper = styled.div<{ $isOpen?: boolean; $hasError?: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
 `;
 
 // Input
-const Input = styled.input<{ hasError?: boolean }>`
+const Input = styled.input<{ $hasError?: boolean }>`
   width: 100%;
   padding: ${spacing.sm} ${spacing.md};
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.body.fontSize};
   color: ${colorTokens.text.primary};
   background-color: ${colorTokens.background.primary};
-  border: 1px solid ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
+  border: 1px solid ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
   border-radius: ${borderRadius.md};
   transition: all ${transitions.fast};
 
   &:focus {
     outline: none;
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
     box-shadow: 0 0 0 3px ${(props) => {
-      if (props.hasError) return 'rgba(139, 58, 43, 0.1)';
+      if (props.$hasError) return 'rgba(139, 58, 43, 0.1)';
       return 'rgba(139, 111, 71, 0.1)';
     }};
   }
 
   &:hover:not(:disabled) {
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
   }
 
   &:disabled {
@@ -108,7 +109,7 @@ const Input = styled.input<{ hasError?: boolean }>`
 `;
 
 // Options dropdown
-const OptionsDropdown = styled.div<{ isOpen: boolean }>`
+const OptionsDropdown = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 100%;
   left: 0;
@@ -121,26 +122,26 @@ const OptionsDropdown = styled.div<{ isOpen: boolean }>`
   max-height: 300px;
   overflow-y: auto;
   z-index: 1000;
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+  display: ${(props) => (props.$isOpen ? 'flex' : 'none')};
   flex-direction: column;
 `;
 
 // Option item
-const OptionItem = styled.button<{ isHighlighted?: boolean; isSelected?: boolean; isDisabled?: boolean }>`
+const OptionItem = styled.button<{ $isHighlighted?: boolean; $isSelected?: boolean; $isDisabled?: boolean }>`
   display: flex;
   align-items: center;
   padding: ${spacing.sm} ${spacing.md};
   background: none;
   border: none;
   text-align: left;
-  cursor: ${(props) => (props.isDisabled ? 'not-allowed' : 'pointer')};
-  color: ${(props) => (props.isDisabled ? colorTokens.text.disabled : colorTokens.text.primary)};
+  cursor: ${(props) => (props.$isDisabled ? 'not-allowed' : 'pointer')};
+  color: ${(props) => (props.$isDisabled ? colorTokens.text.disabled : colorTokens.text.primary)};
   font-size: ${typography.body.fontSize};
   transition: background-color ${transitions.fast};
-  opacity: ${(props) => (props.isDisabled ? 0.5 : 1)};
+  opacity: ${(props) => (props.$isDisabled ? 0.5 : 1)};
 
   background-color: ${(props) =>
-    props.isHighlighted ? colorTokens.background.tertiary : 'transparent'};
+    props.$isHighlighted ? colorTokens.background.tertiary : 'transparent'};
 
   &:hover:not(:disabled) {
     background-color: ${colorTokens.background.tertiary};
@@ -152,7 +153,7 @@ const OptionItem = styled.button<{ isHighlighted?: boolean; isSelected?: boolean
   }
 
   ${(props) =>
-    props.isSelected &&
+    props.$isSelected &&
     `
     color: ${colorTokens.interactive.primary};
     font-weight: 600;
@@ -216,7 +217,9 @@ export const Combobox: React.FC<ComboboxProps> = ({
   const [inputValue, setInputValue] = useState('');
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
-  const comboboxId = id || `combobox-${Math.random().toString(36).substr(2, 9)}`;
+  const field = useFormField();
+  const generatedId = useId();
+  const comboboxId = id || field?.id || `combobox-${generatedId}`;
   const hasError = !!error;
 
   // Filter options
@@ -271,7 +274,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
 
   return (
     <Container>
-      {label && <Label htmlFor={comboboxId} hasError={hasError}>{label}</Label>}
+      {label && <Label htmlFor={comboboxId} $hasError={hasError}>{label}</Label>}
 
       <InputWrapper>
         <Input
@@ -285,7 +288,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
-          hasError={hasError}
+          $hasError={hasError}
           aria-autocomplete="list"
           aria-controls={`${comboboxId}-listbox`}
           aria-expanded={isOpen}
@@ -293,15 +296,15 @@ export const Combobox: React.FC<ComboboxProps> = ({
         />
       </InputWrapper>
 
-      <OptionsDropdown id={`${comboboxId}-listbox`} isOpen={isOpen} role="listbox">
+      <OptionsDropdown id={`${comboboxId}-listbox`} $isOpen={isOpen} role="listbox">
         {filteredOptions.length > 0 ? (
           filteredOptions.map((option, index) => (
             <OptionItem
               key={option.value}
               role="option"
-              isHighlighted={index === highlightedIndex}
-              isSelected={option.value === value}
-              isDisabled={option.disabled}
+              $isHighlighted={index === highlightedIndex}
+              $isSelected={option.value === value}
+              $isDisabled={option.disabled}
               onClick={() => handleSelectOption(option)}
               onMouseEnter={() => setHighlightedIndex(index)}
             >

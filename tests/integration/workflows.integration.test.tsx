@@ -3,7 +3,7 @@
  * Test complete workflows: Budget, Team, Project, Schedule
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 describe('Budget Workflow Integration', () => {
   it('complete budget creation and tracking flow', async () => {
@@ -21,6 +21,7 @@ describe('Budget Workflow Integration', () => {
       { name: 'Content', allocated: 15000 },
       { name: 'Tools', allocated: 10000 },
     ];
+    expect(categories.reduce((sum, c) => sum + c.allocated, 0)).toBe(50000);
 
     // 3. Record spending
     let totalSpent = 0;
@@ -64,6 +65,7 @@ describe('Team Workflow Integration', () => {
       description: 'Engineering team',
       lead: 'user-1',
     };
+    expect(team.name).toBe('Engineering');
 
     // 2. Create roles
     const roles = [
@@ -82,7 +84,7 @@ describe('Team Workflow Integration', () => {
 
     // 4. Approve members
     let approvedCount = 0;
-    memberRequests.forEach((req) => {
+    memberRequests.forEach(() => {
       approvedCount++;
     });
 
@@ -106,6 +108,7 @@ describe('Project Workflow Integration', () => {
       startDate: '2026-11-21',
       endDate: '2026-12-31',
     };
+    expect(new Date(project.endDate) > new Date(project.startDate)).toBe(true);
 
     // 2. Create tasks
     const tasks = [
@@ -223,7 +226,10 @@ describe('Cross-Workflow Integration', () => {
     const actualSpent = teamSize * 20 * dailyCost; // 20 days used
     const remaining = totalProjectBudget - actualSpent;
 
-    expect(remaining).toBe(30000);
+    // 70,000 budgeted - 50,000 spent (5 people x 20 days x 500) = 20,000 left (8 days of runway)
+    expect(actualSpent).toBe(50000);
+    expect(remaining).toBe(20000);
+    expect(remaining / (teamSize * dailyCost)).toBe(projectDays - 20);
   });
 
   it('schedule with budget and team constraints', async () => {

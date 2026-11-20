@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "TARGET_MIGRATION_HISTORY_UNAVAILABLE",
+  "repositoryHead": "d37bdf86f91f79ded820dba1fdb4201e0f1a1c90",
+  "targetMigrationHistories": [],
+  "repositoryMigrationDirectories": [],
+  "nonTargetArtifacts": [
+    {
+      "kind": "empty-database-bootstrap-preview",
+      "provider": "postgresql",
+      "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.postgresql.bootstrap.sql",
+      "sha256": "db52e638eb6fd0268b1a0a79676444e93888cc4b7056eb80b6613eda9ad2eb11",
+      "isTargetHistory": false
+    },
+    {
+      "kind": "empty-database-bootstrap-preview",
+      "provider": "sqlite",
+      "path": "schema-sources/authored/schema-factory-v1/global/migration-preview.global.sqlite.bootstrap.sql",
+      "sha256": "5c5253ce7afbdcaa2a57c84e13024729357d490a857ec5e391b8262db2a9b36f",
+      "isTargetHistory": false
+    },
+    {
+      "kind": "communications-draft-preview",
+      "tableCount": 14,
+      "postgresqlSqlSha256": "2c3c0917311e36a36764f12be425c5f09e71e6eef4f824c07a06b49483f974cf",
+      "sqliteSqlSha256": "b41aae0b469c733960734935f5cd964301022d4cc9868622b9d2f3d985a755e5",
+      "isTargetHistory": false
+    },
+    {
+      "kind": "external-candidate-source",
+      "path": "schema-sources/candidates/neroevents-postgres-migrations.json",
+      "classification": "CANDIDATE",
+      "isMaataaTarget": false
+    }
+  ],
+  "finding": "No authoritative migration history from any intended target is available. Candidate/import SQL and generated previews are not target migration history."
+}

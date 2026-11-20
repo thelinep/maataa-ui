@@ -42,7 +42,7 @@ export interface DataTableProps<T = any> {
 }
 
 // Container
-const Container = styled.div<{ maxHeight?: string }>`
+const Container = styled.div<{ $maxHeight?: string }>`
   display: flex;
   flex-direction: column;
   border: 1px solid ${colorTokens.border.primary};
@@ -51,10 +51,10 @@ const Container = styled.div<{ maxHeight?: string }>`
 `;
 
 // Wrapper for scrolling
-const ScrollWrapper = styled.div<{ maxHeight?: string }>`
+const ScrollWrapper = styled.div<{ $maxHeight?: string }>`
   overflow-x: auto;
-  overflow-y: ${(props) => (props.maxHeight ? 'auto' : 'visible')};
-  ${(props) => props.maxHeight && `max-height: ${props.maxHeight};`}
+  overflow-y: ${(props) => (props.$maxHeight ? 'auto' : 'visible')};
+  ${(props) => props.$maxHeight && `max-height: ${props.$maxHeight};`}
 `;
 
 // Table
@@ -65,7 +65,7 @@ const Table = styled.table`
 `;
 
 // Header cell
-const HeaderCell = styled.th<{ sortable?: boolean }>`
+const HeaderCell = styled.th<{ $sortable?: boolean }>`
   padding: ${spacing.md};
   text-align: left;
   background-color: ${colorTokens.background.secondary};
@@ -73,11 +73,11 @@ const HeaderCell = styled.th<{ sortable?: boolean }>`
   font-weight: ${typography.heading3.fontWeight};
   color: ${colorTokens.text.primary};
   user-select: none;
-  ${(props) => props.sortable && `cursor: pointer;`}
+  ${(props) => props.$sortable && `cursor: pointer;`}
   transition: all ${transitions.fast};
 
   ${(props) =>
-    props.sortable &&
+    props.$sortable &&
     `
     &:hover {
       background-color: ${colorTokens.background.tertiary};
@@ -93,13 +93,13 @@ const BodyCell = styled.td`
 `;
 
 // Body row
-const BodyRow = styled.tr<{ striped?: boolean; hoverable?: boolean; isStriped?: boolean }>`
+const BodyRow = styled.tr<{ $striped?: boolean; $hoverable?: boolean; $isStriped?: boolean }>`
   background-color: ${(props) =>
-    props.isStriped ? colorTokens.background.secondary : colorTokens.background.primary};
+    props.$isStriped ? colorTokens.background.secondary : colorTokens.background.primary};
   transition: all ${transitions.fast};
 
   ${(props) =>
-    props.hoverable &&
+    props.$hoverable &&
     `
     &:hover {
       background-color: ${colorTokens.background.tertiary};
@@ -178,14 +178,14 @@ export const DataTable: React.FC<DataTableProps> = ({
 
   return (
     <Container>
-      <ScrollWrapper maxHeight={maxHeight}>
+      <ScrollWrapper $maxHeight={maxHeight}>
         <Table>
           <thead>
             <tr>
               {columns.map((column) => (
                 <HeaderCell
                   key={column.id}
-                  sortable={column.sortable}
+                  $sortable={column.sortable}
                   onClick={() => handleHeaderClick(column.id, column.sortable)}
                   style={{ width: column.width }}
                 >
@@ -200,9 +200,9 @@ export const DataTable: React.FC<DataTableProps> = ({
             {data.map((row, index) => (
               <BodyRow
                 key={getRowKey ? getRowKey(row, index) : index}
-                striped={striped}
-                isStriped={striped && index % 2 === 1}
-                hoverable={hoverable}
+                $striped={striped}
+                $isStriped={striped && index % 2 === 1}
+                $hoverable={hoverable}
                 onClick={() => onRowClick?.(row, index)}
               >
                 {columns.map((column) => (

@@ -1,0 +1,3061 @@
+{
+  "schemaLifecycle": "CANONICAL",
+  "context": "public",
+  "draftContractSetHash": "d423653d2488d8d525dc9e9ca151ebeec8422dfd4a884cb17713caa7bc89513a",
+  "contractSetHash": "14bb8e51a85acc130f83f323389509161c9ddedfa70b568fac3b3aba23e26fb1",
+  "contracts": [
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.case_studies",
+      "context": "public",
+      "name": "case_studies",
+      "version": "1.0.0",
+      "description": "case studies in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "client_name": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200
+        },
+        "summary": {
+          "type": "text",
+          "nullable": true
+        },
+        "body": {
+          "type": "json",
+          "nullable": false
+        },
+        "locale": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 16
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "case_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.case_studies#case_status",
+          "defaultLiteral": "draft"
+        },
+        "outcome_metrics": {
+          "type": "json",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "evidence_item_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.case_studies#case_status",
+          "values": [
+            "draft",
+            "published",
+            "withdrawn"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "case_studies_slug_locale_uq",
+          "fields": [
+            "slug",
+            "locale"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_case_studies_project_id_project_projects",
+          "fields": [
+            "project_id"
+          ],
+          "references": "project.projects",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "fk_case_studies_evidence_item_id_evidence_evidence_items",
+          "fields": [
+            "evidence_item_id"
+          ],
+          "references": "evidence.evidence_items",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "fk_case_studies_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "project_id_to_project_projects",
+          "from": [
+            "project_id"
+          ],
+          "to": "project.projects",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "evidence_item_id_to_evidence_evidence_items",
+          "from": [
+            "evidence_item_id"
+          ],
+          "to": "evidence.evidence_items",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "case_studies_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.case_studies",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.case_studies",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "case_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.case_studies",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.case_studies",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.contact_requests",
+      "context": "public",
+      "name": "contact_requests",
+      "version": "1.0.0",
+      "description": "contact requests in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "full_name": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "email": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 320
+        },
+        "organisation_name": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200
+        },
+        "topic": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 80
+        },
+        "message": {
+          "type": "text",
+          "nullable": false
+        },
+        "consent": {
+          "type": "boolean",
+          "nullable": false,
+          "defaultLiteral": false
+        },
+        "request_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.contact_requests#request_status",
+          "defaultLiteral": "new"
+        },
+        "submitted_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "assigned_to_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.contact_requests#request_status",
+          "values": [
+            "new",
+            "assigned",
+            "answered",
+            "closed",
+            "spam"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.contact_requests",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "fk_contact_requests_assigned_to_user_id_identity_users",
+          "fields": [
+            "assigned_to_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.contact_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "fk_contact_requests_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.contact_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "assigned_to_user_id_to_identity_users",
+          "from": [
+            "assigned_to_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.contact_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.contact_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "contact_requests_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.contact_requests",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.contact_requests",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "request_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.contact_requests",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.contact_requests",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.cookie_consents",
+      "context": "public",
+      "name": "cookie_consents",
+      "version": "1.0.0",
+      "description": "cookie consents in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "consent_id": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 120
+        },
+        "session_hash": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 128
+        },
+        "policy_version": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 40
+        },
+        "consent_choices": {
+          "type": "json",
+          "nullable": false
+        },
+        "recorded_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant"
+        },
+        "expires_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "source": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 60
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.cookie_consents#status",
+          "defaultLiteral": "draft"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.cookie_consents#status",
+          "values": [
+            "draft",
+            "active",
+            "paused",
+            "completed",
+            "cancelled",
+            "archived"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "cookie_consents_consent_id_uq",
+          "fields": [
+            "consent_id"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_cookie_consents_user_id_identity_users",
+          "fields": [
+            "user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "fk_cookie_consents_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "user_id_to_identity_users",
+          "from": [
+            "user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "cookie_consents_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.cookie_consents",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.cookie_consents",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.cookie_consents",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.cookie_consents",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.demo_requests",
+      "context": "public",
+      "name": "demo_requests",
+      "version": "1.0.0",
+      "description": "demo requests in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "full_name": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "email": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 320
+        },
+        "organisation_name": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200
+        },
+        "role": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 120
+        },
+        "product_interest": {
+          "type": "json",
+          "nullable": true
+        },
+        "preferred_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "request_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.demo_requests#request_status",
+          "defaultLiteral": "new"
+        },
+        "submitted_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "assigned_to_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.demo_requests#request_status",
+          "values": [
+            "new",
+            "qualified",
+            "scheduled",
+            "completed",
+            "closed"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.demo_requests",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "fk_demo_requests_assigned_to_user_id_identity_users",
+          "fields": [
+            "assigned_to_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.demo_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "fk_demo_requests_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.demo_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "assigned_to_user_id_to_identity_users",
+          "from": [
+            "assigned_to_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.demo_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.demo_requests",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "demo_requests_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.demo_requests",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.demo_requests",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "request_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.demo_requests",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.demo_requests",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.documentation_pages",
+      "context": "public",
+      "name": "documentation_pages",
+      "version": "1.0.0",
+      "description": "documentation pages in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 240
+        },
+        "body": {
+          "type": "json",
+          "nullable": false
+        },
+        "locale": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 16
+        },
+        "version_label": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 40
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "page_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.documentation_pages#page_status",
+          "defaultLiteral": "draft"
+        },
+        "search_keywords": {
+          "type": "json",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.documentation_pages#page_status",
+          "values": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.documentation_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "documentation_pages_slug_locale_uq",
+          "fields": [
+            "slug",
+            "locale"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.documentation_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_documentation_pages_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.documentation_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.documentation_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "documentation_pages_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.documentation_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.documentation_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "page_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.documentation_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.documentation_pages",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.industry_pages",
+      "context": "public",
+      "name": "industry_pages",
+      "version": "1.0.0",
+      "description": "industry pages in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "summary": {
+          "type": "text",
+          "nullable": true
+        },
+        "body": {
+          "type": "json",
+          "nullable": false
+        },
+        "locale": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 16
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "page_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.industry_pages#page_status",
+          "defaultLiteral": "draft"
+        },
+        "seo": {
+          "type": "json",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.industry_pages#page_status",
+          "values": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.industry_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "industry_pages_slug_locale_uq",
+          "fields": [
+            "slug",
+            "locale"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.industry_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_industry_pages_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.industry_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.industry_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "industry_pages_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.industry_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.industry_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "page_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.industry_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.industry_pages",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.legal_documents",
+      "context": "public",
+      "name": "legal_documents",
+      "version": "1.0.0",
+      "description": "legal documents in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "document_kind": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 60
+        },
+        "version_label": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 40
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "body_uri": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 1000
+        },
+        "effective_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant"
+        },
+        "retired_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "locale": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 16
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.legal_documents#status",
+          "defaultLiteral": "draft"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.legal_documents#status",
+          "values": [
+            "draft",
+            "active",
+            "paused",
+            "completed",
+            "cancelled",
+            "archived"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.legal_documents",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "legal_documents_document_kind_version_label_locale_uq",
+          "fields": [
+            "document_kind",
+            "version_label",
+            "locale"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.legal_documents",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_legal_documents_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.legal_documents",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.legal_documents",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "legal_documents_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.legal_documents",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.legal_documents",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.legal_documents",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.legal_documents",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.marketing_events",
+      "context": "public",
+      "name": "marketing_events",
+      "version": "1.0.0",
+      "description": "marketing events in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "event_name": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 120
+        },
+        "session_hash": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 128
+        },
+        "occurred_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant"
+        },
+        "anonymous_id": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 128
+        },
+        "properties": {
+          "type": "json",
+          "nullable": true
+        },
+        "consent_state": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 40
+        },
+        "status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.marketing_events#status",
+          "defaultLiteral": "draft"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.marketing_events#status",
+          "values": [
+            "draft",
+            "active",
+            "paused",
+            "completed",
+            "cancelled",
+            "archived"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_events",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "fk_marketing_events_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_events",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_events",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "marketing_events_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_events",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.marketing_events",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.marketing_events",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.marketing_events",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.marketing_leads",
+      "context": "public",
+      "name": "marketing_leads",
+      "version": "1.0.0",
+      "description": "marketing leads in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "full_name": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 160
+        },
+        "email": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 320
+        },
+        "company_name": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200
+        },
+        "source": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 80
+        },
+        "consent_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.marketing_leads#consent_status",
+          "defaultLiteral": "granted"
+        },
+        "lead_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.marketing_leads#lead_status",
+          "defaultLiteral": "new"
+        },
+        "captured_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        },
+        "assigned_to_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.marketing_leads#consent_status",
+          "values": [
+            "granted",
+            "withdrawn",
+            "unknown"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "id": "public.marketing_leads#lead_status",
+          "values": [
+            "new",
+            "qualified",
+            "converted",
+            "unsubscribed"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "fk_marketing_leads_assigned_to_user_id_identity_users",
+          "fields": [
+            "assigned_to_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "fk_marketing_leads_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "assigned_to_user_id_to_identity_users",
+          "from": [
+            "assigned_to_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        },
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "marketing_leads_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.marketing_leads",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.marketing_leads",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "consent_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.marketing_leads",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.marketing_leads",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.pricing_plans",
+      "context": "public",
+      "name": "pricing_plans",
+      "version": "1.0.0",
+      "description": "pricing plans in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "plan_key": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 100
+        },
+        "name": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "description": {
+          "type": "text",
+          "nullable": true
+        },
+        "currency_code": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 3
+        },
+        "price_amount": {
+          "type": "decimal",
+          "nullable": true,
+          "precision": 14,
+          "scale": 2
+        },
+        "billing_period": {
+          "type": "string",
+          "nullable": true,
+          "maxLength": 40
+        },
+        "features": {
+          "type": "json",
+          "nullable": false
+        },
+        "plan_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.pricing_plans#plan_status",
+          "defaultLiteral": "draft"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.pricing_plans#plan_status",
+          "values": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.pricing_plans",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "fk_pricing_plans_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.pricing_plans",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.pricing_plans",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pricing_plans_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.pricing_plans",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.pricing_plans",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "plan_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.pricing_plans",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.pricing_plans",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.product_pages",
+      "context": "public",
+      "name": "product_pages",
+      "version": "1.0.0",
+      "description": "product pages in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "summary": {
+          "type": "text",
+          "nullable": true
+        },
+        "body": {
+          "type": "json",
+          "nullable": false
+        },
+        "locale": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 16
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "page_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.product_pages#page_status",
+          "defaultLiteral": "draft"
+        },
+        "seo": {
+          "type": "json",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.product_pages#page_status",
+          "values": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.product_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "product_pages_slug_locale_uq",
+          "fields": [
+            "slug",
+            "locale"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.product_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_product_pages_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.product_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.product_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "product_pages_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.product_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.product_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "page_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.product_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.product_pages",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "schemaLifecycle": "CANONICAL",
+      "id": "public.solution_pages",
+      "context": "public",
+      "name": "solution_pages",
+      "version": "1.0.0",
+      "description": "solution pages in the public context. MAATAA-authored schema contract; see its review artifact for exact hash and decisions.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 160
+        },
+        "title": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 200
+        },
+        "summary": {
+          "type": "text",
+          "nullable": true
+        },
+        "body": {
+          "type": "json",
+          "nullable": false
+        },
+        "locale": {
+          "type": "string",
+          "nullable": false,
+          "maxLength": 16
+        },
+        "published_at": {
+          "type": "datetime",
+          "nullable": true,
+          "timezone": "UTC instant"
+        },
+        "page_status": {
+          "type": "enum",
+          "nullable": false,
+          "enumId": "public.solution_pages#page_status",
+          "defaultLiteral": "draft"
+        },
+        "seo": {
+          "type": "json",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "timezone": "UTC instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_by_user_id": {
+          "type": "uuid",
+          "nullable": true
+        }
+      },
+      "enums": [
+        {
+          "id": "public.solution_pages#page_status",
+          "values": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.solution_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "solution_pages_slug_locale_uq",
+          "fields": [
+            "slug",
+            "locale"
+          ],
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.solution_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_solution_pages_created_by_user_id_identity_users",
+          "fields": [
+            "created_by_user_id"
+          ],
+          "references": "identity.users",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "no-action",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.solution_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "created_by_user_id_to_identity_users",
+          "from": [
+            "created_by_user_id"
+          ],
+          "to": "identity.users",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.solution_pages",
+              "context-registry:public",
+              "product-composition-registry"
+            ],
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "solution_pages_created_idx",
+          "fields": [
+            "created_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "kind": "MAATAA_AUTHORED",
+            "evidence": [
+              "domain-catalog:public.solution_pages",
+              "context-registry:public",
+              "product-composition-registry",
+              "schema-reset-policy:author-validate-review-canonicalize"
+            ],
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-03T00:23:18.451Z"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "public",
+        "steward": "public",
+        "scope": "PLATFORM",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.solution_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "statusField": "page_status",
+        "retentionPolicy": "proposed:public-standard-retention-v1",
+        "provenance": {
+          "kind": "MAATAA_AUTHORED",
+          "evidence": [
+            "domain-catalog:public.solution_pages",
+            "context-registry:public",
+            "product-composition-registry",
+            "schema-reset-policy:author-validate-review-canonicalize"
+          ],
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-03T00:23:18.451Z"
+        }
+      },
+      "provenance": {
+        "kind": "MAATAA_AUTHORED",
+        "evidence": [
+          "domain-catalog:public.solution_pages",
+          "context-registry:public",
+          "product-composition-registry"
+        ],
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-03T00:23:18.451Z"
+      }
+    }
+  ]
+}

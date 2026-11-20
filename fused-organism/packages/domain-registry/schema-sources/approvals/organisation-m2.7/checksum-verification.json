@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifact": "BUNDLE_SHA256.txt",
+  "providedDigest": "a26601a071f7c1261a655aad13fd043eece944f82534d2d48739d33b3ab0c93f",
+  "verificationStatus": "UNRESOLVED",
+  "reason": "The supplied digest has no filename or aggregate scope and does not match any individual supplied bundle artifact.",
+  "checkedAgainst": [
+    "README.source.md",
+    "approval-bundle.json",
+    "approval-record.json",
+    "contracts.approved.json",
+    "existing4-retention-approvals.json",
+    "fk-closure.json",
+    "retention-policies.approved.json"
+  ]
+}

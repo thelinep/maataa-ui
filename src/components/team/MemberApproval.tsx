@@ -72,14 +72,14 @@ const RequestsList = styled.div`
   gap: ${spacing.sm};
 `;
 
-const RequestCard = styled.div`
+const RequestCard = styled.div<{ $status?: string }>`
   display: flex;
   flex-direction: column;
   gap: ${spacing.sm};
   padding: ${spacing.md};
   background: ${colorTokens.background.secondary};
-  border: 2px solid ${(props: any) => {
-    switch (props.status) {
+  border: 2px solid ${(props) => {
+    switch (props.$status) {
       case 'approved': return colorTokens.interactive.success;
       case 'rejected': return colorTokens.interactive.error;
       case 'pending': return colorTokens.interactive.warning;
@@ -90,14 +90,14 @@ const RequestCard = styled.div`
   position: relative;
 `;
 
-const StatusBadge = styled.span`
+const StatusBadge = styled.span<{ $status?: string }>`
   position: absolute;
   top: ${spacing.sm};
   right: ${spacing.sm};
   display: inline-block;
   padding: 4px 8px;
-  background: ${(props: any) => {
-    switch (props.status) {
+  background: ${(props) => {
+    switch (props.$status) {
       case 'approved': return colorTokens.interactive.success;
       case 'rejected': return colorTokens.interactive.error;
       case 'pending': return colorTokens.interactive.warning;
@@ -244,9 +244,7 @@ function formatDate(timestamp: number): string {
  * />
  */
 export const MemberApproval: React.FC<MemberApprovalProps> = ({
-  teamId,
   requests,
-  currentUserId,
   canApprove,
   onApprove,
   onReject,
@@ -311,8 +309,8 @@ export const MemberApproval: React.FC<MemberApprovalProps> = ({
           ) : (
             <RequestsList>
               {pendingRequests.map((request) => (
-                <RequestCard key={request.id} status={request.status}>
-                  <StatusBadge status={request.status}>Pending</StatusBadge>
+                <RequestCard key={request.id} $status={request.status}>
+                  <StatusBadge $status={request.status}>Pending</StatusBadge>
 
                   <RequestHeader>
                     <UserInfo>
@@ -380,8 +378,8 @@ export const MemberApproval: React.FC<MemberApprovalProps> = ({
           <SectionTitle>✓ Approved Members ({approvedRequests.length})</SectionTitle>
           <RequestsList>
             {approvedRequests.map((request) => (
-              <RequestCard key={request.id} status={request.status}>
-                <StatusBadge status={request.status}>Approved</StatusBadge>
+              <RequestCard key={request.id} $status={request.status}>
+                <StatusBadge $status={request.status}>Approved</StatusBadge>
 
                 <RequestHeader>
                   <UserInfo>
@@ -408,8 +406,8 @@ export const MemberApproval: React.FC<MemberApprovalProps> = ({
           <SectionTitle>✕ Rejected ({rejectedRequests.length})</SectionTitle>
           <RequestsList>
             {rejectedRequests.map((request) => (
-              <RequestCard key={request.id} status={request.status}>
-                <StatusBadge status={request.status}>Rejected</StatusBadge>
+              <RequestCard key={request.id} $status={request.status}>
+                <StatusBadge $status={request.status}>Rejected</StatusBadge>
 
                 <RequestHeader>
                   <UserInfo>

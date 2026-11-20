@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewStatus": "REVIEWED",
+  "decision": "APPROVE",
+  "reviewer": "thelinep",
+  "reviewedAt": "2026-10-03T00:00:00+05:30",
+  "scope": "MAATAA-authored Project context schema for the casting composition",
+  "context": "project",
+  "contractCount": 17,
+  "contractSetHash": "b9e1a35a3d6f1cf3c18a0c2966e0f7db45cf7033dbff1650c8535a8243b96540",
+  "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+  "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+  "contractIds": [
+    "project.project_activity",
+    "project.project_blockers",
+    "project.project_briefs",
+    "project.project_closeouts",
+    "project.project_health_snapshots",
+    "project.project_intakes",
+    "project.project_members",
+    "project.project_milestones",
+    "project.project_notes",
+    "project.project_status_history",
+    "project.project_tag_links",
+    "project.project_tags",
+    "project.project_tasks",
+    "project.project_types",
+    "project.projects",
+    "project.task_checklists",
+    "project.task_dependencies"
+  ],
+  "coreProposalIds": [
+    "project.project_members",
+    "project.projects"
+  ],
+  "approvalBasis": "Approved the exact 17-contract Project context after field/type/key/relation/index/lifecycle inspection, structural validation, tenant-key closure, and PostgreSQL/SQLite Prisma preview validation. The two MAATAA core proposals and 15 casting drafts are authored design inputs, not external schema authority. Global user references require application checks for active organisation/workspace membership and project access. Project membership does not itself establish tenant membership. The explicit project-to-project_members cascade is retained; migrations/deployment remain separately unapproved.",
+  "validations": {
+    "structuralContracts": "17/17 PASS",
+    "tenantOwnedForeignKeys": "PASS; all tenant-owned target references include organisation_id",
+    "foreignKeyClosure": "PASS (160-table composition closure)",
+    "logicalSchema": "PASS",
+    "prisma": {
+      "postgresql": "PASS",
+      "sqlite": "PASS",
+      "scope": "Prisma model projection only"
+    },
+    "unitTests": "28/28 PASS",
+    "registry": "PASS; 0 blockers, 0 errors, 0 warnings; 11 deferred route information findings"
+  },
+  "retainedBoundaries": {
+    "applicationMembershipAuthorizationImplemented": false,
+    "identityContextCanonical": true,
+    "compositionSchemaReady": true,
+    "legalReviewed": false,
+    "migrationApproved": false,
+    "deploymentApproved": false
+  },
+  "canonicalizedAt": "2026-10-03T00:00:00+05:30",
+  "proofRefreshedAt": "2026-10-03",
+  "hashRefresh": {
+    "amendmentId": "organisation-scope-integrity-v1.2.0",
+    "reviewer": "thelinep",
+    "refreshedAt": "2026-10-03T00:00:21.130Z",
+    "previous": {
+      "contractSetHash": "8789255de24c57fb57b83adde87e77fed65c6fc9f8d1c4bd9d744062a57c5e8c",
+      "logicalSchemaHash": "9df0040ac7fdaf62972ed51020bf25eb53e77915dca84d1702def245ac5cc3db"
+    },
+    "current": {
+      "contractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+      "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+    }
+  }
+}

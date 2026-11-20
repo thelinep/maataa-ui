@@ -1,0 +1,107 @@
+{
+  "schemaLifecycle": "DRAFT",
+  "targetProvider": "postgresql",
+  "intendedCompatibility": "PostgreSQL",
+  "deployable": false,
+  "migrationExecutable": false,
+  "migrationApproved": false,
+  "deploymentApproved": false,
+  "legalReviewed": false,
+  "prismaPreviewValid": true,
+  "migrationPreviewValid": true,
+  "validationStatus": "PASS",
+  "tableIds": [
+    "communications.announcements",
+    "communications.communication_threads",
+    "communications.direct_message_threads",
+    "communications.message_attachments",
+    "communications.messages",
+    "communications.notification_deliveries",
+    "communications.notification_preferences",
+    "communications.notifications",
+    "communications.thread_members",
+    "identity.users",
+    "organisation.organisation_memberships",
+    "organisation.organisations",
+    "organisation.workspace_memberships",
+    "organisation.workspaces"
+  ],
+  "unprojectedLogicalInvariants": [
+    {
+      "tableId": "communications.announcements",
+      "discriminator": "audience_kind",
+      "field": "workspace_id",
+      "kind": "conditional-nullability",
+      "name": "announcement_audience_matches_workspace_scope",
+      "nullableWhen": [
+        "ORGANISATION"
+      ],
+      "requiredWhen": [
+        "WORKSPACE"
+      ],
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    },
+    {
+      "tableId": "communications.direct_message_threads",
+      "comparison": "uuid-binary-ascending",
+      "fields": [
+        "participant_low_membership_id",
+        "participant_high_membership_id"
+      ],
+      "kind": "strictly-ordered-uuid-pair",
+      "name": "direct_message_membership_pair_is_normalized",
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    },
+    {
+      "tableId": "communications.direct_message_threads",
+      "kind": "referenced-row-predicate",
+      "name": "direct_message_parent_thread_is_direct",
+      "predicate": {
+        "equals": "direct",
+        "field": "kind"
+      },
+      "scopeFields": [
+        "organisation_id",
+        "thread_id",
+        "workspace_id"
+      ],
+      "target": "communications.communication_threads",
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    },
+    {
+      "tableId": "communications.thread_members",
+      "activeWhenNull": "left_at",
+      "keyFields": [
+        "organisation_id",
+        "workspace_id",
+        "thread_id",
+        "workspace_membership_id"
+      ],
+      "kind": "at-most-one-active-row",
+      "name": "one_active_thread_membership_episode",
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    },
+    {
+      "tableId": "communications.thread_members",
+      "immutableFields": [
+        "organisation_id",
+        "workspace_id",
+        "thread_id",
+        "workspace_membership_id",
+        "joined_at",
+        "created_at"
+      ],
+      "kind": "immutable-episode-identity-and-terminal-state",
+      "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "terminalField": "left_at",
+      "terminalTransition": "null-to-non-null-once; ended episodes cannot be reopened or have their end time rewritten",
+      "projection": "DEFERRED_TO_PROVIDER_MIGRATION"
+    }
+  ],
+  "sourceLogicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
+  "physicalTableNamePolicy": "context_table underscore mapping",
+  "enumProjection": "Prisma enum projection; canonical allowed values remain in MAATAA logical contract",
+  "validationTool": "Prisma CLI 7.9.1",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "invariantEnforcementValid": true
+}

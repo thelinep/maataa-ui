@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceId": "maataa-core-v1",
+  "context": "organisation",
+  "decision": "APPROVED",
+  "approvedAt": "2026-10-02T21:08:00+05:30",
+  "approvedBy": "thelinep",
+  "roles": {
+    "schemaAuthor": "thelinep",
+    "domainOwner": "thelinep",
+    "architectureOwner": "thelinep",
+    "registryApprover": "thelinep",
+    "migrationApprover": "thelinep"
+  },
+  "scope": {
+    "schemaApproval": "APPROVED",
+    "provenanceApproval": "APPROVED",
+    "retentionApproval": "APPROVED_FOR_REGISTRY_SCHEMA_READINESS",
+    "migrationApproval": "NOT_GRANTED_BY_THIS_RECORD"
+  },
+  "tables": [
+    "organisation.organisations",
+    "organisation.organisation_memberships",
+    "organisation.organisation_settings",
+    "organisation.workspaces",
+    "organisation.workspace_memberships",
+    "organisation.workspace_settings",
+    "organisation.workspace_roles",
+    "organisation.workspace_invites",
+    "organisation.workspace_activity",
+    "organisation.workspace_favourites"
+  ],
+  "newlyAuthoredContracts": [
+    "organisation.organisation_settings",
+    "organisation.workspace_settings",
+    "organisation.workspace_roles",
+    "organisation.workspace_invites",
+    "organisation.workspace_activity",
+    "organisation.workspace_favourites"
+  ],
+  "canonicalPromotion": {
+    "organisationContext": "APPROVED_AFTER_LOCAL_VALIDATION",
+    "note": "Apply to feat/domain-contracts-core-v1 and run the registry validator. Promotion must fail if any of the existing four contracts has drifted from the previously proven kernel."
+  },
+  "productionBoundary": {
+    "legalComplianceReviewRequired": true,
+    "migrationReviewRequired": true,
+    "runtimeDeploymentApprovalRequired": true
+  }
+}

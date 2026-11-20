@@ -11,7 +11,7 @@
  * - Design token integration
  */
 
-import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, transitions, borderRadius } from '@/utils/tokens';
 
@@ -178,7 +178,8 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
     },
     ref
   ) => {
-    const toggleId = id || `toggle-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const toggleId = id || `toggle-${generatedId}`;
 
     return (
       <Container labelPosition={labelPosition}>

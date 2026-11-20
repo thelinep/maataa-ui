@@ -1,0 +1,2086 @@
+{
+  "schemaVersion": "1.0.0",
+  "bundleId": "m2.7-organisation-schema-approval",
+  "generatedAt": "2026-10-02T21:08:00+05:30",
+  "authoritativeDecisionSource": "thelinep explicit instruction in current conversation",
+  "contracts": [
+    {
+      "schemaVersion": "1.0.0",
+      "id": "organisation.organisation_settings",
+      "context": "organisation",
+      "name": "organisation_settings",
+      "version": "1.0.0",
+      "description": "One settings document per organisation tenant.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "settings": {
+          "type": "json",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultLiteral": {}
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "organisation_settings_organisation_key",
+          "fields": [
+            "organisation_id"
+          ],
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "organisation_settings_organisation_fk",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "organisation_settings_organisation_idx",
+          "fields": [
+            "organisation_id"
+          ],
+          "unique": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "organisation",
+        "steward": "platform",
+        "tenantKey": "organisation_id",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "ORG_SETTINGS_ACTIVE_PLUS_90D",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "provenance": {
+        "source": "maataa-core-v1",
+        "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.organisation_settings",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "organisation.workspace_settings",
+      "context": "organisation",
+      "name": "workspace_settings",
+      "version": "1.0.0",
+      "description": "One settings document per workspace, scoped to its organisation tenant.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "settings": {
+          "type": "json",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultLiteral": {}
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "workspace_settings_workspace_key",
+          "fields": [
+            "workspace_id"
+          ],
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "workspace_settings_organisation_fk",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_settings_workspace_fk",
+          "fields": [
+            "workspace_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace",
+          "from": [
+            "workspace_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "workspace_settings_workspace_idx",
+          "fields": [
+            "workspace_id"
+          ],
+          "unique": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_settings_organisation_idx",
+          "fields": [
+            "organisation_id"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "organisation",
+        "steward": "platform",
+        "tenantKey": "organisation_id",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "WORKSPACE_SETTINGS_ACTIVE_PLUS_90D",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "provenance": {
+        "source": "maataa-core-v1",
+        "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_settings",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "organisation.workspace_roles",
+      "context": "organisation",
+      "name": "workspace_roles",
+      "version": "1.0.0",
+      "description": "Workspace-scoped role definitions. Permission payloads are policy references, not the canonical identity permission registry.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "name": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 120
+        },
+        "description": {
+          "type": "text",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "permissions": {
+          "type": "json",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultLiteral": []
+        },
+        "is_system": {
+          "type": "boolean",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultLiteral": false
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "retired_at": {
+          "type": "datetime",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant"
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "workspace_roles_workspace_name_key",
+          "fields": [
+            "workspace_id",
+            "name"
+          ],
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "workspace_roles_organisation_fk",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_roles_workspace_fk",
+          "fields": [
+            "workspace_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace",
+          "from": [
+            "workspace_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "workspace_roles_workspace_idx",
+          "fields": [
+            "workspace_id"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_roles_organisation_idx",
+          "fields": [
+            "organisation_id"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_roles_retired_idx",
+          "fields": [
+            "retired_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "organisation",
+        "steward": "platform",
+        "tenantKey": "organisation_id",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retiredAt": "retired_at",
+        "retentionPolicy": "WORKSPACE_ROLES_RETIRED_PLUS_365D",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "provenance": {
+        "source": "maataa-core-v1",
+        "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_roles",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "organisation.workspace_invites",
+      "context": "organisation",
+      "name": "workspace_invites",
+      "version": "1.0.0",
+      "description": "Workspace invitation records. Invite secrets are stored only as hashes.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "email": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 320
+        },
+        "role_id": {
+          "type": "uuid",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "invited_by_membership_id": {
+          "type": "uuid",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "token_hash": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 128
+        },
+        "status": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 40,
+          "defaultLiteral": "pending"
+        },
+        "expires_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant"
+        },
+        "accepted_at": {
+          "type": "datetime",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant"
+        },
+        "revoked_at": {
+          "type": "datetime",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant"
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "workspace_invites_workspace_email_pending_key",
+          "fields": [
+            "workspace_id",
+            "email",
+            "status"
+          ],
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "workspace_invites_organisation_fk",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_invites_workspace_fk",
+          "fields": [
+            "workspace_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_invites_role_fk",
+          "fields": [
+            "role_id"
+          ],
+          "references": "organisation.workspace_roles",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_invites_inviter_membership_fk",
+          "fields": [
+            "invited_by_membership_id"
+          ],
+          "references": "organisation.workspace_memberships",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace",
+          "from": [
+            "workspace_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "role",
+          "from": [
+            "role_id"
+          ],
+          "to": "organisation.workspace_roles",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "invitedByMembership",
+          "from": [
+            "invited_by_membership_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "workspace_invites_workspace_status_idx",
+          "fields": [
+            "workspace_id",
+            "status"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_invites_email_idx",
+          "fields": [
+            "email"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_invites_expires_idx",
+          "fields": [
+            "expires_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "organisation",
+        "steward": "platform",
+        "tenantKey": "organisation_id",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "WORKSPACE_INVITES_TERMINAL_PLUS_180D",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "provenance": {
+        "source": "maataa-core-v1",
+        "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_invites",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "organisation.workspace_activity",
+      "context": "organisation",
+      "name": "workspace_activity",
+      "version": "1.0.0",
+      "description": "Non-compliance workspace activity feed. Canonical compliance/audit history remains in evidence.audit_events.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "actor_membership_id": {
+          "type": "uuid",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "event_type": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 120
+        },
+        "entity_type": {
+          "type": "string",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 120
+        },
+        "entity_id": {
+          "type": "string",
+          "nullable": true,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 200
+        },
+        "payload": {
+          "type": "json",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultLiteral": {}
+        },
+        "occurred_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "workspace_activity_organisation_fk",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_activity_workspace_fk",
+          "fields": [
+            "workspace_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_activity_actor_membership_fk",
+          "fields": [
+            "actor_membership_id"
+          ],
+          "references": "organisation.workspace_memberships",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "set-null",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace",
+          "from": [
+            "workspace_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "actorMembership",
+          "from": [
+            "actor_membership_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "workspace_activity_workspace_occurred_idx",
+          "fields": [
+            "workspace_id",
+            "occurred_at"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_activity_actor_idx",
+          "fields": [
+            "actor_membership_id"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_activity_event_type_idx",
+          "fields": [
+            "event_type"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "organisation",
+        "steward": "platform",
+        "tenantKey": "organisation_id",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "WORKSPACE_ACTIVITY_365D",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "provenance": {
+        "source": "maataa-core-v1",
+        "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_activity",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "id": "organisation.workspace_favourites",
+      "context": "organisation",
+      "name": "workspace_favourites",
+      "version": "1.0.0",
+      "description": "Per-membership workspace favourites for navigable resources.",
+      "fields": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": true,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "defaultExpression": {
+            "kind": "uuid-v4"
+          }
+        },
+        "organisation_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "workspace_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "membership_id": {
+          "type": "uuid",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        "target_type": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 120
+        },
+        "target_id": {
+          "type": "string",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "maxLength": 200
+        },
+        "created_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        },
+        "updated_at": {
+          "type": "datetime",
+          "nullable": false,
+          "generated": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          },
+          "timezone": "UTC-normalized-instant",
+          "defaultExpression": {
+            "kind": "current-timestamp"
+          }
+        }
+      },
+      "enums": [],
+      "primaryKey": [
+        "id"
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "workspace_favourites_membership_target_key",
+          "fields": [
+            "membership_id",
+            "target_type",
+            "target_id"
+          ],
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "foreignKeys": [
+        {
+          "name": "workspace_favourites_organisation_fk",
+          "fields": [
+            "organisation_id"
+          ],
+          "references": "organisation.organisations",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_favourites_workspace_fk",
+          "fields": [
+            "workspace_id"
+          ],
+          "references": "organisation.workspaces",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_favourites_membership_fk",
+          "fields": [
+            "membership_id"
+          ],
+          "references": "organisation.workspace_memberships",
+          "referencedFields": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "organisation",
+          "from": [
+            "organisation_id"
+          ],
+          "to": "organisation.organisations",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace",
+          "from": [
+            "workspace_id"
+          ],
+          "to": "organisation.workspaces",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "membership",
+          "from": [
+            "membership_id"
+          ],
+          "to": "organisation.workspace_memberships",
+          "toFields": [
+            "id"
+          ],
+          "cardinality": "many-to-one",
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "name": "workspace_favourites_workspace_idx",
+          "fields": [
+            "workspace_id"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        },
+        {
+          "name": "workspace_favourites_membership_idx",
+          "fields": [
+            "membership_id"
+          ],
+          "unique": false,
+          "provenance": {
+            "source": "maataa-core-v1",
+            "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+            "reviewStatus": "approved",
+            "reviewedBy": "thelinep",
+            "reviewedAt": "2026-10-02T21:08:00+05:30"
+          }
+        }
+      ],
+      "ownership": {
+        "owner": "organisation",
+        "steward": "platform",
+        "tenantKey": "organisation_id",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "lifecycle": {
+        "createdAt": "created_at",
+        "updatedAt": "updated_at",
+        "retentionPolicy": "WORKSPACE_FAVOURITES_MEMBERSHIP_END_PLUS_30D",
+        "provenance": {
+          "source": "maataa-core-v1",
+          "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+          "reviewStatus": "approved",
+          "reviewedBy": "thelinep",
+          "reviewedAt": "2026-10-02T21:08:00+05:30"
+        }
+      },
+      "provenance": {
+        "source": "maataa-core-v1",
+        "reference": "schema-sources/authored/maataa-core-v1/contracts.json#organisation.workspace_favourites",
+        "reviewStatus": "approved",
+        "reviewedBy": "thelinep",
+        "reviewedAt": "2026-10-02T21:08:00+05:30"
+      }
+    }
+  ],
+  "retentionPolicies": {
+    "schemaVersion": "1.0.0",
+    "approvalScope": "Domain Registry schema-readiness policy; not external legal/compliance sign-off.",
+    "productionLegalReviewRequired": true,
+    "approvedBy": "thelinep",
+    "approvedAt": "2026-10-02T21:08:00+05:30",
+    "policies": [
+      {
+        "id": "ORG_SETTINGS_ACTIVE_PLUS_90D",
+        "trigger": "organisation deletion/closure",
+        "windowDays": 90,
+        "basis": "owner-approved operational recovery window",
+        "status": "approved"
+      },
+      {
+        "id": "WORKSPACE_SETTINGS_ACTIVE_PLUS_90D",
+        "trigger": "workspace deletion/closure",
+        "windowDays": 90,
+        "basis": "owner-approved operational recovery window",
+        "status": "approved"
+      },
+      {
+        "id": "WORKSPACE_ROLES_RETIRED_PLUS_365D",
+        "trigger": "role retirement or workspace deletion",
+        "windowDays": 365,
+        "basis": "owner-approved role-history support window",
+        "status": "approved"
+      },
+      {
+        "id": "WORKSPACE_INVITES_TERMINAL_PLUS_180D",
+        "trigger": "invite acceptance, expiry, or revocation",
+        "windowDays": 180,
+        "basis": "owner-approved invitation troubleshooting and abuse-review window",
+        "status": "approved"
+      },
+      {
+        "id": "WORKSPACE_ACTIVITY_365D",
+        "trigger": "activity occurrence",
+        "windowDays": 365,
+        "basis": "owner-approved non-compliance activity-feed history window",
+        "status": "approved"
+      },
+      {
+        "id": "WORKSPACE_FAVOURITES_MEMBERSHIP_END_PLUS_30D",
+        "trigger": "membership termination or workspace deletion",
+        "windowDays": 30,
+        "basis": "owner-approved short recovery window",
+        "status": "approved"
+      }
+    ]
+  },
+  "foreignKeyClosure": {
+    "schemaVersion": "1.0.0",
+    "context": "organisation",
+    "catalogTableCount": 10,
+    "priorKernelClosure": {
+      "status": "PROVEN_IN_EXISTING_M2.7_BRANCH",
+      "note": "The existing four Organisation proposals were part of the previously proven 13-table kernel closure."
+    },
+    "newProposalCount": 6,
+    "newForeignKeyEdges": [
+      {
+        "sourceTable": "organisation.organisation_settings",
+        "foreignKey": "organisation_settings_organisation_fk",
+        "targetTable": "organisation.organisations",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_settings",
+        "foreignKey": "workspace_settings_organisation_fk",
+        "targetTable": "organisation.organisations",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_settings",
+        "foreignKey": "workspace_settings_workspace_fk",
+        "targetTable": "organisation.workspaces",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_roles",
+        "foreignKey": "workspace_roles_organisation_fk",
+        "targetTable": "organisation.organisations",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_roles",
+        "foreignKey": "workspace_roles_workspace_fk",
+        "targetTable": "organisation.workspaces",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_invites",
+        "foreignKey": "workspace_invites_organisation_fk",
+        "targetTable": "organisation.organisations",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_invites",
+        "foreignKey": "workspace_invites_workspace_fk",
+        "targetTable": "organisation.workspaces",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_invites",
+        "foreignKey": "workspace_invites_role_fk",
+        "targetTable": "organisation.workspace_roles",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_invites",
+        "foreignKey": "workspace_invites_inviter_membership_fk",
+        "targetTable": "organisation.workspace_memberships",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_activity",
+        "foreignKey": "workspace_activity_organisation_fk",
+        "targetTable": "organisation.organisations",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_activity",
+        "foreignKey": "workspace_activity_workspace_fk",
+        "targetTable": "organisation.workspaces",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_activity",
+        "foreignKey": "workspace_activity_actor_membership_fk",
+        "targetTable": "organisation.workspace_memberships",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_favourites",
+        "foreignKey": "workspace_favourites_organisation_fk",
+        "targetTable": "organisation.organisations",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_favourites",
+        "foreignKey": "workspace_favourites_workspace_fk",
+        "targetTable": "organisation.workspaces",
+        "status": "CLOSED"
+      },
+      {
+        "sourceTable": "organisation.workspace_favourites",
+        "foreignKey": "workspace_favourites_membership_fk",
+        "targetTable": "organisation.workspace_memberships",
+        "status": "CLOSED"
+      }
+    ],
+    "newForeignKeyCount": 15,
+    "newUnresolvedTargets": [],
+    "contextClosureDecision": "CLOSED",
+    "conditions": [
+      "The existing four drafted contracts remain unchanged in identity and primary-key shape.",
+      "organisation.organisations exposes primary key id:uuid.",
+      "organisation.workspaces exposes primary key id:uuid.",
+      "organisation.workspace_memberships exposes primary key id:uuid."
+    ]
+  },
+  "approval": {
+    "schemaVersion": "1.0.0",
+    "sourceId": "maataa-core-v1",
+    "context": "organisation",
+    "decision": "APPROVED",
+    "approvedAt": "2026-10-02T21:08:00+05:30",
+    "approvedBy": "thelinep",
+    "roles": {
+      "schemaAuthor": "thelinep",
+      "domainOwner": "thelinep",
+      "architectureOwner": "thelinep",
+      "registryApprover": "thelinep",
+      "migrationApprover": "thelinep"
+    },
+    "scope": {
+      "schemaApproval": "APPROVED",
+      "provenanceApproval": "APPROVED",
+      "retentionApproval": "APPROVED_FOR_REGISTRY_SCHEMA_READINESS",
+      "migrationApproval": "NOT_GRANTED_BY_THIS_RECORD"
+    },
+    "tables": [
+      "organisation.organisations",
+      "organisation.organisation_memberships",
+      "organisation.organisation_settings",
+      "organisation.workspaces",
+      "organisation.workspace_memberships",
+      "organisation.workspace_settings",
+      "organisation.workspace_roles",
+      "organisation.workspace_invites",
+      "organisation.workspace_activity",
+      "organisation.workspace_favourites"
+    ],
+    "newlyAuthoredContracts": [
+      "organisation.organisation_settings",
+      "organisation.workspace_settings",
+      "organisation.workspace_roles",
+      "organisation.workspace_invites",
+      "organisation.workspace_activity",
+      "organisation.workspace_favourites"
+    ],
+    "canonicalPromotion": {
+      "organisationContext": "APPROVED_AFTER_LOCAL_VALIDATION",
+      "note": "Apply to feat/domain-contracts-core-v1 and run the registry validator. Promotion must fail if any of the existing four contracts has drifted from the previously proven kernel."
+    },
+    "productionBoundary": {
+      "legalComplianceReviewRequired": true,
+      "migrationReviewRequired": true,
+      "runtimeDeploymentApprovalRequired": true
+    }
+  }
+}

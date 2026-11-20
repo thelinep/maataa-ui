@@ -46,7 +46,7 @@ const Container = styled.div`
 
 const FormGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing.md};
 
   @media (max-width: 768px) {
@@ -94,7 +94,7 @@ const LoadingText = styled.span`
 
 const BudgetSummary = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: ${spacing.md};
   padding: ${spacing.md};
   background-color: ${colorTokens.background.secondary};

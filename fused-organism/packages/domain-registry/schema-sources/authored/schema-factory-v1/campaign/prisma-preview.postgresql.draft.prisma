@@ -1,0 +1,1108 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for PostgreSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum E_CampaignActivationCalendarItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.activation_calendar_items#status")
+}
+enum E_CampaignActivationFeedEventsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.activation_feed_events#status")
+}
+enum E_CampaignActivationsActivationStatus {
+  planned
+  ready
+  live
+  completed
+  cancelled
+  @@map("campaign.activations#activation_status")
+}
+enum E_CampaignAtlPlansStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.atl_plans#status")
+}
+enum E_CampaignBtlPlansStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.btl_plans#status")
+}
+enum E_CampaignCampaignBriefsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.campaign_briefs#status")
+}
+enum E_CampaignCampaignMarketsMarketStatus {
+  target
+  excluded
+  active
+  @@map("campaign.campaign_markets#market_status")
+}
+enum E_CampaignCampaignMetricsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.campaign_metrics#status")
+}
+enum E_CampaignCampaignResultsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.campaign_results#status")
+}
+enum E_CampaignCampaignStrategiesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.campaign_strategies#status")
+}
+enum E_CampaignCampaignsCampaignStatus {
+  draft
+  planned
+  active
+  paused
+  completed
+  cancelled
+  @@map("campaign.campaigns#campaign_status")
+}
+enum E_CampaignCitiesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.cities#status")
+}
+enum E_CampaignDoohSchedulesScheduleStatus {
+  draft
+  approved
+  live
+  ended
+  @@map("campaign.dooh_schedules#schedule_status")
+}
+enum E_CampaignDoohScreensStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.dooh_screens#status")
+}
+enum E_CampaignLeadEventsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.lead_events#status")
+}
+enum E_CampaignLeadsLeadStatus {
+  new
+  qualified
+  disqualified
+  converted
+  @@map("campaign.leads#lead_status")
+}
+enum E_CampaignMarketsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.markets#status")
+}
+enum E_CampaignMediaPlanItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.media_plan_items#status")
+}
+enum E_CampaignMediaPlansStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.media_plans#status")
+}
+enum E_CampaignOohSiteBookingsBookingStatus {
+  held
+  confirmed
+  cancelled
+  live
+  completed
+  @@map("campaign.ooh_site_bookings#booking_status")
+}
+enum E_CampaignOohSitesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.ooh_sites#status")
+}
+enum E_CampaignSiteCheckinsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("campaign.site_checkins#status")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_LogisticsLocationsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.locations#status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+enum E_ProjectProjectMembersMembershipStatus {
+  active
+  invited
+  suspended
+  removed
+  @@map("project.project_members#membership_status")
+}
+enum E_ProjectProjectMembersProjectRole {
+  owner
+  admin
+  contributor
+  viewer
+  @@map("project.project_members#project_role")
+}
+enum E_ProjectProjectsProjectStatus {
+  draft
+  active
+  on_hold
+  completed
+  archived
+  @@map("project.projects#project_status")
+}
+model CampaignActivationCalendarItems {
+  activation_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  item_kind String @db.VarChar(60)
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  sort_order Int
+  starts_at DateTime @db.Timestamptz(6)
+  status E_CampaignActivationCalendarItemsStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_activation_calendar_items_organisation_id_organisation_or OrganisationOrganisations @relation("R_fk_activation_calendar_items_organisation_id_organisation_or", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activation_calendar_items_activation_id_campaign_activati CampaignActivations @relation("R_fk_activation_calendar_items_activation_id_campaign_activati", fields: [activation_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activation_calendar_items_created_by_user_id_identity_use IdentityUsers? @relation("R_fk_activation_calendar_items_created_by_user_id_identity_use", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_activation_calendar_items_workspace_id_organisation_works OrganisationWorkspaces @relation("R_fk_activation_calendar_items_workspace_id_organisation_works", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "activation_calendar_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "activation_calendar_items_id_workspace_organisation_uq")
+  @@unique([activation_id, sort_order], map: "activation_calendar_items_activation_id_sort_order_uq")
+  @@index([organisation_id, status], map: "activation_calendar_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "activation_calendar_items_workspace_status_idx")
+  @@index([created_at], map: "activation_calendar_items_created_idx")
+  @@map("campaign_activation_calendar_items")
+}
+model CampaignActivationFeedEvents {
+  activation_id String @db.Uuid
+  actor_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  event_kind String @db.VarChar(60)
+  id String @db.Uuid @id @default(uuid())
+  occurred_at DateTime @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  payload Json
+  status E_CampaignActivationFeedEventsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  visibility String? @db.VarChar(24)
+  workspace_id String @db.Uuid
+  rel_fk_activation_feed_events_organisation_id_organisation_organ OrganisationOrganisations @relation("R_fk_activation_feed_events_organisation_id_organisation_organ", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activation_feed_events_activation_id_campaign_activations CampaignActivations @relation("R_fk_activation_feed_events_activation_id_campaign_activations", fields: [activation_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activation_feed_events_actor_user_id_identity_users IdentityUsers? @relation("R_fk_activation_feed_events_actor_user_id_identity_users", fields: [actor_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_activation_feed_events_workspace_id_organisation_workspac OrganisationWorkspaces @relation("R_fk_activation_feed_events_workspace_id_organisation_workspac", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activation_feed_events_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_activation_feed_events_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "activation_feed_events_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "activation_feed_events_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "activation_feed_events_organisation_status_idx")
+  @@index([workspace_id, status], map: "activation_feed_events_workspace_status_idx")
+  @@index([created_at], map: "activation_feed_events_created_idx")
+  @@map("campaign_activation_feed_events")
+}
+model CampaignActivations {
+  activation_kind String @db.VarChar(60)
+  activation_status E_CampaignActivationsActivationStatus @default(planned)
+  budget Decimal?
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  location_id String? @db.Uuid
+  name String @db.VarChar(200)
+  objective String? @db.Text
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  starts_at DateTime? @db.Timestamptz(6)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_activations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_activations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activations_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_activations_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activations_project_id_project_projects ProjectProjects @relation("R_fk_activations_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activations_location_id_logistics_locations LogisticsLocations? @relation("R_fk_activations_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_activations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_activations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_activations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_activations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_campaign_activation_calendar_items_fk_activation_calendar_items_activation_id_campaign_activati CampaignActivationCalendarItems[] @relation("R_fk_activation_calendar_items_activation_id_campaign_activati")
+  back_campaign_activation_feed_events_fk_activation_feed_events_activation_id_campaign_activations CampaignActivationFeedEvents[] @relation("R_fk_activation_feed_events_activation_id_campaign_activations")
+  back_campaign_site_checkins_fk_site_checkins_activation_id_campaign_activations CampaignSiteCheckins[] @relation("R_fk_site_checkins_activation_id_campaign_activations")
+  @@unique([id, organisation_id], map: "activations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "activations_id_workspace_organisation_uq")
+  @@index([organisation_id, activation_status], map: "activations_organisation_status_idx")
+  @@index([workspace_id, activation_status], map: "activations_workspace_status_idx")
+  @@index([created_at], map: "activations_created_idx")
+  @@map("campaign_activations")
+}
+model CampaignAtlPlans {
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  details String? @db.Text
+  gross_rating_points Decimal?
+  id String @db.Uuid @id @default(uuid())
+  media_plan_id String? @db.Uuid
+  medium String @db.VarChar(80)
+  organisation_id String @db.Uuid
+  planned_spend Decimal?
+  reach_target Int?
+  status E_CampaignAtlPlansStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_atl_plans_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_atl_plans_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_atl_plans_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_atl_plans_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_atl_plans_media_plan_id_campaign_media_plans CampaignMediaPlans? @relation("R_fk_atl_plans_media_plan_id_campaign_media_plans", fields: [media_plan_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_atl_plans_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_atl_plans_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_atl_plans_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_atl_plans_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "atl_plans_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "atl_plans_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "atl_plans_organisation_status_idx")
+  @@index([workspace_id, status], map: "atl_plans_workspace_status_idx")
+  @@index([created_at], map: "atl_plans_created_idx")
+  @@map("campaign_atl_plans")
+}
+model CampaignBtlPlans {
+  activation_type String @db.VarChar(80)
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  details String? @db.Text
+  id String @db.Uuid @id @default(uuid())
+  locations Json?
+  media_plan_id String? @db.Uuid
+  organisation_id String @db.Uuid
+  planned_spend Decimal?
+  staffing_count Int?
+  status E_CampaignBtlPlansStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_btl_plans_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_btl_plans_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_btl_plans_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_btl_plans_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_btl_plans_media_plan_id_campaign_media_plans CampaignMediaPlans? @relation("R_fk_btl_plans_media_plan_id_campaign_media_plans", fields: [media_plan_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_btl_plans_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_btl_plans_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_btl_plans_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_btl_plans_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "btl_plans_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "btl_plans_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "btl_plans_organisation_status_idx")
+  @@index([workspace_id, status], map: "btl_plans_workspace_status_idx")
+  @@index([created_at], map: "btl_plans_created_idx")
+  @@map("campaign_btl_plans")
+}
+model CampaignCampaignBriefs {
+  audience String? @db.Text
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deliverables Json?
+  due_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  message String? @db.Text
+  organisation_id String @db.Uuid
+  status E_CampaignCampaignBriefsStatus @default(draft)
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_campaign_briefs_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_campaign_briefs_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_briefs_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_campaign_briefs_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_briefs_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_campaign_briefs_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_campaign_briefs_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_campaign_briefs_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "campaign_briefs_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "campaign_briefs_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "campaign_briefs_organisation_status_idx")
+  @@index([workspace_id, status], map: "campaign_briefs_workspace_status_idx")
+  @@index([created_at], map: "campaign_briefs_created_idx")
+  @@map("campaign_campaign_briefs")
+}
+model CampaignCampaignMarkets {
+  budget_share Decimal?
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  market_id String @db.Uuid
+  market_status E_CampaignCampaignMarketsMarketStatus @default(target)
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_campaign_markets_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_campaign_markets_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_markets_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_campaign_markets_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_markets_market_id_campaign_markets CampaignMarkets @relation("R_fk_campaign_markets_market_id_campaign_markets", fields: [market_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_markets_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_campaign_markets_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_markets_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_campaign_markets_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "campaign_markets_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "campaign_markets_id_workspace_organisation_uq")
+  @@unique([campaign_id, market_id], map: "campaign_markets_campaign_id_market_id_uq")
+  @@index([organisation_id, market_status], map: "campaign_markets_organisation_status_idx")
+  @@index([workspace_id, market_status], map: "campaign_markets_workspace_status_idx")
+  @@index([created_at], map: "campaign_markets_created_idx")
+  @@map("campaign_campaign_markets")
+}
+model CampaignCampaignMetrics {
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  dimensions Json?
+  id String @db.Uuid @id @default(uuid())
+  metric_key String @db.VarChar(100)
+  metric_name String @db.VarChar(160)
+  organisation_id String @db.Uuid
+  period_end DateTime? @db.Date
+  period_start DateTime? @db.Date
+  status E_CampaignCampaignMetricsStatus @default(draft)
+  unit String @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  value Decimal
+  workspace_id String @db.Uuid
+  rel_fk_campaign_metrics_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_campaign_metrics_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_metrics_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_campaign_metrics_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_metrics_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_campaign_metrics_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_campaign_metrics_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_campaign_metrics_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "campaign_metrics_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "campaign_metrics_id_workspace_organisation_uq")
+  @@unique([campaign_id, metric_key, period_start, period_end], map: "campaign_metrics_campaign_id_metric_key_period_start_p_34c16a8b")
+  @@index([organisation_id, status], map: "campaign_metrics_organisation_status_idx")
+  @@index([workspace_id, status], map: "campaign_metrics_workspace_status_idx")
+  @@index([created_at], map: "campaign_metrics_created_idx")
+  @@map("campaign_campaign_metrics")
+}
+model CampaignCampaignResults {
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  measured_at DateTime @db.Timestamptz(6)
+  measured_value Decimal
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  result_kind String @db.VarChar(80)
+  source String? @db.VarChar(120)
+  status E_CampaignCampaignResultsStatus @default(draft)
+  unit String @db.VarChar(40)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_campaign_results_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_campaign_results_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_results_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_campaign_results_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_results_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_campaign_results_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_campaign_results_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_campaign_results_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "campaign_results_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "campaign_results_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "campaign_results_organisation_status_idx")
+  @@index([workspace_id, status], map: "campaign_results_workspace_status_idx")
+  @@index([created_at], map: "campaign_results_created_idx")
+  @@map("campaign_campaign_results")
+}
+model CampaignCampaignStrategies {
+  campaign_id String @db.Uuid
+  channels Json?
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  positioning String? @db.Text
+  status E_CampaignCampaignStrategiesStatus @default(draft)
+  success_criteria Json?
+  title String @db.VarChar(200)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  version_number Int
+  workspace_id String @db.Uuid
+  rel_fk_campaign_strategies_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_campaign_strategies_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_strategies_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_campaign_strategies_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaign_strategies_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_campaign_strategies_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_campaign_strategies_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_campaign_strategies_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "campaign_strategies_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "campaign_strategies_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "campaign_strategies_organisation_status_idx")
+  @@index([workspace_id, status], map: "campaign_strategies_workspace_status_idx")
+  @@index([created_at], map: "campaign_strategies_created_idx")
+  @@map("campaign_campaign_strategies")
+}
+model CampaignCampaigns {
+  budget Decimal?
+  campaign_kind String @db.VarChar(60)
+  campaign_status E_CampaignCampaignsCampaignStatus @default(draft)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  name String @db.VarChar(200)
+  objective String? @db.Text
+  organisation_id String @db.Uuid
+  owner_user_id String? @db.Uuid
+  project_id String @db.Uuid
+  starts_on DateTime? @db.Date
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_campaigns_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_campaigns_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaigns_project_id_project_projects ProjectProjects @relation("R_fk_campaigns_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_campaigns_owner_user_id_identity_users IdentityUsers? @relation("R_fk_campaigns_owner_user_id_identity_users", fields: [owner_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_campaigns_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_campaigns_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_campaigns_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_campaigns_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_campaign_activations_fk_activations_campaign_id_campaign_campaigns CampaignActivations[] @relation("R_fk_activations_campaign_id_campaign_campaigns")
+  back_campaign_atl_plans_fk_atl_plans_campaign_id_campaign_campaigns CampaignAtlPlans[] @relation("R_fk_atl_plans_campaign_id_campaign_campaigns")
+  back_campaign_btl_plans_fk_btl_plans_campaign_id_campaign_campaigns CampaignBtlPlans[] @relation("R_fk_btl_plans_campaign_id_campaign_campaigns")
+  back_campaign_campaign_briefs_fk_campaign_briefs_campaign_id_campaign_campaigns CampaignCampaignBriefs[] @relation("R_fk_campaign_briefs_campaign_id_campaign_campaigns")
+  back_campaign_campaign_markets_fk_campaign_markets_campaign_id_campaign_campaigns CampaignCampaignMarkets[] @relation("R_fk_campaign_markets_campaign_id_campaign_campaigns")
+  back_campaign_campaign_metrics_fk_campaign_metrics_campaign_id_campaign_campaigns CampaignCampaignMetrics[] @relation("R_fk_campaign_metrics_campaign_id_campaign_campaigns")
+  back_campaign_campaign_results_fk_campaign_results_campaign_id_campaign_campaigns CampaignCampaignResults[] @relation("R_fk_campaign_results_campaign_id_campaign_campaigns")
+  back_campaign_campaign_strategies_fk_campaign_strategies_campaign_id_campaign_campaigns CampaignCampaignStrategies[] @relation("R_fk_campaign_strategies_campaign_id_campaign_campaigns")
+  back_campaign_dooh_schedules_fk_dooh_schedules_campaign_id_campaign_campaigns CampaignDoohSchedules[] @relation("R_fk_dooh_schedules_campaign_id_campaign_campaigns")
+  back_campaign_leads_fk_leads_campaign_id_campaign_campaigns CampaignLeads[] @relation("R_fk_leads_campaign_id_campaign_campaigns")
+  back_campaign_media_plans_fk_media_plans_campaign_id_campaign_campaigns CampaignMediaPlans[] @relation("R_fk_media_plans_campaign_id_campaign_campaigns")
+  back_campaign_ooh_site_bookings_fk_ooh_site_bookings_campaign_id_campaign_campaigns CampaignOohSiteBookings[] @relation("R_fk_ooh_site_bookings_campaign_id_campaign_campaigns")
+  @@unique([id, organisation_id], map: "campaigns_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "campaigns_id_workspace_organisation_uq")
+  @@index([organisation_id, campaign_status], map: "campaigns_organisation_status_idx")
+  @@index([workspace_id, campaign_status], map: "campaigns_workspace_status_idx")
+  @@index([created_at], map: "campaigns_created_idx")
+  @@map("campaign_campaigns")
+}
+model CampaignCities {
+  city_code String? @db.VarChar(40)
+  country_code String @db.VarChar(2)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  latitude Decimal?
+  longitude Decimal?
+  name String @db.VarChar(160)
+  region String? @db.VarChar(120)
+  status E_CampaignCitiesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_fk_cities_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_cities_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([city_code], map: "cities_city_code_uq")
+  @@index([created_at], map: "cities_created_idx")
+  @@map("campaign_cities")
+}
+model CampaignDoohSchedules {
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  creative_uri String? @db.VarChar(500)
+  dooh_screen_id String @db.Uuid
+  ends_at DateTime @db.Timestamptz(6)
+  frequency_per_hour Int?
+  id String @db.Uuid @id @default(uuid())
+  organisation_id String @db.Uuid
+  schedule_status E_CampaignDoohSchedulesScheduleStatus @default(draft)
+  starts_at DateTime @db.Timestamptz(6)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_dooh_schedules_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_dooh_schedules_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_dooh_schedules_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_dooh_schedules_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_dooh_schedules_dooh_screen_id_campaign_dooh_screens CampaignDoohScreens @relation("R_fk_dooh_schedules_dooh_screen_id_campaign_dooh_screens", fields: [dooh_screen_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_dooh_schedules_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_dooh_schedules_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_dooh_schedules_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_dooh_schedules_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "dooh_schedules_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "dooh_schedules_id_workspace_organisation_uq")
+  @@index([organisation_id, schedule_status], map: "dooh_schedules_organisation_status_idx")
+  @@index([workspace_id, schedule_status], map: "dooh_schedules_workspace_status_idx")
+  @@index([created_at], map: "dooh_schedules_created_idx")
+  @@map("campaign_dooh_schedules")
+}
+model CampaignDoohScreens {
+  availability Json?
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  location_id String? @db.Uuid
+  location_note String? @db.Text
+  organisation_id String @db.Uuid
+  orientation String? @db.VarChar(24)
+  resolution String? @db.VarChar(40)
+  screen_code String @db.VarChar(80)
+  screen_name String @db.VarChar(160)
+  status E_CampaignDoohScreensStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_dooh_screens_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_dooh_screens_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_dooh_screens_location_id_logistics_locations LogisticsLocations? @relation("R_fk_dooh_screens_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_dooh_screens_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_dooh_screens_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_dooh_screens_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_dooh_screens_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_campaign_dooh_schedules_fk_dooh_schedules_dooh_screen_id_campaign_dooh_screens CampaignDoohSchedules[] @relation("R_fk_dooh_schedules_dooh_screen_id_campaign_dooh_screens")
+  @@unique([id, organisation_id], map: "dooh_screens_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "dooh_screens_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "dooh_screens_organisation_status_idx")
+  @@index([workspace_id, status], map: "dooh_screens_workspace_status_idx")
+  @@index([created_at], map: "dooh_screens_created_idx")
+  @@map("campaign_dooh_screens")
+}
+model CampaignLeadEvents {
+  actor_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  event_kind String @db.VarChar(60)
+  id String @db.Uuid @id @default(uuid())
+  lead_id String @db.Uuid
+  notes String? @db.Text
+  occurred_at DateTime @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  payload Json?
+  status E_CampaignLeadEventsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_lead_events_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_lead_events_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_lead_events_lead_id_campaign_leads CampaignLeads @relation("R_fk_lead_events_lead_id_campaign_leads", fields: [lead_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_lead_events_actor_user_id_identity_users IdentityUsers? @relation("R_fk_lead_events_actor_user_id_identity_users", fields: [actor_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_lead_events_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_lead_events_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_lead_events_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_lead_events_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "lead_events_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "lead_events_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "lead_events_organisation_status_idx")
+  @@index([workspace_id, status], map: "lead_events_workspace_status_idx")
+  @@index([created_at], map: "lead_events_created_idx")
+  @@map("campaign_lead_events")
+}
+model CampaignLeads {
+  assigned_to_user_id String? @db.Uuid
+  campaign_id String? @db.Uuid
+  consent_status String @db.VarChar(40)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  email String? @db.VarChar(320)
+  full_name String? @db.VarChar(160)
+  id String @db.Uuid @id @default(uuid())
+  lead_status E_CampaignLeadsLeadStatus @default(new)
+  organisation_id String @db.Uuid
+  organisation_name String? @db.VarChar(200)
+  phone String? @db.VarChar(40)
+  source String? @db.VarChar(80)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_leads_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_leads_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_leads_campaign_id_campaign_campaigns CampaignCampaigns? @relation("R_fk_leads_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_leads_assigned_to_user_id_identity_users IdentityUsers? @relation("R_fk_leads_assigned_to_user_id_identity_users", fields: [assigned_to_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_leads_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_leads_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_leads_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_leads_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_campaign_lead_events_fk_lead_events_lead_id_campaign_leads CampaignLeadEvents[] @relation("R_fk_lead_events_lead_id_campaign_leads")
+  @@unique([id, organisation_id], map: "leads_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "leads_id_workspace_organisation_uq")
+  @@index([organisation_id, consent_status], map: "leads_organisation_status_idx")
+  @@index([workspace_id, consent_status], map: "leads_workspace_status_idx")
+  @@index([created_at], map: "leads_created_idx")
+  @@map("campaign_leads")
+}
+model CampaignMarkets {
+  country_code String @db.VarChar(2)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  currency_code String? @db.VarChar(3)
+  id String @db.Uuid @id @default(uuid())
+  market_code String @db.VarChar(32)
+  name String @db.VarChar(160)
+  region String? @db.VarChar(120)
+  status E_CampaignMarketsStatus @default(draft)
+  timezone String? @db.VarChar(80)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_fk_markets_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_markets_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_campaign_campaign_markets_fk_campaign_markets_market_id_campaign_markets CampaignCampaignMarkets[] @relation("R_fk_campaign_markets_market_id_campaign_markets")
+  @@unique([market_code], map: "markets_market_code_uq")
+  @@index([created_at], map: "markets_created_idx")
+  @@map("campaign_markets")
+}
+model CampaignMediaPlanItems {
+  channel String @db.VarChar(80)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  impressions_target Int?
+  media_plan_id String @db.Uuid
+  organisation_id String @db.Uuid
+  placement String? @db.VarChar(120)
+  planned_spend Decimal?
+  sort_order Int
+  starts_on DateTime? @db.Date
+  status E_CampaignMediaPlanItemsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_media_plan_items_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_media_plan_items_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_media_plan_items_media_plan_id_campaign_media_plans CampaignMediaPlans @relation("R_fk_media_plan_items_media_plan_id_campaign_media_plans", fields: [media_plan_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_media_plan_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_media_plan_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_media_plan_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_media_plan_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "media_plan_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "media_plan_items_id_workspace_organisation_uq")
+  @@unique([media_plan_id, sort_order], map: "media_plan_items_media_plan_id_sort_order_uq")
+  @@index([organisation_id, status], map: "media_plan_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "media_plan_items_workspace_status_idx")
+  @@index([created_at], map: "media_plan_items_created_idx")
+  @@map("campaign_media_plan_items")
+}
+model CampaignMediaPlans {
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_on DateTime? @db.Date
+  id String @db.Uuid @id @default(uuid())
+  objective String? @db.Text
+  organisation_id String @db.Uuid
+  plan_version Int
+  starts_on DateTime? @db.Date
+  status E_CampaignMediaPlansStatus @default(draft)
+  title String @db.VarChar(200)
+  total_budget Decimal?
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_media_plans_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_media_plans_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_media_plans_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_media_plans_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_media_plans_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_media_plans_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_media_plans_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_media_plans_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_campaign_atl_plans_fk_atl_plans_media_plan_id_campaign_media_plans CampaignAtlPlans[] @relation("R_fk_atl_plans_media_plan_id_campaign_media_plans")
+  back_campaign_btl_plans_fk_btl_plans_media_plan_id_campaign_media_plans CampaignBtlPlans[] @relation("R_fk_btl_plans_media_plan_id_campaign_media_plans")
+  back_campaign_media_plan_items_fk_media_plan_items_media_plan_id_campaign_media_plans CampaignMediaPlanItems[] @relation("R_fk_media_plan_items_media_plan_id_campaign_media_plans")
+  @@unique([id, organisation_id], map: "media_plans_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "media_plans_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "media_plans_organisation_status_idx")
+  @@index([workspace_id, status], map: "media_plans_workspace_status_idx")
+  @@index([created_at], map: "media_plans_created_idx")
+  @@map("campaign_media_plans")
+}
+model CampaignOohSiteBookings {
+  booking_status E_CampaignOohSiteBookingsBookingStatus @default(held)
+  campaign_id String @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  ends_at DateTime @db.Timestamptz(6)
+  id String @db.Uuid @id @default(uuid())
+  ooh_site_id String @db.Uuid
+  organisation_id String @db.Uuid
+  price Decimal?
+  project_id String @db.Uuid
+  proof_uri String? @db.VarChar(500)
+  starts_at DateTime @db.Timestamptz(6)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_ooh_site_bookings_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_ooh_site_bookings_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ooh_site_bookings_campaign_id_campaign_campaigns CampaignCampaigns @relation("R_fk_ooh_site_bookings_campaign_id_campaign_campaigns", fields: [campaign_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ooh_site_bookings_ooh_site_id_campaign_ooh_sites CampaignOohSites @relation("R_fk_ooh_site_bookings_ooh_site_id_campaign_ooh_sites", fields: [ooh_site_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ooh_site_bookings_project_id_project_projects ProjectProjects @relation("R_fk_ooh_site_bookings_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ooh_site_bookings_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_ooh_site_bookings_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_ooh_site_bookings_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_ooh_site_bookings_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "ooh_site_bookings_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "ooh_site_bookings_id_workspace_organisation_uq")
+  @@index([organisation_id, booking_status], map: "ooh_site_bookings_organisation_status_idx")
+  @@index([workspace_id, booking_status], map: "ooh_site_bookings_workspace_status_idx")
+  @@index([created_at], map: "ooh_site_bookings_created_idx")
+  @@map("campaign_ooh_site_bookings")
+}
+model CampaignOohSites {
+  address String? @db.Text
+  availability_note String? @db.Text
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  format String? @db.VarChar(80)
+  id String @db.Uuid @id @default(uuid())
+  latitude Decimal?
+  location_id String? @db.Uuid
+  longitude Decimal?
+  organisation_id String @db.Uuid
+  rate_card Decimal?
+  site_code String? @db.VarChar(80)
+  site_name String @db.VarChar(200)
+  status E_CampaignOohSitesStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_ooh_sites_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_ooh_sites_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ooh_sites_location_id_logistics_locations LogisticsLocations? @relation("R_fk_ooh_sites_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_ooh_sites_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_ooh_sites_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_ooh_sites_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_ooh_sites_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_campaign_ooh_site_bookings_fk_ooh_site_bookings_ooh_site_id_campaign_ooh_sites CampaignOohSiteBookings[] @relation("R_fk_ooh_site_bookings_ooh_site_id_campaign_ooh_sites")
+  @@unique([id, organisation_id], map: "ooh_sites_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "ooh_sites_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "ooh_sites_organisation_status_idx")
+  @@index([workspace_id, status], map: "ooh_sites_workspace_status_idx")
+  @@index([created_at], map: "ooh_sites_created_idx")
+  @@map("campaign_ooh_sites")
+}
+model CampaignSiteCheckins {
+  activation_id String @db.Uuid
+  checked_in_at DateTime @db.Timestamptz(6)
+  checked_in_by_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  latitude Decimal?
+  location_id String? @db.Uuid
+  longitude Decimal?
+  notes String? @db.Text
+  organisation_id String @db.Uuid
+  status E_CampaignSiteCheckinsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  verification_method String? @db.VarChar(40)
+  workspace_id String @db.Uuid
+  rel_fk_site_checkins_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_site_checkins_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_site_checkins_activation_id_campaign_activations CampaignActivations @relation("R_fk_site_checkins_activation_id_campaign_activations", fields: [activation_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_site_checkins_location_id_logistics_locations LogisticsLocations? @relation("R_fk_site_checkins_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_site_checkins_checked_in_by_user_id_identity_users IdentityUsers? @relation("R_fk_site_checkins_checked_in_by_user_id_identity_users", fields: [checked_in_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_site_checkins_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_site_checkins_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_site_checkins_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_site_checkins_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "site_checkins_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "site_checkins_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "site_checkins_organisation_status_idx")
+  @@index([workspace_id, status], map: "site_checkins_workspace_status_idx")
+  @@index([created_at], map: "site_checkins_created_idx")
+  @@map("campaign_site_checkins")
+}
+model IdentityUsers {
+  closed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  email String @db.VarChar(320)
+  email_verified_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  status E_IdentityUsersAccountStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  back_campaign_activation_calendar_items_fk_activation_calendar_items_created_by_user_id_identity_use CampaignActivationCalendarItems[] @relation("R_fk_activation_calendar_items_created_by_user_id_identity_use")
+  back_campaign_activation_feed_events_fk_activation_feed_events_actor_user_id_identity_users CampaignActivationFeedEvents[] @relation("R_fk_activation_feed_events_actor_user_id_identity_users")
+  back_campaign_activation_feed_events_fk_activation_feed_events_created_by_user_id_identity_users CampaignActivationFeedEvents[] @relation("R_fk_activation_feed_events_created_by_user_id_identity_users")
+  back_campaign_activations_fk_activations_created_by_user_id_identity_users CampaignActivations[] @relation("R_fk_activations_created_by_user_id_identity_users")
+  back_campaign_atl_plans_fk_atl_plans_created_by_user_id_identity_users CampaignAtlPlans[] @relation("R_fk_atl_plans_created_by_user_id_identity_users")
+  back_campaign_btl_plans_fk_btl_plans_created_by_user_id_identity_users CampaignBtlPlans[] @relation("R_fk_btl_plans_created_by_user_id_identity_users")
+  back_campaign_campaign_briefs_fk_campaign_briefs_created_by_user_id_identity_users CampaignCampaignBriefs[] @relation("R_fk_campaign_briefs_created_by_user_id_identity_users")
+  back_campaign_campaign_markets_fk_campaign_markets_created_by_user_id_identity_users CampaignCampaignMarkets[] @relation("R_fk_campaign_markets_created_by_user_id_identity_users")
+  back_campaign_campaign_metrics_fk_campaign_metrics_created_by_user_id_identity_users CampaignCampaignMetrics[] @relation("R_fk_campaign_metrics_created_by_user_id_identity_users")
+  back_campaign_campaign_results_fk_campaign_results_created_by_user_id_identity_users CampaignCampaignResults[] @relation("R_fk_campaign_results_created_by_user_id_identity_users")
+  back_campaign_campaign_strategies_fk_campaign_strategies_created_by_user_id_identity_users CampaignCampaignStrategies[] @relation("R_fk_campaign_strategies_created_by_user_id_identity_users")
+  back_campaign_campaigns_fk_campaigns_owner_user_id_identity_users CampaignCampaigns[] @relation("R_fk_campaigns_owner_user_id_identity_users")
+  back_campaign_campaigns_fk_campaigns_created_by_user_id_identity_users CampaignCampaigns[] @relation("R_fk_campaigns_created_by_user_id_identity_users")
+  back_campaign_cities_fk_cities_created_by_user_id_identity_users CampaignCities[] @relation("R_fk_cities_created_by_user_id_identity_users")
+  back_campaign_dooh_schedules_fk_dooh_schedules_created_by_user_id_identity_users CampaignDoohSchedules[] @relation("R_fk_dooh_schedules_created_by_user_id_identity_users")
+  back_campaign_dooh_screens_fk_dooh_screens_created_by_user_id_identity_users CampaignDoohScreens[] @relation("R_fk_dooh_screens_created_by_user_id_identity_users")
+  back_campaign_lead_events_fk_lead_events_actor_user_id_identity_users CampaignLeadEvents[] @relation("R_fk_lead_events_actor_user_id_identity_users")
+  back_campaign_lead_events_fk_lead_events_created_by_user_id_identity_users CampaignLeadEvents[] @relation("R_fk_lead_events_created_by_user_id_identity_users")
+  back_campaign_leads_fk_leads_assigned_to_user_id_identity_users CampaignLeads[] @relation("R_fk_leads_assigned_to_user_id_identity_users")
+  back_campaign_leads_fk_leads_created_by_user_id_identity_users CampaignLeads[] @relation("R_fk_leads_created_by_user_id_identity_users")
+  back_campaign_markets_fk_markets_created_by_user_id_identity_users CampaignMarkets[] @relation("R_fk_markets_created_by_user_id_identity_users")
+  back_campaign_media_plan_items_fk_media_plan_items_created_by_user_id_identity_users CampaignMediaPlanItems[] @relation("R_fk_media_plan_items_created_by_user_id_identity_users")
+  back_campaign_media_plans_fk_media_plans_created_by_user_id_identity_users CampaignMediaPlans[] @relation("R_fk_media_plans_created_by_user_id_identity_users")
+  back_campaign_ooh_site_bookings_fk_ooh_site_bookings_created_by_user_id_identity_users CampaignOohSiteBookings[] @relation("R_fk_ooh_site_bookings_created_by_user_id_identity_users")
+  back_campaign_ooh_sites_fk_ooh_sites_created_by_user_id_identity_users CampaignOohSites[] @relation("R_fk_ooh_sites_created_by_user_id_identity_users")
+  back_campaign_site_checkins_fk_site_checkins_checked_in_by_user_id_identity_users CampaignSiteCheckins[] @relation("R_fk_site_checkins_checked_in_by_user_id_identity_users")
+  back_campaign_site_checkins_fk_site_checkins_created_by_user_id_identity_users CampaignSiteCheckins[] @relation("R_fk_site_checkins_created_by_user_id_identity_users")
+  back_logistics_locations_fk_locations_created_by_user_id_identity_users LogisticsLocations[] @relation("R_fk_locations_created_by_user_id_identity_users")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  back_project_project_members_project_members_user_fk ProjectProjectMembers[] @relation("R_project_members_user_fk")
+  back_project_project_members_project_members_adder_fk ProjectProjectMembers[] @relation("R_project_members_adder_fk")
+  back_project_projects_projects_creator_user_fk ProjectProjects[] @relation("R_projects_creator_user_fk")
+  @@unique([email], map: "users_email_unique")
+  @@index([status], map: "users_status_idx")
+  @@map("identity_users")
+}
+model LogisticsLocations {
+  access_notes String? @db.Text
+  capacity Int?
+  city String? @db.VarChar(120)
+  country_code String? @db.VarChar(2)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  id String @db.Uuid @id @default(uuid())
+  latitude Decimal?
+  location_kind String @db.VarChar(60)
+  longitude Decimal?
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  postal_code String? @db.VarChar(24)
+  region String? @db.VarChar(120)
+  status E_LogisticsLocationsStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_fk_locations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_locations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_locations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_locations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_locations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_locations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_campaign_activations_fk_activations_location_id_logistics_locations CampaignActivations[] @relation("R_fk_activations_location_id_logistics_locations")
+  back_campaign_dooh_screens_fk_dooh_screens_location_id_logistics_locations CampaignDoohScreens[] @relation("R_fk_dooh_screens_location_id_logistics_locations")
+  back_campaign_ooh_sites_fk_ooh_sites_location_id_logistics_locations CampaignOohSites[] @relation("R_fk_ooh_sites_location_id_logistics_locations")
+  back_campaign_site_checkins_fk_site_checkins_location_id_logistics_locations CampaignSiteCheckins[] @relation("R_fk_site_checkins_location_id_logistics_locations")
+  @@unique([id, organisation_id], map: "locations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "locations_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "locations_organisation_status_idx")
+  @@index([workspace_id, status], map: "locations_workspace_status_idx")
+  @@index([created_at], map: "locations_created_idx")
+  @@map("logistics_locations")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
+  @@index([user_id, status], map: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  slug String @db.VarChar(120)
+  status E_OrganisationOrganisationsOrganisationStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_campaign_activation_calendar_items_fk_activation_calendar_items_organisation_id_organisation_or CampaignActivationCalendarItems[] @relation("R_fk_activation_calendar_items_organisation_id_organisation_or")
+  back_campaign_activation_feed_events_fk_activation_feed_events_organisation_id_organisation_organ CampaignActivationFeedEvents[] @relation("R_fk_activation_feed_events_organisation_id_organisation_organ")
+  back_campaign_activations_fk_activations_organisation_id_organisation_organisations CampaignActivations[] @relation("R_fk_activations_organisation_id_organisation_organisations")
+  back_campaign_atl_plans_fk_atl_plans_organisation_id_organisation_organisations CampaignAtlPlans[] @relation("R_fk_atl_plans_organisation_id_organisation_organisations")
+  back_campaign_btl_plans_fk_btl_plans_organisation_id_organisation_organisations CampaignBtlPlans[] @relation("R_fk_btl_plans_organisation_id_organisation_organisations")
+  back_campaign_campaign_briefs_fk_campaign_briefs_organisation_id_organisation_organisation CampaignCampaignBriefs[] @relation("R_fk_campaign_briefs_organisation_id_organisation_organisation")
+  back_campaign_campaign_markets_fk_campaign_markets_organisation_id_organisation_organisatio CampaignCampaignMarkets[] @relation("R_fk_campaign_markets_organisation_id_organisation_organisatio")
+  back_campaign_campaign_metrics_fk_campaign_metrics_organisation_id_organisation_organisatio CampaignCampaignMetrics[] @relation("R_fk_campaign_metrics_organisation_id_organisation_organisatio")
+  back_campaign_campaign_results_fk_campaign_results_organisation_id_organisation_organisatio CampaignCampaignResults[] @relation("R_fk_campaign_results_organisation_id_organisation_organisatio")
+  back_campaign_campaign_strategies_fk_campaign_strategies_organisation_id_organisation_organisa CampaignCampaignStrategies[] @relation("R_fk_campaign_strategies_organisation_id_organisation_organisa")
+  back_campaign_campaigns_fk_campaigns_organisation_id_organisation_organisations CampaignCampaigns[] @relation("R_fk_campaigns_organisation_id_organisation_organisations")
+  back_campaign_dooh_schedules_fk_dooh_schedules_organisation_id_organisation_organisations CampaignDoohSchedules[] @relation("R_fk_dooh_schedules_organisation_id_organisation_organisations")
+  back_campaign_dooh_screens_fk_dooh_screens_organisation_id_organisation_organisations CampaignDoohScreens[] @relation("R_fk_dooh_screens_organisation_id_organisation_organisations")
+  back_campaign_lead_events_fk_lead_events_organisation_id_organisation_organisations CampaignLeadEvents[] @relation("R_fk_lead_events_organisation_id_organisation_organisations")
+  back_campaign_leads_fk_leads_organisation_id_organisation_organisations CampaignLeads[] @relation("R_fk_leads_organisation_id_organisation_organisations")
+  back_campaign_media_plan_items_fk_media_plan_items_organisation_id_organisation_organisatio CampaignMediaPlanItems[] @relation("R_fk_media_plan_items_organisation_id_organisation_organisatio")
+  back_campaign_media_plans_fk_media_plans_organisation_id_organisation_organisations CampaignMediaPlans[] @relation("R_fk_media_plans_organisation_id_organisation_organisations")
+  back_campaign_ooh_site_bookings_fk_ooh_site_bookings_organisation_id_organisation_organisati CampaignOohSiteBookings[] @relation("R_fk_ooh_site_bookings_organisation_id_organisation_organisati")
+  back_campaign_ooh_sites_fk_ooh_sites_organisation_id_organisation_organisations CampaignOohSites[] @relation("R_fk_ooh_sites_organisation_id_organisation_organisations")
+  back_campaign_site_checkins_fk_site_checkins_organisation_id_organisation_organisations CampaignSiteCheckins[] @relation("R_fk_site_checkins_organisation_id_organisation_organisations")
+  back_logistics_locations_fk_locations_organisation_id_organisation_organisations LogisticsLocations[] @relation("R_fk_locations_organisation_id_organisation_organisations")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  @@unique([slug], map: "organisations_slug_unique")
+  @@index([status], map: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  invited_by_user_id String? @db.Uuid
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  workspace_id String @db.Uuid
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
+  @@index([user_id, status], map: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_OrganisationWorkspacesWorkspaceStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_campaign_activation_calendar_items_fk_activation_calendar_items_workspace_id_organisation_works CampaignActivationCalendarItems[] @relation("R_fk_activation_calendar_items_workspace_id_organisation_works")
+  back_campaign_activation_feed_events_fk_activation_feed_events_workspace_id_organisation_workspac CampaignActivationFeedEvents[] @relation("R_fk_activation_feed_events_workspace_id_organisation_workspac")
+  back_campaign_activations_fk_activations_workspace_id_organisation_workspaces CampaignActivations[] @relation("R_fk_activations_workspace_id_organisation_workspaces")
+  back_campaign_atl_plans_fk_atl_plans_workspace_id_organisation_workspaces CampaignAtlPlans[] @relation("R_fk_atl_plans_workspace_id_organisation_workspaces")
+  back_campaign_btl_plans_fk_btl_plans_workspace_id_organisation_workspaces CampaignBtlPlans[] @relation("R_fk_btl_plans_workspace_id_organisation_workspaces")
+  back_campaign_campaign_briefs_fk_campaign_briefs_workspace_id_organisation_workspaces CampaignCampaignBriefs[] @relation("R_fk_campaign_briefs_workspace_id_organisation_workspaces")
+  back_campaign_campaign_markets_fk_campaign_markets_workspace_id_organisation_workspaces CampaignCampaignMarkets[] @relation("R_fk_campaign_markets_workspace_id_organisation_workspaces")
+  back_campaign_campaign_metrics_fk_campaign_metrics_workspace_id_organisation_workspaces CampaignCampaignMetrics[] @relation("R_fk_campaign_metrics_workspace_id_organisation_workspaces")
+  back_campaign_campaign_results_fk_campaign_results_workspace_id_organisation_workspaces CampaignCampaignResults[] @relation("R_fk_campaign_results_workspace_id_organisation_workspaces")
+  back_campaign_campaign_strategies_fk_campaign_strategies_workspace_id_organisation_workspaces CampaignCampaignStrategies[] @relation("R_fk_campaign_strategies_workspace_id_organisation_workspaces")
+  back_campaign_campaigns_fk_campaigns_workspace_id_organisation_workspaces CampaignCampaigns[] @relation("R_fk_campaigns_workspace_id_organisation_workspaces")
+  back_campaign_dooh_schedules_fk_dooh_schedules_workspace_id_organisation_workspaces CampaignDoohSchedules[] @relation("R_fk_dooh_schedules_workspace_id_organisation_workspaces")
+  back_campaign_dooh_screens_fk_dooh_screens_workspace_id_organisation_workspaces CampaignDoohScreens[] @relation("R_fk_dooh_screens_workspace_id_organisation_workspaces")
+  back_campaign_lead_events_fk_lead_events_workspace_id_organisation_workspaces CampaignLeadEvents[] @relation("R_fk_lead_events_workspace_id_organisation_workspaces")
+  back_campaign_leads_fk_leads_workspace_id_organisation_workspaces CampaignLeads[] @relation("R_fk_leads_workspace_id_organisation_workspaces")
+  back_campaign_media_plan_items_fk_media_plan_items_workspace_id_organisation_workspaces CampaignMediaPlanItems[] @relation("R_fk_media_plan_items_workspace_id_organisation_workspaces")
+  back_campaign_media_plans_fk_media_plans_workspace_id_organisation_workspaces CampaignMediaPlans[] @relation("R_fk_media_plans_workspace_id_organisation_workspaces")
+  back_campaign_ooh_site_bookings_fk_ooh_site_bookings_workspace_id_organisation_workspaces CampaignOohSiteBookings[] @relation("R_fk_ooh_site_bookings_workspace_id_organisation_workspaces")
+  back_campaign_ooh_sites_fk_ooh_sites_workspace_id_organisation_workspaces CampaignOohSites[] @relation("R_fk_ooh_sites_workspace_id_organisation_workspaces")
+  back_campaign_site_checkins_fk_site_checkins_workspace_id_organisation_workspaces CampaignSiteCheckins[] @relation("R_fk_site_checkins_workspace_id_organisation_workspaces")
+  back_logistics_locations_fk_locations_workspace_id_organisation_workspaces LogisticsLocations[] @relation("R_fk_locations_workspace_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  back_project_projects_projects_workspace_tenant_fk ProjectProjects[] @relation("R_projects_workspace_tenant_fk")
+  @@unique([organisation_id, slug], map: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], map: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], map: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}
+model ProjectProjectMembers {
+  added_by_user_id String? @db.Uuid
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  id String @db.Uuid @id
+  joined_at DateTime? @db.Timestamptz(6)
+  organisation_id String @db.Uuid
+  project_id String @db.Uuid
+  role E_ProjectProjectMembersProjectRole
+  status E_ProjectProjectMembersMembershipStatus @default(active)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  user_id String @db.Uuid
+  rel_project_members_project_tenant_fk ProjectProjects @relation("R_project_members_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_project_members_user_fk IdentityUsers @relation("R_project_members_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_project_members_adder_fk IdentityUsers? @relation("R_project_members_adder_fk", fields: [added_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([project_id, user_id], map: "project_members_pair_unique")
+  @@index([user_id, status], map: "project_members_user_status_idx")
+  @@map("project_project_members")
+}
+model ProjectProjects {
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  created_by_user_id String? @db.Uuid
+  deleted_at DateTime? @db.Timestamptz(6)
+  description String? @db.Text
+  id String @db.Uuid @id
+  name String @db.VarChar(200)
+  organisation_id String @db.Uuid
+  slug String @db.VarChar(120)
+  status E_ProjectProjectsProjectStatus @default(draft)
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  workspace_id String @db.Uuid
+  rel_projects_workspace_tenant_fk OrganisationWorkspaces @relation("R_projects_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_projects_creator_user_fk IdentityUsers? @relation("R_projects_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_campaign_activations_fk_activations_project_id_project_projects CampaignActivations[] @relation("R_fk_activations_project_id_project_projects")
+  back_campaign_campaigns_fk_campaigns_project_id_project_projects CampaignCampaigns[] @relation("R_fk_campaigns_project_id_project_projects")
+  back_campaign_ooh_site_bookings_fk_ooh_site_bookings_project_id_project_projects CampaignOohSiteBookings[] @relation("R_fk_ooh_site_bookings_project_id_project_projects")
+  back_project_project_members_project_members_project_tenant_fk ProjectProjectMembers[] @relation("R_project_members_project_tenant_fk")
+  @@unique([workspace_id, slug], map: "projects_workspace_slug_unique")
+  @@unique([id, organisation_id], map: "projects_id_organisation_unique")
+  @@index([organisation_id, status], map: "projects_tenant_status_idx")
+  @@index([workspace_id, status], map: "projects_workspace_status_idx")
+  @@map("project_projects")
+}

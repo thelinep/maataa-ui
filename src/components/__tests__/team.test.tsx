@@ -3,7 +3,7 @@
  * Unit tests for TeamRoles, TeamPermissions, MemberApproval
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TeamRoles, type TeamRole } from '@/components/team/TeamRoles';
@@ -57,7 +57,8 @@ describe('TeamRoles', () => {
     render(<TeamRoles roles={mockRoles} />);
 
     const roleCard = screen.getByText('Member').closest('div');
-    fireEvent.click(roleCard);
+    expect(roleCard).not.toBeNull();
+    fireEvent.click(roleCard!);
 
     expect(screen.getByText(/view:project/)).toBeInTheDocument();
   });
@@ -131,9 +132,13 @@ describe('TeamPermissions', () => {
       />
     );
 
-    const projectHeader = screen.getByText('Projects');
+    const projectHeader = screen.getByRole('button', { name: 'Projects' });
+    expect(projectHeader).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByText('View projects')).not.toBeInTheDocument();
+
     fireEvent.click(projectHeader);
 
+    expect(projectHeader).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByText('View projects')).toBeInTheDocument();
   });
 });

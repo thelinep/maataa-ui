@@ -1,6 +1,9 @@
 {
   "name": "@maataa/domain-registry",
   "version": "0.1.0",
+  "maataaPolicy": {
+    "versioning": "independent"
+  },
   "type": "module",
   "private": true,
   "sideEffects": false,
@@ -8,10 +11,16 @@
     ".": "./src/index.mjs",
     "./composition": "./src/composition.mjs",
     "./contracts": "./src/contracts.mjs",
-    "./sql-proposal": "./src/sql-proposal.mjs"
+    "./prisma-preview": "./src/prisma-preview.mjs",
+    "./sql-proposal": "./src/sql-proposal.mjs",
+    "./control-plane": {
+      "types": "./src/control-plane.d.mts",
+      "default": "./src/control-plane.mjs"
+    }
   },
   "files": [
     "catalog",
+    "control-plane",
     "contexts",
     "flows",
     "products",
@@ -24,6 +33,8 @@
     "composition",
     "scripts",
     "src",
+    "prisma.config.postgresql.ts",
+    "prisma.config.sqlite.ts",
     "registry.manifest.json",
     "README.md"
   ],
@@ -32,6 +43,31 @@
     "routes:sync": "node scripts/update-route-registries.mjs",
     "composition:generate": "node scripts/generate-composition-artifacts.mjs",
     "validate": "node scripts/validate.mjs",
-    "contracts:propose-sql": "node scripts/propose-sql-contracts.mjs"
+    "contracts:propose-sql": "node scripts/propose-sql-contracts.mjs",
+    "contracts:communications-draft": "node scripts/generate-communications-draft-contracts.mjs && node scripts/generate-communications-prisma-preview.mjs",
+    "contracts:communications-enforcement-check": "node scripts/validate-communications-enforcement.mjs",
+    "contracts:communications-migration-preview": "node scripts/generate-communications-migration-previews.mjs",
+    "contracts:casting-draft": "node scripts/generate-casting-draft-contracts.mjs",
+    "contracts:schema-factory:author": "node scripts/schema-factory.mjs author",
+    "contracts:schema-factory:preview": "node scripts/schema-factory.mjs compile",
+    "contracts:schema-factory:canonicalize": "node scripts/schema-factory.mjs canonicalize",
+    "schema:release-proof": "node scripts/generate-global-schema-proof.mjs",
+    "contracts:organisation-scope-integrity:repair": "node scripts/repair-organisation-scope-integrity.mjs",
+    "contracts:scope-review-hashes:refresh": "node scripts/refresh-scope-dependent-review-hashes.mjs",
+    "prisma:validate:casting:postgresql": "prisma validate --config prisma.config.postgresql.ts --schema schema-sources/authored/casting-v1/prisma-preview.postgresql.draft.prisma",
+    "prisma:validate:casting:sqlite": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/casting-v1/prisma-preview.sqlite.draft.prisma",
+    "prisma:validate:casting": "npm run prisma:validate:casting:postgresql && npm run prisma:validate:casting:sqlite",
+    "contracts:casting-validate": "node scripts/validate-casting-prisma-previews.mjs",
+    "prisma:validate:postgresql": "prisma validate --config prisma.config.postgresql.ts --schema schema-sources/authored/maataa-communications-v1/prisma-preview.postgresql.draft.prisma",
+    "prisma:validate:sqlite": "prisma validate --config prisma.config.sqlite.ts --schema schema-sources/authored/maataa-communications-v1/prisma-preview.sqlite.draft.prisma",
+    "prisma:validate:communications": "npm run prisma:validate:postgresql && npm run prisma:validate:sqlite",
+    "contracts:communications-validate": "npm run contracts:communications-migration-preview && node scripts/validate-communications-enforcement.mjs && node scripts/validate-communications-prisma-previews.mjs",
+    "control-plane:typecheck": "tsc --project control-plane/tsconfig.json",
+    "control-plane:compile": "node scripts/compile-control-plane.mjs"
+  },
+  "devDependencies": {
+    "ajv": "6.15.0",
+    "prisma": "7.9.1",
+    "typescript": "5.9.3"
   }
 }

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "CROSSWALKED_NOT_INTEGRATED_IN_GLOBAL_BOOTSTRAPS",
+  "canonicalContractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+  "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+  "communicationsDraftContractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "providerPlanHash": "e9ba88e6bf1e1c6fa0b5f941e6d435871a29e75af3ca6524370acd29762b525e",
+  "globalBootstrapOverlayIncluded": false,
+  "providerSpecificEquivalentInvariants": [
+    {
+      "name": "announcement_audience_matches_workspace_scope",
+      "tableId": "communications.announcements",
+      "logicalRule": "ORGANISATION requires workspace_id IS NULL; WORKSPACE requires workspace_id IS NOT NULL.",
+      "classification": "PROVIDER_SPECIFIC_EQUIVALENT",
+      "prismaProjection": "NOT_REPRESENTED",
+      "postgresql": {
+        "enforcement": "CHECK constraint",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "ck_communications_announcements_audience_scope"
+      },
+      "sqlite": {
+        "enforcement": "BEFORE INSERT and BEFORE UPDATE triggers",
+        "file": "provider-enforcement.sqlite.sql",
+        "names": [
+          "trg_communications_announcements_audience_scope_insert",
+          "trg_communications_announcements_audience_scope_update"
+        ]
+      }
+    },
+    {
+      "name": "direct_message_membership_pair_is_normalized",
+      "tableId": "communications.direct_message_threads",
+      "logicalRule": "The lower participant membership ID must be strictly less than the higher ID; equality and reversed pairs are rejected.",
+      "classification": "PROVIDER_SPECIFIC_EQUIVALENT",
+      "prismaProjection": "NOT_REPRESENTED",
+      "postgresql": {
+        "enforcement": "CHECK constraint over native UUID values",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "ck_communications_direct_message_pair_order"
+      },
+      "sqlite": {
+        "enforcement": "BEFORE INSERT and BEFORE UPDATE triggers using case-normalized canonical UUID text ordering",
+        "file": "provider-enforcement.sqlite.sql",
+        "names": [
+          "trg_communications_direct_message_pair_order_insert",
+          "trg_communications_direct_message_pair_order_update"
+        ]
+      }
+    },
+    {
+      "name": "direct_message_parent_thread_is_direct",
+      "tableId": "communications.direct_message_threads",
+      "logicalRule": "A direct-message mapping must reference a parent thread whose kind is direct and whose organisation, workspace, and ID match the mapping.",
+      "classification": "PROVIDER_SPECIFIC_EQUIVALENT",
+      "prismaProjection": "NOT_REPRESENTED",
+      "postgresql": {
+        "enforcement": "BEFORE INSERT/UPDATE mapping triggers and parent-kind/workspace immutability trigger",
+        "file": "provider-enforcement.postgresql.sql",
+        "names": [
+          "trg_communications_direct_message_parent_insert",
+          "trg_communications_direct_message_parent_update",
+          "trg_communications_direct_thread_kind_update"
+        ]
+      },
+      "sqlite": {
+        "enforcement": "BEFORE INSERT/UPDATE mapping triggers and parent-kind/workspace immutability trigger",
+        "file": "provider-enforcement.sqlite.sql",
+        "names": [
+          "trg_communications_direct_message_parent_insert",
+          "trg_communications_direct_message_parent_update",
+          "trg_communications_direct_thread_kind_update"
+        ]
+      }
+    },
+    {
+      "name": "one_active_thread_membership_episode",
+      "tableId": "communications.thread_members",
+      "logicalRule": "At most one row per organisation, workspace, thread, and workspace membership may have left_at IS NULL; ended episodes remain as history and rejoining may create a new episode.",
+      "classification": "PROVIDER_SPECIFIC_EQUIVALENT",
+      "prismaProjection": "NOT_REPRESENTED",
+      "postgresql": {
+        "enforcement": "partial unique index",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "uq_communications_thread_members_active_episode"
+      },
+      "sqlite": {
+        "enforcement": "partial unique index",
+        "file": "provider-enforcement.sqlite.sql",
+        "name": "uq_communications_thread_members_active_episode"
+      }
+    },
+    {
+      "name": "thread_membership_episode_cannot_be_reopened_or_rekeyed",
+      "tableId": "communications.thread_members",
+      "logicalRule": "Episode identity and joined/created timestamps are immutable; left_at may transition from null to a terminal timestamp once, but an ended episode cannot be reopened or rewritten.",
+      "classification": "PROVIDER_SPECIFIC_EQUIVALENT",
+      "prismaProjection": "NOT_REPRESENTED",
+      "postgresql": {
+        "enforcement": "BEFORE UPDATE trigger",
+        "file": "provider-enforcement.postgresql.sql",
+        "name": "trg_communications_thread_membership_episode_update"
+      },
+      "sqlite": {
+        "enforcement": "BEFORE UPDATE trigger",
+        "file": "provider-enforcement.sqlite.sql",
+        "name": "trg_communications_thread_membership_episode_update"
+      }
+    }
+  ],
+  "evidence": {
+    "planPath": "schema-sources/authored/maataa-communications-v1/provider-enforcement-plan.json",
+    "postgresqlOverlayPath": "schema-sources/authored/maataa-communications-v1/provider-enforcement.postgresql.sql",
+    "postgresqlOverlaySha256": "af5a7c18400ef633eb6462ca08525b2df42ad3b37a22de4ddc11ff531561b97c",
+    "sqliteOverlayPath": "schema-sources/authored/maataa-communications-v1/provider-enforcement.sqlite.sql",
+    "sqliteOverlaySha256": "471fb610ef907a7108f180c1ba0137bf5054992f2880793b564cddf522c30370",
+    "validationCommand": "npm run contracts:communications-enforcement-check",
+    "sqliteBehavioralChecks": "PASS",
+    "postgresqlProjectionReview": "PASS_STATIC_REVIEW",
+    "scope": "Communications 14-table DRAFT closure only; no live provider execution"
+  },
+  "requiredBeforeM4_2Exit": [
+    "select concrete provider/engine/version targets",
+    "reconcile provider overlays with global bootstrap/target diffs",
+    "review operation ordering and behavior on supported target versions",
+    "generate and review each target-bound upgrade diff"
+  ]
+}

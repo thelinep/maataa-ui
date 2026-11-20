@@ -35,7 +35,7 @@ export interface DrawerProps {
 }
 
 // Backdrop
-const Backdrop = styled.div<{ isOpen: boolean }>`
+const Backdrop = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -43,7 +43,7 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${zIndex.modal - 1};
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   animation: fadeIn ${transitions.normal};
 
   @keyframes fadeIn {
@@ -57,20 +57,20 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
 `;
 
 // Drawer container
-const DrawerContainer = styled.div<{ isOpen: boolean; side?: 'left' | 'right'; width?: string }>`
+const DrawerContainer = styled.div<{ $isOpen: boolean; $side?: 'left' | 'right'; $width?: string }>`
   position: fixed;
   top: 0;
-  ${(props) => (props.side === 'right' ? 'right' : 'left')}: 0;
+  ${(props) => (props.$side === 'right' ? 'right' : 'left')}: 0;
   bottom: 0;
-  width: ${(props) => props.width || '400px'};
+  width: ${(props) => props.$width || '400px'};
   background-color: ${colorTokens.background.primary};
   z-index: ${zIndex.modal};
   display: flex;
   flex-direction: column;
-  box-shadow: ${(props) => (props.side === 'right' ? '-10px 0 15px -5px rgba(0, 0, 0, 0.1)' : '10px 0 15px -5px rgba(0, 0, 0, 0.1)')};
+  box-shadow: ${(props) => (props.$side === 'right' ? '-10px 0 15px -5px rgba(0, 0, 0, 0.1)' : '10px 0 15px -5px rgba(0, 0, 0, 0.1)')};
   transform: translateX(${(props) => {
-    if (props.isOpen) return '0';
-    return props.side === 'right' ? '100%' : '-100%';
+    if (props.$isOpen) return '0';
+    return props.$side === 'right' ? '100%' : '-100%';
   }});
   transition: transform ${transitions.normal};
   overflow: hidden;
@@ -223,9 +223,9 @@ export const Drawer: React.FC<DrawerProps> = ({
 
   return (
     <>
-      <Backdrop isOpen={isOpen} onClick={closeOnBackdropClick ? handleBackdropClick : undefined} />
+      <Backdrop $isOpen={isOpen} onClick={closeOnBackdropClick ? handleBackdropClick : undefined} />
 
-      <DrawerContainer ref={drawerRef} isOpen={isOpen} side={side} width={width} role="dialog" aria-modal="true">
+      <DrawerContainer ref={drawerRef} $isOpen={isOpen} $side={side} $width={width} role="dialog" aria-modal="true">
         {title && (
           <Header>
             <Title>{title}</Title>

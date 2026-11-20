@@ -3,7 +3,7 @@
  * Unit tests for BudgetCategories, BudgetForecast, BudgetAlerts
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BudgetCategories, type BudgetCategory } from '@/components/budget/BudgetCategories';
@@ -62,8 +62,11 @@ describe('BudgetCategories', () => {
       />
     );
 
-    const progressBars = screen.getAllByRole('presentation');
-    expect(progressBars.length).toBeGreaterThan(0);
+    const progressBars = screen.getAllByRole('progressbar');
+    expect(progressBars).toHaveLength(mockCategories.length);
+    const first = mockCategories[0];
+    expect(progressBars[0]).toHaveAttribute('aria-valuenow', String(Math.min(first.spent, first.allocated)));
+    expect(progressBars[0]).toHaveAttribute('aria-valuemax', String(first.allocated));
   });
 
   it('calls onAddCategory when add button is clicked and form filled', async () => {
@@ -78,15 +81,14 @@ describe('BudgetCategories', () => {
     const addButton = screen.getByText('+ Add Category');
     fireEvent.click(addButton);
 
-    const inputs = screen.getAllByRole('textbox');
-    await userEvent.type(inputs[0], 'HR');
-    await userEvent.type(inputs[1], '5000');
+    await userEvent.type(screen.getByLabelText('Category name'), 'HR');
+    await userEvent.type(screen.getByLabelText('Allocated amount'), '5000');
 
     const saveButton = screen.getByText('Save');
     fireEvent.click(saveButton);
 
     await waitFor(() => {
-      expect(handleAdd).toHaveBeenCalled();
+      expect(handleAdd).toHaveBeenCalledWith(expect.objectContaining({ name: 'HR', allocated: 5000, spent: 0 }));
     });
   });
 

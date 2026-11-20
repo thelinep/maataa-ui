@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
-import { Button, DataTable } from '@/components';
+import { Button } from '@/components';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
 export interface ScheduledEvent {
@@ -123,11 +123,11 @@ const EventDesc = styled.span`
   color: ${colorTokens.text.secondary};
 `;
 
-const EventType = styled.span`
+const EventType = styled.span<{ $type?: string }>`
   display: inline-block;
   padding: 2px 8px;
-  background: ${(props: any) => {
-    switch (props.type) {
+  background: ${(props) => {
+    switch (props.$type) {
       case 'meeting': return colorTokens.interactive.info;
       case 'deadline': return colorTokens.interactive.error;
       case 'milestone': return colorTokens.interactive.success;
@@ -164,11 +164,11 @@ const AttendeeCount = styled.span`
   font-weight: 600;
 `;
 
-const StatusBadge = styled.span`
+const StatusBadge = styled.span<{ $status?: string }>`
   display: inline-block;
   padding: 4px 8px;
-  background: ${(props: any) => {
-    switch (props.status) {
+  background: ${(props) => {
+    switch (props.$status) {
       case 'completed': return colorTokens.interactive.success;
       case 'in-progress': return colorTokens.interactive.info;
       case 'cancelled': return colorTokens.interactive.error;
@@ -227,11 +227,8 @@ function calculateDuration(startTime: string, endTime: string): number {
  */
 export const ScheduleList: React.FC<ScheduleListProps> = ({
   events,
-  currentUserId,
   onCreateEvent,
   onViewEvent,
-  onEditEvent,
-  onDeleteEvent,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
@@ -306,7 +303,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
                 </EventTitle>
 
                 <div>
-                  <EventType type={event.eventType}>
+                  <EventType $type={event.eventType}>
                     {event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
                   </EventType>
                 </div>
@@ -319,7 +316,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
                 <div>
                   <AttendeeCount>👥 {event.attendees.length}</AttendeeCount>
                   <div style={{ marginTop: spacing.sm }}>
-                    <StatusBadge status={event.status}>
+                    <StatusBadge $status={event.status}>
                       {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
                     </StatusBadge>
                   </div>

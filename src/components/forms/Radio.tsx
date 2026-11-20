@@ -11,7 +11,7 @@
  * - Design token integration
  */
 
-import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, transitions } from '@/utils/tokens';
 
@@ -182,7 +182,8 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     },
     ref
   ) => {
-    const radioId = id || `radio-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const radioId = id || `radio-${generatedId}`;
 
     return (
       <Container>

@@ -1,0 +1,14 @@
+{
+  "schemaLifecycle": "DRAFT",
+  "contractSetHash": "41ac98624962fdd44140016c65c8a5e30cffce35ef68c3eb5dbfae788f9d1352",
+  "logicalSchemaHash": "ab091767e551d4db083d4f5e0372218fa07b650fd1206109bd7708ee9bf4d672",
+  "targetProvider": "postgresql",
+  "generatedFrom": "Prisma Migrate diff --from-empty --to-schema --script plus reviewed MAATAA invariant overlay",
+  "migrationPreviewValid": true,
+  "migrationApproved": false,
+  "deploymentApproved": false,
+  "sqlSha256": "2c3c0917311e36a36764f12be425c5f09e71e6eef4f824c07a06b49483f974cf",
+  "basePrismaSqlSha256": "1ae351f0ffcd7a85a65e73f16c5dfda4355f881f190b84f1aa7c2ae45a07d4f9",
+  "overlaySqlSha256": "af5a7c18400ef633eb6462ca08525b2df42ad3b37a22de4ddc11ff531561b97c",
+  "overlayFile": "provider-enforcement.postgresql.sql"
+}

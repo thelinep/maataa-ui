@@ -12,11 +12,23 @@
  * - TypeScript strict mode support
  */
 
-import { forwardRef, InputHTMLAttributes, ReactNode, useState } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode, useId, useState } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography, borderRadius, transitions } from '@/utils/tokens';
+import { useFormField } from './FormFieldWrapper';
 
-export type InputType = 'text' | 'email' | 'password' | 'number' | 'url' | 'tel' | 'search' | 'hidden';
+export type InputType =
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'number'
+  | 'url'
+  | 'tel'
+  | 'search'
+  | 'hidden'
+  | 'date'
+  | 'time'
+  | 'datetime-local';
 
 export interface FormInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   /** Input type */
@@ -46,12 +58,12 @@ const Container = styled.div`
 `;
 
 // Label styling
-const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
+const Label = styled.label<{ $hasError?: boolean }>`
   font-size: ${typography.label.fontSize};
   font-weight: ${typography.label.fontWeight};
   line-height: ${typography.label.lineHeight};
   text-transform: ${typography.label.textTransform};
-  color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
+  color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.text.primary)};
   transition: color ${transitions.normal};
 
   .required-asterisk {
@@ -61,11 +73,14 @@ const Label = styled.label<{ required?: boolean; hasError?: boolean }>`
 `;
 
 // Input styling - main element
-const StyledInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg'; isLoading?: boolean }>`
+const StyledInput = styled.input<{ $hasError?: boolean; $size?: 'sm' | 'md' | 'lg'; $isLoading?: boolean }>`
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   /* Base styles */
   font-family: ${typography.body.fontFamily};
   font-size: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return '12px';
       case 'lg':
@@ -78,7 +93,7 @@ const StyledInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg'
 
   /* Spacing */
   padding: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'sm':
         return `${spacing.xs} ${spacing.sm}`;
       case 'lg':
@@ -91,7 +106,7 @@ const StyledInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg'
   /* Colors and borders */
   color: ${colorTokens.text.primary};
   background-color: ${colorTokens.background.primary};
-  border: 1px solid ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
+  border: 1px solid ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.primary)};
   border-radius: ${borderRadius.md};
 
   /* Transitions */
@@ -103,16 +118,16 @@ const StyledInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg'
   /* Focus state */
   &:focus {
     outline: none;
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.interactive.primary)};
     box-shadow: 0 0 0 3px ${(props) => {
-      if (props.hasError) return 'rgba(139, 58, 43, 0.1)';
+      if (props.$hasError) return 'rgba(139, 58, 43, 0.1)';
       return 'rgba(139, 111, 71, 0.1)';
     }};
   }
 
   /* Hover state */
   &:hover:not(:disabled) {
-    border-color: ${(props) => (props.hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
+    border-color: ${(props) => (props.$hasError ? colorTokens.interactive.error : colorTokens.border.secondary)};
   }
 
   /* Disabled state */
@@ -125,7 +140,7 @@ const StyledInput = styled.input<{ hasError?: boolean; size?: 'sm' | 'md' | 'lg'
 
   /* Loading state */
   ${(props) =>
-    props.isLoading &&
+    props.$isLoading &&
     `
     opacity: 0.6;
     cursor: not-allowed;
@@ -199,13 +214,16 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     ref
   ) => {
     const [, setIsFocused] = useState(false);
-    const hasError = !!error;
-    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const field = useFormField();
+    const hasError = !!error || !!field?.invalid;
+    const generatedId = useId();
+    const inputId = id || field?.id || `input-${generatedId}`;
+    const describedBy = error ? `${inputId}-error` : hint ? `${inputId}-hint` : field?.describedBy;
 
     return (
       <Container>
         {label && (
-          <Label htmlFor={inputId} required={required} hasError={hasError}>
+          <Label htmlFor={inputId} $hasError={hasError}>
             {label}
             {required && showRequiredAsterisk && <span className="required-asterisk">*</span>}
           </Label>
@@ -216,9 +234,11 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           id={inputId}
           type={type}
           disabled={disabled || isLoading}
-          hasError={hasError}
-          size={size}
-          isLoading={isLoading}
+          required={required || field?.required || undefined}
+          aria-busy={isLoading || undefined}
+          $hasError={hasError}
+          $size={size}
+          $isLoading={isLoading}
           placeholder={placeholder}
           onFocus={(e) => {
             setIsFocused(true);
@@ -228,8 +248,8 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             setIsFocused(false);
             props.onBlur?.(e);
           }}
-          aria-invalid={hasError}
-          aria-describedby={hasError ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
+          aria-invalid={hasError || undefined}
+          aria-describedby={describedBy}
           {...props}
         />
 

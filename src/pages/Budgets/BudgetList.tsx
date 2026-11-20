@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Button, DataTable, Card, FormInput } from '@/components';
 import { useEntity } from '@/hooks';
 import { colorTokens, spacing, typography } from '@/utils/tokens';

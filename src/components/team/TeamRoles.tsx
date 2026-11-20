@@ -210,8 +210,6 @@ const PERMISSION_CATEGORIES: Record<string, { label: string; color: string }> = 
 export const TeamRoles: React.FC<TeamRolesProps> = ({
   roles,
   onAddRole,
-  onUpdateRole,
-  onDeleteRole,
 }) => {
   const [expanded, setExpanded] = useState<string | null>(null);
 

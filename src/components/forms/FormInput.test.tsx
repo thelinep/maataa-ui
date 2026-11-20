@@ -21,13 +21,17 @@ describe('FormInput Component', () => {
     });
 
     it('should render all input types', () => {
-      const types = ['text', 'email', 'password', 'number', 'url'] as const;
+      // Implicit ARIA roles: text/email/url -> textbox, number -> spinbutton; password has none
+      const roleFor = { text: 'textbox', email: 'textbox', url: 'textbox', number: 'spinbutton' } as const;
 
-      types.forEach(type => {
+      (Object.keys(roleFor) as (keyof typeof roleFor)[]).forEach((type) => {
         const { unmount } = render(<FormInput type={type} />);
-        expect(screen.getByRole(type === 'text' ? 'textbox' : 'spinbutton', { hidden: true })).toBeInTheDocument();
+        expect(screen.getByRole(roleFor[type])).toHaveAttribute('type', type);
         unmount();
       });
+
+      const { container } = render(<FormInput type="password" />);
+      expect(container.querySelector('input[type="password"]')).toBeInTheDocument();
     });
 
     it('should render with placeholder', () => {

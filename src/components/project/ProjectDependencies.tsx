@@ -5,7 +5,7 @@
  * Integrates with Phase 1 design tokens
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@/components';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
@@ -50,33 +50,13 @@ const Title = styled.h3`
   margin: 0;
 `;
 
-const GraphContainer = styled.div`
-  background: ${colorTokens.background.secondary};
-  border: 1px solid ${colorTokens.border.primary};
-  border-radius: ${borderRadius.md};
-  padding: ${spacing.md};
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.md};
-  overflow-x: auto;
-`;
-
-const Graph = styled.svg`
-  width: 100%;
-  min-width: 600px;
-  height: 400px;
-  background: ${colorTokens.background.primary};
-  border-radius: ${borderRadius.sm};
-`;
-
-const TaskNode = styled.div`
+const TaskNode = styled.div<{ $status?: string; $isCritical?: boolean }>`
   display: inline-flex;
   flex-direction: column;
   gap: ${spacing.xs || `4px`};
   padding: ${spacing.sm};
-  background: ${(props: any) => {
-    switch (props.status) {
+  background: ${(props) => {
+    switch (props.$status) {
       case 'completed': return colorTokens.interactive.success;
       case 'in-progress': return colorTokens.interactive.info;
       case 'blocked': return colorTokens.interactive.error;
@@ -89,19 +69,8 @@ const TaskNode = styled.div`
   font-weight: 600;
   min-width: 120px;
   text-align: center;
-  border: ${(props: any) => props.isCritical ? `2px solid ${colorTokens.interactive.error}` : '1px solid transparent'};
-  box-shadow: ${(props: any) => props.isCritical ? `0 0 8px ${colorTokens.interactive.error}` : 'none'};
-`;
-
-const TaskLabel = styled.span`
-  display: block;
-  font-weight: 600;
-`;
-
-const TaskDuration = styled.span`
-  display: block;
-  font-size: 11px;
-  opacity: 0.9;
+  border: ${(props) => props.$isCritical ? `2px solid ${colorTokens.interactive.error}` : '1px solid transparent'};
+  box-shadow: ${(props) => props.$isCritical ? `0 0 8px ${colorTokens.interactive.error}` : 'none'};
 `;
 
 const DependencyList = styled.div`
@@ -195,12 +164,9 @@ export const ProjectDependencies: React.FC<ProjectDependenciesProps> = ({
   tasks,
   dependencies,
   criticalPath = [],
-  onAddDependency,
   onRemoveDependency,
 }) => {
   const getTaskById = (id: string) => tasks.find((t) => t.id === id);
-  const getTaskDependencies = (taskId: string) =>
-    dependencies.filter((d) => d.toTaskId === taskId);
 
   const blockedTasks = tasks.filter((t) => t.status === 'blocked').length;
   const completedTasks = tasks.filter((t) => t.status === 'completed').length;
@@ -259,13 +225,13 @@ export const ProjectDependencies: React.FC<ProjectDependenciesProps> = ({
               return (
                 <DependencyItem key={dep.id} style={{ borderLeftColor: isCritical ? colorTokens.interactive.error : colorTokens.border.primary, borderLeftWidth: isCritical ? '3px' : '1px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: spacing.sm }}>
-                    <TaskNode status={fromTask?.status}>
+                    <TaskNode $status={fromTask?.status}>
                       {fromTask?.name.substring(0, 10)}
                     </TaskNode>
                     <DependencyArrow>
                       <DependencyBadge>{dep.type}</DependencyBadge>
                     </DependencyArrow>
-                    <TaskNode status={toTask?.status} isCritical={isCritical}>
+                    <TaskNode $status={toTask?.status} $isCritical={isCritical}>
                       {toTask?.name.substring(0, 10)}
                     </TaskNode>
                     {dep.lagDays && <LagTag>+{dep.lagDays}d lag</LagTag>}

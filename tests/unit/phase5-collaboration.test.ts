@@ -265,7 +265,7 @@ describe('WebSocketServer', () => {
     it('should get sessions for user', () => {
       const s1 = server.registerClient('user1', 'org1');
       const s2 = server.registerClient('user1', 'org1');
-      const s3 = server.registerClient('user2', 'org1');
+      server.registerClient('user2', 'org1');
 
       const userSessions = server.getUserSessions('user1');
       expect(userSessions.length).toBe(2);
@@ -492,8 +492,10 @@ describe('OperationalTransformEngine', () => {
 
       ot.recordOperation(op);
       const undoOp = ot.undo('e1');
-      expect(undoOp).toBeDefined();
+      expect(undoOp).not.toBeNull();
       expect(undoOp?.type).toBe('update');
+      expect(undoOp?.value).toBe('John');
+      expect(undoOp?.oldValue).toBe('Jane');
     });
 
     it('should redo operation', () => {
@@ -514,7 +516,9 @@ describe('OperationalTransformEngine', () => {
       ot.recordOperation(op);
       ot.undo('e1');
       const redoOp = ot.redo('e1');
-      expect(redoOp).toBeDefined();
+      expect(redoOp).not.toBeNull();
+      expect(redoOp?.value).toBe('Jane');
+      expect(ot.redo('e1')).toBeNull();
     });
 
     it('should return null when undo stack is empty', () => {

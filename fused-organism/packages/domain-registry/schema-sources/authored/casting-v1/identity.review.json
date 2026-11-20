@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewStatus": "REVIEWED",
+  "decision": "APPROVE",
+  "reviewer": "thelinep",
+  "reviewedAt": "2026-10-02T23:32:49.157Z",
+  "scope": "MAATAA-authored identity context schema for the casting composition",
+  "context": "identity",
+  "contractCount": 25,
+  "contractSetHash": "f873757dc6030c305d80d52f55c7f18772b1677eadd1045f4c841129afdb3c83",
+  "compositionContractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+  "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706",
+  "contractIds": [
+    "identity.access_policies",
+    "identity.access_reviews",
+    "identity.auth_accounts",
+    "identity.auth_challenges",
+    "identity.auth_credentials",
+    "identity.delegations",
+    "identity.device_verifications",
+    "identity.devices",
+    "identity.invitations",
+    "identity.location_verifications",
+    "identity.nda_acceptances",
+    "identity.nda_versions",
+    "identity.ndas",
+    "identity.otp_challenges",
+    "identity.password_reset_tokens",
+    "identity.permissions",
+    "identity.role_permissions",
+    "identity.roles",
+    "identity.signatures",
+    "identity.user_emails",
+    "identity.user_phones",
+    "identity.user_profiles",
+    "identity.user_roles",
+    "identity.user_sessions",
+    "identity.users"
+  ],
+  "coreProposalIds": [
+    "identity.user_profiles",
+    "identity.user_sessions",
+    "identity.users"
+  ],
+  "approvalBasis": "Approved the exact 25-contract identity context set after contract structure, provenance, relation/FK closure, ownership, lifecycle, and provider-preview review. Definitions are MAATAA-authored design proposals; no external database authority is claimed. Global identity.users references follow CAST-DRAFT-004 and require application checks for active organisation/workspace membership and applicable project access. This context review does not approve migrations or deployment.",
+  "validations": {
+    "structuralContracts": "25/25 PASS",
+    "foreignKeyClosure": "PASS (160-table composition closure)",
+    "logicalSchema": "PASS",
+    "prisma": {
+      "postgresql": "PASS",
+      "sqlite": "PASS",
+      "scope": "Prisma model projection only"
+    },
+    "migrationApproved": false,
+    "deploymentApproved": false,
+    "unitTests": "28/28 PASS"
+  },
+  "retainedBoundaries": {
+    "applicationMembershipAuthorizationImplemented": false,
+    "compositionSchemaReady": true,
+    "legalReviewed": false,
+    "migrationApproved": false,
+    "deploymentApproved": false
+  },
+  "canonicalizedAt": "2026-10-02T23:32:49.157Z",
+  "proofRefreshedAt": "2026-10-03",
+  "hashRefresh": {
+    "amendmentId": "organisation-scope-integrity-v1.2.0",
+    "reviewer": "thelinep",
+    "refreshedAt": "2026-10-03T00:00:21.130Z",
+    "previous": {
+      "contractSetHash": "8789255de24c57fb57b83adde87e77fed65c6fc9f8d1c4bd9d744062a57c5e8c",
+      "logicalSchemaHash": "9df0040ac7fdaf62972ed51020bf25eb53e77915dca84d1702def245ac5cc3db"
+    },
+    "current": {
+      "contractSetHash": "c379e5eb0dc61577b13c91bbe6fde4fc5435433665857a0c4ae7504e1c25e34d",
+      "logicalSchemaHash": "5ab67de54661e7e9b2afa97b0313032e46196b403b94ea1bf0b2a94b1cbcb706"
+    }
+  }
+}

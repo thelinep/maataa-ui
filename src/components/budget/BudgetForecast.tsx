@@ -45,7 +45,7 @@ const Title = styled.h3`
 
 const ForecastGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing.md};
 
   @media (max-width: 768px) {
@@ -83,7 +83,7 @@ const Timeline = styled.div`
   border-radius: ${borderRadius.sm};
 `;
 
-const TimelineBar = styled.div`
+const TimelineBar = styled.div<{ $progress: number }>`
   flex: 1;
   height: 8px;
   background: ${colorTokens.border.primary};
@@ -97,7 +97,7 @@ const TimelineBar = styled.div`
     top: 0;
     left: 0;
     height: 100%;
-    width: ${(props: any) => `${props.progress}%`};
+    width: ${(props) => `${props.$progress}%`};
     background: linear-gradient(
       to right,
       ${colorTokens.interactive.success} 0%,
@@ -152,7 +152,7 @@ function estimateDaysUntilDepletion(
  * Project spending at end of period
  */
 function projectEndOfPeriodSpending(
-  allocated: number,
+  _allocated: number,
   spent: number,
   dailyRate: number,
   daysRemaining: number
@@ -180,11 +180,14 @@ export const BudgetForecast: React.FC<BudgetForecastProps> = ({
   trends,
   currency = 'USD',
   daysInBudgetPeriod = 90,
-  currentDayOfPeriod = Math.floor(Math.random() * daysInBudgetPeriod),
+  currentDayOfPeriod,
 }) => {
+  // Default: days of spending history recorded so far (was random, so the forecast changed every render)
+  const dayOfPeriod =
+    currentDayOfPeriod ?? Math.min(new Set(trends.map((t) => t.date.slice(0, 10))).size, daysInBudgetPeriod);
   const metrics = useMemo(() => {
     const dailyRate = calculateDailySpendRate(trends);
-    const daysRemaining = daysInBudgetPeriod - currentDayOfPeriod;
+    const daysRemaining = daysInBudgetPeriod - dayOfPeriod;
     const projectedEndSpending = projectEndOfPeriodSpending(
       allocated,
       spent,
@@ -203,9 +206,9 @@ export const BudgetForecast: React.FC<BudgetForecastProps> = ({
       variance,
       willOverBudget,
       percentageUsed: (spent / allocated) * 100,
-      progressTimeline: (currentDayOfPeriod / daysInBudgetPeriod) * 100,
+      progressTimeline: (dayOfPeriod / daysInBudgetPeriod) * 100,
     };
-  }, [trends, allocated, spent, daysInBudgetPeriod, currentDayOfPeriod]);
+  }, [trends, allocated, spent, daysInBudgetPeriod, dayOfPeriod]);
 
   return (
     <Container>
@@ -213,9 +216,9 @@ export const BudgetForecast: React.FC<BudgetForecastProps> = ({
 
       <Timeline>
         <span style={{ fontSize: typography.bodySmall.fontSize, color: colorTokens.text.secondary }}>
-          Day {currentDayOfPeriod}/{daysInBudgetPeriod}
+          Day {dayOfPeriod}/{daysInBudgetPeriod}
         </span>
-        <TimelineBar progress={metrics.progressTimeline} />
+        <TimelineBar $progress={metrics.progressTimeline} />
         <TimelineLabel>{metrics.progressTimeline.toFixed(0)}%</TimelineLabel>
       </Timeline>
 

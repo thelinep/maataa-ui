@@ -120,10 +120,10 @@ const getFontSize = (size: ButtonSize) => {
 
 // Styled button
 const StyledButton = styled.button<{
-  variant: ButtonVariant;
-  size: ButtonSize;
-  isLoading: boolean;
-  isBlock: boolean;
+  $variant: ButtonVariant;
+  $size: ButtonSize;
+  $isLoading: boolean;
+  $isBlock: boolean;
 }>`
   /* Base styles */
   display: inline-flex;
@@ -131,17 +131,17 @@ const StyledButton = styled.button<{
   justify-content: center;
   gap: ${spacing.sm};
   font-family: ${typography.body.fontFamily};
-  font-size: ${(props) => getFontSize(props.size)};
+  font-size: ${(props) => getFontSize(props.$size)};
   font-weight: 500;
   line-height: 1.4;
-  padding: ${(props) => getPadding(props.size)};
+  padding: ${(props) => getPadding(props.$size)};
   border-radius: ${borderRadius.md};
-  border: 1px solid ${(props) => getVariantColors(props.variant, props.disabled).border};
-  background-color: ${(props) => getVariantColors(props.variant, props.disabled).bg};
-  color: ${(props) => getVariantColors(props.variant, props.disabled).color};
+  border: 1px solid ${(props) => getVariantColors(props.$variant, props.disabled).border};
+  background-color: ${(props) => getVariantColors(props.$variant, props.disabled).bg};
+  color: ${(props) => getVariantColors(props.$variant, props.disabled).color};
 
   /* Layout */
-  width: ${(props) => (props.isBlock ? '100%' : 'auto')};
+  width: ${(props) => (props.$isBlock ? '100%' : 'auto')};
 
   /* Transitions */
   transition:
@@ -151,14 +151,14 @@ const StyledButton = styled.button<{
     opacity ${transitions.fast};
 
   /* Cursor */
-  cursor: ${(props) => (props.disabled || props.isLoading ? 'not-allowed' : 'pointer')};
+  cursor: ${(props) => (props.disabled || props.$isLoading ? 'not-allowed' : 'pointer')};
 
   /* Focus state */
   &:focus {
     outline: none;
     box-shadow:
       0 0 0 3px ${(props) => {
-        const colors = getVariantColors(props.variant, props.disabled);
+        const colors = getVariantColors(props.$variant, props.disabled);
         const color = colors.border === 'transparent' ? colorTokens.interactive.primary : colors.border;
         return color + '33'; // 20% opacity
       }};
@@ -166,7 +166,7 @@ const StyledButton = styled.button<{
 
   /* Hover state */
   &:hover:not(:disabled) {
-    background-color: ${(props) => getVariantColors(props.variant, props.disabled).bgHover};
+    background-color: ${(props) => getVariantColors(props.$variant, props.disabled).bgHover};
     box-shadow: ${shadows.md};
   }
 
@@ -183,7 +183,7 @@ const StyledButton = styled.button<{
 
   /* Loading state */
   ${(props) =>
-    props.isLoading &&
+    props.$isLoading &&
     `
     opacity: 0.8;
     cursor: wait;
@@ -249,12 +249,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <StyledButton
         ref={ref}
-        variant={variant}
-        size={size}
-        isLoading={isLoading}
-        isBlock={isBlock}
+        $variant={variant}
+        $size={size}
+        $isLoading={isLoading}
+        $isBlock={isBlock}
+        data-variant={variant}
+        data-size={size}
         disabled={disabled || isLoading}
-        aria-busy={isLoading}
+        aria-busy={isLoading || undefined}
         {...props}
       >
         {isLoading ? (

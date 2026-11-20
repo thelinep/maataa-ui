@@ -1,0 +1,1271 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for SQLite/libSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum E_EventsspatialBoardItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.board_items#status")
+}
+enum E_EventsspatialBoardsBoardStatus {
+  draft
+  active
+  archived
+  @@map("eventsspatial.boards#board_status")
+}
+enum E_EventsspatialCadModelsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.cad_models#status")
+}
+enum E_EventsspatialDecisionGraphEdgesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.decision_graph_edges#status")
+}
+enum E_EventsspatialDecisionGraphNodesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.decision_graph_nodes#status")
+}
+enum E_EventsspatialDecisionGraphsGraphStatus {
+  draft
+  active
+  retired
+  @@map("eventsspatial.decision_graphs#graph_status")
+}
+enum E_EventsspatialEventJourneysJourneyStatus {
+  draft
+  active
+  retired
+  @@map("eventsspatial.event_journeys#journey_status")
+}
+enum E_EventsspatialEventTimelineItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.event_timeline_items#status")
+}
+enum E_EventsspatialEventsEventStatus {
+  draft
+  planning
+  confirmed
+  live
+  completed
+  cancelled
+  @@map("eventsspatial.events#event_status")
+}
+enum E_EventsspatialExhibitionLayoutsLayoutStatus {
+  draft
+  review
+  approved
+  published
+  @@map("eventsspatial.exhibition_layouts#layout_status")
+}
+enum E_EventsspatialFilmTwinsTwinStatus {
+  draft
+  synchronized
+  stale
+  archived
+  @@map("eventsspatial.film_twins#twin_status")
+}
+enum E_EventsspatialPresentationSlidesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.presentation_slides#status")
+}
+enum E_EventsspatialPresentationsPresentationStatus {
+  draft
+  ready
+  published
+  archived
+  @@map("eventsspatial.presentations#presentation_status")
+}
+enum E_EventsspatialRunOfShowItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.run_of_show_items#status")
+}
+enum E_EventsspatialSimulationsSimulationStatus {
+  queued
+  running
+  completed
+  failed
+  @@map("eventsspatial.simulations#simulation_status")
+}
+enum E_EventsspatialSpatialLayersStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.spatial_layers#status")
+}
+enum E_EventsspatialSpatialLayoutsLayoutStatus {
+  draft
+  published
+  archived
+  @@map("eventsspatial.spatial_layouts#layout_status")
+}
+enum E_EventsspatialSpatialObjectsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.spatial_objects#status")
+}
+enum E_EventsspatialSpatialOperationsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.spatial_operations#status")
+}
+enum E_EventsspatialSpatialProjectsProjectStatus {
+  draft
+  active
+  archived
+  @@map("eventsspatial.spatial_projects#project_status")
+}
+enum E_EventsspatialVenueBookingsBookingStatus {
+  held
+  confirmed
+  cancelled
+  completed
+  @@map("eventsspatial.venue_bookings#booking_status")
+}
+enum E_EventsspatialVenuesVenueStatus {
+  active
+  restricted
+  retired
+  @@map("eventsspatial.venues#venue_status")
+}
+enum E_EventsspatialWeddingEventsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("eventsspatial.wedding_events#status")
+}
+enum E_EventsspatialWeddingJourneysJourneyStatus {
+  planned
+  active
+  completed
+  skipped
+  @@map("eventsspatial.wedding_journeys#journey_status")
+}
+enum E_EventsspatialWeddingsWeddingStatus {
+  inquiry
+  planning
+  confirmed
+  completed
+  cancelled
+  @@map("eventsspatial.weddings#wedding_status")
+}
+enum E_EvidenceEvidenceItemsEvidenceKind {
+  document
+  image
+  video
+  audio
+  dataset
+  other
+  @@map("evidence.evidence_items#evidence_kind")
+}
+enum E_EvidenceEvidenceItemsEvidenceStatus {
+  active
+  quarantined
+  withdrawn
+  @@map("evidence.evidence_items#evidence_status")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_LogisticsLocationsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.locations#status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+enum E_ProjectProjectMembersMembershipStatus {
+  active
+  invited
+  suspended
+  removed
+  @@map("project.project_members#membership_status")
+}
+enum E_ProjectProjectMembersProjectRole {
+  owner
+  admin
+  contributor
+  viewer
+  @@map("project.project_members#project_role")
+}
+enum E_ProjectProjectsProjectStatus {
+  draft
+  active
+  on_hold
+  completed
+  archived
+  @@map("project.projects#project_status")
+}
+model EventsSpatialBoardItems {
+  board_id String
+  content Json
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  item_kind String
+  organisation_id String
+  position_x Decimal?
+  position_y Decimal?
+  size_h Decimal?
+  size_w Decimal?
+  sort_order Int
+  status E_EventsspatialBoardItemsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_board_items_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_board_items_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_board_items_board_id_eventsspatial_boards EventsSpatialBoards @relation("R_fk_board_items_board_id_eventsspatial_boards", fields: [board_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_board_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_board_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_board_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_board_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "board_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "board_items_id_workspace_organisation_uq")
+  @@unique([board_id, sort_order], map: "board_items_board_id_sort_order_uq")
+  @@index([organisation_id, status], map: "board_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "board_items_workspace_status_idx")
+  @@index([created_at], map: "board_items_created_idx")
+  @@map("eventsSpatial_board_items")
+}
+model EventsSpatialBoards {
+  board_kind String
+  board_status E_EventsspatialBoardsBoardStatus @default(draft)
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  event_id String?
+  id String @id @default(uuid())
+  organisation_id String
+  spatial_project_id String?
+  title String
+  updated_at DateTime @default(now())
+  version_number Int
+  workspace_id String
+  rel_fk_boards_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_boards_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_boards_spatial_project_id_eventsspatial_spatial_projects EventsSpatialSpatialProjects? @relation("R_fk_boards_spatial_project_id_eventsspatial_spatial_projects", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_boards_event_id_eventsspatial_events EventsSpatialEvents? @relation("R_fk_boards_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_boards_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_boards_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_boards_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_boards_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_board_items_fk_board_items_board_id_eventsspatial_boards EventsSpatialBoardItems[] @relation("R_fk_board_items_board_id_eventsspatial_boards")
+  @@unique([id, organisation_id], map: "boards_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "boards_id_workspace_organisation_uq")
+  @@index([organisation_id, board_status], map: "boards_organisation_status_idx")
+  @@index([workspace_id, board_status], map: "boards_workspace_status_idx")
+  @@index([created_at], map: "boards_created_idx")
+  @@map("eventsSpatial_boards")
+}
+model EventsSpatialCadModels {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  evidence_item_id String?
+  file_uri String
+  format String
+  id String @id @default(uuid())
+  model_version String?
+  name String
+  organisation_id String
+  spatial_project_id String
+  status E_EventsspatialCadModelsStatus @default(draft)
+  units String
+  updated_at DateTime @default(now())
+  uploaded_by_user_id String?
+  workspace_id String
+  rel_fk_cad_models_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_cad_models_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_cad_models_spatial_project_id_eventsspatial_spatial_proje EventsSpatialSpatialProjects @relation("R_fk_cad_models_spatial_project_id_eventsspatial_spatial_proje", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_cad_models_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_cad_models_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_cad_models_uploaded_by_user_id_identity_users IdentityUsers? @relation("R_fk_cad_models_uploaded_by_user_id_identity_users", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_cad_models_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_cad_models_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_cad_models_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_cad_models_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "cad_models_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "cad_models_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "cad_models_organisation_status_idx")
+  @@index([workspace_id, status], map: "cad_models_workspace_status_idx")
+  @@index([created_at], map: "cad_models_created_idx")
+  @@map("eventsSpatial_cad_models")
+}
+model EventsSpatialDecisionGraphEdges {
+  condition Json?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  decision_graph_id String
+  edge_kind String
+  from_node_key String
+  id String @id @default(uuid())
+  organisation_id String
+  sort_order Int
+  status E_EventsspatialDecisionGraphEdgesStatus @default(draft)
+  to_node_key String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_decision_graph_edges_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_decision_graph_edges_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_decision_graph_edges_decision_graph_id_eventsspatial_deci EventsSpatialDecisionGraphs @relation("R_fk_decision_graph_edges_decision_graph_id_eventsspatial_deci", fields: [decision_graph_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_decision_graph_edges_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_decision_graph_edges_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_decision_graph_edges_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_decision_graph_edges_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "decision_graph_edges_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "decision_graph_edges_id_workspace_organisation_uq")
+  @@unique([decision_graph_id, from_node_key, to_node_key], map: "decision_graph_edges_decision_graph_id_from_node_key_to_node_key_uq")
+  @@index([organisation_id, status], map: "decision_graph_edges_organisation_status_idx")
+  @@index([workspace_id, status], map: "decision_graph_edges_workspace_status_idx")
+  @@index([created_at], map: "decision_graph_edges_created_idx")
+  @@map("eventsSpatial_decision_graph_edges")
+}
+model EventsSpatialDecisionGraphNodes {
+  config Json?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  decision_graph_id String
+  id String @id @default(uuid())
+  label String
+  node_key String
+  node_kind String
+  organisation_id String
+  sort_order Int
+  status E_EventsspatialDecisionGraphNodesStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_decision_graph_nodes_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_decision_graph_nodes_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_decision_graph_nodes_decision_graph_id_eventsspatial_deci EventsSpatialDecisionGraphs @relation("R_fk_decision_graph_nodes_decision_graph_id_eventsspatial_deci", fields: [decision_graph_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_decision_graph_nodes_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_decision_graph_nodes_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_decision_graph_nodes_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_decision_graph_nodes_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "decision_graph_nodes_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "decision_graph_nodes_id_workspace_organisation_uq")
+  @@unique([decision_graph_id, node_key], map: "decision_graph_nodes_decision_graph_id_node_key_uq")
+  @@index([organisation_id, status], map: "decision_graph_nodes_organisation_status_idx")
+  @@index([workspace_id, status], map: "decision_graph_nodes_workspace_status_idx")
+  @@index([created_at], map: "decision_graph_nodes_created_idx")
+  @@map("eventsSpatial_decision_graph_nodes")
+}
+model EventsSpatialDecisionGraphs {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  graph_status E_EventsspatialDecisionGraphsGraphStatus @default(draft)
+  id String @id @default(uuid())
+  name String
+  organisation_id String
+  spatial_project_id String
+  updated_at DateTime @default(now())
+  version_number Int
+  workspace_id String
+  rel_fk_decision_graphs_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_decision_graphs_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_decision_graphs_spatial_project_id_eventsspatial_spatial_ EventsSpatialSpatialProjects @relation("R_fk_decision_graphs_spatial_project_id_eventsspatial_spatial_", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_decision_graphs_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_decision_graphs_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_decision_graphs_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_decision_graphs_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_decision_graph_edges_fk_decision_graph_edges_decision_graph_id_eventsspatial_deci EventsSpatialDecisionGraphEdges[] @relation("R_fk_decision_graph_edges_decision_graph_id_eventsspatial_deci")
+  back_eventsSpatial_decision_graph_nodes_fk_decision_graph_nodes_decision_graph_id_eventsspatial_deci EventsSpatialDecisionGraphNodes[] @relation("R_fk_decision_graph_nodes_decision_graph_id_eventsspatial_deci")
+  @@unique([id, organisation_id], map: "decision_graphs_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "decision_graphs_id_workspace_organisation_uq")
+  @@index([organisation_id, graph_status], map: "decision_graphs_organisation_status_idx")
+  @@index([workspace_id, graph_status], map: "decision_graphs_workspace_status_idx")
+  @@index([created_at], map: "decision_graphs_created_idx")
+  @@map("eventsSpatial_decision_graphs")
+}
+model EventsSpatialEventJourneys {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  event_id String
+  id String @id @default(uuid())
+  journey_kind String
+  journey_status E_EventsspatialEventJourneysJourneyStatus @default(draft)
+  name String
+  organisation_id String
+  updated_at DateTime @default(now())
+  version_number Int
+  workspace_id String
+  rel_fk_event_journeys_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_event_journeys_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_event_journeys_event_id_eventsspatial_events EventsSpatialEvents @relation("R_fk_event_journeys_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_event_journeys_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_event_journeys_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_event_journeys_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_event_journeys_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "event_journeys_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "event_journeys_id_workspace_organisation_uq")
+  @@index([organisation_id, journey_status], map: "event_journeys_organisation_status_idx")
+  @@index([workspace_id, journey_status], map: "event_journeys_workspace_status_idx")
+  @@index([created_at], map: "event_journeys_created_idx")
+  @@map("eventsSpatial_event_journeys")
+}
+model EventsSpatialEventTimelineItems {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  ends_at DateTime?
+  event_id String
+  id String @id @default(uuid())
+  notes String?
+  organisation_id String
+  owner_label String?
+  sort_order Int
+  stage String?
+  starts_at DateTime
+  status E_EventsspatialEventTimelineItemsStatus @default(draft)
+  title String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_event_timeline_items_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_event_timeline_items_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_event_timeline_items_event_id_eventsspatial_events EventsSpatialEvents @relation("R_fk_event_timeline_items_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_event_timeline_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_event_timeline_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_event_timeline_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_event_timeline_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "event_timeline_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "event_timeline_items_id_workspace_organisation_uq")
+  @@unique([event_id, sort_order], map: "event_timeline_items_event_id_sort_order_uq")
+  @@index([organisation_id, status], map: "event_timeline_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "event_timeline_items_workspace_status_idx")
+  @@index([created_at], map: "event_timeline_items_created_idx")
+  @@map("eventsSpatial_event_timeline_items")
+}
+model EventsSpatialEvents {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  ends_at DateTime?
+  event_kind String
+  event_status E_EventsspatialEventsEventStatus @default(draft)
+  guest_capacity Int?
+  id String @id @default(uuid())
+  organisation_id String
+  project_id String?
+  starts_at DateTime
+  timezone String
+  title String
+  updated_at DateTime @default(now())
+  venue_id String?
+  wedding_id String?
+  workspace_id String
+  rel_fk_events_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_events_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_events_project_id_project_projects ProjectProjects? @relation("R_fk_events_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_events_wedding_id_eventsspatial_weddings EventsSpatialWeddings? @relation("R_fk_events_wedding_id_eventsspatial_weddings", fields: [wedding_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_events_venue_id_eventsspatial_venues EventsSpatialVenues? @relation("R_fk_events_venue_id_eventsspatial_venues", fields: [venue_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_events_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_events_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_events_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_events_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_boards_fk_boards_event_id_eventsspatial_events EventsSpatialBoards[] @relation("R_fk_boards_event_id_eventsspatial_events")
+  back_eventsSpatial_event_journeys_fk_event_journeys_event_id_eventsspatial_events EventsSpatialEventJourneys[] @relation("R_fk_event_journeys_event_id_eventsspatial_events")
+  back_eventsSpatial_event_timeline_items_fk_event_timeline_items_event_id_eventsspatial_events EventsSpatialEventTimelineItems[] @relation("R_fk_event_timeline_items_event_id_eventsspatial_events")
+  back_eventsSpatial_presentations_fk_presentations_event_id_eventsspatial_events EventsSpatialPresentations[] @relation("R_fk_presentations_event_id_eventsspatial_events")
+  back_eventsSpatial_run_of_show_items_fk_run_of_show_items_event_id_eventsspatial_events EventsSpatialRunOfShowItems[] @relation("R_fk_run_of_show_items_event_id_eventsspatial_events")
+  back_eventsSpatial_spatial_projects_fk_spatial_projects_event_id_eventsspatial_events EventsSpatialSpatialProjects[] @relation("R_fk_spatial_projects_event_id_eventsspatial_events")
+  back_eventsSpatial_venue_bookings_fk_venue_bookings_event_id_eventsspatial_events EventsSpatialVenueBookings[] @relation("R_fk_venue_bookings_event_id_eventsspatial_events")
+  @@unique([id, organisation_id], map: "events_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "events_id_workspace_organisation_uq")
+  @@index([organisation_id, event_status], map: "events_organisation_status_idx")
+  @@index([workspace_id, event_status], map: "events_workspace_status_idx")
+  @@index([created_at], map: "events_created_idx")
+  @@map("eventsSpatial_events")
+}
+model EventsSpatialExhibitionLayouts {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  layout_data Json
+  layout_status E_EventsspatialExhibitionLayoutsLayoutStatus @default(draft)
+  name String
+  organisation_id String
+  spatial_project_id String?
+  updated_at DateTime @default(now())
+  venue_area String?
+  venue_id String
+  version_number Int
+  workspace_id String
+  rel_fk_exhibition_layouts_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_exhibition_layouts_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_exhibition_layouts_venue_id_eventsspatial_venues EventsSpatialVenues @relation("R_fk_exhibition_layouts_venue_id_eventsspatial_venues", fields: [venue_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_exhibition_layouts_spatial_project_id_eventsspatial_spati EventsSpatialSpatialProjects? @relation("R_fk_exhibition_layouts_spatial_project_id_eventsspatial_spati", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_exhibition_layouts_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_exhibition_layouts_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_exhibition_layouts_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_exhibition_layouts_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "exhibition_layouts_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "exhibition_layouts_id_workspace_organisation_uq")
+  @@index([organisation_id, layout_status], map: "exhibition_layouts_organisation_status_idx")
+  @@index([workspace_id, layout_status], map: "exhibition_layouts_workspace_status_idx")
+  @@index([created_at], map: "exhibition_layouts_created_idx")
+  @@map("eventsSpatial_exhibition_layouts")
+}
+model EventsSpatialFilmTwins {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  last_synced_at DateTime?
+  metadata Json?
+  name String
+  organisation_id String
+  project_id String?
+  source_project_id String?
+  spatial_project_id String?
+  twin_status E_EventsspatialFilmTwinsTwinStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_film_twins_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_film_twins_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_film_twins_project_id_project_projects ProjectProjects? @relation("R_fk_film_twins_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_film_twins_spatial_project_id_eventsspatial_spatial_proje EventsSpatialSpatialProjects? @relation("R_fk_film_twins_spatial_project_id_eventsspatial_spatial_proje", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_film_twins_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_film_twins_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_film_twins_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_film_twins_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "film_twins_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "film_twins_id_workspace_organisation_uq")
+  @@index([organisation_id, twin_status], map: "film_twins_organisation_status_idx")
+  @@index([workspace_id, twin_status], map: "film_twins_workspace_status_idx")
+  @@index([created_at], map: "film_twins_created_idx")
+  @@map("eventsSpatial_film_twins")
+}
+model EventsSpatialPresentationSlides {
+  background_uri String?
+  content Json
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  notes String?
+  organisation_id String
+  presentation_id String
+  slide_number Int
+  status E_EventsspatialPresentationSlidesStatus @default(draft)
+  title String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_presentation_slides_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_presentation_slides_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_presentation_slides_presentation_id_eventsspatial_present EventsSpatialPresentations @relation("R_fk_presentation_slides_presentation_id_eventsspatial_present", fields: [presentation_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_presentation_slides_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_presentation_slides_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_presentation_slides_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_presentation_slides_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "presentation_slides_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "presentation_slides_id_workspace_organisation_uq")
+  @@unique([presentation_id, slide_number], map: "presentation_slides_presentation_id_slide_number_uq")
+  @@index([organisation_id, status], map: "presentation_slides_organisation_status_idx")
+  @@index([workspace_id, status], map: "presentation_slides_workspace_status_idx")
+  @@index([created_at], map: "presentation_slides_created_idx")
+  @@map("eventsSpatial_presentation_slides")
+}
+model EventsSpatialPresentations {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  event_id String?
+  id String @id @default(uuid())
+  organisation_id String
+  presentation_status E_EventsspatialPresentationsPresentationStatus @default(draft)
+  published_at DateTime?
+  spatial_project_id String?
+  theme String?
+  title String
+  updated_at DateTime @default(now())
+  version_number Int
+  workspace_id String
+  rel_fk_presentations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_presentations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_presentations_event_id_eventsspatial_events EventsSpatialEvents? @relation("R_fk_presentations_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_presentations_spatial_project_id_eventsspatial_spatial_pr EventsSpatialSpatialProjects? @relation("R_fk_presentations_spatial_project_id_eventsspatial_spatial_pr", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_presentations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_presentations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_presentations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_presentations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_presentation_slides_fk_presentation_slides_presentation_id_eventsspatial_present EventsSpatialPresentationSlides[] @relation("R_fk_presentation_slides_presentation_id_eventsspatial_present")
+  @@unique([id, organisation_id], map: "presentations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "presentations_id_workspace_organisation_uq")
+  @@index([organisation_id, presentation_status], map: "presentations_organisation_status_idx")
+  @@index([workspace_id, presentation_status], map: "presentations_workspace_status_idx")
+  @@index([created_at], map: "presentations_created_idx")
+  @@map("eventsSpatial_presentations")
+}
+model EventsSpatialRunOfShowItems {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  cue String
+  duration_minutes Int?
+  event_id String
+  id String @id @default(uuid())
+  operator_note String?
+  organisation_id String
+  sequence Int
+  starts_at DateTime?
+  status E_EventsspatialRunOfShowItemsStatus @default(draft)
+  status_note String?
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_run_of_show_items_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_run_of_show_items_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_run_of_show_items_event_id_eventsspatial_events EventsSpatialEvents @relation("R_fk_run_of_show_items_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_run_of_show_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_run_of_show_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_run_of_show_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_run_of_show_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "run_of_show_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "run_of_show_items_id_workspace_organisation_uq")
+  @@unique([event_id, sequence], map: "run_of_show_items_event_id_sequence_uq")
+  @@index([organisation_id, status], map: "run_of_show_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "run_of_show_items_workspace_status_idx")
+  @@index([created_at], map: "run_of_show_items_created_idx")
+  @@map("eventsSpatial_run_of_show_items")
+}
+model EventsSpatialSimulations {
+  completed_at DateTime?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  layout_id String?
+  name String
+  organisation_id String
+  parameters Json
+  requested_by_user_id String?
+  results Json?
+  simulation_kind String
+  simulation_status E_EventsspatialSimulationsSimulationStatus @default(queued)
+  spatial_project_id String
+  started_at DateTime?
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_simulations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_simulations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_simulations_spatial_project_id_eventsspatial_spatial_proj EventsSpatialSpatialProjects @relation("R_fk_simulations_spatial_project_id_eventsspatial_spatial_proj", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_simulations_layout_id_eventsspatial_spatial_layouts EventsSpatialSpatialLayouts? @relation("R_fk_simulations_layout_id_eventsspatial_spatial_layouts", fields: [layout_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_simulations_requested_by_user_id_identity_users IdentityUsers? @relation("R_fk_simulations_requested_by_user_id_identity_users", fields: [requested_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_simulations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_simulations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_simulations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_simulations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "simulations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "simulations_id_workspace_organisation_uq")
+  @@index([organisation_id, simulation_status], map: "simulations_organisation_status_idx")
+  @@index([workspace_id, simulation_status], map: "simulations_workspace_status_idx")
+  @@index([created_at], map: "simulations_created_idx")
+  @@map("eventsSpatial_simulations")
+}
+model EventsSpatialSpatialLayers {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  layer_kind String
+  metadata Json?
+  name String
+  opacity Decimal?
+  organisation_id String
+  sort_order Int
+  spatial_project_id String
+  status E_EventsspatialSpatialLayersStatus @default(draft)
+  updated_at DateTime @default(now())
+  visible Boolean @default(false)
+  workspace_id String
+  rel_fk_spatial_layers_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_spatial_layers_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_layers_spatial_project_id_eventsspatial_spatial_p EventsSpatialSpatialProjects @relation("R_fk_spatial_layers_spatial_project_id_eventsspatial_spatial_p", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_layers_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_spatial_layers_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_spatial_layers_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_spatial_layers_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_spatial_objects_fk_spatial_objects_spatial_layer_id_eventsspatial_spatial_la EventsSpatialSpatialObjects[] @relation("R_fk_spatial_objects_spatial_layer_id_eventsspatial_spatial_la")
+  @@unique([id, organisation_id], map: "spatial_layers_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "spatial_layers_id_workspace_organisation_uq")
+  @@unique([spatial_project_id, sort_order], map: "spatial_layers_spatial_project_id_sort_order_uq")
+  @@index([organisation_id, status], map: "spatial_layers_organisation_status_idx")
+  @@index([workspace_id, status], map: "spatial_layers_workspace_status_idx")
+  @@index([created_at], map: "spatial_layers_created_idx")
+  @@map("eventsSpatial_spatial_layers")
+}
+model EventsSpatialSpatialLayouts {
+  canvas_height Decimal?
+  canvas_width Decimal?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  layout_data Json
+  layout_status E_EventsspatialSpatialLayoutsLayoutStatus @default(draft)
+  name String
+  organisation_id String
+  spatial_project_id String
+  updated_at DateTime @default(now())
+  version_number Int
+  workspace_id String
+  rel_fk_spatial_layouts_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_spatial_layouts_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_layouts_spatial_project_id_eventsspatial_spatial_ EventsSpatialSpatialProjects @relation("R_fk_spatial_layouts_spatial_project_id_eventsspatial_spatial_", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_layouts_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_spatial_layouts_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_spatial_layouts_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_spatial_layouts_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_simulations_fk_simulations_layout_id_eventsspatial_spatial_layouts EventsSpatialSimulations[] @relation("R_fk_simulations_layout_id_eventsspatial_spatial_layouts")
+  @@unique([id, organisation_id], map: "spatial_layouts_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "spatial_layouts_id_workspace_organisation_uq")
+  @@index([organisation_id, layout_status], map: "spatial_layouts_organisation_status_idx")
+  @@index([workspace_id, layout_status], map: "spatial_layouts_workspace_status_idx")
+  @@index([created_at], map: "spatial_layouts_created_idx")
+  @@map("eventsSpatial_spatial_layouts")
+}
+model EventsSpatialSpatialObjects {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  geometry Json
+  id String @id @default(uuid())
+  label String
+  object_kind String
+  organisation_id String
+  properties Json?
+  sort_order Int
+  spatial_layer_id String
+  status E_EventsspatialSpatialObjectsStatus @default(draft)
+  transform Json?
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_spatial_objects_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_spatial_objects_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_objects_spatial_layer_id_eventsspatial_spatial_la EventsSpatialSpatialLayers @relation("R_fk_spatial_objects_spatial_layer_id_eventsspatial_spatial_la", fields: [spatial_layer_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_objects_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_spatial_objects_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_spatial_objects_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_spatial_objects_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "spatial_objects_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "spatial_objects_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "spatial_objects_organisation_status_idx")
+  @@index([workspace_id, status], map: "spatial_objects_workspace_status_idx")
+  @@index([created_at], map: "spatial_objects_created_idx")
+  @@map("eventsSpatial_spatial_objects")
+}
+model EventsSpatialSpatialOperations {
+  actor_label String?
+  actor_user_id String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  occurred_at DateTime
+  operation_kind String
+  organisation_id String
+  payload Json
+  sequence Int
+  spatial_project_id String
+  status E_EventsspatialSpatialOperationsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_spatial_operations_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_spatial_operations_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_operations_spatial_project_id_eventsspatial_spati EventsSpatialSpatialProjects @relation("R_fk_spatial_operations_spatial_project_id_eventsspatial_spati", fields: [spatial_project_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_operations_actor_user_id_identity_users IdentityUsers? @relation("R_fk_spatial_operations_actor_user_id_identity_users", fields: [actor_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_spatial_operations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_spatial_operations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_operations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_spatial_operations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "spatial_operations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "spatial_operations_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "spatial_operations_organisation_status_idx")
+  @@index([workspace_id, status], map: "spatial_operations_workspace_status_idx")
+  @@index([created_at], map: "spatial_operations_created_idx")
+  @@map("eventsSpatial_spatial_operations")
+}
+model EventsSpatialSpatialProjects {
+  coordinate_reference String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  event_id String?
+  id String @id @default(uuid())
+  name String
+  organisation_id String
+  project_id String?
+  project_status E_EventsspatialSpatialProjectsProjectStatus @default(draft)
+  spatial_kind String
+  units String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_spatial_projects_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_spatial_projects_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_projects_project_id_project_projects ProjectProjects? @relation("R_fk_spatial_projects_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_projects_event_id_eventsspatial_events EventsSpatialEvents? @relation("R_fk_spatial_projects_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_spatial_projects_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_spatial_projects_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_spatial_projects_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_spatial_projects_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_boards_fk_boards_spatial_project_id_eventsspatial_spatial_projects EventsSpatialBoards[] @relation("R_fk_boards_spatial_project_id_eventsspatial_spatial_projects")
+  back_eventsSpatial_cad_models_fk_cad_models_spatial_project_id_eventsspatial_spatial_proje EventsSpatialCadModels[] @relation("R_fk_cad_models_spatial_project_id_eventsspatial_spatial_proje")
+  back_eventsSpatial_decision_graphs_fk_decision_graphs_spatial_project_id_eventsspatial_spatial_ EventsSpatialDecisionGraphs[] @relation("R_fk_decision_graphs_spatial_project_id_eventsspatial_spatial_")
+  back_eventsSpatial_exhibition_layouts_fk_exhibition_layouts_spatial_project_id_eventsspatial_spati EventsSpatialExhibitionLayouts[] @relation("R_fk_exhibition_layouts_spatial_project_id_eventsspatial_spati")
+  back_eventsSpatial_film_twins_fk_film_twins_spatial_project_id_eventsspatial_spatial_proje EventsSpatialFilmTwins[] @relation("R_fk_film_twins_spatial_project_id_eventsspatial_spatial_proje")
+  back_eventsSpatial_presentations_fk_presentations_spatial_project_id_eventsspatial_spatial_pr EventsSpatialPresentations[] @relation("R_fk_presentations_spatial_project_id_eventsspatial_spatial_pr")
+  back_eventsSpatial_simulations_fk_simulations_spatial_project_id_eventsspatial_spatial_proj EventsSpatialSimulations[] @relation("R_fk_simulations_spatial_project_id_eventsspatial_spatial_proj")
+  back_eventsSpatial_spatial_layers_fk_spatial_layers_spatial_project_id_eventsspatial_spatial_p EventsSpatialSpatialLayers[] @relation("R_fk_spatial_layers_spatial_project_id_eventsspatial_spatial_p")
+  back_eventsSpatial_spatial_layouts_fk_spatial_layouts_spatial_project_id_eventsspatial_spatial_ EventsSpatialSpatialLayouts[] @relation("R_fk_spatial_layouts_spatial_project_id_eventsspatial_spatial_")
+  back_eventsSpatial_spatial_operations_fk_spatial_operations_spatial_project_id_eventsspatial_spati EventsSpatialSpatialOperations[] @relation("R_fk_spatial_operations_spatial_project_id_eventsspatial_spati")
+  @@unique([id, organisation_id], map: "spatial_projects_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "spatial_projects_id_workspace_organisation_uq")
+  @@index([organisation_id, project_status], map: "spatial_projects_organisation_status_idx")
+  @@index([workspace_id, project_status], map: "spatial_projects_workspace_status_idx")
+  @@index([created_at], map: "spatial_projects_created_idx")
+  @@map("eventsSpatial_spatial_projects")
+}
+model EventsSpatialVenueBookings {
+  booking_status E_EventsspatialVenueBookingsBookingStatus @default(held)
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  ends_at DateTime
+  event_id String?
+  guest_count Int?
+  id String @id @default(uuid())
+  organisation_id String
+  project_id String?
+  quoted_cost Decimal?
+  starts_at DateTime
+  updated_at DateTime @default(now())
+  venue_id String
+  workspace_id String
+  rel_fk_venue_bookings_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_venue_bookings_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_venue_bookings_venue_id_eventsspatial_venues EventsSpatialVenues @relation("R_fk_venue_bookings_venue_id_eventsspatial_venues", fields: [venue_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_venue_bookings_event_id_eventsspatial_events EventsSpatialEvents? @relation("R_fk_venue_bookings_event_id_eventsspatial_events", fields: [event_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_venue_bookings_project_id_project_projects ProjectProjects? @relation("R_fk_venue_bookings_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_venue_bookings_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_venue_bookings_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_venue_bookings_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_venue_bookings_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "venue_bookings_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "venue_bookings_id_workspace_organisation_uq")
+  @@index([organisation_id, booking_status], map: "venue_bookings_organisation_status_idx")
+  @@index([workspace_id, booking_status], map: "venue_bookings_workspace_status_idx")
+  @@index([created_at], map: "venue_bookings_created_idx")
+  @@map("eventsSpatial_venue_bookings")
+}
+model EventsSpatialVenues {
+  accessibility String?
+  address String?
+  capacity Int?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  latitude Decimal?
+  location_id String?
+  longitude Decimal?
+  name String
+  organisation_id String
+  updated_at DateTime @default(now())
+  venue_kind String
+  venue_status E_EventsspatialVenuesVenueStatus @default(active)
+  workspace_id String
+  rel_fk_venues_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_venues_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_venues_location_id_logistics_locations LogisticsLocations? @relation("R_fk_venues_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_venues_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_venues_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_venues_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_venues_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_events_fk_events_venue_id_eventsspatial_venues EventsSpatialEvents[] @relation("R_fk_events_venue_id_eventsspatial_venues")
+  back_eventsSpatial_exhibition_layouts_fk_exhibition_layouts_venue_id_eventsspatial_venues EventsSpatialExhibitionLayouts[] @relation("R_fk_exhibition_layouts_venue_id_eventsspatial_venues")
+  back_eventsSpatial_venue_bookings_fk_venue_bookings_venue_id_eventsspatial_venues EventsSpatialVenueBookings[] @relation("R_fk_venue_bookings_venue_id_eventsspatial_venues")
+  back_eventsSpatial_wedding_events_fk_wedding_events_venue_id_eventsspatial_venues EventsSpatialWeddingEvents[] @relation("R_fk_wedding_events_venue_id_eventsspatial_venues")
+  @@unique([id, organisation_id], map: "venues_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "venues_id_workspace_organisation_uq")
+  @@index([organisation_id, venue_status], map: "venues_organisation_status_idx")
+  @@index([workspace_id, venue_status], map: "venues_workspace_status_idx")
+  @@index([created_at], map: "venues_created_idx")
+  @@map("eventsSpatial_venues")
+}
+model EventsSpatialWeddingEvents {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  ends_at DateTime?
+  event_kind String
+  guest_count Int?
+  id String @id @default(uuid())
+  organisation_id String
+  sort_order Int
+  starts_at DateTime
+  status E_EventsspatialWeddingEventsStatus @default(draft)
+  title String
+  updated_at DateTime @default(now())
+  venue_id String?
+  wedding_id String
+  workspace_id String
+  rel_fk_wedding_events_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_wedding_events_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_wedding_events_wedding_id_eventsspatial_weddings EventsSpatialWeddings @relation("R_fk_wedding_events_wedding_id_eventsspatial_weddings", fields: [wedding_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_wedding_events_venue_id_eventsspatial_venues EventsSpatialVenues? @relation("R_fk_wedding_events_venue_id_eventsspatial_venues", fields: [venue_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_wedding_events_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_wedding_events_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_wedding_events_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_wedding_events_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "wedding_events_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "wedding_events_id_workspace_organisation_uq")
+  @@unique([wedding_id, sort_order], map: "wedding_events_wedding_id_sort_order_uq")
+  @@index([organisation_id, status], map: "wedding_events_organisation_status_idx")
+  @@index([workspace_id, status], map: "wedding_events_workspace_status_idx")
+  @@index([created_at], map: "wedding_events_created_idx")
+  @@map("eventsSpatial_wedding_events")
+}
+model EventsSpatialWeddingJourneys {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  journey_name String
+  journey_stage String
+  journey_status E_EventsspatialWeddingJourneysJourneyStatus @default(planned)
+  organisation_id String
+  sequence Int
+  updated_at DateTime @default(now())
+  wedding_id String
+  workspace_id String
+  rel_fk_wedding_journeys_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_wedding_journeys_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_wedding_journeys_wedding_id_eventsspatial_weddings EventsSpatialWeddings @relation("R_fk_wedding_journeys_wedding_id_eventsspatial_weddings", fields: [wedding_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_wedding_journeys_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_wedding_journeys_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_wedding_journeys_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_wedding_journeys_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "wedding_journeys_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "wedding_journeys_id_workspace_organisation_uq")
+  @@index([organisation_id, journey_status], map: "wedding_journeys_organisation_status_idx")
+  @@index([workspace_id, journey_status], map: "wedding_journeys_workspace_status_idx")
+  @@index([created_at], map: "wedding_journeys_created_idx")
+  @@map("eventsSpatial_wedding_journeys")
+}
+model EventsSpatialWeddings {
+  client_user_id String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  display_name String
+  guest_count Int?
+  id String @id @default(uuid())
+  organisation_id String
+  project_id String?
+  style_brief String?
+  updated_at DateTime @default(now())
+  wedding_date DateTime?
+  wedding_status E_EventsspatialWeddingsWeddingStatus @default(inquiry)
+  workspace_id String
+  rel_fk_weddings_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_weddings_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_weddings_project_id_project_projects ProjectProjects? @relation("R_fk_weddings_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_weddings_client_user_id_identity_users IdentityUsers? @relation("R_fk_weddings_client_user_id_identity_users", fields: [client_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_weddings_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_weddings_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_weddings_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_weddings_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_events_fk_events_wedding_id_eventsspatial_weddings EventsSpatialEvents[] @relation("R_fk_events_wedding_id_eventsspatial_weddings")
+  back_eventsSpatial_wedding_events_fk_wedding_events_wedding_id_eventsspatial_weddings EventsSpatialWeddingEvents[] @relation("R_fk_wedding_events_wedding_id_eventsspatial_weddings")
+  back_eventsSpatial_wedding_journeys_fk_wedding_journeys_wedding_id_eventsspatial_weddings EventsSpatialWeddingJourneys[] @relation("R_fk_wedding_journeys_wedding_id_eventsspatial_weddings")
+  @@unique([id, organisation_id], map: "weddings_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "weddings_id_workspace_organisation_uq")
+  @@index([organisation_id, wedding_status], map: "weddings_organisation_status_idx")
+  @@index([workspace_id, wedding_status], map: "weddings_workspace_status_idx")
+  @@index([created_at], map: "weddings_created_idx")
+  @@map("eventsSpatial_weddings")
+}
+model EvidenceEvidenceItems {
+  captured_at DateTime?
+  content_sha256 String
+  created_at DateTime @default(now())
+  description String?
+  id String @id
+  kind E_EvidenceEvidenceItemsEvidenceKind
+  media_type String
+  metadata Json @default("{}")
+  organisation_id String
+  project_id String?
+  retention_until DateTime?
+  size_bytes Int?
+  status E_EvidenceEvidenceItemsEvidenceStatus @default(active)
+  storage_uri String
+  title String
+  updated_at DateTime @default(now())
+  uploaded_by_user_id String?
+  withdrawn_at DateTime?
+  rel_evidence_items_organisation_fk OrganisationOrganisations @relation("R_evidence_items_organisation_fk", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_project_tenant_fk ProjectProjects? @relation("R_evidence_items_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_uploader_fk IdentityUsers? @relation("R_evidence_items_uploader_fk", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_eventsSpatial_cad_models_fk_cad_models_evidence_item_id_evidence_evidence_items EventsSpatialCadModels[] @relation("R_fk_cad_models_evidence_item_id_evidence_evidence_items")
+  @@unique([id, organisation_id], map: "evidence_items_id_organisation_unique")
+  @@index([organisation_id, project_id, created_at], map: "evidence_items_project_created_idx")
+  @@index([organisation_id, content_sha256], map: "evidence_items_hash_idx")
+  @@index([organisation_id, retention_until], map: "evidence_items_retention_idx")
+  @@map("evidence_evidence_items")
+}
+model IdentityUsers {
+  closed_at DateTime?
+  created_at DateTime @default(now())
+  email String
+  email_verified_at DateTime?
+  id String @id
+  status E_IdentityUsersAccountStatus @default(active)
+  updated_at DateTime @default(now())
+  back_eventsSpatial_board_items_fk_board_items_created_by_user_id_identity_users EventsSpatialBoardItems[] @relation("R_fk_board_items_created_by_user_id_identity_users")
+  back_eventsSpatial_boards_fk_boards_created_by_user_id_identity_users EventsSpatialBoards[] @relation("R_fk_boards_created_by_user_id_identity_users")
+  back_eventsSpatial_cad_models_fk_cad_models_uploaded_by_user_id_identity_users EventsSpatialCadModels[] @relation("R_fk_cad_models_uploaded_by_user_id_identity_users")
+  back_eventsSpatial_cad_models_fk_cad_models_created_by_user_id_identity_users EventsSpatialCadModels[] @relation("R_fk_cad_models_created_by_user_id_identity_users")
+  back_eventsSpatial_decision_graph_edges_fk_decision_graph_edges_created_by_user_id_identity_users EventsSpatialDecisionGraphEdges[] @relation("R_fk_decision_graph_edges_created_by_user_id_identity_users")
+  back_eventsSpatial_decision_graph_nodes_fk_decision_graph_nodes_created_by_user_id_identity_users EventsSpatialDecisionGraphNodes[] @relation("R_fk_decision_graph_nodes_created_by_user_id_identity_users")
+  back_eventsSpatial_decision_graphs_fk_decision_graphs_created_by_user_id_identity_users EventsSpatialDecisionGraphs[] @relation("R_fk_decision_graphs_created_by_user_id_identity_users")
+  back_eventsSpatial_event_journeys_fk_event_journeys_created_by_user_id_identity_users EventsSpatialEventJourneys[] @relation("R_fk_event_journeys_created_by_user_id_identity_users")
+  back_eventsSpatial_event_timeline_items_fk_event_timeline_items_created_by_user_id_identity_users EventsSpatialEventTimelineItems[] @relation("R_fk_event_timeline_items_created_by_user_id_identity_users")
+  back_eventsSpatial_events_fk_events_created_by_user_id_identity_users EventsSpatialEvents[] @relation("R_fk_events_created_by_user_id_identity_users")
+  back_eventsSpatial_exhibition_layouts_fk_exhibition_layouts_created_by_user_id_identity_users EventsSpatialExhibitionLayouts[] @relation("R_fk_exhibition_layouts_created_by_user_id_identity_users")
+  back_eventsSpatial_film_twins_fk_film_twins_created_by_user_id_identity_users EventsSpatialFilmTwins[] @relation("R_fk_film_twins_created_by_user_id_identity_users")
+  back_eventsSpatial_presentation_slides_fk_presentation_slides_created_by_user_id_identity_users EventsSpatialPresentationSlides[] @relation("R_fk_presentation_slides_created_by_user_id_identity_users")
+  back_eventsSpatial_presentations_fk_presentations_created_by_user_id_identity_users EventsSpatialPresentations[] @relation("R_fk_presentations_created_by_user_id_identity_users")
+  back_eventsSpatial_run_of_show_items_fk_run_of_show_items_created_by_user_id_identity_users EventsSpatialRunOfShowItems[] @relation("R_fk_run_of_show_items_created_by_user_id_identity_users")
+  back_eventsSpatial_simulations_fk_simulations_requested_by_user_id_identity_users EventsSpatialSimulations[] @relation("R_fk_simulations_requested_by_user_id_identity_users")
+  back_eventsSpatial_simulations_fk_simulations_created_by_user_id_identity_users EventsSpatialSimulations[] @relation("R_fk_simulations_created_by_user_id_identity_users")
+  back_eventsSpatial_spatial_layers_fk_spatial_layers_created_by_user_id_identity_users EventsSpatialSpatialLayers[] @relation("R_fk_spatial_layers_created_by_user_id_identity_users")
+  back_eventsSpatial_spatial_layouts_fk_spatial_layouts_created_by_user_id_identity_users EventsSpatialSpatialLayouts[] @relation("R_fk_spatial_layouts_created_by_user_id_identity_users")
+  back_eventsSpatial_spatial_objects_fk_spatial_objects_created_by_user_id_identity_users EventsSpatialSpatialObjects[] @relation("R_fk_spatial_objects_created_by_user_id_identity_users")
+  back_eventsSpatial_spatial_operations_fk_spatial_operations_actor_user_id_identity_users EventsSpatialSpatialOperations[] @relation("R_fk_spatial_operations_actor_user_id_identity_users")
+  back_eventsSpatial_spatial_operations_fk_spatial_operations_created_by_user_id_identity_users EventsSpatialSpatialOperations[] @relation("R_fk_spatial_operations_created_by_user_id_identity_users")
+  back_eventsSpatial_spatial_projects_fk_spatial_projects_created_by_user_id_identity_users EventsSpatialSpatialProjects[] @relation("R_fk_spatial_projects_created_by_user_id_identity_users")
+  back_eventsSpatial_venue_bookings_fk_venue_bookings_created_by_user_id_identity_users EventsSpatialVenueBookings[] @relation("R_fk_venue_bookings_created_by_user_id_identity_users")
+  back_eventsSpatial_venues_fk_venues_created_by_user_id_identity_users EventsSpatialVenues[] @relation("R_fk_venues_created_by_user_id_identity_users")
+  back_eventsSpatial_wedding_events_fk_wedding_events_created_by_user_id_identity_users EventsSpatialWeddingEvents[] @relation("R_fk_wedding_events_created_by_user_id_identity_users")
+  back_eventsSpatial_wedding_journeys_fk_wedding_journeys_created_by_user_id_identity_users EventsSpatialWeddingJourneys[] @relation("R_fk_wedding_journeys_created_by_user_id_identity_users")
+  back_eventsSpatial_weddings_fk_weddings_client_user_id_identity_users EventsSpatialWeddings[] @relation("R_fk_weddings_client_user_id_identity_users")
+  back_eventsSpatial_weddings_fk_weddings_created_by_user_id_identity_users EventsSpatialWeddings[] @relation("R_fk_weddings_created_by_user_id_identity_users")
+  back_evidence_evidence_items_evidence_items_uploader_fk EvidenceEvidenceItems[] @relation("R_evidence_items_uploader_fk")
+  back_logistics_locations_fk_locations_created_by_user_id_identity_users LogisticsLocations[] @relation("R_fk_locations_created_by_user_id_identity_users")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  back_project_project_members_project_members_user_fk ProjectProjectMembers[] @relation("R_project_members_user_fk")
+  back_project_project_members_project_members_adder_fk ProjectProjectMembers[] @relation("R_project_members_adder_fk")
+  back_project_projects_projects_creator_user_fk ProjectProjects[] @relation("R_projects_creator_user_fk")
+  @@unique([email], map: "users_email_unique")
+  @@index([status], map: "users_status_idx")
+  @@map("identity_users")
+}
+model LogisticsLocations {
+  access_notes String?
+  capacity Int?
+  city String?
+  country_code String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  latitude Decimal?
+  location_kind String
+  longitude Decimal?
+  name String
+  organisation_id String
+  postal_code String?
+  region String?
+  status E_LogisticsLocationsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_locations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_locations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_locations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_locations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_locations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_locations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_eventsSpatial_venues_fk_venues_location_id_logistics_locations EventsSpatialVenues[] @relation("R_fk_venues_location_id_logistics_locations")
+  @@unique([id, organisation_id], map: "locations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "locations_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "locations_organisation_status_idx")
+  @@index([workspace_id, status], map: "locations_workspace_status_idx")
+  @@index([created_at], map: "locations_created_idx")
+  @@map("logistics_locations")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @default(now())
+  id String @id
+  invited_by_user_id String?
+  joined_at DateTime?
+  organisation_id String
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default(active)
+  updated_at DateTime @default(now())
+  user_id String
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
+  @@index([user_id, status], map: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  deleted_at DateTime?
+  id String @id
+  name String
+  slug String
+  status E_OrganisationOrganisationsOrganisationStatus @default(active)
+  updated_at DateTime @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_eventsSpatial_board_items_fk_board_items_organisation_id_organisation_organisations EventsSpatialBoardItems[] @relation("R_fk_board_items_organisation_id_organisation_organisations")
+  back_eventsSpatial_boards_fk_boards_organisation_id_organisation_organisations EventsSpatialBoards[] @relation("R_fk_boards_organisation_id_organisation_organisations")
+  back_eventsSpatial_cad_models_fk_cad_models_organisation_id_organisation_organisations EventsSpatialCadModels[] @relation("R_fk_cad_models_organisation_id_organisation_organisations")
+  back_eventsSpatial_decision_graph_edges_fk_decision_graph_edges_organisation_id_organisation_organis EventsSpatialDecisionGraphEdges[] @relation("R_fk_decision_graph_edges_organisation_id_organisation_organis")
+  back_eventsSpatial_decision_graph_nodes_fk_decision_graph_nodes_organisation_id_organisation_organis EventsSpatialDecisionGraphNodes[] @relation("R_fk_decision_graph_nodes_organisation_id_organisation_organis")
+  back_eventsSpatial_decision_graphs_fk_decision_graphs_organisation_id_organisation_organisation EventsSpatialDecisionGraphs[] @relation("R_fk_decision_graphs_organisation_id_organisation_organisation")
+  back_eventsSpatial_event_journeys_fk_event_journeys_organisation_id_organisation_organisations EventsSpatialEventJourneys[] @relation("R_fk_event_journeys_organisation_id_organisation_organisations")
+  back_eventsSpatial_event_timeline_items_fk_event_timeline_items_organisation_id_organisation_organis EventsSpatialEventTimelineItems[] @relation("R_fk_event_timeline_items_organisation_id_organisation_organis")
+  back_eventsSpatial_events_fk_events_organisation_id_organisation_organisations EventsSpatialEvents[] @relation("R_fk_events_organisation_id_organisation_organisations")
+  back_eventsSpatial_exhibition_layouts_fk_exhibition_layouts_organisation_id_organisation_organisat EventsSpatialExhibitionLayouts[] @relation("R_fk_exhibition_layouts_organisation_id_organisation_organisat")
+  back_eventsSpatial_film_twins_fk_film_twins_organisation_id_organisation_organisations EventsSpatialFilmTwins[] @relation("R_fk_film_twins_organisation_id_organisation_organisations")
+  back_eventsSpatial_presentation_slides_fk_presentation_slides_organisation_id_organisation_organisa EventsSpatialPresentationSlides[] @relation("R_fk_presentation_slides_organisation_id_organisation_organisa")
+  back_eventsSpatial_presentations_fk_presentations_organisation_id_organisation_organisations EventsSpatialPresentations[] @relation("R_fk_presentations_organisation_id_organisation_organisations")
+  back_eventsSpatial_run_of_show_items_fk_run_of_show_items_organisation_id_organisation_organisati EventsSpatialRunOfShowItems[] @relation("R_fk_run_of_show_items_organisation_id_organisation_organisati")
+  back_eventsSpatial_simulations_fk_simulations_organisation_id_organisation_organisations EventsSpatialSimulations[] @relation("R_fk_simulations_organisation_id_organisation_organisations")
+  back_eventsSpatial_spatial_layers_fk_spatial_layers_organisation_id_organisation_organisations EventsSpatialSpatialLayers[] @relation("R_fk_spatial_layers_organisation_id_organisation_organisations")
+  back_eventsSpatial_spatial_layouts_fk_spatial_layouts_organisation_id_organisation_organisation EventsSpatialSpatialLayouts[] @relation("R_fk_spatial_layouts_organisation_id_organisation_organisation")
+  back_eventsSpatial_spatial_objects_fk_spatial_objects_organisation_id_organisation_organisation EventsSpatialSpatialObjects[] @relation("R_fk_spatial_objects_organisation_id_organisation_organisation")
+  back_eventsSpatial_spatial_operations_fk_spatial_operations_organisation_id_organisation_organisat EventsSpatialSpatialOperations[] @relation("R_fk_spatial_operations_organisation_id_organisation_organisat")
+  back_eventsSpatial_spatial_projects_fk_spatial_projects_organisation_id_organisation_organisatio EventsSpatialSpatialProjects[] @relation("R_fk_spatial_projects_organisation_id_organisation_organisatio")
+  back_eventsSpatial_venue_bookings_fk_venue_bookings_organisation_id_organisation_organisations EventsSpatialVenueBookings[] @relation("R_fk_venue_bookings_organisation_id_organisation_organisations")
+  back_eventsSpatial_venues_fk_venues_organisation_id_organisation_organisations EventsSpatialVenues[] @relation("R_fk_venues_organisation_id_organisation_organisations")
+  back_eventsSpatial_wedding_events_fk_wedding_events_organisation_id_organisation_organisations EventsSpatialWeddingEvents[] @relation("R_fk_wedding_events_organisation_id_organisation_organisations")
+  back_eventsSpatial_wedding_journeys_fk_wedding_journeys_organisation_id_organisation_organisatio EventsSpatialWeddingJourneys[] @relation("R_fk_wedding_journeys_organisation_id_organisation_organisatio")
+  back_eventsSpatial_weddings_fk_weddings_organisation_id_organisation_organisations EventsSpatialWeddings[] @relation("R_fk_weddings_organisation_id_organisation_organisations")
+  back_evidence_evidence_items_evidence_items_organisation_fk EvidenceEvidenceItems[] @relation("R_evidence_items_organisation_fk")
+  back_logistics_locations_fk_locations_organisation_id_organisation_organisations LogisticsLocations[] @relation("R_fk_locations_organisation_id_organisation_organisations")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  @@unique([slug], map: "organisations_slug_unique")
+  @@index([status], map: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @default(now())
+  id String @id
+  invited_by_user_id String?
+  joined_at DateTime?
+  organisation_id String
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default(active)
+  updated_at DateTime @default(now())
+  user_id String
+  workspace_id String
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
+  @@index([user_id, status], map: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  deleted_at DateTime?
+  description String?
+  id String @id
+  name String
+  organisation_id String
+  slug String
+  status E_OrganisationWorkspacesWorkspaceStatus @default(active)
+  updated_at DateTime @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_eventsSpatial_board_items_fk_board_items_workspace_id_organisation_workspaces EventsSpatialBoardItems[] @relation("R_fk_board_items_workspace_id_organisation_workspaces")
+  back_eventsSpatial_boards_fk_boards_workspace_id_organisation_workspaces EventsSpatialBoards[] @relation("R_fk_boards_workspace_id_organisation_workspaces")
+  back_eventsSpatial_cad_models_fk_cad_models_workspace_id_organisation_workspaces EventsSpatialCadModels[] @relation("R_fk_cad_models_workspace_id_organisation_workspaces")
+  back_eventsSpatial_decision_graph_edges_fk_decision_graph_edges_workspace_id_organisation_workspaces EventsSpatialDecisionGraphEdges[] @relation("R_fk_decision_graph_edges_workspace_id_organisation_workspaces")
+  back_eventsSpatial_decision_graph_nodes_fk_decision_graph_nodes_workspace_id_organisation_workspaces EventsSpatialDecisionGraphNodes[] @relation("R_fk_decision_graph_nodes_workspace_id_organisation_workspaces")
+  back_eventsSpatial_decision_graphs_fk_decision_graphs_workspace_id_organisation_workspaces EventsSpatialDecisionGraphs[] @relation("R_fk_decision_graphs_workspace_id_organisation_workspaces")
+  back_eventsSpatial_event_journeys_fk_event_journeys_workspace_id_organisation_workspaces EventsSpatialEventJourneys[] @relation("R_fk_event_journeys_workspace_id_organisation_workspaces")
+  back_eventsSpatial_event_timeline_items_fk_event_timeline_items_workspace_id_organisation_workspaces EventsSpatialEventTimelineItems[] @relation("R_fk_event_timeline_items_workspace_id_organisation_workspaces")
+  back_eventsSpatial_events_fk_events_workspace_id_organisation_workspaces EventsSpatialEvents[] @relation("R_fk_events_workspace_id_organisation_workspaces")
+  back_eventsSpatial_exhibition_layouts_fk_exhibition_layouts_workspace_id_organisation_workspaces EventsSpatialExhibitionLayouts[] @relation("R_fk_exhibition_layouts_workspace_id_organisation_workspaces")
+  back_eventsSpatial_film_twins_fk_film_twins_workspace_id_organisation_workspaces EventsSpatialFilmTwins[] @relation("R_fk_film_twins_workspace_id_organisation_workspaces")
+  back_eventsSpatial_presentation_slides_fk_presentation_slides_workspace_id_organisation_workspaces EventsSpatialPresentationSlides[] @relation("R_fk_presentation_slides_workspace_id_organisation_workspaces")
+  back_eventsSpatial_presentations_fk_presentations_workspace_id_organisation_workspaces EventsSpatialPresentations[] @relation("R_fk_presentations_workspace_id_organisation_workspaces")
+  back_eventsSpatial_run_of_show_items_fk_run_of_show_items_workspace_id_organisation_workspaces EventsSpatialRunOfShowItems[] @relation("R_fk_run_of_show_items_workspace_id_organisation_workspaces")
+  back_eventsSpatial_simulations_fk_simulations_workspace_id_organisation_workspaces EventsSpatialSimulations[] @relation("R_fk_simulations_workspace_id_organisation_workspaces")
+  back_eventsSpatial_spatial_layers_fk_spatial_layers_workspace_id_organisation_workspaces EventsSpatialSpatialLayers[] @relation("R_fk_spatial_layers_workspace_id_organisation_workspaces")
+  back_eventsSpatial_spatial_layouts_fk_spatial_layouts_workspace_id_organisation_workspaces EventsSpatialSpatialLayouts[] @relation("R_fk_spatial_layouts_workspace_id_organisation_workspaces")
+  back_eventsSpatial_spatial_objects_fk_spatial_objects_workspace_id_organisation_workspaces EventsSpatialSpatialObjects[] @relation("R_fk_spatial_objects_workspace_id_organisation_workspaces")
+  back_eventsSpatial_spatial_operations_fk_spatial_operations_workspace_id_organisation_workspaces EventsSpatialSpatialOperations[] @relation("R_fk_spatial_operations_workspace_id_organisation_workspaces")
+  back_eventsSpatial_spatial_projects_fk_spatial_projects_workspace_id_organisation_workspaces EventsSpatialSpatialProjects[] @relation("R_fk_spatial_projects_workspace_id_organisation_workspaces")
+  back_eventsSpatial_venue_bookings_fk_venue_bookings_workspace_id_organisation_workspaces EventsSpatialVenueBookings[] @relation("R_fk_venue_bookings_workspace_id_organisation_workspaces")
+  back_eventsSpatial_venues_fk_venues_workspace_id_organisation_workspaces EventsSpatialVenues[] @relation("R_fk_venues_workspace_id_organisation_workspaces")
+  back_eventsSpatial_wedding_events_fk_wedding_events_workspace_id_organisation_workspaces EventsSpatialWeddingEvents[] @relation("R_fk_wedding_events_workspace_id_organisation_workspaces")
+  back_eventsSpatial_wedding_journeys_fk_wedding_journeys_workspace_id_organisation_workspaces EventsSpatialWeddingJourneys[] @relation("R_fk_wedding_journeys_workspace_id_organisation_workspaces")
+  back_eventsSpatial_weddings_fk_weddings_workspace_id_organisation_workspaces EventsSpatialWeddings[] @relation("R_fk_weddings_workspace_id_organisation_workspaces")
+  back_logistics_locations_fk_locations_workspace_id_organisation_workspaces LogisticsLocations[] @relation("R_fk_locations_workspace_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  back_project_projects_projects_workspace_tenant_fk ProjectProjects[] @relation("R_projects_workspace_tenant_fk")
+  @@unique([organisation_id, slug], map: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], map: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], map: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}
+model ProjectProjectMembers {
+  added_by_user_id String?
+  created_at DateTime @default(now())
+  id String @id
+  joined_at DateTime?
+  organisation_id String
+  project_id String
+  role E_ProjectProjectMembersProjectRole
+  status E_ProjectProjectMembersMembershipStatus @default(active)
+  updated_at DateTime @default(now())
+  user_id String
+  rel_project_members_project_tenant_fk ProjectProjects @relation("R_project_members_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_project_members_user_fk IdentityUsers @relation("R_project_members_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_project_members_adder_fk IdentityUsers? @relation("R_project_members_adder_fk", fields: [added_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([project_id, user_id], map: "project_members_pair_unique")
+  @@index([user_id, status], map: "project_members_user_status_idx")
+  @@map("project_project_members")
+}
+model ProjectProjects {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  deleted_at DateTime?
+  description String?
+  id String @id
+  name String
+  organisation_id String
+  slug String
+  status E_ProjectProjectsProjectStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_projects_workspace_tenant_fk OrganisationWorkspaces @relation("R_projects_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_projects_creator_user_fk IdentityUsers? @relation("R_projects_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_eventsSpatial_events_fk_events_project_id_project_projects EventsSpatialEvents[] @relation("R_fk_events_project_id_project_projects")
+  back_eventsSpatial_film_twins_fk_film_twins_project_id_project_projects EventsSpatialFilmTwins[] @relation("R_fk_film_twins_project_id_project_projects")
+  back_eventsSpatial_spatial_projects_fk_spatial_projects_project_id_project_projects EventsSpatialSpatialProjects[] @relation("R_fk_spatial_projects_project_id_project_projects")
+  back_eventsSpatial_venue_bookings_fk_venue_bookings_project_id_project_projects EventsSpatialVenueBookings[] @relation("R_fk_venue_bookings_project_id_project_projects")
+  back_eventsSpatial_weddings_fk_weddings_project_id_project_projects EventsSpatialWeddings[] @relation("R_fk_weddings_project_id_project_projects")
+  back_evidence_evidence_items_evidence_items_project_tenant_fk EvidenceEvidenceItems[] @relation("R_evidence_items_project_tenant_fk")
+  back_project_project_members_project_members_project_tenant_fk ProjectProjectMembers[] @relation("R_project_members_project_tenant_fk")
+  @@unique([workspace_id, slug], map: "projects_workspace_slug_unique")
+  @@unique([id, organisation_id], map: "projects_id_organisation_unique")
+  @@index([organisation_id, status], map: "projects_tenant_status_idx")
+  @@index([workspace_id, status], map: "projects_workspace_status_idx")
+  @@map("project_projects")
+}

@@ -5,7 +5,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { ProjectDependencies, type ProjectTask } from '@/components/project/ProjectDependencies';
 import { GanttChart, type GanttTask } from '@/components/project/GanttChart';
 import { ScheduleForm } from '@/components/schedule/ScheduleForm';
@@ -26,7 +25,8 @@ describe('ProjectDependencies', () => {
       />
     );
 
-    expect(screen.getByText(/Task Dependencies/)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Task Dependencies & Critical Path/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Task Dependencies' })).toBeInTheDocument();
   });
 
   it('displays critical path tasks highlighted', () => {
@@ -38,7 +38,7 @@ describe('ProjectDependencies', () => {
       />
     );
 
-    expect(screen.getByText(/Critical Path/)).toBeInTheDocument();
+    expect(screen.getByText('Critical Path')).toBeInTheDocument();
   });
 
   it('shows task statistics', () => {
@@ -114,7 +114,9 @@ describe('GanttChart', () => {
       />
     );
 
-    expect(screen.getByText(/Phase 1/)).toBeInTheDocument();
+    expect(screen.getByText('Phase 1')).toBeInTheDocument();
+    expect(screen.getByText('Phase 2')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Phase 2: 50%/)).toBeInTheDocument();
   });
 
   it('shows current date indicator line', () => {
@@ -127,7 +129,11 @@ describe('GanttChart', () => {
       />
     );
 
-    expect(screen.getByText(/Phase 1/)).toBeInTheDocument();
+    expect(screen.getByText('Phase 1')).toBeInTheDocument();
+    const todayLine = document.querySelector('line[stroke-dasharray="4 4"]');
+    expect(todayLine).toBeInTheDocument();
+    // 2026-11-28 sits between the chart's start and end, so the line is inside the chart
+    expect(Number(todayLine!.getAttribute('x1'))).toBeGreaterThan(0);
   });
 
   it('calls onTaskClick when task clicked', () => {
@@ -190,12 +196,13 @@ describe('ScheduleForm', () => {
       />
     );
 
-    const inputs = screen.getAllByRole('textbox');
+    expect(screen.getAllByRole('textbox').length).toBeGreaterThan(0);
+    // The wrapper's label is associated with the input inside it
     const startTimeInput = screen.getByLabelText(/Start Time/);
-    
-    if (startTimeInput) {
-      await userEvent.type(startTimeInput, '2026-11-21T09:00');
-    }
+    expect(startTimeInput).toHaveAttribute('type', 'datetime-local');
+    expect(startTimeInput).toBeRequired();
+    fireEvent.change(startTimeInput, { target: { value: '2026-11-21T09:00' } });
+    expect(startTimeInput).toHaveValue('2026-11-21T09:00');
   });
 
   it('shows success message after submission', async () => {

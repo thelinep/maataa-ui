@@ -1,0 +1,26 @@
+{
+  "schemaLifecycle": "CANONICAL",
+  "status": "SCHEMA_READY",
+  "tableCount": 352,
+  "canonicalContractCount": 352,
+  "draftContractCount": 0,
+  "contractSetHash": "023f98b55c0be84ad6b0bf5f80d95a80d515c92069ba36057f66a9b0f484bcfa",
+  "logicalSchemaHash": "5638ba9529982882b04c2a5014d8b5b3923c1a661ccb27ec6b556386ff324da5",
+  "duplicateIdCount": 0,
+  "fkClosure": "PASS",
+  "relationClosure": "PASS",
+  "providers": {
+    "postgresql": {
+      "status": "PASS",
+      "valid": true
+    },
+    "sqlite": {
+      "status": "PASS",
+      "valid": true
+    }
+  },
+  "schemaReady": true,
+  "migrationApproved": false,
+  "deploymentApproved": false,
+  "legalReviewed": false
+}

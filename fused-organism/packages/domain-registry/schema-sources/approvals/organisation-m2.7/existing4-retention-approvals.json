@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceId": "maataa-core-v1",
+  "context": "organisation",
+  "approvalScope": "Domain Registry schema-readiness policy; not production legal/compliance approval.",
+  "migrationApproval": "NOT_GRANTED",
+  "productionLegalReviewRequired": true,
+  "approvedBy": "thelinep",
+  "approvedAt": "2026-10-02T21:08:00+05:30",
+  "policies": [
+    {
+      "id": "ORGANISATIONS_CLOSED_PLUS_2555D",
+      "appliesTo": "organisation.organisations",
+      "trigger": "organisation closure, retirement, or deletion request",
+      "windowDays": 2555,
+      "status": "approved",
+      "approvedBy": "thelinep",
+      "approvedAt": "2026-10-02T21:08:00+05:30",
+      "basis": "Owner-approved long-term tenant identity and audit-linkage retention window.",
+      "legalStatus": "registry-policy-only; production legal/compliance review required"
+    },
+    {
+      "id": "ORGANISATION_MEMBERSHIPS_ENDED_PLUS_2555D",
+      "appliesTo": "organisation.organisation_memberships",
+      "trigger": "membership termination or organisation closure",
+      "windowDays": 2555,
+      "status": "approved",
+      "approvedBy": "thelinep",
+      "approvedAt": "2026-10-02T21:08:00+05:30",
+      "basis": "Owner-approved long-term membership and access-history linkage retention window.",
+      "legalStatus": "registry-policy-only; production legal/compliance review required"
+    },
+    {
+      "id": "WORKSPACES_CLOSED_PLUS_2555D",
+      "appliesTo": "organisation.workspaces",
+      "trigger": "workspace closure, retirement, or deletion request",
+      "windowDays": 2555,
+      "status": "approved",
+      "approvedBy": "thelinep",
+      "approvedAt": "2026-10-02T21:08:00+05:30",
+      "basis": "Owner-approved long-term workspace lineage and evidence-reference retention window.",
+      "legalStatus": "registry-policy-only; production legal/compliance review required"
+    },
+    {
+      "id": "WORKSPACE_MEMBERSHIPS_ENDED_PLUS_2555D",
+      "appliesTo": "organisation.workspace_memberships",
+      "trigger": "workspace membership termination or workspace closure",
+      "windowDays": 2555,
+      "status": "approved",
+      "approvedBy": "thelinep",
+      "approvedAt": "2026-10-02T21:08:00+05:30",
+      "basis": "Owner-approved long-term workspace access-control lineage retention window.",
+      "legalStatus": "registry-policy-only; production legal/compliance review required"
+    }
+  ],
+  "sha256": "2956822e93e5cb36a7e99c1fae98acd3ca6aef6f82faa464827cf89d27992a2d"
+}

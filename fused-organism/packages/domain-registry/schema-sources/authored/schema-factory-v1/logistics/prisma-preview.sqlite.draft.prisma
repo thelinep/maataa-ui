@@ -1,0 +1,1318 @@
+// GENERATED PREVIEW: MAATAA DRAFT logical model for SQLite/libSQL; not deployable or migration executable.
+// Logical enum values and contract semantics remain governed by the database-neutral model.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum E_EvidenceEvidenceItemsEvidenceKind {
+  document
+  image
+  video
+  audio
+  dataset
+  other
+  @@map("evidence.evidence_items#evidence_kind")
+}
+enum E_EvidenceEvidenceItemsEvidenceStatus {
+  active
+  quarantined
+  withdrawn
+  @@map("evidence.evidence_items#evidence_status")
+}
+enum E_IdentityUsersAccountStatus {
+  active
+  disabled
+  closed
+  @@map("identity.users#account_status")
+}
+enum E_LogisticsAccommodationsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.accommodations#status")
+}
+enum E_LogisticsDriversStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.drivers#status")
+}
+enum E_LogisticsEquipmentBookingsBookingStatus {
+  held
+  confirmed
+  cancelled
+  completed
+  @@map("logistics.equipment_bookings#booking_status")
+}
+enum E_LogisticsEquipmentCategoriesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.equipment_categories#status")
+}
+enum E_LogisticsEquipmentCheckoutsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.equipment_checkouts#status")
+}
+enum E_LogisticsEquipmentInventoryEventsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.equipment_inventory_events#status")
+}
+enum E_LogisticsEquipmentItemsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.equipment_items#status")
+}
+enum E_LogisticsEquipmentKitsKitStatus {
+  active
+  retired
+  @@map("logistics.equipment_kits#kit_status")
+}
+enum E_LogisticsEquipmentMaintenanceStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.equipment_maintenance#status")
+}
+enum E_LogisticsEquipmentReturnsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.equipment_returns#status")
+}
+enum E_LogisticsLocationBookingsBookingStatus {
+  held
+  confirmed
+  cancelled
+  completed
+  @@map("logistics.location_bookings#booking_status")
+}
+enum E_LogisticsLocationComparisonsDecision {
+  open
+  selected
+  rejected
+  @@map("logistics.location_comparisons#decision")
+}
+enum E_LogisticsLocationComparisonsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.location_comparisons#status")
+}
+enum E_LogisticsLocationMediaStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.location_media#status")
+}
+enum E_LogisticsLocationsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.locations#status")
+}
+enum E_LogisticsLogisticsTasksTaskStatus {
+  open
+  in_progress
+  blocked
+  done
+  @@map("logistics.logistics_tasks#task_status")
+}
+enum E_LogisticsPermitDocumentsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.permit_documents#status")
+}
+enum E_LogisticsPermitsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.permits#status")
+}
+enum E_LogisticsRecceMediaStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.recce_media#status")
+}
+enum E_LogisticsReccesDecision {
+  planned
+  shortlisted
+  rejected
+  approved
+  @@map("logistics.recces#decision")
+}
+enum E_LogisticsReccesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.recces#status")
+}
+enum E_LogisticsRoomAllocationsAllocationStatus {
+  held
+  assigned
+  released
+  @@map("logistics.room_allocations#allocation_status")
+}
+enum E_LogisticsShipmentsShipmentStatus {
+  preparing
+  in_transit
+  delivered
+  returned
+  @@map("logistics.shipments#shipment_status")
+}
+enum E_LogisticsTransportPlansStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.transport_plans#status")
+}
+enum E_LogisticsTravelLegsStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.travel_legs#status")
+}
+enum E_LogisticsTravelPlansTravelStatus {
+  draft
+  approved
+  booked
+  cancelled
+  @@map("logistics.travel_plans#travel_status")
+}
+enum E_LogisticsVehicleAssignmentsAssignmentStatus {
+  planned
+  assigned
+  completed
+  cancelled
+  @@map("logistics.vehicle_assignments#assignment_status")
+}
+enum E_LogisticsVehiclesStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+  archived
+  @@map("logistics.vehicles#status")
+}
+enum E_OrganisationOrganisationMembershipsMembershipRole {
+  owner
+  admin
+  member
+  viewer
+  @@map("organisation.organisation_memberships#membership_role")
+}
+enum E_OrganisationOrganisationMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.organisation_memberships#membership_status")
+}
+enum E_OrganisationOrganisationsOrganisationStatus {
+  active
+  suspended
+  closed
+  @@map("organisation.organisations#organisation_status")
+}
+enum E_OrganisationWorkspaceMembershipsMembershipStatus {
+  active
+  invited
+  suspended
+  revoked
+  @@map("organisation.workspace_memberships#membership_status")
+}
+enum E_OrganisationWorkspaceMembershipsWorkspaceRole {
+  admin
+  editor
+  viewer
+  @@map("organisation.workspace_memberships#workspace_role")
+}
+enum E_OrganisationWorkspacesWorkspaceStatus {
+  active
+  archived
+  @@map("organisation.workspaces#workspace_status")
+}
+enum E_ProjectProjectMembersMembershipStatus {
+  active
+  invited
+  suspended
+  removed
+  @@map("project.project_members#membership_status")
+}
+enum E_ProjectProjectMembersProjectRole {
+  owner
+  admin
+  contributor
+  viewer
+  @@map("project.project_members#project_role")
+}
+enum E_ProjectProjectsProjectStatus {
+  draft
+  active
+  on_hold
+  completed
+  archived
+  @@map("project.projects#project_status")
+}
+model EvidenceEvidenceItems {
+  captured_at DateTime?
+  content_sha256 String
+  created_at DateTime @default(now())
+  description String?
+  id String @id
+  kind E_EvidenceEvidenceItemsEvidenceKind
+  media_type String
+  metadata Json @default("{}")
+  organisation_id String
+  project_id String?
+  retention_until DateTime?
+  size_bytes Int?
+  status E_EvidenceEvidenceItemsEvidenceStatus @default(active)
+  storage_uri String
+  title String
+  updated_at DateTime @default(now())
+  uploaded_by_user_id String?
+  withdrawn_at DateTime?
+  rel_evidence_items_organisation_fk OrganisationOrganisations @relation("R_evidence_items_organisation_fk", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_project_tenant_fk ProjectProjects? @relation("R_evidence_items_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_evidence_items_uploader_fk IdentityUsers? @relation("R_evidence_items_uploader_fk", fields: [uploaded_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_logistics_location_media_fk_location_media_evidence_item_id_evidence_evidence_items LogisticsLocationMedia[] @relation("R_fk_location_media_evidence_item_id_evidence_evidence_items")
+  back_logistics_permit_documents_fk_permit_documents_evidence_item_id_evidence_evidence_items LogisticsPermitDocuments[] @relation("R_fk_permit_documents_evidence_item_id_evidence_evidence_items")
+  back_logistics_recce_media_fk_recce_media_evidence_item_id_evidence_evidence_items LogisticsRecceMedia[] @relation("R_fk_recce_media_evidence_item_id_evidence_evidence_items")
+  @@unique([id, organisation_id], map: "evidence_items_id_organisation_unique")
+  @@index([organisation_id, project_id, created_at], map: "evidence_items_project_created_idx")
+  @@index([organisation_id, content_sha256], map: "evidence_items_hash_idx")
+  @@index([organisation_id, retention_until], map: "evidence_items_retention_idx")
+  @@map("evidence_evidence_items")
+}
+model IdentityUsers {
+  closed_at DateTime?
+  created_at DateTime @default(now())
+  email String
+  email_verified_at DateTime?
+  id String @id
+  status E_IdentityUsersAccountStatus @default(active)
+  updated_at DateTime @default(now())
+  back_evidence_evidence_items_evidence_items_uploader_fk EvidenceEvidenceItems[] @relation("R_evidence_items_uploader_fk")
+  back_logistics_accommodations_fk_accommodations_created_by_user_id_identity_users LogisticsAccommodations[] @relation("R_fk_accommodations_created_by_user_id_identity_users")
+  back_logistics_drivers_fk_drivers_user_id_identity_users LogisticsDrivers[] @relation("R_fk_drivers_user_id_identity_users")
+  back_logistics_drivers_fk_drivers_created_by_user_id_identity_users LogisticsDrivers[] @relation("R_fk_drivers_created_by_user_id_identity_users")
+  back_logistics_equipment_bookings_fk_equipment_bookings_booked_by_user_id_identity_users LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_booked_by_user_id_identity_users")
+  back_logistics_equipment_bookings_fk_equipment_bookings_created_by_user_id_identity_users LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_created_by_user_id_identity_users")
+  back_logistics_equipment_categories_fk_equipment_categories_created_by_user_id_identity_users LogisticsEquipmentCategories[] @relation("R_fk_equipment_categories_created_by_user_id_identity_users")
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_checked_out_to_user_id_identity_users LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_checked_out_to_user_id_identity_users")
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_issued_by_user_id_identity_users LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_issued_by_user_id_identity_users")
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_created_by_user_id_identity_users LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_created_by_user_id_identity_users")
+  back_logistics_equipment_inventory_events_fk_equipment_inventory_events_actor_user_id_identity_users LogisticsEquipmentInventoryEvents[] @relation("R_fk_equipment_inventory_events_actor_user_id_identity_users")
+  back_logistics_equipment_inventory_events_fk_equipment_inventory_events_created_by_user_id_identity_us LogisticsEquipmentInventoryEvents[] @relation("R_fk_equipment_inventory_events_created_by_user_id_identity_us")
+  back_logistics_equipment_items_fk_equipment_items_created_by_user_id_identity_users LogisticsEquipmentItems[] @relation("R_fk_equipment_items_created_by_user_id_identity_users")
+  back_logistics_equipment_kits_fk_equipment_kits_created_by_user_id_identity_users LogisticsEquipmentKits[] @relation("R_fk_equipment_kits_created_by_user_id_identity_users")
+  back_logistics_equipment_maintenance_fk_equipment_maintenance_created_by_user_id_identity_users LogisticsEquipmentMaintenance[] @relation("R_fk_equipment_maintenance_created_by_user_id_identity_users")
+  back_logistics_equipment_returns_fk_equipment_returns_received_by_user_id_identity_users LogisticsEquipmentReturns[] @relation("R_fk_equipment_returns_received_by_user_id_identity_users")
+  back_logistics_equipment_returns_fk_equipment_returns_created_by_user_id_identity_users LogisticsEquipmentReturns[] @relation("R_fk_equipment_returns_created_by_user_id_identity_users")
+  back_logistics_location_bookings_fk_location_bookings_booked_by_user_id_identity_users LogisticsLocationBookings[] @relation("R_fk_location_bookings_booked_by_user_id_identity_users")
+  back_logistics_location_bookings_fk_location_bookings_created_by_user_id_identity_users LogisticsLocationBookings[] @relation("R_fk_location_bookings_created_by_user_id_identity_users")
+  back_logistics_location_comparisons_fk_location_comparisons_created_by_user_id_identity_users LogisticsLocationComparisons[] @relation("R_fk_location_comparisons_created_by_user_id_identity_users")
+  back_logistics_location_media_fk_location_media_created_by_user_id_identity_users LogisticsLocationMedia[] @relation("R_fk_location_media_created_by_user_id_identity_users")
+  back_logistics_locations_fk_locations_created_by_user_id_identity_users LogisticsLocations[] @relation("R_fk_locations_created_by_user_id_identity_users")
+  back_logistics_logistics_tasks_fk_logistics_tasks_assigned_to_user_id_identity_users LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_assigned_to_user_id_identity_users")
+  back_logistics_logistics_tasks_fk_logistics_tasks_created_by_user_id_identity_users LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_created_by_user_id_identity_users")
+  back_logistics_permit_documents_fk_permit_documents_created_by_user_id_identity_users LogisticsPermitDocuments[] @relation("R_fk_permit_documents_created_by_user_id_identity_users")
+  back_logistics_permits_fk_permits_created_by_user_id_identity_users LogisticsPermits[] @relation("R_fk_permits_created_by_user_id_identity_users")
+  back_logistics_recce_media_fk_recce_media_created_by_user_id_identity_users LogisticsRecceMedia[] @relation("R_fk_recce_media_created_by_user_id_identity_users")
+  back_logistics_recces_fk_recces_lead_user_id_identity_users LogisticsRecces[] @relation("R_fk_recces_lead_user_id_identity_users")
+  back_logistics_recces_fk_recces_created_by_user_id_identity_users LogisticsRecces[] @relation("R_fk_recces_created_by_user_id_identity_users")
+  back_logistics_room_allocations_fk_room_allocations_person_user_id_identity_users LogisticsRoomAllocations[] @relation("R_fk_room_allocations_person_user_id_identity_users")
+  back_logistics_room_allocations_fk_room_allocations_created_by_user_id_identity_users LogisticsRoomAllocations[] @relation("R_fk_room_allocations_created_by_user_id_identity_users")
+  back_logistics_shipments_fk_shipments_created_by_user_id_identity_users LogisticsShipments[] @relation("R_fk_shipments_created_by_user_id_identity_users")
+  back_logistics_transport_plans_fk_transport_plans_created_by_user_id_identity_users LogisticsTransportPlans[] @relation("R_fk_transport_plans_created_by_user_id_identity_users")
+  back_logistics_travel_legs_fk_travel_legs_created_by_user_id_identity_users LogisticsTravelLegs[] @relation("R_fk_travel_legs_created_by_user_id_identity_users")
+  back_logistics_travel_plans_fk_travel_plans_created_by_user_id_identity_users LogisticsTravelPlans[] @relation("R_fk_travel_plans_created_by_user_id_identity_users")
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_created_by_user_id_identity_users LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_created_by_user_id_identity_users")
+  back_logistics_vehicles_fk_vehicles_created_by_user_id_identity_users LogisticsVehicles[] @relation("R_fk_vehicles_created_by_user_id_identity_users")
+  back_organisation_organisation_memberships_organisation_memberships_user_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_user_fk")
+  back_organisation_organisation_memberships_organisation_memberships_inviter_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_inviter_fk")
+  back_organisation_organisations_organisations_creator_user_fk OrganisationOrganisations[] @relation("R_organisations_creator_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_user_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_user_fk")
+  back_organisation_workspace_memberships_workspace_memberships_inviter_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_inviter_fk")
+  back_organisation_workspaces_workspaces_creator_user_fk OrganisationWorkspaces[] @relation("R_workspaces_creator_user_fk")
+  back_project_project_members_project_members_user_fk ProjectProjectMembers[] @relation("R_project_members_user_fk")
+  back_project_project_members_project_members_adder_fk ProjectProjectMembers[] @relation("R_project_members_adder_fk")
+  back_project_projects_projects_creator_user_fk ProjectProjects[] @relation("R_projects_creator_user_fk")
+  @@unique([email], map: "users_email_unique")
+  @@index([status], map: "users_status_idx")
+  @@map("identity_users")
+}
+model LogisticsAccommodations {
+  address String?
+  check_in DateTime?
+  check_out DateTime?
+  contact_phone String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  location_id String?
+  name String
+  organisation_id String
+  property_kind String?
+  room_count Int?
+  status E_LogisticsAccommodationsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_accommodations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_accommodations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_accommodations_location_id_logistics_locations LogisticsLocations? @relation("R_fk_accommodations_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_accommodations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_accommodations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_accommodations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_accommodations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_room_allocations_fk_room_allocations_accommodation_id_logistics_accommodation LogisticsRoomAllocations[] @relation("R_fk_room_allocations_accommodation_id_logistics_accommodation")
+  @@unique([id, organisation_id], map: "accommodations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "accommodations_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "accommodations_organisation_status_idx")
+  @@index([workspace_id, status], map: "accommodations_workspace_status_idx")
+  @@index([created_at], map: "accommodations_created_idx")
+  @@map("logistics_accommodations")
+}
+model LogisticsDrivers {
+  availability_note String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  display_name String
+  id String @id @default(uuid())
+  license_expires_on DateTime?
+  license_number String?
+  organisation_id String
+  phone String?
+  status E_LogisticsDriversStatus @default(draft)
+  updated_at DateTime @default(now())
+  user_id String?
+  workspace_id String
+  rel_fk_drivers_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_drivers_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_drivers_user_id_identity_users IdentityUsers? @relation("R_fk_drivers_user_id_identity_users", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_drivers_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_drivers_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_drivers_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_drivers_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_driver_id_logistics_drivers LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_driver_id_logistics_drivers")
+  @@unique([id, organisation_id], map: "drivers_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "drivers_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "drivers_organisation_status_idx")
+  @@index([workspace_id, status], map: "drivers_workspace_status_idx")
+  @@index([created_at], map: "drivers_created_idx")
+  @@map("logistics_drivers")
+}
+model LogisticsEquipmentBookings {
+  booked_by_user_id String?
+  booking_status E_LogisticsEquipmentBookingsBookingStatus @default(held)
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  ends_at DateTime
+  equipment_item_id String?
+  equipment_kit_id String?
+  id String @id @default(uuid())
+  organisation_id String
+  project_id String
+  quantity Int
+  starts_at DateTime
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_bookings_organisation_id_organisation_organisat OrganisationOrganisations @relation("R_fk_equipment_bookings_organisation_id_organisation_organisat", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_bookings_project_id_project_projects ProjectProjects @relation("R_fk_equipment_bookings_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_bookings_equipment_item_id_logistics_equipment_ LogisticsEquipmentItems? @relation("R_fk_equipment_bookings_equipment_item_id_logistics_equipment_", fields: [equipment_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_bookings_equipment_kit_id_logistics_equipment_k LogisticsEquipmentKits? @relation("R_fk_equipment_bookings_equipment_kit_id_logistics_equipment_k", fields: [equipment_kit_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_bookings_booked_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_bookings_booked_by_user_id_identity_users", fields: [booked_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_bookings_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_equipment_bookings_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_bookings_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_bookings_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_equipment_booking_id_logistics_equipm LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_equipment_booking_id_logistics_equipm")
+  @@unique([id, organisation_id], map: "equipment_bookings_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_bookings_id_workspace_organisation_uq")
+  @@index([organisation_id, booking_status], map: "equipment_bookings_organisation_status_idx")
+  @@index([workspace_id, booking_status], map: "equipment_bookings_workspace_status_idx")
+  @@index([created_at], map: "equipment_bookings_created_idx")
+  @@map("logistics_equipment_bookings")
+}
+model LogisticsEquipmentCategories {
+  code String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  id String @id @default(uuid())
+  name String
+  organisation_id String
+  requires_serial Boolean @default(false)
+  returnable Boolean @default(false)
+  status E_LogisticsEquipmentCategoriesStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_categories_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_equipment_categories_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_categories_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_categories_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_categories_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_equipment_categories_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_equipment_items_fk_equipment_items_category_id_logistics_equipment_categorie LogisticsEquipmentItems[] @relation("R_fk_equipment_items_category_id_logistics_equipment_categorie")
+  @@unique([id, organisation_id], map: "equipment_categories_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_categories_id_workspace_organisation_uq")
+  @@unique([name], map: "equipment_categories_name_uq")
+  @@index([organisation_id, status], map: "equipment_categories_organisation_status_idx")
+  @@index([workspace_id, status], map: "equipment_categories_workspace_status_idx")
+  @@index([created_at], map: "equipment_categories_created_idx")
+  @@map("logistics_equipment_categories")
+}
+model LogisticsEquipmentCheckouts {
+  checked_out_at DateTime
+  checked_out_quantity Int
+  checked_out_to_user_id String?
+  condition_out String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  due_at DateTime?
+  equipment_booking_id String?
+  equipment_item_id String
+  id String @id @default(uuid())
+  issued_by_user_id String?
+  notes String?
+  organisation_id String
+  status E_LogisticsEquipmentCheckoutsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_checkouts_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_equipment_checkouts_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_checkouts_equipment_item_id_logistics_equipment LogisticsEquipmentItems @relation("R_fk_equipment_checkouts_equipment_item_id_logistics_equipment", fields: [equipment_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_checkouts_equipment_booking_id_logistics_equipm LogisticsEquipmentBookings? @relation("R_fk_equipment_checkouts_equipment_booking_id_logistics_equipm", fields: [equipment_booking_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_checkouts_checked_out_to_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_checkouts_checked_out_to_user_id_identity_users", fields: [checked_out_to_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_checkouts_issued_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_checkouts_issued_by_user_id_identity_users", fields: [issued_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_checkouts_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_equipment_checkouts_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_checkouts_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_checkouts_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_logistics_equipment_returns_fk_equipment_returns_checkout_id_logistics_equipment_checkou LogisticsEquipmentReturns[] @relation("R_fk_equipment_returns_checkout_id_logistics_equipment_checkou")
+  @@unique([id, organisation_id], map: "equipment_checkouts_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_checkouts_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "equipment_checkouts_organisation_status_idx")
+  @@index([workspace_id, status], map: "equipment_checkouts_workspace_status_idx")
+  @@index([created_at], map: "equipment_checkouts_created_idx")
+  @@map("logistics_equipment_checkouts")
+}
+model LogisticsEquipmentInventoryEvents {
+  actor_user_id String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  equipment_item_id String
+  equipment_kit_id String?
+  event_kind String
+  id String @id @default(uuid())
+  notes String?
+  occurred_at DateTime
+  organisation_id String
+  quantity_delta Int
+  reference String?
+  sequence Int
+  status E_LogisticsEquipmentInventoryEventsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_inventory_events_organisation_id_organisation_o OrganisationOrganisations @relation("R_fk_equipment_inventory_events_organisation_id_organisation_o", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_inventory_events_equipment_item_id_logistics_eq LogisticsEquipmentItems @relation("R_fk_equipment_inventory_events_equipment_item_id_logistics_eq", fields: [equipment_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_inventory_events_equipment_kit_id_logistics_equ LogisticsEquipmentKits? @relation("R_fk_equipment_inventory_events_equipment_kit_id_logistics_equ", fields: [equipment_kit_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_inventory_events_actor_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_inventory_events_actor_user_id_identity_users", fields: [actor_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_inventory_events_workspace_id_organisation_work OrganisationWorkspaces @relation("R_fk_equipment_inventory_events_workspace_id_organisation_work", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_inventory_events_created_by_user_id_identity_us IdentityUsers? @relation("R_fk_equipment_inventory_events_created_by_user_id_identity_us", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "equipment_inventory_events_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_inventory_events_id_workspace_organisation_uq")
+  @@unique([equipment_item_id, sequence], map: "equipment_inventory_events_equipment_item_id_sequence_uq")
+  @@index([organisation_id, status], map: "equipment_inventory_events_organisation_status_idx")
+  @@index([workspace_id, status], map: "equipment_inventory_events_workspace_status_idx")
+  @@index([created_at], map: "equipment_inventory_events_created_idx")
+  @@map("logistics_equipment_inventory_events")
+}
+model LogisticsEquipmentItems {
+  acquired_on DateTime?
+  asset_tag String?
+  category_id String
+  condition String
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  manufacturer String?
+  metadata Json?
+  model String?
+  name String
+  organisation_id String
+  replacement_value Decimal?
+  serial_number String?
+  status E_LogisticsEquipmentItemsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_items_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_equipment_items_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_items_category_id_logistics_equipment_categorie LogisticsEquipmentCategories @relation("R_fk_equipment_items_category_id_logistics_equipment_categorie", fields: [category_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_items_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_items_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_items_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_equipment_items_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_equipment_bookings_fk_equipment_bookings_equipment_item_id_logistics_equipment_ LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_equipment_item_id_logistics_equipment_")
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_equipment_item_id_logistics_equipment LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_equipment_item_id_logistics_equipment")
+  back_logistics_equipment_inventory_events_fk_equipment_inventory_events_equipment_item_id_logistics_eq LogisticsEquipmentInventoryEvents[] @relation("R_fk_equipment_inventory_events_equipment_item_id_logistics_eq")
+  back_logistics_equipment_maintenance_fk_equipment_maintenance_equipment_item_id_logistics_equipme LogisticsEquipmentMaintenance[] @relation("R_fk_equipment_maintenance_equipment_item_id_logistics_equipme")
+  @@unique([id, organisation_id], map: "equipment_items_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_items_id_workspace_organisation_uq")
+  @@unique([asset_tag], map: "equipment_items_asset_tag_uq")
+  @@index([organisation_id, status], map: "equipment_items_organisation_status_idx")
+  @@index([workspace_id, status], map: "equipment_items_workspace_status_idx")
+  @@index([created_at], map: "equipment_items_created_idx")
+  @@map("logistics_equipment_items")
+}
+model LogisticsEquipmentKits {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  description String?
+  id String @id @default(uuid())
+  kit_code String?
+  kit_status E_LogisticsEquipmentKitsKitStatus @default(active)
+  name String
+  organisation_id String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_kits_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_equipment_kits_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_kits_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_kits_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_kits_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_equipment_kits_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_equipment_bookings_fk_equipment_bookings_equipment_kit_id_logistics_equipment_k LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_equipment_kit_id_logistics_equipment_k")
+  back_logistics_equipment_inventory_events_fk_equipment_inventory_events_equipment_kit_id_logistics_equ LogisticsEquipmentInventoryEvents[] @relation("R_fk_equipment_inventory_events_equipment_kit_id_logistics_equ")
+  @@unique([id, organisation_id], map: "equipment_kits_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_kits_id_workspace_organisation_uq")
+  @@unique([kit_code], map: "equipment_kits_kit_code_uq")
+  @@index([organisation_id, kit_status], map: "equipment_kits_organisation_status_idx")
+  @@index([workspace_id, kit_status], map: "equipment_kits_workspace_status_idx")
+  @@index([created_at], map: "equipment_kits_created_idx")
+  @@map("logistics_equipment_kits")
+}
+model LogisticsEquipmentMaintenance {
+  completed_at DateTime?
+  cost Decimal?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  equipment_item_id String
+  id String @id @default(uuid())
+  maintenance_kind String
+  notes String?
+  organisation_id String
+  scheduled_at DateTime?
+  status E_LogisticsEquipmentMaintenanceStatus @default(draft)
+  updated_at DateTime @default(now())
+  vendor_name String?
+  workspace_id String
+  rel_fk_equipment_maintenance_organisation_id_organisation_organi OrganisationOrganisations @relation("R_fk_equipment_maintenance_organisation_id_organisation_organi", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_maintenance_equipment_item_id_logistics_equipme LogisticsEquipmentItems @relation("R_fk_equipment_maintenance_equipment_item_id_logistics_equipme", fields: [equipment_item_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_maintenance_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_maintenance_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_maintenance_workspace_id_organisation_workspace OrganisationWorkspaces @relation("R_fk_equipment_maintenance_workspace_id_organisation_workspace", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "equipment_maintenance_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_maintenance_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "equipment_maintenance_organisation_status_idx")
+  @@index([workspace_id, status], map: "equipment_maintenance_workspace_status_idx")
+  @@index([created_at], map: "equipment_maintenance_created_idx")
+  @@map("logistics_equipment_maintenance")
+}
+model LogisticsEquipmentReturns {
+  checkout_id String
+  condition_in String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  damage_note String?
+  id String @id @default(uuid())
+  organisation_id String
+  received_by_user_id String?
+  returned_at DateTime
+  returned_quantity Int
+  status E_LogisticsEquipmentReturnsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_equipment_returns_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_equipment_returns_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_returns_checkout_id_logistics_equipment_checkou LogisticsEquipmentCheckouts @relation("R_fk_equipment_returns_checkout_id_logistics_equipment_checkou", fields: [checkout_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_returns_received_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_returns_received_by_user_id_identity_users", fields: [received_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_equipment_returns_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_equipment_returns_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_equipment_returns_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_equipment_returns_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "equipment_returns_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "equipment_returns_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "equipment_returns_organisation_status_idx")
+  @@index([workspace_id, status], map: "equipment_returns_workspace_status_idx")
+  @@index([created_at], map: "equipment_returns_created_idx")
+  @@map("logistics_equipment_returns")
+}
+model LogisticsLocationBookings {
+  booked_by_user_id String?
+  booking_status E_LogisticsLocationBookingsBookingStatus @default(held)
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  ends_at DateTime
+  id String @id @default(uuid())
+  location_id String
+  organisation_id String
+  permit_id String?
+  project_id String
+  purpose String?
+  quoted_cost Decimal?
+  starts_at DateTime
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_location_bookings_organisation_id_organisation_organisati OrganisationOrganisations @relation("R_fk_location_bookings_organisation_id_organisation_organisati", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_bookings_project_id_project_projects ProjectProjects @relation("R_fk_location_bookings_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_bookings_location_id_logistics_locations LogisticsLocations @relation("R_fk_location_bookings_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_bookings_permit_id_logistics_permits LogisticsPermits? @relation("R_fk_location_bookings_permit_id_logistics_permits", fields: [permit_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_bookings_booked_by_user_id_identity_users IdentityUsers? @relation("R_fk_location_bookings_booked_by_user_id_identity_users", fields: [booked_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_location_bookings_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_location_bookings_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_bookings_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_location_bookings_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "location_bookings_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "location_bookings_id_workspace_organisation_uq")
+  @@index([organisation_id, booking_status], map: "location_bookings_organisation_status_idx")
+  @@index([workspace_id, booking_status], map: "location_bookings_workspace_status_idx")
+  @@index([created_at], map: "location_bookings_created_idx")
+  @@map("logistics_location_bookings")
+}
+model LogisticsLocationComparisons {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  criteria Json
+  decision E_LogisticsLocationComparisonsDecision @default(open)
+  id String @id @default(uuid())
+  notes String?
+  organisation_id String
+  project_id String
+  recce_id String?
+  status E_LogisticsLocationComparisonsStatus @default(draft)
+  title String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_location_comparisons_organisation_id_organisation_organis OrganisationOrganisations @relation("R_fk_location_comparisons_organisation_id_organisation_organis", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_comparisons_project_id_project_projects ProjectProjects @relation("R_fk_location_comparisons_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_comparisons_recce_id_logistics_recces LogisticsRecces? @relation("R_fk_location_comparisons_recce_id_logistics_recces", fields: [recce_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_comparisons_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_location_comparisons_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_location_comparisons_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_location_comparisons_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "location_comparisons_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "location_comparisons_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "location_comparisons_organisation_status_idx")
+  @@index([workspace_id, status], map: "location_comparisons_workspace_status_idx")
+  @@index([created_at], map: "location_comparisons_created_idx")
+  @@map("logistics_location_comparisons")
+}
+model LogisticsLocationMedia {
+  caption String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  evidence_item_id String?
+  id String @id @default(uuid())
+  location_id String
+  media_kind String
+  organisation_id String
+  sort_order Int
+  status E_LogisticsLocationMediaStatus @default(draft)
+  updated_at DateTime @default(now())
+  uri String
+  workspace_id String
+  rel_fk_location_media_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_location_media_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_media_location_id_logistics_locations LogisticsLocations @relation("R_fk_location_media_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_media_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_location_media_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_location_media_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_location_media_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_location_media_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_location_media_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "location_media_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "location_media_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "location_media_organisation_status_idx")
+  @@index([workspace_id, status], map: "location_media_workspace_status_idx")
+  @@index([created_at], map: "location_media_created_idx")
+  @@map("logistics_location_media")
+}
+model LogisticsLocations {
+  access_notes String?
+  capacity Int?
+  city String?
+  country_code String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  latitude Decimal?
+  location_kind String
+  longitude Decimal?
+  name String
+  organisation_id String
+  postal_code String?
+  region String?
+  status E_LogisticsLocationsStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_locations_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_locations_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_locations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_locations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_locations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_locations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_accommodations_fk_accommodations_location_id_logistics_locations LogisticsAccommodations[] @relation("R_fk_accommodations_location_id_logistics_locations")
+  back_logistics_location_bookings_fk_location_bookings_location_id_logistics_locations LogisticsLocationBookings[] @relation("R_fk_location_bookings_location_id_logistics_locations")
+  back_logistics_location_media_fk_location_media_location_id_logistics_locations LogisticsLocationMedia[] @relation("R_fk_location_media_location_id_logistics_locations")
+  back_logistics_permits_fk_permits_location_id_logistics_locations LogisticsPermits[] @relation("R_fk_permits_location_id_logistics_locations")
+  back_logistics_recces_fk_recces_location_id_logistics_locations LogisticsRecces[] @relation("R_fk_recces_location_id_logistics_locations")
+  back_logistics_travel_legs_fk_travel_legs_location_id_logistics_locations LogisticsTravelLegs[] @relation("R_fk_travel_legs_location_id_logistics_locations")
+  @@unique([id, organisation_id], map: "locations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "locations_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "locations_organisation_status_idx")
+  @@index([workspace_id, status], map: "locations_workspace_status_idx")
+  @@index([created_at], map: "locations_created_idx")
+  @@map("logistics_locations")
+}
+model LogisticsLogisticsTasks {
+  assigned_to_user_id String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  details String?
+  due_at DateTime?
+  id String @id @default(uuid())
+  organisation_id String
+  priority String
+  project_id String
+  task_kind String
+  task_status E_LogisticsLogisticsTasksTaskStatus @default(open)
+  title String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_logistics_tasks_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_logistics_tasks_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_logistics_tasks_project_id_project_projects ProjectProjects @relation("R_fk_logistics_tasks_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_logistics_tasks_assigned_to_user_id_identity_users IdentityUsers? @relation("R_fk_logistics_tasks_assigned_to_user_id_identity_users", fields: [assigned_to_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_logistics_tasks_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_logistics_tasks_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_logistics_tasks_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_logistics_tasks_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_shipments_fk_shipments_logistics_task_id_logistics_logistics_tasks LogisticsShipments[] @relation("R_fk_shipments_logistics_task_id_logistics_logistics_tasks")
+  @@unique([id, organisation_id], map: "logistics_tasks_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "logistics_tasks_id_workspace_organisation_uq")
+  @@index([organisation_id, task_status], map: "logistics_tasks_organisation_status_idx")
+  @@index([workspace_id, task_status], map: "logistics_tasks_workspace_status_idx")
+  @@index([created_at], map: "logistics_tasks_created_idx")
+  @@map("logistics_logistics_tasks")
+}
+model LogisticsPermitDocuments {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  document_kind String
+  evidence_item_id String?
+  expires_at DateTime?
+  id String @id @default(uuid())
+  organisation_id String
+  permit_id String
+  status E_LogisticsPermitDocumentsStatus @default(draft)
+  updated_at DateTime @default(now())
+  uri String
+  workspace_id String
+  rel_fk_permit_documents_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_permit_documents_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_permit_documents_permit_id_logistics_permits LogisticsPermits @relation("R_fk_permit_documents_permit_id_logistics_permits", fields: [permit_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_permit_documents_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_permit_documents_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_permit_documents_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_permit_documents_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_permit_documents_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_permit_documents_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "permit_documents_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "permit_documents_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "permit_documents_organisation_status_idx")
+  @@index([workspace_id, status], map: "permit_documents_workspace_status_idx")
+  @@index([created_at], map: "permit_documents_created_idx")
+  @@map("logistics_permit_documents")
+}
+model LogisticsPermits {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  issuing_authority String?
+  location_id String
+  organisation_id String
+  permit_kind String
+  permit_number String?
+  project_id String
+  status E_LogisticsPermitsStatus @default(draft)
+  status_note String?
+  updated_at DateTime @default(now())
+  valid_from DateTime?
+  valid_until DateTime?
+  workspace_id String
+  rel_fk_permits_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_permits_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_permits_project_id_project_projects ProjectProjects @relation("R_fk_permits_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_permits_location_id_logistics_locations LogisticsLocations @relation("R_fk_permits_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_permits_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_permits_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_permits_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_permits_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_location_bookings_fk_location_bookings_permit_id_logistics_permits LogisticsLocationBookings[] @relation("R_fk_location_bookings_permit_id_logistics_permits")
+  back_logistics_permit_documents_fk_permit_documents_permit_id_logistics_permits LogisticsPermitDocuments[] @relation("R_fk_permit_documents_permit_id_logistics_permits")
+  @@unique([id, organisation_id], map: "permits_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "permits_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "permits_organisation_status_idx")
+  @@index([workspace_id, status], map: "permits_workspace_status_idx")
+  @@index([created_at], map: "permits_created_idx")
+  @@map("logistics_permits")
+}
+model LogisticsRecceMedia {
+  caption String?
+  captured_at DateTime?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  evidence_item_id String?
+  id String @id @default(uuid())
+  media_kind String
+  organisation_id String
+  recce_id String
+  status E_LogisticsRecceMediaStatus @default(draft)
+  updated_at DateTime @default(now())
+  uri String
+  workspace_id String
+  rel_fk_recce_media_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_recce_media_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recce_media_recce_id_logistics_recces LogisticsRecces @relation("R_fk_recce_media_recce_id_logistics_recces", fields: [recce_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recce_media_evidence_item_id_evidence_evidence_items EvidenceEvidenceItems? @relation("R_fk_recce_media_evidence_item_id_evidence_evidence_items", fields: [evidence_item_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recce_media_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_recce_media_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_recce_media_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_recce_media_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "recce_media_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "recce_media_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "recce_media_organisation_status_idx")
+  @@index([workspace_id, status], map: "recce_media_workspace_status_idx")
+  @@index([created_at], map: "recce_media_created_idx")
+  @@map("logistics_recce_media")
+}
+model LogisticsRecces {
+  access_notes String?
+  completed_at DateTime?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  decision E_LogisticsReccesDecision @default(planned)
+  id String @id @default(uuid())
+  lead_user_id String?
+  location_id String
+  organisation_id String
+  project_id String
+  scheduled_at DateTime?
+  status E_LogisticsReccesStatus @default(draft)
+  title String
+  updated_at DateTime @default(now())
+  weather String?
+  workspace_id String
+  rel_fk_recces_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_recces_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recces_project_id_project_projects ProjectProjects @relation("R_fk_recces_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recces_location_id_logistics_locations LogisticsLocations @relation("R_fk_recces_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_recces_lead_user_id_identity_users IdentityUsers? @relation("R_fk_recces_lead_user_id_identity_users", fields: [lead_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_recces_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_recces_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_recces_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_recces_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_location_comparisons_fk_location_comparisons_recce_id_logistics_recces LogisticsLocationComparisons[] @relation("R_fk_location_comparisons_recce_id_logistics_recces")
+  back_logistics_recce_media_fk_recce_media_recce_id_logistics_recces LogisticsRecceMedia[] @relation("R_fk_recce_media_recce_id_logistics_recces")
+  @@unique([id, organisation_id], map: "recces_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "recces_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "recces_organisation_status_idx")
+  @@index([workspace_id, status], map: "recces_workspace_status_idx")
+  @@index([created_at], map: "recces_created_idx")
+  @@map("logistics_recces")
+}
+model LogisticsRoomAllocations {
+  accommodation_id String
+  allocation_status E_LogisticsRoomAllocationsAllocationStatus @default(held)
+  check_in DateTime
+  check_out DateTime
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  occupant_name String?
+  organisation_id String
+  person_user_id String?
+  project_id String
+  room_label String?
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_room_allocations_organisation_id_organisation_organisatio OrganisationOrganisations @relation("R_fk_room_allocations_organisation_id_organisation_organisatio", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_room_allocations_accommodation_id_logistics_accommodation LogisticsAccommodations @relation("R_fk_room_allocations_accommodation_id_logistics_accommodation", fields: [accommodation_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_room_allocations_project_id_project_projects ProjectProjects @relation("R_fk_room_allocations_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_room_allocations_person_user_id_identity_users IdentityUsers? @relation("R_fk_room_allocations_person_user_id_identity_users", fields: [person_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_room_allocations_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_room_allocations_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_room_allocations_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_room_allocations_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "room_allocations_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "room_allocations_id_workspace_organisation_uq")
+  @@unique([accommodation_id, room_label, check_in], map: "room_allocations_accommodation_id_room_label_check_in_uq")
+  @@index([organisation_id, allocation_status], map: "room_allocations_organisation_status_idx")
+  @@index([workspace_id, allocation_status], map: "room_allocations_workspace_status_idx")
+  @@index([created_at], map: "room_allocations_created_idx")
+  @@map("logistics_room_allocations")
+}
+model LogisticsShipments {
+  carrier String?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  expected_at DateTime?
+  id String @id @default(uuid())
+  logistics_task_id String?
+  organisation_id String
+  project_id String
+  ship_from String?
+  ship_to String?
+  shipment_status E_LogisticsShipmentsShipmentStatus @default(preparing)
+  shipped_at DateTime?
+  tracking_number String?
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_shipments_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_shipments_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shipments_project_id_project_projects ProjectProjects @relation("R_fk_shipments_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shipments_logistics_task_id_logistics_logistics_tasks LogisticsLogisticsTasks? @relation("R_fk_shipments_logistics_task_id_logistics_logistics_tasks", fields: [logistics_task_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_shipments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_shipments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_shipments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_shipments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "shipments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "shipments_id_workspace_organisation_uq")
+  @@index([organisation_id, shipment_status], map: "shipments_organisation_status_idx")
+  @@index([workspace_id, shipment_status], map: "shipments_workspace_status_idx")
+  @@index([created_at], map: "shipments_created_idx")
+  @@map("logistics_shipments")
+}
+model LogisticsTransportPlans {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  ends_at DateTime?
+  id String @id @default(uuid())
+  organisation_id String
+  pickup_note String?
+  project_id String
+  service_kind String
+  starts_at DateTime?
+  status E_LogisticsTransportPlansStatus @default(draft)
+  status_note String?
+  title String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_transport_plans_organisation_id_organisation_organisation OrganisationOrganisations @relation("R_fk_transport_plans_organisation_id_organisation_organisation", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_transport_plans_project_id_project_projects ProjectProjects @relation("R_fk_transport_plans_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_transport_plans_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_transport_plans_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_transport_plans_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_transport_plans_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_transport_plan_id_logistics_transport LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_transport_plan_id_logistics_transport")
+  @@unique([id, organisation_id], map: "transport_plans_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "transport_plans_id_workspace_organisation_uq")
+  @@index([organisation_id, status], map: "transport_plans_organisation_status_idx")
+  @@index([workspace_id, status], map: "transport_plans_workspace_status_idx")
+  @@index([created_at], map: "transport_plans_created_idx")
+  @@map("logistics_transport_plans")
+}
+model LogisticsTravelLegs {
+  arrive_at DateTime?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  depart_at DateTime?
+  destination String
+  id String @id @default(uuid())
+  location_id String?
+  mode String
+  organisation_id String
+  origin String
+  reference String?
+  sequence Int
+  status E_LogisticsTravelLegsStatus @default(draft)
+  travel_plan_id String
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_travel_legs_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_travel_legs_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_travel_legs_travel_plan_id_logistics_travel_plans LogisticsTravelPlans @relation("R_fk_travel_legs_travel_plan_id_logistics_travel_plans", fields: [travel_plan_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_travel_legs_location_id_logistics_locations LogisticsLocations? @relation("R_fk_travel_legs_location_id_logistics_locations", fields: [location_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_travel_legs_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_travel_legs_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_travel_legs_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_travel_legs_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "travel_legs_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "travel_legs_id_workspace_organisation_uq")
+  @@unique([travel_plan_id, sequence], map: "travel_legs_travel_plan_id_sequence_uq")
+  @@index([organisation_id, status], map: "travel_legs_organisation_status_idx")
+  @@index([workspace_id, status], map: "travel_legs_workspace_status_idx")
+  @@index([created_at], map: "travel_legs_created_idx")
+  @@map("logistics_travel_legs")
+}
+model LogisticsTravelPlans {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  depart_at DateTime?
+  id String @id @default(uuid())
+  notes String?
+  organisation_id String
+  project_id String
+  return_at DateTime?
+  title String
+  travel_status E_LogisticsTravelPlansTravelStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_fk_travel_plans_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_travel_plans_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_travel_plans_project_id_project_projects ProjectProjects @relation("R_fk_travel_plans_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_travel_plans_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_travel_plans_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_travel_plans_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_travel_plans_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_travel_legs_fk_travel_legs_travel_plan_id_logistics_travel_plans LogisticsTravelLegs[] @relation("R_fk_travel_legs_travel_plan_id_logistics_travel_plans")
+  @@unique([id, organisation_id], map: "travel_plans_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "travel_plans_id_workspace_organisation_uq")
+  @@index([organisation_id, travel_status], map: "travel_plans_organisation_status_idx")
+  @@index([workspace_id, travel_status], map: "travel_plans_workspace_status_idx")
+  @@index([created_at], map: "travel_plans_created_idx")
+  @@map("logistics_travel_plans")
+}
+model LogisticsVehicleAssignments {
+  assignment_status E_LogisticsVehicleAssignmentsAssignmentStatus @default(planned)
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  driver_id String?
+  ends_at DateTime
+  id String @id @default(uuid())
+  organisation_id String
+  project_id String
+  route_note String?
+  starts_at DateTime
+  transport_plan_id String
+  updated_at DateTime @default(now())
+  vehicle_id String
+  workspace_id String
+  rel_fk_vehicle_assignments_organisation_id_organisation_organisa OrganisationOrganisations @relation("R_fk_vehicle_assignments_organisation_id_organisation_organisa", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vehicle_assignments_transport_plan_id_logistics_transport LogisticsTransportPlans @relation("R_fk_vehicle_assignments_transport_plan_id_logistics_transport", fields: [transport_plan_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vehicle_assignments_vehicle_id_logistics_vehicles LogisticsVehicles @relation("R_fk_vehicle_assignments_vehicle_id_logistics_vehicles", fields: [vehicle_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vehicle_assignments_driver_id_logistics_drivers LogisticsDrivers? @relation("R_fk_vehicle_assignments_driver_id_logistics_drivers", fields: [driver_id, workspace_id, organisation_id], references: [id, workspace_id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vehicle_assignments_project_id_project_projects ProjectProjects @relation("R_fk_vehicle_assignments_project_id_project_projects", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vehicle_assignments_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vehicle_assignments_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vehicle_assignments_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vehicle_assignments_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  @@unique([id, organisation_id], map: "vehicle_assignments_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vehicle_assignments_id_workspace_organisation_uq")
+  @@index([organisation_id, assignment_status], map: "vehicle_assignments_organisation_status_idx")
+  @@index([workspace_id, assignment_status], map: "vehicle_assignments_workspace_status_idx")
+  @@index([created_at], map: "vehicle_assignments_created_idx")
+  @@map("logistics_vehicle_assignments")
+}
+model LogisticsVehicles {
+  accessibility_notes String?
+  capacity Int?
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  id String @id @default(uuid())
+  make String?
+  model String?
+  organisation_id String
+  registration_number String?
+  status E_LogisticsVehiclesStatus @default(draft)
+  status_note String?
+  updated_at DateTime @default(now())
+  vehicle_kind String
+  workspace_id String
+  rel_fk_vehicles_organisation_id_organisation_organisations OrganisationOrganisations @relation("R_fk_vehicles_organisation_id_organisation_organisations", fields: [organisation_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_fk_vehicles_created_by_user_id_identity_users IdentityUsers? @relation("R_fk_vehicles_created_by_user_id_identity_users", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  rel_fk_vehicles_workspace_id_organisation_workspaces OrganisationWorkspaces @relation("R_fk_vehicles_workspace_id_organisation_workspaces", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_vehicle_id_logistics_vehicles LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_vehicle_id_logistics_vehicles")
+  @@unique([id, organisation_id], map: "vehicles_id_organisation_uq")
+  @@unique([id, workspace_id, organisation_id], map: "vehicles_id_workspace_organisation_uq")
+  @@unique([registration_number], map: "vehicles_registration_number_uq")
+  @@index([organisation_id, status], map: "vehicles_organisation_status_idx")
+  @@index([workspace_id, status], map: "vehicles_workspace_status_idx")
+  @@index([created_at], map: "vehicles_created_idx")
+  @@map("logistics_vehicles")
+}
+model OrganisationOrganisationMemberships {
+  created_at DateTime @default(now())
+  id String @id
+  invited_by_user_id String?
+  joined_at DateTime?
+  organisation_id String
+  role E_OrganisationOrganisationMembershipsMembershipRole
+  status E_OrganisationOrganisationMembershipsMembershipStatus @default(active)
+  updated_at DateTime @default(now())
+  user_id String
+  rel_organisation_memberships_organisation_fk OrganisationOrganisations @relation("R_organisation_memberships_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_organisation_memberships_user_fk IdentityUsers @relation("R_organisation_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_organisation_memberships_inviter_fk IdentityUsers? @relation("R_organisation_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([organisation_id, user_id], map: "organisation_memberships_pair_unique")
+  @@index([user_id, status], map: "organisation_memberships_user_idx")
+  @@map("organisation_organisation_memberships")
+}
+model OrganisationOrganisations {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  deleted_at DateTime?
+  id String @id
+  name String
+  slug String
+  status E_OrganisationOrganisationsOrganisationStatus @default(active)
+  updated_at DateTime @default(now())
+  rel_organisations_creator_user_fk IdentityUsers? @relation("R_organisations_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_evidence_evidence_items_evidence_items_organisation_fk EvidenceEvidenceItems[] @relation("R_evidence_items_organisation_fk")
+  back_logistics_accommodations_fk_accommodations_organisation_id_organisation_organisations LogisticsAccommodations[] @relation("R_fk_accommodations_organisation_id_organisation_organisations")
+  back_logistics_drivers_fk_drivers_organisation_id_organisation_organisations LogisticsDrivers[] @relation("R_fk_drivers_organisation_id_organisation_organisations")
+  back_logistics_equipment_bookings_fk_equipment_bookings_organisation_id_organisation_organisat LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_organisation_id_organisation_organisat")
+  back_logistics_equipment_categories_fk_equipment_categories_organisation_id_organisation_organis LogisticsEquipmentCategories[] @relation("R_fk_equipment_categories_organisation_id_organisation_organis")
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_organisation_id_organisation_organisa LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_organisation_id_organisation_organisa")
+  back_logistics_equipment_inventory_events_fk_equipment_inventory_events_organisation_id_organisation_o LogisticsEquipmentInventoryEvents[] @relation("R_fk_equipment_inventory_events_organisation_id_organisation_o")
+  back_logistics_equipment_items_fk_equipment_items_organisation_id_organisation_organisation LogisticsEquipmentItems[] @relation("R_fk_equipment_items_organisation_id_organisation_organisation")
+  back_logistics_equipment_kits_fk_equipment_kits_organisation_id_organisation_organisations LogisticsEquipmentKits[] @relation("R_fk_equipment_kits_organisation_id_organisation_organisations")
+  back_logistics_equipment_maintenance_fk_equipment_maintenance_organisation_id_organisation_organi LogisticsEquipmentMaintenance[] @relation("R_fk_equipment_maintenance_organisation_id_organisation_organi")
+  back_logistics_equipment_returns_fk_equipment_returns_organisation_id_organisation_organisati LogisticsEquipmentReturns[] @relation("R_fk_equipment_returns_organisation_id_organisation_organisati")
+  back_logistics_location_bookings_fk_location_bookings_organisation_id_organisation_organisati LogisticsLocationBookings[] @relation("R_fk_location_bookings_organisation_id_organisation_organisati")
+  back_logistics_location_comparisons_fk_location_comparisons_organisation_id_organisation_organis LogisticsLocationComparisons[] @relation("R_fk_location_comparisons_organisation_id_organisation_organis")
+  back_logistics_location_media_fk_location_media_organisation_id_organisation_organisations LogisticsLocationMedia[] @relation("R_fk_location_media_organisation_id_organisation_organisations")
+  back_logistics_locations_fk_locations_organisation_id_organisation_organisations LogisticsLocations[] @relation("R_fk_locations_organisation_id_organisation_organisations")
+  back_logistics_logistics_tasks_fk_logistics_tasks_organisation_id_organisation_organisation LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_organisation_id_organisation_organisation")
+  back_logistics_permit_documents_fk_permit_documents_organisation_id_organisation_organisatio LogisticsPermitDocuments[] @relation("R_fk_permit_documents_organisation_id_organisation_organisatio")
+  back_logistics_permits_fk_permits_organisation_id_organisation_organisations LogisticsPermits[] @relation("R_fk_permits_organisation_id_organisation_organisations")
+  back_logistics_recce_media_fk_recce_media_organisation_id_organisation_organisations LogisticsRecceMedia[] @relation("R_fk_recce_media_organisation_id_organisation_organisations")
+  back_logistics_recces_fk_recces_organisation_id_organisation_organisations LogisticsRecces[] @relation("R_fk_recces_organisation_id_organisation_organisations")
+  back_logistics_room_allocations_fk_room_allocations_organisation_id_organisation_organisatio LogisticsRoomAllocations[] @relation("R_fk_room_allocations_organisation_id_organisation_organisatio")
+  back_logistics_shipments_fk_shipments_organisation_id_organisation_organisations LogisticsShipments[] @relation("R_fk_shipments_organisation_id_organisation_organisations")
+  back_logistics_transport_plans_fk_transport_plans_organisation_id_organisation_organisation LogisticsTransportPlans[] @relation("R_fk_transport_plans_organisation_id_organisation_organisation")
+  back_logistics_travel_legs_fk_travel_legs_organisation_id_organisation_organisations LogisticsTravelLegs[] @relation("R_fk_travel_legs_organisation_id_organisation_organisations")
+  back_logistics_travel_plans_fk_travel_plans_organisation_id_organisation_organisations LogisticsTravelPlans[] @relation("R_fk_travel_plans_organisation_id_organisation_organisations")
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_organisation_id_organisation_organisa LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_organisation_id_organisation_organisa")
+  back_logistics_vehicles_fk_vehicles_organisation_id_organisation_organisations LogisticsVehicles[] @relation("R_fk_vehicles_organisation_id_organisation_organisations")
+  back_organisation_organisation_memberships_organisation_memberships_organisation_fk OrganisationOrganisationMemberships[] @relation("R_organisation_memberships_organisation_fk")
+  back_organisation_workspaces_workspaces_organisation_fk OrganisationWorkspaces[] @relation("R_workspaces_organisation_fk")
+  @@unique([slug], map: "organisations_slug_unique")
+  @@index([status], map: "organisations_status_idx")
+  @@map("organisation_organisations")
+}
+model OrganisationWorkspaceMemberships {
+  created_at DateTime @default(now())
+  id String @id
+  invited_by_user_id String?
+  joined_at DateTime?
+  organisation_id String
+  role E_OrganisationWorkspaceMembershipsWorkspaceRole
+  status E_OrganisationWorkspaceMembershipsMembershipStatus @default(active)
+  updated_at DateTime @default(now())
+  user_id String
+  workspace_id String
+  rel_workspace_memberships_workspace_tenant_fk OrganisationWorkspaces @relation("R_workspace_memberships_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspace_memberships_user_fk IdentityUsers @relation("R_workspace_memberships_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_workspace_memberships_inviter_fk IdentityUsers? @relation("R_workspace_memberships_inviter_fk", fields: [invited_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([workspace_id, user_id], map: "workspace_memberships_pair_unique")
+  @@unique([id, workspace_id, organisation_id], map: "workspace_memberships_id_workspace_organisation_unique")
+  @@index([user_id, status], map: "workspace_memberships_user_status_idx")
+  @@map("organisation_workspace_memberships")
+}
+model OrganisationWorkspaces {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  deleted_at DateTime?
+  description String?
+  id String @id
+  name String
+  organisation_id String
+  slug String
+  status E_OrganisationWorkspacesWorkspaceStatus @default(active)
+  updated_at DateTime @default(now())
+  rel_workspaces_organisation_fk OrganisationOrganisations @relation("R_workspaces_organisation_fk", fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rel_workspaces_creator_user_fk IdentityUsers? @relation("R_workspaces_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_logistics_accommodations_fk_accommodations_workspace_id_organisation_workspaces LogisticsAccommodations[] @relation("R_fk_accommodations_workspace_id_organisation_workspaces")
+  back_logistics_drivers_fk_drivers_workspace_id_organisation_workspaces LogisticsDrivers[] @relation("R_fk_drivers_workspace_id_organisation_workspaces")
+  back_logistics_equipment_bookings_fk_equipment_bookings_workspace_id_organisation_workspaces LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_workspace_id_organisation_workspaces")
+  back_logistics_equipment_categories_fk_equipment_categories_workspace_id_organisation_workspaces LogisticsEquipmentCategories[] @relation("R_fk_equipment_categories_workspace_id_organisation_workspaces")
+  back_logistics_equipment_checkouts_fk_equipment_checkouts_workspace_id_organisation_workspaces LogisticsEquipmentCheckouts[] @relation("R_fk_equipment_checkouts_workspace_id_organisation_workspaces")
+  back_logistics_equipment_inventory_events_fk_equipment_inventory_events_workspace_id_organisation_work LogisticsEquipmentInventoryEvents[] @relation("R_fk_equipment_inventory_events_workspace_id_organisation_work")
+  back_logistics_equipment_items_fk_equipment_items_workspace_id_organisation_workspaces LogisticsEquipmentItems[] @relation("R_fk_equipment_items_workspace_id_organisation_workspaces")
+  back_logistics_equipment_kits_fk_equipment_kits_workspace_id_organisation_workspaces LogisticsEquipmentKits[] @relation("R_fk_equipment_kits_workspace_id_organisation_workspaces")
+  back_logistics_equipment_maintenance_fk_equipment_maintenance_workspace_id_organisation_workspace LogisticsEquipmentMaintenance[] @relation("R_fk_equipment_maintenance_workspace_id_organisation_workspace")
+  back_logistics_equipment_returns_fk_equipment_returns_workspace_id_organisation_workspaces LogisticsEquipmentReturns[] @relation("R_fk_equipment_returns_workspace_id_organisation_workspaces")
+  back_logistics_location_bookings_fk_location_bookings_workspace_id_organisation_workspaces LogisticsLocationBookings[] @relation("R_fk_location_bookings_workspace_id_organisation_workspaces")
+  back_logistics_location_comparisons_fk_location_comparisons_workspace_id_organisation_workspaces LogisticsLocationComparisons[] @relation("R_fk_location_comparisons_workspace_id_organisation_workspaces")
+  back_logistics_location_media_fk_location_media_workspace_id_organisation_workspaces LogisticsLocationMedia[] @relation("R_fk_location_media_workspace_id_organisation_workspaces")
+  back_logistics_locations_fk_locations_workspace_id_organisation_workspaces LogisticsLocations[] @relation("R_fk_locations_workspace_id_organisation_workspaces")
+  back_logistics_logistics_tasks_fk_logistics_tasks_workspace_id_organisation_workspaces LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_workspace_id_organisation_workspaces")
+  back_logistics_permit_documents_fk_permit_documents_workspace_id_organisation_workspaces LogisticsPermitDocuments[] @relation("R_fk_permit_documents_workspace_id_organisation_workspaces")
+  back_logistics_permits_fk_permits_workspace_id_organisation_workspaces LogisticsPermits[] @relation("R_fk_permits_workspace_id_organisation_workspaces")
+  back_logistics_recce_media_fk_recce_media_workspace_id_organisation_workspaces LogisticsRecceMedia[] @relation("R_fk_recce_media_workspace_id_organisation_workspaces")
+  back_logistics_recces_fk_recces_workspace_id_organisation_workspaces LogisticsRecces[] @relation("R_fk_recces_workspace_id_organisation_workspaces")
+  back_logistics_room_allocations_fk_room_allocations_workspace_id_organisation_workspaces LogisticsRoomAllocations[] @relation("R_fk_room_allocations_workspace_id_organisation_workspaces")
+  back_logistics_shipments_fk_shipments_workspace_id_organisation_workspaces LogisticsShipments[] @relation("R_fk_shipments_workspace_id_organisation_workspaces")
+  back_logistics_transport_plans_fk_transport_plans_workspace_id_organisation_workspaces LogisticsTransportPlans[] @relation("R_fk_transport_plans_workspace_id_organisation_workspaces")
+  back_logistics_travel_legs_fk_travel_legs_workspace_id_organisation_workspaces LogisticsTravelLegs[] @relation("R_fk_travel_legs_workspace_id_organisation_workspaces")
+  back_logistics_travel_plans_fk_travel_plans_workspace_id_organisation_workspaces LogisticsTravelPlans[] @relation("R_fk_travel_plans_workspace_id_organisation_workspaces")
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_workspace_id_organisation_workspaces LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_workspace_id_organisation_workspaces")
+  back_logistics_vehicles_fk_vehicles_workspace_id_organisation_workspaces LogisticsVehicles[] @relation("R_fk_vehicles_workspace_id_organisation_workspaces")
+  back_organisation_workspace_memberships_workspace_memberships_workspace_tenant_fk OrganisationWorkspaceMemberships[] @relation("R_workspace_memberships_workspace_tenant_fk")
+  back_project_projects_projects_workspace_tenant_fk ProjectProjects[] @relation("R_projects_workspace_tenant_fk")
+  @@unique([organisation_id, slug], map: "workspaces_organisation_slug_unique")
+  @@unique([id, organisation_id], map: "workspaces_id_organisation_unique")
+  @@index([organisation_id, status], map: "workspaces_organisation_status_idx")
+  @@map("organisation_workspaces")
+}
+model ProjectProjectMembers {
+  added_by_user_id String?
+  created_at DateTime @default(now())
+  id String @id
+  joined_at DateTime?
+  organisation_id String
+  project_id String
+  role E_ProjectProjectMembersProjectRole
+  status E_ProjectProjectMembersMembershipStatus @default(active)
+  updated_at DateTime @default(now())
+  user_id String
+  rel_project_members_project_tenant_fk ProjectProjects @relation("R_project_members_project_tenant_fk", fields: [project_id, organisation_id], references: [id, organisation_id], onDelete: Cascade, onUpdate: NoAction)
+  rel_project_members_user_fk IdentityUsers @relation("R_project_members_user_fk", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  rel_project_members_adder_fk IdentityUsers? @relation("R_project_members_adder_fk", fields: [added_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  @@unique([project_id, user_id], map: "project_members_pair_unique")
+  @@index([user_id, status], map: "project_members_user_status_idx")
+  @@map("project_project_members")
+}
+model ProjectProjects {
+  created_at DateTime @default(now())
+  created_by_user_id String?
+  deleted_at DateTime?
+  description String?
+  id String @id
+  name String
+  organisation_id String
+  slug String
+  status E_ProjectProjectsProjectStatus @default(draft)
+  updated_at DateTime @default(now())
+  workspace_id String
+  rel_projects_workspace_tenant_fk OrganisationWorkspaces @relation("R_projects_workspace_tenant_fk", fields: [workspace_id, organisation_id], references: [id, organisation_id], onDelete: Restrict, onUpdate: NoAction)
+  rel_projects_creator_user_fk IdentityUsers? @relation("R_projects_creator_user_fk", fields: [created_by_user_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  back_evidence_evidence_items_evidence_items_project_tenant_fk EvidenceEvidenceItems[] @relation("R_evidence_items_project_tenant_fk")
+  back_logistics_equipment_bookings_fk_equipment_bookings_project_id_project_projects LogisticsEquipmentBookings[] @relation("R_fk_equipment_bookings_project_id_project_projects")
+  back_logistics_location_bookings_fk_location_bookings_project_id_project_projects LogisticsLocationBookings[] @relation("R_fk_location_bookings_project_id_project_projects")
+  back_logistics_location_comparisons_fk_location_comparisons_project_id_project_projects LogisticsLocationComparisons[] @relation("R_fk_location_comparisons_project_id_project_projects")
+  back_logistics_logistics_tasks_fk_logistics_tasks_project_id_project_projects LogisticsLogisticsTasks[] @relation("R_fk_logistics_tasks_project_id_project_projects")
+  back_logistics_permits_fk_permits_project_id_project_projects LogisticsPermits[] @relation("R_fk_permits_project_id_project_projects")
+  back_logistics_recces_fk_recces_project_id_project_projects LogisticsRecces[] @relation("R_fk_recces_project_id_project_projects")
+  back_logistics_room_allocations_fk_room_allocations_project_id_project_projects LogisticsRoomAllocations[] @relation("R_fk_room_allocations_project_id_project_projects")
+  back_logistics_shipments_fk_shipments_project_id_project_projects LogisticsShipments[] @relation("R_fk_shipments_project_id_project_projects")
+  back_logistics_transport_plans_fk_transport_plans_project_id_project_projects LogisticsTransportPlans[] @relation("R_fk_transport_plans_project_id_project_projects")
+  back_logistics_travel_plans_fk_travel_plans_project_id_project_projects LogisticsTravelPlans[] @relation("R_fk_travel_plans_project_id_project_projects")
+  back_logistics_vehicle_assignments_fk_vehicle_assignments_project_id_project_projects LogisticsVehicleAssignments[] @relation("R_fk_vehicle_assignments_project_id_project_projects")
+  back_project_project_members_project_members_project_tenant_fk ProjectProjectMembers[] @relation("R_project_members_project_tenant_fk")
+  @@unique([workspace_id, slug], map: "projects_workspace_slug_unique")
+  @@unique([id, organisation_id], map: "projects_id_organisation_unique")
+  @@index([organisation_id, status], map: "projects_tenant_status_idx")
+  @@index([workspace_id, status], map: "projects_workspace_status_idx")
+  @@map("project_projects")
+}
