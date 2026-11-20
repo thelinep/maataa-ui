@@ -50,11 +50,20 @@ export interface DropdownProps {
  * Dropdown
  * Context menu or action dropdown component
  */
+type DropdownTriggerProps = {
+  onClick?: React.MouseEventHandler<HTMLElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
+  disabled?: boolean;
+  "aria-haspopup"?: "menu";
+  "aria-expanded"?: boolean;
+  "aria-disabled"?: boolean;
+};
+
 export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
   ({ trigger, items, onSelect, position = "bottom", disabled = false }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
-    const triggerRef = useRef<HTMLButtonElement>(null);
+    const triggerRef = useRef<HTMLElement | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -126,18 +135,49 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
     return (
       <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
-        <button
-          ref={triggerRef}
-          onClick={() => !disabled && setIsOpen(!isOpen)}
-          onKeyDown={handleKeyDown}
-          disabled={disabled}
-          style={{
-            cursor: disabled ? "not-allowed" : "pointer",
-            opacity: disabled ? 0.6 : 1,
-          }}
-        >
-          {trigger}
-        </button>
+        {React.isValidElement<DropdownTriggerProps>(trigger) ? (
+          // An element trigger (usually a <button>) is enhanced in place rather
+          // than wrapped in another <button>, which would be invalid nesting.
+          <span
+            ref={(node) => {
+              triggerRef.current = node;
+            }}
+            style={{ display: "inline-block" }}
+          >
+            {React.cloneElement(trigger, {
+              onClick: (event: React.MouseEvent<HTMLElement>) => {
+                trigger.props.onClick?.(event);
+                if (!disabled && !event.defaultPrevented) setIsOpen(!isOpen);
+              },
+              onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => {
+                trigger.props.onKeyDown?.(event);
+                handleKeyDown(event);
+              },
+              "aria-haspopup": "menu",
+              "aria-expanded": isOpen,
+              ...(disabled ? { "aria-disabled": true } : {}),
+              ...(disabled && trigger.type === "button" ? { disabled: true } : {}),
+            })}
+          </span>
+        ) : (
+          <button
+            ref={(node) => {
+              triggerRef.current = node;
+            }}
+            type="button"
+            onClick={() => !disabled && setIsOpen(!isOpen)}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            aria-haspopup="menu"
+            aria-expanded={isOpen}
+            style={{
+              cursor: disabled ? "not-allowed" : "pointer",
+              opacity: disabled ? 0.6 : 1,
+            }}
+          >
+            {trigger}
+          </button>
+        )}
 
         {isOpen && !disabled && (
           <Portal>

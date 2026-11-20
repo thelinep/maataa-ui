@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import { Dropdown } from "./Dropdown";
 
 describe("Dropdown", () => {
@@ -203,5 +204,53 @@ describe("Dropdown", () => {
     await waitFor(() => {
       expect(screen.getByText("Item 1")).toBeInTheDocument();
     });
+  });
+});
+
+describe("Dropdown regressions", () => {
+  const menuItems = [{ id: "a", label: "Alpha" }];
+
+  it("does not nest a <button> trigger inside another <button>", () => {
+    const { container } = render(<Dropdown trigger={<button>Menu</button>} items={menuItems} />);
+    expect(container.querySelectorAll("button button")).toHaveLength(0);
+    expect(screen.getAllByRole("button")).toHaveLength(1);
+  });
+
+  it("enhances an element trigger with menu semantics and keeps its onClick", () => {
+    const onClick = vi.fn();
+    render(<Dropdown trigger={<button onClick={onClick}>Menu</button>} items={menuItems} />);
+    const trigger = screen.getByRole("button", { name: "Menu" });
+    expect(trigger).toHaveAttribute("aria-haspopup", "menu");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+    fireEvent.click(trigger);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("menu")).toBeInTheDocument();
+  });
+
+  it("closes on Escape from an element trigger", () => {
+    render(<Dropdown trigger={<button>Menu</button>} items={menuItems} />);
+    const trigger = screen.getByRole("button", { name: "Menu" });
+    fireEvent.click(trigger);
+    fireEvent.keyDown(trigger, { key: "Escape" });
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+  });
+
+  it("disables a <button> trigger when the dropdown is disabled", () => {
+    render(<Dropdown trigger={<button>Menu</button>} items={menuItems} disabled />);
+    const trigger = screen.getByRole("button", { name: "Menu" });
+    expect(trigger).toBeDisabled();
+    fireEvent.click(trigger);
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+  });
+
+  it("still wraps a plain-text trigger in its own button", () => {
+    render(<Dropdown trigger="Actions" items={menuItems} />);
+    const trigger = screen.getByRole("button", { name: "Actions" });
+    expect(trigger).toHaveAttribute("type", "button");
+    fireEvent.click(trigger);
+    expect(screen.getByRole("menu")).toBeInTheDocument();
   });
 });

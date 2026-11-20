@@ -3,7 +3,7 @@
  * Accessible radio button components
  */
 
-import React from "react";
+import React, { useId } from "react";
 import { Stack } from "../primitives/Stack";
 import { colorTokens, spacingTokens } from "../tokens";
 
@@ -111,6 +111,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       description,
       size = "md",
       disabled = false,
+      id,
       ...props
     },
     ref
@@ -123,6 +124,10 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     const currentSize = sizeMap[size];
 
+    // The label needs an id to point at; RadioGroup never passes one.
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.checked);
     };
@@ -134,6 +139,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             {/* Hidden input */}
             <input
               ref={ref}
+              id={inputId}
               type="radio"
               value={value}
               checked={checked}
@@ -193,7 +199,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                     cursor: disabled ? "not-allowed" : "pointer",
                     opacity: disabled ? 0.6 : 1,
                   }}
-                  htmlFor={props.id}
+                  htmlFor={inputId}
                 >
                   {label}
                 </label>
