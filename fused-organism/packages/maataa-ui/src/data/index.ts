@@ -191,6 +191,43 @@ export { ReviewThread, type ReviewThreadProps, type ReviewNote } from "./ReviewT
 export { VfxShotTable, type VfxShotTableProps, type VfxShot } from "./VfxShotTable";
 export { CueList, cueLength, type CueListProps, type Cue } from "./CueList";
 
+// Catalogue E: business workflows
+export {
+  MarketingCampaignCard,
+  MarketingAssetLibrary,
+  type MarketingCampaign,
+  type MarketingCampaignCardProps,
+  type MarketingAsset,
+  type MarketingAssetLibraryProps,
+} from "./MarketingViews";
+export {
+  DeliveryTracker,
+  ScreeningAttendeeList,
+  LegalMatterList,
+  SignatureStatusList,
+  SubsidyProgrammeList,
+  type DeliveryItem,
+  type Attendee,
+  type LegalMatter,
+  type Signatory,
+  type SubsidyProgramme,
+} from "./BusinessLists";
+export {
+  PitchRecipientSelector,
+  PitchDeliveryReceipt,
+  type PitchContact,
+  type PitchRecipientSelectorProps,
+  type PitchDeliveryReceiptProps,
+} from "./PitchViews";
+export {
+  NetworkingContactList,
+  PrivateNotes,
+  type NetworkContact,
+  type NetworkingContactListProps,
+  type PrivateNote,
+  type PrivateNotesProps,
+} from "./NetworkingViews";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {
