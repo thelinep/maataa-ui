@@ -13,6 +13,83 @@ export {
 export { GeoMap, type GeoMapProps, type GeoMapPin, type GeoMapPinStatus } from "./GeoMap";
 
 // Component metadata for Storybook and docs
+// UI element catalog batch I
+export {
+  MapCanvas,
+  useMap,
+  usePercent,
+  boundsAround,
+  OrbPin,
+  ClusteredMarkers,
+  clusterPoints,
+  RoutePolyline,
+  pathLengthKm,
+  AreaPolygon,
+  RadiusCircle,
+  AreaLabel,
+  Graticule,
+  QuadtreeGrid,
+  CameraAngleAnnotation,
+  WindLayer,
+  CloudLayer,
+  SatelliteOrbitPath,
+  orbitGroundTrack,
+  TrackerLayer,
+  MapFeatureList,
+  MapPopup,
+  type LatLng,
+  type MapCanvasProps,
+  type MapPoint,
+  type Cluster,
+  type WindSample,
+  type CloudCell,
+  type TrackedVehicle,
+  type MapFeatureListProps,
+  type MapPopupProps,
+} from "./MapCanvas";
+export {
+  MapLayerToggle,
+  WeatherOverlayToggle,
+  weatherLayers,
+  ZoomSlider,
+  MapLegend,
+  CompassRose,
+  ScaleBar,
+  niceScale,
+  GeoSearchBox,
+  LocationThumbnailCard,
+  type MapLayerOption,
+  type MapLayerToggleProps,
+  type ZoomSliderProps,
+  type LegendEntry,
+  type GeoResult,
+  type GeoSearchBoxProps,
+  type LocationThumbnailCardProps,
+} from "./MapControls";
+export {
+  SunPositionWidget,
+  MoonPositionWidget,
+  TerrainProfile,
+  RocketLaunch,
+  type SunPositionWidgetProps,
+  type MoonPositionWidgetProps,
+  type ElevationSample,
+  type RocketLaunchProps,
+} from "./SkyWidgets";
+export {
+  sunPosition,
+  sunTimes,
+  moonPosition,
+  moonIllumination,
+  moonPhaseName,
+  compassWord,
+  haversineKm,
+  bearingDeg,
+  type SkyPosition,
+  type SunTimes,
+  type MoonIllumination,
+} from "./skyMath";
+
 export const mapsComponents = [
   {
     id: "venue-floor-plan",
