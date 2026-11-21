@@ -10,6 +10,8 @@ export { ButtonGroup, type ButtonGroupProps } from "./ButtonGroup";
 export { LinkButton, type LinkButtonProps, type LinkButtonVariant } from "./LinkButton";
 export { FAB, type FABProps, type FABPosition } from "./FAB";
 export { ConfirmButton, type ConfirmButtonProps } from "./ConfirmButton";
+export { ArchiveButton, type ArchiveButtonProps } from "./ArchiveButton";
+export { AnonymizeButton, type AnonymizeButtonProps } from "./AnonymizeButton";
 
 // Component metadata for Storybook and docs
 export const actionComponents = [

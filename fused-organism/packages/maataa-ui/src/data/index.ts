@@ -14,6 +14,26 @@ export { AreaChart, type AreaChartProps } from "./AreaChart";
 export { DonutChart, type DonutChartProps, type DonutSlice } from "./DonutChart";
 export { DataTable, type DataTableProps, type DataTableColumn } from "./DataTable";
 
+// Core people, record and history components
+export {
+  Avatar,
+  initialsOf,
+  type AvatarProps,
+  type AvatarSize,
+  type PresenceStatus,
+} from "./Avatar";
+export { PersonRow, type PersonRowProps } from "./PersonRow";
+export { Checklist, type ChecklistProps, type ChecklistItem } from "./Checklist";
+export { ScenarioCard, type ScenarioCardProps, type ScenarioFigure } from "./ScenarioCard";
+export {
+  ReceiptDisplay,
+  type ReceiptDisplayProps,
+  type ReceiptLine,
+  type ReceiptStatus,
+} from "./ReceiptDisplay";
+export { SourceAttribution, type SourceAttributionProps } from "./SourceAttribution";
+export { Timeline, type TimelineProps, type TimelineEvent } from "./Timeline";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {

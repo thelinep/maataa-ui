@@ -19,6 +19,14 @@ export { Panel, type PanelProps } from "./Panel";
 export { Drawer, type DrawerProps, type DrawerPlacement } from "./Drawer";
 export { Sheet, type SheetProps } from "./Sheet";
 
+// Confirmation dialogs
+export {
+  ConfirmDialog,
+  TypedConfirmDialog,
+  type ConfirmDialogProps,
+  type TypedConfirmDialogProps,
+} from "./ConfirmDialog";
+
 // Component metadata
 export const surfaceComponents = [
   {
