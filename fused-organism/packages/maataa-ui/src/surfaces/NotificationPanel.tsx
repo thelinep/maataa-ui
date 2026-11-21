@@ -94,7 +94,7 @@ export function NotificationPanel({
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h2 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
-          {title}
+          {title}{" "}
           <span
             style={{
               fontWeight: 400,
@@ -102,7 +102,6 @@ export function NotificationPanel({
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            {" "}
             · {unread} unread
           </span>
         </h2>

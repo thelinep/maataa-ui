@@ -60,3 +60,17 @@ describe("ReviewerSelector", () => {
     expect(onChange).toHaveBeenCalledWith({ acc: "b" });
   });
 });
+
+describe("ReviewerSelector optional label", () => {
+  it("names optional roles with a space", () => {
+    render(
+      <ReviewerSelector
+        roles={[{ id: "x", label: "Advisor", required: false }]}
+        people={[]}
+        value={{}}
+        onChange={() => {}}
+      />
+    );
+    expect(screen.getByRole("combobox", { name: "Advisor (optional)" })).toBeInTheDocument();
+  });
+});

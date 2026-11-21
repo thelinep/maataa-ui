@@ -122,7 +122,8 @@ export function ReviewerSelector({
           >
             <label htmlFor={selectId} style={{ color: colorTokens.text.primary }}>
               {role.label}
-              {!required && <span style={{ color: colorTokens.text.secondary }}> (optional)</span>}
+              {!required && " "}
+              {!required && <span style={{ color: colorTokens.text.secondary }}>(optional)</span>}
             </label>
             <select
               id={selectId}
