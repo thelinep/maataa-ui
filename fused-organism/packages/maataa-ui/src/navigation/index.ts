@@ -28,6 +28,35 @@ export { WizardShell, type WizardShellProps, type WizardStep } from "./WizardShe
 export { safeReturnTo, rememberReturnTo, consumeReturnTo } from "./returnTo";
 
 // Component metadata for Storybook and docs
+// UI element catalog batch F
+export {
+  VerticalTabs,
+  SegmentedTabs,
+  type VerticalTabsProps,
+  type SegmentedTabsProps,
+  type TabItem as TabVariantItem,
+} from "./TabVariants";
+export {
+  StickyNavbar,
+  HamburgerMenu,
+  BottomNav,
+  StepDots,
+  AnchorNav,
+  ScrollToTop,
+  LoadMoreButton,
+  InfiniteList,
+  type NavLink,
+  type StickyNavbarProps,
+  type HamburgerMenuProps,
+  type BottomNavProps,
+  type StepDotsProps,
+  type AnchorNavProps,
+  type AnchorItem,
+  type ScrollToTopProps,
+  type LoadMoreButtonProps,
+  type InfiniteListProps,
+} from "./PageNavigation";
+
 export const navigationComponents = [
   {
     id: "menu",

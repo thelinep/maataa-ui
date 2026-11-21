@@ -371,3 +371,88 @@ export const formComponents = [
     description: "A start/end date range field backed by a floating month calendar",
   },
 ];
+
+// UI element catalog batch F
+export { FieldFrame, controlStyle, type FieldFrameProps, type FieldIds } from "./fieldKit";
+export {
+  UrlInput,
+  TelInput,
+  PercentageInput,
+  validateUrl,
+  normalizeTel,
+  commonDialCodes,
+  type UrlInputProps,
+  type TelInputProps,
+  type TelValue,
+  type DialCode,
+  type PercentageInputProps,
+} from "./TypedInputs";
+export {
+  MonthPicker,
+  WeekPicker,
+  isoWeek,
+  isoWeekStart,
+  weeksInYear,
+  parseMonth,
+  parseWeek,
+  formatMonthValue,
+  formatWeekValue,
+  type MonthPickerProps,
+  type WeekPickerProps,
+} from "./PeriodPickers";
+export {
+  ImageCropUpload,
+  clampCrop,
+  type ImageCropUploadProps,
+  type CropArea,
+} from "./ImageCropUpload";
+export {
+  CoordinateInput,
+  formatCoordinates,
+  type CoordinateInputProps,
+  type Coordinates,
+} from "./CoordinateInput";
+export { SignaturePad, type SignaturePadProps, type SignatureValue } from "./SignaturePad";
+export { OtpInput, type OtpInputProps } from "./OtpInput";
+export { TagInput, type TagInputProps } from "./TagInput";
+export {
+  MentionInput,
+  mentionedIn,
+  type MentionInputProps,
+  type Mentionable,
+} from "./MentionInput";
+export { RichTextEditor, renderMarkdown, type RichTextEditorProps } from "./RichTextEditor";
+export { CodeEditor, caretPosition, type CodeEditorProps } from "./CodeEditor";
+export {
+  FormulaInput,
+  evaluateFormula,
+  type FormulaInputProps,
+  type FormulaResult,
+  type FormulaVariable,
+} from "./FormulaInput";
+export {
+  CascadingSelect,
+  FilterPills,
+  SegmentedControl,
+  NumberStepper,
+  type CascadingSelectProps,
+  type CascadeOption,
+  type FilterPillsProps,
+  type FilterPill,
+  type SegmentedControlProps,
+  type SegmentOption,
+  type NumberStepperProps,
+} from "./SelectionControls";
+export { TreeSelect, leavesOf, type TreeSelectProps, type TreeNode } from "./TreeSelect";
+export {
+  GazeSelectionGrid,
+  DwellRing,
+  ScanningSelector,
+  YesNoButtons,
+  useDwell,
+  type GazeSelectionGridProps,
+  type GazeItem,
+  type DwellRingProps,
+  type ScanningSelectorProps,
+  type YesNoButtonsProps,
+} from "./AlternativeInput";
