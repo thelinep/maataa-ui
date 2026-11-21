@@ -76,6 +76,8 @@ export {
 } from "./MasterApprovalPanel";
 
 // Component metadata
+export { UndoSnackbar, type UndoSnackbarProps } from "./UndoSnackbar";
+
 export const surfaceComponents = [
   {
     id: "modal",
