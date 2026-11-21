@@ -292,7 +292,9 @@ See [PHASE5-COLLABORATION-GUIDE.md](docs/phase5/PHASE5-COLLABORATION-GUIDE.md) f
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+"MAATAA", "TLPS" and their logos are trademarks of Vesahe Film Solutions Private Limited and are not licensed under Apache 2.0.
 
 ## 👥 Team
 

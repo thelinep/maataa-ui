@@ -1,6 +1,7 @@
 {
   "name": "@maataa/domain-registry",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "maataaPolicy": {
     "versioning": "independent"
   },
@@ -36,7 +37,8 @@
     "prisma.config.postgresql.ts",
     "prisma.config.sqlite.ts",
     "registry.manifest.json",
-    "README.md"
+    "README.md",
+    "NOTICE"
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
