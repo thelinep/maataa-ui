@@ -212,7 +212,7 @@ export const BudgetForecast: React.FC<BudgetForecastProps> = ({
 
   return (
     <Container>
-      <Title>📊 Budget Forecast: {budgetName}</Title>
+      <Title><span aria-hidden="true">📊 </span>Budget Forecast: {budgetName}</Title>
 
       <Timeline>
         <span style={{ fontSize: typography.bodySmall.fontSize, color: colorTokens.text.secondary }}>

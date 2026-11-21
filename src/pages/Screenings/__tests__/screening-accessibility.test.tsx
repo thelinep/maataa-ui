@@ -70,7 +70,9 @@ describe('ScreeningAccessibilitySection', () => {
 describe('in the Screenings workflow', () => {
   it('shows deliverable badges on the list', async () => {
     renderApp('/screenings');
-    const card = (await screen.findByText('Film Festival Premiere')).closest('[role="button"]') as HTMLElement;
+    // The card's details are the title button's description
+    const title = await screen.findByRole('button', { name: 'Film Festival Premiere' });
+    const card = document.getElementById(title.getAttribute('aria-describedby')!) as HTMLElement;
     expect(within(card).getByText('Captions (SDH): Delivered')).toBeInTheDocument();
     expect(within(card).getByText('Audio description: In progress')).toBeInTheDocument();
     expect(within(card).getByText('Sign language track: Not started')).toBeInTheDocument();

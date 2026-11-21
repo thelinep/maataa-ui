@@ -156,7 +156,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
     control,
     handleSubmit,
     watch,
-    formState: { errors, isDirty },
+    formState: { errors },
     reset,
   } = useForm<BudgetFormData>({
     resolver: zodResolver(BudgetSchema),
@@ -421,7 +421,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
           </Button>
           <Button
             type="submit"
-            disabled={isSubmitting || !isDirty}
+            disabled={isSubmitting}
           >
             {isSubmitting ? 'Saving...' : 'Save Budget'}
           </Button>

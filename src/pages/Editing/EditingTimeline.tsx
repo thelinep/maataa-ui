@@ -204,7 +204,7 @@ const EditingTimeline: React.FC<EditingTimelineProps> = ({ editId }) => {
   return (
     <TimelineContainer>
       <Header>
-        <Title>✂️ Editing Timeline</Title>
+        <Title><span aria-hidden="true">✂️ </span>Editing Timeline</Title>
         <ControlBar>
           <Button>⏮ Start</Button>
           <Button>⏯ Play</Button>

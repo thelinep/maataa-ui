@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
+import { CardButton, clickableCard } from '../shared/CardButton';
 
 import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import type { StoryboardRecord } from '@/core/film/types';
@@ -47,6 +48,7 @@ const Grid = styled.div`
 `;
 
 const StoryboardCard = styled.div`
+  ${clickableCard}
   background: ${colorTokens.background.secondary};
   border: 1px solid ${colorTokens.border.primary};
   border-radius: 8px;
@@ -179,7 +181,7 @@ const StoryboardList: React.FC<StoryboardListProps> = ({ onSelect, onCreate }) =
   return (
     <ListContainer>
       <Header>
-        <Title>🎞️ Storyboards</Title>
+        <Title><span aria-hidden="true">🎞️ </span>Storyboards</Title>
         <CreateButton onClick={() => onCreate?.()}>
           + New Storyboard
         </CreateButton>
@@ -192,35 +194,33 @@ const StoryboardList: React.FC<StoryboardListProps> = ({ onSelect, onCreate }) =
       ) : storyboards.length > 0 ? (
         <Grid>
           {storyboards.map((storyboard) => (
-            <StoryboardCard
-              key={storyboard.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => onSelect?.(storyboard.id)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') onSelect?.(storyboard.id);
-              }}
-            >
-              <CardThumbnail>🎬</CardThumbnail>
+            <StoryboardCard key={storyboard.id}>
+              <CardThumbnail aria-hidden="true">🎬</CardThumbnail>
               <CardContent>
-                <CardTitle>{storyboard.title}</CardTitle>
-                <CardMeta>
-                  <span>{formatDate(storyboard.updatedAt)}</span>
-                  <span>{storyboard.createdBy}</span>
-                </CardMeta>
-                <CardStats>
-                  <StatItem>
-                    <StatLabel>Scenes</StatLabel>
-                    <StatValue>{storyboard.scenes.length}</StatValue>
-                  </StatItem>
-                  <StatItem>
-                    <StatLabel>Shots</StatLabel>
-                    <StatValue>{countShots(storyboard)}</StatValue>
-                  </StatItem>
-                </CardStats>
-                <StatusBadge status={storyboard.status}>
-                  {storyboard.status.replace('-', ' ').replace(/^\w/, (c) => c.toUpperCase())}
-                </StatusBadge>
+                <CardTitle>
+                  <CardButton type="button" onClick={() => onSelect?.(storyboard.id)} aria-describedby={`${storyboard.id}-details`}>
+                    {storyboard.title}
+                  </CardButton>
+                </CardTitle>
+                <div id={`${storyboard.id}-details`}>
+                  <CardMeta>
+                    <span>{formatDate(storyboard.updatedAt)}</span>
+                    <span>{storyboard.createdBy}</span>
+                  </CardMeta>
+                  <CardStats>
+                    <StatItem>
+                      <StatLabel>Scenes</StatLabel>
+                      <StatValue>{storyboard.scenes.length}</StatValue>
+                    </StatItem>
+                    <StatItem>
+                      <StatLabel>Shots</StatLabel>
+                      <StatValue>{countShots(storyboard)}</StatValue>
+                    </StatItem>
+                  </CardStats>
+                  <StatusBadge status={storyboard.status}>
+                    {storyboard.status.replace('-', ' ').replace(/^\w/, (c) => c.toUpperCase())}
+                  </StatusBadge>
+                </div>
               </CardContent>
             </StoryboardCard>
           ))}

@@ -174,7 +174,7 @@ export const ProjectDependencies: React.FC<ProjectDependenciesProps> = ({
 
   return (
     <Container>
-      <Title>🔗 Task Dependencies & Critical Path</Title>
+      <Title><span aria-hidden="true">🔗 </span>Task Dependencies & Critical Path</Title>
 
       <Stats>
         <StatCard>

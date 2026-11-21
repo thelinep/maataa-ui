@@ -111,7 +111,7 @@ const EditingLog: React.FC<EditingLogProps> = ({ editId }) => {
 
   return (
     <LogContainer>
-      <Title>📋 Editing Log</Title>
+      <Title><span aria-hidden="true">📋 </span>Editing Log</Title>
       <VersionTimeline>
         {versions.map((v) => (
           <VersionItem key={v.version}>

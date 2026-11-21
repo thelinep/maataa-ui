@@ -113,6 +113,21 @@ describe("DataTable row actions", () => {
     expect(onRowClick).toHaveBeenLastCalledWith({ name: "Alpha" }, 1);
   });
 
+  it("names actionable rows by their first column, or by getRowLabel", () => {
+    const { unmount } = render(<DataTable columns={columns} data={data} onRowClick={() => {}} />);
+    expect(screen.getByRole("row", { name: "Bravo" })).toHaveAttribute("tabindex", "0");
+    unmount();
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        onRowClick={() => {}}
+        getRowLabel={(row) => `Open ${String(row.name)}`}
+      />
+    );
+    expect(screen.getByRole("row", { name: "Open Alpha" })).toBeInTheDocument();
+  });
+
   it("reports the index in the current sort order", () => {
     const onRowClick = vi.fn();
     render(<DataTable columns={columns} data={data} onRowClick={onRowClick} />);

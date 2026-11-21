@@ -255,7 +255,7 @@ const FilmingLog: React.FC<FilmingLogProps> = ({ filmingDayId }) => {
   return (
     <LogContainer>
       <Header>
-        <Title>🎥 Filming Log</Title>
+        <Title><span aria-hidden="true">🎥 </span>Filming Log</Title>
         <DayInfo>
           <InfoItem>
             <InfoLabel>Date</InfoLabel>
@@ -285,7 +285,10 @@ const FilmingLog: React.FC<FilmingLogProps> = ({ filmingDayId }) => {
               aria-expanded={expandedShot === index}
               onClick={() => setExpandedShot(expandedShot === index ? null : index)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') setExpandedShot(expandedShot === index ? null : index);
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setExpandedShot(expandedShot === index ? null : index);
+                }
               }}
             >
               <ShotTitle>

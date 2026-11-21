@@ -117,7 +117,7 @@ const SoundMixing: React.FC<SoundMixingProps> = ({ mixId }) => {
 
   return (
     <Container>
-      <Title>🔊 Sound Mixing</Title>
+      <Title><span aria-hidden="true">🔊 </span>Sound Mixing</Title>
       <MixerGrid>
         {tracks.map((track, index) => (
           <TrackFader key={track.name}>

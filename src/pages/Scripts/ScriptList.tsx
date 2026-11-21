@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
+import { CardButton, clickableCard } from '../shared/CardButton';
 
 import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import type { ScriptRecord } from '@/core/film/types';
@@ -83,6 +84,7 @@ const Grid = styled.div`
 `;
 
 const ScriptCard = styled.div`
+  ${clickableCard}
   background: ${colorTokens.background.secondary};
   border: 1px solid ${colorTokens.border.primary};
   border-radius: 8px;
@@ -234,7 +236,7 @@ const ScriptList: React.FC<ScriptListProps> = ({ onSelect, onCreated, conceptId 
   return (
     <ListContainer>
       <Header>
-        <Title>📝 Scripts</Title>
+        <Title><span aria-hidden="true">📝 </span>Scripts</Title>
         <CreateButton onClick={handleCreate} disabled={creating}>
           + New Script
         </CreateButton>
@@ -266,38 +268,36 @@ const ScriptList: React.FC<ScriptListProps> = ({ onSelect, onCreated, conceptId 
       ) : filteredScripts.length > 0 ? (
         <Grid>
           {filteredScripts.map((script) => (
-            <ScriptCard
-              key={script.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => onSelect?.(script.id)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') onSelect?.(script.id);
-              }}
-            >
-              <ScriptTitle>{script.title}</ScriptTitle>
-              <ScriptMeta>
-                <span>{script.pages} pages</span>
-                <VersionBadge>v{script.currentVersion}</VersionBadge>
-              </ScriptMeta>
-              <CardRow>
-                <span>Format</span>
-                <CardValue>{script.format === 'feature' ? 'Feature' : 'Short'}</CardValue>
-              </CardRow>
-              <CardRow>
-                <span>Status</span>
-                <StatusBadge status={script.status}>
-                  {script.status.charAt(0).toUpperCase() + script.status.slice(1)}
-                </StatusBadge>
-              </CardRow>
-              <CardRow>
-                <span>Last Edit</span>
-                <CardValue>{formatDate(script.updatedAt)}</CardValue>
-              </CardRow>
-              <CardRow style={{ marginBottom: 0 }}>
-                <span>Editor</span>
-                <CardValue>{script.lastEditedBy}</CardValue>
-              </CardRow>
+            <ScriptCard key={script.id}>
+              <ScriptTitle>
+                <CardButton type="button" onClick={() => onSelect?.(script.id)} aria-describedby={`${script.id}-details`}>
+                  {script.title}
+                </CardButton>
+              </ScriptTitle>
+              <div id={`${script.id}-details`}>
+                <ScriptMeta>
+                  <span>{script.pages} pages</span>
+                  <VersionBadge>v{script.currentVersion}</VersionBadge>
+                </ScriptMeta>
+                <CardRow>
+                  <span>Format</span>
+                  <CardValue>{script.format === 'feature' ? 'Feature' : 'Short'}</CardValue>
+                </CardRow>
+                <CardRow>
+                  <span>Status</span>
+                  <StatusBadge status={script.status}>
+                    {script.status.charAt(0).toUpperCase() + script.status.slice(1)}
+                  </StatusBadge>
+                </CardRow>
+                <CardRow>
+                  <span>Last Edit</span>
+                  <CardValue>{formatDate(script.updatedAt)}</CardValue>
+                </CardRow>
+                <CardRow style={{ marginBottom: 0 }}>
+                  <span>Editor</span>
+                  <CardValue>{script.lastEditedBy}</CardValue>
+                </CardRow>
+              </div>
             </ScriptCard>
           ))}
         </Grid>

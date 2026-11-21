@@ -253,7 +253,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
   return (
     <Container>
       <Header>
-        <Title>📅 Schedule</Title>
+        <Title><span aria-hidden="true">📅 </span>Schedule</Title>
         <Button variant="primary" onClick={onCreateEvent}>
           + New Event
         </Button>

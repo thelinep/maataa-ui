@@ -199,7 +199,7 @@ const FeedbackCollection: React.FC<FeedbackCollectionProps> = ({ screeningId }) 
   return (
     <Container>
       <Header>
-        <Title>📊 Feedback Results: {screening.title}</Title>
+        <Title><span aria-hidden="true">📊 </span>Feedback Results: {screening.title}</Title>
       </Header>
 
       <StatsGrid>
