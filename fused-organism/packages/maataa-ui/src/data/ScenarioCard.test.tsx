@@ -7,13 +7,14 @@ describe("ScenarioCard", () => {
   const props = {
     name: "Lean shoot",
     summary: "12 days, small crew",
-    assumptions: ["12 shoot days"],
+    assumptions: [{ label: "Shoot days", value: "12" }],
     results: [{ label: "Total", value: "₹48 L" }],
   };
   it("is an article named by the scenario", () => {
     render(<ScenarioCard {...props} />);
     expect(screen.getByRole("article", { name: "Lean shoot" })).toBeInTheDocument();
     expect(screen.getByText("₹48 L")).toBeInTheDocument();
+    expect(screen.getByText("Shoot days")).toBeInTheDocument();
   });
   it("is a toggle button when selectable", async () => {
     const onSelect = vi.fn();

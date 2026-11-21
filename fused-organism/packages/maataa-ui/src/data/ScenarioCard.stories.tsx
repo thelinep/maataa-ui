@@ -14,7 +14,11 @@ export const Default: Story = {
   args: {
     name: "Lean shoot",
     summary: "Twelve days with a compact crew",
-    assumptions: ["12 shoot days", "Crew of 18", "Two locations"],
+    assumptions: [
+      { label: "Shoot days", value: "12" },
+      { label: "Crew", value: "18" },
+      { label: "Locations", value: "2" },
+    ],
     results: [
       { label: "Total", value: "₹48 L" },
       { label: "Per day", value: "₹4 L" },

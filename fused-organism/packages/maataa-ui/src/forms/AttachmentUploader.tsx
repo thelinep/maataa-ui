@@ -102,7 +102,12 @@ export function AttachmentUploader({
                     max={100}
                     value={a.progress ?? undefined}
                     aria-label={`Uploading ${a.name}`}
-                    style={{ display: "block", width: "100%", marginTop: 4 }}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      marginTop: 4,
+                      accentColor: colorTokens.interactive.primary,
+                    }}
                   />
                 )}
               </span>
