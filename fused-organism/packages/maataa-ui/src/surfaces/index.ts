@@ -68,6 +68,7 @@ export {
   type BrandLogoTone,
 } from "./BrandLogo";
 export { SplashScreen, type SplashScreenProps } from "./SplashScreen";
+export { SettingsPanel, type SettingsPanelProps, type SettingsSection } from "./SettingsPanel";
 
 // Component metadata
 export const surfaceComponents = [
