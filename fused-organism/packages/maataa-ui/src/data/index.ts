@@ -181,6 +181,16 @@ export {
   type RescheduleRequestProps,
 } from "./RehearsalViews";
 
+// Catalogue D: post-production
+export {
+  VersionHistoryList,
+  type VersionHistoryListProps,
+  type VersionEntry,
+} from "./VersionHistoryList";
+export { ReviewThread, type ReviewThreadProps, type ReviewNote } from "./ReviewThread";
+export { VfxShotTable, type VfxShotTableProps, type VfxShot } from "./VfxShotTable";
+export { CueList, cueLength, type CueListProps, type Cue } from "./CueList";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {

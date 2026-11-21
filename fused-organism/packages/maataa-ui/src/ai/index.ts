@@ -18,3 +18,16 @@ export type {
   RecommendationCardsProps,
   EmbeddingVisualizationProps,
 } from "./components";
+
+// Sochen
+export {
+  ThoughtInput,
+  ModelResponse,
+  ModelConfiguredCheck,
+  ThoughtHistory,
+  type ThoughtInputProps,
+  type ModelResponseProps,
+  type ModelConfiguredCheckProps,
+  type ThoughtHistoryProps,
+  type ThoughtRecord,
+} from "./Sochen";

@@ -199,6 +199,23 @@ export {
 export { WrapForm, WrapSummary, type WrapFormProps, type WrapValues } from "./WrapForm";
 export { IncidentForm, type IncidentFormProps, type IncidentValues } from "./IncidentForm";
 
+// Catalogue D: script
+export {
+  ScriptEditor,
+  FormatToolbar,
+  SceneNavigator,
+  CharacterTracker,
+  scenesOf,
+  charactersOf,
+  elementLabels,
+  nextElementType,
+  type ScriptEditorProps,
+  type ScriptElement,
+  type ScriptElementType,
+  type FormatToolbarProps,
+  type SceneNavigatorProps,
+} from "./ScriptEditor";
+
 // Component metadata for Storybook and docs
 export const formComponents = [
   {

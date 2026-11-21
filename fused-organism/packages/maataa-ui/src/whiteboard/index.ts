@@ -1,15 +1,39 @@
 /**
  * @maataa/ui/whiteboard
  * Category: whiteboard
- *
- * TODO: Add components and utilities for this category
+ * Storyboard drawing, shot planning and mood boards
  */
 
-// Re-export types
-export type {};
-
-// Re-export components
-// export { } from './components';
-
-// Re-export utilities
-// export { } from './utils';
+export {
+  DrawingToolPalette,
+  drawingToolLabels,
+  type DrawingTool,
+  type DrawingToolPaletteProps,
+} from "./DrawingToolPalette";
+export {
+  BrushColorPicker,
+  storyboardSwatches,
+  type BrushColorPickerProps,
+  type Swatch,
+} from "./BrushColorPicker";
+export { FrameCanvas, type FrameCanvasProps, type FrameCanvasHandle } from "./FrameCanvas";
+export {
+  ShotTypeSelector,
+  CameraAnglePicker,
+  shotTypes,
+  cameraAngles,
+  type ShotTypeSelectorProps,
+} from "./ShotPickers";
+export {
+  FrameTimelineStrip,
+  moveItem,
+  type FrameTimelineStripProps,
+  type StoryFrame,
+} from "./FrameTimelineStrip";
+export { MoodBoardGallery, type MoodBoardGalleryProps, type MoodImage } from "./MoodBoardGallery";
+export {
+  ColorPaletteStrip,
+  contrastRatio,
+  type ColorPaletteStripProps,
+  type PaletteColor,
+} from "./ColorPaletteStrip";

@@ -69,6 +69,11 @@ export {
 } from "./BrandLogo";
 export { SplashScreen, type SplashScreenProps } from "./SplashScreen";
 export { SettingsPanel, type SettingsPanelProps, type SettingsSection } from "./SettingsPanel";
+export {
+  MasterApprovalPanel,
+  type MasterApprovalPanelProps,
+  type Deliverable,
+} from "./MasterApprovalPanel";
 
 // Component metadata
 export const surfaceComponents = [
