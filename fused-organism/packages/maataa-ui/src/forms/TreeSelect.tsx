@@ -64,6 +64,7 @@ function Box({
         style={{ width: 20, height: 20, accentColor: colorTokens.interactive.primary }}
       />
       {label}
+      {detail && " "}
       {detail && (
         <span style={{ color: colorTokens.text.secondary, fontSize: typographyTokens.fontSize.xs }}>
           {detail}

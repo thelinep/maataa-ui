@@ -134,6 +134,7 @@ export function MenuPopup({
               </span>
             )}
             <span style={{ flex: 1 }}>{it.label}</span>
+            {it.hint && " "}
             {it.hint && (
               <span
                 style={{

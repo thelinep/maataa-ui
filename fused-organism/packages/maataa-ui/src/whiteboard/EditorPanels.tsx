@@ -287,6 +287,7 @@ export function LayerStack({
                 }}
               >
                 {l.name}
+                {(!l.visible || l.locked) && " "}
                 {(!l.visible || l.locked) && (
                   <span
                     style={{
@@ -294,7 +295,6 @@ export function LayerStack({
                       color: colorTokens.text.secondary,
                     }}
                   >
-                    {" "}
                     ({[!l.visible && "hidden", l.locked && "locked"].filter(Boolean).join(", ")})
                   </span>
                 )}

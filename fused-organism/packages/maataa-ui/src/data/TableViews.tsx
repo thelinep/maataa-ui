@@ -130,8 +130,8 @@ export function AgendaView({
                   >
                     {time(e.start)}
                     {e.end && `–${time(e.end)}`}
-                  </span>
-                  <span style={{ fontWeight: 500 }}>{e.title}</span>
+                  </span>{" "}
+                  <span style={{ fontWeight: 500 }}>{e.title}</span>{" "}
                   {e.kind && (
                     <span
                       style={{
