@@ -216,6 +216,58 @@ export {
   type SceneNavigatorProps,
 } from "./ScriptEditor";
 
+// Catalogue E
+export {
+  TerritoryMatrix,
+  WindowEditor,
+  windowConflicts,
+  type RightsState,
+  type TerritoryMatrixProps,
+  type ReleaseWindow,
+  type WindowEditorProps,
+} from "./DistributionEditors";
+export {
+  ScreeningFeedbackForm,
+  type ScreeningFeedbackFormProps,
+  type FeedbackValues,
+} from "./ScreeningFeedbackForm";
+export { AssumptionEditor, type AssumptionEditorProps, type Assumption } from "./AssumptionEditor";
+export {
+  EvidencePackBuilder,
+  SharePermissions,
+  type PackDocument,
+  type EvidencePackBuilderProps,
+  type ShareGrant,
+  type SharePermissionsProps,
+} from "./EvidencePack";
+export {
+  CrowdfundingCampaignBuilder,
+  campaignProblems,
+  type CampaignDraft,
+  type RewardTier,
+  type CrowdfundingCampaignBuilderProps,
+} from "./CrowdfundingCampaignBuilder";
+export {
+  PricingSourceTable,
+  PricingWorksheet,
+  priceSteps,
+  type PriceSource,
+  type PricingLine,
+  type PricingSourceTableProps,
+  type PricingWorksheetProps,
+} from "./Pricing";
+export {
+  AccountSettingsForm,
+  type AccountSettings,
+  type AccountSettingsFormProps,
+} from "./AccountSettingsForm";
+export {
+  ReadingFontToggle,
+  readingFontStacks,
+  type ReadingFont,
+  type ReadingFontToggleProps,
+} from "./ReadingFontToggle";
+
 // Component metadata for Storybook and docs
 export const formComponents = [
   {

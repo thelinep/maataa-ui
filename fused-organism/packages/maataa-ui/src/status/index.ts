@@ -50,3 +50,12 @@ export {
   type StateMap,
 } from "./StateBadge";
 export { LockIndicator, type LockIndicatorProps } from "./LockIndicator";
+export {
+  LastOwnerWarning,
+  ScreenReaderModeIndicator,
+  SyncOpsDashboard,
+  type LastOwnerWarningProps,
+  type ScreenReaderModeIndicatorProps,
+  type SyncOpsDashboardProps,
+  type SyncDevice,
+} from "./AdminStatus";
