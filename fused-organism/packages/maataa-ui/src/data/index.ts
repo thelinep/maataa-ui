@@ -33,6 +33,13 @@ export {
 } from "./ReceiptDisplay";
 export { SourceAttribution, type SourceAttributionProps } from "./SourceAttribution";
 export { Timeline, type TimelineProps, type TimelineEvent } from "./Timeline";
+export {
+  DeviceInfoCard,
+  detectDevice,
+  type DeviceInfoCardProps,
+  type DeviceInfo,
+} from "./DeviceInfoCard";
+export { SummaryReview, type SummaryReviewProps, type SummarySection } from "./SummaryReview";
 
 // Component metadata for Storybook and docs
 export const dataComponents = [

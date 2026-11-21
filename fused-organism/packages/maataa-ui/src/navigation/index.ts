@@ -22,6 +22,11 @@ export { AppShell, type AppShellProps } from "./AppShell";
 // User chip (top bar)
 export { UserChip, type UserChipProps } from "./UserChip";
 
+// Catalogue A
+export { NotificationBell, type NotificationBellProps } from "./NotificationBell";
+export { WizardShell, type WizardShellProps, type WizardStep } from "./WizardShell";
+export { safeReturnTo, rememberReturnTo, consumeReturnTo } from "./returnTo";
+
 // Component metadata for Storybook and docs
 export const navigationComponents = [
   {

@@ -72,6 +72,67 @@ export {
   type ReviewerAssignment,
 } from "./ReviewerSelector";
 
+// Catalogue A: search, auth, onboarding
+export {
+  SearchWithResults,
+  type SearchWithResultsProps,
+  type SearchResult,
+} from "./SearchWithResults";
+export { ErrorSummary, type ErrorSummaryProps, type FormError } from "./ErrorSummary";
+export {
+  PasswordInput,
+  defaultPasswordRules,
+  type PasswordInputProps,
+  type PasswordRule,
+} from "./PasswordInput";
+export {
+  SignInForm,
+  SignUpForm,
+  PasswordResetRequestForm,
+  PasswordResetConfirmForm,
+  type SignInFormProps,
+  type SignInValues,
+  type SignUpFormProps,
+  type SignUpValues,
+  type PasswordResetRequestFormProps,
+  type PasswordResetConfirmFormProps,
+} from "./authForms";
+export { MFAChallenge, type MFAChallengeProps } from "./MFAChallenge";
+export {
+  InvitationAcceptance,
+  InvitationRecoveryPanel,
+  type InvitationAcceptanceProps,
+  type InvitationRecoveryPanelProps,
+  type InvitationDetails,
+  type InvitationProblem,
+} from "./Invitation";
+export {
+  ChoiceCards,
+  AccountTypeSelector,
+  RoleSelectionGrid,
+  accountTypeOptions,
+  productionRoleOptions,
+  type ChoiceCardsProps,
+  type ChoiceCardOption,
+  type AccountTypeSelectorProps,
+  type RoleSelectionGridProps,
+} from "./ChoiceCards";
+export {
+  LanguageSelector,
+  CountrySelector,
+  RegionSelector,
+  CurrencySelector,
+  type RegionValue,
+  type RegionSelectorProps,
+} from "./LocaleSelectors";
+export {
+  indianLanguages,
+  indianStates,
+  countryCodes,
+  commonCurrencies,
+  displayName,
+} from "./localeData";
+
 // Component metadata for Storybook and docs
 export const formComponents = [
   {

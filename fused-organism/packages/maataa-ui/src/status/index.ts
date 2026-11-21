@@ -17,3 +17,10 @@ export { Spinner } from "./Spinner";
 export { StepIndicator } from "./StepIndicator";
 export { ScanStatusBadge, scanStatusLabel } from "./ScanStatusBadge";
 export { Timer, formatDuration, spokenDuration } from "./Timer";
+
+// Catalogue A: shared states
+export { Skeleton, type SkeletonProps } from "./Skeleton";
+export { OfflineBanner, useOnlineStatus, type OfflineBannerProps } from "./OfflineBanner";
+export { SyncStatus, type SyncStatusProps, type SyncState } from "./SyncStatus";
+export { RetryCountdown, type RetryCountdownProps } from "./RetryCountdown";
+export { SessionExpiryWarning, type SessionExpiryWarningProps } from "./SessionExpiryWarning";

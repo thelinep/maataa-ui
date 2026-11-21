@@ -13,7 +13,7 @@ describe("SourceAttribution", () => {
         now={now}
       />
     );
-    const link = screen.getByRole("link", { name: /M&E report/ });
+    const link = screen.getByRole("link", { name: "M&E report (opens in a new tab)" });
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
     expect(link).toHaveTextContent("opens in a new tab");
     expect(screen.queryByText(/may be out of date/)).toBeNull();
