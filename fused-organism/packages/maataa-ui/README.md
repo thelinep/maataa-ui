@@ -394,3 +394,7 @@ Built with React, TypeScript, and Storybook.
 **Made with ❤️ by the MAATAA UI Team**
 
 [View on GitHub](https://github.com/maataa/maataa-ui) • [Read Docs](./COMPONENTS.md) • [View Design System](./DESIGN_SYSTEM.md)
+
+## License
+
+Copyright 2026 Vesahe Film Solutions Private Limited. Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). "MAATAA" and "TLPS" are trademarks of Vesahe Film Solutions Private Limited and are not licensed under Apache 2.0.

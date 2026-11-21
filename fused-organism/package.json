@@ -1,6 +1,7 @@
 {
   "name": "maataa-ui-v3",
   "version": "0.4.1",
+  "license": "Apache-2.0",
   "description": "MAATAA Control Plane and TLPS Operations Workspace desktop preview",
   "author": "MAATAA UI Team",
   "private": true,

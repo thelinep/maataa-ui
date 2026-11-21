@@ -20,4 +20,4 @@ M2 additionally requires:
 - published invariant, gate, React-surface, certified-surface, visual-mechanics and exclusion documents;
 - ADR-005 documenting direct CDP instead of Playwright/axe-core.
 
-Publishing remains disabled. External publication still requires production licensing confirmation, package ownership, provenance/signing, security review, and release-channel decisions. M2 does not provide full WCAG, cross-browser, protocol, HIL, penetration-test, or production-deployment certification.
+Licence: Apache License 2.0, chosen 22 Nov 2026 (`LICENSE` and `NOTICE` in the root and in every package; the trademarks are not licensed). Publishing remains disabled. External publication still requires package ownership, provenance/signing, security review, and release-channel decisions. M2 does not provide full WCAG, cross-browser, protocol, HIL, penetration-test, or production-deployment certification.

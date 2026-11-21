@@ -1,6 +1,7 @@
 {
   "name": "@maataa/adapter-sdk",
   "version": "0.4.1",
+  "license": "Apache-2.0",
   "type": "module",
   "private": true,
   "sideEffects": false,
@@ -9,7 +10,8 @@
   },
   "files": [
     "src",
-    "README.md"
+    "README.md",
+    "NOTICE"
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs"
