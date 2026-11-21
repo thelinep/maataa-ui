@@ -4,6 +4,7 @@
  */
 
 import React from "react";
+import { colorTokens } from "../tokens";
 
 // =============================================================================
 // Component Props Types
@@ -64,7 +65,7 @@ export const RoleManagementPanel: React.FC<RoleManagementPanelProps> = ({
           ))}
         </ul>
       </div>
-      <p style={{ fontSize: "12px", color: "#666" }}>
+      <p style={{ fontSize: "12px", color: colorTokens.text.secondary }}>
         Display only. Connect an authoritative identity service before enabling role changes.
       </p>
     </div>
@@ -140,7 +141,7 @@ export const AuditLogViewer: React.FC<AuditLogViewerProps> = ({ events, isLoadin
           ))}
         </tbody>
       </table>
-      <p style={{ fontSize: "12px", color: "#999", marginTop: "8px" }}>
+      <p style={{ fontSize: "12px", color: colorTokens.text.tertiary, marginTop: "8px" }}>
         Showing 10 of {events.length} events
       </p>
     </div>
@@ -196,7 +197,7 @@ export const ComplianceStatusDashboard: React.FC<ComplianceStatusDashboardProps>
                     ? "#176b37"
                     : status === "attention-needed"
                       ? "#9b2c2c"
-                      : "#666",
+                      : colorTokens.text.secondary,
               }}
             >
               {label}
@@ -205,7 +206,7 @@ export const ComplianceStatusDashboard: React.FC<ComplianceStatusDashboardProps>
         );
       })}
       {!compact && (
-        <p style={{ fontSize: "12px", color: "#666" }}>
+        <p style={{ fontSize: "12px", color: colorTokens.text.secondary }}>
           Statuses are supplied by your application; this display does not certify compliance.
         </p>
       )}
@@ -237,7 +238,9 @@ export const PrivacyRequestManager: React.FC<PrivacyRequestManagerProps> = ({
           <button onClick={() => onRequestSubmit?.("portability")}>Portability</button>
         </li>
       </ul>
-      <p style={{ fontSize: "12px", color: "#999" }}>TODO: Implement privacy request workflow</p>
+      <p style={{ fontSize: "12px", color: colorTokens.text.tertiary }}>
+        TODO: Implement privacy request workflow
+      </p>
     </div>
   );
 };

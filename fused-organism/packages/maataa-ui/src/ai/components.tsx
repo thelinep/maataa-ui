@@ -4,6 +4,7 @@
  */
 
 import React from "react";
+import { colorTokens } from "../tokens";
 
 export interface MLInsightsPanelProps {
   title?: string;
@@ -70,7 +71,7 @@ export const PredictionChart: React.FC<PredictionChartProps> = ({
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
       <h3>Predictions</h3>
-      <p style={{ fontSize: "12px", color: "#999" }}>
+      <p style={{ fontSize: "12px", color: colorTokens.text.tertiary }}>
         Showing {historical.length} historical + {predictions.length} predicted points
         {confidence && ` (Confidence: ${(confidence * 100).toFixed(0)}%)`}
       </p>
@@ -84,7 +85,7 @@ export const PredictionChart: React.FC<PredictionChartProps> = ({
           justifyContent: "center",
         }}
       >
-        <p style={{ color: "#999" }}>Chart placeholder</p>
+        <p style={{ color: colorTokens.text.tertiary }}>Chart placeholder</p>
       </div>
     </div>
   );
@@ -169,10 +170,14 @@ export const RecommendationCards: React.FC<RecommendationCardsProps> = ({
               }}
             >
               <div style={{ fontWeight: "bold", marginBottom: "4px" }}>{rec.title}</div>
-              <div style={{ fontSize: "12px", color: "#666", marginBottom: "8px" }}>
+              <div
+                style={{ fontSize: "12px", color: colorTokens.text.secondary, marginBottom: "8px" }}
+              >
                 {rec.description}
               </div>
-              <div style={{ fontSize: "12px", color: "#999", marginBottom: "8px" }}>
+              <div
+                style={{ fontSize: "12px", color: colorTokens.text.tertiary, marginBottom: "8px" }}
+              >
                 Score: {(rec.score * 100).toFixed(0)}%
               </div>
               <div style={{ display: "flex", gap: "4px" }}>
@@ -196,7 +201,7 @@ export const RecommendationCards: React.FC<RecommendationCardsProps> = ({
                     flex: 1,
                     padding: "4px",
                     backgroundColor: "#ddd",
-                    color: "#333",
+                    color: colorTokens.text.primary,
                     border: "none",
                     borderRadius: "4px",
                     cursor: "pointer",
@@ -238,7 +243,7 @@ export const EmbeddingVisualization: React.FC<EmbeddingVisualizationProps> = ({
         }}
       >
         {embeddings.length === 0 ? (
-          <p style={{ color: "#999" }}>No embeddings to visualize</p>
+          <p style={{ color: colorTokens.text.tertiary }}>No embeddings to visualize</p>
         ) : (
           <svg width="100%" height="100%">
             {embeddings.map((embedding) => (
@@ -256,7 +261,7 @@ export const EmbeddingVisualization: React.FC<EmbeddingVisualizationProps> = ({
           </svg>
         )}
       </div>
-      <p style={{ fontSize: "12px", color: "#999", marginTop: "8px" }}>
+      <p style={{ fontSize: "12px", color: colorTokens.text.tertiary, marginTop: "8px" }}>
         Showing {embeddings.length} embeddings
       </p>
     </div>
