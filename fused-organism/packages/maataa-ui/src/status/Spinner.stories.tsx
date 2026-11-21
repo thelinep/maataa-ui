@@ -1,0 +1,14 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { Spinner } from "./Spinner";
+
+const meta = {
+  title: "Status/Spinner",
+  component: Spinner,
+  tags: ["autodocs"],
+} satisfies Meta<typeof Spinner>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = { args: { label: "Loading projects" } };
+export const WithLabel: Story = { args: { label: "Saving budget", showLabel: true, size: "lg" } };
