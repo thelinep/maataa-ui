@@ -75,6 +75,8 @@ describe("Select accessibility", () => {
     const box = combobox();
     expect(box).toHaveAttribute("aria-haspopup", "listbox");
     expect(box).toHaveAttribute("aria-expanded", "false");
+    // No reference to a listbox that is not rendered
+    expect(box).not.toHaveAttribute("aria-controls");
     await userEvent.click(box);
     expect(box).toHaveAttribute("aria-expanded", "true");
     const listbox = screen.getByRole("listbox", { name: "Fruit" });

@@ -34,7 +34,7 @@ const StyledForm = styled.form`
 
 const StyledInput = styled.input`
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.md};
   font-size: 14px;
   color: ${colorTokens.text.primary};

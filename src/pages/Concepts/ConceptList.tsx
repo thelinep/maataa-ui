@@ -48,7 +48,7 @@ const FilterContainer = styled.div`
 
 const FilterInput = styled.input`
   padding: ${spacing.sm} ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.body.fontSize};
@@ -64,7 +64,7 @@ const FilterInput = styled.input`
 
 const StatusFilter = styled.select`
   padding: ${spacing.sm} ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.body.fontSize};
@@ -242,7 +242,11 @@ const ConceptList: React.FC<ConceptListProps> = ({ onSelect, onCreate }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <StatusFilter value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        <StatusFilter
+          aria-label="Filter by status"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
           <option value="all">All Status</option>
           <option value="ideation">Ideation</option>
           <option value="pitch">Pitch</option>

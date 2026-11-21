@@ -80,7 +80,7 @@ const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
 const TextEditor = styled.textarea`
   flex: 1;
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 8px;
   font-family: 'Courier New', monospace;
   font-size: 14px;

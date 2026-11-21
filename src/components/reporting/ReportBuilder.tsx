@@ -42,7 +42,7 @@ const StyledLabel = styled.label`
 
 const StyledInput = styled.input`
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.md};
 
   &:focus {
@@ -53,7 +53,7 @@ const StyledInput = styled.input`
 
 const StyledSelect = styled.select`
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.md};
 
   &:focus {

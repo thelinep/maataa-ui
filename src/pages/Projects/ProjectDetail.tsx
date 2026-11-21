@@ -117,7 +117,8 @@ const StatusBadge = styled.span<{ status: string }>`
       case 'paused':
         return colorTokens.interactive.warning;
       case 'completed':
-        return colorTokens.interactive.secondary;
+        // paper text on it: 6.7:1 (interactive.secondary was 1.9:1)
+        return colorTokens.text.secondary;
       default:
         return colorTokens.border.primary;
     }

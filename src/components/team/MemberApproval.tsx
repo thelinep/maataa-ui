@@ -196,7 +196,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   padding: ${spacing.sm};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.sm};
   color: ${colorTokens.text.primary};
   background: ${colorTokens.background.primary};
@@ -204,7 +204,7 @@ const Input = styled.input`
 
 const Select = styled.select`
   padding: ${spacing.sm};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.sm};
   color: ${colorTokens.text.primary};
   background: ${colorTokens.background.primary};

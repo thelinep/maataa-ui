@@ -49,7 +49,7 @@ const FilterContainer = styled.div`
 
 const FilterInput = styled.input`
   padding: ${spacing.sm} ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   flex: 1;
@@ -64,7 +64,7 @@ const FilterInput = styled.input`
 
 const StatusFilter = styled.select`
   padding: ${spacing.sm} ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   background: white;
@@ -97,7 +97,7 @@ const ScriptCard = styled.div`
   }
 `;
 
-const ScriptTitle = styled.h3`
+const ScriptTitle = styled.h2`
   font-size: ${typography.body.fontSize};
   font-weight: 600;
   color: ${colorTokens.text.primary};
@@ -247,7 +247,11 @@ const ScriptList: React.FC<ScriptListProps> = ({ onSelect, onCreated, conceptId 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <StatusFilter value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        <StatusFilter
+          aria-label="Filter by status"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
           <option value="all">All Status</option>
           <option value="draft">Draft</option>
           <option value="locked">Locked</option>
