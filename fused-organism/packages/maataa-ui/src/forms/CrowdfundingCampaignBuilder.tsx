@@ -120,7 +120,7 @@ export function CrowdfundingCampaignBuilder({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
             gap: spacingTokens.sm,
           }}
         >
@@ -200,7 +200,7 @@ export function CrowdfundingCampaignBuilder({
               padding: spacingTokens.sm,
               margin: 0,
               display: "grid",
-              gridTemplateColumns: "2fr 1fr 1fr",
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
               gap: spacingTokens.xs,
             }}
           >
