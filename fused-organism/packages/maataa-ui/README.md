@@ -216,7 +216,7 @@ npm run storybook:build
 
 | Name            | Value     | Usage              |
 | --------------- | --------- | ------------------ |
-| Primary Brown   | `#8B6F47` | Main actions       |
+| Primary Brown   | `#806641` | Main actions       |
 | Secondary Brown | `#D4AF9F` | Secondary actions  |
 | Off White       | `#FFFAF0` | Primary background |
 | Success         | `#C7E9C0` | Success states     |

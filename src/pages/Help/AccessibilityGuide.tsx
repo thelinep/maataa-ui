@@ -254,8 +254,6 @@ const AccessibilityGuide: React.FC = () => {
         being fixed:
       </p>
       <ul>
-        <li>Some small labels (format badges, take counts, timings) have low colour contrast. High contrast mode avoids this.</li>
-        <li>Form field borders are faint. High contrast mode or Stronger focus outline helps.</li>
         <li>A few buttons are smaller than 24 × 24 pixels (sound mixer Mute and Solo).</li>
         <li>Some pages skip a heading level.</li>
         <li>Creating a project, team or budget does not save yet; this affects everyone, not only assistive technology.</li>

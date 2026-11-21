@@ -111,7 +111,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(
                   padding: currentSize.padding,
                   fontSize: currentSize.fontSize,
                   fontWeight: isSelected ? 600 : 500,
-                  border: `1px solid ${colorTokens.border.primary}`,
+                  border: `1px solid ${colorTokens.border.control}`,
                   backgroundColor: isSelected
                     ? colorTokens.interactive.primary
                     : colorTokens.background.primary,
@@ -120,11 +120,11 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(
                   transition: "all 0.2s ease",
                   opacity: isOptionDisabled ? 0.6 : 1,
                   // Remove border between adjacent buttons
-                  borderLeft: index === 0 ? `1px solid ${colorTokens.border.primary}` : "none",
+                  borderLeft: index === 0 ? `1px solid ${colorTokens.border.control}` : "none",
                   borderRight:
                     index === options.length - 1
-                      ? `1px solid ${colorTokens.border.primary}`
-                      : `1px solid ${colorTokens.border.primary}`,
+                      ? `1px solid ${colorTokens.border.control}`
+                      : `1px solid ${colorTokens.border.control}`,
                   // Round corners for first and last buttons
                   borderRadius:
                     index === 0 && index === options.length - 1

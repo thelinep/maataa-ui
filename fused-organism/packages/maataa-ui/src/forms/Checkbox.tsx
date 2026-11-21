@@ -124,7 +124,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: `2px solid ${error ? colorTokens.interactive.error : checked || indeterminate ? colorTokens.interactive.success : colorTokens.border.primary}`,
+                border: `2px solid ${error ? colorTokens.interactive.error : checked || indeterminate ? colorTokens.interactive.success : colorTokens.border.control}`,
                 borderRadius: radiusTokens.sm,
                 backgroundColor:
                   checked || indeterminate

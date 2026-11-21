@@ -217,7 +217,7 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
                 zIndex: 1000,
                 padding: spacingTokens.md,
                 backgroundColor: colorTokens.background.primary,
-                border: `1px solid ${colorTokens.border.primary}`,
+                border: `1px solid ${colorTokens.border.control}`,
                 borderRadius: radiusTokens.lg,
                 boxShadow: colorTokens.shadow.lg,
               }}

@@ -62,7 +62,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 ? colorTokens.interactive.error
                 : focused
                   ? colorTokens.interactive.primary
-                  : colorTokens.interactive.secondary
+                  : colorTokens.border.control
             }`,
             borderRadius: radiusTokens.md,
             outline: "none",

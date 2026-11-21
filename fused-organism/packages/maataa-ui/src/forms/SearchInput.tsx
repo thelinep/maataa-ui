@@ -87,7 +87,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
             width: "100%",
             padding: value ? "10px 36px 10px 32px" : "10px 10px 10px 32px",
             fontSize: "14px",
-            border: `2px solid ${focused ? colorTokens.interactive.primary : colorTokens.interactive.secondary}`,
+            border: `2px solid ${focused ? colorTokens.interactive.primary : colorTokens.border.control}`,
             borderRadius: radiusTokens.md,
             outline: "none",
             transition: "all 0.2s ease",

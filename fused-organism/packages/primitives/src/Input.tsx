@@ -110,7 +110,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   ? colorTokens.interactive.error
                   : focused
                     ? colorTokens.interactive.primary
-                    : colorTokens.interactive.secondary
+                    : colorTokens.border.control
               }`,
               borderRadius: radiusTokens.md,
               outline: "none",

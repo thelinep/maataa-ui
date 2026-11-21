@@ -48,7 +48,7 @@ describe("LinkButton", () => {
 
   it("applies the primary color by default", () => {
     render(<LinkButton href="/settings">View settings</LinkButton>);
-    expect(screen.getByRole("link")).toHaveStyle({ color: "#8B6F47" });
+    expect(screen.getByRole("link")).toHaveStyle({ color: "#806641" });
   });
 
   it("applies the danger color", () => {
