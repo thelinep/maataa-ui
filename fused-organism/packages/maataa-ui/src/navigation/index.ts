@@ -57,6 +57,8 @@ export {
   type InfiniteListProps,
 } from "./PageNavigation";
 
+export { SiteFooter, type SiteFooterProps, type FooterColumn, type SocialLink } from "./SiteFooter";
+
 export const navigationComponents = [
   {
     id: "menu",

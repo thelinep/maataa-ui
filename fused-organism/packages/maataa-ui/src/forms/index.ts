@@ -293,6 +293,14 @@ export {
   type EffectSliderBankProps,
 } from "./SliderBanks";
 
+export {
+  ContactForm,
+  NewsletterSignup,
+  type ContactFormProps,
+  type ContactValues,
+  type NewsletterSignupProps,
+} from "./ContactBlocks";
+
 export const formComponents = [
   {
     id: "field-shell",

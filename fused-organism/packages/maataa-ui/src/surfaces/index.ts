@@ -127,6 +127,49 @@ export {
   type PictureSymbol,
 } from "./AccessibilityTools";
 
+// UI element catalog batch K
+export {
+  Hero,
+  FeatureCard,
+  FeatureGrid,
+  TestimonialCard,
+  TestimonialCarousel,
+  LogoStrip,
+  StatsStrip,
+  PricingCardRow,
+  PricingTable,
+  FAQAccordion,
+  AnnouncementStrip,
+  CookieConsentBanner,
+  type HeroProps,
+  type HeroAction,
+  type Feature,
+  type Testimonial,
+  type PricingTableProps,
+  type CookieChoices,
+} from "./Marketing";
+export { OnboardingTour, type OnboardingTourProps, type TourStep } from "./OnboardingTour";
+export {
+  ParticleSplash,
+  GlassSplash,
+  CameraScienceSplash,
+  type SplashVariantProps,
+} from "./SplashVariants";
+export {
+  ActionSheet,
+  PullToRefresh,
+  BackgroundSyncToast,
+  PermissionPrompt,
+  BiometricUnlock,
+  type SheetAction,
+  type ActionSheetProps,
+  type PullToRefreshProps,
+  type BackgroundSyncToastProps,
+  type PermissionKind,
+  type PermissionPromptProps,
+  type BiometricUnlockProps,
+} from "./MobilePatterns";
+
 export const surfaceComponents = [
   {
     id: "modal",

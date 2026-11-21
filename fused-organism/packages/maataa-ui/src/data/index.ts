@@ -412,6 +412,27 @@ export {
   type TLPLevel,
 } from "./CultureComposites";
 
+// UI element catalog batch K
+export { JsonExplorer, type JsonExplorerProps } from "./JsonExplorer";
+export {
+  WalletConnectButton,
+  WalletAddress,
+  shortAddress,
+  TransactionList,
+  TransactionConfirmDialog,
+  GasEstimate,
+  DistributionEventLog,
+  ContractStatusBadge,
+  type WalletOption,
+  type WalletConnectButtonProps,
+  type Transaction,
+  type TxState,
+  type GasEstimateProps,
+  type TransactionConfirmDialogProps,
+  type DistributionEvent,
+  type ContractBadgeState,
+} from "./Web3";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {
