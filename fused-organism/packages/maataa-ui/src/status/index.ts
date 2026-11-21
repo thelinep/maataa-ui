@@ -33,3 +33,19 @@ export {
   type ScheduleConflictBadgeProps,
   type ScheduleConflict,
 } from "./ScheduleConflictBadge";
+
+// Catalogue C
+export {
+  StateBadge,
+  clearanceStates,
+  renderStates,
+  qcStates,
+  signatureStates,
+  deliveryStates,
+  publicationStates,
+  approvalStates,
+  permitStates,
+  type StateBadgeProps,
+  type StateDef,
+  type StateMap,
+} from "./StateBadge";

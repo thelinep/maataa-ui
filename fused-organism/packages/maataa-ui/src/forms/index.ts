@@ -155,6 +155,50 @@ export { PersonForm, type PersonFormProps, type PersonValues } from "./PersonFor
 export { VersionSelector, type VersionSelectorProps, type VersionOption } from "./VersionSelector";
 export { BudgetLineEditor, type BudgetLineEditorProps, type BudgetLine } from "./BudgetLineEditor";
 
+// Catalogue C
+export { SlotPicker, type SlotPickerProps, type Slot } from "./SlotPicker";
+export { JobPostingForm, type JobPostingFormProps, type JobPostingValues } from "./JobPostingForm";
+export {
+  ReferenceCheckPanel,
+  type ReferenceCheckPanelProps,
+  type ReferenceCheck,
+} from "./ReferenceCheckPanel";
+export { PinSelector, parseLatLng, type PinSelectorProps, type Pin } from "./PinSelector";
+export {
+  AvailabilityCalendar,
+  type AvailabilityCalendarProps,
+  type DateRangeValue,
+} from "./AvailabilityCalendar";
+export { BookingForm, type BookingFormProps, type BookingValues } from "./BookingForm";
+export {
+  EquipmentCheckoutSheet,
+  type EquipmentCheckoutSheetProps,
+  type CheckoutLine,
+  type GearCondition,
+} from "./EquipmentCheckoutSheet";
+export {
+  CallSheetEditor,
+  type CallSheetEditorProps,
+  type CallSheetDay,
+  type SceneRow,
+} from "./CallSheetEditor";
+export {
+  DistributionListSelector,
+  type DistributionListSelectorProps,
+  type Recipient,
+} from "./DistributionListSelector";
+export {
+  TimesheetEntryForm,
+  OvertimeIndicator,
+  hoursWorked,
+  formatHM,
+  type TimesheetEntryFormProps,
+  type TimesheetDay,
+  type OvertimeIndicatorProps,
+} from "./TimesheetEntryForm";
+export { WrapForm, WrapSummary, type WrapFormProps, type WrapValues } from "./WrapForm";
+export { IncidentForm, type IncidentFormProps, type IncidentValues } from "./IncidentForm";
+
 // Component metadata for Storybook and docs
 export const formComponents = [
   {

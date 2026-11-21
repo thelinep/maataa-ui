@@ -103,6 +103,84 @@ export {
 } from "./DocumentList";
 export { ScrollTable, type ScrollTableProps } from "./ScrollTable";
 
+// Catalogue C: casting, locations, call sheets, timesheets, filming, drones, rehearsals
+export {
+  RoleBreakdownCard,
+  type RoleBreakdownCardProps,
+  type RoleBreakdown,
+} from "./RoleBreakdownCard";
+export {
+  PipelineBoard,
+  type PipelineBoardProps,
+  type PipelineStage,
+  type PipelineCard,
+} from "./PipelineBoard";
+export { ApplicantDetail, type ApplicantDetailProps, type Applicant } from "./ApplicantDetail";
+export { CallbackList, type CallbackListProps, type Callback } from "./CallbackList";
+export {
+  OfferLetterPreview,
+  templateFields,
+  type OfferLetterPreviewProps,
+} from "./OfferLetterPreview";
+export {
+  LocationGallery,
+  LocationDetail,
+  type FilmLocation,
+  type LocationGalleryProps,
+  type LocationDetailProps,
+} from "./LocationGallery";
+export { PermitStatusCard, type PermitStatusCardProps, type Permit } from "./PermitStatusCard";
+export {
+  EquipmentCatalog,
+  type EquipmentCatalogProps,
+  type EquipmentItem,
+} from "./EquipmentCatalog";
+export { ShareLinkDisplay, type ShareLinkDisplayProps } from "./ShareLinkDisplay";
+export {
+  DeliveryStatusList,
+  type DeliveryStatusListProps,
+  type DeliveryRecord,
+} from "./DeliveryStatusList";
+export {
+  CallSheetPrintView,
+  type CallSheetPrintViewProps,
+  type CallContact,
+} from "./CallSheetPrintView";
+export {
+  TimesheetList,
+  TimesheetWeekSummary,
+  type TimesheetListProps,
+  type TimesheetSummary,
+  type TimesheetWeekSummaryProps,
+} from "./TimesheetViews";
+export {
+  SceneProgressTracker,
+  type SceneProgressTrackerProps,
+  type TrackedScene,
+} from "./SceneProgressTracker";
+export {
+  DroneFlightLog,
+  AltitudeDisplay,
+  OperatorSelector,
+  type DroneFlight,
+  type DroneFlightLogProps,
+  type AltitudeDisplayProps,
+  type DroneOperator,
+  type OperatorSelectorProps,
+} from "./DroneViews";
+export {
+  RehearsalSceneList,
+  AttendanceGrid,
+  DirectorNotesPanel,
+  RescheduleRequest,
+  type RehearsalScene,
+  type Attendance,
+  type AttendanceGridProps,
+  type DirectorNote,
+  type DirectorNotesPanelProps,
+  type RescheduleRequestProps,
+} from "./RehearsalViews";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {

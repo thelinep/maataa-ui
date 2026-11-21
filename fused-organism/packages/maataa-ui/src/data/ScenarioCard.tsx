@@ -92,6 +92,7 @@ export const ScenarioCard = React.forwardRef<HTMLElement, ScenarioCardProps>(
       >
         <h3 id={`${id}-name`} style={{ margin: 0 }}>
           {name}
+          {selected && " "}
           {selected && (
             <span
               style={{
@@ -99,7 +100,6 @@ export const ScenarioCard = React.forwardRef<HTMLElement, ScenarioCardProps>(
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              {" "}
               (selected)
             </span>
           )}

@@ -31,3 +31,10 @@ describe("ScenarioCard", () => {
     );
   });
 });
+
+describe("ScenarioCard heading name", () => {
+  it("keeps a space before (selected)", () => {
+    render(<ScenarioCard name="Lean" summary="" assumptions={[]} results={[]} selected />);
+    expect(screen.getByRole("heading", { name: "Lean (selected)" })).toBeInTheDocument();
+  });
+});

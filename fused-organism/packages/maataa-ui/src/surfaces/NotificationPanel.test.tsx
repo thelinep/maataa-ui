@@ -61,3 +61,17 @@ describe("NotificationPanel", () => {
     expect(onAction).toHaveBeenCalled();
   });
 });
+
+describe("NotificationPanel heading name", () => {
+  it("separates title and count", () => {
+    render(
+      <NotificationPanel
+        items={[]}
+        onOpen={() => {}}
+        onMarkRead={() => {}}
+        onMarkAllRead={() => {}}
+      />
+    );
+    expect(screen.getByRole("heading", { name: "Notifications · 0 unread" })).toBeInTheDocument();
+  });
+});

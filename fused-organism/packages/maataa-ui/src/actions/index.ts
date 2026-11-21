@@ -21,6 +21,8 @@ export {
 } from "./ProviderSignInButtons";
 export { QuickActionPanel, type QuickActionPanelProps, type QuickAction } from "./QuickActionPanel";
 export { ExportControl, type ExportControlProps, type ExportFormat } from "./ExportControl";
+export { CallSheetPublishBar, type CallSheetPublishBarProps } from "./CallSheetPublishBar";
+export { ApprovalActions, type ApprovalActionsProps } from "./ApprovalActions";
 
 // Component metadata for Storybook and docs
 export const actionComponents = [
