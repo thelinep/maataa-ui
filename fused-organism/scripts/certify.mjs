@@ -57,6 +57,7 @@ async function writeCertification(status, complete, extraGates = []) {
     sourceOfTruth: true,
     product: "MAATAA UI fused organism",
     version: pkg.version,
+    sourceCommit: process.env.GITHUB_SHA ?? process.env.GIT_COMMIT ?? null,
     generatedAt: new Date().toISOString(),
     status,
     complete,

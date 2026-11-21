@@ -10,6 +10,8 @@
 
 `MAATAA_BROWSER` may override the executable path, but the detected family/version must still match the pin. `MAATAA_XVFB` may override the Xvfb path. Other Chromium/Chrome versions are **not implied certified**.
 
+CI installs the exact Chrome for Testing build declared above and records its Chromium engine family. The product version remains available in certification evidence.
+
 `npm run certify:browser` launches that browser and communicates through the Chrome DevTools Protocol (CDP). See ADR-003 for the environment boundary and ADR-005 for why M2 uses direct CDP rather than Playwright + axe-core.
 
 ## Browser-required gates
