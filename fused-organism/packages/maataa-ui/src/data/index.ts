@@ -284,6 +284,52 @@ export {
   type DiffLine,
 } from "./TableViews";
 
+// UI element catalog batch H: media
+export {
+  TimecodeReadout,
+  MediaScrubber,
+  TimelinePlayhead,
+  AudioPlayer,
+  Slate,
+  formatTimecode,
+  parseTimecode,
+  clock,
+  type TimecodeReadoutProps,
+  type MediaScrubberProps,
+  type ScrubMarker,
+  type TimelinePlayheadProps,
+  type AudioPlayerProps,
+  type SlateProps,
+} from "./MediaPlayback";
+export {
+  Waveform,
+  SpectrumAnalyzer,
+  VUMeter,
+  peaksFrom,
+  levelZone,
+  spectrumBandHz,
+  type WaveformProps,
+  type SpectrumAnalyzerProps,
+  type VUMeterProps,
+} from "./AudioViz";
+export {
+  CameraPreview,
+  ScreenRecordingBar,
+  ScreenshotButton,
+  AudioRecorder,
+  VoiceCommandButton,
+  LiveTranscript,
+  VideoCallTile,
+  type CameraPreviewProps,
+  type ScreenRecordingBarProps,
+  type ScreenshotButtonProps,
+  type AudioRecorderProps,
+  type VoiceCommandButtonProps,
+  type LiveTranscriptProps,
+  type TranscriptSegment,
+  type VideoCallTileProps,
+} from "./MediaCapture";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {

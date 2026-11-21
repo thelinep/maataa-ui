@@ -105,6 +105,28 @@ export {
   type ConfettiBurstProps,
 } from "./Celebrations";
 
+export {
+  ModeSwitch,
+  ScreenReaderModeToggle,
+  SimplifiedModeToggle,
+  VoiceCommandGuide,
+  EyeGazeCalibration,
+  HapticFeedback,
+  PictureBoard,
+  vibrate,
+  hapticPatterns,
+  nineCalibrationPoints,
+  type ModeSwitchProps,
+  type VoiceCommand,
+  type VoiceCommandGuideProps,
+  type EyeGazeCalibrationProps,
+  type CalibrationPoint,
+  type HapticFeedbackProps,
+  type HapticPattern,
+  type PictureBoardProps,
+  type PictureSymbol,
+} from "./AccessibilityTools";
+
 export const surfaceComponents = [
   {
     id: "modal",

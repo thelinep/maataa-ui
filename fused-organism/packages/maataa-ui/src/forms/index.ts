@@ -279,6 +279,20 @@ export {
   type SortValue,
 } from "./ListControls";
 
+export {
+  SliderBank,
+  EqFaders,
+  ColorCorrectionSliders,
+  EffectSliderBank,
+  eqBandsHz,
+  colorCorrectionParams,
+  type SliderBankProps,
+  type SliderParam,
+  type EqFadersProps,
+  type ColorCorrectionSlidersProps,
+  type EffectSliderBankProps,
+} from "./SliderBanks";
+
 export const formComponents = [
   {
     id: "field-shell",
