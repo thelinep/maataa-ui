@@ -130,9 +130,12 @@ const ProgressBar = styled.div`
 
 const ProgressFill = styled.div<{ percentage: number; color: string }>`
   height: 100%;
-  width: ${(props) => `${Math.min(props.percentage, 100)}%`};
+  width: 100%;
+  /* Scale instead of animating width, so the bar animates without layout work */
+  transform: scaleX(${(props) => Math.max(0, Math.min(props.percentage, 100)) / 100});
+  transform-origin: left center;
   background-color: ${(props) => props.color};
-  transition: width 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 `;
 
 const ProgressPercent = styled.span<{ color: string }>`

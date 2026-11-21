@@ -175,4 +175,53 @@ describe("Modal accessibility", () => {
     expect(document.body.style.overflow).toBe("scroll");
     document.body.style.overflow = "";
   });
+
+  it("is named by ariaLabel when there is no title", () => {
+    render(
+      <Modal isOpen onClose={() => {}} ariaLabel="Crop photo">
+        <p>Body</p>
+      </Modal>
+    );
+    expect(screen.getByRole("dialog", { name: "Crop photo" })).toBeInTheDocument();
+  });
+
+  it("still has a name when neither title nor ariaLabel is given", () => {
+    render(
+      <Modal isOpen onClose={() => {}}>
+        <p>Body</p>
+      </Modal>
+    );
+    expect(screen.getByRole("dialog", { name: "Dialog" })).toBeInTheDocument();
+  });
+
+  it("prefers the title over ariaLabel", () => {
+    render(
+      <Modal isOpen onClose={() => {}} title="Edit project" ariaLabel="Ignored">
+        <p>Body</p>
+      </Modal>
+    );
+    expect(screen.getByRole("dialog", { name: "Edit project" })).toBeInTheDocument();
+  });
+
+  it("gives the close button a 44px touch target", () => {
+    render(
+      <Modal isOpen onClose={() => {}} title="T">
+        <p>Body</p>
+      </Modal>
+    );
+    const close = screen.getByRole("button", { name: "Close" });
+    expect(close.style.width).toBe("44px");
+    expect(close.style.height).toBe("44px");
+  });
+
+  it("turns its animations off for reduced motion", () => {
+    const { container } = render(
+      <Modal isOpen onClose={() => {}} title="T">
+        <p>Body</p>
+      </Modal>
+    );
+    expect(container.ownerDocument.querySelector("style")?.textContent).toMatch(
+      /prefers-reduced-motion: reduce[\s\S]*animation: none !important/
+    );
+  });
 });
