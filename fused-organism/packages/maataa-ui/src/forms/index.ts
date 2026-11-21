@@ -133,6 +133,28 @@ export {
   displayName,
 } from "./localeData";
 
+// Catalogue B
+export { FilterBar, type FilterBarProps, type FilterDef } from "./FilterBar";
+export {
+  VisibilitySelector,
+  type VisibilitySelectorProps,
+  type Visibility,
+} from "./VisibilitySelector";
+export {
+  ApplicationForm,
+  type ApplicationFormProps,
+  type ApplicationValues,
+} from "./ApplicationForm";
+export { InviteForm, parseEmails, type InviteFormProps } from "./InviteForm";
+export {
+  RoleAssignmentTable,
+  type RoleAssignmentTableProps,
+  type RoleMember,
+} from "./RoleAssignmentTable";
+export { PersonForm, type PersonFormProps, type PersonValues } from "./PersonForm";
+export { VersionSelector, type VersionSelectorProps, type VersionOption } from "./VersionSelector";
+export { BudgetLineEditor, type BudgetLineEditorProps, type BudgetLine } from "./BudgetLineEditor";
+
 // Component metadata for Storybook and docs
 export const formComponents = [
   {

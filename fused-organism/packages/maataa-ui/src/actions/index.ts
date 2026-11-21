@@ -19,6 +19,8 @@ export {
   type ProviderSignInButtonsProps,
   type SignInProvider,
 } from "./ProviderSignInButtons";
+export { QuickActionPanel, type QuickActionPanelProps, type QuickAction } from "./QuickActionPanel";
+export { ExportControl, type ExportControlProps, type ExportFormat } from "./ExportControl";
 
 // Component metadata for Storybook and docs
 export const actionComponents = [

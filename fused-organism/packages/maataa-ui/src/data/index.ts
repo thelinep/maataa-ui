@@ -41,6 +41,68 @@ export {
 } from "./DeviceInfoCard";
 export { SummaryReview, type SummaryReviewProps, type SummarySection } from "./SummaryReview";
 
+// Catalogue B: dispatch, dashboard, people, assets, budget, schedule, documents
+export {
+  ProductionListingCard,
+  ProductionListingGrid,
+  type ProductionListingItem,
+  type ProductionListingCardProps,
+  type ProductionListingGridProps,
+} from "./ProductionListing";
+export {
+  RecordHeader,
+  DetailList,
+  type RecordHeaderProps,
+  type DetailListProps,
+} from "./RecordHeader";
+export { DeadlineList, relativeDue, type DeadlineListProps, type Deadline } from "./DeadlineList";
+export {
+  ProjectSummaryCard,
+  type ProjectSummaryCardProps,
+  type ProjectSummary,
+} from "./ProjectSummaryCard";
+export { InvitationList, type InvitationListProps, type PendingInvitation } from "./InvitationList";
+export {
+  PeopleDirectory,
+  type PeopleDirectoryProps,
+  type DirectoryPerson,
+} from "./PeopleDirectory";
+export {
+  AssetPreview,
+  AssetGrid,
+  type Asset,
+  type AssetPreviewProps,
+  type AssetGridProps,
+} from "./AssetPreview";
+export { VarianceBars, type VarianceBarsProps, type VarianceRow } from "./VarianceBars";
+export {
+  EventCalendar,
+  eventsOn,
+  type EventCalendarProps,
+  type CalendarEvent,
+  type CalendarView,
+} from "./EventCalendar";
+export {
+  GanttTimeline,
+  MilestoneMarker,
+  type GanttTimelineProps,
+  type GanttTask,
+  type Milestone,
+} from "./GanttTimeline";
+export { TimezoneDisplay, zoneAbbr, type TimezoneDisplayProps } from "./TimezoneDisplay";
+export {
+  DocumentList,
+  CleanDownloadButton,
+  QuarantinePanel,
+  ScannerFailureNotice,
+  type DocumentItem,
+  type DocumentListProps,
+  type CleanDownloadButtonProps,
+  type QuarantinePanelProps,
+  type ScannerFailureNoticeProps,
+} from "./DocumentList";
+export { ScrollTable, type ScrollTableProps } from "./ScrollTable";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {
