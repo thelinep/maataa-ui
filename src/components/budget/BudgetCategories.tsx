@@ -92,12 +92,15 @@ const ProgressBar = styled.div<{ $spent: number; $allocated: number }>`
     content: '';
     display: block;
     height: 100%;
-    width: ${(props) => `${Math.min((props.$spent / props.$allocated) * 100, 100)}%`};
+    width: 100%;
+    /* Scale instead of animating width, so the bar animates without layout work */
+    transform: scaleX(${(props) => Math.max(0, Math.min(props.$spent / props.$allocated, 1)) || 0});
+    transform-origin: left center;
     background-color: ${(props) =>
       props.$spent > props.$allocated
         ? colorTokens.interactive.error
         : colorTokens.interactive.success};
-    transition: width 0.3s ease;
+    transition: transform 0.3s ease;
   }
 `;
 

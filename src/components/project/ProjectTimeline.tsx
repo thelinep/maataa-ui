@@ -128,13 +128,16 @@ const ProgressBar = styled.div<{ $progress: number }>`
     top: 0;
     left: 0;
     height: 100%;
-    width: ${(props) => `${props.$progress}%`};
+    width: 100%;
+    /* Scale instead of animating width, so the bar animates without layout work */
+    transform: scaleX(${(props) => Math.max(0, Math.min(props.$progress, 100)) / 100});
+    transform-origin: left center;
     background: linear-gradient(
       to right,
       ${colorTokens.interactive.info},
       ${colorTokens.interactive.success}
     );
-    transition: width 0.3s ease;
+    transition: transform 0.3s ease;
   }
 `;
 

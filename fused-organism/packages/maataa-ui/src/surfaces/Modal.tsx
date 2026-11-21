@@ -10,6 +10,11 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  /**
+   * Accessible name for a modal without a visible `title`. Ignored when
+   * `title` is set (the title names the dialog).
+   */
+  ariaLabel?: string;
   footer?: React.ReactNode;
   closeButton?: boolean;
   size?: "sm" | "md" | "lg";
@@ -41,6 +46,7 @@ export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
+  ariaLabel,
   footer,
   closeButton = true,
   size = "md",
@@ -112,6 +118,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
+      data-maataa-modal-overlay=""
       style={{
         position: "fixed",
         top: 0,
@@ -132,6 +139,8 @@ export const Modal: React.FC<ModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
+        aria-label={title ? undefined : (ariaLabel ?? "Dialog")}
+        data-maataa-modal=""
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -181,8 +190,10 @@ export const Modal: React.FC<ModalProps> = ({
                   cursor: "pointer",
                   color: colorTokens.text.secondary,
                   padding: "0",
-                  width: "32px",
-                  height: "32px",
+                  // 44×44px touch target
+                  width: "44px",
+                  height: "44px",
+                  marginRight: "-6px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -218,6 +229,9 @@ export const Modal: React.FC<ModalProps> = ({
           @keyframes slideUp {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            [data-maataa-modal-overlay], [data-maataa-modal] { animation: none !important; }
           }
         `}
       </style>
