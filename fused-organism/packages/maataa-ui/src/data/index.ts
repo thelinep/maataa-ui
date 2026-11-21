@@ -228,6 +228,62 @@ export {
   type PrivateNotesProps,
 } from "./NetworkingViews";
 
+// UI element catalog batch G
+export {
+  ChartFigure,
+  LegendList,
+  CHART_COLORS,
+  chartColor,
+  type ChartFigureProps,
+  type ChartTable,
+} from "./chartKit";
+export {
+  HorizontalBarChart,
+  GroupedBarChart,
+  ThresholdBarChart,
+  PieChart,
+  FunnelChart,
+  WaterfallChart,
+  RadarChart,
+  Heatmap,
+  type Datum,
+  type HorizontalBarChartProps,
+  type GroupedBarChartProps,
+  type ThresholdBarChartProps,
+  type PieChartProps,
+  type FunnelChartProps,
+  type WaterfallChartProps,
+  type RadarChartProps,
+  type HeatmapProps,
+} from "./MoreCharts";
+export {
+  AnimatedCounter,
+  StackedProgressBar,
+  ProgressRing,
+  Gauge,
+  type AnimatedCounterProps,
+  type StackedProgressBarProps,
+  type ProgressSegment,
+  type ProgressRingProps,
+  type GaugeProps,
+  type GaugeBand,
+} from "./Meters";
+export {
+  AgendaView,
+  InlineEditGrid,
+  ComparisonTable,
+  DiffView,
+  diffLines,
+  type AgendaViewProps,
+  type InlineEditGridProps,
+  type GridColumn,
+  type ComparisonTableProps,
+  type ComparisonOption,
+  type ComparisonRow,
+  type DiffViewProps,
+  type DiffLine,
+} from "./TableViews";
+
 // Component metadata for Storybook and docs
 export const dataComponents = [
   {

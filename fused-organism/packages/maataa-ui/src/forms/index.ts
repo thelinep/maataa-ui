@@ -269,6 +269,16 @@ export {
 } from "./ReadingFontToggle";
 
 // Component metadata for Storybook and docs
+export {
+  AppliedFilterChips,
+  SortSelector,
+  type AppliedFilterChipsProps,
+  type AppliedFilter,
+  type SortSelectorProps,
+  type SortField,
+  type SortValue,
+} from "./ListControls";
+
 export const formComponents = [
   {
     id: "field-shell",

@@ -78,6 +78,33 @@ export {
 // Component metadata
 export { UndoSnackbar, type UndoSnackbarProps } from "./UndoSnackbar";
 
+export {
+  ImageCard,
+  ProfileCard,
+  PricingTierCard,
+  ServiceCard,
+  InsetCard,
+  GlassPanel,
+  CompareGrid,
+  PreviewFrame,
+  FullScreenModal,
+  type ImageCardProps,
+  type ProfileCardProps,
+  type PricingTierCardProps,
+  type ServiceCardProps,
+  type InsetCardProps,
+  type GlassPanelProps,
+  type CompareGridProps,
+  type PreviewFrameProps,
+  type FullScreenModalProps,
+} from "./Containers";
+export {
+  ProgressToast,
+  ConfettiBurst,
+  type ProgressToastProps,
+  type ConfettiBurstProps,
+} from "./Celebrations";
+
 export const surfaceComponents = [
   {
     id: "modal",
