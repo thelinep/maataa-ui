@@ -178,7 +178,7 @@ const StoryboardGrid: React.FC<StoryboardGridProps> = ({ storyboardId, onImport,
   return (
     <GridContainer>
       <Header>
-        <Title>🎬 Storyboard: {storyboard.title}</Title>
+        <Title><span aria-hidden="true">🎬 </span>Storyboard: {storyboard.title}</Title>
         <ActionBar>
           <Button variant="secondary" onClick={() => onImport?.(storyboard.id)}>
             📥 Import
@@ -205,15 +205,20 @@ const StoryboardGrid: React.FC<StoryboardGridProps> = ({ storyboardId, onImport,
                   role="button"
                   tabIndex={0}
                   aria-pressed={selectedShot?.shotNumber === shot.shotNumber}
+                  aria-labelledby={`shot-${scene.sceneNumber}-${shot.shotNumber}-title`}
+                  aria-describedby={`shot-${scene.sceneNumber}-${shot.shotNumber}-desc`}
                   onClick={() => setSelectedShot(shot)}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') setSelectedShot(shot);
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedShot(shot);
+                    }
                   }}
                 >
-                  <ShotThumbnail>🎥</ShotThumbnail>
+                  <ShotThumbnail aria-hidden="true">🎥</ShotThumbnail>
                   <ShotContent>
-                    <ShotNumber>Shot {shot.shotNumber}</ShotNumber>
-                    <ShotDescription>{shot.description}</ShotDescription>
+                    <ShotNumber id={`shot-${scene.sceneNumber}-${shot.shotNumber}-title`}>Shot {shot.shotNumber}</ShotNumber>
+                    <ShotDescription id={`shot-${scene.sceneNumber}-${shot.shotNumber}-desc`}>{shot.description}</ShotDescription>
                     <ShotFooter>
                       <span>{shot.duration}s</span>
                       <span>{shot.cameraMove}</span>

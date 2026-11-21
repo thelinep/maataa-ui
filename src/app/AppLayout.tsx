@@ -38,8 +38,9 @@ const Sidebar = styled.nav`
     position: static;
     height: auto;
     display: flex;
-    gap: ${spacing.md};
-    overflow-x: auto;
+    /* Wrap rather than scroll sideways, so every workflow link is visible */
+    flex-wrap: wrap;
+    gap: ${spacing.xs} ${spacing.md};
     padding: ${spacing.sm} ${spacing.md};
     border-right: none;
     border-bottom: 1px solid ${colorTokens.border.primary};
@@ -63,6 +64,7 @@ const Section = styled.div`
 
   @media (max-width: 768px) {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: ${spacing.xs};
     margin-bottom: 0;
@@ -151,7 +153,7 @@ export const AppLayout: React.FC = () => (
       ))}
     </Sidebar>
     <Main id={MAIN_ID} tabIndex={-1}>
-      <Suspense fallback={<LoadingState />}>
+      <Suspense fallback={<LoadingState announce={false} />}>
         <Outlet />
       </Suspense>
     </Main>
@@ -196,7 +198,7 @@ export const WorkflowTabs: React.FC<{ label: string; tabs: { label: string; to: 
         </TabLink>
       ))}
     </TabBar>
-    <Suspense fallback={<LoadingState />}>
+    <Suspense fallback={<LoadingState announce={false} />}>
       <Outlet />
     </Suspense>
   </>

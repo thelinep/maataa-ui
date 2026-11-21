@@ -277,7 +277,7 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
 
   return (
     <Container>
-      <Title>📅 Project Timeline: {projectName}</Title>
+      <Title><span aria-hidden="true">📅 </span>Project Timeline: {projectName}</Title>
 
       <TimelineHeader>
         <TimelineStats>

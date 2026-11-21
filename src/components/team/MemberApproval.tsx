@@ -261,12 +261,12 @@ export const MemberApproval: React.FC<MemberApprovalProps> = ({
   return (
     <Container>
       <Header>
-        <Title>✅ Member Approval Workflow</Title>
+        <Title><span aria-hidden="true">✅ </span>Member Approval Workflow</Title>
       </Header>
 
       {/* Invite Section */}
       <Section>
-        <SectionTitle>📧 Invite New Member</SectionTitle>
+        <SectionTitle><span aria-hidden="true">📧 </span>Invite New Member</SectionTitle>
         <FormSection>
           <FormControl>
             <Label>Email Address</Label>
@@ -303,7 +303,7 @@ export const MemberApproval: React.FC<MemberApprovalProps> = ({
       {/* Pending Approvals */}
       {canApprove && (
         <Section>
-          <SectionTitle>⏳ Pending Approval ({pendingRequests.length})</SectionTitle>
+          <SectionTitle><span aria-hidden="true">⏳ </span>Pending Approval ({pendingRequests.length})</SectionTitle>
           {pendingRequests.length === 0 ? (
             <EmptyState>All member requests have been processed</EmptyState>
           ) : (

@@ -20,11 +20,22 @@ const ErrorBox = styled(StateBox)`
   border-radius: 8px;
 `;
 
-export const LoadingState: React.FC<{ label?: string }> = ({ label = 'Loading…' }) => (
-  <StateBox role="status" aria-live="polite">
-    {label}
-  </StateBox>
-);
+/**
+ * `announce={false}` shows the text without a live region: for the brief
+ * route-chunk fallback, which would otherwise be announced just before the
+ * page's own "Loading …" message.
+ */
+export const LoadingState: React.FC<{ label?: string; announce?: boolean }> = ({
+  label = 'Loading…',
+  announce = true,
+}) =>
+  announce ? (
+    <StateBox role="status" aria-live="polite">
+      {label}
+    </StateBox>
+  ) : (
+    <StateBox>{label}</StateBox>
+  );
 
 export const ErrorState: React.FC<{ error: Error }> = ({ error }) => (
   <ErrorBox role="alert">Something went wrong: {error.message}</ErrorBox>

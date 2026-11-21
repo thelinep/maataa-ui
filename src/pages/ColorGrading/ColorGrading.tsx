@@ -101,7 +101,7 @@ const ColorGrading: React.FC = () => {
 
   return (
     <Container>
-      <Title>🎨 Color Grading</Title>
+      <Title><span aria-hidden="true">🎨 </span>Color Grading</Title>
       <Grid>
         {scenes.map((scene) => (
           <SceneCard key={scene.id}>

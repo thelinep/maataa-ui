@@ -270,7 +270,7 @@ export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
   return (
     <Container>
       <Header>
-        <Title>🔔 Spending Alerts</Title>
+        <Title><span aria-hidden="true">🔔 </span>Spending Alerts</Title>
         {!showForm && (
           <Button
             variant="primary"

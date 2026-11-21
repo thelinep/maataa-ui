@@ -246,7 +246,7 @@ export const ConflictDetection: React.FC<ConflictDetectionProps> = ({
   return (
     <Container>
       <Header>
-        <Title>⚠️ Conflict Detection</Title>
+        <Title><span aria-hidden="true">⚠️ </span>Conflict Detection</Title>
       </Header>
 
       <SummaryCard>

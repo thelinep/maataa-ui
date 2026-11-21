@@ -172,7 +172,7 @@ export const TeamPermissions: React.FC<TeamPermissionsProps> = ({
 
   return (
     <Container>
-      <Title>🔐 Permission Matrix</Title>
+      <Title><span aria-hidden="true">🔐 </span>Permission Matrix</Title>
 
       <MatrixContainer>
         <Matrix>
@@ -222,7 +222,7 @@ export const TeamPermissions: React.FC<TeamPermissionsProps> = ({
         </Matrix>
       </MatrixContainer>
 
-      <Title style={{ marginTop: spacing.lg }}>📋 Permission Descriptions</Title>
+      <Title style={{ marginTop: spacing.lg }}><span aria-hidden="true">📋 </span>Permission Descriptions</Title>
 
       {resourceGroups.map((group) => {
         const groupPerms = permissions.filter((p) => p.resource === group.name);

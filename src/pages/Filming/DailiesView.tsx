@@ -213,7 +213,7 @@ const DailiesView: React.FC = () => {
   return (
     <ViewContainer>
       <Header>
-        <Title>📹 Dailies Review</Title>
+        <Title><span aria-hidden="true">📹 </span>Dailies Review</Title>
         <FilterBar>
           <FilterSelect
             aria-label="Filter footage"

@@ -114,7 +114,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors },
     reset,
   } = useForm<TeamFormData>({
     resolver: zodResolver(TeamSchema),
@@ -290,7 +290,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({
           </Button>
           <Button
             type="submit"
-            disabled={isSubmitting || !isDirty}
+            disabled={isSubmitting}
           >
             {isSubmitting ? 'Saving...' : 'Save Team'}
           </Button>

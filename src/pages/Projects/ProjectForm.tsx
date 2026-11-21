@@ -121,7 +121,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
     control,
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors },
     reset,
   } = useForm<ProjectFormData>({
     resolver: zodResolver(ProjectSchema),
@@ -247,7 +247,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
           </Button>
           <Button
             type="submit"
-            disabled={isSubmitting || !isDirty}
+            disabled={isSubmitting}
           >
             {isSubmitting ? 'Saving...' : 'Save Project'}
           </Button>

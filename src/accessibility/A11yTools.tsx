@@ -63,6 +63,8 @@ const Group = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: row;
+    /* Own row above the workflow links */
+    flex: 0 0 100%;
     margin: 0;
     padding: 0;
   }

@@ -245,7 +245,7 @@ export const ResourceAvailability: React.FC<ResourceAvailabilityProps> = ({
 
   return (
     <Container>
-      <Title>🕐 Resource Availability Finder</Title>
+      <Title><span aria-hidden="true">🕐 </span>Resource Availability Finder</Title>
 
       <Legend>
         <LegendItem>

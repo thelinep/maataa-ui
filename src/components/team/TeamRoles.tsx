@@ -219,7 +219,7 @@ export const TeamRoles: React.FC<TeamRolesProps> = ({
   return (
     <Container>
       <Header>
-        <Title>👥 Team Role Hierarchy</Title>
+        <Title><span aria-hidden="true">👥 </span>Team Role Hierarchy</Title>
       </Header>
 
       <HierarchyChart>

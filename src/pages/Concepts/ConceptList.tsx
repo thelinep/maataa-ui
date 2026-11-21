@@ -229,7 +229,7 @@ const ConceptList: React.FC<ConceptListProps> = ({ onSelect, onCreate }) => {
   return (
     <ListContainer>
       <Header>
-        <Title>🎬 Concepts</Title>
+        <Title><span aria-hidden="true">🎬 </span>Concepts</Title>
         <CreateButton onClick={() => onCreate?.()}>
           + New Concept
         </CreateButton>

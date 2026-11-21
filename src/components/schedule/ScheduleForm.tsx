@@ -178,7 +178,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
     control,
     handleSubmit,
     watch,
-    formState: { errors, isDirty },
+    formState: { errors },
     reset,
   } = useForm<ScheduleFormData>({
     resolver: zodResolver(ScheduleSchema),
@@ -459,7 +459,7 @@ export const ScheduleForm: React.FC<ScheduleFormProps> = ({
           </Button>
           <Button
             type="submit"
-            disabled={isSubmitting || !isDirty}
+            disabled={isSubmitting}
           >
             {isSubmitting ? 'Scheduling...' : eventId ? 'Update Event' : 'Schedule Event'}
           </Button>

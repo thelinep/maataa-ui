@@ -330,7 +330,9 @@ describe('ScriptEditor', () => {
 describe('StoryboardList', () => {
   it('derives scene and shot counts from the storyboard', async () => {
     renderWithStore(<StoryboardList />);
-    const card = (await screen.findByText('The Lost Highway - Full')).closest('[role="button"]') as HTMLElement;
+    // The card's details are the title button's description
+    const title = await screen.findByRole('button', { name: 'The Lost Highway - Full' });
+    const card = document.getElementById(title.getAttribute('aria-describedby')!) as HTMLElement;
 
     expect(within(card).getByText('Scenes').nextSibling).toHaveTextContent('2');
     expect(within(card).getByText('Shots').nextSibling).toHaveTextContent('4');

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
+import { CardButton, clickableCard } from '../shared/CardButton';
 
 import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import type { ScreeningFeedback, ScreeningRecord } from '@/core/film/types';
@@ -55,6 +56,7 @@ const Grid = styled.div`
 `;
 
 const ScreeningCard = styled.div`
+  ${clickableCard}
   background: ${colorTokens.background.secondary};
   border: 1px solid ${colorTokens.border.primary};
   border-radius: 8px;
@@ -217,7 +219,7 @@ const ScreeningList: React.FC<ScreeningListProps> = ({ onSelect, onCreate }) => 
   return (
     <ListContainer>
       <Header>
-        <Title>🎬 Screenings</Title>
+        <Title><span aria-hidden="true">🎬 </span>Screenings</Title>
         <CreateButton onClick={() => onCreate?.()}>
           + Schedule Screening
         </CreateButton>
@@ -232,60 +234,58 @@ const ScreeningList: React.FC<ScreeningListProps> = ({ onSelect, onCreate }) => 
           {screenings.map((screening) => {
             const avgRating = averageRating(screening.feedback);
             return (
-            <ScreeningCard
-              key={screening.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => onSelect?.(screening.id)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') onSelect?.(screening.id);
-              }}
-            >
-              <CardTitle>{screening.title}</CardTitle>
+            <ScreeningCard key={screening.id}>
+              <CardTitle>
+                <CardButton type="button" onClick={() => onSelect?.(screening.id)} aria-describedby={`${screening.id}-details`}>
+                  {screening.title}
+                </CardButton>
+              </CardTitle>
+              <div id={`${screening.id}-details`}>
               
-              <CardRow>
-                <CardLabel>Type</CardLabel>
-                <TypeBadge type={screening.type}>
-                  {screening.type.charAt(0).toUpperCase() + screening.type.slice(1)}
-                </TypeBadge>
-              </CardRow>
-
-              <CardRow>
-                <CardLabel>Status</CardLabel>
-                <StatusBadge status={screening.status}>
-                  {screening.status.charAt(0).toUpperCase() + screening.status.slice(1)}
-                </StatusBadge>
-              </CardRow>
-
-              <CardRow>
-                <CardLabel>Date</CardLabel>
-                <CardValue>{formatDate(screening.date)}</CardValue>
-              </CardRow>
-
-              <CardRow>
-                <CardLabel>Location</CardLabel>
-                <CardValue>{screening.location}</CardValue>
-              </CardRow>
-
-              <CardRow>
-                <CardLabel>Audience</CardLabel>
-                <CardValue>{screening.audienceSize} people</CardValue>
-              </CardRow>
-
-              {screening.accessibility && (
                 <CardRow>
-                  <CardLabel>Access</CardLabel>
-                  <AccessibilityBadges accessibility={screening.accessibility} />
+                  <CardLabel>Type</CardLabel>
+                  <TypeBadge type={screening.type}>
+                    {screening.type.charAt(0).toUpperCase() + screening.type.slice(1)}
+                  </TypeBadge>
                 </CardRow>
-              )}
 
-              {screening.status === 'completed' && avgRating !== null && (
-                <RatingContainer>
-                  <Stars>{renderStars(avgRating)}</Stars>
-                  <RatingValue>{avgRating}/5</RatingValue>
-                  <FeedbackLink>({screening.feedback.length} responses)</FeedbackLink>
-                </RatingContainer>
-              )}
+                <CardRow>
+                  <CardLabel>Status</CardLabel>
+                  <StatusBadge status={screening.status}>
+                    {screening.status.charAt(0).toUpperCase() + screening.status.slice(1)}
+                  </StatusBadge>
+                </CardRow>
+
+                <CardRow>
+                  <CardLabel>Date</CardLabel>
+                  <CardValue>{formatDate(screening.date)}</CardValue>
+                </CardRow>
+
+                <CardRow>
+                  <CardLabel>Location</CardLabel>
+                  <CardValue>{screening.location}</CardValue>
+                </CardRow>
+
+                <CardRow>
+                  <CardLabel>Audience</CardLabel>
+                  <CardValue>{screening.audienceSize} people</CardValue>
+                </CardRow>
+
+                {screening.accessibility && (
+                  <CardRow>
+                    <CardLabel>Access</CardLabel>
+                    <AccessibilityBadges accessibility={screening.accessibility} />
+                  </CardRow>
+                )}
+
+                {screening.status === 'completed' && avgRating !== null && (
+                  <RatingContainer>
+                    <Stars>{renderStars(avgRating)}</Stars>
+                    <RatingValue>{avgRating}/5</RatingValue>
+                    <FeedbackLink>({screening.feedback.length} responses)</FeedbackLink>
+                  </RatingContainer>
+                )}
+              </div>
             </ScreeningCard>
             );
           })}

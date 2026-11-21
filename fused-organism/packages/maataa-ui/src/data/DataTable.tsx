@@ -35,6 +35,11 @@ export interface DataTableProps<T extends DataTableRow = Record<string, unknown>
    * the row's position in the current (sorted) order.
    */
   onRowClick?: (row: T, index: number) => void;
+  /**
+   * Accessible name of an actionable row, announced when it gets focus.
+   * Defaults to the text of the first column. Only used with `onRowClick`.
+   */
+  getRowLabel?: (row: T, index: number) => string;
 
   className?: string;
   style?: React.CSSProperties;
@@ -62,7 +67,16 @@ type SortDirection = "asc" | "desc";
  * ```
  */
 function DataTableInner<T extends DataTableRow = Record<string, unknown>>(
-  { columns, data, getRowKey, emptyState, onRowClick, className, style }: DataTableProps<T>,
+  {
+    columns,
+    data,
+    getRowKey,
+    emptyState,
+    onRowClick,
+    getRowLabel,
+    className,
+    style,
+  }: DataTableProps<T>,
   ref: React.ForwardedRef<HTMLTableElement>
 ) {
   const [activeRow, setActiveRow] = useState<number | null>(null);
@@ -165,6 +179,12 @@ function DataTableInner<T extends DataTableRow = Record<string, unknown>>(
               {...(onRowClick
                 ? {
                     tabIndex: 0,
+                    // A focused row needs a name, or screen readers say only "row"
+                    "aria-label": getRowLabel
+                      ? getRowLabel(row, index)
+                      : columns.length > 0
+                        ? String(cell(row, columns[0].key) ?? "")
+                        : undefined,
                     onClick: () => onRowClick(row, index),
                     onKeyDown: (event: React.KeyboardEvent<HTMLTableRowElement>) => {
                       if (event.target !== event.currentTarget) return;
