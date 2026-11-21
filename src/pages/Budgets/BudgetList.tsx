@@ -11,7 +11,8 @@ import { useNavigate } from 'react-router';
 import { Button, Card } from '@/components';
 import { SearchInput } from '@maataa/ui/forms';
 import { DataTable } from '@maataa/ui/data';
-import { useEntity } from '@/hooks';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import { personName } from '../shared/people';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
 
@@ -153,35 +154,25 @@ export const BudgetList: React.FC = () => {
     direction: 'asc' | 'desc';
   }>({ key: 'name', direction: 'asc' });
 
-  const { loading, error, getEntitiesByType } = useEntity({ type: 'budget' });
+  const { items, loading, error } = useFilmEntities('budget');
 
-  // Fetch budgets from Phase 2 EntityManager
+  // Rows for the table, kept in step with the store
   useEffect(() => {
-    const loadBudgets = async () => {
-      try {
-        const entities = await getEntitiesByType('budget');
-        const budgets: Budget[] = entities.map(entity => ({
-          id: entity.id,
-          name: entity.data.name,
-          description: entity.data.description,
-          allocated: entity.data.allocated || 0,
-          spent: entity.data.spent || 0,
-          remaining: (entity.data.allocated || 0) - (entity.data.spent || 0),
-          currency: entity.data.currency || 'USD',
-          owner: entity.data.owner,
-          created_at: entity.created_at,
-          updated_at: entity.updated_at,
-        }));
-
-        setBudgets(budgets);
-        setFilteredBudgets(budgets);
-      } catch (err) {
-        console.error('Failed to load budgets:', err);
-      }
-    };
-
-    loadBudgets();
-  }, [getEntitiesByType]);
+    const rows: Budget[] = items.map((r) => ({
+          id: r.id,
+          name: r.name,
+          description: r.description,
+          allocated: r.allocated,
+          spent: r.spent,
+          remaining: r.allocated - r.spent,
+          currency: r.currency,
+          owner: r.owner ? personName(r.owner) : undefined,
+          created_at: r.createdAt.toISOString(),
+          updated_at: r.updatedAt.toISOString(),
+    }));
+    setBudgets(rows);
+    setFilteredBudgets(rows);
+  }, [items]);
 
   // Handle search and filtering
   useEffect(() => {

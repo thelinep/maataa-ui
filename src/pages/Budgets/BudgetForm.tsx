@@ -13,7 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components';
 import { Input } from '@maataa/primitives';
 import { FieldShell, Select } from '@maataa/ui/forms';
-import { useEntity, usePresence } from '@/hooks';
+import { usePresence } from '@/hooks';
+import { PEOPLE_OPTIONS } from '../shared/people';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 
 // Zod schema for validation
@@ -30,6 +31,8 @@ export type BudgetFormData = z.infer<typeof BudgetSchema>;
 
 export interface BudgetFormProps {
   budgetId?: string;
+  /** Values to edit; omit when creating */
+  initialValues?: Partial<BudgetFormData>;
   onSubmit: (data: BudgetFormData) => Promise<void>;
   onCancel?: () => void;
 }
@@ -84,10 +87,6 @@ const SuccessMessage = styled.div`
   font-size: ${typography.bodySmall.fontSize};
 `;
 
-const LoadingText = styled.span`
-  opacity: 0.6;
-  font-size: ${typography.bodySmall.fontSize};
-`;
 
 const BudgetSummary = styled.div`
   display: grid;
@@ -128,11 +127,6 @@ const CURRENCY_OPTIONS = [
   { label: 'INR - Indian Rupee', value: 'INR' },
 ];
 
-const OWNER_OPTIONS = [
-  { label: 'Alice Johnson', value: 'user-001' },
-  { label: 'Bob Smith', value: 'user-002' },
-  { label: 'Carol Williams', value: 'user-003' },
-];
 
 /**
  * BudgetForm Component
@@ -146,6 +140,7 @@ const OWNER_OPTIONS = [
  */
 export const BudgetForm: React.FC<BudgetFormProps> = ({
   budgetId,
+  initialValues,
   onSubmit,
   onCancel,
 }) => {
@@ -154,11 +149,6 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { entity: budget, loading: entityLoading } = useEntity({
-    entityId: budgetId,
-    type: 'budget',
-    autoFetch: !!budgetId,
-  });
 
   const { setTyping } = usePresence({ entityId: budgetId });
 
@@ -177,6 +167,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
       spent: 0,
       currency: 'USD',
       owner: '',
+      ...initialValues,
     },
   });
 
@@ -185,19 +176,6 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
   const spent = watch('spent');
   const currency = watch('currency');
 
-  // Load existing budget data
-  useEffect(() => {
-    if (budget?.data) {
-      reset({
-        name: budget.data.name || '',
-        description: budget.data.description || '',
-        allocated: budget.data.allocated || 0,
-        spent: budget.data.spent || 0,
-        currency: budget.data.currency || 'USD',
-        owner: budget.data.owner || '',
-      });
-    }
-  }, [budget, reset]);
 
   // Handle field changes with debounced typing indicator
   const handleFieldChange = () => {
@@ -232,7 +210,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
       await onSubmit(data);
       setSubmitSuccess(true);
       setTyping(false);
-      reset();
+      reset(data);
 
       // Clear success message after 3 seconds
       setTimeout(() => setSubmitSuccess(false), 3000);
@@ -245,13 +223,6 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
     }
   };
 
-  if (entityLoading) {
-    return (
-      <Container>
-        <LoadingText>Loading budget...</LoadingText>
-      </Container>
-    );
-  }
 
   const remaining = allocated - spent;
   const percentage = allocated > 0 ? (spent / allocated) * 100 : 0;
@@ -259,8 +230,8 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Container>
-        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
-        {submitSuccess && <SuccessMessage>Budget saved successfully!</SuccessMessage>}
+        <div role="alert">{submitError && <ErrorMessage>{submitError}</ErrorMessage>}</div>
+        <div role="status">{submitSuccess && <SuccessMessage>Budget saved.</SuccessMessage>}</div>
 
         {/* Budget Summary */}
         <BudgetSummary>
@@ -403,7 +374,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
               render={({ field }) => (
                 <Select
                   {...field}
-                  options={OWNER_OPTIONS}
+                  options={PEOPLE_OPTIONS}
                   placeholder="Select owner"
                   onChange={(value) => {
                     handleFieldChange();

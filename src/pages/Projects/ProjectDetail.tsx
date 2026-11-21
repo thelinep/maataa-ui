@@ -16,7 +16,9 @@ import {
 } from '@/components';
 import { Modal } from '@maataa/ui/surfaces';
 import { Tabs } from '@maataa/ui/navigation';
-import { useEntity, useActivityStream, usePresence } from '@/hooks';
+import { useActivityStream, usePresence } from '@/hooks';
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { peopleNames } from '../shared/people';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import ProjectForm, { ProjectFormData } from './ProjectForm';
 import type { Activity } from '@/hooks/useActivityStream';
@@ -168,11 +170,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-  const { entity: project, loading: entityLoading, error: entityError } = useEntity({
-    entityId: projectId,
-    type: 'project',
-    autoFetch: true,
-  });
+  const { item: project, loading: entityLoading, error: entityError, update } = useFilmEntity('project', projectId);
+  const [savedMessage, setSavedMessage] = useState('');
 
   const { activities, loading: activitiesLoading } = useActivityStream({
     entityId: projectId,
@@ -184,16 +183,16 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
     userId: 'current-user', // TODO: Get from auth context
   });
 
+  // Errors propagate to the form, which shows them in its alert region.
   const handleEditSubmit = async (data: ProjectFormData) => {
-    void data; // TODO: Use this data to update entity via useEntity
-    try {
-      // TODO: Call useEntity.updateEntity with the form data
-      // await updateEntity(projectId, data);
-      setIsEditModalOpen(false);
-    } catch (error) {
-      console.error('Failed to update project:', error);
-      throw error;
-    }
+    await update({
+      name: data.name,
+      description: data.description || undefined,
+      status: data.status,
+      teamMembers: data.teamMembers ?? [],
+    });
+    setSavedMessage('Project saved.');
+    setIsEditModalOpen(false);
   };
 
   if (entityLoading) {
@@ -221,7 +220,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
     );
   }
 
-  const projectData = project.data || {};
+  const projectData = project;
 
   return (
     <Container>
@@ -250,6 +249,11 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         </Actions>
       </Header>
 
+      {/* Announced after saving an edit; visible so sighted users see it too */}
+      <div role="status" style={{ minHeight: '1.2em', color: colorTokens.text.primary }}>
+        {savedMessage}
+      </div>
+
       {/* Metadata */}
       <Card>
         <MetadataGrid>
@@ -261,21 +265,21 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
           </MetadataItem>
           <MetadataItem>
             <MetadataLabel>Team Size</MetadataLabel>
-            <MetadataValue>{projectData.teamSize || 0} members</MetadataValue>
+            <MetadataValue>{projectData.teamMembers.length} members</MetadataValue>
           </MetadataItem>
           <MetadataItem>
             <MetadataLabel>Created</MetadataLabel>
             <MetadataValue>
-              {projectData.created_at
-                ? new Date(projectData.created_at).toLocaleDateString()
+              {projectData.createdAt
+                ? new Date(projectData.createdAt).toLocaleDateString()
                 : 'N/A'}
             </MetadataValue>
           </MetadataItem>
           <MetadataItem>
             <MetadataLabel>Last Updated</MetadataLabel>
             <MetadataValue>
-              {projectData.updated_at
-                ? new Date(projectData.updated_at).toLocaleDateString()
+              {projectData.updatedAt
+                ? new Date(projectData.updatedAt).toLocaleDateString()
                 : 'N/A'}
             </MetadataValue>
           </MetadataItem>
@@ -301,7 +305,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     <MetadataItem>
                       <MetadataLabel>Team Members</MetadataLabel>
                       <MetadataValue>
-                        {projectData.teamMembers.join(', ')}
+                        {peopleNames(projectData.teamMembers)}
                       </MetadataValue>
                     </MetadataItem>
                   )}
@@ -366,6 +370,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         <div style={{ padding: spacing.lg }}>
           <ProjectForm
             projectId={projectId}
+            initialValues={{
+              name: project.name,
+              description: project.description ?? '',
+              status: project.status,
+              teamMembers: project.teamMembers,
+            }}
             onSubmit={handleEditSubmit}
             onCancel={() => setIsEditModalOpen(false)}
           />

@@ -8,7 +8,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Card } from '@/components';
-import { useEntity } from '@/hooks';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import { spacing, typography, colorTokens } from '@/utils/tokens';
 import BudgetForm, { BudgetFormData } from './BudgetForm';
 
@@ -48,28 +48,24 @@ const Subtitle = styled.p`
  */
 export const CreateBudget: React.FC = () => {
   const navigate = useNavigate();
-  const { createEntity } = useEntity({ type: 'budget' });
+  const { create } = useFilmEntities('budget');
 
+  // Errors propagate to the form, which shows them in its alert region.
   const handleSubmit = async (data: BudgetFormData) => {
-    void data; // TODO: Use this data to create entity via useEntity
-    try {
-      // TODO: Call useEntity.createEntity with form data
-      // const newBudget = await createEntity(data);
-      // navigate(`/budgets/${newBudget.id}`);
-
-      // For now, just navigate back to list
-      navigate('/budgets');
-    } catch (error) {
-      console.error('Failed to create budget:', error);
-      throw error;
-    }
+    const created = await create({
+      name: data.name,
+      description: data.description || undefined,
+      allocated: data.allocated,
+      spent: data.spent,
+      currency: data.currency,
+      owner: data.owner || undefined,
+    });
+    navigate(`/budgets/${created.id}`);
   };
 
   const handleCancel = () => {
     navigate('/budgets');
   };
-
-  void createEntity; // Placeholder for future use
 
   return (
     <Container>

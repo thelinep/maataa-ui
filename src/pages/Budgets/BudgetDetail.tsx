@@ -16,7 +16,9 @@ import {
   TypingIndicator,
 } from '@/components';
 import { Modal } from '@maataa/ui/surfaces';
-import { useEntity, useActivityStream, usePresence } from '@/hooks';
+import { useActivityStream, usePresence } from '@/hooks';
+import { useFilmEntity } from '@/hooks/data/useFilmEntities';
+import { personName } from '../shared/people';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import BudgetForm, { BudgetFormData } from './BudgetForm';
 import type { Activity } from '@/hooks/useActivityStream';
@@ -173,11 +175,8 @@ export const BudgetDetail: React.FC<BudgetDetailProps> = ({
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const { entity: budget, loading: entityLoading, error: entityError } = useEntity({
-    entityId: budgetId,
-    type: 'budget',
-    autoFetch: true,
-  });
+  const { item: budget, loading: entityLoading, error: entityError, update } = useFilmEntity('budget', budgetId);
+  const [savedMessage, setSavedMessage] = useState('');
 
   const { activities, loading: activitiesLoading } = useActivityStream({
     entityId: budgetId,
@@ -216,23 +215,23 @@ export const BudgetDetail: React.FC<BudgetDetailProps> = ({
     };
   }, [budgetId, subscribeActivity, unsubscribeActivity, setStatus]);
 
+  // Errors propagate to the form, which shows them in its alert region.
   const handleEditSubmit = async (data: BudgetFormData) => {
-    void data; // TODO: Use this data to update entity via useEntity
+    setTyping(true);
     try {
-      // Track typing status during edit
-      setTyping(true);
-
-      // TODO: Call useEntity.updateEntity with the form data
-      // const updated = await updateEntity(budgetId, data);
-      // Phase 5 will broadcast the change automatically
-
+      await update({
+        name: data.name,
+        description: data.description || undefined,
+        allocated: data.allocated,
+        spent: data.spent,
+        currency: data.currency,
+        owner: data.owner || undefined,
+      });
+    } finally {
       setTyping(false);
-      setIsEditModalOpen(false);
-    } catch (error) {
-      console.error('Failed to update budget:', error);
-      setTyping(false);
-      throw error;
     }
+    setSavedMessage('Budget saved.');
+    setIsEditModalOpen(false);
   };
 
   if (entityLoading) {
@@ -260,7 +259,7 @@ export const BudgetDetail: React.FC<BudgetDetailProps> = ({
     );
   }
 
-  const budgetData = budget.data || {};
+  const budgetData = budget;
   const allocated = budgetData.allocated || 0;
   const spent = budgetData.spent || 0;
   const remaining = allocated - spent;
@@ -294,6 +293,11 @@ export const BudgetDetail: React.FC<BudgetDetailProps> = ({
           )}
         </Actions>
       </Header>
+
+      {/* Announced after saving an edit; visible so sighted users see it too */}
+      <div role="status" style={{ minHeight: '1.2em', color: colorTokens.text.primary }}>
+        {savedMessage}
+      </div>
 
       {/* Financial Metrics */}
       <Card>
@@ -345,14 +349,14 @@ export const BudgetDetail: React.FC<BudgetDetailProps> = ({
           <div>
             <span style={{ fontWeight: 600 }}>Budget Owner</span>
             <span style={{ color: colorTokens.text.secondary, marginTop: spacing.sm, display: 'block' }}>
-              {budgetData.owner || 'Not assigned'}
+              {personName(budgetData.owner) || 'Not assigned'}
             </span>
           </div>
           <div style={{ marginTop: spacing.md }}>
             <span style={{ fontWeight: 600 }}>Created</span>
             <span style={{ color: colorTokens.text.secondary, marginTop: spacing.sm, display: 'block' }}>
-              {budgetData.created_at
-                ? new Date(budgetData.created_at).toLocaleDateString()
+              {budgetData.createdAt
+                ? new Date(budgetData.createdAt).toLocaleDateString()
                 : 'N/A'}
             </span>
           </div>
@@ -391,6 +395,14 @@ export const BudgetDetail: React.FC<BudgetDetailProps> = ({
           )}
           <BudgetForm
             budgetId={budgetId}
+            initialValues={{
+              name: budget.name,
+              description: budget.description ?? '',
+              allocated: budget.allocated,
+              spent: budget.spent,
+              currency: budget.currency,
+              owner: budget.owner ?? '',
+            }}
             onSubmit={handleEditSubmit}
             onCancel={() => setIsEditModalOpen(false)}
           />

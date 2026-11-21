@@ -374,5 +374,24 @@ export function createFilmSeed(): FilmSeed {
         },
       },
     ],
+
+    project: [
+      { id: 'project-1', createdAt: d('2026-10-01'), updatedAt: d('2026-11-18'), data: { name: 'The Lost Highway', description: 'Feature film: noir thriller, in post-production', status: 'active', teamMembers: ['user-001', 'user-002', 'user-003', 'user-005'] } },
+      { id: 'project-2', createdAt: d('2026-10-20'), updatedAt: d('2026-11-10'), data: { name: 'Festival Trailer', description: 'Two-minute trailer for the festival premiere', status: 'planning', teamMembers: ['user-002', 'user-004'] } },
+      { id: 'project-3', createdAt: d('2026-09-05'), updatedAt: d('2026-11-02'), data: { name: 'Behind the Scenes', description: 'Making-of documentary short', status: 'paused', teamMembers: ['user-003'] } },
+      { id: 'project-4', createdAt: d('2026-07-12'), updatedAt: d('2026-09-30'), data: { name: 'Teaser Campaign', description: 'Social teasers and poster reveal', status: 'completed', teamMembers: ['user-001', 'user-004', 'user-005'] } },
+    ],
+
+    team: [
+      { id: 'team-1', createdAt: d('2026-10-01'), updatedAt: d('2026-11-15'), data: { name: 'Camera Department', description: 'Cinematography, camera and lighting', lead: 'user-001', members: ['user-001', 'user-003', 'user-005'] } },
+      { id: 'team-2', createdAt: d('2026-10-05'), updatedAt: d('2026-11-12'), data: { name: 'Post-production', description: 'Editing, colour and sound', lead: 'user-002', members: ['user-002', 'user-004'] } },
+      { id: 'team-3', createdAt: d('2026-10-08'), updatedAt: d('2026-10-08'), data: { name: 'Production Office', description: 'Scheduling, logistics and accounts', lead: 'user-004', members: ['user-004'] } },
+    ],
+
+    budget: [
+      { id: 'budget-1', createdAt: d('2026-10-01'), updatedAt: d('2026-11-18'), data: { name: 'Principal Photography', description: 'Crew, equipment and locations for the shoot', allocated: 1500000, spent: 1320000, currency: 'INR', owner: 'user-004' } },
+      { id: 'budget-2', createdAt: d('2026-10-01'), updatedAt: d('2026-11-19'), data: { name: 'Post-production', description: 'Edit suite, colour grade and sound mix', allocated: 600000, spent: 410000, currency: 'INR', owner: 'user-002' } },
+      { id: 'budget-3', createdAt: d('2026-10-15'), updatedAt: d('2026-11-05'), data: { name: 'Festival & Marketing', description: 'Submissions, travel, trailer and posters', allocated: 400000, spent: 95000, currency: 'INR', owner: 'user-001' } },
+    ],
   };
 }

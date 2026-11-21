@@ -12,7 +12,8 @@ import { useNavigate } from 'react-router';
 import { Button, Card } from '@/components';
 import { SearchInput } from '@maataa/ui/forms';
 import { DataTable } from '@maataa/ui/data';
-import { useEntity } from '@/hooks';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
+import { personName } from '../shared/people';
 import { colorTokens, spacing, typography } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
 
@@ -121,32 +122,22 @@ export const TeamList: React.FC = () => {
     direction: 'asc' | 'desc';
   }>({ key: 'name', direction: 'asc' });
 
-  const { loading, error, getEntitiesByType } = useEntity({ type: 'team' });
+  const { items, loading, error } = useFilmEntities('team');
 
-  // Fetch teams from Phase 2 EntityManager
+  // Rows for the table, kept in step with the store
   useEffect(() => {
-    const loadTeams = async () => {
-      try {
-        const entities = await getEntitiesByType('team');
-        const teams: Team[] = entities.map(entity => ({
-          id: entity.id,
-          name: entity.data.name,
-          description: entity.data.description,
-          memberCount: entity.data.memberCount || 0,
-          lead: entity.data.lead,
-          created_at: entity.created_at,
-          updated_at: entity.updated_at,
-        }));
-
-        setTeams(teams);
-        setFilteredTeams(teams);
-      } catch (err) {
-        console.error('Failed to load teams:', err);
-      }
-    };
-
-    loadTeams();
-  }, [getEntitiesByType]);
+    const rows: Team[] = items.map((r) => ({
+          id: r.id,
+          name: r.name,
+          description: r.description,
+          memberCount: r.members.length,
+          lead: r.lead ? personName(r.lead) : undefined,
+          created_at: r.createdAt.toISOString(),
+          updated_at: r.updatedAt.toISOString(),
+    }));
+    setTeams(rows);
+    setFilteredTeams(rows);
+  }, [items]);
 
   // Handle search and filtering
   useEffect(() => {

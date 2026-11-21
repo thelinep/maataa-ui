@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router';
 import { Button, Card } from '@/components';
 import { SearchInput } from '@maataa/ui/forms';
 import { DataTable } from '@maataa/ui/data';
-import { useEntity } from '@/hooks';
+import { useFilmEntities } from '@/hooks/data/useFilmEntities';
 import { colorTokens, spacing, typography, borderRadius } from '@/utils/tokens';
 import { getRoutePath } from '@/nav/routes';
 
@@ -145,32 +145,22 @@ export const ProjectList: React.FC = () => {
     direction: 'asc' | 'desc';
   }>({ key: 'name', direction: 'asc' });
 
-  const { loading, error, getEntitiesByType } = useEntity({ type: 'project' });
+  const { items, loading, error } = useFilmEntities('project');
 
-  // Fetch projects from Phase 2 EntityManager
+  // Rows for the table, kept in step with the store
   useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        const entities = await getEntitiesByType('project');
-        const projects: Project[] = entities.map(entity => ({
-          id: entity.id,
-          name: entity.data.name,
-          description: entity.data.description,
-          status: entity.data.status || 'planning',
-          teamSize: entity.data.teamSize || 0,
-          created_at: entity.created_at,
-          updated_at: entity.updated_at,
-        }));
-
-        setProjects(projects);
-        setFilteredProjects(projects);
-      } catch (err) {
-        console.error('Failed to load projects:', err);
-      }
-    };
-
-    loadProjects();
-  }, [getEntitiesByType]);
+    const rows: Project[] = items.map((r) => ({
+          id: r.id,
+          name: r.name,
+          description: r.description,
+          status: r.status,
+          teamSize: r.teamMembers.length,
+          created_at: r.createdAt.toISOString(),
+          updated_at: r.updatedAt.toISOString(),
+    }));
+    setProjects(rows);
+    setFilteredProjects(rows);
+  }, [items]);
 
   // Handle search and filtering
   useEffect(() => {

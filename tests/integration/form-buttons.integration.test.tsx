@@ -20,7 +20,8 @@ describe('Form buttons', () => {
     expect(onCancel).toHaveBeenCalledTimes(1);
     expect(onSubmit).not.toHaveBeenCalled();
     // Submitting would have run validation and rendered error messages.
-    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    // (The form keeps an empty alert region mounted so errors are announced.)
+    expect(screen.queryAllByRole('alert').filter((a) => a.textContent?.trim())).toHaveLength(0);
   });
 
   it('Save is still a submit button', async () => {

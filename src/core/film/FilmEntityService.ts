@@ -53,6 +53,7 @@ export interface GetEntitiesOptions<K extends FilmKind> {
 function deriveName<K extends FilmKind>(kind: K, data: FilmDataMap[K]): string {
   const record = data as unknown as Record<string, unknown>;
   if (typeof record.title === 'string' && record.title) return record.title;
+  if (typeof record.name === 'string' && record.name) return record.name;
   switch (kind) {
     case 'filming':
       return `Shoot day ${(data as FilmDataMap['filming']).date.toISOString().slice(0, 10)}`;

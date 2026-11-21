@@ -21,7 +21,10 @@ export type FilmEntityType =
   | 'film.screening'
   | 'film.editing'
   | 'film.color'
-  | 'film.sound';
+  | 'film.sound'
+  | 'film.project'
+  | 'film.team'
+  | 'film.budget';
 
 export type EntityType = CoreEntityType | FilmEntityType;
 
