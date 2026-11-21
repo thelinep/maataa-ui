@@ -27,6 +27,48 @@ export {
   type TypedConfirmDialogProps,
 } from "./ConfirmDialog";
 
+// Catalogue A: screens, recovery, palette, notifications, brand
+export {
+  StatusScreen,
+  PermissionDeniedScreen,
+  SessionExpiredScreen,
+  OnboardingCompleteScreen,
+  NotFoundScreen,
+  type StatusScreenProps,
+} from "./StatusScreen";
+export {
+  ErrorBoundary,
+  ErrorFallback,
+  type ErrorBoundaryProps,
+  type ErrorFallbackProps,
+} from "./ErrorBoundary";
+export {
+  ConflictResolutionPanel,
+  type ConflictResolutionPanelProps,
+  type ConflictField,
+} from "./ConflictResolutionPanel";
+export {
+  CommandPalette,
+  filterCommands,
+  useCommandPaletteShortcut,
+  type CommandPaletteProps,
+  type Command,
+} from "./CommandPalette";
+export {
+  NotificationPanel,
+  NotificationDetail,
+  type NotificationPanelProps,
+  type NotificationDetailProps,
+  type NotificationItem,
+} from "./NotificationPanel";
+export {
+  BrandLogo,
+  type BrandLogoProps,
+  type BrandLogoVariant,
+  type BrandLogoTone,
+} from "./BrandLogo";
+export { SplashScreen, type SplashScreenProps } from "./SplashScreen";
+
 // Component metadata
 export const surfaceComponents = [
   {

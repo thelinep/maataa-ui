@@ -12,6 +12,13 @@ export { FAB, type FABProps, type FABPosition } from "./FAB";
 export { ConfirmButton, type ConfirmButtonProps } from "./ConfirmButton";
 export { ArchiveButton, type ArchiveButtonProps } from "./ArchiveButton";
 export { AnonymizeButton, type AnonymizeButtonProps } from "./AnonymizeButton";
+export { CopyButton, type CopyButtonProps } from "./CopyButton";
+export { SignOutButton, type SignOutButtonProps } from "./SignOutButton";
+export {
+  ProviderSignInButtons,
+  type ProviderSignInButtonsProps,
+  type SignInProvider,
+} from "./ProviderSignInButtons";
 
 // Component metadata for Storybook and docs
 export const actionComponents = [

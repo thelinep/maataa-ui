@@ -78,7 +78,7 @@ export const SourceAttribution = React.forwardRef<HTMLElement, SourceAttribution
             rel="noopener noreferrer"
             style={{ color: colorTokens.interactive.primary }}
           >
-            {title}
+            {title}{" "}
             <span
               style={{
                 position: "absolute",
@@ -88,7 +88,6 @@ export const SourceAttribution = React.forwardRef<HTMLElement, SourceAttribution
                 clip: "rect(0 0 0 0)",
               }}
             >
-              {" "}
               (opens in a new tab)
             </span>
           </a>
