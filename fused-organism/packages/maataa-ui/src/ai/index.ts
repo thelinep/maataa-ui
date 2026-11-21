@@ -31,3 +31,12 @@ export {
   type ThoughtHistoryProps,
   type ThoughtRecord,
 } from "./Sochen";
+
+// UI element catalog batch J
+export {
+  AIChatBubble,
+  AITypingIndicator,
+  InteractionModeSwitcher,
+  type AIChatBubbleProps,
+  type InteractionMode,
+} from "./AssistantUI";
