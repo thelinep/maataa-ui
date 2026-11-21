@@ -12,9 +12,9 @@ M2 uses **direct CDP** and does **not** claim Playwright or axe-core coverage.
 
 Reasons:
 
-1. the certified repository remains installable from the tree with an empty npm cache and no third-party package downloads;
+1. a fresh checkout can install from the committed lockfile using the CI runner's warmed npm cache in offline mode;
 2. M2 needs a narrow set of deterministic browser capabilities already exposed by CDP: accessibility tree inspection, real keyboard events, focus inspection, viewport emulation, media-feature emulation, and PNG capture;
-3. Chromium is an environment prerequisite rather than a package dependency;
+3. the pinned Chromium engine is supplied by the CI environment rather than a package dependency (CI uses the exact Chrome for Testing build and records it as Chromium engine family);
 4. direct CDP makes the certification boundary explicit: MAATAA tests its own browser semantics without implying a broader automation-tool or WCAG rules-engine certification.
 
 ## Consequences

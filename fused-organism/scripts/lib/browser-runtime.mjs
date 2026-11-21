@@ -26,8 +26,11 @@ export async function inspectBrowserVersion(executable = findBrowserExecutable()
   const result = spawnSync(executable, ["--version"], { encoding: "utf8" });
   if (result.status !== 0) throw new Error(`BROWSER_VERSION_FAILED:${result.stderr || result.stdout}`);
   const text = (result.stdout || result.stderr).trim();
-  const match = text.match(/(Chromium|Chrome)\s+(\d+\.\d+\.\d+\.\d+)/i);
-  return { executable, versionText: text, family: match?.[1] ?? null, version: match?.[2] ?? null, major: match ? Number(match[2].split('.')[0]) : null };
+  const match = text.match(/(Chromium|Chrome(?:\s+for\s+Testing)?)\s+(\d+\.\d+\.\d+\.\d+)/i);
+  // Chrome for Testing is Chrome-branded but uses the Chromium engine. The
+  // certification policy records the engine family and retains the full
+  // product/version string in versionText and browserProduct.
+  return { executable, versionText: text, family: match ? "Chromium" : null, version: match?.[2] ?? null, major: match ? Number(match[2].split('.')[0]) : null };
 }
 
 export class CDPClient {

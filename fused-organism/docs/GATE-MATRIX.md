@@ -20,7 +20,7 @@ This document separates **tree/kernel gates** from **browser-environment gates**
 | `npm run test:react` | No | Deterministic host-contract fixture; does not launch React or a browser. |
 | `npm test` | No | Node test runner. |
 | `npm run build` | No | Kernel build. |
-| `npm run fresh-clone` | No | Empty-cache offline kernel certification. |
+| `npm run fresh-clone` | No | Isolated checkout, offline lockfile install, package builds, then kernel certification. |
 | `npm run gate:browser-runtime` | **Yes** | Requires exact pinned Chromium. |
 | `npm run certify:browser` / `npm run test:browser` | **Yes** | CDP browser certification + screenshot comparison. |
 | `npm run visuals:update` | **Yes** | Maintainer-only baseline mutation; also requires explicit review acknowledgement. |
