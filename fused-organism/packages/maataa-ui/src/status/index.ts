@@ -49,3 +49,4 @@ export {
   type StateDef,
   type StateMap,
 } from "./StateBadge";
+export { LockIndicator, type LockIndicatorProps } from "./LockIndicator";
