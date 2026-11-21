@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { colorTokens as fusedColors, spacingTokens, radiusTokens } from '@maataa/tokens';
+import { paperColorPalette as fusedColors, spacingTokens, radiusPalette as radiusTokens } from '@maataa/tokens';
 import { Button, Card, Input } from '@maataa/primitives';
 import { ThemeProvider } from '@maataa/ui';
 import { colorTokens, spacing, borderRadius, typography } from '@/utils/tokens';

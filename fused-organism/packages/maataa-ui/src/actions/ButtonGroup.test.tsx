@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 import { ButtonGroup } from "./ButtonGroup";
 import { Button } from "../primitives/Button";
+import { radiusTokens } from "../tokens";
 
 describe("ButtonGroup", () => {
   it("renders its button children", () => {
@@ -70,8 +71,8 @@ describe("ButtonGroup", () => {
       </ButtonGroup>
     );
     expect(screen.getByText("First")).toHaveStyle({
-      borderTopLeftRadius: "6px",
-      borderBottomLeftRadius: "6px",
+      borderTopLeftRadius: radiusTokens.md,
+      borderBottomLeftRadius: radiusTokens.md,
     });
   });
 
@@ -84,8 +85,8 @@ describe("ButtonGroup", () => {
       </ButtonGroup>
     );
     expect(screen.getByText("Last")).toHaveStyle({
-      borderTopRightRadius: "6px",
-      borderBottomRightRadius: "6px",
+      borderTopRightRadius: radiusTokens.md,
+      borderBottomRightRadius: radiusTokens.md,
     });
   });
 
@@ -97,7 +98,7 @@ describe("ButtonGroup", () => {
         <Button>Last</Button>
       </ButtonGroup>
     );
-    expect(screen.getByText("Middle")).toHaveStyle({ borderRadius: "0" });
+    expect(screen.getByText("Middle")).toHaveStyle({ borderRadius: radiusTokens.none });
   });
 
   it("forwards ref to the underlying div", () => {

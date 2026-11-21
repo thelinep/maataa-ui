@@ -3,6 +3,47 @@
  * Design system tokens for consistent styling
  */
 
+// ---------------------------------------------------------------------------
+// Theming
+//
+// Every themeable token (colors, radius, font families, the single-series
+// chart color) is exported as a CSS custom property with the default value as
+// its fallback, e.g. `colorTokens.text.primary` is
+// `var(--maataa-color-text-primary, #3D2817)`. With no theme loaded the
+// library looks exactly as before. To theme it, put the variables from
+// `themeToCss(theme)` on `:root` (or any wrapper): every component that reads
+// these tokens picks the theme up, with no provider and no re-render. The raw
+// palettes (`paperColorPalette`, `darkColorTokens`, `tlpsV2Theme`) stay plain
+// hex for code that needs a literal color (canvas, contrast maths).
+// ---------------------------------------------------------------------------
+
+type TokenTree = { readonly [key: string]: string | TokenTree };
+
+/** `--maataa-<prefix>-<path>` name for a token path. */
+export function tokenVarName(prefix: string, path: readonly string[]): string {
+  return `--maataa-${[prefix, ...path].join("-")}`;
+}
+
+function varTree<T extends TokenTree>(prefix: string, tree: T, path: string[] = []): T {
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(tree)) {
+    out[key] =
+      typeof value === "string"
+        ? `var(${tokenVarName(prefix, [...path, key])}, ${value})`
+        : varTree(prefix, value, [...path, key]);
+  }
+  return out as T;
+}
+
+function flattenTree(prefix: string, tree: TokenTree, path: string[] = []): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [key, value] of Object.entries(tree)) {
+    if (typeof value === "string") out[tokenVarName(prefix, [...path, key])] = value;
+    else Object.assign(out, flattenTree(prefix, value, [...path, key]));
+  }
+  return out;
+}
+
 // Color tokens
 //
 // Aligned to DESIGN_SYSTEM.md's documented "paper-and-ink" warm palette
@@ -16,7 +57,7 @@
 // the one color already shared by both (`interactive.primary`) consistent
 // in one place. `interactive.primary`/`secondary` are unchanged from
 // before since they already matched.
-export const colorTokens = {
+export const paperColorPalette = {
   // Text colors
   // Contrast (WCAG 2.2 AA, measured on all three backgrounds below):
   // primary 11+:1; secondary 6.0:1 or more; tertiary 4.6:1 or more, so it is
@@ -81,6 +122,18 @@ export const colorTokens = {
   },
 };
 
+/** A color palette with the same shape as the default one. */
+export type ColorPalette = {
+  [Group in keyof typeof paperColorPalette]: {
+    [Key in keyof (typeof paperColorPalette)[Group]]: (typeof paperColorPalette)[Group][Key] extends string
+      ? string
+      : { [Sub in keyof (typeof paperColorPalette)[Group][Key]]: string };
+  };
+};
+
+/** Default colors, as CSS variables that fall back to the paper palette. */
+export const colorTokens: ColorPalette = varTree("color", paperColorPalette);
+
 // Dark theme color tokens — "night ops" palette
 //
 // Extracted from the MAATAA Desktop application itself (Sept 2026): its
@@ -93,7 +146,7 @@ export const colorTokens = {
 // sibling for anything that opts in via `ThemeProvider`/`useTheme` (see
 // `src/themes/`). Existing components that import `colorTokens` directly
 // are unaffected until they're migrated to read from theme context.
-export const darkColorTokens = {
+export const darkColorTokens: ColorPalette = {
   text: {
     primary: "#F4F6F8",
     secondary: "#7C8A96",
@@ -159,7 +212,7 @@ export const spacingTokens = {
 };
 
 // Border radius tokens
-export const radiusTokens = {
+export const radiusPalette = {
   none: "0",
   sm: "2px",
   md: "6px",
@@ -169,12 +222,21 @@ export const radiusTokens = {
   full: "9999px",
 };
 
+export type RadiusScale = { [Key in keyof typeof radiusPalette]: string };
+
+/** Radius scale, as CSS variables that fall back to `radiusPalette`. */
+export const radiusTokens: RadiusScale = varTree("radius", radiusPalette);
+
+export const fontFamilyPalette = {
+  base: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+};
+
+export type FontFamilies = { [Key in keyof typeof fontFamilyPalette]: string };
+
 // Typography tokens
 export const typographyTokens = {
-  fontFamily: {
-    base: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
-  },
+  fontFamily: varTree("font", fontFamilyPalette) as FontFamilies,
   fontSize: {
     xs: "12px",
     sm: "13px",
@@ -224,7 +286,7 @@ export const transitionTokens = {
 // trend) use `chartTokens.single` instead — the system's own brand color —
 // since there's nothing for a single series to be confused with.
 export const chartTokens = {
-  single: "#8B6F47",
+  single: "var(--maataa-chart-single, #8B6F47)",
   categorical: [
     "#2a78d6", // 1 blue
     "#eb6834", // 2 orange
@@ -274,3 +336,125 @@ export const darkChartTokens = {
   grid: darkColorTokens.border.secondary,
   areaOpacity: 0.12,
 };
+
+// ---------------------------------------------------------------------------
+// Themes
+// ---------------------------------------------------------------------------
+
+/** Everything a theme can change. Leave out radius/fonts/chart to keep the defaults. */
+export interface MaataaTheme {
+  name: string;
+  colors: ColorPalette;
+  radius?: Partial<RadiusScale>;
+  fontFamily?: Partial<FontFamilies>;
+  /** Color for single-series charts (sparklines, a lone trend line). */
+  chartSingle?: string;
+  /** CSS `color-scheme` for native controls and scrollbars. */
+  colorScheme?: "light" | "dark";
+}
+
+/** The default look: warm paper and ink. */
+export const paperTheme: MaataaTheme = {
+  name: "paper",
+  colors: paperColorPalette,
+  radius: radiusPalette,
+  fontFamily: fontFamilyPalette,
+  chartSingle: "#8B6F47",
+  colorScheme: "light",
+};
+
+/** The "night ops" dark look. */
+export const darkTheme: MaataaTheme = {
+  name: "dark",
+  colors: darkColorTokens,
+  chartSingle: darkColorTokens.interactive.primary,
+  colorScheme: "dark",
+};
+
+/**
+ * TLPS v2 look: near-black ink on warm paper, white panels, hairline borders,
+ * square 2px corners, Inter, with the signal red-orange as the brand mark and
+ * the v2 green for success. Primary actions are solid ink, as in v2.
+ *
+ * Contrast (WCAG 2.2 AA), measured on all three backgrounds (#FFFEFA,
+ * #F4F1EB, #EBE7DF): text.primary 14.2:1 or more, secondary 9.3:1 or more,
+ * tertiary 4.85:1 or more; border.control 3.18:1 or more (WCAG 1.4.11);
+ * interactive.primary 14.2:1 or more, with white on it 17.5:1; success,
+ * warning, error and info 5.0:1 or more; every semantic text-on-fill pair
+ * 5.1:1 or more. v2's own --muted (#696b69) is darkened slightly for
+ * tertiary text so it also passes on the tertiary background.
+ */
+export const tlpsV2Theme: MaataaTheme = {
+  name: "tlps-v2",
+  colors: {
+    text: {
+      primary: "#171A1D",
+      secondary: "#363A3D",
+      tertiary: "#62645F",
+      inverse: "#FFFEFA",
+      disabled: "#B6B2AA",
+    },
+    background: {
+      primary: "#FFFEFA",
+      secondary: "#F4F1EB",
+      tertiary: "#EBE7DF",
+      inverse: "#171A1D",
+    },
+    border: {
+      primary: "#D8D3CA",
+      secondary: "#E4DFD6",
+      tertiary: "#EEEAE2",
+      control: "#858077",
+    },
+    interactive: {
+      primary: "#171A1D",
+      secondary: "#E2DDD3",
+      success: "#315F4E",
+      warning: "#7A5B3D",
+      error: "#8C2119",
+      info: "#1F4E79",
+    },
+    semantic: {
+      success: { bg: "#E6EEE8", text: "#315F4E" },
+      warning: { bg: "#F1E9DC", text: "#7A5B3D" },
+      error: { bg: "#FAE9E6", text: "#8C2119" },
+      info: { bg: "#E3ECF4", text: "#1F4E79" },
+    },
+    shadow: {
+      sm: "0 2px 0 rgba(23, 26, 29, 0.03)",
+      md: "0 8px 30px rgba(32, 32, 26, 0.03)",
+      lg: "0 18px 60px rgba(32, 32, 26, 0.07)",
+      xl: "0 24px 72px rgba(32, 32, 26, 0.12)",
+    },
+  },
+  radius: { sm: "2px", md: "2px", lg: "4px", xl: "8px", "2xl": "14px" },
+  fontFamily: {
+    base: "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    mono: "ui-monospace, SFMono-Regular, Menlo, monospace",
+  },
+  chartSingle: "#C2442D",
+  colorScheme: "light",
+};
+
+/** The CSS custom properties for a theme, as a `{ "--maataa-…": value }` map. */
+export function themeToCssVariables(theme: MaataaTheme): Record<string, string> {
+  const vars: Record<string, string> = {
+    ...flattenTree("color", theme.colors),
+    ...flattenTree("radius", (theme.radius ?? {}) as TokenTree),
+    ...flattenTree("font", (theme.fontFamily ?? {}) as TokenTree),
+  };
+  if (theme.chartSingle) vars["--maataa-chart-single"] = theme.chartSingle;
+  return vars;
+}
+
+/**
+ * A CSS rule that applies a theme, e.g. `themeToCss(tlpsV2Theme)` for the
+ * whole page, or `themeToCss(darkTheme, '[data-theme="dark"]')` for a part.
+ */
+export function themeToCss(theme: MaataaTheme, selector = ":root"): string {
+  const body = Object.entries(themeToCssVariables(theme))
+    .map(([name, value]) => `${name}:${value};`)
+    .join("");
+  const scheme = theme.colorScheme ? `color-scheme:${theme.colorScheme};` : "";
+  return `${selector}{${body}${scheme}}`;
+}

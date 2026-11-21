@@ -2,6 +2,10 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 import { FormSection } from "./FormSection";
+import { colorTokens } from "../tokens";
+
+/** jsdom can't compute var() in shorthands and lower-cases hex, so read the inline style. */
+const inlineStyle = (el: Element | null) => (el?.getAttribute("style") ?? "").toLowerCase();
 
 describe("FormSection", () => {
   it("renders children", () => {
@@ -31,7 +35,9 @@ describe("FormSection", () => {
   it("renders a divider under the heading by default", () => {
     const { container } = render(<FormSection title="Details">Content</FormSection>);
     const headingWrapper = container.querySelector(":scope > div > div");
-    expect(headingWrapper).toHaveStyle({ borderBottom: "1px solid rgb(212, 175, 159)" });
+    expect(inlineStyle(headingWrapper)).toContain(
+      `border-bottom: 1px solid ${colorTokens.border.primary.toLowerCase()}`
+    );
   });
 
   it("omits the divider when divider is false", () => {

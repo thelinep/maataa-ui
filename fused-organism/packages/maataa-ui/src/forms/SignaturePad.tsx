@@ -53,11 +53,13 @@ export function SignaturePad({
   useEffect(() => {
     const c = canvasRef.current;
     const ctx = c?.getContext?.("2d");
-    if (!ctx) return;
+    if (!c || !ctx) return;
     ctx.lineWidth = 2.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = colorTokens.text.primary;
+    // Canvas can't read CSS variables, so resolve the themed ink color first.
+    c.style.color = colorTokens.text.primary;
+    ctx.strokeStyle = getComputedStyle(c).color || "#3D2817";
   }, [mode]);
 
   const pos = (e: React.PointerEvent<HTMLCanvasElement>) => {

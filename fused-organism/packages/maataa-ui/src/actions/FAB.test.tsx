@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef } from "react";
 import { FAB } from "./FAB";
+import { radiusTokens } from "../tokens";
 
 describe("FAB", () => {
   it("renders the icon", () => {
@@ -21,7 +22,7 @@ describe("FAB", () => {
   it("renders as a fixed circle in the bottom-right by default", () => {
     render(<FAB icon="+" aria-label="Create new item" />);
     const button = screen.getByRole("button");
-    expect(button).toHaveStyle({ position: "fixed", borderRadius: "9999px" });
+    expect(button).toHaveStyle({ position: "fixed", borderRadius: radiusTokens.full });
   });
 
   it("renders statically positioned when position is static", () => {

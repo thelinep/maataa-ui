@@ -3,6 +3,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef } from "react";
 import { LinkButton } from "./LinkButton";
+import { colorTokens } from "../tokens";
+
+/** jsdom can't compute var() in shorthands and lower-cases hex, so read the inline style. */
+const inlineStyle = (el: Element | null) => (el?.getAttribute("style") ?? "").toLowerCase();
 
 describe("LinkButton", () => {
   it("renders an anchor element", () => {
@@ -48,7 +52,7 @@ describe("LinkButton", () => {
 
   it("applies the primary color by default", () => {
     render(<LinkButton href="/settings">View settings</LinkButton>);
-    expect(screen.getByRole("link")).toHaveStyle({ color: "#806641" });
+    expect(screen.getByRole("link")).toHaveStyle({ color: colorTokens.interactive.primary });
   });
 
   it("applies the danger color", () => {
@@ -57,7 +61,9 @@ describe("LinkButton", () => {
         Sign out
       </LinkButton>
     );
-    expect(screen.getByRole("link")).toHaveStyle({ color: "#8B3A2B" });
+    expect(inlineStyle(screen.getByRole("link"))).toContain(
+      `color: ${colorTokens.interactive.error.toLowerCase()}`
+    );
   });
 
   it("shows no underline by default until hovered", () => {

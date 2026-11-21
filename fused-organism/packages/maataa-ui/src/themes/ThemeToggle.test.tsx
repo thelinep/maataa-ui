@@ -71,7 +71,8 @@ describe("ThemeToggle", () => {
       </ThemeProvider>
     );
     const toggle = screen.getByRole("switch");
-    expect(toggle.style.backgroundColor).toBe(hexToRgb(colorTokens.background.secondary));
+    // Light reads the default tokens, which are CSS variables with a fallback.
+    expect(toggle.style.backgroundColor).toBe(colorTokens.background.secondary);
     fireEvent.click(toggle);
     expect(toggle.style.backgroundColor).toBe(hexToRgb(darkColorTokens.background.secondary));
   });

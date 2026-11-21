@@ -168,11 +168,11 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
     const isBranch = n.kids.length > 0;
     const valueColor =
       typeof n.value === "string"
-        ? "#2D6A3E"
+        ? colorTokens.interactive.success
         : typeof n.value === "number"
-          ? "#1E3A5F"
+          ? colorTokens.interactive.info
           : typeof n.value === "boolean"
-            ? "#8B3A2B"
+            ? colorTokens.interactive.error
             : colorTokens.text.secondary;
     return (
       <li

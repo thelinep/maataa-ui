@@ -2,6 +2,10 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 import { ValidationMessage } from "./ValidationMessage";
+import { colorTokens } from "../tokens";
+
+/** jsdom can't compute var() in shorthands and lower-cases hex, so read the inline style. */
+const inlineStyle = (el: Element | null) => (el?.getAttribute("style") ?? "").toLowerCase();
 
 describe("ValidationMessage", () => {
   it("renders its message", () => {
@@ -21,22 +25,30 @@ describe("ValidationMessage", () => {
 
   it("applies the error color", () => {
     render(<ValidationMessage type="error">Error text</ValidationMessage>);
-    expect(screen.getByRole("alert")).toHaveStyle({ color: "#8B3A2B" });
+    expect(inlineStyle(screen.getByRole("alert"))).toContain(
+      `color: ${colorTokens.semantic.error.text.toLowerCase()}`
+    );
   });
 
   it("applies the success color", () => {
     render(<ValidationMessage type="success">Success text</ValidationMessage>);
-    expect(screen.getByRole("status")).toHaveStyle({ color: "#2D6A3E" });
+    expect(inlineStyle(screen.getByRole("status"))).toContain(
+      `color: ${colorTokens.semantic.success.text.toLowerCase()}`
+    );
   });
 
   it("applies the warning color", () => {
     render(<ValidationMessage type="warning">Warning text</ValidationMessage>);
-    expect(screen.getByRole("status")).toHaveStyle({ color: "#7A6100" });
+    expect(inlineStyle(screen.getByRole("status"))).toContain(
+      `color: ${colorTokens.semantic.warning.text.toLowerCase()}`
+    );
   });
 
   it("applies the info color", () => {
     render(<ValidationMessage type="info">Info text</ValidationMessage>);
-    expect(screen.getByRole("status")).toHaveStyle({ color: "#1E3A5F" });
+    expect(inlineStyle(screen.getByRole("status"))).toContain(
+      `color: ${colorTokens.semantic.info.text.toLowerCase()}`
+    );
   });
 
   it("allows overriding the role", () => {

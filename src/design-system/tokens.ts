@@ -12,12 +12,17 @@
  */
 
 import {
-  colorTokens as fused,
-  radiusTokens,
+  paperColorPalette as fused,
+  radiusPalette as radiusTokens,
+  fontFamilyPalette,
   spacingTokens,
   transitionTokens,
-  typographyTokens,
+  typographyTokens as themedTypography,
 } from '@maataa/tokens';
+
+// The root app uses the raw (unthemed) values: it appends alpha suffixes to
+// hex colours, which a CSS variable can't take.
+const typographyTokens = { ...themedTypography, fontFamily: fontFamilyPalette };
 
 
 export const colorTokens = {

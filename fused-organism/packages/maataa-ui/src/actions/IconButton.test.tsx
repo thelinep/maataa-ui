@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef } from "react";
 import { IconButton } from "./IconButton";
+import { colorTokens, radiusTokens } from "../tokens";
 
 describe("IconButton", () => {
   it("renders the icon", () => {
@@ -30,12 +31,12 @@ describe("IconButton", () => {
 
   it("renders as fully circular by default", () => {
     render(<IconButton icon="✕" aria-label="Close" />);
-    expect(screen.getByRole("button")).toHaveStyle({ borderRadius: "9999px" });
+    expect(screen.getByRole("button")).toHaveStyle({ borderRadius: radiusTokens.full });
   });
 
   it("renders as rounded-square when rounded is false", () => {
     render(<IconButton icon="✕" aria-label="Close" rounded={false} />);
-    expect(screen.getByRole("button")).toHaveStyle({ borderRadius: "6px" });
+    expect(screen.getByRole("button")).toHaveStyle({ borderRadius: radiusTokens.md });
   });
 
   it("applies size dimensions", () => {
@@ -45,7 +46,9 @@ describe("IconButton", () => {
 
   it("defaults to the secondary variant", () => {
     render(<IconButton icon="✕" aria-label="Close" />);
-    expect(screen.getByRole("button")).toHaveStyle({ backgroundColor: "#D4AF9F" });
+    expect(screen.getByRole("button")).toHaveStyle({
+      backgroundColor: colorTokens.interactive.secondary,
+    });
   });
 
   it("has type=button so it never submits a form by default", () => {

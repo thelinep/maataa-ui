@@ -214,8 +214,17 @@ Entry: `./dist/index.js`
 - `colorTokens`
 - `darkChartTokens`
 - `darkColorTokens`
+- `darkTheme`
+- `fontFamilyPalette`
+- `paperColorPalette`
+- `paperTheme`
+- `radiusPalette`
 - `radiusTokens`
 - `spacingTokens`
+- `themeToCss`
+- `themeToCssVariables`
+- `tlpsV2Theme`
+- `tokenVarName`
 - `transitionTokens`
 - `typographyTokens`
 

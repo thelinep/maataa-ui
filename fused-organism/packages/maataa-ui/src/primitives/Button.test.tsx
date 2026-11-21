@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import { Button } from "./Button";
-import { colorTokens } from "../tokens";
+import { colorTokens, paperTheme, themeToCssVariables, tlpsV2Theme } from "../tokens";
 
 describe("Button", () => {
   it("renders its children", () => {
@@ -106,42 +106,57 @@ describe("Button form and loading behaviour", () => {
   });
 });
 
-describe("Button colour contrast (WCAG AA, 4.5:1 for normal text)", () => {
-  const luminance = (hex: string) => {
-    const [r, g, b] = [1, 3, 5]
-      .map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
-      .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  };
-  const toHex = (rgb: string) => {
-    const m = rgb.match(/\d+/g);
-    if (!m) return rgb;
-    return (
-      "#" +
-      m
-        .slice(0, 3)
-        .map((n) => Number(n).toString(16).padStart(2, "0"))
-        .join("")
-        .toUpperCase()
-    );
-  };
-  const contrast = (a: string, b: string) => {
-    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-    return (hi + 0.05) / (lo + 0.05);
-  };
-  const surfaces = [colorTokens.background.primary, colorTokens.background.secondary];
+describe.each([paperTheme, tlpsV2Theme])(
+  "Button colour contrast in the $name theme (WCAG AA, 4.5:1 for normal text)",
+  (theme) => {
+    const vars = themeToCssVariables(theme);
+    // Resolve `var(--name, fallback)` the way a browser would with the theme loaded.
+    const resolve = (value: string): string =>
+      value.replace(
+        /var\((--[\w-]+),\s*([^)]*)\)/g,
+        (_, name: string, fallback: string) => vars[name] ?? fallback
+      );
+    const luminance = (hex: string) => {
+      const [r, g, b] = [1, 3, 5]
+        .map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+        .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    };
+    const toHex = (color: string) => {
+      const value = resolve(color);
+      if (value.startsWith("#")) return value.toUpperCase();
+      const m = value.match(/\d+/g);
+      if (!m) return value;
+      return (
+        "#" +
+        m
+          .slice(0, 3)
+          .map((n) => Number(n).toString(16).padStart(2, "0"))
+          .join("")
+          .toUpperCase()
+      );
+    };
+    const contrast = (a: string, b: string) => {
+      const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+      return (hi + 0.05) / (lo + 0.05);
+    };
+    const surfaces = [
+      toHex(colorTokens.background.primary),
+      toHex(colorTokens.background.secondary),
+    ];
 
-  it.each(["primary", "secondary", "tertiary", "danger"] as const)(
-    "%s label meets 4.5:1",
-    (variant) => {
-      render(<Button variant={variant}>Label</Button>);
-      const style = screen.getByRole("button", { name: "Label" }).style;
-      const fg = toHex(style.color);
-      const fill = style.backgroundColor;
-      const backgrounds = fill === "transparent" || fill === "" ? surfaces : [toHex(fill)];
-      for (const bg of backgrounds) {
-        expect(contrast(fg, bg)).toBeGreaterThanOrEqual(4.5);
+    it.each(["primary", "secondary", "tertiary", "danger"] as const)(
+      "%s label meets 4.5:1",
+      (variant) => {
+        render(<Button variant={variant}>Label</Button>);
+        const style = screen.getByRole("button", { name: "Label" }).style;
+        const fg = toHex(style.color);
+        const fill = style.backgroundColor;
+        const backgrounds = fill === "transparent" || fill === "" ? surfaces : [toHex(fill)];
+        for (const bg of backgrounds) {
+          expect(contrast(fg, bg)).toBeGreaterThanOrEqual(4.5);
+        }
       }
-    }
-  );
-});
+    );
+  }
+);
