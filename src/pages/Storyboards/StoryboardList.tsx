@@ -76,7 +76,7 @@ const CardContent = styled.div`
   padding: ${spacing.lg};
 `;
 
-const CardTitle = styled.h3`
+const CardTitle = styled.h2`
   font-size: ${typography.body.fontSize};
   font-weight: 600;
   color: ${colorTokens.text.primary};

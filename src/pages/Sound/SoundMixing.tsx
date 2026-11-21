@@ -58,8 +58,11 @@ const ControlButtons = styled.div`
 `;
 
 const Button = styled.button`
+  /* WCAG 2.5.8: at least 24 x 24 CSS px */
+  min-width: 28px;
+  min-height: 28px;
   padding: 4px 8px;
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   background: ${colorTokens.background.primary};
   color: ${colorTokens.text.primary};
   border-radius: 4px;

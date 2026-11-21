@@ -41,7 +41,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.body.fontSize};
@@ -61,7 +61,7 @@ const Input = styled.input`
 
 const Select = styled.select`
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.body.fontSize};
@@ -78,7 +78,7 @@ const Select = styled.select`
 
 const TextArea = styled.textarea`
   padding: ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   font-size: ${typography.body.fontSize};

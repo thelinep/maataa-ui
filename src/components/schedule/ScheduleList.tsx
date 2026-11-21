@@ -65,7 +65,7 @@ const Controls = styled.div`
 
 const SearchInput = styled.input`
   padding: ${spacing.sm};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.sm};
   color: ${colorTokens.text.primary};
   background: ${colorTokens.background.primary};
@@ -78,7 +78,7 @@ const SearchInput = styled.input`
 
 const FilterSelect = styled.select`
   padding: ${spacing.sm};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.sm};
   color: ${colorTokens.text.primary};
   background: ${colorTokens.background.primary};

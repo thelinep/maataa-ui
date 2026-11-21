@@ -482,7 +482,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
   const comboboxProps = {
     id: controlId,
     role: "combobox" as const,
-    "aria-controls": listboxId,
+    // Only while the listbox is in the DOM: an id that points at nothing is
+    // invalid ARIA (axe aria-valid-attr-value).
+    "aria-controls": isOpen ? listboxId : undefined,
     "aria-expanded": isOpen,
     "aria-haspopup": "listbox" as const,
     "aria-labelledby": labelledBy,
@@ -672,10 +674,16 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
                   aria-label={`Remove ${option.label}`}
                   onClick={() => onChange?.(selected.filter((v) => v !== option.value))}
                   style={{
+                    // WCAG 2.5.8: at least 24 x 24 CSS px
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minWidth: 24,
+                    minHeight: 24,
                     border: "none",
                     background: "transparent",
                     cursor: "pointer",
-                    padding: "0 4px",
+                    padding: 0,
                     fontSize: "15px",
                     lineHeight: 1,
                     color: colorTokens.text.primary,

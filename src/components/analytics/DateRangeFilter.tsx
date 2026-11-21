@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
 
 const StyledInput = styled.input`
   padding: ${spacing.sm} ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: ${borderRadius.md};
   font-size: 14px;
 

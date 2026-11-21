@@ -8,6 +8,12 @@ import { createGlobalStyle } from 'styled-components';
 
 const HC = `html[data-a11y-contrast='high'], html[data-a11y-contrast='yellow-on-black']`;
 
+/** Visible focus ring for everyone (audit F13); see the focus section below. */
+export const DEFAULT_FOCUS_RING = `:focus-visible:not([tabindex='-1']) {
+    outline: 2px solid var(--a11y-focus, #1e3a5f) !important;
+    outline-offset: 2px !important;
+  }`;
+
 export const GlobalA11yStyles = createGlobalStyle`
   /* ---- text size ---------------------------------------------------------
      Text size uses zoom on <html>, which does not rescale vh units. The
@@ -71,6 +77,13 @@ export const GlobalA11yStyles = createGlobalStyle`
   }
 
   /* ---- focus ------------------------------------------------------------ */
+  /* Default for everyone: a visible ring on whatever the keyboard is on,
+     even where a component sets outline: none. #1e3a5f is 11.5:1 on the
+     paper background. Targets of programmatic focus only (tabindex=-1: the
+     main region after "Skip to main content", the page heading after
+     navigation) are left without a ring. */
+  ${DEFAULT_FOCUS_RING}
+  /* Stronger focus outline setting: thicker, with a halo */
   html[data-a11y-focus='strong'] :focus-visible {
     outline: 3px solid var(--a11y-focus, #1e3a5f) !important;   /* 11.5:1 on the paper background */
     outline-offset: 2px !important;

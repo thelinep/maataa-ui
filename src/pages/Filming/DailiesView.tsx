@@ -69,7 +69,7 @@ const FilterBar = styled.div`
 
 const FilterSelect = styled.select`
   padding: ${spacing.sm} ${spacing.md};
-  border: 1px solid ${colorTokens.border.primary};
+  border: 1px solid ${colorTokens.border.control};
   border-radius: 6px;
   font-family: ${typography.body.fontFamily};
   background: white;
@@ -215,7 +215,11 @@ const DailiesView: React.FC = () => {
       <Header>
         <Title>📹 Dailies Review</Title>
         <FilterBar>
-          <FilterSelect value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <FilterSelect
+            aria-label="Filter footage"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
             <option value="all">All Footage ({totalFootage} clips)</option>
             <option value="kept">Kept ({filteredDailies.reduce((sum, d) => sum + d.footage.filter((f) => f.status === 'kept').length, 0)} clips)</option>
             <option value="review">Review ({filteredDailies.reduce((sum, d) => sum + d.footage.filter((f) => f.status === 'review').length, 0)} clips)</option>
