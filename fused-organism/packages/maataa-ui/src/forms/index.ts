@@ -47,6 +47,31 @@ export { TimePicker, type TimePickerProps } from "./TimePicker";
 export { DateTimePicker, type DateTimePickerProps } from "./DateTimePicker";
 export { DateRangePicker, type DateRangePickerProps, type DateRange } from "./DateRangePicker";
 
+// Core workflow inputs
+export { DurationPicker, formatMinutes, type DurationPickerProps } from "./DurationPicker";
+export {
+  FileDropzone,
+  formatBytes,
+  fileMatchesAccept,
+  type FileDropzoneProps,
+  type FileRejection,
+} from "./FileDropzone";
+export {
+  AttachmentUploader,
+  type AttachmentUploaderProps,
+  type Attachment,
+} from "./AttachmentUploader";
+export { AvatarUpload, type AvatarUploadProps } from "./AvatarUpload";
+export { ConsentToggle, type ConsentToggleProps } from "./ConsentToggle";
+export {
+  ReviewerSelector,
+  validateReviewers,
+  type ReviewerSelectorProps,
+  type ReviewerRole,
+  type ReviewerCandidate,
+  type ReviewerAssignment,
+} from "./ReviewerSelector";
+
 // Component metadata for Storybook and docs
 export const formComponents = [
   {
