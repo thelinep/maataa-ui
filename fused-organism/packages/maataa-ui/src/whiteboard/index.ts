@@ -37,3 +37,25 @@ export {
   type ColorPaletteStripProps,
   type PaletteColor,
 } from "./ColorPaletteStrip";
+
+// UI element catalog batch H
+export {
+  ShapeToolPicker,
+  LayerStack,
+  EffectsLibrary,
+  LiveDrawingOverlay,
+  RenderProgressRow,
+  RenderQueue,
+  type ShapeKind,
+  type ShapeToolPickerProps,
+  type Layer,
+  type LayerStackProps,
+  type EffectItem,
+  type EffectsLibraryProps,
+  type Annotation,
+  type LiveDrawingOverlayProps,
+  type RenderJob,
+  type RenderState,
+  type RenderProgressRowProps,
+  type RenderQueueProps,
+} from "./EditorPanels";
