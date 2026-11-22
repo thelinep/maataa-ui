@@ -128,5 +128,8 @@
       ]
     },
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
+  },
+  "overrides": {
+    "effect": "3.22.5"
   }
 }
