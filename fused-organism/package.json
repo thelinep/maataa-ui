@@ -28,11 +28,21 @@
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "check:exports": "node scripts/check-exports.mjs",
     "check:package-tarballs": "node scripts/check-package-tarballs.mjs",
+    "changeset": "changeset",
+    "changeset:status": "changeset status --verbose",
+    "release:pre:enter-alpha": "changeset pre enter alpha",
+    "release:pre:exit": "changeset pre exit",
+    "release:version": "changeset version",
+    "release:tag": "changeset git-tag",
+    "release:tarballs": "node scripts/build-release-tarballs.mjs",
+    "release:push-tags": "node scripts/push-internal-package-tags.mjs",
+    "release:check:tarballs": "node scripts/check-tarball-release-ready.mjs",
     "test:package-consumers": "node scripts/test-package-consumers.mjs",
     "test": "node --test tests/**/*.test.mjs packages/*/test/*.test.mjs",
     "test:contracts": "node --test tests/contracts/*.test.mjs",
     "test:control": "node --test tests/control/*.test.mjs",
     "test:security": "node --test tests/security/*.test.mjs",
+    "check:package-secrets": "node scripts/check-package-secrets.mjs",
     "test:a11y": "node --test tests/accessibility/*.test.mjs",
     "test:a11y:stories": "node scripts/audit-story-accessibility.mjs",
     "gate:stability": "node scripts/check-component-stability.mjs",
@@ -82,6 +92,7 @@
     "gate:visual-policy": "node scripts/check-visual-policy.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.3",
     "electron": "44.5.1",
     "electron-builder": "26.15.3"
   },
@@ -101,13 +112,20 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "target": ["dmg", "zip"]
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ]
     },
     "linux": {
-      "target": ["AppImage"]
+      "target": [
+        "AppImage"
+      ]
     },
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
   }

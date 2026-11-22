@@ -75,5 +75,10 @@
     "ajv": "6.15.0",
     "prisma": "7.9.1",
     "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/domain-registry"
   }
 }

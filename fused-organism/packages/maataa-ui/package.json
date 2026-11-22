@@ -9,13 +9,14 @@
   "description": "MAATAA visual UI package, composed from @maataa/tokens and @maataa/primitives",
   "author": "MAATAA UI Team",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/maataa/maataa-ui",
+  "homepage": "https://github.com/thelinep/maataa-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/maataa/maataa-ui.git"
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/maataa-ui"
   },
   "bugs": {
-    "url": "https://github.com/maataa/maataa-ui/issues"
+    "url": "https://github.com/thelinep/maataa-ui/issues"
   },
   "type": "module",
   "main": "./dist/index.js",

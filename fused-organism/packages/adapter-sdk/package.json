@@ -18,5 +18,10 @@
   },
   "dependencies": {
     "@maataa/contracts": "^0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/adapter-sdk"
   }
 }

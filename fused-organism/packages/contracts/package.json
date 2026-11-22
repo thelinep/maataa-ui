@@ -15,5 +15,10 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/contracts"
   }
 }

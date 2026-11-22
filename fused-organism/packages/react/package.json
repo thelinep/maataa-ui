@@ -38,5 +38,10 @@
     "runtimeDependencyClaim": "excluded-from-external-dependencies-claim",
     "adapterContractVersion": "1.0.0",
     "browserCertification": "M2-closeout-0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/react"
   }
 }

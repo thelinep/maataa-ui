@@ -46,6 +46,9 @@ jobs:
 
       - run: npm ci --ignore-scripts --no-audit --no-fund
 
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
+
       # Build before certification: its drift gate imports each package's dist/.
       - name: Build packages
         run: |

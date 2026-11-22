@@ -23,6 +23,7 @@ const gates = [
   ["format", "npm run format:check"],
   ["boundaries", "npm run check:boundaries"],
   ["exports", "npm run check:exports"],
+  ["package-secrets", "npm run check:package-secrets"],
   ["react-adapter", "npm run test:react"],
   ["tests", "npm test"],
   ["build", "npm run build"],

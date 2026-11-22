@@ -1,0 +1,91 @@
+name: Internal package tarballs
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Release channel
+        type: choice
+        options: [internal-tarballs]
+        required: true
+        default: internal-tarballs
+
+permissions:
+  contents: read
+
+concurrency:
+  group: internal-tarballs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    name: Certify and package internal tarballs
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    environment:
+      name: internal-tarball-release
+    permissions:
+      contents: write # only for the explicit package-version refs pushed by the tag script
+    defaults:
+      run:
+        working-directory: fused-organism
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      MAATAA_AXE_REPORT: ${{ runner.temp }}/maataa-story-a11y.json
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.22.3
+          cache: npm
+          cache-dependency-path: fused-organism/package-lock.json
+
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
+
+      - name: Build packages
+        run: |
+          npm run build
+          npm run build:ui
+
+      - name: Check release source is versioned and clean
+        run: npm run release:check:tarballs
+
+      - name: Existing source security checks
+        run: npm run test:security
+
+      - name: Install pinned Chromium for certification
+        id: chromium
+        uses: browser-actions/setup-chrome@v2.2.0
+        with:
+          chrome-version: "144.0.7559.96"
+          install-dependencies: true
+
+      - name: Set certified browser executable
+        run: echo "MAATAA_BROWSER=${{ steps.chromium.outputs.chrome-path }}" >> "$GITHUB_ENV"
+
+      - name: Full certification and packed-file secret scan
+        run: npm run certify
+
+      - name: Preserve certification evidence and restore generated files
+        if: always()
+        run: git restore -- certification/certification.json certification/REPORT.md
+
+      - name: Create package tarballs
+        run: npm run release:tarballs -- --output "$RUNNER_TEMP/maataa-internal-tarballs"
+
+      - name: Upload versioned tarball bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: maataa-internal-tarballs-${{ github.sha }}
+          path: ${{ runner.temp }}/maataa-internal-tarballs
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Push scoped package version tags
+        run: npm run release:push-tags
