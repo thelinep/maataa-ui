@@ -51,7 +51,7 @@
     "test:admin": "node --test apps/admin-template/*.test.mjs apps/tlps-application/*.test.mjs",
     "dev:tlps-api": "node scripts/run-local-tlps-api.mjs",
     "test:spatial:browser": "npm run build:ui && node scripts/smoke-tlps-spatial.mjs",
-    "test:ui": "node_modules/vitest/vitest.mjs run --root packages/maataa-ui --config vitest.config.ts",
+    "test:ui": "npm exec --workspace=@maataa/ui -- vitest run",
     "test:ui:smoke": "node --loader ./scripts/extensionless-loader.mjs scripts/smoke-ui-product.mjs",
     "check:ui-types": "node_modules/typescript/bin/tsc --project packages/maataa-ui/tsconfig.json --noEmit",
     "build:ui": "node scripts/build-ui-packages.mjs",
