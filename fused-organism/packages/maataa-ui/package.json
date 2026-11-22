@@ -1,6 +1,6 @@
 {
   "name": "@maataa/ui",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "maataaPolicy": {
     "versioning": "independent",
     "apiManifest": "separate-typescript-package",
@@ -179,10 +179,10 @@
     "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
-    "@maataa/governance": "^0.4.1",
-    "@maataa/primitives": "^0.4.1",
-    "@maataa/react": "^0.4.1",
-    "@maataa/tokens": "^0.4.1"
+    "@maataa/governance": "^0.4.2-alpha.0",
+    "@maataa/primitives": "^0.4.2-alpha.0",
+    "@maataa/react": "^0.4.2-alpha.0",
+    "@maataa/tokens": "^0.4.2-alpha.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",

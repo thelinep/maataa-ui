@@ -1,6 +1,6 @@
 {
   "name": "@maataa/react",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -17,12 +17,12 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/core": "^0.4.1",
-    "@maataa/ai": "^0.4.1",
-    "@maataa/governance": "^0.4.1",
-    "@maataa/control": "^0.4.1",
-    "@maataa/renderer": "^0.4.1",
-    "@maataa/registry": "^0.4.1"
+    "@maataa/core": "^0.4.2-alpha.0",
+    "@maataa/ai": "^0.4.2-alpha.0",
+    "@maataa/governance": "^0.4.2-alpha.0",
+    "@maataa/control": "^0.4.2-alpha.0",
+    "@maataa/renderer": "^0.4.2-alpha.0",
+    "@maataa/registry": "^0.4.2-alpha.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20"

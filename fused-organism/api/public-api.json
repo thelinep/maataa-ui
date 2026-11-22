@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "generated": true,
-  "productVersion": "0.4.1",
+  "productVersion": "0.4.2-alpha.0",
   "packages": [
     {
       "name": "@maataa/adapter-sdk",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "createCameraSimulatorAdapter",
@@ -14,7 +14,7 @@
     },
     {
       "name": "@maataa/ai",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "agentStep",
@@ -25,7 +25,7 @@
     },
     {
       "name": "@tlps/composites",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "CompositesCatalog",
@@ -35,7 +35,7 @@
     },
     {
       "name": "@maataa/contracts",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "assertContract",
@@ -45,7 +45,7 @@
     },
     {
       "name": "@maataa/control",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "acquireLease",
@@ -66,7 +66,7 @@
     },
     {
       "name": "@maataa/core",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "accessibleName",
@@ -80,7 +80,7 @@
     },
     {
       "name": "@tlps/domain-primitives",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "Canvas",
@@ -130,7 +130,7 @@
     },
     {
       "name": "@tlps/evidence-primitives",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "EvidencePrimitivesCatalog",
@@ -140,7 +140,7 @@
     },
     {
       "name": "@tlps/generative-primitives",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "GenerativePrimitivesCatalog",
@@ -150,7 +150,7 @@
     },
     {
       "name": "@maataa/governance",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "canDispatch",
@@ -161,7 +161,7 @@
     },
     {
       "name": "@maataa/primitives",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "AspectRatio",
@@ -186,7 +186,7 @@
     },
     {
       "name": "@maataa/react",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "REACT_ADAPTER_CONTRACT_VERSION",
@@ -197,7 +197,7 @@
     },
     {
       "name": "@maataa/recipes",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "governedCameraControlRecipe"
@@ -205,7 +205,7 @@
     },
     {
       "name": "@maataa/registry",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "getRegistryEntry",
@@ -215,7 +215,7 @@
     },
     {
       "name": "@maataa/renderer",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "createRenderPlan",
@@ -224,7 +224,7 @@
     },
     {
       "name": "@tlps/templates",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "TemplatesCatalog",
@@ -234,7 +234,7 @@
     },
     {
       "name": "@maataa/testing",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./src/index.mjs",
       "namedExports": [
         "approvedApproval",
@@ -245,7 +245,7 @@
     },
     {
       "name": "@maataa/tokens",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "chartTokens",
@@ -269,7 +269,7 @@
     },
     {
       "name": "@tlps/workflow-primitives",
-      "version": "0.4.1",
+      "version": "0.4.2-alpha.0",
       "entry": "./dist/index.js",
       "namedExports": [
         "WorkflowPrimitivesCatalog",

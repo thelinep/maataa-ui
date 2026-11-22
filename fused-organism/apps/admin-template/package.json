@@ -1,6 +1,6 @@
 {
   "name": "@maataa-app/admin-template",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "vite build --config vite.config.mjs"
   },
   "dependencies": {
-    "@maataa/ui": "^1.0.0-alpha.0",
+    "@maataa/ui": "^1.0.0-alpha.2",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

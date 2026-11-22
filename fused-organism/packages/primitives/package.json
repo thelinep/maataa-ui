@@ -1,6 +1,6 @@
 {
   "name": "@maataa/primitives",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -87,7 +87,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@maataa/tokens": "^0.4.1"
+    "@maataa/tokens": "^0.4.2-alpha.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",

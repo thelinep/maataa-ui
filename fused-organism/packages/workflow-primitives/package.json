@@ -1,6 +1,6 @@
 {
   "name": "@tlps/workflow-primitives",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -22,7 +22,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@maataa/primitives": "^0.4.1"
+    "@maataa/primitives": "^0.4.2-alpha.0"
   },
   "repository": {
     "type": "git",

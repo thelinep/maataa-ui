@@ -1,6 +1,6 @@
 # Explicitly Not Certified
 
-Generated from `architecture.json` for MAATAA UI 0.4.1. Do not edit manually.
+Generated from `architecture.json` for MAATAA UI 0.4.2-alpha.0. Do not edit manually.
 
 - third-party React implementation or React version matrix; M2 certifies the MAATAA host-adapter contract only
 - Safari/WebKit and Firefox are not certified; browser certification currently pins Chromium 144.0.7559.96

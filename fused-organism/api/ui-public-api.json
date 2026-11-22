@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "generated": true,
   "package": "@maataa/ui",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "entries": [
     {
       "entry": ".",

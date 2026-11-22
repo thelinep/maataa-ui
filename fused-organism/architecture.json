@@ -1,6 +1,6 @@
 {
   "name": "MAATAA UI V3",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "strategy": "foundation-first",
   "packageManager": "npm@10.9.2",
   "activePackages": [
