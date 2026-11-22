@@ -17,10 +17,10 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/contracts": "*",
-    "@maataa/registry": "*",
-    "@maataa/renderer": "*",
-    "@maataa/control": "*",
-    "@maataa/adapter-sdk": "*"
+    "@maataa/contracts": "^0.4.1",
+    "@maataa/registry": "^0.4.1",
+    "@maataa/renderer": "^0.4.1",
+    "@maataa/control": "^0.4.1",
+    "@maataa/adapter-sdk": "^0.4.1"
   }
 }

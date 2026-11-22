@@ -10,7 +10,7 @@ A theme is a `MaataaTheme` object. Built-in themes: `paperTheme` (default), `dar
 
 ```tsx
 // Whole page, e.g. in a Next.js root layout (works in server components)
-import { ThemeStyle, tlpsV2Theme } from "@maataa/ui";
+import { ThemeStyle, tlpsV2Theme } from "@maataa/ui/theme-style";
 <head><ThemeStyle theme={tlpsV2Theme} /></head>
 
 // Or as plain CSS
@@ -19,3 +19,7 @@ const css = themeToCss(tlpsV2Theme); // ":root{--maataa-color-text-primary:#171A
 ```
 
 `themeToCss(theme, selector)` scopes a theme to part of a page. Code that needs a literal color (canvas drawing, contrast maths) should use the raw palettes (`paperColorPalette`, `darkColorTokens`, `tlpsV2Theme.colors`) or resolve the variable with `getComputedStyle`.
+
+### Migration from literal colors
+
+Token values such as `colorTokens.text.primary` are CSS variables, not hex strings. Code that previously appended a hex alpha suffix (for example, `color + "80"`) must use a raw palette color and append the alpha to that literal value, or resolve the CSS variable with `getComputedStyle` before applying alpha. Appending hex alpha directly to `var(--maataa-...)` is invalid CSS.

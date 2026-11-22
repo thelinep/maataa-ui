@@ -134,6 +134,10 @@
       "types": "./dist/themes/index.d.ts",
       "default": "./dist/themes/index.js"
     },
+    "./theme-style": {
+      "types": "./dist/theme-style.d.ts",
+      "default": "./dist/theme-style.js"
+    },
     "./types": {
       "types": "./dist/trust/types.d.ts",
       "default": "./dist/trust/types.js"
@@ -174,10 +178,10 @@
     "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
-    "@maataa/governance": "*",
-    "@maataa/react": "*",
-    "@maataa/primitives": "*",
-    "@maataa/tokens": "*"
+    "@maataa/governance": "^0.4.1",
+    "@maataa/react": "^0.4.1",
+    "@maataa/primitives": "^0.4.1",
+    "@maataa/tokens": "^0.4.1"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",

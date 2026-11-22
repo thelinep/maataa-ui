@@ -18,6 +18,10 @@ if (["pnpm-workspace.yaml","turbo.json","nx.json","lerna.json"].some(f=>fs.exist
 for (const command of ["npm run gate:m0","npm run gate:m2-closeout","npm run gate:version-sync","npm run gate:visual-policy","npm run check:registry-bindings","npm run check:react-policy","npm run gate:browser-runtime"]) {
   const g=spawnSync(command,{cwd:root,shell:true,stdio:"inherit"}); if(g.status!==0){console.error(`release prerequisite failed: ${command}`);process.exit(g.status??1);}
 }
+const packages = spawnSync("npm run check:package-tarballs", { cwd: root, shell: true, stdio: "inherit" });
+if (packages.status !== 0) { console.error("package tarball check failed"); process.exit(packages.status ?? 1); }
+const consumers = spawnSync("npm run test:package-consumers", { cwd: root, shell: true, stdio: "inherit" });
+if (consumers.status !== 0) { console.error("clean package consumer build failed"); process.exit(consumers.status ?? 1); }
 const compat = spawnSync("npm run check:compat", { cwd: root, shell: true, stdio: "inherit" });
 if (compat.status !== 0) { console.error("release compatibility gate failed"); process.exit(compat.status ?? 1); }
 const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));

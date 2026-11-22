@@ -22,8 +22,8 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@maataa/primitives": "*",
-    "@maataa/tokens": "*"
+    "@maataa/primitives": "^0.4.1",
+    "@maataa/tokens": "^0.4.1"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",

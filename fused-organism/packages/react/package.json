@@ -17,12 +17,12 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/core": "*",
-    "@maataa/ai": "*",
-    "@maataa/governance": "*",
-    "@maataa/control": "*",
-    "@maataa/renderer": "*",
-    "@maataa/registry": "*"
+    "@maataa/core": "^0.4.1",
+    "@maataa/ai": "^0.4.1",
+    "@maataa/governance": "^0.4.1",
+    "@maataa/control": "^0.4.1",
+    "@maataa/renderer": "^0.4.1",
+    "@maataa/registry": "^0.4.1"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20"

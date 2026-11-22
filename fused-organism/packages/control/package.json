@@ -17,9 +17,9 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/contracts": "*",
-    "@maataa/core": "*",
-    "@maataa/governance": "*",
-    "@maataa/adapter-sdk": "*"
+    "@maataa/contracts": "^0.4.1",
+    "@maataa/core": "^0.4.1",
+    "@maataa/governance": "^0.4.1",
+    "@maataa/adapter-sdk": "^0.4.1"
   }
 }

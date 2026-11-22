@@ -17,6 +17,6 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/contracts": "*"
+    "@maataa/contracts": "^0.4.1"
   }
 }

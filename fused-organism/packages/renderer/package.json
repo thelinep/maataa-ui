@@ -17,8 +17,8 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/contracts": "*",
-    "@maataa/core": "*",
-    "@maataa/registry": "*"
+    "@maataa/contracts": "^0.4.1",
+    "@maataa/core": "^0.4.1",
+    "@maataa/registry": "^0.4.1"
   }
 }

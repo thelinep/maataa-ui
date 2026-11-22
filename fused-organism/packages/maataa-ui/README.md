@@ -14,6 +14,8 @@ A production-grade React component library with a paper-and-ink design aesthetic
 
 ## 📦 Installation
 
+In Next.js App Router projects, import interactive components from their category entry points (for example, `@maataa/ui/forms` or `@maataa/ui/actions`). The build preserves their `"use client"` boundaries. For server-rendered theme CSS, use `@maataa/ui/theme-style`; the token package `@maataa/tokens` is also server-safe.
+
 ```bash
 npm install @maataa/ui
 # or

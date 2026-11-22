@@ -22,5 +22,27 @@ const registry=readJson("registry/components.registry.json");
 if(registry.version!==expected) errors.push(`registry version ${registry.version} != ${expected}`);
 const architecture=readJson("architecture.json");
 if(architecture.version!==expected) errors.push(`architecture version ${architecture.version} != ${expected}`);
+const internalVersions=new Map();
+for(const parent of ["packages","apps"]){
+  const dir=path.join(root,parent);
+  for(const name of fs.readdirSync(dir)){
+    const p=path.join(dir,name,"package.json"); if(!fs.existsSync(p)) continue;
+    const pkg=JSON.parse(fs.readFileSync(p,"utf8")); internalVersions.set(pkg.name,pkg.version);
+  }
+}
+for(const parent of ["packages","apps"]){
+  const dir=path.join(root,parent);
+  for(const name of fs.readdirSync(dir)){
+    const p=path.join(dir,name,"package.json"); if(!fs.existsSync(p)) continue;
+    const pkg=JSON.parse(fs.readFileSync(p,"utf8"));
+    for(const section of ["dependencies","optionalDependencies","peerDependencies"]){
+      for(const [dependency,range] of Object.entries(pkg[section]??{})){
+        const targetVersion=internalVersions.get(dependency);
+        if(!targetVersion) continue;
+        if(range==="*" || !range.includes(targetVersion)) errors.push(`${pkg.name} ${section}.${dependency} must use a concrete range containing ${targetVersion} (found ${range})`);
+      }
+    }
+  }
+}
 if(errors.length){console.error("version sync FAIL\n"+errors.join("\n"));process.exit(1);}
 console.log(`version sync PASS (${expected}; root/kernel workspaces/lock/API/registry/architecture; independent packages version separately)`);
