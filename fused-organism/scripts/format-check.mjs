@@ -15,7 +15,7 @@ function walk(directory) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const filePath = path.join(directory, entry.name);
     const relativePath = path.relative(root, filePath).split(path.sep).join("/");
-    if (entry.isDirectory() && !["node_modules", "dist", "release", "legacy-artifacts"].includes(entry.name)) {
+    if (entry.isDirectory() && !["node_modules", "dist", "release", "legacy-artifacts", "storybook-static"].includes(entry.name)) {
       walk(filePath);
     } else if (
       entry.isFile() &&

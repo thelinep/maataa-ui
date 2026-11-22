@@ -108,8 +108,8 @@ export const paperColorPalette = {
   // text color, both from DESIGN_SYSTEM.md, for badges/toasts/alerts.
   semantic: {
     success: { bg: "#C7E9C0", text: "#2D6A3E" },
-    warning: { bg: "#F5D547", text: "#7A6100" },
-    error: { bg: "#F5B5A6", text: "#8B3A2B" },
+    warning: { bg: "#F5D547", text: "#614A00" },
+    error: { bg: "#F5B5A6", text: "#742819" },
     info: { bg: "#B8D9F5", text: "#1E3A5F" },
   },
 

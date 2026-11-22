@@ -1,0 +1,56 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Getting Started" />
+
+# MAATAA UI core primitives
+
+This Storybook documents the core primitive set selected for the 1.0 semver promise. Each component page includes its stories and controls. Use the accessibility panel while exploring a story; automated axe findings are a useful check, not a substitute for keyboard or assistive-technology review.
+
+## Stable 1.0 scope
+
+The stable set is the explicitly listed exports in `api/component-stability.json`: 15 rendered primitives plus the `FieldContext`, `primitiveComponents`, and `useField` API exports, including their `@maataa/ui` aliases. Other MAATAA exports are beta; the TLPS and domain composite families are experimental. Only the stable set receives the 1.0 semver promise.
+
+The rendered primitives are AspectRatio, Badge, Box, Button, Card, Container, Divider, Flex, Grid, Input, Portal, ScrollArea, Spacer, Stack, and VisuallyHidden.
+
+## Install and use
+
+```sh
+npm install @maataa/ui
+```
+
+```tsx
+import { Button, Card, Input, Stack } from "@maataa/ui";
+
+export function ExampleForm() {
+  return (
+    <Card>
+      <Stack spacing="md">
+        <Input label="Project name" name="projectName" />
+        <Button type="submit">Create project</Button>
+      </Stack>
+    </Card>
+  );
+}
+```
+
+## Theming
+
+Token values resolve through CSS custom properties and include the default palette as a fallback. Apply a built-in theme at the document root with the server-safe theme style entry:
+
+```tsx
+import { ThemeStyle, tlpsV2Theme } from "@maataa/ui/theme-style";
+
+<head>
+  <ThemeStyle theme={tlpsV2Theme} />
+</head>
+```
+
+The built-in themes are `paperTheme`, `darkTheme`, and `tlpsV2Theme`. See the `@maataa/tokens` package guide for scoped themes, raw palette access, and migration notes for code that needs literal colors.
+
+## Accessibility notes
+
+- Give every `Input` a visible label or an explicit accessible name. Associate help and error text with the field.
+- Use `Button` for actions and links for navigation. Preserve visible focus indicators and verify the consuming app's focus styles.
+- `ScrollArea` is keyboard focusable so users can reach its scrolling region.
+- Use `VisuallyHidden` for text that should be available to assistive technology without appearing visually.
+- The Storybook accessibility panel runs automated checks per story. The 1.0 manual keyboard, NVDA, and VoiceOver review is tracked separately in `docs/ACCESSIBILITY-REVIEW-1.0.md` and remains a release requirement.

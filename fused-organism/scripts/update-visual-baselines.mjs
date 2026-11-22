@@ -6,4 +6,6 @@ if(process.env.MAATAA_VISUAL_REVIEW!=="approved"){
   process.exit(1);
 }
 const result=spawnSync(process.execPath,[path.join(root,"scripts/browser-certify.mjs"),"--update-baselines"],{cwd:root,stdio:"inherit",env:{...process.env,MAATAA_VISUAL_UPDATE_APPROVED:"YES_I_AM_UPDATING_REVIEWED_BASELINES"}});
-process.exit(result.status??1);
+if(result.status!==0)process.exit(result.status??1);
+const uiResult=spawnSync(process.execPath,[path.join(root,"scripts/ui-visual-certify.mjs"),"--update-baselines"],{cwd:root,stdio:"inherit",env:{...process.env,MAATAA_VISUAL_UPDATE_APPROVED:"YES_I_AM_UPDATING_REVIEWED_BASELINES"}});
+process.exit(uiResult.status??1);

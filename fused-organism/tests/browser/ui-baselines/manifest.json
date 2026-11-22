@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "browser": {
+    "family": "Chromium",
+    "exactVersion": "144.0.7559.96"
+  },
+  "deviceScaleFactor": 1,
+  "viewport": [1280, 900],
+  "comparison": {
+    "channelTolerance": 10,
+    "maxPixelRatio": 0.003
+  },
+  "updatePolicy": {
+    "certificationMayUpdate": false,
+    "command": "MAATAA_VISUAL_REVIEW=approved npm run visuals:update:ui",
+    "reviewRequired": true
+  },
+  "baselines": [
+    { "component": "AspectRatio", "storyId": "primitives-aspectratio--widescreen", "name": "primitive-aspect-ratio.png" },
+    { "component": "Badge", "storyId": "primitives-badge--default", "name": "primitive-badge.png" },
+    { "component": "Box", "storyId": "primitives-box--default", "name": "primitive-box.png" },
+    { "component": "Button", "storyId": "primitives-button--primary", "name": "primitive-button.png" },
+    { "component": "Card", "storyId": "primitives-card--default", "name": "primitive-card.png" },
+    { "component": "Container", "storyId": "primitives-container--default", "name": "primitive-container.png" },
+    { "component": "Divider", "storyId": "primitives-divider--horizontal", "name": "primitive-divider.png" },
+    { "component": "Flex", "storyId": "primitives-flex--row", "name": "primitive-flex.png" },
+    { "component": "Grid", "storyId": "primitives-grid--three-columns", "name": "primitive-grid.png" },
+    { "component": "Input", "storyId": "primitives-input--default", "name": "primitive-input.png" },
+    { "component": "Portal", "storyId": "primitives-portal--default", "name": "primitive-portal.png" },
+    { "component": "ScrollArea", "storyId": "primitives-scrollarea--vertical-scroll", "name": "primitive-scroll-area.png" },
+    { "component": "Spacer", "storyId": "primitives-spacer--growing-spacer", "name": "primitive-spacer.png" },
+    { "component": "Stack", "storyId": "primitives-stack--vertical", "name": "primitive-stack.png" },
+    { "component": "VisuallyHidden", "storyId": "primitives-visuallyhidden--default", "name": "primitive-visually-hidden.png" }
+  ]
+}

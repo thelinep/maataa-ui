@@ -49,11 +49,12 @@ const overflowByDirection = {
  * ```
  */
 export const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
-  ({ maxHeight, maxWidth, direction = "vertical", children, style, className, ...props }, ref) => {
+  ({ maxHeight, maxWidth, direction = "vertical", children, style, className, tabIndex, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={className ? `maataa-scroll-area ${className}` : "maataa-scroll-area"}
+        tabIndex={tabIndex ?? 0}
         style={{
           maxHeight,
           maxWidth,

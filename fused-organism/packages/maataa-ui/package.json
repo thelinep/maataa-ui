@@ -179,8 +179,8 @@
   },
   "dependencies": {
     "@maataa/governance": "^0.4.1",
-    "@maataa/react": "^0.4.1",
     "@maataa/primitives": "^0.4.1",
+    "@maataa/react": "^0.4.1",
     "@maataa/tokens": "^0.4.1"
   },
   "peerDependencies": {
@@ -188,6 +188,7 @@
     "react-dom": ">=18.2.0 <20"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^7.6.24",
     "@storybook/addon-essentials": "^7.6.0",
     "@storybook/addon-interactions": "^7.6.0",
     "@storybook/addon-links": "^7.6.0",
@@ -206,6 +207,7 @@
     "@vitejs/plugin-react": "^4.0.0",
     "@vitest/coverage-v8": "^1.6.1",
     "@vitest/ui": "^1.0.0",
+    "axe-core": "^4.14.1",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
