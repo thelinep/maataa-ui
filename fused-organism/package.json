@@ -93,7 +93,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
-    "electron": "44.5.1",
+    "electron": "44.11.5",
     "electron-builder": "26.15.3"
   },
   "build": {
