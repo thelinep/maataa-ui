@@ -14,9 +14,10 @@ if(mod.REACT_PEER_RANGE!==pkg.peerDependencies.react) errors.push("exported REAC
 if(mod.REACT_ADAPTER_CONTRACT_VERSION!==pkg.maataaPolicy.adapterContractVersion) errors.push("exported React adapter contract version differs from package policy");
 if(typeof mod.validateReactHost!=="function") errors.push("validateReactHost export missing");
 const visual=JSON.parse(fs.readFileSync(path.join(root,"packages/maataa-ui/package.json"),"utf8"));
+const governance=JSON.parse(fs.readFileSync(path.join(root,"packages/governance/package.json"),"utf8"));
 if(visual.dependencies?.react||visual.dependencies?.["react-dom"]) errors.push("visual package must use host-provided React peers");
 if(visual.peerDependencies?.react!==pkg.peerDependencies.react||visual.peerDependencies?.["react-dom"]!==pkg.peerDependencies.react) errors.push("visual package React host range must match the kernel adapter");
-if(visual.dependencies?.["@maataa/governance"]!=="*"||visual.dependencies?.["@maataa/react"]!=="*") errors.push("visual package must depend on the workspace governance and React adapter packages");
+if(visual.dependencies?.["@maataa/governance"]!==`^${governance.version}`||visual.dependencies?.["@maataa/react"]!==`^${pkg.version}`) errors.push("visual package must use concrete ranges matching workspace governance and React adapter versions");
 const source=fs.readFileSync(path.join(root,"packages/maataa-ui/src/kernelIntegration.tsx"),"utf8");
 if(!source.includes("canDispatch")||!source.includes("createMaataaReact")) errors.push("fused UI integration must use kernel dispatch and React adapter APIs");
 if(errors.length){console.error("React dependency/adapter policy FAIL\n"+errors.join("\n"));process.exit(1);}

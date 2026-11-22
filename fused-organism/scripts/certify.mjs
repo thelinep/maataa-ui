@@ -14,6 +14,7 @@ const gates = [
   ["m2-closeout", "npm run gate:m2-closeout"],
   ["toolchain", "npm run gate:toolchain"],
   ["version-sync", "npm run gate:version-sync"],
+  ["ui-package-build", "npm run build:ui"],
   ["drift", "npm run gate:drift"],
   ["visual-policy", "npm run gate:visual-policy"],
   ["registry-bindings", "npm run check:registry-bindings"],

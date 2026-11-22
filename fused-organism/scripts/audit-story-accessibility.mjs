@@ -19,6 +19,22 @@ const mime = {
   ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2",
 };
 
+async function runAxe(page) {
+  return page.evaluate(async () => {
+    const root = document.querySelector("#storybook-root");
+    const options = { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"] } };
+    for (let attempt = 0; attempt < 60; attempt++) {
+      try {
+        return await window.axe.run(root, options);
+      } catch (error) {
+        if (!String(error).includes("Axe is already running") || attempt === 59) throw error;
+        await new Promise((resolve) => setTimeout(resolve, 250));
+      }
+    }
+    throw new Error("Axe retry loop exhausted");
+  });
+}
+
 function classifyStory(story) {
   const title = story.title ?? "";
   const componentName = title.split("/").at(-1);
@@ -65,12 +81,8 @@ try {
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.locator("#storybook-root").waitFor({ state: "attached", timeout: 15000 });
       await page.waitForTimeout(100);
-      await page.addScriptTag({ content: axeSource });
-      const axe = await page.evaluate(async () => {
-        return window.axe.run(document.querySelector("#storybook-root"), {
-          runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"] },
-        });
-      });
+      if (!(await page.evaluate(() => Boolean(window.axe)))) await page.addScriptTag({ content: axeSource });
+      const axe = await runAxe(page);
       results.push({ id: story.id, title: story.title, name: story.name, stability: classifyStory(story), violations: axe.violations.map((violation) => ({
         id: violation.id,
         impact: violation.impact,

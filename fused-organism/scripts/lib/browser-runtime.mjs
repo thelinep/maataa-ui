@@ -101,7 +101,7 @@ export async function launchBrowser() {
     if (!fs.existsSync(socket)) throw new Error("XVFB_START_FAILED");
   }
   const args = [
-    "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--no-first-run", "--disable-default-apps", "--disable-extensions",
+    "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--force-color-profile=srgb", "--no-first-run", "--disable-default-apps", "--disable-extensions",
     "--allow-file-access-from-files", "--disable-web-security", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"
   ];
   if (!xvfb && !display) args.unshift("--headless=new");

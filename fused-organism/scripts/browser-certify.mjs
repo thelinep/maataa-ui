@@ -106,6 +106,7 @@ try{
 
   await page.send("Emulation.setEmulatedMedia",{media:"screen",features:[]});
   const [desktopVp,mobileVp]=runtimePolicy.viewports.visual;
+  await page.evaluate("Object.assign(document.querySelector('#visual-fixture').style,{position:'fixed',left:'0px',top:'0px'})");
   await setViewport(page,...desktopVp);await new Promise(r=>setTimeout(r,40));
   const desktopDiff=await screenshotFixture(page,"semantic-desktop");
   await setViewport(page,...mobileVp);await new Promise(r=>setTimeout(r,40));
