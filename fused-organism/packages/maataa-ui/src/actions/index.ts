@@ -40,6 +40,7 @@ export {
   type FabMenuProps,
 } from "./MenuButton";
 export { ContextMenu, type ContextMenuProps } from "./ContextMenu";
+export { ThumbMenu, type ThumbMenuProps, type ThumbHand, type ThumbMenuLayout } from "./ThumbMenu";
 export {
   SaveDraftButton,
   BulkActionBar,

@@ -4,6 +4,10 @@ import {
   LocaleProvider,
   SegmentedTabs,
   ThemePicker,
+  ThumbMenu,
+  builtInThemes,
+  useThemePreference,
+  type ChatCommand,
   createKeywordRetriever,
   formatContext,
   listLocalModels,
@@ -86,6 +90,8 @@ function Main({
   const [chatLog, setChatLog] = useState<LocalChatMessage[]>([]);
   const [docsLog, setDocsLog] = useState<LocalChatMessage[]>([]);
   const [docs, setDocs] = useState<DocChunk[] | null>(null);
+  const [resetCount, setResetCount] = useState(0);
+  const theme = useThemePreference();
   const set = <K extends keyof Settings>(key: K, value: Settings[K]) =>
     setSettings((s) => ({ ...s, [key]: value }));
 
@@ -148,6 +154,56 @@ function Main({
   const model: LocalModelOptions | undefined = settings.model
     ? { ...conn, model: settings.model }
     : undefined;
+
+  const newConversation = () => {
+    if (tab === "chat") setChatLog([]);
+    else setDocsLog([]);
+    setResetCount((n) => n + 1);
+  };
+  const toggleLanguage = () => set("language", settings.language === "hi-IN" ? "en-IN" : "hi-IN");
+  const themeNames = ["system", ...builtInThemes.map((th) => th.name)];
+  const nextTheme = () =>
+    theme.setChoice(themeNames[(themeNames.indexOf(theme.choice) + 1) % themeNames.length]!);
+
+  const commands: ChatCommand[] = [
+    { name: "chat", description: t("Switch to free chat"), run: () => setTab("chat") },
+    { name: "docs", description: t("Switch to MAATAA UI docs"), run: () => setTab("docs") },
+    {
+      name: "model",
+      args: "<name>",
+      description: t("Choose the model"),
+      run: (name) => {
+        if (!name) return t("Installed models: {list}", { list: models.join(", ") || t("none") });
+        const found =
+          models.find((m) => m === name) ??
+          models.find((m) => m.startsWith(`${name}:`)) ??
+          models.find((m) => m.startsWith(name));
+        if (!found) return t("No installed model is called {name}.", { name });
+        set("model", found);
+        return t("Model: {name}", { name: found });
+      },
+    },
+    {
+      name: "lang",
+      args: "en | hi",
+      description: t("Change the language"),
+      run: (code) => {
+        const next = code.startsWith("hi") ? "hi-IN" : code.startsWith("en") ? "en-IN" : null;
+        if (!next) return t("Use /lang en or /lang hi");
+        set("language", next);
+      },
+    },
+    {
+      name: "theme",
+      args: "<name>",
+      description: t("Change the theme"),
+      run: (name) => {
+        if (!themeNames.includes(name)) return t("Themes: {list}", { list: themeNames.join(", ") });
+        theme.setChoice(name);
+      },
+    },
+    { name: "check", description: t("Check the model server again"), run: () => void checkServer() },
+  ];
 
   const label = { fontSize: 13, fontWeight: 600 } as const;
   const control = {
@@ -281,7 +337,8 @@ function Main({
               label: t("Chat"),
               content: (
                 <LocalChat
-                  key={`chat-${settings.language}`}
+                  key={`chat-${settings.language}-${resetCount}`}
+                  commands={commands}
                   title={t("Chat with your local model")}
                   hideTitle
                   model={model}
@@ -301,7 +358,8 @@ function Main({
               label: t("MAATAA UI docs"),
               content: (
                 <LocalChat
-                  key={`docs-${settings.language}`}
+                  key={`docs-${settings.language}-${resetCount}`}
+                  commands={commands}
                   title={t("Ask about MAATAA UI")}
                   hideTitle
                   assistantName={t("Docs helper")}
@@ -326,6 +384,27 @@ function Main({
             {t("The docs index is missing. Start the app with npm run chat:local to build it.")}
           </p>
         )}
+        <ThumbMenu
+          label={t("Quick actions")}
+          haptics
+          items={[
+            { id: "new", label: t("New conversation"), icon: "＋", onSelect: newConversation },
+            {
+              id: "mode",
+              label: tab === "chat" ? t("MAATAA UI docs") : t("Chat"),
+              icon: tab === "chat" ? "📘" : "💬",
+              onSelect: () => setTab(tab === "chat" ? "docs" : "chat"),
+            },
+            {
+              id: "lang",
+              label: settings.language === "hi-IN" ? "English" : "हिन्दी",
+              icon: "अ",
+              onSelect: toggleLanguage,
+            },
+            { id: "theme", label: t("Next theme"), icon: "◐", onSelect: nextTheme },
+            { id: "check", label: t("Check again"), icon: "↻", onSelect: () => void checkServer() },
+          ]}
+        />
       </main>
     </div>
   );

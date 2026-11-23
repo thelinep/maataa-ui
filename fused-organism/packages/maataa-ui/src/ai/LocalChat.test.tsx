@@ -153,7 +153,7 @@ describe("LocalChat", () => {
     });
     expect(seen[0][1]).toEqual({ role: "user", content: "How do I switch themes?" });
     expect(screen.getByText("1 source")).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Assistant replied."));
+    await screen.findByText("Assistant replied.");
   });
 
   it("keeps history, sends on Enter, and adds a line on Shift+Enter", async () => {
@@ -209,6 +209,44 @@ describe("LocalChat", () => {
     expect(screen.queryByText(/never/)).not.toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "New conversation" }));
     expect(screen.getByText("Ask a question to start.")).toBeInTheDocument();
+  });
+
+  it("lists slash commands, completes them, and runs them instead of sending", async () => {
+    const user = userEvent.setup();
+    const seen: ChatMessage[][] = [];
+    const run = vi.fn((args: string) => `Model set to ${args}`);
+    render(
+      <LocalChat
+        send={fakeTransport(["OK"], seen)}
+        commands={[{ name: "model", args: "<name>", description: "Choose the model", run }]}
+      />
+    );
+    const box = screen.getByRole("textbox", { name: "Your message" });
+    await user.type(box, "/");
+    const list = screen.getByRole("listbox", { name: "Commands" });
+    expect(
+      within(list)
+        .getAllByRole("option")
+        .map((o) => o.textContent)
+    ).toEqual([
+      "/model <name>Choose the model",
+      "/clearStart a new conversation",
+      "/helpList the commands",
+    ]);
+    expect(box).toHaveAttribute("aria-activedescendant", within(list).getAllByRole("option")[0].id);
+    await user.keyboard("{Tab}");
+    expect(box).toHaveValue("/model ");
+    await user.type(box, "qwen2.5{Enter}");
+    expect(run).toHaveBeenCalledWith("qwen2.5");
+    expect(await screen.findByText("Model set to qwen2.5")).toBeInTheDocument();
+    expect(seen).toHaveLength(0);
+    await user.type(box, "/he{Enter}");
+    expect(
+      await screen.findByText(/^Commands: \/model <name> \(Choose the model\)/)
+    ).toBeInTheDocument();
+    await user.type(box, "/unknown thing{Enter}");
+    await waitFor(() => expect(seen).toHaveLength(1));
+    expect(seen[0].at(-1)?.content).toBe("/unknown thing");
   });
 
   it("speaks Hindi", () => {

@@ -245,6 +245,8 @@ export const hi: Readonly<Record<string, string>> = {
   "Collapse all": "सब समेटें",
   "Collapse navigation": "नेविगेशन समेटें",
   "Colour correction": "रंग सुधार",
+  Commands: "कमांड",
+  "Commands: {list}": "कमांड: {list}",
   "Committed so far:": "अब तक तय:",
   Company: "कंपनी",
   Compare: "तुलना करें",
@@ -360,6 +362,7 @@ export const hi: Readonly<Record<string, string>> = {
     "कमरे में मौजूद या संदेश में शामिल लोगों के अलावा किसी से शेयर न करें।",
   Documents: "दस्तावेज़",
   Done: "पूरा",
+  "Done: /{name}": "हो गया: /{name}",
   "Donut chart with {count} categories": "{count} श्रेणियों वाला डोनट चार्ट",
   "Don’t compare": "तुलना न करें",
   Down: "नीचे",
@@ -406,6 +409,8 @@ export const hi: Readonly<Record<string, string>> = {
   "Enter one of the recovery codes you saved when you set up two-step verification. Each code works once.":
     "दो-चरणीय सत्यापन सेट करते समय सहेजे गए रिकवरी कोड में से एक डालें। हर कोड एक ही बार चलता है।",
   "Enter sends · Shift+Enter adds a line": "Enter से भेजें · Shift+Enter से नई पंक्ति",
+  "Enter sends · Shift+Enter adds a line · / for commands":
+    "Enter से भेजें · Shift+Enter से नई पंक्ति · कमांड के लिए /",
   "Enter the email you sign in with. We’ll send a link to choose a new password.":
     "जिस ईमेल से साइन इन करते हैं, वह डालें। हम नया पासवर्ड चुनने का लिंक भेजेंगे।",
   "Enter the person's name": "व्यक्ति का नाम डालें",
@@ -590,6 +595,7 @@ export const hi: Readonly<Record<string, string>> = {
   LinkedIn: "LinkedIn",
   "Links work once, for 30 minutes. Ask for a new one and use the latest email.":
     "लिंक एक बार, 30 मिनट तक चलते हैं। नया लिंक माँगें और सबसे नया ईमेल इस्तेमाल करें।",
+  "List the commands": "कमांड की सूची दिखाएँ",
   Live: "लाइव",
   "Live transcript": "लाइव ट्रांसक्रिप्ट",
   Loading: "लोड हो रहा है",
@@ -1104,6 +1110,7 @@ export const hi: Readonly<Record<string, string>> = {
   Standard: "सामान्य",
   Star: "तारा",
   Start: "शुरू करें",
+  "Start a new conversation": "नई बातचीत शुरू करें",
   "Start date": "शुरू होने की तारीख",
   "Start of {n}": "{n} की शुरुआत",
   "Start scanning": "स्कैन शुरू करें",
@@ -1135,6 +1142,8 @@ export const hi: Readonly<Record<string, string>> = {
   "Summary email": "सारांश ईमेल",
   "Sunrise {value} · Sunset {value2}": "सूर्योदय {value} · सूर्यास्त {value2}",
   "Switch account": "खाता बदलें",
+  "Switch to left hand": "बाएँ हाथ के लिए बदलें",
+  "Switch to right hand": "दाएँ हाथ के लिए बदलें",
   "Sync status": "सिंक स्थिति",
   System: "सिस्टम",
   "Tab {value} of {count}": "टैब {value}/{count}",
@@ -1159,6 +1168,7 @@ export const hi: Readonly<Record<string, string>> = {
   "Thanks for watching {film}. This takes about two minutes.":
     "{film} देखने के लिए धन्यवाद। इसमें लगभग दो मिनट लगेंगे।",
   "Thanks, {value}.": "धन्यवाद, {value}।",
+  "That command didn’t work: {message}": "यह कमांड नहीं चला: {message}",
   "The app's usual font": "ऐप का सामान्य फ़ॉन्ट",
   "The model stopped with an error: {message}": "मॉडल एक त्रुटि के साथ रुक गया: {message}",
   "The model {model} isn’t installed. For Ollama, run: ollama pull {model}":
@@ -1392,6 +1402,8 @@ export const hi: Readonly<Record<string, string>> = {
   "{cat} pictures": "{cat} तस्वीरें",
   "{contract} · {signed} of {count} signed":
     "{contract} · {count} में से {signed} ने हस्ताक्षर किए",
+  "{count} command matches": "{count} कमांड मिला",
+  "{count} commands match": "{count} कमांड मिले",
   "{count} condition": "{count} शर्त",
   "{count} conditions": "{count} शर्तें",
   "{count} frames": "{count} फ़्रेम",
