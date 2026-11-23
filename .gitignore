@@ -203,3 +203,6 @@ extensions/
 .env.production
 local.conf
 local.env
+
+# Files delivered by Claude sessions (bundles, previews)
+Claude outputs/
