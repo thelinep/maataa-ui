@@ -15,7 +15,11 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const update = process.argv.includes("--update-baselines");
 const updateApproved = process.env.MAATAA_VISUAL_UPDATE_APPROVED === "YES_I_AM_UPDATING_REVIEWED_BASELINES";
 const errors = [];
-const currentDir = fs.mkdtempSync(path.join(os.tmpdir(), "maataa-ui-visual-current-"));
+// MAATAA_VISUAL_CURRENT_DIR keeps this run's renders (CI uploads them for human review);
+// otherwise they go to a temporary folder that is removed afterwards.
+const keepCurrentDir = process.env.MAATAA_VISUAL_CURRENT_DIR;
+if (keepCurrentDir) fs.mkdirSync(keepCurrentDir, { recursive: true });
+const currentDir = keepCurrentDir ?? fs.mkdtempSync(path.join(os.tmpdir(), "maataa-ui-visual-current-"));
 const mime = {
   ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml", ".woff2": "font/woff2",
@@ -75,7 +79,7 @@ try {
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));
-  fs.rmSync(currentDir, { recursive: true, force: true });
+  if (!keepCurrentDir) fs.rmSync(currentDir, { recursive: true, force: true });
 }
 
 if (errors.length) {
