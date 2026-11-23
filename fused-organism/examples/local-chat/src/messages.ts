@@ -1,0 +1,33 @@
+// Hindi for this app's own text. Library text (buttons, the chat box) is
+// translated by @maataa/ui's built-in catalog; these entries are merged over it
+// through LocaleProvider's `messages` prop.
+export const appMessagesHi: Record<string, string> = {
+  "MAATAA local chat": "MAATAA लोकल चैट",
+  "Checking the model server…": "मॉडल सर्वर जाँचा जा रहा है…",
+  "Connected, but no models are installed. For Ollama, run: ollama pull llama3.2":
+    "जुड़ गया, पर कोई मॉडल इंस्टॉल नहीं है। Ollama के लिए चलाएँ: ollama pull llama3.2",
+  "Connected · {count} model": "जुड़ा हुआ · {count} मॉडल",
+  "Connected · {count} models": "जुड़ा हुआ · {count} मॉडल",
+  "Can’t reach the model server. Start Ollama or LM Studio, then press Check again.":
+    "मॉडल सर्वर तक नहीं पहुँच पा रहे। Ollama या LM Studio शुरू करें, फिर 'फिर से जाँचें' दबाएँ।",
+  Model: "मॉडल",
+  none: "कोई नहीं",
+  "Model server": "मॉडल सर्वर",
+  "Ollama on this computer": "इस कंप्यूटर पर Ollama",
+  "LM Studio on this computer": "इस कंप्यूटर पर LM Studio",
+  "Other OpenAI-compatible server": "कोई और OpenAI-संगत सर्वर",
+  "Server address": "सर्वर का पता",
+  "Check again": "फिर से जाँचें",
+  "Chat mode": "चैट मोड",
+  "Chat with your local model": "अपने लोकल मॉडल से चैट करें",
+  "Write a call sheet note for a 6 am shoot": "सुबह 6 बजे की शूटिंग के लिए कॉल शीट नोट लिखें",
+  "Explain golden hour in two lines": "गोल्डन आवर को दो पंक्तियों में समझाएँ",
+  "MAATAA UI docs": "MAATAA UI दस्तावेज़",
+  "Ask about MAATAA UI": "MAATAA UI के बारे में पूछें",
+  "Docs helper": "दस्तावेज़ सहायक",
+  "How do I add a theme picker?": "थीम पिकर कैसे जोड़ूँ?",
+  "Which props does DatePicker take?": "DatePicker कौन-से props लेता है?",
+  "How do I show the app in Hindi?": "ऐप को हिन्दी में कैसे दिखाऊँ?",
+  "The docs index is missing. Start the app with npm run chat:local to build it.":
+    "दस्तावेज़ इंडेक्स नहीं मिला। इसे बनाने के लिए ऐप को npm run chat:local से शुरू करें।",
+};

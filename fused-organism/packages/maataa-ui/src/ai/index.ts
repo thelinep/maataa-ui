@@ -1,6 +1,6 @@
 /**
  * @maataa/ui/ai
- * AI and machine learning visualization and component library
+ * AI components: chat (LocalChat for local models), Sochen, ML insights
  */
 
 export {
@@ -40,3 +40,30 @@ export {
   type AIChatBubbleProps,
   type InteractionMode,
 } from "./AssistantUI";
+
+// Local chatbot
+export {
+  LocalChat,
+  type LocalChatProps,
+  type LocalChatMessage,
+  type ChatTransport,
+  type ChatContext,
+} from "./LocalChat";
+export {
+  streamChat,
+  listLocalModels,
+  LocalModelError,
+  DEFAULT_LOCAL_MODEL_URL,
+  type ChatMessage,
+  type ChatRole,
+  type LocalModelApi,
+  type LocalModelOptions,
+  type LocalModelErrorKind,
+} from "./localModel";
+export {
+  createKeywordRetriever,
+  formatContext,
+  tokenize,
+  type DocChunk,
+  type DocHit,
+} from "./docsSearch";

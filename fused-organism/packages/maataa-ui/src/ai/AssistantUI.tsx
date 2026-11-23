@@ -6,7 +6,6 @@
 import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { colorTokens, spacingTokens } from "../tokens";
-import { VisuallyHidden } from "../primitives/VisuallyHidden";
 
 export interface AIChatBubbleProps {
   from: "user" | "assistant";
@@ -83,7 +82,7 @@ export function AIChatBubble({
       {sources && sources.length > 0 && (
         <details style={{ fontSize: 12 }}>
           <summary style={{ cursor: "pointer", color: colorTokens.interactive.primary }}>
-            {sources.length} {sources.length === 1 ? "source" : "sources"}
+            {t.plural(sources.length, "{count} source", "{count} sources")}
           </summary>
           <ol style={{ margin: "4px 0 0", paddingLeft: 18 }}>
             {sources.map((s) => (
@@ -153,6 +152,7 @@ export function AITypingIndicator({
         <button
           type="button"
           onClick={onStop}
+          aria-label={t("Stop writing")}
           style={{
             minHeight: 32,
             padding: "0 10px",
@@ -165,7 +165,7 @@ export function AITypingIndicator({
             cursor: "pointer",
           }}
         >
-          {t("Stop")} <VisuallyHidden>writing</VisuallyHidden>
+          {t("Stop")}
         </button>
       )}
     </div>

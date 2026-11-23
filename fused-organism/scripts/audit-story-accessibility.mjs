@@ -81,10 +81,22 @@ try {
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.locator("#storybook-root").waitFor({ state: "attached", timeout: 15000 });
       await page.waitForTimeout(100);
-      await page.evaluate(() => {
-        const finite = document.getAnimations().filter((animation) => Number.isFinite(animation.effect?.getComputedTiming().endTime ?? Infinity));
-        const settled = Promise.all(finite.map((animation) => animation.finished.catch(() => undefined)));
-        return Promise.race([settled, new Promise((resolve) => setTimeout(resolve, 3000))]);
+      await page.evaluate(async () => {
+        // Wait until no finite animation or transition has run for two checks in a row (at most 3 s),
+        // so late-starting fades (e.g. Storybook backgrounds) don't get measured halfway.
+        const running = () => document.getAnimations().filter((a) => a.playState === "running" && Number.isFinite(a.effect?.getComputedTiming().endTime ?? Infinity));
+        const deadline = Date.now() + 3000;
+        let quiet = 0;
+        while (quiet < 2 && Date.now() < deadline) {
+          const active = running();
+          if (active.length) {
+            quiet = 0;
+            await Promise.race([Promise.all(active.map((a) => a.finished.catch(() => undefined))), new Promise((r) => setTimeout(r, deadline - Date.now()))]);
+          } else {
+            quiet += 1;
+          }
+          await new Promise((r) => setTimeout(r, 60));
+        }
       });
       if (!(await page.evaluate(() => Boolean(window.axe)))) await page.addScriptTag({ content: axeSource });
       const axe = await runAxe(page);

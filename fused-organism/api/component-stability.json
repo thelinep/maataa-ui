@@ -1381,6 +1381,10 @@
           "stability": "beta"
         },
         {
+          "name": "DEFAULT_LOCAL_MODEL_URL",
+          "stability": "beta"
+        },
+        {
           "name": "DEFAULT_THEME_STORAGE_KEY",
           "stability": "beta"
         },
@@ -1834,6 +1838,14 @@
         },
         {
           "name": "LoadingOverlay",
+          "stability": "beta"
+        },
+        {
+          "name": "LocalChat",
+          "stability": "beta"
+        },
+        {
+          "name": "LocalModelError",
           "stability": "beta"
         },
         {
@@ -3045,6 +3057,10 @@
           "stability": "beta"
         },
         {
+          "name": "createKeywordRetriever",
+          "stability": "beta"
+        },
+        {
           "name": "createMaataaProduct",
           "stability": "beta"
         },
@@ -3133,6 +3149,10 @@
           "stability": "beta"
         },
         {
+          "name": "formatContext",
+          "stability": "beta"
+        },
+        {
           "name": "formatCoordinates",
           "stability": "beta"
         },
@@ -3218,6 +3238,10 @@
         },
         {
           "name": "levelZone",
+          "stability": "beta"
+        },
+        {
+          "name": "listLocalModels",
           "stability": "beta"
         },
         {
@@ -3405,6 +3429,10 @@
           "stability": "beta"
         },
         {
+          "name": "streamChat",
+          "stability": "beta"
+        },
+        {
           "name": "sunPosition",
           "stability": "beta"
         },
@@ -3446,6 +3474,10 @@
         },
         {
           "name": "tlpsV2Theme",
+          "stability": "beta"
+        },
+        {
+          "name": "tokenize",
           "stability": "beta"
         },
         {
@@ -5944,11 +5976,23 @@
           "stability": "beta"
         },
         {
+          "name": "DEFAULT_LOCAL_MODEL_URL",
+          "stability": "beta"
+        },
+        {
           "name": "EmbeddingVisualization",
           "stability": "beta"
         },
         {
           "name": "InteractionModeSwitcher",
+          "stability": "beta"
+        },
+        {
+          "name": "LocalChat",
+          "stability": "beta"
+        },
+        {
+          "name": "LocalModelError",
           "stability": "beta"
         },
         {
@@ -5977,6 +6021,26 @@
         },
         {
           "name": "ThoughtInput",
+          "stability": "beta"
+        },
+        {
+          "name": "createKeywordRetriever",
+          "stability": "beta"
+        },
+        {
+          "name": "formatContext",
+          "stability": "beta"
+        },
+        {
+          "name": "listLocalModels",
+          "stability": "beta"
+        },
+        {
+          "name": "streamChat",
+          "stability": "beta"
+        },
+        {
+          "name": "tokenize",
           "stability": "beta"
         }
       ]
