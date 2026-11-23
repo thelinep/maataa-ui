@@ -33,9 +33,13 @@ jobs:
     env:
       ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      MAATAA_AXE_REPORT: ${{ runner.temp }}/maataa-story-a11y.json
     steps:
       - uses: actions/checkout@v5
+
+      # The runner context is not available in job-level env, so set the
+      # report path from $RUNNER_TEMP once the job is running.
+      - name: Set report paths
+        run: echo "MAATAA_AXE_REPORT=$RUNNER_TEMP/maataa-story-a11y.json" >> "$GITHUB_ENV"
 
       - uses: actions/setup-node@v5
         with:

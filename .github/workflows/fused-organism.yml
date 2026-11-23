@@ -32,9 +32,15 @@ jobs:
     env:
       ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      MAATAA_AXE_REPORT: ${{ runner.temp }}/maataa-story-a11y.json
     steps:
       - uses: actions/checkout@v5
+
+      # The runner context is not available in job-level env, so set the
+      # report path from $RUNNER_TEMP once the job is running.
+      - name: Set report paths
+        run: |
+          echo "MAATAA_AXE_REPORT=$RUNNER_TEMP/maataa-story-a11y.json" >> "$GITHUB_ENV"
+          echo "MAATAA_VISUAL_CURRENT_DIR=$RUNNER_TEMP/maataa-ui-visual-current" >> "$GITHUB_ENV"
 
       - uses: actions/setup-node@v5
         with:
@@ -84,6 +90,8 @@ jobs:
           if [ -f certification/REPORT.md ]; then cp certification/REPORT.md "$evidence/"; fi
           if [ -f "$MAATAA_AXE_REPORT" ]; then cp "$MAATAA_AXE_REPORT" "$evidence/"; fi
           if [ -d packages/maataa-ui/storybook-static ]; then cp -R packages/maataa-ui/storybook-static "$evidence/storybook-static"; fi
+          # This run's stable-set renders, for reviewing a baseline update (never applied automatically).
+          if [ -d "$MAATAA_VISUAL_CURRENT_DIR" ]; then cp -R "$MAATAA_VISUAL_CURRENT_DIR" "$evidence/ui-visual-current"; fi
           printf '%s\n' "$GITHUB_SHA" > "$evidence/tested-commit.txt"
           git restore -- certification/certification.json certification/REPORT.md
 
