@@ -3,6 +3,7 @@
  * A row of filters with a result count and Clear all
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -51,6 +52,7 @@ export function FilterBar({
   resultNounSingular,
   children,
 }: FilterBarProps) {
+  const t = useT();
   const active = Object.values(values).some(Boolean);
   return (
     <div
@@ -107,7 +109,7 @@ export function FilterBar({
             font: "inherit",
           }}
         >
-          Clear all filters
+          {t("Clear all filters")}
         </button>
       )}
       {resultCount !== undefined && (

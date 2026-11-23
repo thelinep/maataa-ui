@@ -3,6 +3,7 @@
  * Marketing campaign cards and an asset library with usage rights
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useMemo, useState } from "react";
 import { Badge } from "../primitives/Badge";
 import { StateBadge, publicationStates } from "../status/StateBadge";
@@ -21,7 +22,7 @@ export interface MarketingCampaign {
   budget?: number;
   spent?: number;
   status: keyof typeof publicationStates;
-  /** e.g. { label: "Trailer views", value: "1.2 M" } */
+  /** e.g. { label: msg("Trailer views"), value: "1.2 M" } */
   result?: { label: string; value: string };
 }
 
@@ -39,8 +40,10 @@ export function MarketingCampaignCard({
   campaign: c,
   onOpen,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
 }: MarketingCampaignCardProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -107,13 +110,13 @@ export function MarketingCampaignCard({
         <div style={{ fontSize: typographyTokens.fontSize.sm }}>
           Spent {money.format(c.spent ?? 0)} of {money.format(c.budget)}
           {(c.spent ?? 0) > c.budget && (
-            <strong style={{ color: colorTokens.interactive.error }}> · over budget</strong>
+            <strong style={{ color: colorTokens.interactive.error }}> {t("· over budget")}</strong>
           )}
         </div>
       )}
       {c.result && (
         <div style={{ fontSize: typographyTokens.fontSize.sm }}>
-          {c.result.label}: <strong>{c.result.value}</strong>
+          {t(c.result.label)}: <strong>{c.result.value}</strong>
         </div>
       )}
     </article>
@@ -146,9 +149,11 @@ export interface MarketingAssetLibraryProps {
 export function MarketingAssetLibrary({
   assets,
   onOpen,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
 }: MarketingAssetLibraryProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const [f, setF] = useState<Record<string, string>>({ type: "", channel: "" });
   const types = Array.from(new Set(assets.map((a) => a.type)));
   const channels = Array.from(new Set(assets.flatMap((a) => a.approvedFor)));
@@ -164,12 +169,12 @@ export function MarketingAssetLibrary({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md }}>
       <FilterBar
-        label="Filter marketing assets"
+        label={t("Filter marketing assets")}
         filters={[
-          { id: "type", label: "Type", options: types.map((t) => ({ value: t, label: t })) },
+          { id: "type", label: msg("Type"), options: types.map((t) => ({ value: t, label: t })) },
           {
             id: "channel",
-            label: "Approved for",
+            label: msg("Approved for"),
             options: channels.map((c) => ({ value: c, label: c })),
           },
         ]}
@@ -179,9 +184,13 @@ export function MarketingAssetLibrary({
         resultNoun="usable assets"
         resultNounSingular="usable asset"
       />
-      <AssetGrid assets={live} onOpen={(a) => onOpen(a as MarketingAsset)} label="Usable assets" />
+      <AssetGrid
+        assets={live}
+        onOpen={(a) => onOpen(a as MarketingAsset)}
+        label={t("Usable assets")}
+      />
       {expired.length > 0 && (
-        <section aria-label="Rights expired">
+        <section aria-label={t("Rights expired")}>
           <h3
             style={{
               margin: `0 0 ${spacingTokens.xs}`,
@@ -189,7 +198,7 @@ export function MarketingAssetLibrary({
               color: colorTokens.interactive.error,
             }}
           >
-            Rights expired · don’t use
+            {t("Rights expired · don’t use")}
           </h3>
           <ul
             style={{
@@ -200,11 +209,13 @@ export function MarketingAssetLibrary({
           >
             {expired.map((a) => (
               <li key={a.id}>
-                {a.name} · ended{" "}
-                {a.rightsUntil!.toLocaleDateString(locale, {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
+                {t("{name} · ended {value}", {
+                  name: a.name,
+                  value: a.rightsUntil!.toLocaleDateString(locale, {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  }),
                 })}
               </li>
             ))}

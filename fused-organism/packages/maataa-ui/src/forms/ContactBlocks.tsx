@@ -3,6 +3,7 @@
  * ContactForm and NewsletterSignup
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle } from "./fieldKit";
@@ -42,8 +43,10 @@ export interface ContactFormProps {
 export function ContactForm({
   topics = ["General", "Production enquiry", "Press", "Partnership"],
   onSubmit,
-  title = "Contact us",
+  title: titleProp,
 }: ContactFormProps) {
+  const t = useT();
+  const title = titleProp ?? t("Contact us");
   const id = useId();
   const [v, setV] = useState<ContactValues>({
     name: "",
@@ -92,8 +95,10 @@ export function ContactForm({
           color: colorTokens.semantic.success.text,
         }}
       >
-        <strong>Thanks, {v.name.split(" ")[0]}.</strong> We’ve got your message and will reply to{" "}
-        {v.email} within two working days.
+        <strong>{t("Thanks, {value}.", { value: v.name.split(" ")[0] })}</strong>{" "}
+        {t("We’ve got your message and will reply to {email} within two working days.", {
+          email: v.email,
+        })}
       </div>
     );
   }
@@ -121,7 +126,7 @@ export function ContactForm({
           }}
         >
           <strong>
-            There {keys.length === 1 ? "is a problem" : `are ${keys.length} problems`}
+            {t.plural(keys.length, "There is a problem", "There are {count} problems")}
           </strong>
           <ul style={{ margin: "4px 0 0", paddingLeft: 20 }}>
             {keys.map((k) => (
@@ -134,7 +139,7 @@ export function ContactForm({
           </ul>
         </div>
       )}
-      <FieldFrame label="Name" error={err.name} id={`${id}-name`}>
+      <FieldFrame label={t("Name")} error={err.name} id={`${id}-name`}>
         {(f) => (
           <input
             id={f.id}
@@ -147,7 +152,7 @@ export function ContactForm({
           />
         )}
       </FieldFrame>
-      <FieldFrame label="Email" error={err.email} id={`${id}-email`}>
+      <FieldFrame label={t("Email")} error={err.email} id={`${id}-email`}>
         {(f) => (
           <input
             id={f.id}
@@ -162,7 +167,7 @@ export function ContactForm({
           />
         )}
       </FieldFrame>
-      <FieldFrame label="Topic" id={`${id}-topic`}>
+      <FieldFrame label={t("Topic")} id={`${id}-topic`}>
         {(f) => (
           <select
             id={f.id}
@@ -176,7 +181,7 @@ export function ContactForm({
           </select>
         )}
       </FieldFrame>
-      <FieldFrame label="Message" error={err.message} id={`${id}-message`}>
+      <FieldFrame label={t("Message")} error={err.message} id={`${id}-message`}>
         {(f) => (
           <textarea
             id={f.id}
@@ -202,7 +207,7 @@ export function ContactForm({
           disabled={state === "sending"}
           aria-busy={state === "sending" || undefined}
         >
-          {state === "sending" ? "Sending…" : "Send message"}
+          {state === "sending" ? t("Sending…") : t("Send message")}
         </button>
       </div>
     </form>
@@ -224,10 +229,12 @@ export interface NewsletterSignupProps {
  */
 export function NewsletterSignup({
   onSubscribe,
-  title = "Get production news",
+  title: titleProp,
   blurb,
   frequency = "Fortnightly. Unsubscribe any time.",
 }: NewsletterSignupProps) {
+  const t = useT();
+  const title = titleProp ?? t("Get production news");
   const id = useId();
   const [email, setEmail] = useState("");
   const [err, setErr] = useState("");
@@ -283,7 +290,7 @@ export function NewsletterSignup({
           }}
         >
           <FieldFrame
-            label="Email address"
+            label={t("Email address")}
             hint={frequency}
             error={err}
             style={{ flex: 1, minWidth: 220 }}
@@ -303,7 +310,7 @@ export function NewsletterSignup({
             )}
           </FieldFrame>
           <button type="submit" style={primary} disabled={state === "busy"}>
-            {state === "busy" ? "Subscribing…" : "Subscribe"}
+            {state === "busy" ? t("Subscribing…") : t("Subscribe")}
           </button>
         </form>
       )}

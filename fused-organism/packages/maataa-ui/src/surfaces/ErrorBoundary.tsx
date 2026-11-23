@@ -3,6 +3,7 @@
  * Catches render errors in a region and shows a recoverable fallback
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -21,6 +22,7 @@ export interface ErrorFallbackProps {
  * Technical detail is behind a disclosure.
  */
 export function ErrorFallback({ error, reset, region }: ErrorFallbackProps) {
+  const t = useT();
   return (
     <div
       role="alert"
@@ -34,10 +36,10 @@ export function ErrorFallback({ error, reset, region }: ErrorFallbackProps) {
     >
       <strong>{region ? `${region} couldn't be shown.` : "Something went wrong here."}</strong>
       <p style={{ margin: `${spacingTokens.xs} 0 ${spacingTokens.sm}` }}>
-        The rest of the page still works. Your saved data is safe.
+        {t("The rest of the page still works. Your saved data is safe.")}
       </p>
       <Button variant="secondary" onClick={reset}>
-        Try again
+        {t("Try again")}
       </Button>
       <details
         style={{
@@ -46,7 +48,7 @@ export function ErrorFallback({ error, reset, region }: ErrorFallbackProps) {
           color: colorTokens.text.secondary,
         }}
       >
-        <summary style={{ cursor: "pointer" }}>Technical details</summary>
+        <summary style={{ cursor: "pointer" }}>{t("Technical details")}</summary>
         <pre style={{ whiteSpace: "pre-wrap", fontFamily: typographyTokens.fontFamily.mono }}>
           {error.message}
         </pre>

@@ -4,6 +4,7 @@
  * subsidy programmes, networking contacts
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { StateBadge, signatureStates } from "../status/StateBadge";
@@ -34,11 +35,11 @@ export interface DeliveryItem {
   note?: string;
 }
 const delText = {
-  notStarted: "Not started",
-  inProgress: "In progress",
-  sent: "Sent",
-  accepted: "Accepted",
-  rejected: "Rejected",
+  notStarted: msg("Not started"),
+  inProgress: msg("In progress"),
+  sent: msg("Sent"),
+  accepted: msg("Accepted"),
+  rejected: msg("Rejected"),
 };
 const delTone = {
   notStarted: "default",
@@ -52,12 +53,14 @@ const delTone = {
 export function DeliveryTracker({
   items,
   now = new Date(),
-  locale = "en-IN",
+  locale: localeProp,
 }: {
   items: DeliveryItem[];
   now?: Date;
   locale?: string;
 }) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const recips = Array.from(new Set(items.map((i) => i.recipient)));
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md }}>
@@ -67,7 +70,7 @@ export function DeliveryTracker({
           .sort((a, b) => a.due.getTime() - b.due.getTime());
         const done = mine.filter((i) => i.status === "accepted").length;
         return (
-          <ScrollTable key={r} label={`Deliveries to ${r}`}>
+          <ScrollTable key={r} label={t("Deliveries to {r}", { r })}>
             <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse" }}>
               <caption
                 style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}
@@ -77,19 +80,19 @@ export function DeliveryTracker({
               <thead>
                 <tr style={{ color: colorTokens.text.secondary }}>
                   <th scope="col" style={td}>
-                    Item
+                    {t("Item")}
                   </th>
                   <th scope="col" style={td}>
-                    Due
+                    {t("Due")}
                   </th>
                   <th scope="col" style={td}>
-                    Status
+                    {t("Status")}
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {mine.map((i) => {
-                  const rel = relativeDue(i.due, now);
+                  const rel = relativeDue(i.due, now, t);
                   const late =
                     rel.tone === "error" && i.status !== "accepted" && i.status !== "sent";
                   return (
@@ -108,7 +111,7 @@ export function DeliveryTracker({
                                   : colorTokens.text.secondary,
                             }}
                           >
-                            {i.note}
+                            {t(i.note)}
                           </span>
                         )}
                       </th>
@@ -124,12 +127,12 @@ export function DeliveryTracker({
                           <span
                             style={{ display: "block", fontSize: typographyTokens.fontSize.xs }}
                           >
-                            {rel.text}
+                            {t(rel.text)}
                           </span>
                         )}
                       </td>
                       <td style={td}>
-                        <Badge variant={delTone[i.status]}>{delText[i.status]}</Badge>
+                        <Badge variant={delTone[i.status]}>{t(delText[i.status])}</Badge>
                       </td>
                     </tr>
                   );
@@ -170,31 +173,39 @@ export function ScreeningAttendeeList({
   capacity?: number;
   onToggleAttended?: (id: string, v: boolean) => void;
 }) {
+  const t = useT();
   const seats = attendees
     .filter((a) => a.rsvp === "yes")
     .reduce((n, a) => n + 1 + (a.plusOnes ?? 0), 0);
   const needs = attendees.filter((a) => a.access && a.access.length).length;
   return (
-    <ScrollTable label="Attendees">
+    <ScrollTable label={t("Attendees")}>
       <table style={{ width: "100%", minWidth: 560, borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          Attendees · {seats}
-          {capacity ? ` of ${capacity}` : ""} seats{needs ? ` · ${needs} with access needs` : ""}
+          {[
+            t("Attendees"),
+            capacity
+              ? t("{seats} of {capacity} seats", { seats, capacity })
+              : t.plural(seats, "{count} seat", "{count} seats"),
+            needs ? t("{needs} with access needs", { needs }) : null,
+          ]
+            .filter(Boolean)
+            .join(" · ")}
         </caption>
         <thead>
           <tr style={{ color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Name
+              {t("Name")}
             </th>
             <th scope="col" style={td}>
-              RSVP
+              {t("RSVP")}
             </th>
             <th scope="col" style={td}>
-              Access needs
+              {t("Access needs")}
             </th>
             {onToggleAttended && (
               <th scope="col" style={td}>
-                Came
+                {t("Came")}
               </th>
             )}
           </tr>
@@ -224,7 +235,7 @@ export function ScreeningAttendeeList({
                 <td style={td}>
                   <input
                     type="checkbox"
-                    aria-label={`${a.name} attended`}
+                    aria-label={t("{name} attended", { name: a.name })}
                     checked={!!a.attended}
                     onChange={(e) => onToggleAttended(a.id, e.target.checked)}
                     style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
@@ -259,12 +270,14 @@ export interface LegalMatter {
 export function LegalMatterList({
   matters,
   onOpen,
-  locale = "en-IN",
+  locale: localeProp,
 }: {
   matters: LegalMatter[];
   onOpen?: (m: LegalMatter) => void;
   locale?: string;
 }) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const sorted = [...matters].sort(
     (a, b) =>
       Number(b.open) - Number(a.open) ||
@@ -276,7 +289,7 @@ export function LegalMatterList({
     high: ["High risk", "error"],
   } as const;
   return (
-    <ScrollTable label="Legal matters">
+    <ScrollTable label={t("Legal matters")}>
       <table style={{ width: "100%", minWidth: 620, borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
           Legal matters · {matters.filter((m) => m.open).length} open
@@ -284,16 +297,16 @@ export function LegalMatterList({
         <thead>
           <tr style={{ color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Matter
+              {t("Matter")}
             </th>
             <th scope="col" style={td}>
-              With
+              {t("With")}
             </th>
             <th scope="col" style={td}>
-              Next step
+              {t("Next step")}
             </th>
             <th scope="col" style={td}>
-              Risk
+              {t("Risk")}
             </th>
           </tr>
         </thead>
@@ -316,7 +329,7 @@ export function LegalMatterList({
                       textAlign: "left",
                     }}
                   >
-                    {m.title}
+                    {t(m.title)}
                   </button>
                 ) : (
                   m.title
@@ -376,18 +389,24 @@ export function SignatureStatusList({
   contract,
   signatories,
   onRemind,
-  locale = "en-IN",
+  locale: localeProp,
 }: {
   contract: string;
   signatories: Signatory[];
   onRemind?: (id: string) => void;
   locale?: string;
 }) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const signed = signatories.filter((s) => s.status === "signed").length;
   return (
-    <section aria-label={`Signatures for ${contract}`}>
+    <section aria-label={t("Signatures for {contract}", { contract })}>
       <h3 style={{ margin: `0 0 ${spacingTokens.xs}`, fontSize: typographyTokens.fontSize.md }}>
-        {contract} · {signed} of {signatories.length} signed
+        {t("{contract} · {signed} of {count} signed", {
+          contract,
+          signed,
+          count: signatories.length,
+        })}
       </h3>
       <ol style={{ margin: 0, paddingLeft: spacingTokens.lg }}>
         {signatories.map((s) => (
@@ -417,7 +436,7 @@ export function SignatureStatusList({
                 <button
                   type="button"
                   onClick={() => onRemind(s.id)}
-                  aria-label={`Remind ${s.name}`}
+                  aria-label={t("Remind {name}", { name: s.name })}
                   style={{
                     background: "none",
                     border: "none",
@@ -428,7 +447,7 @@ export function SignatureStatusList({
                     font: "inherit",
                   }}
                 >
-                  Remind
+                  {t("Remind")}
                 </button>
               )}
             </span>
@@ -465,6 +484,7 @@ export function SubsidyProgrammeList({
   onOpen?: (p: SubsidyProgramme) => void;
   now?: Date;
 }) {
+  const t = useT();
   const el = {
     yes: ["Likely eligible", "success"],
     maybe: ["Check eligibility", "warning"],
@@ -472,7 +492,7 @@ export function SubsidyProgrammeList({
   } as const;
   return (
     <ul
-      aria-label="Subsidy programmes"
+      aria-label={t("Subsidy programmes")}
       style={{
         listStyle: "none",
         margin: 0,
@@ -527,7 +547,7 @@ export function SubsidyProgrammeList({
           <div
             style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}
           >
-            {p.body}
+            {t(p.body)}
           </div>
           <div style={{ fontSize: typographyTokens.fontSize.sm }}>{p.benefit}</div>
           {p.reason && (
@@ -539,7 +559,10 @@ export function SubsidyProgrammeList({
           )}
           {p.deadline && (
             <div style={{ fontSize: typographyTokens.fontSize.xs, fontWeight: 600 }}>
-              Apply by {fmt(p.deadline)} · {relativeDue(p.deadline, now).text}
+              {t("Apply by {date} · {due}", {
+                date: fmt(p.deadline),
+                due: relativeDue(p.deadline, now, t).text,
+              })}
             </div>
           )}
         </li>

@@ -3,6 +3,7 @@
  * Check gear out and back in, with condition notes
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -26,10 +27,10 @@ export interface EquipmentCheckoutSheetProps {
 }
 
 const condLabel: Record<GearCondition, string> = {
-  good: "Good",
-  worn: "Worn",
-  damaged: "Damaged",
-  missing: "Missing",
+  good: msg("Good"),
+  worn: msg("Worn"),
+  damaged: msg("Damaged"),
+  missing: msg("Missing"),
 };
 
 /**
@@ -38,6 +39,7 @@ const condLabel: Record<GearCondition, string> = {
  * condition select, and a summary of what's still out.
  */
 export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentCheckoutSheetProps) {
+  const t = useT();
   const stillOut = lines.filter((l) => l.out && !l.in).length;
   const problems = lines.filter(
     (l) => l.condition === "damaged" || l.condition === "missing"
@@ -73,19 +75,19 @@ export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentChec
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Item
+              {t("Item")}
             </th>
             <th scope="col" style={td}>
-              Out
+              {t("Out")}
             </th>
             <th scope="col" style={td}>
-              In
+              {t("In")}
             </th>
             <th scope="col" style={td}>
-              Condition
+              {t("Condition")}
             </th>
             <th scope="col" style={td}>
-              Note
+              {t("Note")}
             </th>
           </tr>
         </thead>
@@ -110,7 +112,7 @@ export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentChec
               <td style={td}>
                 <input
                   type="checkbox"
-                  aria-label={`${l.name} checked out`}
+                  aria-label={t("{name} checked out", { name: l.name })}
                   checked={l.out}
                   onChange={(e) => onChange(l.id, { out: e.target.checked })}
                   style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
@@ -119,7 +121,7 @@ export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentChec
               <td style={td}>
                 <input
                   type="checkbox"
-                  aria-label={`${l.name} returned`}
+                  aria-label={t("{name} returned", { name: l.name })}
                   checked={l.in}
                   disabled={!l.out}
                   onChange={(e) => onChange(l.id, { in: e.target.checked })}
@@ -128,7 +130,7 @@ export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentChec
               </td>
               <td style={td}>
                 <select
-                  aria-label={`Condition of ${l.name}`}
+                  aria-label={t("Condition of {name}", { name: l.name })}
                   value={l.condition}
                   onChange={(e) => onChange(l.id, { condition: e.target.value as GearCondition })}
                   style={{
@@ -148,7 +150,7 @@ export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentChec
               </td>
               <td style={td}>
                 <input
-                  aria-label={`Note for ${l.name}`}
+                  aria-label={t("Note for {name}", { name: l.name })}
                   defaultValue={l.note}
                   onBlur={(e) => onChange(l.id, { note: e.target.value })}
                   style={{

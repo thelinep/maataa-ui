@@ -3,6 +3,7 @@
  * Applicants (or anything) moving through stages, with a keyboard way to move
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Avatar } from "./Avatar";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -42,8 +43,10 @@ export function PipelineBoard({
   cards,
   onMove,
   onOpen,
-  label = "Pipeline",
+  label: labelProp,
 }: PipelineBoardProps) {
+  const t = useT();
+  const label = labelProp ?? t("Pipeline");
   const [msg, setMsg] = useState("");
   const [dragging, setDragging] = useState<string | null>(null);
   const move = (c: PipelineCard, to: string) => {
@@ -160,7 +163,7 @@ export function PipelineBoard({
                       </div>
                     </div>
                     <select
-                      aria-label={`Move ${c.title} to`}
+                      aria-label={t("Move {title} to", { title: c.title })}
                       value={c.stage}
                       onChange={(e) => move(c, e.target.value)}
                       style={{

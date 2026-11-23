@@ -3,6 +3,7 @@
  * Picture lock (or script/budget lock): locked by whom, when, and unlock
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -27,8 +28,10 @@ export function LockIndicator({
   lockedAt,
   onUnlock,
   onLock,
-  locale = "en-IN",
+  locale: localeProp,
 }: LockIndicatorProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const tone = locked ? colorTokens.interactive.success : colorTokens.text.secondary;
   return (
     <div
@@ -58,7 +61,7 @@ export function LockIndicator({
         <button
           type="button"
           onClick={onUnlock}
-          aria-label={`Unlock ${subject.toLowerCase()}`}
+          aria-label={t("Unlock {value}", { value: subject.toLowerCase() })}
           style={{
             background: "none",
             border: "none",
@@ -70,14 +73,14 @@ export function LockIndicator({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Unlock
+          {t("Unlock")}
         </button>
       )}
       {!locked && onLock && (
         <button
           type="button"
           onClick={onLock}
-          aria-label={`Lock ${subject.toLowerCase()}`}
+          aria-label={t("Lock {value}", { value: subject.toLowerCase() })}
           style={{
             background: "none",
             border: "none",
@@ -89,7 +92,7 @@ export function LockIndicator({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Lock
+          {t("Lock")}
         </button>
       )}
     </div>

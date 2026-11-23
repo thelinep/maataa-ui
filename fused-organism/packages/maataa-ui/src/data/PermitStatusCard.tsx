@@ -3,6 +3,7 @@
  * A shoot, location or drone permit: authority, dates, state, conditions
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { StateBadge, permitStates } from "../status/StateBadge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -30,10 +31,12 @@ export interface PermitStatusCardProps {
 /** PermitStatusCard: warns in words when it expires within 7 days. */
 export function PermitStatusCard({
   permit: p,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
   actions,
 }: PermitStatusCardProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const fmt = (d: Date) =>
     d.toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" });
   const daysLeft = p.validTo
@@ -77,7 +80,7 @@ export function PermitStatusCard({
             <>
               {" "}
               <strong style={{ color: colorTokens.interactive.warning }}>
-                · expires in {daysLeft} day{daysLeft === 1 ? "" : "s"}
+                {t.plural(daysLeft, "· expires in {count} day", "· expires in {count} days")}
               </strong>
             </>
           )}
@@ -86,7 +89,7 @@ export function PermitStatusCard({
       {p.conditions && p.conditions.length > 0 && (
         <details>
           <summary style={{ cursor: "pointer", fontSize: typographyTokens.fontSize.sm }}>
-            {p.conditions.length} condition{p.conditions.length === 1 ? "" : "s"}
+            {t.plural(p.conditions.length, "{count} condition", "{count} conditions")}
           </summary>
           <ul
             style={{

@@ -3,6 +3,7 @@
  * Detail-page header: back link, title, status, key facts, actions
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge, type BadgeProps } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -17,7 +18,7 @@ export interface RecordHeaderProps {
   facts?: { label: string; value: React.ReactNode }[];
   /** Buttons on the right */
   actions?: React.ReactNode;
-  /** Back link, e.g. { label: "Projects", href: "/projects" } */
+  /** Back link, e.g. { label: msg("Projects"), href: "/projects" } */
   back?: { label: string; href?: string; onClick?: () => void };
   /** Leading visual (Avatar, poster) */
   media?: React.ReactNode;
@@ -38,6 +39,7 @@ export function RecordHeader({
   back,
   media,
 }: RecordHeaderProps) {
+  const t = useT();
   return (
     <header
       style={{
@@ -63,7 +65,7 @@ export function RecordHeader({
             alignSelf: "flex-start",
           }}
         >
-          <span aria-hidden="true">← </span>Back to {back.label}
+          <span aria-hidden="true">← </span>Back to {t(back.label)}
         </a>
       )}
       <div
@@ -115,8 +117,8 @@ export function RecordHeader({
           }}
         >
           {facts.map((f) => (
-            <div key={f.label} style={{ display: "flex", gap: spacingTokens.xs }}>
-              <dt style={{ color: colorTokens.text.secondary }}>{f.label}:</dt>
+            <div key={t(f.label)} style={{ display: "flex", gap: spacingTokens.xs }}>
+              <dt style={{ color: colorTokens.text.secondary }}>{t(f.label)}:</dt>
               <dd style={{ margin: 0, fontWeight: 600 }}>{f.value}</dd>
             </div>
           ))}
@@ -136,7 +138,9 @@ export interface DetailListProps {
 }
 
 /** DetailList: label/value pairs as a responsive definition list. */
-export function DetailList({ items, columns = 2, emptyText = "Not given" }: DetailListProps) {
+export function DetailList({ items, columns = 2, emptyText: emptyTextProp }: DetailListProps) {
+  const t = useT();
+  const emptyText = emptyTextProp ?? t("Not given");
   return (
     <dl
       style={{
@@ -147,9 +151,9 @@ export function DetailList({ items, columns = 2, emptyText = "Not given" }: Deta
       }}
     >
       {items.map((i) => (
-        <div key={i.label}>
+        <div key={t(i.label)}>
           <dt style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-            {i.label}
+            {t(i.label)}
           </dt>
           <dd
             style={{

@@ -3,6 +3,7 @@
  * Who has received / opened a sent item (call sheet, pitch, notice)
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { StateBadge, deliveryStates } from "../status/StateBadge";
 import { ScrollTable } from "./ScrollTable";
@@ -33,8 +34,10 @@ export function DeliveryStatusList({
   records,
   onResend,
   caption = "Delivery",
-  locale = "en-IN",
+  locale: localeProp,
 }: DeliveryStatusListProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const failed = records.filter((r) => r.status === "bounced" || r.status === "failed");
   const opened = records.filter((r) => r.status === "opened").length;
   const order = (r: DeliveryRecord) =>
@@ -57,7 +60,7 @@ export function DeliveryStatusList({
             <>
               {" "}
               <span style={{ color: colorTokens.interactive.error }}>
-                · {failed.length} not delivered
+                {t("· {count} not delivered", { count: failed.length })}
               </span>
             </>
           ) : null}
@@ -65,13 +68,13 @@ export function DeliveryStatusList({
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Recipient
+              {t("Recipient")}
             </th>
             <th scope="col" style={td}>
-              Channel
+              {t("Channel")}
             </th>
             <th scope="col" style={td}>
-              Status
+              {t("Status")}
             </th>
             <th scope="col" style={td}>
               <span
@@ -83,7 +86,7 @@ export function DeliveryStatusList({
                   clip: "rect(0 0 0 0)",
                 }}
               >
-                Actions
+                {t("Actions")}
               </span>
             </th>
           </tr>
@@ -127,7 +130,7 @@ export function DeliveryStatusList({
                     <button
                       type="button"
                       onClick={() => onResend(r.id)}
-                      aria-label={`Resend to ${r.name}`}
+                      aria-label={t("Resend to {name}", { name: r.name })}
                       style={{
                         background: "none",
                         border: "none",
@@ -138,7 +141,7 @@ export function DeliveryStatusList({
                         font: "inherit",
                       }}
                     >
-                      Resend
+                      {t("Resend")}
                     </button>
                   )}
                 </td>

@@ -3,6 +3,7 @@
  * Month, week and day views of shoots, auditions, bookings and deadlines
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -67,11 +68,13 @@ export function EventCalendar({
   date,
   onDateChange,
   onSelectEvent,
-  locale = "en-IN",
+  locale: localeProp,
   weekStartsOn = 1,
   maxPerCell = 3,
   today = new Date(),
 }: EventCalendarProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const time = (d: Date) => d.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" });
   const evName = (e: CalendarEvent) =>
@@ -304,7 +307,7 @@ export function EventCalendar({
                     color: colorTokens.text.secondary,
                   }}
                 >
-                  Nothing scheduled
+                  {t("Nothing scheduled")}
                 </p>
               ) : (
                 <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -325,13 +328,23 @@ export function EventCalendar({
       <div
         style={{ display: "flex", gap: spacingTokens.sm, alignItems: "center", flexWrap: "wrap" }}
       >
-        <button type="button" style={btn} onClick={() => step(-1)} aria-label={`Previous ${view}`}>
+        <button
+          type="button"
+          style={btn}
+          onClick={() => step(-1)}
+          aria-label={t("Previous {view}", { view })}
+        >
           ‹
         </button>
         <button type="button" style={btn} onClick={() => onDateChange(today)}>
-          Today
+          {t("Today")}
         </button>
-        <button type="button" style={btn} onClick={() => step(1)} aria-label={`Next ${view}`}>
+        <button
+          type="button"
+          style={btn}
+          onClick={() => step(1)}
+          aria-label={t("Next {view}", { view })}
+        >
           ›
         </button>
         <h2
@@ -341,7 +354,7 @@ export function EventCalendar({
         >
           {title}
         </h2>
-        <div role="group" aria-label="View" style={{ display: "flex" }}>
+        <div role="group" aria-label={t("View")} style={{ display: "flex" }}>
           {(["month", "week", "day"] as CalendarView[]).map((v, i) => (
             <button
               key={v}

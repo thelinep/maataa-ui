@@ -4,6 +4,7 @@
  * ColorCorrectionSliders, EffectSliderBank
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -52,6 +53,7 @@ export function SliderBank({
   bypassed,
   onBypassChange,
 }: SliderBankProps) {
+  const t = useT();
   const id = useId();
   const vert = orientation === "vertical";
   const fmt = (p: SliderParam, v: number) =>
@@ -94,7 +96,7 @@ export function SliderBank({
               onChange={(e) => onBypassChange(e.target.checked)}
               style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
             />
-            Bypass
+            {t("Bypass")}
           </label>
         )}
         {resettable && (
@@ -113,7 +115,7 @@ export function SliderBank({
               cursor: "pointer",
             }}
           >
-            Reset all
+            {t("Reset all")}
           </button>
         )}
       </div>
@@ -163,7 +165,7 @@ export function SliderBank({
               )}
               {!vert && (
                 <label htmlFor={inputId} style={{ fontSize: typographyTokens.fontSize.sm }}>
-                  {p.label}
+                  {t(p.label)}
                 </label>
               )}
               <input
@@ -197,7 +199,7 @@ export function SliderBank({
                   aria-hidden="true"
                   style={{ fontSize: 11, textAlign: "center", color: colorTokens.text.secondary }}
                 >
-                  {p.label}
+                  {t(p.label)}
                 </label>
               ) : (
                 <output
@@ -244,10 +246,12 @@ export function EqFaders({
   onChange,
   bands = eqBandsHz,
   range = 12,
-  legend = "Equaliser",
+  legend: legendProp,
   bypassed,
   onBypassChange,
 }: EqFadersProps) {
+  const t = useT();
+  const legend = legendProp ?? t("Equaliser");
   return (
     <SliderBank
       legend={legend}
@@ -272,12 +276,12 @@ export function EqFaders({
 /* ───────────────────────── ColorCorrectionSliders ───────────────────────── */
 
 export const colorCorrectionParams: SliderParam[] = [
-  { id: "exposure", label: "Exposure", min: -3, max: 3, step: 0.1, neutral: 0, unit: "stops" },
-  { id: "contrast", label: "Contrast", min: -100, max: 100, neutral: 0 },
-  { id: "saturation", label: "Saturation", min: 0, max: 200, neutral: 100, unit: "%" },
+  { id: "exposure", label: msg("Exposure"), min: -3, max: 3, step: 0.1, neutral: 0, unit: "stops" },
+  { id: "contrast", label: msg("Contrast"), min: -100, max: 100, neutral: 0 },
+  { id: "saturation", label: msg("Saturation"), min: 0, max: 200, neutral: 100, unit: "%" },
   {
     id: "temperature",
-    label: "Temperature",
+    label: msg("Temperature"),
     min: 2500,
     max: 10000,
     step: 50,
@@ -286,15 +290,15 @@ export const colorCorrectionParams: SliderParam[] = [
   },
   {
     id: "tint",
-    label: "Tint",
+    label: msg("Tint"),
     min: -50,
     max: 50,
     neutral: 0,
     format: (v) => (v === 0 ? "Neutral" : v > 0 ? `${v} magenta` : `${-v} green`),
   },
-  { id: "lift", label: "Shadows (lift)", min: -50, max: 50, neutral: 0 },
-  { id: "gamma", label: "Midtones (gamma)", min: -50, max: 50, neutral: 0 },
-  { id: "gain", label: "Highlights (gain)", min: -50, max: 50, neutral: 0 },
+  { id: "lift", label: msg("Shadows (lift)"), min: -50, max: 50, neutral: 0 },
+  { id: "gamma", label: msg("Midtones (gamma)"), min: -50, max: 50, neutral: 0 },
+  { id: "gain", label: msg("Highlights (gain)"), min: -50, max: 50, neutral: 0 },
 ];
 
 export interface ColorCorrectionSlidersProps {
@@ -307,8 +311,10 @@ export interface ColorCorrectionSlidersProps {
 export function ColorCorrectionSliders({
   values,
   onChange,
-  legend = "Colour correction",
+  legend: legendProp,
 }: ColorCorrectionSlidersProps) {
+  const t = useT();
+  const legend = legendProp ?? t("Colour correction");
   return (
     <SliderBank
       legend={legend}
@@ -332,5 +338,6 @@ export interface EffectSliderBankProps {
 
 /** Parameters of one effect (e.g. Film grain: amount, size, softness). */
 export function EffectSliderBank({ effectName, ...rest }: EffectSliderBankProps) {
-  return <SliderBank legend={`${effectName} settings`} {...rest} />;
+  const t = useT();
+  return <SliderBank legend={t("{effectName} settings", { effectName })} {...rest} />;
 }

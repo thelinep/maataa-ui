@@ -3,6 +3,7 @@
  * A grouped bar chart with gridlines, legend, and hover tooltip
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { chartTokens, colorTokens, typographyTokens } from "../tokens";
 import type { ChartSeries } from "./LineChart";
@@ -62,6 +63,7 @@ export const BarChart = React.forwardRef<SVGSVGElement, BarChartProps>(
     },
     ref
   ) => {
+    const t = useT();
     const [tooltip, setTooltip] = useState<ChartTooltipState | null>(null);
 
     const plotWidth = width - PADDING.left - PADDING.right;
@@ -111,7 +113,10 @@ export const BarChart = React.forwardRef<SVGSVGElement, BarChartProps>(
           height={height}
           viewBox={`0 0 ${width} ${height}`}
           role="img"
-          aria-label={`Bar chart with ${series.length} series over ${categories.length} categories`}
+          aria-label={t("Bar chart with {count} series over {count2} categories", {
+            count: series.length,
+            count2: categories.length,
+          })}
         >
           {ticks.map((tick) => {
             const y = yFor(tick);

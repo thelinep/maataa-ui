@@ -3,6 +3,7 @@
  * A start/end date range input backed by a floating month calendar
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Portal } from "../primitives/Portal";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -58,13 +59,15 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
       disabled = false,
       min,
       max,
-      placeholder = "Select a date range",
+      placeholder: placeholderProp,
       id,
       className,
       style,
     },
     ref
   ) => {
+    const t = useT();
+    const placeholder = placeholderProp ?? t("Select a date range");
     const generatedId = useId();
     const fieldId = id ?? generatedId;
     const [isOpen, setIsOpen] = useState(false);

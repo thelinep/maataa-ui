@@ -3,6 +3,7 @@
  * A labeled switch that flips the nearest ThemeProvider between light and dark
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { radiusTokens, spacingTokens, transitionTokens, typographyTokens } from "../tokens";
 import { useTheme } from "./ThemeProvider";
@@ -29,6 +30,7 @@ export interface ThemeToggleProps {
  */
 export const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>(
   ({ className, style, "aria-label": ariaLabel }, ref) => {
+    const t = useT();
     const { theme, toggleTheme, colors } = useTheme();
     const isDark = theme === "dark";
 
@@ -68,7 +70,7 @@ export const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>
             backgroundColor: isDark ? colors.interactive.primary : colors.interactive.warning,
           }}
         />
-        {isDark ? "Dark" : "Light"}
+        {isDark ? t("Dark") : t("Light")}
       </button>
     );
   }

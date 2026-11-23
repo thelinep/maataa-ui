@@ -3,6 +3,7 @@
  * Styled file picker button backed by a native, visually-hidden input
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef } from "react";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldShell } from "./FieldShell";
@@ -61,7 +62,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       error,
       helperText,
       required,
-      buttonLabel = "Choose file",
+      buttonLabel: buttonLabelProp,
       id,
       disabled,
       multiple,
@@ -69,6 +70,8 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
     },
     ref
   ) => {
+    const t = useT();
+    const buttonLabel = buttonLabelProp ?? t("Choose file");
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const internalRef = useRef<HTMLInputElement>(null);

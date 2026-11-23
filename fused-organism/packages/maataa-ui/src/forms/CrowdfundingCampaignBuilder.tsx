@@ -3,6 +3,7 @@
  * Goal, dates, story and reward tiers for a crowdfunding campaign
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -69,9 +70,11 @@ export function CrowdfundingCampaignBuilder({
   onChange,
   onSubmitForReview,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
   newId = () => Math.random().toString(36).slice(2, 9),
 }: CrowdfundingCampaignBuilderProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
@@ -112,9 +115,11 @@ export function CrowdfundingCampaignBuilder({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 680 }}>
       <fieldset style={box}>
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Basics</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {tx("Basics")}
+        </legend>
         <label style={lab}>
-          Campaign title
+          {tx("Campaign title")}
           <input value={c.title} onChange={(e) => set("title", e.target.value)} style={inp} />
         </label>
         <div
@@ -125,7 +130,7 @@ export function CrowdfundingCampaignBuilder({
           }}
         >
           <label style={lab}>
-            Goal ({currency})
+            {tx("Goal ({currency})", { currency })}
             <input
               type="number"
               min={0}
@@ -136,7 +141,7 @@ export function CrowdfundingCampaignBuilder({
             />
           </label>
           <label style={lab}>
-            Starts
+            {tx("Starts")}
             <input
               type="date"
               value={c.start}
@@ -145,7 +150,7 @@ export function CrowdfundingCampaignBuilder({
             />
           </label>
           <label style={lab}>
-            Ends
+            {tx("Ends")}
             <input
               type="date"
               value={c.end}
@@ -156,9 +161,9 @@ export function CrowdfundingCampaignBuilder({
         </div>
       </fieldset>
       <fieldset style={box}>
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Story</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>{tx("Story")}</legend>
         <label style={lab}>
-          Why this film, why now
+          {tx("Why this film, why now")}
           <textarea
             rows={6}
             value={c.story}
@@ -180,7 +185,7 @@ export function CrowdfundingCampaignBuilder({
           {c.story.trim().length} characters (200 or more)
         </span>
         <label style={lab}>
-          How the money will be used
+          {tx("How the money will be used")}
           <textarea
             rows={3}
             value={c.useOfFunds}
@@ -190,7 +195,9 @@ export function CrowdfundingCampaignBuilder({
         </label>
       </fieldset>
       <fieldset style={box}>
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Reward tiers</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {tx("Reward tiers")}
+        </legend>
         {c.tiers.map((t, i) => (
           <fieldset
             key={t.id}
@@ -205,11 +212,12 @@ export function CrowdfundingCampaignBuilder({
             }}
           >
             <legend style={{ fontSize: typographyTokens.fontSize.sm, fontWeight: 600 }}>
-              Tier {i + 1}
-              {t.amount > 0 ? ` · ${money.format(t.amount)}` : ""}
+              {t.amount > 0
+                ? tx("Tier {n} · {amount}", { n: i + 1, amount: money.format(t.amount) })
+                : tx("Tier {n}", { n: i + 1 })}
             </legend>
             <label style={{ ...lab, fontSize: typographyTokens.fontSize.sm }}>
-              Title
+              {tx("Title")}
               <input
                 value={t.title}
                 onChange={(e) => setTier(t.id, { title: e.target.value })}
@@ -217,7 +225,7 @@ export function CrowdfundingCampaignBuilder({
               />
             </label>
             <label style={{ ...lab, fontSize: typographyTokens.fontSize.sm }}>
-              Amount
+              {tx("Amount")}
               <input
                 type="number"
                 min={0}
@@ -227,7 +235,7 @@ export function CrowdfundingCampaignBuilder({
               />
             </label>
             <label style={{ ...lab, fontSize: typographyTokens.fontSize.sm }}>
-              Limit (optional)
+              {tx("Limit (optional)")}
               <input
                 type="number"
                 min={0}
@@ -239,7 +247,7 @@ export function CrowdfundingCampaignBuilder({
               />
             </label>
             <label style={{ ...lab, fontSize: typographyTokens.fontSize.sm, gridColumn: "1 / -1" }}>
-              What backers get
+              {tx("What backers get")}
               <input
                 value={t.description}
                 onChange={(e) => setTier(t.id, { description: e.target.value })}
@@ -256,9 +264,9 @@ export function CrowdfundingCampaignBuilder({
                     c.tiers.filter((x) => x.id !== t.id)
                   )
                 }
-                aria-label={`Remove tier ${i + 1}`}
+                aria-label={tx("Remove tier {value}", { value: i + 1 })}
               >
-                Remove
+                {tx("Remove")}
               </Button>
             </div>
           </fieldset>
@@ -270,12 +278,12 @@ export function CrowdfundingCampaignBuilder({
               set("tiers", [...c.tiers, { id: newId(), title: "", amount: 0, description: "" }])
             }
           >
-            Add tier
+            {tx("Add tier")}
           </Button>
         </div>
       </fieldset>
       <section
-        aria-label="Ready for review"
+        aria-label={tx("Ready for review")}
         style={{
           border: `1px solid ${problems.length ? colorTokens.interactive.warning : colorTokens.interactive.success}`,
           borderRadius: 8,
@@ -302,7 +310,7 @@ export function CrowdfundingCampaignBuilder({
         )}
         <div style={{ marginTop: spacingTokens.sm }}>
           <Button onClick={onSubmitForReview} disabled={problems.length > 0}>
-            Send for review
+            {tx("Send for review")}
           </Button>
         </div>
       </section>

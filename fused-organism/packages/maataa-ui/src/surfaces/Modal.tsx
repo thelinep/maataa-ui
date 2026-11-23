@@ -3,6 +3,7 @@
  * Modal dialog component for focused user interactions
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, radiusTokens, spacingTokens } from "../tokens";
 
@@ -52,6 +53,7 @@ export const Modal: React.FC<ModalProps> = ({
   size = "md",
   children,
 }) => {
+  const t = useT();
   const titleId = React.useId();
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
   const onCloseRef = React.useRef(onClose);
@@ -182,7 +184,7 @@ export const Modal: React.FC<ModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Close"
+                aria-label={t("Close")}
                 style={{
                   background: "none",
                   border: "none",

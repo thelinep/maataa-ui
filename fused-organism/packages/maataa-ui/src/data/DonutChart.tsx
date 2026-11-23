@@ -3,6 +3,7 @@
  * Categorical share-of-total, as a ring of stroke segments
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { chartTokens, colorTokens, typographyTokens } from "../tokens";
 import { ChartTooltip, type ChartTooltipState } from "./ChartTooltip";
@@ -66,6 +67,7 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(
     },
     ref
   ) => {
+    const t = useT();
     const [tooltip, setTooltip] = useState<ChartTooltipState | null>(null);
 
     const total = data.reduce((sum, d) => sum + d.value, 0) || 1;
@@ -110,7 +112,7 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(
             height={size}
             viewBox={`0 0 ${size} ${size}`}
             role="img"
-            aria-label={`Donut chart with ${data.length} categories`}
+            aria-label={t("Donut chart with {count} categories", { count: data.length })}
           >
             <g transform={`rotate(-90 ${center} ${center})`}>
               {slices.map((slice) => {
@@ -160,7 +162,7 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(
                   color: colorTokens.text.secondary,
                 }}
               >
-                Total
+                {t("Total")}
               </span>
             </div>
           )}

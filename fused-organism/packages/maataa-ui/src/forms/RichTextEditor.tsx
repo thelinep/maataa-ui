@@ -5,6 +5,7 @@
  * Preview renders it safely as React elements (no HTML injection).
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle } from "./fieldKit";
@@ -96,12 +97,12 @@ export function renderMarkdown(src: string): React.ReactNode {
 type Action = "bold" | "italic" | "heading" | "bullets" | "numbers" | "link";
 
 const ACTIONS: { id: Action; label: string; glyph: string; key?: string }[] = [
-  { id: "bold", label: "Bold", glyph: "B", key: "b" },
-  { id: "italic", label: "Italic", glyph: "I", key: "i" },
-  { id: "heading", label: "Heading", glyph: "H" },
-  { id: "bullets", label: "Bulleted list", glyph: "•" },
-  { id: "numbers", label: "Numbered list", glyph: "⒈" },
-  { id: "link", label: "Link", glyph: "🔗", key: "k" },
+  { id: "bold", label: msg("Bold"), glyph: "B", key: "b" },
+  { id: "italic", label: msg("Italic"), glyph: "I", key: "i" },
+  { id: "heading", label: msg("Heading"), glyph: "H" },
+  { id: "bullets", label: msg("Bulleted list"), glyph: "•" },
+  { id: "numbers", label: msg("Numbered list"), glyph: "⒈" },
+  { id: "link", label: msg("Link"), glyph: "🔗", key: "k" },
 ];
 
 export interface RichTextEditorProps {
@@ -126,6 +127,7 @@ export function RichTextEditor({
   error,
   rows = 8,
 }: RichTextEditorProps) {
+  const t = useT();
   const id = useId();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [tab, setTab] = useState<"write" | "preview">("write");
@@ -224,14 +226,14 @@ export function RichTextEditor({
               borderBottom: `1px solid ${colorTokens.border.secondary}`,
             }}
           >
-            <div role="tablist" aria-label="Editor view">
+            <div role="tablist" aria-label={t("Editor view")}>
               {tabBtn("write", "Write")}
               {tabBtn("preview", "Preview")}
             </div>
             {tab === "write" && (
               <div
                 role="toolbar"
-                aria-label="Formatting"
+                aria-label={t("Formatting")}
                 aria-controls={ids.id}
                 style={{ display: "flex", gap: 2, padding: 2 }}
               >
@@ -243,8 +245,8 @@ export function RichTextEditor({
                     }}
                     type="button"
                     tabIndex={n === focusIdx ? 0 : -1}
-                    title={a.key ? `${a.label} (Ctrl+${a.key.toUpperCase()})` : a.label}
-                    aria-label={a.label}
+                    title={a.key ? `${t(a.label)} (Ctrl+${a.key.toUpperCase()})` : a.label}
+                    aria-label={t(a.label)}
                     onClick={() => apply(a.id)}
                     onKeyDown={(e) => {
                       let next = n;
@@ -326,7 +328,7 @@ export function RichTextEditor({
             {value.trim() ? (
               renderMarkdown(value)
             ) : (
-              <p style={{ color: colorTokens.text.secondary }}>Nothing to preview yet.</p>
+              <p style={{ color: colorTokens.text.secondary }}>{t("Nothing to preview yet.")}</p>
             )}
           </div>
         </div>

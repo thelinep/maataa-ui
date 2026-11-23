@@ -3,6 +3,7 @@
  * A dropzone plus the list of attached files and their upload state
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { FileDropzone, formatBytes, type FileDropzoneProps } from "./FileDropzone";
 import { ScanStatusBadge, type ScanStatus } from "../status/ScanStatusBadge";
@@ -44,12 +45,13 @@ export function AttachmentUploader({
   onRemove,
   ...dropzone
 }: AttachmentUploaderProps) {
+  const t = useT();
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}>
       <FileDropzone {...dropzone} onFiles={onAdd} />
       {attachments.length > 0 && (
         <ul
-          aria-label="Attached files"
+          aria-label={t("Attached files")}
           style={{
             listStyle: "none",
             margin: 0,
@@ -92,8 +94,9 @@ export function AttachmentUploader({
                   {formatBytes(a.size)}
                   {a.state === "error" && (
                     <span style={{ color: colorTokens.interactive.error }}>
-                      {" "}
-                      · Upload failed{a.error ? `: ${a.error}` : ""}
+                      {a.error
+                        ? t(" · Upload failed: {error}", { error: a.error })
+                        : t(" · Upload failed")}
                     </span>
                   )}
                 </span>
@@ -101,7 +104,7 @@ export function AttachmentUploader({
                   <progress
                     max={100}
                     value={a.progress ?? undefined}
-                    aria-label={`Uploading ${a.name}`}
+                    aria-label={t("Uploading {name}", { name: a.name })}
                     style={{
                       display: "block",
                       width: "100%",
@@ -115,7 +118,7 @@ export function AttachmentUploader({
               <button
                 type="button"
                 onClick={() => onRemove(a.id)}
-                aria-label={`Remove ${a.name}`}
+                aria-label={t("Remove {name}", { name: a.name })}
                 style={{
                   minWidth: 32,
                   minHeight: 32,

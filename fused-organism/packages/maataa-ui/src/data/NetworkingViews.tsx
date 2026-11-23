@@ -3,6 +3,7 @@
  * Networking contacts and private interaction notes
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Badge } from "../primitives/Badge";
 import { Avatar } from "./Avatar";
@@ -30,9 +31,9 @@ export interface NetworkingContactListProps {
 }
 
 const consentText = {
-  given: "Consent given",
-  pending: "Consent pending",
-  withdrawn: "Consent withdrawn",
+  given: msg("Consent given"),
+  pending: msg("Consent pending"),
+  withdrawn: msg("Consent withdrawn"),
 };
 const consentTone = { given: "success", pending: "warning", withdrawn: "error" } as const;
 
@@ -44,8 +45,10 @@ const consentTone = { given: "success", pending: "warning", withdrawn: "error" }
 export function NetworkingContactList({
   contacts,
   onOpen,
-  locale = "en-IN",
+  locale: localeProp,
 }: NetworkingContactListProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const [q, setQ] = useState("");
   const shown = contacts
     .filter(
@@ -71,12 +74,12 @@ export function NetworkingContactList({
           fontWeight: 600,
         }}
       >
-        Search contacts
+        {t("Search contacts")}
         <input
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Name, company or tag"
+          placeholder={t("Name, company or tag")}
           style={{
             padding: 6,
             border: `1px solid ${colorTokens.border.control}`,
@@ -92,7 +95,7 @@ export function NetworkingContactList({
       >
         {shown.length} contact{shown.length === 1 ? "" : "s"}
       </span>
-      <ul aria-label="Contacts" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+      <ul aria-label={t("Contacts")} style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {shown.map((c) => (
           <li
             key={c.id}
@@ -151,7 +154,7 @@ export function NetworkingContactList({
                     fontWeight: 600,
                   }}
                 >
-                  Anonymise this contact: they withdrew consent.
+                  {t("Anonymise this contact: they withdrew consent.")}
                 </div>
               )}
               {c.tags && c.tags.length > 0 && (
@@ -162,7 +165,7 @@ export function NetworkingContactList({
                 </div>
               )}
             </div>
-            <Badge variant={consentTone[c.consent]}>{consentText[c.consent]}</Badge>
+            <Badge variant={consentTone[c.consent]}>{t(consentText[c.consent])}</Badge>
           </li>
         ))}
       </ul>
@@ -198,12 +201,14 @@ export function PrivateNotes({
   notes,
   onAdd,
   onDelete,
-  locale = "en-IN",
+  locale: localeProp,
 }: PrivateNotesProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const [text, setText] = useState("");
   return (
     <section
-      aria-label={`Private notes about ${about}`}
+      aria-label={t("Private notes about {about}", { about })}
       style={{
         border: `1px dashed ${colorTokens.border.control}`,
         borderRadius: 8,
@@ -215,7 +220,8 @@ export function PrivateNotes({
       }}
     >
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>
-        <span aria-hidden="true">🔒 </span>Private notes
+        <span aria-hidden="true">🔒 </span>
+        {t("Private notes")}
       </h3>
       <p
         style={{
@@ -245,7 +251,7 @@ export function PrivateNotes({
             fontWeight: 600,
           }}
         >
-          Add a note
+          {t("Add a note")}
           <textarea
             rows={2}
             value={text}
@@ -262,7 +268,7 @@ export function PrivateNotes({
         </label>
         <div>
           <Button type="submit" size="sm">
-            Save note
+            {t("Save note")}
           </Button>
         </div>
       </form>
@@ -298,7 +304,9 @@ export function PrivateNotes({
                   <button
                     type="button"
                     onClick={() => onDelete(n.id)}
-                    aria-label={`Delete note from ${n.at.toLocaleDateString(locale, { day: "numeric", month: "short" })}`}
+                    aria-label={t("Delete note from {value}", {
+                      value: n.at.toLocaleDateString(locale, { day: "numeric", month: "short" }),
+                    })}
                     style={{
                       background: "none",
                       border: "none",
@@ -310,11 +318,11 @@ export function PrivateNotes({
                       fontSize: typographyTokens.fontSize.xs,
                     }}
                   >
-                    Delete
+                    {t("Delete")}
                   </button>
                 )}
               </div>
-              {n.text}
+              {t(n.text)}
             </li>
           ))}
       </ul>

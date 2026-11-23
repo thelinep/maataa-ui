@@ -4,6 +4,7 @@
  * MenuPopup is shared with ContextMenu.
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -42,6 +43,7 @@ export function MenuPopup({
   style,
   initialFocus = "first",
 }: MenuPopupProps) {
+  const t = useT();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const enabled = items.map((it, i) => (it.disabled ? -1 : i)).filter((i) => i >= 0);
   const [cur, setCur] = useState(
@@ -133,7 +135,7 @@ export function MenuPopup({
                 {it.icon}
               </span>
             )}
-            <span style={{ flex: 1 }}>{it.label}</span>
+            <span style={{ flex: 1 }}>{t(it.label)}</span>
             {it.hint && " "}
             {it.hint && (
               <span
@@ -142,7 +144,7 @@ export function MenuPopup({
                   fontSize: typographyTokens.fontSize.xs,
                 }}
               >
-                {it.hint}
+                {t(it.hint)}
               </span>
             )}
           </button>
@@ -336,23 +338,23 @@ export interface ShareMenuProps {
 export const defaultShareTargets: NonNullable<ShareMenuProps["targets"]> = [
   {
     id: "whatsapp",
-    label: "WhatsApp",
+    label: msg("WhatsApp"),
     href: (u, t) => `https://wa.me/?text=${encodeURIComponent(`${t} ${u}`)}`,
   },
   {
     id: "email",
-    label: "Email",
+    label: msg("Email"),
     href: (u, t) => `mailto:?subject=${encodeURIComponent(t)}&body=${encodeURIComponent(u)}`,
   },
   {
     id: "x",
-    label: "X (Twitter)",
+    label: msg("X (Twitter)"),
     href: (u, t) =>
       `https://x.com/intent/post?url=${encodeURIComponent(u)}&text=${encodeURIComponent(t)}`,
   },
   {
     id: "linkedin",
-    label: "LinkedIn",
+    label: msg("LinkedIn"),
     href: (u) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}`,
   },
 ];
@@ -367,15 +369,17 @@ export function ShareMenu({
   title,
   text,
   targets = defaultShareTargets,
-  label = "Share",
+  label: labelProp,
 }: ShareMenuProps) {
+  const t = useT();
+  const label = labelProp ?? t("Share");
   const [msg, setMsg] = useState("");
   const items: MenuAction[] = [
     ...(typeof navigator !== "undefined" && "share" in navigator
       ? [
           {
             id: "native",
-            label: "Share with an app…",
+            label: t("Share with an app…"),
             onSelect: () => {
               navigator.share({ url, title, text }).catch(() => undefined);
             },
@@ -384,21 +388,21 @@ export function ShareMenu({
       : []),
     {
       id: "copy",
-      label: "Copy link",
+      label: t("Copy link"),
       onSelect: () => {
-        const done = () => setMsg("Link copied.");
-        const failed = () => setMsg(`Couldn’t copy. The link is ${url}`);
+        const done = () => setMsg(t("Link copied."));
+        const failed = () => setMsg(t("Couldn’t copy. The link is {url}", { url }));
         if (navigator.clipboard?.writeText) navigator.clipboard.writeText(url).then(done, failed);
         else failed();
       },
     },
-    ...targets.map((t) => ({
-      id: t.id,
-      label: t.label,
-      icon: t.icon,
+    ...targets.map((target) => ({
+      id: target.id,
+      label: target.label,
+      icon: target.icon,
       onSelect: () => {
-        window.open(t.href(url, title), "_blank", "noopener,noreferrer");
-        setMsg(`Opened ${t.label} in a new tab.`);
+        window.open(target.href(url, title), "_blank", "noopener,noreferrer");
+        setMsg(t("Opened {label} in a new tab.", { label: t(target.label) }));
       },
     })),
   ];

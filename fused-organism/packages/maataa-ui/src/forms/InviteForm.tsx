@@ -3,6 +3,7 @@
  * Invite people to a project by email, with a role
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -37,6 +38,7 @@ export function parseEmails(text: string): string[] {
  * ("ravi@ isn't a valid email", "asha@… is already on the team").
  */
 export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: InviteFormProps) {
+  const t = useT();
   const id = useId();
   const [text, setText] = useState("");
   const [role, setRole] = useState(roles[0]?.value ?? "");
@@ -46,7 +48,7 @@ export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: I
   return (
     <form
       noValidate
-      aria-label="Invite people"
+      aria-label={t("Invite people")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 520 }}
       onSubmit={(e) => {
         e.preventDefault();
@@ -70,13 +72,13 @@ export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: I
     >
       <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
         <label htmlFor={`${id}-emails`} style={{ fontWeight: 500 }}>
-          Email addresses
+          {t("Email addresses")}
         </label>
         <span
           id={`${id}-hint`}
           style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}
         >
-          Separate with commas or new lines
+          {t("Separate with commas or new lines")}
         </span>
         <textarea
           id={`${id}-emails`}
@@ -115,7 +117,7 @@ export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: I
       <label
         style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs, fontWeight: 500 }}
       >
-        Role
+        {t("Role")}
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -138,7 +140,7 @@ export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: I
       <label
         style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs, fontWeight: 500 }}
       >
-        Personal note (optional)
+        {t("Personal note (optional)")}
         <input
           value={note}
           onChange={(e) => setNote(e.target.value)}
@@ -155,7 +157,7 @@ export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: I
       </label>
       <div>
         <Button type="submit" disabled={busy}>
-          Send invitations
+          {t("Send invitations")}
         </Button>
       </div>
     </form>

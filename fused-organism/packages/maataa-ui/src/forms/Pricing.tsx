@@ -3,6 +3,7 @@
  * Dated price sources and a pricing worksheet (markups, GST, total)
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { ScrollTable } from "../data/ScrollTable";
 import { StateBadge, approvalStates } from "../status/StateBadge";
@@ -37,8 +38,10 @@ export function PricingSourceTable({
   staleAfterDays = 90,
   now = new Date(),
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
 }: PricingSourceTableProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -52,24 +55,24 @@ export function PricingSourceTable({
     verticalAlign: "top",
   };
   return (
-    <ScrollTable label="Price sources">
+    <ScrollTable label={t("Price sources")}>
       <table style={{ width: "100%", minWidth: 560, borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          Price sources
+          {t("Price sources")}
         </caption>
         <thead>
           <tr style={{ color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Item
+              {t("Item")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Price
+              {t("Price")}
             </th>
             <th scope="col" style={td}>
-              Source
+              {t("Source")}
             </th>
             <th scope="col" style={td}>
-              Checked
+              {t("Checked")}
             </th>
           </tr>
         </thead>
@@ -167,13 +170,16 @@ export interface PricingWorksheetProps {
 export function PricingWorksheet({
   title,
   base,
-  baseLabel = "Base price",
+  baseLabel: baseLabelProp,
   lines,
   onChange,
   approval,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
 }: PricingWorksheetProps) {
+  const t = useT();
+  const baseLabel = baseLabelProp ?? t("Base price");
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -277,7 +283,7 @@ export function PricingWorksheet({
         <tfoot>
           <tr>
             <th scope="row" style={{ ...td, textAlign: "left", borderBottom: "none" }}>
-              Total
+              {t("Total")}
             </th>
             <td style={{ ...td, borderBottom: "none" }} />
             <td

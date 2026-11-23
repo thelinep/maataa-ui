@@ -3,6 +3,7 @@
  * Where a figure came from, and how old it is
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, typographyTokens } from "../tokens";
 
@@ -45,13 +46,15 @@ export const SourceAttribution = React.forwardRef<HTMLElement, SourceAttribution
       publisher,
       accessedAt,
       staleAfterDays = 180,
-      locale = "en-IN",
+      locale: localeProp,
       now = new Date(),
       style,
       ...props
     },
     ref
   ) => {
+    const t = useT();
+    const locale = useLocale(localeProp);
     const ageDays = Math.floor((now.getTime() - accessedAt.getTime()) / DAY);
     const stale = ageDays > staleAfterDays;
     const date = accessedAt.toLocaleDateString(locale, {
@@ -88,7 +91,7 @@ export const SourceAttribution = React.forwardRef<HTMLElement, SourceAttribution
                 clip: "rect(0 0 0 0)",
               }}
             >
-              (opens in a new tab)
+              {t("(opens in a new tab)")}
             </span>
           </a>
         ) : (
@@ -98,8 +101,7 @@ export const SourceAttribution = React.forwardRef<HTMLElement, SourceAttribution
         <time dateTime={accessedAt.toISOString().slice(0, 10)}>{date}</time>
         {stale && (
           <strong style={{ color: colorTokens.interactive.warning }}>
-            {" "}
-            · may be out of date ({ageDays} days old)
+            {t(" · may be out of date ({ageDays} days old)", { ageDays })}
           </strong>
         )}
       </small>

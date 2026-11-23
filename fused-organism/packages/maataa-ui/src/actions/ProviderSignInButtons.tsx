@@ -3,6 +3,7 @@
  * "Continue with Google" style buttons
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 
@@ -39,10 +40,11 @@ export function ProviderSignInButtons({
   pendingId,
   verb = "Continue with",
 }: ProviderSignInButtonsProps) {
+  const t = useT();
   return (
     <div
       role="group"
-      aria-label="Sign in with another account"
+      aria-label={t("Sign in with another account")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
       {providers.map((p) => (

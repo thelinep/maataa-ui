@@ -3,6 +3,7 @@
  * Pick a time slot (auditions, recces, rentals)
  */
 
+import { useLocale } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -28,7 +29,14 @@ export interface SlotPickerProps {
  * Slots grouped by day, as radios inside each day's fieldset. Taken slots
  * stay visible but disabled with "taken" in their name.
  */
-export function SlotPicker({ legend, slots, value, onChange, locale = "en-IN" }: SlotPickerProps) {
+export function SlotPicker({
+  legend,
+  slots,
+  value,
+  onChange,
+  locale: localeProp,
+}: SlotPickerProps) {
+  const locale = useLocale(localeProp);
   const t = (d: Date) => d.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" });
   const days = new Map<string, Slot[]>();
   [...slots]

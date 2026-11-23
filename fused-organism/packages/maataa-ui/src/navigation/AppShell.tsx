@@ -3,6 +3,7 @@
  * Responsive application frame for workspace navigation and page content.
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens } from "../tokens";
 import { Sidebar, type SidebarProps } from "./Sidebar";
@@ -116,11 +117,13 @@ export const AppShell: React.FC<AppShellProps> = ({
   collapsible = true,
   toolbarPosition = "above",
   footerPosition = "below",
-  navigationLabel = "Primary navigation",
+  navigationLabel: navigationLabelProp,
   mainId,
   className,
   style,
 }) => {
+  const t = useT();
+  const navigationLabel = navigationLabelProp ?? t("Primary navigation");
   const generatedId = useId();
   const navigationId = `maataa-navigation-${generatedId.replace(/:/g, "")}`;
   const contentId = mainId ?? `maataa-main-${generatedId.replace(/:/g, "")}`;
@@ -166,11 +169,11 @@ export const AppShell: React.FC<AppShellProps> = ({
       aria-label={
         kind === "mobile"
           ? mobileOpen
-            ? "Close navigation"
-            : "Open navigation"
+            ? t("Close navigation")
+            : t("Open navigation")
           : collapsed
-            ? "Expand navigation"
-            : "Collapse navigation"
+            ? t("Expand navigation")
+            : t("Collapse navigation")
       }
       aria-controls={navigationId}
       aria-expanded={kind === "mobile" ? mobileOpen : !collapsed}
@@ -191,7 +194,7 @@ export const AppShell: React.FC<AppShellProps> = ({
     >
       <style>{shellStyles}</style>
       <a className="maataa-app-shell__skip" href={`#${contentId}`}>
-        Skip to content
+        {t("Skip to content")}
       </a>
       {(topNav || sidebar) && (
         <div className="maataa-app-shell__top">
@@ -234,7 +237,7 @@ export const AppShell: React.FC<AppShellProps> = ({
           type="button"
           className="maataa-app-shell__backdrop"
           data-open={mobileOpen}
-          aria-label="Close navigation"
+          aria-label={t("Close navigation")}
           tabIndex={mobileOpen ? 0 : -1}
           onClick={() => setMobileOpen(false)}
         />

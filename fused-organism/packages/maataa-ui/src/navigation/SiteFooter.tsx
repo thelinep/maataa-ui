@@ -3,6 +3,7 @@
  * Multi-column footer, and the compact legal + social variant
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -46,6 +47,7 @@ export function SiteFooter({
   registration,
   variant = "full",
 }: SiteFooterProps) {
+  const t = useT();
   const link: React.CSSProperties = {
     color: colorTokens.text.inverse,
     opacity: 0.9,
@@ -56,7 +58,7 @@ export function SiteFooter({
   };
   const socialList = social.length > 0 && (
     <ul
-      aria-label="Social media"
+      aria-label={t("Social media")}
       style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", gap: 8 }}
     >
       {social.map((s) => (
@@ -101,7 +103,7 @@ export function SiteFooter({
                 clip: "rect(0 0 0 0)",
               }}
             >
-              (opens in a new tab)
+              {t("(opens in a new tab)")}
             </span>
           </a>
         </li>
@@ -121,7 +123,7 @@ export function SiteFooter({
       <span style={{ opacity: 0.85 }}>{copyright}</span>
       {registration && <span style={{ opacity: 0.7 }}>{registration}</span>}
       {legal.length > 0 && (
-        <nav aria-label="Legal">
+        <nav aria-label={t("Legal")}>
           <ul
             style={{
               listStyle: "none",

@@ -3,6 +3,7 @@
  * Accept an invitation, or recover from an expired one
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { Button } from "../primitives/Button";
 import { Avatar } from "../data/Avatar";
@@ -44,9 +45,11 @@ export function InvitationAcceptance({
   onDecline,
   onSwitchAccount,
   busy,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
 }: InvitationAcceptanceProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const { inviterName, workspaceName, role, email, expiresAt } = invitation;
   const mismatch = signedInAs && signedInAs.toLowerCase() !== email.toLowerCase();
@@ -59,7 +62,7 @@ export function InvitationAcceptance({
       <div style={{ display: "flex", gap: spacingTokens.md, alignItems: "center" }}>
         <Avatar name={inviterName} size="lg" decorative />
         <h1 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize["3xl"] }}>
-          {inviterName} invited you to {workspaceName}
+          {t("{inviterName} invited you to {workspaceName}", { inviterName, workspaceName })}
         </h1>
       </div>
       <dl
@@ -70,11 +73,11 @@ export function InvitationAcceptance({
           margin: 0,
         }}
       >
-        <dt style={{ color: colorTokens.text.secondary }}>Your role</dt>
+        <dt style={{ color: colorTokens.text.secondary }}>{t("Your role")}</dt>
         <dd style={{ margin: 0, fontWeight: 600 }}>{role}</dd>
-        <dt style={{ color: colorTokens.text.secondary }}>Sent to</dt>
+        <dt style={{ color: colorTokens.text.secondary }}>{t("Sent to")}</dt>
         <dd style={{ margin: 0 }}>{email}</dd>
-        <dt style={{ color: colorTokens.text.secondary }}>Expires</dt>
+        <dt style={{ color: colorTokens.text.secondary }}>{t("Expires")}</dt>
         <dd style={{ margin: 0 }}>
           {expiresAt.toLocaleDateString(locale, {
             day: "numeric",
@@ -93,12 +96,13 @@ export function InvitationAcceptance({
             padding: spacingTokens.sm,
           }}
         >
-          You’re signed in as <strong>{signedInAs}</strong>, but this invitation is for{" "}
+          {t("You’re signed in as")} <strong>{signedInAs}</strong>
+          {t(", but this invitation is for ")}
           <strong>{email}</strong>.
           {onSwitchAccount && (
             <div style={{ marginTop: spacingTokens.xs }}>
               <Button variant="secondary" size="sm" onClick={onSwitchAccount}>
-                Switch account
+                {t("Switch account")}
               </Button>
             </div>
           )}
@@ -106,10 +110,10 @@ export function InvitationAcceptance({
       )}
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         <Button onClick={onAccept} disabled={busy}>
-          Accept and join
+          {t("Accept and join")}
         </Button>
         <Button variant="secondary" onClick={onDecline} disabled={busy}>
-          Decline
+          {t("Decline")}
         </Button>
       </div>
     </section>
@@ -131,10 +135,10 @@ export interface InvitationRecoveryPanelProps {
 }
 
 const problemText: Record<InvitationProblem, string> = {
-  expired: "This invitation has expired.",
-  used: "This invitation has already been used.",
-  revoked: "This invitation was cancelled.",
-  invalid: "We couldn't read this invitation link.",
+  expired: msg("This invitation has expired."),
+  used: msg("This invitation has already been used."),
+  revoked: msg("This invitation was cancelled."),
+  invalid: msg("We couldn't read this invitation link."),
 };
 
 /** InvitationRecoveryPanel: what went wrong and how to get a working invite. */
@@ -146,14 +150,15 @@ export function InvitationRecoveryPanel({
   requested,
   onGoHome,
 }: InvitationRecoveryPanelProps) {
+  const t = useT();
   const who = inviterName ?? "the person who invited you";
   return (
     <section
-      aria-label="Invitation problem"
+      aria-label={t("Invitation problem")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 480 }}
     >
       <h1 style={{ margin: 0, fontSize: typographyTokens.fontSize["3xl"] }}>
-        {problemText[problem]}
+        {t(problemText[problem])}
       </h1>
       <p style={{ margin: 0, color: colorTokens.text.secondary }}>
         {problem === "used"
@@ -165,10 +170,10 @@ export function InvitationRecoveryPanel({
       </div>
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         {onRequestNew && problem !== "invalid" && !requested && (
-          <Button onClick={onRequestNew}>Ask for a new invitation</Button>
+          <Button onClick={onRequestNew}>{t("Ask for a new invitation")}</Button>
         )}
         <Button variant="secondary" onClick={onGoHome}>
-          Go to sign in
+          {t("Go to sign in")}
         </Button>
       </div>
     </section>

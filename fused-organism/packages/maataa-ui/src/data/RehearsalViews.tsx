@@ -3,6 +3,7 @@
  * Rehearsal scene list, attendance grid, director notes, reschedule request
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { Avatar } from "./Avatar";
@@ -24,15 +25,20 @@ export interface RehearsalScene {
 export function RehearsalSceneList({
   scenes,
   start,
-  locale = "en-IN",
+  locale: localeProp,
 }: {
   scenes: RehearsalScene[];
   start: Date;
   locale?: string;
 }) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   let t = start.getTime();
   return (
-    <ol aria-label="Rehearsal running order" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+    <ol
+      aria-label={tx("Rehearsal running order")}
+      style={{ listStyle: "none", margin: 0, padding: 0 }}
+    >
       {scenes.map((s) => {
         const at = new Date(t);
         t += s.minutes * 60_000;
@@ -55,7 +61,7 @@ export function RehearsalSceneList({
               {at.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" })}
             </time>
             <span>
-              <strong>Sc. {s.scene}</strong> · {s.title}
+              <strong>Sc. {s.scene}</strong> · {tx(s.title)}
               <span
                 style={{
                   display: "block",
@@ -92,10 +98,10 @@ export interface AttendanceGridProps {
 }
 
 const aText: Record<Exclude<Attendance, "">, string> = {
-  present: "Present",
-  late: "Late",
-  absent: "Absent",
-  excused: "Excused",
+  present: msg("Present"),
+  late: msg("Late"),
+  absent: msg("Absent"),
+  excused: msg("Excused"),
 };
 const aMark: Record<Exclude<Attendance, "">, string> = {
   present: "✓",
@@ -116,6 +122,7 @@ export function AttendanceGrid({
   onChange,
   caption = "Attendance",
 }: AttendanceGridProps) {
+  const tx = useT();
   const td: React.CSSProperties = {
     padding: 3,
     borderBottom: `1px solid ${colorTokens.border.primary}`,
@@ -131,15 +138,15 @@ export function AttendanceGrid({
         <thead>
           <tr style={{ color: colorTokens.text.secondary }}>
             <th scope="col" style={{ ...td, textAlign: "left" }}>
-              Person
+              {tx("Person")}
             </th>
             {sessions.map((s) => (
               <th key={s.id} scope="col" style={td}>
-                {s.label}
+                {tx(s.label)}
               </th>
             ))}
             <th scope="col" style={td}>
-              Present
+              {tx("Present")}
             </th>
           </tr>
         </thead>
@@ -176,7 +183,7 @@ export function AttendanceGrid({
                   return (
                     <td key={s.id} style={td}>
                       <select
-                        aria-label={`${p.name}, ${s.label}`}
+                        aria-label={`${p.name}, ${tx(s.label)}`}
                         value={a}
                         onChange={(e) => onChange(p.id, s.id, e.target.value as Attendance)}
                         style={{
@@ -188,7 +195,7 @@ export function AttendanceGrid({
                           background: colorTokens.background.primary,
                         }}
                       >
-                        <option value="">Not marked</option>
+                        <option value="">{tx("Not marked")}</option>
                         {Object.entries(aText).map(([k, v]) => (
                           <option key={k} value={k}>
                             {aMark[k as keyof typeof aMark]} {v}
@@ -237,6 +244,7 @@ export function DirectorNotesPanel({
   onToggleResolved,
   cast,
 }: DirectorNotesPanelProps) {
+  const tx = useT();
   const id = useId();
   const [scene, setScene] = useState("");
   const [forWhom, setForWhom] = useState("All");
@@ -255,7 +263,7 @@ export function DirectorNotesPanel({
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
       <h3 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
-        Director’s notes{" "}
+        {tx("Director’s notes ")}
         <span
           style={{
             fontWeight: 400,
@@ -282,7 +290,7 @@ export function DirectorNotesPanel({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Scene
+          {tx("Scene")}
           <input
             value={scene}
             onChange={(e) => setScene(e.target.value)}
@@ -296,9 +304,9 @@ export function DirectorNotesPanel({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          For
+          {tx("For")}
           <select value={forWhom} onChange={(e) => setForWhom(e.target.value)} style={inp}>
-            <option>All</option>
+            <option>{tx("All")}</option>
             {cast.map((c) => (
               <option key={c}>{c}</option>
             ))}
@@ -313,11 +321,11 @@ export function DirectorNotesPanel({
             minWidth: 180,
           }}
         >
-          Note
+          {tx("Note")}
           <input value={text} onChange={(e) => setText(e.target.value)} style={inp} />
         </label>
         <Button type="submit" size="sm">
-          Add note
+          {tx("Add note")}
         </Button>
       </form>
       <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -336,7 +344,7 @@ export function DirectorNotesPanel({
               type="checkbox"
               checked={!!n.resolved}
               onChange={() => onToggleResolved(n.id)}
-              aria-label={`Worked on: ${n.text}`}
+              aria-label={tx("Worked on: {text}", { text: n.text })}
               style={{ marginTop: 3, accentColor: colorTokens.interactive.primary }}
             />
             <span
@@ -348,7 +356,7 @@ export function DirectorNotesPanel({
               <strong>
                 {n.scene ? `Sc. ${n.scene}` : "General"} · {n.forWhom}:
               </strong>{" "}
-              {n.text}
+              {tx(n.text)}
             </span>
           </li>
         ))}
@@ -384,6 +392,7 @@ export function RescheduleRequest({
   onConsent,
   onRequestReschedule,
 }: RescheduleRequestProps) {
+  const tx = useT();
   const id = useId();
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState("");
@@ -391,7 +400,7 @@ export function RescheduleRequest({
   const [err, setErr] = useState("");
   return (
     <section
-      aria-label={`Your attendance: ${session}`}
+      aria-label={tx("Your attendance: {session}", { session })}
       style={{
         border: `1px solid ${colorTokens.border.primary}`,
         borderRadius: 8,
@@ -412,7 +421,7 @@ export function RescheduleRequest({
           }}
         >
           <legend style={{ fontWeight: 600, padding: `0 ${spacingTokens.xs}` }}>
-            Your consent
+            {tx("Your consent")}
           </legend>
           <p style={{ margin: `0 0 ${spacingTokens.xs}` }}>{consentDescription}</p>
           <div style={{ display: "flex", gap: spacingTokens.md }}>
@@ -424,7 +433,7 @@ export function RescheduleRequest({
                 onChange={() => onConsent(true)}
                 style={{ accentColor: colorTokens.interactive.primary }}
               />
-              I agree
+              {tx("I agree")}
             </label>
             <label style={{ display: "flex", gap: 6, alignItems: "center" }}>
               <input
@@ -434,7 +443,7 @@ export function RescheduleRequest({
                 onChange={() => onConsent(false)}
                 style={{ accentColor: colorTokens.interactive.primary }}
               />
-              I don’t agree
+              {tx("I don’t agree")}
             </label>
           </div>
           <p
@@ -452,7 +461,7 @@ export function RescheduleRequest({
       {!open ? (
         <div>
           <Button variant="secondary" onClick={() => setOpen(true)}>
-            I can’t make it
+            {tx("I can’t make it")}
           </Button>
         </div>
       ) : (
@@ -467,7 +476,7 @@ export function RescheduleRequest({
           style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}
         >
           <label style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            Reason
+            {tx("Reason")}
             <input
               value={reason}
               onChange={(e) => setReason(e.target.value)}
@@ -481,7 +490,7 @@ export function RescheduleRequest({
             />
           </label>
           <label style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            A time that works for you
+            {tx("A time that works for you")}
             <input
               type="datetime-local"
               value={proposed}
@@ -506,9 +515,9 @@ export function RescheduleRequest({
             </span>
           )}
           <div style={{ display: "flex", gap: spacingTokens.sm }}>
-            <Button type="submit">Ask to reschedule</Button>
+            <Button type="submit">{tx("Ask to reschedule")}</Button>
             <Button variant="secondary" onClick={() => setOpen(false)}>
-              Cancel
+              {tx("Cancel")}
             </Button>
           </div>
         </form>

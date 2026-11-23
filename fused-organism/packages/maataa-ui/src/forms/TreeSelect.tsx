@@ -4,6 +4,7 @@
  * with native checkboxes; parents show "some selected" as a mixed state
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -87,6 +88,7 @@ export function TreeSelect({
   defaultExpanded = [],
   hint,
 }: TreeSelectProps) {
+  const t = useT();
   const [open, setOpen] = useState<Set<string>>(new Set(defaultExpanded));
   const selected = new Set(value);
 
@@ -110,7 +112,7 @@ export function TreeSelect({
                 <button
                   type="button"
                   aria-expanded={expanded}
-                  aria-label={`${expanded ? "Hide" : "Show"} ${n.label}`}
+                  aria-label={`${expanded ? t("Hide") : t("Show")} ${n.label}`}
                   onClick={() =>
                     setOpen((s) => {
                       const nx = new Set(s);

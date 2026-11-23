@@ -3,6 +3,7 @@
  * Who can see a listing: public, unlisted or private
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { ChoiceCards } from "./ChoiceCards";
 
@@ -25,8 +26,10 @@ export function VisibilitySelector({
   value,
   onChange,
   subject = "this listing",
-  legend = "Who can see it?",
+  legend: legendProp,
 }: VisibilitySelectorProps) {
+  const t = useT();
+  const legend = legendProp ?? t("Who can see it?");
   return (
     <ChoiceCards
       legend={legend}
@@ -35,19 +38,19 @@ export function VisibilitySelector({
       options={[
         {
           value: "private",
-          label: "Private",
+          label: msg("Private"),
           icon: "🔒",
           description: `Only your team sees ${subject}.`,
         },
         {
           value: "unlisted",
-          label: "Unlisted",
+          label: msg("Unlisted"),
           icon: "🔗",
-          description: "Anyone with the link can see it. It isn't in Dispatch search.",
+          description: msg("Anyone with the link can see it. It isn't in Dispatch search."),
         },
         {
           value: "public",
-          label: "Public",
+          label: msg("Public"),
           icon: "🌐",
           description:
             "Listed in Dispatch. Contact details stay hidden until you accept an application.",

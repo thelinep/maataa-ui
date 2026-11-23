@@ -3,6 +3,7 @@
  * Multi-line text where "@" opens a list of people to mention (multi-line textbox with aria-autocomplete="list"; textarea cannot take role="combobox")
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle } from "./fieldKit";
@@ -54,6 +55,7 @@ export function MentionInput({
   rows = 4,
   limit = 6,
 }: MentionInputProps) {
+  const t = useT();
   const listId = useId();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [query, setQuery] = useState<{ start: number; q: string } | null>(null);
@@ -113,7 +115,7 @@ export function MentionInput({
             <ul
               id={listId}
               role="listbox"
-              aria-label="People to mention"
+              aria-label={t("People to mention")}
               style={{
                 position: "absolute",
                 top: "100%",

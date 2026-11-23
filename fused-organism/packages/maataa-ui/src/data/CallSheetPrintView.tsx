@@ -3,6 +3,7 @@
  * Print-ready call sheet (A4), black on white, with real headings and tables
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import type { CallSheetDay, SceneRow } from "../forms/CallSheetEditor";
 
@@ -45,6 +46,7 @@ export function CallSheetPrintView({
   notes,
   version,
 }: CallSheetPrintViewProps) {
+  const t = useT();
   const people = (title: string, list: CallContact[]) =>
     list.length > 0 && (
       <>
@@ -52,10 +54,10 @@ export function CallSheetPrintView({
         <table>
           <thead>
             <tr>
-              <th scope="col">Role</th>
-              <th scope="col">Name</th>
-              <th scope="col">Call</th>
-              <th scope="col">Phone</th>
+              <th scope="col">{t("Role")}</th>
+              <th scope="col">{t("Name")}</th>
+              <th scope="col">{t("Call")}</th>
+              <th scope="col">{t("Phone")}</th>
             </tr>
           </thead>
           <tbody>
@@ -74,7 +76,10 @@ export function CallSheetPrintView({
   return (
     <article
       className="cs-print"
-      aria-label={`${production} call sheet, day ${day.shootDay}`}
+      aria-label={t("{production} call sheet, day {shootDay}", {
+        production,
+        shootDay: day.shootDay,
+      })}
       style={{
         background: "#fff",
         color: "#000",
@@ -97,19 +102,29 @@ export function CallSheetPrintView({
         <div>
           <h1>{production}</h1>
           <div>
-            Call sheet · Day {day.shootDay}
-            {day.of ? ` of ${day.of}` : ""} · {day.date}
-            {version ? ` · v${version}` : ""}
+            {[
+              t("Call sheet"),
+              day.of
+                ? t("Day {shootDay} of {total}", { shootDay: day.shootDay, total: day.of })
+                : t("Day {shootDay}", { shootDay: day.shootDay }),
+              day.date,
+              version ? `v${version}` : null,
+            ]
+              .filter(Boolean)
+              .join(" · ")}
           </div>
         </div>
         <div style={{ textAlign: "right", fontSize: "11pt" }}>
           <div>
-            <strong>Crew call {day.crewCall}</strong>
+            <strong>{t("Crew call {crewCall}", { crewCall: day.crewCall })}</strong>
           </div>
-          <div>Shooting call {day.shootingCall}</div>
+          <div>{t("Shooting call {shootingCall}", { shootingCall: day.shootingCall })}</div>
           {(day.sunrise || day.sunset) && (
             <div>
-              Sunrise {day.sunrise ?? "—"} · Sunset {day.sunset ?? "—"}
+              {t("Sunrise {value} · Sunset {value2}", {
+                value: day.sunrise ?? "—",
+                value2: day.sunset ?? "—",
+              })}
             </div>
           )}
           {day.weather && <div>{day.weather}</div>}
@@ -123,24 +138,24 @@ export function CallSheetPrintView({
           fontSize: "10.5pt",
         }}
       >
-        <strong>Nearest hospital:</strong> {day.hospital ?? "Not listed"}
+        <strong>{t("Nearest hospital:")}</strong> {day.hospital ?? "Not listed"}
         {day.basecamp ? (
           <>
             {" "}
-            · <strong>Basecamp:</strong> {day.basecamp}
+            · <strong>{t("Basecamp:")}</strong> {day.basecamp}
           </>
         ) : null}
       </p>
-      <h2>Scenes</h2>
+      <h2>{t("Scenes")}</h2>
       <table>
         <thead>
           <tr>
-            <th scope="col">Sc.</th>
-            <th scope="col">Set</th>
+            <th scope="col">{t("Sc.")}</th>
+            <th scope="col">{t("Set")}</th>
             <th scope="col">D/N</th>
-            <th scope="col">Pages</th>
-            <th scope="col">Cast</th>
-            <th scope="col">Location</th>
+            <th scope="col">{t("Pages")}</th>
+            <th scope="col">{t("Cast")}</th>
+            <th scope="col">{t("Location")}</th>
           </tr>
         </thead>
         <tbody>
@@ -160,7 +175,7 @@ export function CallSheetPrintView({
       {people("Crew", crew)}
       {notes && (
         <>
-          <h2>Notes</h2>
+          <h2>{t("Notes")}</h2>
           <p style={{ margin: 0, fontSize: "10.5pt", whiteSpace: "pre-line" }}>{notes}</p>
         </>
       )}

@@ -3,6 +3,7 @@
  * Drone flight log, altitude readout and operator choice
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { StateBadge, clearanceStates } from "../status/StateBadge";
 import { ScrollTable } from "./ScrollTable";
@@ -24,9 +25,9 @@ export interface DroneFlight {
 }
 
 const zoneText = {
-  green: "Green zone",
-  yellow: "Yellow zone (permission needed)",
-  red: "Red zone (no-fly)",
+  green: msg("Green zone"),
+  yellow: msg("Yellow zone (permission needed)"),
+  red: msg("Red zone (no-fly)"),
 };
 
 export interface DroneFlightLogProps {
@@ -42,7 +43,13 @@ export interface DroneFlightLogProps {
  * A table of flights. Zone and clearance are words; flights above the
  * ceiling or in a red zone are flagged in text.
  */
-export function DroneFlightLog({ flights, ceilingM = 120, locale = "en-IN" }: DroneFlightLogProps) {
+export function DroneFlightLog({
+  flights,
+  ceilingM = 120,
+  locale: localeProp,
+}: DroneFlightLogProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const t = (d: Date) => d.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" });
   const td: React.CSSProperties = {
     padding: spacingTokens.xs,
@@ -51,27 +58,27 @@ export function DroneFlightLog({ flights, ceilingM = 120, locale = "en-IN" }: Dr
     verticalAlign: "top",
   };
   return (
-    <ScrollTable label="Drone flight log">
+    <ScrollTable label={tx("Drone flight log")}>
       <table style={{ width: "100%", minWidth: 720, borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          Drone flight log · {flights.length} flights
+          {tx("Drone flight log · {count} flights", { count: flights.length })}
         </caption>
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Time
+              {tx("Time")}
             </th>
             <th scope="col" style={td}>
-              Pilot and aircraft
+              {tx("Pilot and aircraft")}
             </th>
             <th scope="col" style={td}>
-              Location and zone
+              {tx("Location and zone")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Max height
+              {tx("Max height")}
             </th>
             <th scope="col" style={td}>
-              Clearance
+              {tx("Clearance")}
             </th>
           </tr>
         </thead>
@@ -112,7 +119,7 @@ export function DroneFlightLog({ flights, ceilingM = 120, locale = "en-IN" }: Dr
                       fontWeight: 600,
                     }}
                   >
-                    {zoneText[f.zone]}
+                    {tx(zoneText[f.zone])}
                   </span>
                 </td>
                 <td
@@ -154,6 +161,7 @@ export interface AltitudeDisplayProps {
  * above the ceiling is announced once (status/alert), not every update.
  */
 export function AltitudeDisplay({ metres, ceilingM = 120, marginM = 10 }: AltitudeDisplayProps) {
+  const tx = useT();
   const state = metres > ceilingM ? "over" : metres >= ceilingM - marginM ? "near" : "ok";
   const color =
     state === "over"
@@ -204,7 +212,7 @@ export function AltitudeDisplay({ metres, ceilingM = 120, marginM = 10 }: Altitu
           {Math.round(metres)} m
         </div>
         <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-          Height above ground · limit {ceilingM} m
+          {tx("Height above ground · limit {ceilingM} m", { ceilingM })}
         </div>
         <div role={state === "over" ? "alert" : "status"} style={{ fontWeight: 600, color }}>
           {state === "over"
@@ -246,8 +254,10 @@ export function OperatorSelector({
   value,
   onChange,
   flightDate,
-  locale = "en-IN",
+  locale: localeProp,
 }: OperatorSelectorProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const valid = (o: DroneOperator) =>
     Boolean(o.rpc) && (!o.rpcExpires || o.rpcExpires >= flightDate);
   return (
@@ -262,7 +272,9 @@ export function OperatorSelector({
       }}
     >
       <legend style={{ fontWeight: 600, padding: 0, marginBottom: spacingTokens.xs }}>
-        Drone pilot for {flightDate.toLocaleDateString(locale, { day: "numeric", month: "short" })}
+        {tx("Drone pilot for {value}", {
+          value: flightDate.toLocaleDateString(locale, { day: "numeric", month: "short" }),
+        })}
       </legend>
       {operators.map((o) => {
         const ok = valid(o);

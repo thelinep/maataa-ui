@@ -3,6 +3,7 @@
  * "Retrying in 12 s" with a Retry now button
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens } from "../tokens";
@@ -29,6 +30,7 @@ export interface RetryCountdownProps {
  * ```
  */
 export function RetryCountdown({ seconds, onRetry, message, paused = false }: RetryCountdownProps) {
+  const t = useT();
   const [left, setLeft] = useState(seconds);
   const onRetryRef = useRef(onRetry);
   onRetryRef.current = onRetry;
@@ -59,7 +61,7 @@ export function RetryCountdown({ seconds, onRetry, message, paused = false }: Re
           onRetry();
         }}
       >
-        Retry now
+        {t("Retry now")}
       </Button>
     </div>
   );

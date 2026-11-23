@@ -3,6 +3,7 @@
  * Report an injury, damage or near miss, and its follow-up
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { ErrorSummary, type FormError } from "./ErrorSummary";
@@ -32,6 +33,7 @@ export interface IncidentFormProps {
  * notice at the top. Follow-up needs an owner and a date.
  */
 export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
+  const t = useT();
   const id = useId();
   const [v, setV] = useState<IncidentValues>({
     kind: "nearMiss",
@@ -63,27 +65,30 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
     fontWeight: 500,
   };
   const kinds = {
-    injury: "Injury",
-    damage: "Damage to equipment or property",
-    nearMiss: "Near miss",
-    other: "Other",
+    injury: msg("Injury"),
+    damage: msg("Damage to equipment or property"),
+    nearMiss: msg("Near miss"),
+    other: msg("Other"),
   };
   return (
     <form
       noValidate
-      aria-label="Incident report"
+      aria-label={t("Incident report")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 560 }}
       onSubmit={(e) => {
         e.preventDefault();
         const errs: FormError[] = [];
-        if (!v.when) errs.push({ fieldId: `${id}-when`, message: "Enter when it happened" });
+        if (!v.when) errs.push({ fieldId: `${id}-when`, message: msg("Enter when it happened") });
         if (v.whatHappened.trim().length < 20)
           errs.push({
             fieldId: `${id}-what`,
-            message: "Describe what happened (at least 20 characters)",
+            message: msg("Describe what happened (at least 20 characters)"),
           });
         if (v.followUp.trim() && (!v.followUpOwner.trim() || !v.followUpBy))
-          errs.push({ fieldId: `${id}-owner`, message: "Give the follow-up an owner and a date" });
+          errs.push({
+            fieldId: `${id}-owner`,
+            message: msg("Give the follow-up an owner and a date"),
+          });
         setErrors(errs);
         if (!errs.length) onSubmit(v);
       }}
@@ -97,12 +102,12 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
           fontWeight: 600,
         }}
       >
-        If someone is hurt, call 112 and get first aid before filling this in.
+        {t("If someone is hurt, call 112 and get first aid before filling this in.")}
       </p>
       <ErrorSummary errors={errors} />
       <fieldset style={{ border: "none", margin: 0, padding: 0 }}>
         <legend style={{ fontWeight: 500, padding: 0, marginBottom: spacingTokens.xs }}>
-          What kind of incident?
+          {t("What kind of incident?")}
         </legend>
         {Object.entries(kinds).map(([k, l]) => (
           <label
@@ -132,7 +137,7 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
       </fieldset>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
         <label style={lab}>
-          When
+          {t("When")}
           <input
             id={`${id}-when`}
             type="datetime-local"
@@ -142,12 +147,12 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
           />
         </label>
         <label style={lab}>
-          Where
+          {t("Where")}
           <input value={v.where} onChange={(e) => set("where", e.target.value)} style={inp} />
         </label>
       </div>
       <label style={lab}>
-        What happened
+        {t("What happened")}
         <textarea
           id={`${id}-what`}
           rows={4}
@@ -157,7 +162,7 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
         />
       </label>
       <label style={lab}>
-        People involved
+        {t("People involved")}
         <input
           value={v.peopleInvolved}
           onChange={(e) => set("peopleInvolved", e.target.value)}
@@ -178,7 +183,7 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
                 accentColor: colorTokens.interactive.primary,
               }}
             />
-            First aid given
+            {t("First aid given")}
           </label>
           <label style={{ display: "flex", gap: spacingTokens.sm, alignItems: "center" }}>
             <input
@@ -192,7 +197,7 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
                 accentColor: colorTokens.interactive.primary,
               }}
             />
-            Went to hospital
+            {t("Went to hospital")}
           </label>
         </div>
       )}
@@ -206,14 +211,16 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
           gap: spacingTokens.sm,
         }}
       >
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Follow-up</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {t("Follow-up")}
+        </legend>
         <label style={lab}>
-          What needs to happen
+          {t("What needs to happen")}
           <input value={v.followUp} onChange={(e) => set("followUp", e.target.value)} style={inp} />
         </label>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
           <label style={lab}>
-            Who
+            {t("Who")}
             <input
               id={`${id}-owner`}
               value={v.followUpOwner}
@@ -222,7 +229,7 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
             />
           </label>
           <label style={lab}>
-            By
+            {t("By")}
             <input
               type="date"
               value={v.followUpBy}
@@ -233,11 +240,11 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
         </div>
       </fieldset>
       <span style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}>
-        Reports are seen by the producer and the safety lead only.
+        {t("Reports are seen by the producer and the safety lead only.")}
       </span>
       <div>
         <Button type="submit" disabled={busy}>
-          Submit report
+          {t("Submit report")}
         </Button>
       </div>
     </form>

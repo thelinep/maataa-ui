@@ -3,6 +3,7 @@
  * Pick one reviewer per role, with the usual approval rules
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -79,7 +80,7 @@ export function validateReviewers(
  * ```
  */
 export function ReviewerSelector({
-  label = "Reviewers",
+  label: labelProp,
   roles,
   people,
   value,
@@ -87,6 +88,8 @@ export function ReviewerSelector({
   authorId,
   showErrors = false,
 }: ReviewerSelectorProps) {
+  const t = useT();
+  const label = labelProp ?? t("Reviewers");
   const id = useId();
   const errors = showErrors ? validateReviewers(roles, value, people, authorId) : {};
   const options = people.filter((p) => p.id !== authorId);
@@ -123,7 +126,9 @@ export function ReviewerSelector({
             <label htmlFor={selectId} style={{ color: colorTokens.text.primary }}>
               {role.label}
               {!required && " "}
-              {!required && <span style={{ color: colorTokens.text.secondary }}>(optional)</span>}
+              {!required && (
+                <span style={{ color: colorTokens.text.secondary }}>{t("(optional)")}</span>
+              )}
             </label>
             <select
               id={selectId}
@@ -141,7 +146,7 @@ export function ReviewerSelector({
                 color: colorTokens.text.primary,
               }}
             >
-              <option value="">Not assigned</option>
+              <option value="">{t("Not assigned")}</option>
               {options.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name}

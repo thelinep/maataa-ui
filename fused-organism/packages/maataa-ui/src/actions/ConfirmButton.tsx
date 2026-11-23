@@ -3,6 +3,7 @@
  * A button that requires an inline second confirmation before firing
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { spacingTokens, typographyTokens } from "../tokens";
 import { Button, type ButtonProps } from "../primitives/Button";
@@ -51,9 +52,9 @@ export const ConfirmButton = React.forwardRef<HTMLButtonElement, ConfirmButtonPr
   (
     {
       onConfirm,
-      confirmText = "Are you sure?",
-      confirmLabel = "Yes",
-      cancelLabel = "Cancel",
+      confirmText: confirmTextProp,
+      confirmLabel: confirmLabelProp,
+      cancelLabel: cancelLabelProp,
       children,
       variant = "danger",
       size,
@@ -61,6 +62,10 @@ export const ConfirmButton = React.forwardRef<HTMLButtonElement, ConfirmButtonPr
     },
     ref
   ) => {
+    const t = useT();
+    const cancelLabel = cancelLabelProp ?? t("Cancel");
+    const confirmLabel = confirmLabelProp ?? t("Yes");
+    const confirmText = confirmTextProp ?? t("Are you sure?");
     const [confirming, setConfirming] = useState(false);
 
     if (confirming) {

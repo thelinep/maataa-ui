@@ -3,6 +3,7 @@
  * AgendaView, InlineEditGrid, ComparisonTable and DiffView
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { ScrollTable } from "./ScrollTable";
@@ -51,11 +52,13 @@ export function AgendaView({
   events,
   from = new Date(),
   days = 14,
-  locale = "en-IN",
+  locale: localeProp,
   onSelect,
   level = 3,
   today = new Date(),
 }: AgendaViewProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const H = `h${level}` as "h3";
   const start = new Date(from.getFullYear(), from.getMonth(), from.getDate());
   const groups: { day: Date; items: CalendarEvent[] }[] = [];
@@ -71,7 +74,7 @@ export function AgendaView({
   if (!groups.length) {
     return (
       <p style={{ color: colorTokens.text.secondary }}>
-        Nothing scheduled in the next {days} days.
+        {t("Nothing scheduled in the next {days} days.", { days })}
       </p>
     );
   }
@@ -106,7 +109,7 @@ export function AgendaView({
                   color: colorTokens.text.inverse,
                 }}
               >
-                Today
+                {t("Today")}
               </span>
             )}
           </H>
@@ -225,6 +228,7 @@ export function InlineEditGrid<T extends { id: string }>({
   onChange,
   rowHeaderKey,
 }: InlineEditGridProps<T>) {
+  const t = useT();
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [msg, setMsg] = useState("");
@@ -273,7 +277,7 @@ export function InlineEditGrid<T extends { id: string }>({
                   {c.editable && (
                     <>
                       {" "}
-                      <VisuallyHidden>(editable)</VisuallyHidden>
+                      <VisuallyHidden>{t("(editable)")}</VisuallyHidden>
                     </>
                   )}
                 </th>
@@ -406,6 +410,8 @@ export function ComparisonTable({
   rows,
   highlightDifferences,
 }: ComparisonTableProps) {
+  const t = useT();
+  const locale = useLocale();
   const [onlyDiff, setOnlyDiff] = useState(false);
   const differs = (r: ComparisonRow) =>
     new Set(options.map((o) => String(r.values[o.id]))).size > 1;
@@ -414,22 +420,24 @@ export function ComparisonTable({
     if (v === true)
       return (
         <span style={{ color: colorTokens.interactive.success, fontWeight: 600 }}>
-          <span aria-hidden="true">✓ </span>Yes
+          <span aria-hidden="true">✓ </span>
+          {t("Yes")}
         </span>
       );
     if (v === false)
       return (
         <span style={{ color: colorTokens.text.secondary }}>
-          <span aria-hidden="true">✕ </span>No
+          <span aria-hidden="true">✕ </span>
+          {t("No")}
         </span>
       );
     if (v == null || v === "")
       return (
         <span style={{ color: colorTokens.text.secondary }}>
-          —<VisuallyHidden>not stated</VisuallyHidden>
+          —<VisuallyHidden>{t("not stated")}</VisuallyHidden>
         </span>
       );
-    return typeof v === "number" ? v.toLocaleString("en-IN") : v;
+    return typeof v === "number" ? v.toLocaleString(locale) : v;
   };
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}>
@@ -440,7 +448,7 @@ export function ComparisonTable({
           onChange={(e) => setOnlyDiff(e.target.checked)}
           style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
         />
-        Only show differences ({rows.filter(differs).length})
+        {t("Only show differences ({value})", { value: rows.filter(differs).length })}
       </label>
       <ScrollTable label={label}>
         <table
@@ -474,7 +482,7 @@ export function ComparisonTable({
                         fontWeight: 700,
                       }}
                     >
-                      Recommended
+                      {t("Recommended")}
                     </span>
                   )}
                 </th>
@@ -494,7 +502,7 @@ export function ComparisonTable({
                     {hl && (
                       <>
                         {" "}
-                        <VisuallyHidden>(differs)</VisuallyHidden>
+                        <VisuallyHidden>{t("(differs)")}</VisuallyHidden>
                       </>
                     )}
                   </th>
@@ -576,9 +584,12 @@ export function DiffView({
   label,
   before,
   after,
-  beforeLabel = "Before",
-  afterLabel = "After",
+  beforeLabel: beforeLabelProp,
+  afterLabel: afterLabelProp,
 }: DiffViewProps) {
+  const t = useT();
+  const afterLabel = afterLabelProp ?? t("After");
+  const beforeLabel = beforeLabelProp ?? t("Before");
   const lines = diffLines(before, after);
   const added = lines.filter((l) => l.kind === "added").length;
   const removed = lines.filter((l) => l.kind === "removed").length;
@@ -614,15 +625,15 @@ export function DiffView({
         </span>
         <span>
           <span style={{ color: colorTokens.interactive.success, fontWeight: 600 }}>
-            {added} added
+            {t("{added} added", { added })}
           </span>
           ,{" "}
           <span style={{ color: colorTokens.interactive.error, fontWeight: 600 }}>
-            {removed} removed
+            {t("{removed} removed", { removed })}
           </span>
         </span>
       </div>
-      <ScrollTable label={`${label} lines`}>
+      <ScrollTable label={t("{label} lines", { label })}>
         <table
           style={{
             borderCollapse: "collapse",
@@ -640,7 +651,7 @@ export function DiffView({
                 {afterLabel}
               </th>
               <th scope="col" style={{ ...headCell, fontSize: 11 }}>
-                Line
+                {t("Line")}
               </th>
             </tr>
           </thead>
@@ -674,7 +685,9 @@ export function DiffView({
                 >
                   <span aria-hidden="true">{sign[l.kind]} </span>
                   {l.kind !== "same" && (
-                    <VisuallyHidden>{l.kind === "added" ? "Added: " : "Removed: "}</VisuallyHidden>
+                    <VisuallyHidden>
+                      {l.kind === "added" ? t("Added: ") : t("Removed: ")}
+                    </VisuallyHidden>
                   )}
                   {l.text || " "}
                 </td>

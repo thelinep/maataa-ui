@@ -3,6 +3,7 @@
  * Named colour swatches and a brush size slider
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -49,6 +50,7 @@ export function BrushColorPicker({
   minSize = 1,
   maxSize = 40,
 }: BrushColorPickerProps) {
+  const t = useT();
   const id = useId();
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}>
@@ -107,7 +109,7 @@ export function BrushColorPicker({
           htmlFor={`${id}-s`}
           style={{ fontWeight: 600, fontSize: typographyTokens.fontSize.sm, whiteSpace: "nowrap" }}
         >
-          Brush size
+          {t("Brush size")}
         </label>
         <input
           id={`${id}-s`}
@@ -116,7 +118,7 @@ export function BrushColorPicker({
           max={maxSize}
           value={size}
           onChange={(e) => onSizeChange(Number(e.target.value))}
-          aria-valuetext={`${size} pixels`}
+          aria-valuetext={t("{size} pixels", { size })}
           style={{ flex: 1, accentColor: colorTokens.interactive.primary }}
         />
         <output

@@ -5,6 +5,7 @@
  * (for v1.1+ tokenised financing; no wallet library is bundled)
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -44,6 +45,7 @@ export function WalletAddress({
   label?: string;
   explorerHref?: string;
 }) {
+  const t = useT();
   const [msg, setMsg] = useState("");
   const hue = parseInt(address.slice(2, 8) || "0", 16) % 360;
   return (
@@ -90,7 +92,7 @@ export function WalletAddress({
           cursor: "pointer",
         }}
       >
-        Copy <VisuallyHidden>address</VisuallyHidden>
+        {t("Copy")} <VisuallyHidden>address</VisuallyHidden>
       </button>
       {explorerHref && (
         <a
@@ -99,7 +101,7 @@ export function WalletAddress({
           rel="noopener noreferrer"
           style={{ fontSize: 12, color: colorTokens.interactive.primary }}
         >
-          View on explorer <VisuallyHidden>(opens in a new tab)</VisuallyHidden>
+          {t("View on explorer")} <VisuallyHidden>{t("(opens in a new tab)")}</VisuallyHidden>
         </a>
       )}
       <VisuallyHidden role="status">{msg}</VisuallyHidden>
@@ -137,6 +139,7 @@ export function WalletConnectButton({
   address,
   network,
 }: WalletConnectButtonProps) {
+  const t = useT();
   const id = useId();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
@@ -165,7 +168,7 @@ export function WalletConnectButton({
             onClick={disconnect}
             style={{ ...btn(), minHeight: 32, fontSize: 12 }}
           >
-            Disconnect
+            {t("Disconnect")}
           </button>
         )}
       </div>
@@ -180,7 +183,7 @@ export function WalletConnectButton({
         onClick={() => setOpen((o) => !o)}
         style={btn(true)}
       >
-        Connect wallet
+        {t("Connect wallet")}
       </button>
       <div
         id={id}
@@ -285,11 +288,13 @@ const TX: Record<TxState, [string, string, string, string]> = {
 /** Transaction rows with state in words and a link to the explorer. */
 export function TransactionList({
   transactions,
-  label = "Transactions",
+  label: labelProp,
 }: {
   transactions: Transaction[];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Transactions");
   return (
     <section aria-label={label}>
       <ul
@@ -388,10 +393,12 @@ export interface GasEstimateProps {
 
 /** Network fee in token and ₹, with a word for how busy the network is. */
 export function GasEstimate({ fee, symbol, feeInr, speed, level = "normal" }: GasEstimateProps) {
+  const t = useT();
+  const locale = useLocale();
   const word = {
-    low: "Network quiet — fee is low",
-    normal: "Normal fee",
-    high: "Network busy — fee is high",
+    low: msg("Network quiet — fee is low"),
+    normal: msg("Normal fee"),
+    high: msg("Network busy — fee is high"),
   }[level];
   const col =
     level === "high"
@@ -409,23 +416,23 @@ export function GasEstimate({ fee, symbol, feeInr, speed, level = "normal" }: Ga
         fontSize: typographyTokens.fontSize.sm,
       }}
     >
-      <dt style={{ color: colorTokens.text.secondary }}>Network fee</dt>
+      <dt style={{ color: colorTokens.text.secondary }}>{t("Network fee")}</dt>
       <dd style={{ margin: 0, fontFamily: mono }}>
         {fee} {symbol}
         {feeInr != null && (
           <span style={{ fontFamily: "inherit", color: colorTokens.text.secondary }}>
             {" "}
-            ≈ ₹{feeInr.toLocaleString("en-IN")}
+            ≈ ₹{feeInr.toLocaleString(locale)}
           </span>
         )}
       </dd>
       {speed && (
         <>
-          <dt style={{ color: colorTokens.text.secondary }}>Expected time</dt>
+          <dt style={{ color: colorTokens.text.secondary }}>{t("Expected time")}</dt>
           <dd style={{ margin: 0 }}>{speed}</dd>
         </>
       )}
-      <dt style={{ color: colorTokens.text.secondary }}>Status</dt>
+      <dt style={{ color: colorTokens.text.secondary }}>{t("Status")}</dt>
       <dd style={{ margin: 0, color: col, fontWeight: 600 }}>{word}</dd>
     </dl>
   );
@@ -461,6 +468,7 @@ export function TransactionConfirmDialog({
   onCancel,
   warning = "Blockchain transactions can’t be reversed once confirmed.",
 }: TransactionConfirmDialogProps) {
+  const t = useT();
   const id = useId();
   const cancel = useRef<HTMLButtonElement>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -547,8 +555,8 @@ export function TransactionConfirmDialog({
           }}
         >
           {rows.map((r) => (
-            <React.Fragment key={r.label}>
-              <dt style={{ color: colorTokens.text.secondary }}>{r.label}</dt>
+            <React.Fragment key={t(r.label)}>
+              <dt style={{ color: colorTokens.text.secondary }}>{t(r.label)}</dt>
               <dd style={{ margin: 0, wordBreak: "break-all" }}>{r.value}</dd>
             </React.Fragment>
           ))}
@@ -556,10 +564,10 @@ export function TransactionConfirmDialog({
         {gas && <GasEstimate {...gas} />}
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
           <button ref={cancel} type="button" onClick={onCancel} style={btn()}>
-            Cancel
+            {t("Cancel")}
           </button>
           <button type="button" onClick={onConfirm} style={btn(true)}>
-            Confirm in wallet
+            {t("Confirm in wallet")}
           </button>
         </div>
       </div>
@@ -587,11 +595,14 @@ export interface DistributionEvent {
 /** Revenue distribution history as a table, newest first. */
 export function DistributionEventLog({
   events,
-  label = "Distributions",
+  label: labelProp,
 }: {
   events: DistributionEvent[];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Distributions");
+  const locale = useLocale();
   const td: React.CSSProperties = {
     padding: "8px 10px",
     borderBottom: `1px solid ${colorTokens.border.secondary}`,
@@ -602,7 +613,8 @@ export function DistributionEventLog({
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       {sum > 0 && (
         <p style={{ margin: 0 }}>
-          You have received <strong>{inrShort(sum)}</strong> across {events.length} distributions.
+          {t("You have received")} <strong>{inrShort(sum)}</strong> across {events.length}{" "}
+          distributions.
         </p>
       )}
       <div role="region" aria-label={label} tabIndex={0} style={{ overflowX: "auto" }}>
@@ -639,9 +651,7 @@ export function DistributionEventLog({
                   {e.source}
                 </th>
                 <td style={{ ...td, textAlign: "right" }}>{inrShort(e.total)}</td>
-                <td style={{ ...td, textAlign: "right" }}>
-                  {e.recipients.toLocaleString("en-IN")}
-                </td>
+                <td style={{ ...td, textAlign: "right" }}>{e.recipients.toLocaleString(locale)}</td>
                 <td style={{ ...td, textAlign: "right", fontWeight: 700 }}>
                   {e.yourShare != null ? inrShort(e.yourShare) : "—"}
                 </td>
@@ -655,7 +665,7 @@ export function DistributionEventLog({
                         style={{ color: colorTokens.interactive.primary }}
                       >
                         {shortAddress(e.txHash, 8, 4)}{" "}
-                        <VisuallyHidden>(opens in a new tab)</VisuallyHidden>
+                        <VisuallyHidden>{t("(opens in a new tab)")}</VisuallyHidden>
                       </a>
                     ) : (
                       shortAddress(e.txHash, 8, 4)

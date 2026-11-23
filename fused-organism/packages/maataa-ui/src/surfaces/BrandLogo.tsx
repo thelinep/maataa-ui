@@ -3,6 +3,7 @@
  * maataa mark and wordmark in light, dark and mono
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, typographyTokens } from "../tokens";
 
@@ -38,13 +39,15 @@ export const BrandLogo = React.forwardRef<HTMLSpanElement, BrandLogoProps>(
       variant = "full",
       tone = "default",
       size = 32,
-      label = "maataa",
+      label: labelProp,
       decorative = false,
       style,
       ...props
     },
     ref
   ) => {
+    const t = useT();
+    const label = labelProp ?? t("maataa");
     const fg =
       tone === "inverse"
         ? colorTokens.text.inverse

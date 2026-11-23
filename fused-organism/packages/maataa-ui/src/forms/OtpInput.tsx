@@ -4,6 +4,7 @@
  * autofill and screen readers all work
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, smallButtonStyle } from "./fieldKit";
@@ -32,7 +33,7 @@ export interface OtpInputProps {
  * ignored. Progress is given in words ("4 of 6 characters").
  */
 export function OtpInput({
-  label = "Verification code",
+  label: labelProp,
   value,
   onChange,
   onComplete,
@@ -44,6 +45,8 @@ export function OtpInput({
   resendAfterSeconds = 30,
   autoFocus,
 }: OtpInputProps) {
+  const t = useT();
+  const label = labelProp ?? t("Verification code");
   const [wait, setWait] = useState(onResend ? resendAfterSeconds : 0);
   useEffect(() => {
     if (wait <= 0) return undefined;

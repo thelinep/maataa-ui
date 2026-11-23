@@ -3,6 +3,7 @@
  * A payment or delivery receipt: reference, lines and total
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { Badge } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -37,10 +38,10 @@ const statusVariant = {
   failed: "error",
 } as const;
 const statusText: Record<ReceiptStatus, string> = {
-  paid: "Paid",
-  pending: "Pending",
-  refunded: "Refunded",
-  failed: "Failed",
+  paid: msg("Paid"),
+  pending: msg("Pending"),
+  refunded: msg("Refunded"),
+  failed: msg("Failed"),
 };
 
 /**
@@ -60,7 +61,7 @@ export const ReceiptDisplay = React.forwardRef<HTMLElement, ReceiptDisplayProps>
       issuedAt,
       lines,
       currency = "INR",
-      locale = "en-IN",
+      locale: localeProp,
       status,
       party,
       style,
@@ -68,6 +69,8 @@ export const ReceiptDisplay = React.forwardRef<HTMLElement, ReceiptDisplayProps>
     },
     ref
   ) => {
+    const t = useT();
+    const locale = useLocale(localeProp);
     const id = useId();
     const money = new Intl.NumberFormat(locale, { style: "currency", currency });
     const total = lines.reduce((sum, l) => sum + l.amount, 0);
@@ -102,9 +105,9 @@ export const ReceiptDisplay = React.forwardRef<HTMLElement, ReceiptDisplayProps>
           }}
         >
           <h3 id={`${id}-title`} style={{ margin: 0 }}>
-            Receipt {reference}
+            {t("Receipt {reference}", { reference })}
           </h3>
-          {status && <Badge variant={statusVariant[status]}>{statusText[status]}</Badge>}
+          {status && <Badge variant={statusVariant[status]}>{t(statusText[status])}</Badge>}
         </div>
         <p
           style={{
@@ -145,20 +148,20 @@ export const ReceiptDisplay = React.forwardRef<HTMLElement, ReceiptDisplayProps>
                   fontWeight: 600,
                 }}
               >
-                Item
+                {t("Item")}
               </th>
               <th
                 scope="col"
                 style={{ ...num, color: colorTokens.text.secondary, fontWeight: 600 }}
               >
-                Amount
+                {t("Amount")}
               </th>
             </tr>
           </thead>
           <tbody>
             {lines.map((l, i) => (
-              <tr key={`${l.label}-${i}`}>
-                <td style={cell}>{l.label}</td>
+              <tr key={`${t(l.label)}-${i}`}>
+                <td style={cell}>{t(l.label)}</td>
                 <td style={num}>{money.format(l.amount)}</td>
               </tr>
             ))}
@@ -166,7 +169,7 @@ export const ReceiptDisplay = React.forwardRef<HTMLElement, ReceiptDisplayProps>
           <tfoot>
             <tr>
               <th scope="row" style={{ ...cell, textAlign: "left", borderBottom: "none" }}>
-                Total
+                {t("Total")}
               </th>
               <td style={{ ...num, borderBottom: "none", fontWeight: 700 }}>
                 {money.format(total)}

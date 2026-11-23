@@ -3,6 +3,7 @@
  * Sign by drawing, or by typing your name (equally valid, needs no pointer)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { controlStyle, smallButtonStyle } from "./fieldKit";
@@ -41,6 +42,7 @@ export function SignaturePad({
   width = 400,
   height = 140,
 }: SignaturePadProps) {
+  const t = useT();
   const id = useId();
   const [mode, setMode] = useState<"draw" | "type">(
     value?.kind === "typed" ? "type" : value?.kind === "drawn" ? "draw" : defaultMode
@@ -106,7 +108,7 @@ export function SignaturePad({
       {statement && <div style={{ color: colorTokens.text.secondary }}>{statement}</div>}
       <div
         role="radiogroup"
-        aria-label="How to sign"
+        aria-label={t("How to sign")}
         style={{ display: "flex", gap: spacingTokens.md }}
       >
         {(["draw", "type"] as const).map((m) => (
@@ -121,7 +123,7 @@ export function SignaturePad({
               }}
               style={{ accentColor: colorTokens.interactive.primary, width: 20, height: 20 }}
             />
-            {m === "draw" ? "Draw signature" : "Type name"}
+            {m === "draw" ? t("Draw signature") : t("Type name")}
           </label>
         ))}
       </div>
@@ -133,8 +135,8 @@ export function SignaturePad({
           role="img"
           aria-label={
             value?.kind === "drawn"
-              ? "Signature drawn"
-              : "Signature pad, empty. Draw with a finger, pen or mouse."
+              ? t("Signature drawn")
+              : t("Signature pad, empty. Draw with a finger, pen or mouse.")
           }
           onPointerDown={(e) => {
             const ctx = e.currentTarget.getContext?.("2d");
@@ -173,7 +175,7 @@ export function SignaturePad({
         />
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
-          <label htmlFor={`${id}-name`}>Full name</label>
+          <label htmlFor={`${id}-name`}>{t("Full name")}</label>
           <input
             id={`${id}-name`}
             value={name}
@@ -207,7 +209,7 @@ export function SignaturePad({
         style={{ display: "flex", gap: spacingTokens.sm, alignItems: "center", flexWrap: "wrap" }}
       >
         <button type="button" onClick={clear} style={smallButtonStyle} disabled={!value}>
-          Clear signature
+          {t("Clear signature")}
         </button>
         <span
           role="status"

@@ -6,6 +6,7 @@
  * RewardTierCard and AudienceRecommendationMeter
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -50,12 +51,14 @@ export interface CostDriver {
 export function CostDriverRow({
   drivers,
   total,
-  label = "Cost drivers",
+  label: labelProp,
 }: {
   drivers: CostDriver[];
   total?: number;
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Cost drivers");
   const sum = total ?? drivers.reduce((s, d) => s + d.amount, 0);
   const sorted = [...drivers].sort((a, b) => b.amount - a.amount);
   return (
@@ -162,11 +165,11 @@ export interface Scenario {
  * headline number; arrow keys move between them.
  */
 export function ScenarioSwitcher({
-  label = "Scenario",
+  label: labelProp,
   scenarios,
   value,
   onChange,
-  valueLabel = "Net revenue",
+  valueLabel: valueLabelProp,
 }: {
   label?: string;
   scenarios: Scenario[];
@@ -174,6 +177,9 @@ export function ScenarioSwitcher({
   onChange: (id: string) => void;
   valueLabel?: string;
 }) {
+  const t = useT();
+  const valueLabel = valueLabelProp ?? t("Net revenue");
+  const label = labelProp ?? t("Scenario");
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const idx = Math.max(
     0,
@@ -264,6 +270,7 @@ export function ContractExpiryPill({
   today?: Date;
   warnDays?: number;
 }) {
+  const locale = useLocale();
   const d = daysUntil(expires, today);
   const expired = d < 0;
   const soon = !expired && d <= warnDays;
@@ -279,7 +286,7 @@ export function ContractExpiryPill({
       : [colorTokens.background.tertiary, colorTokens.text.secondary, "◷"];
   return (
     <span
-      title={expires.toLocaleDateString("en-IN", { dateStyle: "long" })}
+      title={expires.toLocaleDateString(locale, { dateStyle: "long" })}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -294,9 +301,7 @@ export function ContractExpiryPill({
     >
       <span aria-hidden="true">{sym}</span>
       {text}
-      <VisuallyHidden>
-        , {expires.toLocaleDateString("en-IN", { dateStyle: "long" })}
-      </VisuallyHidden>
+      <VisuallyHidden>, {expires.toLocaleDateString(locale, { dateStyle: "long" })}</VisuallyHidden>
     </span>
   );
 }
@@ -318,6 +323,8 @@ export function TokenBalanceCard({
   change24h?: number;
   holdersShare?: number;
 }) {
+  const t = useT();
+  const locale = useLocale();
   return (
     <article style={card}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -349,7 +356,7 @@ export function TokenBalanceCard({
           fontVariantNumeric: "tabular-nums",
         }}
       >
-        {balance.toLocaleString("en-IN")}{" "}
+        {balance.toLocaleString(locale)}{" "}
         <span style={{ fontSize: typographyTokens.fontSize.sm, fontWeight: 600 }}>{symbol}</span>
       </div>
       {valueInr != null && (
@@ -364,12 +371,12 @@ export function TokenBalanceCard({
           }}
         >
           <span aria-hidden="true">{change24h >= 0 ? "▲ " : "▼ "}</span>
-          {change24h >= 0 ? "Up" : "Down"} {Math.abs(change24h).toFixed(1)}% in 24 hours
+          {change24h >= 0 ? t("Up") : t("Down")} {Math.abs(change24h).toFixed(1)}% in 24 hours
         </div>
       )}
       {holdersShare != null && (
         <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-          You hold {holdersShare}% of the supply
+          {t("You hold {holdersShare}% of the supply", { holdersShare })}
         </div>
       )}
     </article>
@@ -394,6 +401,7 @@ export function SmartContractStatusCard({
   auditedBy?: string;
   lastEvent?: string;
 }) {
+  const t = useT();
   const map: Record<ContractState, [string, string, string]> = {
     draft: ["Draft", colorTokens.background.tertiary, colorTokens.text.primary],
     audited: ["Audited", colorTokens.semantic.info.bg, colorTokens.semantic.info.text],
@@ -429,11 +437,11 @@ export function SmartContractStatusCard({
           fontSize: typographyTokens.fontSize.sm,
         }}
       >
-        <dt style={{ color: colorTokens.text.secondary }}>Network</dt>
+        <dt style={{ color: colorTokens.text.secondary }}>{t("Network")}</dt>
         <dd style={{ margin: 0 }}>{network}</dd>
         {address && (
           <>
-            <dt style={{ color: colorTokens.text.secondary }}>Address</dt>
+            <dt style={{ color: colorTokens.text.secondary }}>{t("Address")}</dt>
             <dd style={{ margin: 0, fontFamily: "ui-monospace, Menlo, monospace" }} title={address}>
               <span aria-hidden="true">{short}</span>
               <VisuallyHidden>{address}</VisuallyHidden>
@@ -442,13 +450,13 @@ export function SmartContractStatusCard({
         )}
         {auditedBy && (
           <>
-            <dt style={{ color: colorTokens.text.secondary }}>Audit</dt>
+            <dt style={{ color: colorTokens.text.secondary }}>{t("Audit")}</dt>
             <dd style={{ margin: 0 }}>{auditedBy}</dd>
           </>
         )}
         {lastEvent && (
           <>
-            <dt style={{ color: colorTokens.text.secondary }}>Last event</dt>
+            <dt style={{ color: colorTokens.text.secondary }}>{t("Last event")}</dt>
             <dd style={{ margin: 0 }}>{lastEvent}</dd>
           </>
         )}
@@ -470,7 +478,7 @@ export interface Share {
  * (percent and ₹ for the given pool) — the list is the real content.
  */
 export function ProfitDistributionRing({
-  title = "Profit distribution",
+  title: titleProp,
   shares,
   pool,
 }: {
@@ -478,6 +486,8 @@ export function ProfitDistributionRing({
   shares: Share[];
   pool?: number;
 }) {
+  const t = useT();
+  const title = titleProp ?? t("Profit distribution");
   const R = 54;
   const C = 2 * Math.PI * R;
   let off = 0;
@@ -512,7 +522,7 @@ export function ProfitDistributionRing({
           return el;
         })}
         <text textAnchor="middle" y={-2} style={{ fontSize: 11, fill: colorTokens.text.secondary }}>
-          Net pool
+          {t("Net pool")}
         </text>
         <text
           textAnchor="middle"
@@ -555,7 +565,7 @@ export function ProfitDistributionRing({
         </ul>
         {total !== 100 && (
           <p style={{ margin: "6px 0 0", fontSize: 12, color: colorTokens.interactive.error }}>
-            Shares add up to {total}%, not 100%.
+            {t("Shares add up to {total}%, not 100%.", { total })}
           </p>
         )}
       </div>
@@ -595,6 +605,7 @@ export function GovernanceVoteCard({
   onVote?: (id: string) => void;
   closed?: boolean;
 }) {
+  const t = useT();
   const id = React.useId();
   const total = options.reduce((s, o) => s + o.votes, 0);
   const lead = options.reduce((a, b) => (b.votes > a.votes ? b : a), options[0]!);
@@ -685,14 +696,14 @@ export function GovernanceVoteCard({
                   fontVariantNumeric: "tabular-nums",
                 }}
               >
-                {p}%<VisuallyHidden>, {o.votes} votes</VisuallyHidden>
+                {p}%<VisuallyHidden>{t(", {votes} votes", { votes: o.votes })}</VisuallyHidden>
               </span>
             </label>
           );
         })}
       </fieldset>
       <span style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-        {total} votes{myVote ? " · You voted" : ""}
+        {myVote ? t("{total} votes · You voted", { total }) : t("{total} votes", { total })}
       </span>
     </article>
   );
@@ -790,11 +801,13 @@ export interface Investor {
 /** Investor pipeline as a table: stage in words, ticket in ₹ lakh/crore. */
 export function InvestorRow({
   investors,
-  label = "Investors",
+  label: labelProp,
 }: {
   investors: Investor[];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Investors");
   const td: React.CSSProperties = {
     padding: "8px 10px",
     borderBottom: `1px solid ${colorTokens.border.secondary}`,
@@ -806,7 +819,7 @@ export function InvestorRow({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <p style={{ margin: 0, fontSize: typographyTokens.fontSize.sm }}>
-        Committed so far: <strong>{inrShort(committed)}</strong>
+        {t("Committed so far:")} <strong>{inrShort(committed)}</strong>
       </p>
       <div role="region" aria-label={label} tabIndex={0} style={{ overflowX: "auto" }}>
         <table
@@ -892,21 +905,29 @@ export function CrowdfundingProgressBar({
   daysLeft: number;
   stretchGoals?: { at: number; label: string }[];
 }) {
+  const t = useT();
+  const locale = useLocale();
   const p = Math.round((raised / (goal || 1)) * 100);
   const max = Math.max(goal, ...(stretchGoals ?? []).map((s) => s.at), raised);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
         <strong style={{ fontSize: typographyTokens.fontSize["2xl"] }}>{inrShort(raised)}</strong>
-        <span style={{ color: colorTokens.text.secondary }}>raised of {inrShort(goal)} goal</span>
+        <span style={{ color: colorTokens.text.secondary }}>
+          {t("raised of {value} goal", { value: inrShort(goal) })}
+        </span>
       </div>
       <div
         role="progressbar"
-        aria-label="Funding"
+        aria-label={t("Funding")}
         aria-valuemin={0}
         aria-valuemax={goal}
         aria-valuenow={Math.min(raised, goal)}
-        aria-valuetext={`${inrShort(raised)} of ${inrShort(goal)}, ${p}%`}
+        aria-valuetext={t("{value} of {value2}, {p}%", {
+          value: inrShort(raised),
+          value2: inrShort(goal),
+          p,
+        })}
         style={{
           position: "relative",
           height: 14,
@@ -955,10 +976,10 @@ export function CrowdfundingProgressBar({
           <strong>{p}%</strong> funded
         </span>
         <span>
-          <strong>{backers.toLocaleString("en-IN")}</strong> backers
+          <strong>{backers.toLocaleString(locale)}</strong> backers
         </span>
         <span>
-          <strong>{daysLeft}</strong> {daysLeft === 1 ? "day" : "days"} left
+          <strong>{daysLeft}</strong> {t.plural(daysLeft, "day left", "days left")}
         </span>
       </div>
       {stretchGoals && (
@@ -1048,28 +1069,31 @@ export function AudienceRecommendationMeter({
   recommend,
   neutral,
   notRecommend,
-  label = "Audience recommendation",
+  label: labelProp,
 }: {
   recommend: number;
   neutral: number;
   notRecommend: number;
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Audience recommendation");
   const n = recommend + neutral + notRecommend || 1;
   const pr = Math.round((recommend / n) * 100);
   const pn = Math.round((notRecommend / n) * 100);
   const net = pr - pn;
-  const word = net >= 50 ? "Strong" : net >= 20 ? "Positive" : net >= 0 ? "Mixed" : "Negative";
+  const word =
+    net >= 50 ? "Strong" : net >= 20 ? "Positive" : net >= 0 ? t("Mixed") : t("Negative");
   return (
     <section aria-label={label} style={card}>
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>{label}</h3>
       <div
         role="meter"
-        aria-label="Would recommend"
+        aria-label={t("Would recommend")}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={pr}
-        aria-valuetext={`${pr}% would recommend`}
+        aria-valuetext={t("{pr}% would recommend", { pr })}
         style={{ display: "flex", height: 16, borderRadius: 999, overflow: "hidden" }}
       >
         <span style={{ width: `${pr}%`, background: colorTokens.interactive.success }} />
@@ -1088,17 +1112,18 @@ export function AudienceRecommendationMeter({
         }}
       >
         <li>
-          <strong>{pr}%</strong> would recommend
+          <strong>{pr}%</strong> {t("would recommend")}
         </li>
         <li>
           <strong>{100 - pr - pn}%</strong> unsure
         </li>
         <li>
-          <strong>{pn}%</strong> would not
+          <strong>{pn}%</strong> {t("would not")}
         </li>
       </ul>
       <p style={{ margin: 0, fontSize: typographyTokens.fontSize.sm }}>
-        Net score <strong>{net > 0 ? `+${net}` : net}</strong> — {word}. Based on {n} responses.
+        {t("Net score")} <strong>{net > 0 ? `+${net}` : net}</strong>{" "}
+        {t("— {word}. Based on {n} responses.", { word, n })}
       </p>
     </section>
   );

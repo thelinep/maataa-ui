@@ -3,6 +3,7 @@
  * Last-owner warning, screen-reader mode indicator, sync ops dashboard
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -19,6 +20,7 @@ export interface LastOwnerWarningProps {
 
 /** LastOwnerWarning: explains why the action is blocked and how to unblock it. */
 export function LastOwnerWarning({ workspace, action, onAddOwner }: LastOwnerWarningProps) {
+  const t = useT();
   return (
     <div
       role="alert"
@@ -32,15 +34,17 @@ export function LastOwnerWarning({ workspace, action, onAddOwner }: LastOwnerWar
         gap: spacingTokens.xs,
       }}
     >
-      <strong>You’re the only owner of {workspace}</strong>
+      <strong>{t("You’re the only owner of {workspace}", { workspace })}</strong>
       <span>
-        You can’t {action} until someone else is an owner, otherwise nobody could manage billing,
-        members or deletion.
+        {t(
+          "You can’t {action} until someone else is an owner, otherwise nobody could manage billing, members or deletion.",
+          { action }
+        )}
       </span>
       {onAddOwner && (
         <div>
           <Button variant="secondary" size="sm" onClick={onAddOwner}>
-            Make someone an owner
+            {t("Make someone an owner")}
           </Button>
         </div>
       )}
@@ -62,6 +66,7 @@ export interface ScreenReaderModeIndicatorProps {
  * announcements, simplified layouts) is on, as a switch with its state.
  */
 export function ScreenReaderModeIndicator({ on, onToggle }: ScreenReaderModeIndicatorProps) {
+  const t = useT();
   return (
     <div
       style={{
@@ -90,11 +95,11 @@ export function ScreenReaderModeIndicator({ on, onToggle }: ScreenReaderModeIndi
             color: colorTokens.text.primary,
           }}
         >
-          Screen reader mode: <strong>{on ? "On" : "Off"}</strong>
+          {t("Screen reader mode:")} <strong>{on ? t("On") : t("Off")}</strong>
         </button>
       ) : (
         <span role="status">
-          Screen reader mode: <strong>{on ? "On" : "Off"}</strong>
+          {t("Screen reader mode:")} <strong>{on ? t("On") : t("Off")}</strong>
         </span>
       )}
     </div>
@@ -134,9 +139,11 @@ export function SyncOpsDashboard({
   conflicts,
   onRetryFailed,
   onOpenConflicts,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
 }: SyncOpsDashboardProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const pending = devices.reduce((n, d) => n + d.pending, 0);
   const failed = devices.reduce((n, d) => n + d.failed, 0);
   const ago = (d?: Date) => {
@@ -176,7 +183,7 @@ export function SyncOpsDashboard({
   );
   return (
     <section
-      aria-label="Sync status"
+      aria-label={t("Sync status")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md }}
     >
       <dl style={{ display: "flex", gap: spacingTokens.sm, flexWrap: "wrap", margin: 0 }}>
@@ -189,13 +196,13 @@ export function SyncOpsDashboard({
       {conflicts > 0 && onOpenConflicts && (
         <div>
           <Button variant="secondary" onClick={onOpenConflicts}>
-            Resolve {conflicts} conflict{conflicts === 1 ? "" : "s"}
+            {t.plural(conflicts, "Resolve {count} conflict", "Resolve {count} conflicts")}
           </Button>
         </div>
       )}
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          Devices
+          {t("Devices")}
         </caption>
         <thead>
           <tr
@@ -205,10 +212,10 @@ export function SyncOpsDashboard({
               color: colorTokens.text.secondary,
             }}
           >
-            <th scope="col">Device</th>
-            <th scope="col">Last sync</th>
-            <th scope="col">Waiting</th>
-            <th scope="col">Failed</th>
+            <th scope="col">{t("Device")}</th>
+            <th scope="col">{t("Last sync")}</th>
+            <th scope="col">{t("Waiting")}</th>
+            <th scope="col">{t("Failed")}</th>
           </tr>
         </thead>
         <tbody>
@@ -252,7 +259,7 @@ export function SyncOpsDashboard({
                   <button
                     type="button"
                     onClick={() => onRetryFailed(d.id)}
-                    aria-label={`Retry failed changes on ${d.name}`}
+                    aria-label={t("Retry failed changes on {name}", { name: d.name })}
                     style={{
                       marginLeft: 8,
                       background: "none",
@@ -265,7 +272,7 @@ export function SyncOpsDashboard({
                       fontWeight: 400,
                     }}
                   >
-                    Retry
+                    {t("Retry")}
                   </button>
                 )}
               </td>

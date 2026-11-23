@@ -3,6 +3,7 @@
  * Documents with virus-scan state, safe download, and what to do when held
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { ScanStatusBadge, type ScanStatus } from "../status/ScanStatusBadge";
 import { formatBytes } from "../forms/FileDropzone";
@@ -26,11 +27,11 @@ export interface CleanDownloadButtonProps {
 }
 
 const holdReason: Record<ScanStatus, string> = {
-  pending: "Waiting for the virus scan. Download is available once it's clean.",
-  scanning: "Being scanned for viruses. Download is available once it's clean.",
+  pending: msg("Waiting for the virus scan. Download is available once it's clean."),
+  scanning: msg("Being scanned for viruses. Download is available once it's clean."),
   clean: "",
-  quarantined: "Held because the scan found a problem.",
-  failed: "The scan couldn't finish, so the file is held.",
+  quarantined: msg("Held because the scan found a problem."),
+  failed: msg("The scan couldn't finish, so the file is held."),
 };
 
 /**
@@ -39,6 +40,7 @@ const holdReason: Record<ScanStatus, string> = {
  * (aria-disabled) and its description says why.
  */
 export function CleanDownloadButton({ name, scan, onDownload }: CleanDownloadButtonProps) {
+  const t = useT();
   const ok = scan === "clean";
   const descId = useId();
   return (
@@ -46,13 +48,13 @@ export function CleanDownloadButton({ name, scan, onDownload }: CleanDownloadBut
       <Button
         variant="secondary"
         size="sm"
-        aria-label={`Download ${name}`}
+        aria-label={t("Download {name}", { name })}
         aria-disabled={!ok || undefined}
         aria-describedby={ok ? undefined : descId}
         onClick={() => ok && onDownload()}
         style={ok ? undefined : { opacity: 0.55, cursor: "not-allowed" }}
       >
-        Download
+        {t("Download")}
       </Button>
       {!ok && (
         <span
@@ -65,7 +67,7 @@ export function CleanDownloadButton({ name, scan, onDownload }: CleanDownloadBut
             clip: "rect(0 0 0 0)",
           }}
         >
-          {holdReason[scan]}
+          {t(holdReason[scan])}
         </span>
       )}
     </span>
@@ -88,9 +90,10 @@ export function QuarantinePanel({
   onDelete,
   onRequestReview,
 }: QuarantinePanelProps) {
+  const t = useT();
   return (
     <section
-      aria-label={`${name} is quarantined`}
+      aria-label={t("{name} is quarantined", { name })}
       role="alert"
       style={{
         border: `1px solid ${colorTokens.interactive.error}`,
@@ -102,7 +105,7 @@ export function QuarantinePanel({
         gap: spacingTokens.sm,
       }}
     >
-      <strong>{name} was quarantined</strong>
+      <strong>{t("{name} was quarantined", { name })}</strong>
       <span>
         The virus scan found {finding ? <code>{finding}</code> : "a possible threat"}. Nobody can
         download it, and it isn’t shared. If you trust where it came from, ask an admin to review
@@ -110,11 +113,11 @@ export function QuarantinePanel({
       </span>
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         <Button variant="danger" onClick={onDelete}>
-          Delete file
+          {t("Delete file")}
         </Button>
         {onRequestReview && (
           <Button variant="secondary" onClick={onRequestReview}>
-            Ask an admin to review
+            {t("Ask an admin to review")}
           </Button>
         )}
       </div>
@@ -131,6 +134,7 @@ export interface ScannerFailureNoticeProps {
 
 /** ScannerFailureNotice: the scanner failed; the file is held, not lost. */
 export function ScannerFailureNotice({ name, onRetry, retrying }: ScannerFailureNoticeProps) {
+  const t = useT();
   return (
     <div
       role="status"
@@ -143,14 +147,14 @@ export function ScannerFailureNotice({ name, onRetry, retrying }: ScannerFailure
         gap: spacingTokens.sm,
       }}
     >
-      <strong>We couldn’t scan {name}</strong>
+      <strong>{t("We couldn’t scan {name}", { name })}</strong>
       <span>
         The scanner didn’t respond. The file is saved and held until a scan succeeds. Try again in a
         minute; if it keeps failing, tell your admin.
       </span>
       <div>
         <Button variant="secondary" onClick={onRetry} disabled={retrying}>
-          {retrying ? "Scanning…" : "Scan again"}
+          {retrying ? t("Scanning…") : t("Scan again")}
         </Button>
       </div>
     </div>
@@ -173,9 +177,11 @@ export function DocumentList({
   documents,
   onDownload,
   onOpenIssue,
-  locale = "en-IN",
+  locale: localeProp,
   caption = "Documents",
 }: DocumentListProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const td: React.CSSProperties = {
     padding: spacingTokens.sm,
     borderBottom: `1px solid ${colorTokens.border.primary}`,
@@ -191,16 +197,16 @@ export function DocumentList({
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Name
+              {t("Name")}
             </th>
             <th scope="col" style={td}>
-              Uploaded
+              {t("Uploaded")}
             </th>
             <th scope="col" style={td}>
-              Size
+              {t("Size")}
             </th>
             <th scope="col" style={td}>
-              Scan
+              {t("Scan")}
             </th>
             <th scope="col" style={td}>
               <span
@@ -212,7 +218,7 @@ export function DocumentList({
                   clip: "rect(0 0 0 0)",
                 }}
               >
-                Actions
+                {t("Actions")}
               </span>
             </th>
           </tr>
@@ -237,7 +243,7 @@ export function DocumentList({
                   <button
                     type="button"
                     onClick={() => onOpenIssue(d)}
-                    aria-label={`What happened to ${d.name}?`}
+                    aria-label={t("What happened to {name}?", { name: d.name })}
                     style={{
                       marginLeft: spacingTokens.sm,
                       background: "none",
@@ -249,7 +255,7 @@ export function DocumentList({
                       font: "inherit",
                     }}
                   >
-                    What happened?
+                    {t("What happened?")}
                   </button>
                 )}
               </td>

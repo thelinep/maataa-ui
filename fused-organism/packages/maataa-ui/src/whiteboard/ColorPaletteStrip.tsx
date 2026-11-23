@@ -3,6 +3,7 @@
  * A film's colour palette with names, hex codes and contrast hints
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { CopyButton } from "../actions/CopyButton";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -46,6 +47,7 @@ export interface ColorPaletteStripProps {
  * on it (for titles and lower thirds).
  */
 export function ColorPaletteStrip({ title, colors }: ColorPaletteStripProps) {
+  const t = useT();
   return (
     <section aria-label={title}>
       <h3 style={{ margin: `0 0 ${spacingTokens.sm}`, fontSize: typographyTokens.fontSize.lg }}>
@@ -108,7 +110,7 @@ export function ColorPaletteStrip({ title, colors }: ColorPaletteStripProps) {
                 </span>
                 {c.usage && <span style={{ color: colorTokens.text.secondary }}>{c.usage}</span>}
                 <span>
-                  {ink === "#FFFFFF" ? "White" : "Black"} text {best.toFixed(1)}:1
+                  {ink === "#FFFFFF" ? t("White") : t("Black")} text {best.toFixed(1)}:1
                   {best < 4.5 ? " (large titles only)" : ""}
                 </span>
                 <CopyButton value={c.hex.toUpperCase()} what={`${c.name} hex code`} size="sm" />

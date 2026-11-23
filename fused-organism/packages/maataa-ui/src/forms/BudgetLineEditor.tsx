@@ -3,6 +3,7 @@
  * Edit budget lines as a table: category, item, quantity, rate, amount
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -41,10 +42,12 @@ export function BudgetLineEditor({
   onChange,
   categories,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
   newId = () => Math.random().toString(36).slice(2, 9),
   readOnly,
 }: BudgetLineEditorProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -69,10 +72,10 @@ export function BudgetLineEditor({
   };
   const name = (l: BudgetLine) => l.item || `line ${lines.indexOf(l) + 1}`;
   return (
-    <div role="region" aria-label={"Budget lines"} tabIndex={0} style={{ overflowX: "auto" }}>
+    <div role="region" aria-label={t("Budget lines")} tabIndex={0} style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 640 }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.sm }}>
-          Budget lines
+          {t("Budget lines")}
         </caption>
         <thead>
           <tr
@@ -83,22 +86,22 @@ export function BudgetLineEditor({
             }}
           >
             <th scope="col" style={cell}>
-              Category
+              {t("Category")}
             </th>
             <th scope="col" style={cell}>
-              Item
+              {t("Item")}
             </th>
             <th scope="col" style={{ ...cell, width: 80 }}>
-              Qty
+              {t("Qty")}
             </th>
             <th scope="col" style={{ ...cell, width: 90 }}>
-              Unit
+              {t("Unit")}
             </th>
             <th scope="col" style={{ ...cell, width: 120 }}>
-              Rate
+              {t("Rate")}
             </th>
             <th scope="col" style={{ ...cell, textAlign: "right", width: 130 }}>
-              Amount
+              {t("Amount")}
             </th>
             {!readOnly && (
               <th scope="col" style={cell}>
@@ -111,7 +114,7 @@ export function BudgetLineEditor({
                     clip: "rect(0 0 0 0)",
                   }}
                 >
-                  Remove
+                  {t("Remove")}
                 </span>
               </th>
             )}
@@ -125,7 +128,7 @@ export function BudgetLineEditor({
                   l.category
                 ) : (
                   <select
-                    aria-label={`Category for ${name(l)}`}
+                    aria-label={t("Category for {value}", { value: name(l) })}
                     value={l.category}
                     onChange={(e) => upd(l.id, { category: e.target.value })}
                     style={inp}
@@ -141,7 +144,7 @@ export function BudgetLineEditor({
                   l.item
                 ) : (
                   <input
-                    aria-label={`Item ${lines.indexOf(l) + 1}`}
+                    aria-label={t("Item {value}", { value: lines.indexOf(l) + 1 })}
                     value={l.item}
                     onChange={(e) => upd(l.id, { item: e.target.value })}
                     style={inp}
@@ -153,7 +156,7 @@ export function BudgetLineEditor({
                   l.quantity
                 ) : (
                   <input
-                    aria-label={`Quantity for ${name(l)}`}
+                    aria-label={t("Quantity for {value}", { value: name(l) })}
                     type="number"
                     min={0}
                     inputMode="decimal"
@@ -168,7 +171,7 @@ export function BudgetLineEditor({
                   l.unit
                 ) : (
                   <input
-                    aria-label={`Unit for ${name(l)}`}
+                    aria-label={t("Unit for {value}", { value: name(l) })}
                     value={l.unit}
                     onChange={(e) => upd(l.id, { unit: e.target.value })}
                     style={inp}
@@ -180,7 +183,7 @@ export function BudgetLineEditor({
                   money.format(l.rate)
                 ) : (
                   <input
-                    aria-label={`Rate for ${name(l)}`}
+                    aria-label={t("Rate for {value}", { value: name(l) })}
                     type="number"
                     min={0}
                     inputMode="decimal"
@@ -197,7 +200,7 @@ export function BudgetLineEditor({
                 <td style={cell}>
                   <button
                     type="button"
-                    aria-label={`Remove ${name(l)}`}
+                    aria-label={t("Remove {value}", { value: name(l) })}
                     onClick={() => onChange(lines.filter((x) => x.id !== l.id))}
                     style={{
                       minWidth: 32,
@@ -223,7 +226,7 @@ export function BudgetLineEditor({
               colSpan={5}
               style={{ ...cell, textAlign: "right", borderBottom: "none" }}
             >
-              Total
+              {t("Total")}
             </th>
             <td
               style={{
@@ -257,7 +260,7 @@ export function BudgetLineEditor({
             ])
           }
         >
-          Add line
+          {t("Add line")}
         </Button>
       )}
     </div>

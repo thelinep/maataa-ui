@@ -3,6 +3,7 @@
  * Edit the assumptions behind a revenue or budget scenario
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -34,6 +35,7 @@ export interface AssumptionEditorProps {
  * values are flagged, not silently clamped.
  */
 export function AssumptionEditor({ title, assumptions, onChange }: AssumptionEditorProps) {
+  const t = useT();
   return (
     <fieldset
       style={{
@@ -65,7 +67,7 @@ export function AssumptionEditor({ title, assumptions, onChange }: AssumptionEdi
               {a.confidence === "low" && " "}
               {a.confidence === "low" && (
                 <span style={{ color: colorTokens.interactive.warning, fontWeight: 600 }}>
-                  · low confidence
+                  {t("· low confidence")}
                 </span>
               )}
               <span

@@ -3,6 +3,7 @@
  * Apply for a role on a production
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Input } from "../primitives/Input";
 import { Button } from "../primitives/Button";
@@ -38,6 +39,7 @@ export function ApplicationForm({
   onCancel,
   busy,
 }: ApplicationFormProps) {
+  const t = useT();
   const id = useId();
   const [v, setV] = useState<ApplicationValues>({
     role: roles.length === 1 ? roles[0] : "",
@@ -53,22 +55,22 @@ export function ApplicationForm({
   return (
     <form
       noValidate
-      aria-label={`Apply to ${productionTitle}`}
+      aria-label={t("Apply to {productionTitle}", { productionTitle })}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 520 }}
       onSubmit={(e) => {
         e.preventDefault();
         const errs: FormError[] = [];
         if (!v.role)
-          errs.push({ fieldId: `${id}-role`, message: "Choose the role you're applying for" });
+          errs.push({ fieldId: `${id}-role`, message: msg("Choose the role you're applying for") });
         if (v.message.trim().length < 20)
           errs.push({
             fieldId: `${id}-message`,
-            message: "Write a short message (at least 20 characters)",
+            message: msg("Write a short message (at least 20 characters)"),
           });
         if (v.portfolioUrl && !/^https?:\/\/\S+\.\S+/.test(v.portfolioUrl))
           errs.push({
             fieldId: `${id}-portfolio`,
-            message: "Portfolio link should start with https://",
+            message: msg("Portfolio link should start with https://"),
           });
         setErrors(errs);
         if (!errs.length) onSubmit({ ...v, message: v.message.trim() });
@@ -77,7 +79,7 @@ export function ApplicationForm({
       <ErrorSummary errors={errors} />
       <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
         <label htmlFor={`${id}-role`} style={{ fontWeight: 500 }}>
-          Role
+          {t("Role")}
         </label>
         <select
           id={`${id}-role`}
@@ -93,7 +95,7 @@ export function ApplicationForm({
             background: colorTokens.background.primary,
           }}
         >
-          <option value="">Choose a role</option>
+          <option value="">{t("Choose a role")}</option>
           {roles.map((r) => (
             <option key={r}>{r}</option>
           ))}
@@ -109,16 +111,16 @@ export function ApplicationForm({
       </div>
       <Textarea
         id={`${id}-message`}
-        label="Why you'd be a good fit"
-        value={v.message}
+        label={t("Why you'd be a good fit")}
+        value={t(v.message)}
         onChange={(e) => set("message", e.target.value)}
         rows={4}
         error={err("message")}
-        helperText="A few lines about relevant work. Don't include your phone number here."
+        helperText={t("A few lines about relevant work. Don't include your phone number here.")}
       />
       <Input
         id={`${id}-portfolio`}
-        label="Portfolio or showreel link (optional)"
+        label={t("Portfolio or showreel link (optional)")}
         type="url"
         inputMode="url"
         value={v.portfolioUrl}
@@ -127,7 +129,7 @@ export function ApplicationForm({
       />
       <Input
         id={`${id}-from`}
-        label="Available from (optional)"
+        label={t("Available from (optional)")}
         type="date"
         value={v.availableFrom}
         onChange={(e) => set("availableFrom", e.target.value)}
@@ -139,15 +141,17 @@ export function ApplicationForm({
           onChange={(e) => set("shareContact", e.target.checked)}
           style={{ marginTop: 3, accentColor: colorTokens.interactive.primary }}
         />
-        <span>Share my email with the production team now (otherwise only after they reply)</span>
+        <span>
+          {t("Share my email with the production team now (otherwise only after they reply)")}
+        </span>
       </label>
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         <Button type="submit" disabled={busy}>
-          Send application
+          {t("Send application")}
         </Button>
         {onCancel && (
           <Button variant="secondary" onClick={onCancel}>
-            Cancel
+            {t("Cancel")}
           </Button>
         )}
       </div>

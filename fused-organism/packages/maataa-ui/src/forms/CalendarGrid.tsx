@@ -4,6 +4,7 @@
  * Not part of the public API.
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
 import {
@@ -42,8 +43,10 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
   min,
   max,
   today = new Date(),
-  "aria-label": ariaLabel = "Choose a date",
+  "aria-label": ariaLabelProp,
 }) => {
+  const t = useT();
+  const ariaLabel = ariaLabelProp ?? t("Choose a date");
   const cells = getMonthGrid(month);
 
   const isInRange = (date: Date): boolean => {
@@ -74,7 +77,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
       >
         <button
           type="button"
-          aria-label="Previous month"
+          aria-label={t("Previous month")}
           onClick={() => onMonthChange(addMonths(month, -1))}
           style={navButtonStyle}
         >
@@ -91,7 +94,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
         </span>
         <button
           type="button"
-          aria-label="Next month"
+          aria-label={t("Next month")}
           onClick={() => onMonthChange(addMonths(month, 1))}
           style={navButtonStyle}
         >

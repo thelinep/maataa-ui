@@ -3,6 +3,7 @@
  * Search box with a results list you can arrow through (APG combobox)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -55,7 +56,7 @@ export function SearchWithResults({
   results,
   onSelect,
   loading = false,
-  emptyText = "No matches",
+  emptyText: emptyTextProp,
   placeholder,
   hideLabel = false,
   alwaysOpen = false,
@@ -63,6 +64,8 @@ export function SearchWithResults({
   autoFocus,
   maxHeight = 320,
 }: SearchWithResultsProps) {
+  const t = useT();
+  const emptyText = emptyTextProp ?? t("No matches");
   const id = useId();
   const [active, setActive] = useState(0);
   const listRef = useRef<HTMLUListElement>(null);

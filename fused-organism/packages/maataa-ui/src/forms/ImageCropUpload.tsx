@@ -3,6 +3,7 @@
  * Choose an image, then crop it with a zoom slider and move buttons (or drag)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { smallButtonStyle } from "./fieldKit";
@@ -56,6 +57,7 @@ export function ImageCropUpload({
   shape = "rect",
   hint,
 }: ImageCropUploadProps) {
+  const t = useT();
   const id = useId();
   const [src, setSrc] = useState<string | null>(null);
   const [area, setArea] = useState<CropArea>({ zoom: 1, x: 0, y: 0 });
@@ -138,7 +140,7 @@ export function ImageCropUpload({
         <>
           <div
             role="img"
-            aria-label={`Crop preview. ${description}`}
+            aria-label={t("Crop preview. {description}", { description })}
             tabIndex={0}
             onKeyDown={(e) => {
               const k = e.key;
@@ -195,41 +197,41 @@ export function ImageCropUpload({
             />
           </div>
           <label style={{ display: "flex", alignItems: "center", gap: spacingTokens.sm }}>
-            Zoom
+            {t("Zoom")}
             <input
               type="range"
               min={1}
               max={4}
               step={0.1}
               value={area.zoom}
-              aria-valuetext={`${area.zoom.toFixed(1)} times`}
+              aria-valuetext={t("{value} times", { value: area.zoom.toFixed(1) })}
               onChange={(e) => set({ ...area, zoom: Number(e.target.value) })}
               style={{ accentColor: colorTokens.interactive.primary, minHeight: 44 }}
             />
           </label>
           <div
             role="group"
-            aria-label="Move image"
+            aria-label={t("Move image")}
             style={{ display: "flex", gap: spacingTokens.xs, flexWrap: "wrap" }}
           >
             <button type="button" style={smallButtonStyle} onClick={() => move(-STEP, 0)}>
-              Move left
+              {t("Move left")}
             </button>
             <button type="button" style={smallButtonStyle} onClick={() => move(STEP, 0)}>
-              Move right
+              {t("Move right")}
             </button>
             <button type="button" style={smallButtonStyle} onClick={() => move(0, -STEP)}>
-              Move up
+              {t("Move up")}
             </button>
             <button type="button" style={smallButtonStyle} onClick={() => move(0, STEP)}>
-              Move down
+              {t("Move down")}
             </button>
             <button
               type="button"
               style={smallButtonStyle}
               onClick={() => set({ zoom: 1, x: 0, y: 0 })}
             >
-              Reset
+              {t("Reset")}
             </button>
           </div>
           <p style={{ margin: 0, color: colorTokens.text.secondary }}>{description}</p>
@@ -244,7 +246,7 @@ export function ImageCropUpload({
                 border: 0,
               }}
             >
-              Use this crop
+              {t("Use this crop")}
             </button>
           </div>
         </>

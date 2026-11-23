@@ -3,6 +3,7 @@
  * Location cards and a location detail view
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { DetailList } from "./RecordHeader";
@@ -36,7 +37,9 @@ export interface LocationGalleryProps {
 }
 
 /** LocationGallery: photo cards, one named link per card. */
-export function LocationGallery({ locations, onOpen, label = "Locations" }: LocationGalleryProps) {
+export function LocationGallery({ locations, onOpen, label: labelProp }: LocationGalleryProps) {
+  const t = useT();
+  const label = labelProp ?? t("Locations");
   return (
     <ul
       aria-label={label}
@@ -116,6 +119,7 @@ export interface LocationDetailProps {
 
 /** LocationDetail: photo with alt text, facts, and access notes. */
 export function LocationDetail({ location: l, actions }: LocationDetailProps) {
+  const t = useT();
   return (
     <article
       aria-labelledby={`loc-${l.id}`}
@@ -145,14 +149,14 @@ export function LocationDetail({ location: l, actions }: LocationDetailProps) {
       {actions && <div style={{ display: "flex", gap: spacingTokens.sm }}>{actions}</div>}
       <DetailList
         items={[
-          { label: "Area", value: l.area },
-          { label: "Setting", value: l.setting },
-          { label: "Day rate", value: l.dayRate ?? "" },
-          { label: "Power", value: l.power ?? "" },
-          { label: "Parking", value: l.parking ?? "" },
-          { label: "Contact", value: l.contact ?? "" },
+          { label: msg("Area"), value: l.area },
+          { label: msg("Setting"), value: l.setting },
+          { label: msg("Day rate"), value: l.dayRate ?? "" },
+          { label: msg("Power"), value: l.power ?? "" },
+          { label: msg("Parking"), value: l.parking ?? "" },
+          { label: msg("Contact"), value: l.contact ?? "" },
           {
-            label: "Coordinates",
+            label: msg("Coordinates"),
             value:
               l.lat !== undefined && l.lng !== undefined
                 ? `${l.lat.toFixed(4)}, ${l.lng.toFixed(4)}`
@@ -161,9 +165,9 @@ export function LocationDetail({ location: l, actions }: LocationDetailProps) {
         ]}
       />
       {l.accessNotes && (
-        <section aria-label="Access">
+        <section aria-label={t("Access")}>
           <h3 style={{ margin: `0 0 ${spacingTokens.xs}`, fontSize: typographyTokens.fontSize.lg }}>
-            Access
+            {t("Access")}
           </h3>
           <p style={{ margin: 0 }}>{l.accessNotes}</p>
         </section>

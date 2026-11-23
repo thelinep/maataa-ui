@@ -3,6 +3,7 @@
  * Final master sign-off: deliverables checked, QC passed, then approve
  */
 
+import { useLocale } from "../i18n/LocaleProvider";
 import React from "react";
 import { StateBadge, qcStates } from "../status/StateBadge";
 import { ApprovalActions } from "../actions/ApprovalActions";
@@ -36,8 +37,9 @@ export function MasterApprovalPanel({
   onApprove,
   onReject,
   approved,
-  locale = "en-IN",
+  locale: localeProp,
 }: MasterApprovalPanelProps) {
+  const locale = useLocale(localeProp);
   const outstanding = deliverables.filter((d) => d.qc !== "passed" && d.qc !== "waived");
   return (
     <section

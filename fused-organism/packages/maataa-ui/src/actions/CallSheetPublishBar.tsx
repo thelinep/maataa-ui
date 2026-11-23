@@ -3,6 +3,7 @@
  * Publish, withdraw and reissue a call sheet
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { Modal } from "../surfaces/Modal";
@@ -42,8 +43,10 @@ export function CallSheetPublishBar({
   onReissue,
   blockers = [],
   busy,
-  locale = "en-IN",
+  locale: localeProp,
 }: CallSheetPublishBarProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const [dialog, setDialog] = useState<null | "withdraw" | "reissue">(null);
   const [text, setText] = useState("");
@@ -57,8 +60,8 @@ export function CallSheetPublishBar({
     if (text.trim().length < 5)
       return setErr(
         dialog === "withdraw"
-          ? "Tell the crew why (they'll see this)"
-          : "Say what changed (the crew will see this)"
+          ? t("Tell the crew why (they'll see this)")
+          : t("Say what changed (the crew will see this)")
       );
     if (dialog === "withdraw") onWithdraw(text.trim());
     else onReissue(text.trim());
@@ -81,11 +84,22 @@ export function CallSheetPublishBar({
       >
         <StateBadge state={state} states={publicationStates} prefix="Call sheet" />
         <span style={{ fontSize: typographyTokens.fontSize.sm }}>
-          Version {version}
-          {publishedAt && state === "published"
-            ? ` · sent ${publishedAt.toLocaleString(locale, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}`
-            : ""}{" "}
-          · {recipientCount} recipient{recipientCount === 1 ? "" : "s"}
+          {[
+            t("Version {version}", { version }),
+            publishedAt && state === "published"
+              ? t("sent {date}", {
+                  date: publishedAt.toLocaleString(locale, {
+                    day: "numeric",
+                    month: "short",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  }),
+                })
+              : null,
+            t.plural(recipientCount, "{count} recipient", "{count} recipients"),
+          ]
+            .filter(Boolean)
+            .join(" · ")}
         </span>
         <span style={{ flex: 1 }} />
         {state !== "published" && (
@@ -94,16 +108,16 @@ export function CallSheetPublishBar({
             disabled={busy || blockers.length > 0 || recipientCount === 0}
             aria-describedby={blockers.length ? `${id}-blockers` : undefined}
           >
-            {state === "withdrawn" ? "Publish again" : "Publish and send"}
+            {state === "withdrawn" ? t("Publish again") : t("Publish and send")}
           </Button>
         )}
         {state === "published" && (
           <>
             <Button variant="secondary" onClick={() => setDialog("reissue")} disabled={busy}>
-              Reissue with changes
+              {t("Reissue with changes")}
             </Button>
             <Button variant="danger" onClick={() => setDialog("withdraw")} disabled={busy}>
-              Withdraw
+              {t("Withdraw")}
             </Button>
           </>
         )}
@@ -134,16 +148,16 @@ export function CallSheetPublishBar({
         footer={
           <div style={{ display: "flex", justifyContent: "flex-end", gap: spacingTokens.sm }}>
             <Button variant="secondary" onClick={close}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button variant={dialog === "withdraw" ? "danger" : "primary"} onClick={submit}>
-              {dialog === "withdraw" ? "Withdraw and notify" : "Reissue and notify"}
+              {dialog === "withdraw" ? t("Withdraw and notify") : t("Reissue and notify")}
             </Button>
           </div>
         }
       >
         <label style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
-          {dialog === "withdraw" ? "Message to the crew" : "What changed"}
+          {dialog === "withdraw" ? t("Message to the crew") : t("What changed")}
           <textarea
             rows={3}
             value={text}

@@ -4,6 +4,7 @@
  * BulkActionBar (actions on selected rows)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -40,8 +41,10 @@ export function SaveDraftButton({
   dirty,
   savedAt,
   autosaveMs,
-  label = "Save draft",
+  label: labelProp,
 }: SaveDraftButtonProps) {
+  const t = useT();
+  const label = labelProp ?? t("Save draft");
   const [state, setState] = useState<"idle" | "saving" | "error">("idle");
   const [, tick] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout>>();
@@ -75,8 +78,8 @@ export function SaveDraftButton({
         ? "Couldn’t save the draft. Check your connection and try again."
         : dirty
           ? autosaveMs
-            ? "Unsaved changes (saves automatically)"
-            : "Unsaved changes"
+            ? t("Unsaved changes (saves automatically)")
+            : t("Unsaved changes")
           : savedAt
             ? `Draft saved ${savedAgo(savedAt)}`
             : "";
@@ -156,6 +159,7 @@ export function BulkActionBar({
   total,
   onSelectAll,
 }: BulkActionBarProps) {
+  const t = useT();
   const one = nounSingular ?? noun.replace(/s$/, "");
   const summary = `${count} ${count === 1 ? one : noun} selected`;
   const btn = (danger?: boolean): React.CSSProperties => ({
@@ -212,7 +216,7 @@ export function BulkActionBar({
             onClick={onClearSelection}
             style={{ ...btn(), border: 0, textDecoration: "underline" }}
           >
-            Clear selection
+            {t("Clear selection")}
           </button>
         </div>
       )}

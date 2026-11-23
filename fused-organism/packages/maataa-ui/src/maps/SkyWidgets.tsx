@@ -4,14 +4,15 @@
  * TerrainProfile and RocketLaunch
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
 import { ChartFigure } from "../data/chartKit";
 import { compassWord, moonIllumination, moonPosition, sunPosition, sunTimes } from "./skyMath";
 
-const fmtTime = (d: Date | null, tz?: string) =>
-  d ? d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", timeZone: tz }) : "—";
+const fmtTime = (d: Date | null, tz: string | undefined, locale: string) =>
+  d ? d.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit", timeZone: tz }) : "—";
 
 function SkyDial({
   azimuth,
@@ -94,17 +95,18 @@ export function SunPositionWidget({
   timeZone,
   place,
 }: SunPositionWidgetProps) {
+  const locale = useLocale();
   const pos = sunPosition(date, lat, lng);
   const t = sunTimes(date, lat, lng);
   const up = pos.altitude > 0;
   const rows: [string, string][] = [
-    ["Blue hour (dawn)", fmtTime(t.dawn, timeZone)],
-    ["Sunrise", fmtTime(t.sunrise, timeZone)],
-    ["Golden hour ends", fmtTime(t.goldenHourMorningEnd, timeZone)],
-    ["Solar noon", fmtTime(t.solarNoon, timeZone)],
-    ["Golden hour starts", fmtTime(t.goldenHourEveningStart, timeZone)],
-    ["Sunset", fmtTime(t.sunset, timeZone)],
-    ["Blue hour (dusk)", fmtTime(t.dusk, timeZone)],
+    ["Blue hour (dawn)", fmtTime(t.dawn, timeZone, locale)],
+    ["Sunrise", fmtTime(t.sunrise, timeZone, locale)],
+    ["Golden hour ends", fmtTime(t.goldenHourMorningEnd, timeZone, locale)],
+    ["Solar noon", fmtTime(t.solarNoon, timeZone, locale)],
+    ["Golden hour starts", fmtTime(t.goldenHourEveningStart, timeZone, locale)],
+    ["Sunset", fmtTime(t.sunset, timeZone, locale)],
+    ["Blue hour (dusk)", fmtTime(t.dusk, timeZone, locale)],
   ];
   return (
     <section
@@ -137,7 +139,7 @@ export function SunPositionWidget({
       <div style={{ flex: 1, minWidth: 200 }}>
         <h3 style={{ margin: "0 0 6px", fontSize: typographyTokens.fontSize.md }}>
           {place ?? "Sun"} ·{" "}
-          {date.toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone })}
+          {date.toLocaleDateString(locale, { day: "numeric", month: "short", timeZone })}
         </h3>
         <dl
           style={{
@@ -189,6 +191,7 @@ export function MoonPositionWidget({
   date = new Date(),
   place,
 }: MoonPositionWidgetProps) {
+  const t = useT();
   const pos = moonPosition(date, lat, lng);
   const ill = moonIllumination(date);
   const lit = Math.round(ill.fraction * 100);
@@ -219,7 +222,9 @@ export function MoonPositionWidget({
       <SkyDial azimuth={pos.azimuth} altitude={pos.altitude} color="#5B4B8A" label="moon" />
       <div>
         <h3 style={{ margin: "0 0 4px", fontSize: typographyTokens.fontSize.md }}>{ill.name}</h3>
-        <p style={{ margin: 0, fontSize: typographyTokens.fontSize.sm }}>{lit}% lit</p>
+        <p style={{ margin: 0, fontSize: typographyTokens.fontSize.sm }}>
+          {t("{lit}% lit", { lit })}
+        </p>
         <p
           style={{
             margin: 0,
@@ -353,6 +358,8 @@ export interface RocketLaunchProps {
  * plus each minute — not every second.
  */
 export function RocketLaunch({ at, mission, onLaunch, now = Date.now }: RocketLaunchProps) {
+  const t = useT();
+  const locale = useLocale();
   const [left, setLeft] = useState(Math.ceil((at.getTime() - now()) / 1000));
   const [say, setSay] = useState("");
   const reduce =
@@ -379,7 +386,7 @@ export function RocketLaunch({ at, mission, onLaunch, now = Date.now }: RocketLa
   const ss = String(abs % 60).padStart(2, "0");
   return (
     <section
-      aria-label={`${mission} launch`}
+      aria-label={t("{mission} launch", { mission })}
       style={{
         position: "relative",
         overflow: "hidden",
@@ -404,7 +411,9 @@ export function RocketLaunch({ at, mission, onLaunch, now = Date.now }: RocketLa
         {launched ? "LIFT-OFF" : `T−${hh}:${mm}:${ss}`}
       </p>
       <p style={{ margin: 0, fontSize: typographyTokens.fontSize.sm, opacity: 0.85 }}>
-        Launch {at.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
+        {t("Launch {value}", {
+          value: at.toLocaleString(locale, { dateStyle: "medium", timeStyle: "short" }),
+        })}
       </p>
       <svg
         width="40"

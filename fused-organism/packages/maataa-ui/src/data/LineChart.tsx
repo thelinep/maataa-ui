@@ -3,6 +3,7 @@
  * A multi-series line chart with gridlines, legend, and hover tooltip
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { chartTokens, colorTokens, typographyTokens } from "../tokens";
 import { ChartTooltip, type ChartTooltipState } from "./ChartTooltip";
@@ -54,6 +55,7 @@ export const LineChart = React.forwardRef<SVGSVGElement, LineChartProps>(
     { series, categories, width = 480, height = 240, valueFormatter = String, className, style },
     ref
   ) => {
+    const t = useT();
     const [tooltip, setTooltip] = useState<ChartTooltipState | null>(null);
 
     const plotWidth = width - PADDING.left - PADDING.right;
@@ -98,7 +100,10 @@ export const LineChart = React.forwardRef<SVGSVGElement, LineChartProps>(
           height={height}
           viewBox={`0 0 ${width} ${height}`}
           role="img"
-          aria-label={`Line chart with ${series.length} series over ${categories.length} categories`}
+          aria-label={t("Line chart with {count} series over {count2} categories", {
+            count: series.length,
+            count2: categories.length,
+          })}
         >
           {/* Gridlines + y-axis ticks */}
           {ticks.map((tick) => {

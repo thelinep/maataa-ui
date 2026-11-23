@@ -3,6 +3,7 @@
  * Whether local changes have reached the server
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -19,11 +20,15 @@ export interface SyncStatusProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const copy: Record<SyncState, { text: string; color: string; mark: string }> = {
-  synced: { text: "All changes saved", color: colorTokens.interactive.success, mark: "✓" },
-  syncing: { text: "Saving…", color: colorTokens.interactive.info, mark: "↻" },
-  pending: { text: "Waiting to save", color: colorTokens.interactive.warning, mark: "•" },
-  error: { text: "Couldn't save", color: colorTokens.interactive.error, mark: "!" },
-  offline: { text: "Offline, saved on this device", color: colorTokens.text.secondary, mark: "○" },
+  synced: { text: msg("All changes saved"), color: colorTokens.interactive.success, mark: "✓" },
+  syncing: { text: msg("Saving…"), color: colorTokens.interactive.info, mark: "↻" },
+  pending: { text: msg("Waiting to save"), color: colorTokens.interactive.warning, mark: "•" },
+  error: { text: msg("Couldn't save"), color: colorTokens.interactive.error, mark: "!" },
+  offline: {
+    text: msg("Offline, saved on this device"),
+    color: colorTokens.text.secondary,
+    mark: "○",
+  },
 };
 
 /**
@@ -37,7 +42,9 @@ const copy: Record<SyncState, { text: string; color: string; mark: string }> = {
  * ```
  */
 export const SyncStatus = React.forwardRef<HTMLDivElement, SyncStatusProps>(
-  ({ state, lastSyncedAt, pendingCount, onRetry, locale = "en-IN", style, ...props }, ref) => {
+  ({ state, lastSyncedAt, pendingCount, onRetry, locale: localeProp, style, ...props }, ref) => {
+    const t = useT();
+    const locale = useLocale(localeProp);
     const c = copy[state];
     const when =
       state === "synced" && lastSyncedAt
@@ -61,7 +68,7 @@ export const SyncStatus = React.forwardRef<HTMLDivElement, SyncStatusProps>(
           style={{ display: "inline-flex", gap: spacingTokens.xs, color: c.color, fontWeight: 600 }}
         >
           <span aria-hidden="true">{c.mark}</span>
-          {c.text}
+          {t(c.text)}
           {count}
           {when}
         </span>
@@ -79,7 +86,7 @@ export const SyncStatus = React.forwardRef<HTMLDivElement, SyncStatusProps>(
               font: "inherit",
             }}
           >
-            Try again
+            {t("Try again")}
           </button>
         )}
       </div>

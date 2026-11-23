@@ -3,6 +3,7 @@
  * Offer letter from a template with {{fields}}, flagging any left empty
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -26,6 +27,7 @@ export function templateFields(template: string): string[] {
  * letter can't be sent half-filled by accident.
  */
 export function OfferLetterPreview({ template, values, labels = {} }: OfferLetterPreviewProps) {
+  const t = useT();
   const fields = templateFields(template);
   const missing = fields.filter((f) => !values[f]?.trim());
   const label = (f: string) =>
@@ -62,7 +64,7 @@ export function OfferLetterPreview({ template, values, labels = {} }: OfferLette
           : "All fields filled"}
       </div>
       <article
-        aria-label="Offer letter preview"
+        aria-label={t("Offer letter preview")}
         style={{
           background: "#fff",
           color: "#1d1d1d",

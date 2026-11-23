@@ -3,6 +3,7 @@
  * Step-by-step tour that points at parts of the page
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -27,6 +28,7 @@ export interface OnboardingTourProps {
  * scrolled into view, but nothing on the page is blocked.
  */
 export function OnboardingTour({ steps, open, onClose }: OnboardingTourProps) {
+  const t = useT();
   const id = useId();
   const [i, setI] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
@@ -116,7 +118,7 @@ export function OnboardingTour({ steps, open, onClose }: OnboardingTourProps) {
         }}
       >
         <span style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-          Step {i + 1} of {steps.length}
+          {t("Step {value} of {count}", { value: i + 1, count: steps.length })}
         </span>
         <h2 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
           {step.title}
@@ -138,12 +140,12 @@ export function OnboardingTour({ steps, open, onClose }: OnboardingTourProps) {
             onClick={() => onClose(false)}
             style={{ ...b(), border: 0, textDecoration: "underline", background: "transparent" }}
           >
-            Skip tour
+            {t("Skip tour")}
           </button>
           <span style={{ display: "flex", gap: 6 }}>
             {i > 0 && (
               <button type="button" style={b()} onClick={() => setI(i - 1)}>
-                Back
+                {t("Back")}
               </button>
             )}
             <button
@@ -151,7 +153,7 @@ export function OnboardingTour({ steps, open, onClose }: OnboardingTourProps) {
               style={b(true)}
               onClick={() => (last ? onClose(true) : setI(i + 1))}
             >
-              {last ? "Finish" : "Next"}
+              {last ? t("Finish") : t("Next")}
             </button>
           </span>
         </div>

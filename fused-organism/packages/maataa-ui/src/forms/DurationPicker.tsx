@@ -3,6 +3,7 @@
  * Hours and minutes as one value, in minutes
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -51,6 +52,7 @@ export function DurationPicker({
   disabled,
   style,
 }: DurationPickerProps) {
+  const t = useT();
   const id = useId();
   const hours = Math.floor(value / 60);
   const minutes = value % 60;
@@ -94,7 +96,7 @@ export function DurationPicker({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Hours
+          {t("Hours")}
           <input
             type="number"
             inputMode="numeric"
@@ -114,7 +116,7 @@ export function DurationPicker({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Minutes
+          {t("Minutes")}
           <input
             type="number"
             inputMode="numeric"

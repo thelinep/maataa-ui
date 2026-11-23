@@ -3,6 +3,7 @@
  * An applicant's profile, message, portfolio and stage actions
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { Avatar } from "./Avatar";
 import { DetailList } from "./RecordHeader";
@@ -39,8 +40,10 @@ export function ApplicantDetail({
   applicant: a,
   onOpenAsset,
   actions,
-  locale = "en-IN",
+  locale: localeProp,
 }: ApplicantDetailProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   return (
     <article
       aria-labelledby={`applicant-${a.id}`}
@@ -58,8 +61,10 @@ export function ApplicantDetail({
             {a.name}
           </h2>
           <div style={{ color: colorTokens.text.secondary }}>
-            Applied for {a.role} ·{" "}
-            {a.appliedAt.toLocaleDateString(locale, { day: "numeric", month: "short" })}
+            {t("Applied for {role} · {value}", {
+              role: a.role,
+              value: a.appliedAt.toLocaleDateString(locale, { day: "numeric", month: "short" }),
+            })}
           </div>
         </div>
         <Badge variant="info">{a.stage}</Badge>
@@ -69,16 +74,16 @@ export function ApplicantDetail({
       )}
       <DetailList
         items={[
-          { label: "City", value: a.city ?? "" },
-          { label: "Languages", value: a.languages?.join(", ") ?? "" },
-          { label: "Experience", value: a.experience ?? "" },
-          { label: "Email", value: a.email ?? "Shared after you reply" },
+          { label: msg("City"), value: a.city ?? "" },
+          { label: msg("Languages"), value: a.languages?.join(", ") ?? "" },
+          { label: msg("Experience"), value: a.experience ?? "" },
+          { label: msg("Email"), value: a.email ?? "Shared after you reply" },
         ]}
       />
       {a.message && (
-        <section aria-label="Message">
+        <section aria-label={t("Message")}>
           <h3 style={{ margin: `0 0 ${spacingTokens.xs}`, fontSize: typographyTokens.fontSize.lg }}>
-            Message
+            {t("Message")}
           </h3>
           <blockquote
             style={{
@@ -88,19 +93,19 @@ export function ApplicantDetail({
               background: colorTokens.background.secondary,
             }}
           >
-            {a.message}
+            {t(a.message)}
           </blockquote>
         </section>
       )}
       {a.portfolio && a.portfolio.length > 0 && (
-        <section aria-label="Portfolio">
+        <section aria-label={t("Portfolio")}>
           <h3 style={{ margin: `0 0 ${spacingTokens.xs}`, fontSize: typographyTokens.fontSize.lg }}>
-            Portfolio
+            {t("Portfolio")}
           </h3>
           <AssetGrid
             assets={a.portfolio}
             onOpen={(x) => onOpenAsset?.(x)}
-            label={`${a.name}'s portfolio`}
+            label={t("{name}'s portfolio", { name: a.name })}
           />
         </section>
       )}

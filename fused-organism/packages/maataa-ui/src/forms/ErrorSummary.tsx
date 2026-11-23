@@ -3,6 +3,7 @@
  * List of form problems, each linking to its field
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef } from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 
@@ -30,11 +31,9 @@ export interface ErrorSummaryProps {
  * <ErrorSummary errors={[{ fieldId: "email", message: "Enter your email" }]} />
  * ```
  */
-export function ErrorSummary({
-  errors,
-  title = "There is a problem",
-  focusOnShow = true,
-}: ErrorSummaryProps) {
+export function ErrorSummary({ errors, title: titleProp, focusOnShow = true }: ErrorSummaryProps) {
+  const t = useT();
+  const title = titleProp ?? t("There is a problem");
   const ref = useRef<HTMLDivElement>(null);
   const key = errors.map((e) => e.fieldId + e.message).join("|");
   useEffect(() => {

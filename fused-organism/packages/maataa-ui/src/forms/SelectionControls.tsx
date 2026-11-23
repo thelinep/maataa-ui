@@ -3,6 +3,7 @@
  * CascadingSelect, FilterPills, SegmentedControl and NumberStepper
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle, smallButtonStyle } from "./fieldKit";
@@ -119,6 +120,7 @@ export function FilterPills({
   single,
   clearable = true,
 }: FilterPillsProps) {
+  const t = useT();
   const toggle = (v: string) => {
     if (single) onChange(value[0] === v ? [] : [v]);
     else onChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v]);
@@ -174,7 +176,7 @@ export function FilterPills({
             background: "transparent",
           }}
         >
-          Clear filters
+          {t("Clear filters")}
         </button>
       )}
     </div>
@@ -330,6 +332,7 @@ export function NumberStepper({
   unit,
   hint,
 }: NumberStepperProps) {
+  const t = useT();
   const clamp = (n: number) => Math.min(max, Math.max(min, n));
   const set = (n: number) => onChange(clamp(Math.round(n / step) * step));
   const btn = (dir: -1 | 1) => {
@@ -339,7 +342,7 @@ export function NumberStepper({
         type="button"
         onClick={() => set(value + dir * step)}
         disabled={disabled}
-        aria-label={`${dir < 0 ? "Decrease" : "Increase"} ${label.toLowerCase()}`}
+        aria-label={`${dir < 0 ? t("Decrease") : t("Increase")} ${label.toLowerCase()}`}
         style={{
           ...smallButtonStyle,
           fontSize: typographyTokens.fontSize.lg,

@@ -4,6 +4,7 @@
  * state their meaning in text/ARIA
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, typographyTokens } from "../tokens";
 
@@ -105,10 +106,12 @@ export const spectrumBandHz = Array.from({ length: 32 }, (_, i) =>
  */
 export function SpectrumAnalyzer({
   bands,
-  label = "Spectrum",
+  label: labelProp,
   height = 96,
   showScale = true,
 }: SpectrumAnalyzerProps) {
+  const t = useT();
+  const label = labelProp ?? t("Spectrum");
   const n = bands.length || 1;
   const peakIdx = bands.indexOf(Math.max(...bands));
   const hz = spectrumBandHz[Math.round((peakIdx / Math.max(1, n - 1)) * 31)] ?? 0;
@@ -150,9 +153,9 @@ export function SpectrumAnalyzer({
             marginTop: 2,
           }}
         >
-          <span>20 Hz</span>
-          <span>1 kHz</span>
-          <span>20 kHz</span>
+          <span>{t("20 Hz")}</span>
+          <span>{t("1 kHz")}</span>
+          <span>{t("20 kHz")}</span>
         </div>
       )}
       <figcaption
@@ -196,6 +199,7 @@ export function VUMeter({
   orientation = "horizontal",
   length = 220,
 }: VUMeterProps) {
+  const t = useT();
   const segs = 24;
   const frac = (db: number) => Math.min(1, Math.max(0, (db - min) / -min));
   const lit = Math.round(frac(level) * segs);
@@ -217,7 +221,7 @@ export function VUMeter({
         aria-valuemin={min}
         aria-valuemax={0}
         aria-valuenow={Math.round(level)}
-        aria-valuetext={`${Math.round(level)} dB, ${zone}`}
+        aria-valuetext={t("{value} dB, {zone}", { value: Math.round(level), zone })}
         style={{
           display: "flex",
           flexDirection: vert ? "column-reverse" : "row",

@@ -3,6 +3,7 @@
  * Audience feedback after a test screening
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -79,13 +80,14 @@ function Rating({
 export function ScreeningFeedbackForm({
   film,
   questions = [
-    { id: "story", label: "The story" },
-    { id: "pace", label: "The pace" },
-    { id: "performances", label: "The performances" },
-    { id: "music", label: "The music" },
+    { id: "story", label: msg("The story") },
+    { id: "pace", label: msg("The pace") },
+    { id: "performances", label: msg("The performances") },
+    { id: "music", label: msg("The music") },
   ],
   onSubmit,
 }: ScreeningFeedbackFormProps) {
+  const t = useT();
   const id = useId();
   const [v, setV] = useState<FeedbackValues>({
     overall: 0,
@@ -107,7 +109,7 @@ export function ScreeningFeedbackForm({
   return (
     <form
       noValidate
-      aria-label={`Feedback on ${film}`}
+      aria-label={t("Feedback on {film}", { film })}
       onSubmit={(e) => {
         e.preventDefault();
         if (!v.overall) return setErr("Give an overall rating (the rest is optional)");
@@ -117,11 +119,11 @@ export function ScreeningFeedbackForm({
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 600 }}
     >
       <p style={{ margin: 0, color: colorTokens.text.secondary }}>
-        Thanks for watching {film}. This takes about two minutes.
+        {t("Thanks for watching {film}. This takes about two minutes.", { film })}
       </p>
       <Rating
         name={`${id}-overall`}
-        label="Overall"
+        label={t("Overall")}
         value={v.overall}
         onChange={(n) => setV({ ...v, overall: n })}
       />
@@ -134,13 +136,13 @@ export function ScreeningFeedbackForm({
         <Rating
           key={q.id}
           name={`${id}-${q.id}`}
-          label={q.label}
+          label={t(q.label)}
           value={v.ratings[q.id] ?? 0}
           onChange={(n) => setV({ ...v, ratings: { ...v.ratings, [q.id]: n } })}
         />
       ))}
       <label style={{ display: "flex", flexDirection: "column", gap: 4, fontWeight: 500 }}>
-        What stayed with you?
+        {t("What stayed with you?")}
         <textarea
           rows={3}
           value={v.liked}
@@ -149,7 +151,7 @@ export function ScreeningFeedbackForm({
         />
       </label>
       <label style={{ display: "flex", flexDirection: "column", gap: 4, fontWeight: 500 }}>
-        Anything confusing or slow?
+        {t("Anything confusing or slow?")}
         <textarea
           rows={3}
           value={v.confusing}
@@ -168,7 +170,7 @@ export function ScreeningFeedbackForm({
         }}
       >
         <legend style={{ fontWeight: 500, padding: 0, marginBottom: 4 }}>
-          Would you recommend it to a friend?
+          {t("Would you recommend it to a friend?")}
         </legend>
         {(["yes", "maybe", "no"] as const).map((r) => (
           <label key={r} style={{ display: "flex", gap: 6, alignItems: "center" }}>
@@ -179,7 +181,7 @@ export function ScreeningFeedbackForm({
               onChange={() => setV({ ...v, recommend: r })}
               style={{ accentColor: colorTokens.interactive.primary }}
             />
-            {r === "yes" ? "Yes" : r === "maybe" ? "Maybe" : "No"}
+            {r === "yes" ? "Yes" : r === "maybe" ? t("Maybe") : t("No")}
           </label>
         ))}
       </fieldset>
@@ -190,10 +192,10 @@ export function ScreeningFeedbackForm({
           onChange={(e) => setV({ ...v, anonymous: e.target.checked })}
           style={{ accentColor: colorTokens.interactive.primary }}
         />
-        Keep my feedback anonymous
+        {t("Keep my feedback anonymous")}
       </label>
       <div>
-        <Button type="submit">Send feedback</Button>
+        <Button type="submit">{t("Send feedback")}</Button>
       </div>
     </form>
   );

@@ -3,6 +3,7 @@
  * Timesheet list (with status) and a week summary
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { StateBadge, approvalStates } from "../status/StateBadge";
 import { ScrollTable } from "./ScrollTable";
@@ -29,6 +30,7 @@ export interface TimesheetListProps {
 
 /** TimesheetList: open button names person and period. */
 export function TimesheetList({ sheets, onOpen, caption = "Timesheets" }: TimesheetListProps) {
+  const t = useT();
   const td: React.CSSProperties = {
     padding: spacingTokens.xs,
     borderBottom: `1px solid ${colorTokens.border.primary}`,
@@ -39,24 +41,24 @@ export function TimesheetList({ sheets, onOpen, caption = "Timesheets" }: Timesh
     <ScrollTable label={caption}>
       <table style={{ width: "100%", minWidth: 560, borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          {caption} · {waiting} waiting for approval
+          {t("{caption} · {waiting} waiting for approval", { caption, waiting })}
         </caption>
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Person
+              {t("Person")}
             </th>
             <th scope="col" style={td}>
-              Period
+              {t("Period")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Hours
+              {t("Hours")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Overtime
+              {t("Overtime")}
             </th>
             <th scope="col" style={td}>
-              Status
+              {t("Status")}
             </th>
           </tr>
         </thead>
@@ -67,7 +69,10 @@ export function TimesheetList({ sheets, onOpen, caption = "Timesheets" }: Timesh
                 <button
                   type="button"
                   onClick={() => onOpen(s)}
-                  aria-label={`Open ${s.person}'s timesheet, ${s.period}`}
+                  aria-label={t("Open {person}'s timesheet, {period}", {
+                    person: s.person,
+                    period: s.period,
+                  })}
                   style={{
                     background: "none",
                     border: "none",
@@ -132,14 +137,16 @@ export function TimesheetWeekSummary({
   week,
   days,
   standardMinutes = 720,
-  locale = "en-IN",
+  locale: localeProp,
 }: TimesheetWeekSummaryProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const total = days.reduce((s, d) => s + d.minutes, 0);
   const ot = days.reduce((s, d) => s + Math.max(0, d.minutes - standardMinutes), 0);
   const max = Math.max(standardMinutes, ...days.map((d) => d.minutes));
   return (
     <section
-      aria-label={`${week} summary`}
+      aria-label={t("{week} summary", { week })}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
@@ -148,7 +155,7 @@ export function TimesheetWeekSummary({
           <>
             {" "}
             <span style={{ color: colorTokens.interactive.warning }}>
-              · {formatHM(ot)} overtime
+              {t("· {value} overtime", { value: formatHM(ot) })}
             </span>
           </>
         ) : null}

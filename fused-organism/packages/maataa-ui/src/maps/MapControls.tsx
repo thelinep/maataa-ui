@@ -4,6 +4,7 @@
  * ScaleBar, GeoSearchBox and LocationThumbnailCard
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -42,7 +43,7 @@ export interface MapLayerToggleProps {
 
 /** Checkbox list of overlays plus an optional base-map radio group. */
 export function MapLayerToggle({
-  legend = "Map layers",
+  legend: legendProp,
   layers,
   value,
   onChange,
@@ -50,6 +51,8 @@ export function MapLayerToggle({
   base,
   onBaseChange,
 }: MapLayerToggleProps) {
+  const t = useT();
+  const legend = legendProp ?? t("Map layers");
   const id = useId();
   return (
     <fieldset style={{ ...panel, margin: 0, minWidth: 180 }}>
@@ -57,7 +60,7 @@ export function MapLayerToggle({
       {baseLayers && (
         <div
           role="radiogroup"
-          aria-label="Base map"
+          aria-label={t("Base map")}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -78,7 +81,7 @@ export function MapLayerToggle({
                 onChange={() => onBaseChange?.(b.id)}
                 style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
               />
-              {b.label}
+              {t(b.label)}
             </label>
           ))}
         </div>
@@ -100,7 +103,7 @@ export function MapLayerToggle({
             />
           )}
           {l.icon && <span aria-hidden="true">{l.icon}</span>}
-          {l.label}
+          {t(l.label)}
         </label>
       ))}
     </fieldset>
@@ -108,17 +111,18 @@ export function MapLayerToggle({
 }
 
 export const weatherLayers: MapLayerOption[] = [
-  { id: "rain", label: "Rain", icon: "🌧" },
-  { id: "cloud", label: "Cloud cover", icon: "☁️" },
-  { id: "wind", label: "Wind", icon: "💨" },
-  { id: "temp", label: "Temperature", icon: "🌡" },
+  { id: "rain", label: msg("Rain"), icon: "🌧" },
+  { id: "cloud", label: msg("Cloud cover"), icon: "☁️" },
+  { id: "wind", label: msg("Wind"), icon: "💨" },
+  { id: "temp", label: msg("Temperature"), icon: "🌡" },
 ];
 
 export function WeatherOverlayToggle({
   layers = weatherLayers,
   ...rest
 }: Omit<MapLayerToggleProps, "layers" | "legend"> & { layers?: MapLayerOption[] }) {
-  return <MapLayerToggle legend="Weather" layers={layers} {...rest} />;
+  const t = useT();
+  return <MapLayerToggle legend={t("Weather")} layers={layers} {...rest} />;
 }
 
 /* ───────────────────────── ZoomSlider ───────────────────────── */
@@ -133,13 +137,13 @@ export interface ZoomSliderProps {
 }
 
 const defaultLevels: Record<number, string> = {
-  2: "World",
-  5: "Country",
-  8: "State",
-  11: "City",
-  14: "Neighbourhood",
-  17: "Street",
-  19: "Building",
+  2: msg("World"),
+  5: msg("Country"),
+  8: msg("State"),
+  11: msg("City"),
+  14: msg("Neighbourhood"),
+  17: msg("Street"),
+  19: msg("Building"),
 };
 
 /**
@@ -154,6 +158,7 @@ export function ZoomSlider({
   max = 19,
   levelNames = defaultLevels,
 }: ZoomSliderProps) {
+  const t = useT();
   const name = Object.entries(levelNames)
     .map(([k, v]) => [Number(k), v] as const)
     .filter(([k]) => k <= value)
@@ -180,7 +185,7 @@ export function ZoomSlider({
     >
       <button
         type="button"
-        aria-label="Zoom in"
+        aria-label={t("Zoom in")}
         style={b}
         disabled={value >= max}
         onClick={() => onChange(Math.min(max, value + 1))}
@@ -189,7 +194,7 @@ export function ZoomSlider({
       </button>
       <input
         type="range"
-        aria-label="Zoom"
+        aria-label={t("Zoom")}
         aria-orientation="vertical"
         min={min}
         max={max}
@@ -206,7 +211,7 @@ export function ZoomSlider({
       />
       <button
         type="button"
-        aria-label="Zoom out"
+        aria-label={t("Zoom out")}
         style={b}
         disabled={value <= min}
         onClick={() => onChange(Math.max(min, value - 1))}
@@ -226,12 +231,14 @@ export interface LegendEntry {
 }
 
 export function MapLegend({
-  title = "Legend",
+  title: titleProp,
   entries,
 }: {
   title?: string;
   entries: LegendEntry[];
 }) {
+  const t = useT();
+  const title = titleProp ?? t("Legend");
   return (
     <section aria-label={title} style={{ ...panel, display: "inline-block" }}>
       <h3
@@ -255,7 +262,7 @@ export function MapLegend({
         }}
       >
         {entries.map((e) => (
-          <li key={e.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <li key={t(e.label)} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <svg width="22" height="14" aria-hidden="true">
               {e.shape === "line" || e.shape === "dashed" ? (
                 <line
@@ -284,7 +291,7 @@ export function MapLegend({
                 <circle cx="11" cy="7" r="6" fill={e.color} stroke="#FFFFFF" strokeWidth="1.5" />
               )}
             </svg>
-            {e.label}
+            {t(e.label)}
           </li>
         ))}
       </ul>
@@ -309,6 +316,7 @@ export function CompassRose({
   onReset?: () => void;
   size?: number;
 }) {
+  const t = useT();
   const r = ((rotation % 360) + 360) % 360;
   const dir =
     r === 0 ? "North is up" : `North points ${compassWord(360 - r).replace(/-/g, " ")} on screen`;
@@ -337,7 +345,7 @@ export function CompassRose({
     <button
       type="button"
       onClick={onReset}
-      aria-label={`Reset to north. ${dir}.`}
+      aria-label={t("Reset to north. {dir}.", { dir })}
       style={{
         border: 0,
         padding: 0,
@@ -372,6 +380,7 @@ export function niceScale(pxPerKm: number, maxPx = 120): { km: number; px: numbe
 }
 
 export function ScaleBar({ pxPerKm, maxPx = 120 }: { pxPerKm: number; maxPx?: number }) {
+  const t = useT();
   const s = niceScale(pxPerKm, maxPx);
   return (
     <div
@@ -384,8 +393,8 @@ export function ScaleBar({ pxPerKm, maxPx = 120 }: { pxPerKm: number; maxPx?: nu
       }}
     >
       <span style={{ fontSize: 11, fontWeight: 700 }}>
-        <VisuallyHidden>Scale: </VisuallyHidden>
-        {s.label}
+        <VisuallyHidden>{t("Scale:")} </VisuallyHidden>
+        {t(s.label)}
       </span>
       <span
         aria-hidden="true"
@@ -428,9 +437,12 @@ export interface GeoSearchBoxProps {
 export function GeoSearchBox({
   search,
   onSelect,
-  label = "Search places",
-  placeholder = "Place, address or lat, lng",
+  label: labelProp,
+  placeholder: placeholderProp,
 }: GeoSearchBoxProps) {
+  const t = useT();
+  const placeholder = placeholderProp ?? t("Place, address or lat, lng");
+  const label = labelProp ?? t("Search places");
   const id = useId();
   const [q, setQ] = useState("");
   const [res, setRes] = useState<GeoResult[]>([]);

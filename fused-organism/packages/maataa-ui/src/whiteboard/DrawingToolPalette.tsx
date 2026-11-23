@@ -3,6 +3,7 @@
  * Drawing tools as a radio group, with undo and redo
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -11,14 +12,14 @@ export type DrawingTool =
 
 export const drawingToolLabels: Record<DrawingTool, { label: string; icon: string; key: string }> =
   {
-    pen: { label: "Pen", icon: "✎", key: "P" },
-    marker: { label: "Marker", icon: "🖍", key: "M" },
-    eraser: { label: "Eraser", icon: "⌫", key: "E" },
-    line: { label: "Line", icon: "╱", key: "L" },
-    arrow: { label: "Arrow (camera move)", icon: "➚", key: "A" },
-    rect: { label: "Rectangle", icon: "▭", key: "R" },
-    ellipse: { label: "Ellipse", icon: "◯", key: "O" },
-    text: { label: "Text", icon: "T", key: "T" },
+    pen: { label: msg("Pen"), icon: "✎", key: "P" },
+    marker: { label: msg("Marker"), icon: "🖍", key: "M" },
+    eraser: { label: msg("Eraser"), icon: "⌫", key: "E" },
+    line: { label: msg("Line"), icon: "╱", key: "L" },
+    arrow: { label: msg("Arrow (camera move)"), icon: "➚", key: "A" },
+    rect: { label: msg("Rectangle"), icon: "▭", key: "R" },
+    ellipse: { label: msg("Ellipse"), icon: "◯", key: "O" },
+    text: { label: msg("Text"), icon: "T", key: "T" },
   };
 
 export interface DrawingToolPaletteProps {
@@ -48,6 +49,7 @@ export function DrawingToolPalette({
   canRedo,
   orientation = "vertical",
 }: DrawingToolPaletteProps) {
+  const tx = useT();
   const id = useId();
   const btn = (on: boolean): React.CSSProperties => ({
     width: 40,
@@ -92,7 +94,7 @@ export function DrawingToolPalette({
             clip: "rect(0 0 0 0)",
           }}
         >
-          Drawing tool
+          {tx("Drawing tool")}
         </legend>
         {tools.map((t) => {
           const d = drawingToolLabels[t];
@@ -100,7 +102,7 @@ export function DrawingToolPalette({
           return (
             <label
               key={t}
-              title={`${d.label} (${d.key})`}
+              title={`${tx(d.label)} (${d.key})`}
               style={{ position: "relative", ...btn(on) }}
             >
               <input
@@ -109,7 +111,7 @@ export function DrawingToolPalette({
                 value={t}
                 checked={on}
                 onChange={() => onChange(t)}
-                aria-label={`${d.label}, shortcut ${d.key}`}
+                aria-label={tx("{label}, shortcut {key}", { label: d.label, key: d.key })}
                 style={{ position: "absolute", inset: 0, opacity: 0, margin: 0, cursor: "pointer" }}
               />
               <span
@@ -144,8 +146,8 @@ export function DrawingToolPalette({
               type="button"
               onClick={onUndo}
               disabled={!canUndo}
-              aria-label="Undo"
-              title="Undo (Ctrl+Z)"
+              aria-label={tx("Undo")}
+              title={tx("Undo (Ctrl+Z)")}
               style={{
                 ...btn(false),
                 opacity: canUndo ? 1 : 0.4,
@@ -160,8 +162,8 @@ export function DrawingToolPalette({
               type="button"
               onClick={onRedo}
               disabled={!canRedo}
-              aria-label="Redo"
-              title="Redo (Ctrl+Shift+Z)"
+              aria-label={tx("Redo")}
+              title={tx("Redo (Ctrl+Shift+Z)")}
               style={{
                 ...btn(false),
                 opacity: canRedo ? 1 : 0.4,

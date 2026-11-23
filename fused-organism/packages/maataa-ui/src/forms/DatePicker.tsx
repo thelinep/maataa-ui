@@ -3,6 +3,7 @@
  * A single-date input backed by a floating month calendar
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Portal } from "../primitives/Portal";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -60,7 +61,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       disabled = false,
       min,
       max,
-      placeholder = "Select a date",
+      placeholder: placeholderProp,
       "aria-label": ariaLabel,
       id,
       className,
@@ -68,6 +69,8 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
     },
     ref
   ) => {
+    const t = useT();
+    const placeholder = placeholderProp ?? t("Select a date");
     const generatedId = useId();
     const fieldId = id ?? generatedId;
     // The trigger is named by the label and the shown date together

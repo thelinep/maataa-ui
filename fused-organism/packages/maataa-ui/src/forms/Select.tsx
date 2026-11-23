@@ -11,6 +11,7 @@
  * aria-activedescendant, so screen readers announce it as it moves.
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { Portal } from "../primitives/Portal";
 import { useField } from "../primitives/Input";
@@ -107,7 +108,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     options,
     value,
     onChange,
-    placeholder = "Select an option",
+    placeholder: placeholderProp,
     searchable = false,
     multiSelect = false,
     disabled = false,
@@ -116,7 +117,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
     description,
     size = "md",
     name,
-    noOptionsText = "No options found",
+    noOptionsText: noOptionsTextProp,
     view = "list",
     gridColumns = 3,
     selectedDisplay = "text",
@@ -130,6 +131,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
   },
   ref
 ) {
+  const t = useT();
+  const noOptionsText = noOptionsTextProp ?? t("No options found");
+  const placeholder = placeholderProp ?? t("Select an option");
   const field = useField();
   const uid = useId();
   const controlId = id ?? field?.id ?? `${uid}-control`;
@@ -631,7 +635,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
 
       {showChips && selectedOptions.length > 0 && chipsLabelTarget && (
         <span id={`${uid}-chips-prefix`} hidden>
-          Selected
+          {t("Selected")}
         </span>
       )}
       {showChips && selectedOptions.length > 0 && (
@@ -671,7 +675,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(function Sel
               {!disabled && (
                 <button
                   type="button"
-                  aria-label={`Remove ${option.label}`}
+                  aria-label={t("Remove {label}", { label: option.label })}
                   onClick={() => onChange?.(selected.filter((v) => v !== option.value))}
                   style={{
                     // WCAG 2.5.8: at least 24 x 24 CSS px

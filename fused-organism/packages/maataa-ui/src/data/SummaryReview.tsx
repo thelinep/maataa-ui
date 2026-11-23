@@ -3,6 +3,7 @@
  * Check your answers before submitting
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -25,7 +26,9 @@ export interface SummaryReviewProps {
  * Each section is a heading and a definition list; "Change" buttons name
  * their section ("Change account type"). Empty values read "Not given".
  */
-export function SummaryReview({ sections, title = "Check your answers" }: SummaryReviewProps) {
+export function SummaryReview({ sections, title: titleProp }: SummaryReviewProps) {
+  const t = useT();
+  const title = titleProp ?? t("Check your answers");
   return (
     <section
       aria-label={title}

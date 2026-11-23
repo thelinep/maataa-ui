@@ -3,6 +3,7 @@
  * Second step of sign-in: authenticator code or recovery code
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -29,6 +30,7 @@ export interface MFAChallengeProps {
  * ```
  */
 export function MFAChallenge({ onSubmit, error, busy, length = 6, onCancel }: MFAChallengeProps) {
+  const t = useT();
   const id = useId();
   const [kind, setKind] = useState<"totp" | "recovery">("totp");
   const [code, setCode] = useState("");
@@ -48,16 +50,18 @@ export function MFAChallenge({ onSubmit, error, busy, length = 6, onCancel }: MF
     <form
       noValidate
       onSubmit={submit}
-      aria-label="Two-step verification"
+      aria-label={t("Two-step verification")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 360 }}
     >
       <p style={{ margin: 0 }}>
         {kind === "totp"
-          ? "Open your authenticator app and enter the code for maataa."
-          : "Enter one of the recovery codes you saved when you set up two-step verification. Each code works once."}
+          ? t("Open your authenticator app and enter the code for maataa.")
+          : t(
+              "Enter one of the recovery codes you saved when you set up two-step verification. Each code works once."
+            )}
       </p>
       <label htmlFor={`${id}-code`} style={{ fontWeight: 500 }}>
-        {kind === "totp" ? "Verification code" : "Recovery code"}
+        {kind === "totp" ? t("Verification code") : t("Recovery code")}
       </label>
       <input
         id={`${id}-code`}
@@ -90,7 +94,7 @@ export function MFAChallenge({ onSubmit, error, busy, length = 6, onCancel }: MF
         </span>
       )}
       <Button type="submit" disabled={busy}>
-        Verify
+        {t("Verify")}
       </Button>
       <div style={{ display: "flex", gap: spacingTokens.md }}>
         <Button
@@ -102,11 +106,11 @@ export function MFAChallenge({ onSubmit, error, busy, length = 6, onCancel }: MF
             setLocal(undefined);
           }}
         >
-          {kind === "totp" ? "Use a recovery code instead" : "Use my authenticator app"}
+          {kind === "totp" ? t("Use a recovery code instead") : t("Use my authenticator app")}
         </Button>
         {onCancel && (
           <Button variant="tertiary" size="sm" onClick={onCancel}>
-            Cancel sign-in
+            {t("Cancel sign-in")}
           </Button>
         )}
       </div>

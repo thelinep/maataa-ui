@@ -3,6 +3,7 @@
  * Searchable, filterable list of people
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useMemo, useState } from "react";
 import { PersonRow } from "./PersonRow";
 import { FilterBar, type FilterDef } from "../forms/FilterBar";
@@ -32,7 +33,9 @@ export interface PeopleDirectoryProps {
  * Search box plus department and city filters; the result count is
  * announced. Each row's name is a button that opens the person.
  */
-export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDirectoryProps) {
+export function PeopleDirectory({ people, onOpen, label: labelProp }: PeopleDirectoryProps) {
+  const t = useT();
+  const label = labelProp ?? t("People");
   const [q, setQ] = useState("");
   const [f, setF] = useState<Record<string, string>>({ department: "", city: "" });
   const uniq = (k: "department" | "city") =>
@@ -40,10 +43,10 @@ export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDire
   const filters: FilterDef[] = [
     {
       id: "department",
-      label: "Department",
+      label: msg("Department"),
       options: uniq("department").map((d) => ({ value: d, label: d })),
     },
-    { id: "city", label: "City", options: uniq("city").map((d) => ({ value: d, label: d })) },
+    { id: "city", label: msg("City"), options: uniq("city").map((d) => ({ value: d, label: d })) },
   ];
   const shown = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -62,7 +65,7 @@ export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDire
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md }}>
       <FilterBar
-        label={`Filter ${label.toLowerCase()}`}
+        label={t("Filter {value}", { value: label.toLowerCase() })}
         filters={filters}
         values={f}
         onChange={setF}
@@ -71,12 +74,12 @@ export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDire
         resultNounSingular="person"
       >
         <label style={{ display: "flex", flexDirection: "column", gap: 2, fontSize: 14 }}>
-          Search
+          {t("Search")}
           <input
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Name, role or city"
+            placeholder={t("Name, role or city")}
             style={{
               minWidth: 220,
               padding: spacingTokens.sm,
@@ -90,7 +93,7 @@ export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDire
       </FilterBar>
       {shown.length === 0 ? (
         <p style={{ color: colorTokens.text.secondary }}>
-          No one matches. Try a different name or clear the filters.
+          {t("No one matches. Try a different name or clear the filters.")}
         </p>
       ) : (
         <ul aria-label={label} style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -107,7 +110,7 @@ export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDire
                     <button
                       type="button"
                       onClick={() => onOpen(p)}
-                      aria-label={`Open ${p.name}`}
+                      aria-label={t("Open {name}", { name: p.name })}
                       style={{
                         background: "none",
                         border: `1px solid ${colorTokens.border.control}`,
@@ -118,7 +121,7 @@ export function PeopleDirectory({ people, onOpen, label = "People" }: PeopleDire
                         color: colorTokens.text.primary,
                       }}
                     >
-                      Open
+                      {t("Open")}
                     </button>
                   ) : undefined
                 }

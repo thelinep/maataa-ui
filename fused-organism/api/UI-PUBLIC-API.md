@@ -109,6 +109,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - CrowdfundingProgressBar — experimental
 - CueList — beta
 - CurrencySelector — beta
+- DEFAULT_LOCALE — beta
+- DEFAULT_THEME_STORAGE_KEY — beta
 - DEPARTMENT_COLORS — experimental
 - DataGovernanceEngine — beta
 - DataQualityManager — beta
@@ -222,6 +224,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - LiveTranscript — beta
 - LoadMoreButton — beta
 - LoadingOverlay — beta
+- LocaleProvider — beta
 - LocationComparisonCard — experimental
 - LocationDetail — beta
 - LocationGallery — beta
@@ -422,6 +425,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - SunPositionWidget — beta
 - SyncOpsDashboard — beta
 - SyncStatus — beta
+- THEME_ATTRIBUTE — beta
+- THEME_CHOICE_ATTRIBUTE — beta
 - TLPClassificationCard — experimental
 - Tabs — beta
 - TagInput — beta
@@ -431,6 +436,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - TestimonialCard — beta
 - TestimonialCarousel — beta
 - Textarea — beta
+- ThemePicker — beta
+- ThemePreferenceHead — beta
 - ThemeProvider — beta
 - ThemeStyle — beta
 - ThemeToggle — beta
@@ -498,6 +505,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - approvalStates — beta
 - bearingDeg — beta
 - boundsAround — beta
+- builtInMessages — beta
+- builtInThemes — beta
 - cameraAngles — beta
 - campaignProblems — beta
 - canonicalPackageBoundaries — beta
@@ -527,6 +536,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - deliveryStates — beta
 - detectDevice — beta
 - diffLines — beta
+- directionOf — beta
 - displayName — beta
 - drawingToolLabels — beta
 - elementLabels — beta
@@ -548,6 +558,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - getPrimitiveRegistryCoverage — beta
 - hapticPatterns — beta
 - haversineKm — beta
+- hiMessages — beta
+- highContrastTheme — beta
 - hoursWorked — beta
 - indianLanguages — beta
 - indianStates — beta
@@ -555,6 +567,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - inrShort — experimental
 - isoWeek — beta
 - isoWeekStart — beta
+- languageOf — beta
 - leavesOf — beta
 - levelZone — beta
 - mapsComponents — beta
@@ -565,6 +578,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - moonPhaseName — beta
 - moonPosition — beta
 - moveItem — beta
+- msg — beta
 - navigationComponents — beta
 - nextElementType — beta
 - niceScale — beta
@@ -591,6 +605,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - rememberReturnTo — beta
 - renderMarkdown — beta
 - renderStates — beta
+- resolveThemeChoice — beta
 - safeReturnTo — beta
 - savedAgo — beta
 - scanStatusLabel — beta
@@ -606,16 +621,24 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - surfaceComponents — beta
 - templateFields — beta
 - themeComponents — beta
+- themeInitScript — beta
+- themePreferenceCss — beta
 - themeToCss — beta
 - themeToCssVariables — beta
+- themesToCss — beta
 - tlpsV2Theme — beta
+- translate — beta
 - useCommandPaletteShortcut — beta
 - useDwell — beta
 - useField — stable
+- useLocale — beta
+- useLocaleContext — beta
 - useMap — beta
 - useOnlineStatus — beta
 - usePercent — beta
+- useT — beta
 - useTheme — beta
+- useThemePreference — beta
 - validateReviewers — beta
 - validateUrl — beta
 - vibrate — beta
@@ -1320,22 +1343,54 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 
 ## ./themes
 
+- DEFAULT_THEME_STORAGE_KEY — beta
+- THEME_ATTRIBUTE — beta
+- THEME_CHOICE_ATTRIBUTE — beta
+- ThemePicker — beta
+- ThemePreferenceHead — beta
 - ThemeProvider — beta
 - ThemeStyle — beta
 - ThemeToggle — beta
+- builtInThemes — beta
 - darkTheme — beta
+- highContrastTheme — beta
 - paperTheme — beta
+- resolveThemeChoice — beta
 - themeComponents — beta
+- themeInitScript — beta
+- themePreferenceCss — beta
 - themeToCss — beta
 - themeToCssVariables — beta
+- themesToCss — beta
 - tlpsV2Theme — beta
 - useTheme — beta
+- useThemePreference — beta
+
+## ./i18n
+
+- DEFAULT_LOCALE — beta
+- LocaleProvider — beta
+- builtInMessages — beta
+- directionOf — beta
+- hiMessages — beta
+- languageOf — beta
+- msg — beta
+- translate — beta
+- useLocale — beta
+- useLocaleContext — beta
+- useT — beta
 
 ## ./theme-style
 
+- ThemePreferenceHead — beta
 - ThemeStyle — beta
+- builtInThemes — beta
 - darkTheme — beta
+- highContrastTheme — beta
 - paperTheme — beta
+- themeInitScript — beta
+- themePreferenceCss — beta
+- themesToCss — beta
 - tlpsV2Theme — beta
 
 ## ./types

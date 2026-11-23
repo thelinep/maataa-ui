@@ -343,7 +343,10 @@ export const darkChartTokens = {
 
 /** Everything a theme can change. Leave out radius/fonts/chart to keep the defaults. */
 export interface MaataaTheme {
+  /** Stable id, used in `data-maataa-theme` and saved preferences. */
   name: string;
+  /** Human-readable name for theme pickers. Defaults to `name`. */
+  label?: string;
   colors: ColorPalette;
   radius?: Partial<RadiusScale>;
   fontFamily?: Partial<FontFamilies>;
@@ -356,6 +359,7 @@ export interface MaataaTheme {
 /** The default look: warm paper and ink. */
 export const paperTheme: MaataaTheme = {
   name: "paper",
+  label: "Light",
   colors: paperColorPalette,
   radius: radiusPalette,
   fontFamily: fontFamilyPalette,
@@ -366,6 +370,7 @@ export const paperTheme: MaataaTheme = {
 /** The "night ops" dark look. */
 export const darkTheme: MaataaTheme = {
   name: "dark",
+  label: "Dark",
   colors: darkColorTokens,
   chartSingle: darkColorTokens.interactive.primary,
   colorScheme: "dark",
@@ -386,6 +391,7 @@ export const darkTheme: MaataaTheme = {
  */
 export const tlpsV2Theme: MaataaTheme = {
   name: "tlps-v2",
+  label: "TLPS v2",
   colors: {
     text: {
       primary: "#171A1D",
@@ -436,6 +442,69 @@ export const tlpsV2Theme: MaataaTheme = {
   colorScheme: "light",
 };
 
+/**
+ * High-contrast look for low vision and bright light: black on white, solid
+ * black control outlines, saturated dark accents.
+ *
+ * Contrast (WCAG 2.2 AAA, 7:1 for text), measured on all three backgrounds
+ * (#FFFFFF, #F3F3F3, #E8E8E8): text.primary 17.1:1 or more, secondary 13.4:1
+ * or more, tertiary 9.8:1 or more, disabled 4.6:1 or more; border.control
+ * 17.1:1 or more and border.primary 5.4:1 or more (both beyond WCAG 1.4.11);
+ * interactive.primary 8.3:1 or more with white on it 10.2:1; success,
+ * warning, error and info 7.0:1 or more; every semantic text-on-fill pair
+ * 8.1:1 or more. Checked by `highContrastTheme` tests in @maataa/ui.
+ */
+export const highContrastTheme: MaataaTheme = {
+  name: "high-contrast",
+  label: "High contrast",
+  colors: {
+    text: {
+      primary: "#000000",
+      secondary: "#1F1F1F",
+      tertiary: "#363636",
+      inverse: "#FFFFFF",
+      disabled: "#5E5E5E",
+    },
+    background: {
+      primary: "#FFFFFF",
+      secondary: "#F3F3F3",
+      tertiary: "#E8E8E8",
+      inverse: "#000000",
+    },
+    border: {
+      primary: "#5C5C5C",
+      secondary: "#767676",
+      tertiary: "#8A8A8A",
+      control: "#000000",
+    },
+    interactive: {
+      primary: "#0037A0",
+      secondary: "#5C5C5C",
+      success: "#00591A",
+      warning: "#5C3D00",
+      error: "#900000",
+      info: "#003D73",
+    },
+    semantic: {
+      success: { bg: "#DDF2E1", text: "#00471A" },
+      warning: { bg: "#FFF0C2", text: "#4D3300" },
+      error: { bg: "#FDE0E0", text: "#8A0000" },
+      info: { bg: "#DCEBFA", text: "#00325E" },
+    },
+    shadow: {
+      sm: "0 0 0 1px #000000",
+      md: "0 0 0 2px #000000",
+      lg: "0 0 0 2px #000000",
+      xl: "0 0 0 3px #000000",
+    },
+  },
+  chartSingle: "#0037A0",
+  colorScheme: "light",
+};
+
+/** Every theme that ships with MAATAA, in picker order. */
+export const builtInThemes: readonly MaataaTheme[] = [paperTheme, darkTheme, tlpsV2Theme, highContrastTheme];
+
 /** The CSS custom properties for a theme, as a `{ "--maataa-…": value }` map. */
 export function themeToCssVariables(theme: MaataaTheme): Record<string, string> {
   const vars: Record<string, string> = {
@@ -457,4 +526,34 @@ export function themeToCss(theme: MaataaTheme, selector = ":root"): string {
     .join("");
   const scheme = theme.colorScheme ? `color-scheme:${theme.colorScheme};` : "";
   return `${selector}{${body}${scheme}}`;
+}
+
+/** Options for {@link themesToCss}. */
+export interface ThemesToCssOptions {
+  /** Theme used when nothing is chosen. @default the first theme */
+  defaultTheme?: string;
+  /** Theme used for "follow the system" when the system is dark. @default "dark" if present */
+  systemDarkTheme?: string;
+  /** Attribute on `<html>` that names the active theme. @default "data-maataa-theme" */
+  attribute?: string;
+}
+
+/**
+ * One stylesheet holding several themes. The default theme applies to
+ * `:root`; each theme also applies to `:root[data-maataa-theme="<name>"]`.
+ * With no attribute set (no JavaScript yet, or "follow the system"), a dark
+ * system preference picks `systemDarkTheme`.
+ */
+export function themesToCss(themes: readonly MaataaTheme[], options: ThemesToCssOptions = {}): string {
+  if (!themes.length) return "";
+  const attribute = options.attribute ?? "data-maataa-theme";
+  const byName = new Map(themes.map((theme) => [theme.name, theme]));
+  const base = byName.get(options.defaultTheme ?? themes[0].name) ?? themes[0];
+  const systemDark = byName.get(options.systemDarkTheme ?? "dark");
+  const rules = [themeToCss(base, ":root")];
+  if (systemDark && systemDark !== base) {
+    rules.push(`@media (prefers-color-scheme: dark){${themeToCss(systemDark, `:root:not([${attribute}])`)}}`);
+  }
+  for (const theme of themes) rules.push(themeToCss(theme, `:root[${attribute}="${theme.name}"]`));
+  return rules.join("\n");
 }

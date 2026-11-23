@@ -3,6 +3,7 @@
  * Whether a temporary file link is still valid, and refresh it
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -27,6 +28,7 @@ export function SignedUrlStatus({
   warnSeconds = 60,
   now = Date.now,
 }: SignedUrlStatusProps) {
+  const t = useT();
   const left = () => Math.round((expiresAt.getTime() - now()) / 1000);
   const [s, setS] = useState(left);
   useEffect(() => {
@@ -37,10 +39,10 @@ export function SignedUrlStatus({
   }, [expiresAt]);
   const state = refreshing ? "refreshing" : s <= 0 ? "expired" : s <= warnSeconds ? "soon" : "ok";
   const text = {
-    refreshing: "Getting a new link…",
-    expired: "Link expired",
-    soon: "Link expires soon",
-    ok: "Link valid",
+    refreshing: msg("Getting a new link…"),
+    expired: msg("Link expired"),
+    soon: msg("Link expires soon"),
+    ok: msg("Link valid"),
   }[state];
   return (
     <span
@@ -67,7 +69,7 @@ export function SignedUrlStatus({
       </span>
       {state === "ok" && (
         <span aria-hidden="true" style={{ color: colorTokens.text.secondary }}>
-          for {Math.ceil(s / 60)} min
+          {t("for {value} min", { value: Math.ceil(s / 60) })}
         </span>
       )}
       {(state === "expired" || state === "soon") && (
@@ -84,7 +86,7 @@ export function SignedUrlStatus({
             font: "inherit",
           }}
         >
-          Get a new link
+          {t("Get a new link")}
         </button>
       )}
     </span>

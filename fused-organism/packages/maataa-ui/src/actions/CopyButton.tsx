@@ -3,6 +3,7 @@
  * Copy text to the clipboard and confirm it
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { Button, type ButtonProps } from "../primitives/Button";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -54,6 +55,7 @@ async function copyText(text: string): Promise<boolean> {
  */
 export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
   ({ value, what, children = "Copy", onCopied, variant = "secondary", ...props }, ref) => {
+    const t = useT();
     const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
     useEffect(() => {
       if (state === "idle") return;
@@ -82,7 +84,7 @@ export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
         >
           {state === "copied" ? (
             <>
-              Copied <span aria-hidden="true">✓</span>
+              {t("Copied")} <span aria-hidden="true">✓</span>
             </>
           ) : (
             children

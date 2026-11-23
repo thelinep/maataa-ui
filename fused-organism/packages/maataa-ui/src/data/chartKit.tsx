@@ -4,6 +4,7 @@
  * that names the chart image, and a "Show data as a table" disclosure
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { ScrollTable } from "./ScrollTable";
@@ -57,6 +58,7 @@ export function ChartFigure({
   level = 3,
   style,
 }: ChartFigureProps) {
+  const t = useT();
   const id = useId();
   const H = `h${level}` as "h3";
   return (
@@ -101,9 +103,9 @@ export function ChartFigure({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Show data as a table
+          {t("Show data as a table")}
         </summary>
-        <ScrollTable label={`${title} data`}>
+        <ScrollTable label={t("{title} data", { title })}>
           <table
             style={{
               borderCollapse: "collapse",

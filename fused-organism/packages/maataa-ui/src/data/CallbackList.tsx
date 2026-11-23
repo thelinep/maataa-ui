@@ -3,6 +3,7 @@
  * Who's called back, when, for what, and whether they confirmed
  */
 
+import { useLocale, useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -32,18 +33,20 @@ const tone = {
   rescheduling: "info",
 } as const;
 const word = {
-  invited: "Invited",
-  confirmed: "Confirmed",
-  declined: "Declined",
-  rescheduling: "Rescheduling",
+  invited: msg("Invited"),
+  confirmed: msg("Confirmed"),
+  declined: msg("Declined"),
+  rescheduling: msg("Rescheduling"),
 };
 
 /** CallbackList: a table sorted by time. */
 export function CallbackList({
   callbacks,
-  locale = "en-IN",
+  locale: localeProp,
   caption = "Callbacks",
 }: CallbackListProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const td: React.CSSProperties = {
     padding: spacingTokens.sm,
     borderBottom: `1px solid ${colorTokens.border.primary}`,
@@ -57,16 +60,16 @@ export function CallbackList({
       <thead>
         <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
           <th scope="col" style={td}>
-            When
+            {t("When")}
           </th>
           <th scope="col" style={td}>
-            Person
+            {t("Person")}
           </th>
           <th scope="col" style={td}>
-            Role and material
+            {t("Role and material")}
           </th>
           <th scope="col" style={td}>
-            Status
+            {t("Status")}
           </th>
         </tr>
       </thead>
@@ -96,7 +99,7 @@ export function CallbackList({
                 )}
               </td>
               <td style={td}>
-                <Badge variant={tone[c.status]}>{word[c.status]}</Badge>
+                <Badge variant={tone[c.status]}>{t(word[c.status])}</Badge>
               </td>
             </tr>
           ))}

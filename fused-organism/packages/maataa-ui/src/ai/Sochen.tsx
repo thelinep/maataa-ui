@@ -3,6 +3,7 @@
  * Sochen: write a thought, get a model response, keep a history
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { CopyButton } from "../actions/CopyButton";
@@ -31,9 +32,12 @@ export function ThoughtInput({
   busy,
   disabledReason,
   maxLength = 4000,
-  placeholder = "A scene idea, a doubt, a question about your script…",
-  label = "What are you thinking about?",
+  placeholder: placeholderProp,
+  label: labelProp,
 }: ThoughtInputProps) {
+  const tx = useT();
+  const label = labelProp ?? tx("What are you thinking about?");
+  const placeholder = placeholderProp ?? tx("A scene idea, a doubt, a question about your script…");
   const id = useId();
   const [text, setText] = useState("");
   const send = () => {
@@ -101,7 +105,7 @@ export function ThoughtInput({
           disabled={!text.trim() || busy || Boolean(disabledReason)}
           aria-busy={busy || undefined}
         >
-          {busy ? "Thinking…" : "Send"}
+          {busy ? tx("Thinking…") : tx("Send")}
         </Button>
       </div>
     </form>
@@ -143,12 +147,14 @@ export function ModelResponse({
   onRetry,
   onStop,
   at,
-  locale = "en-IN",
+  locale: localeProp,
 }: ModelResponseProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const status = error ? "" : streaming ? "Writing a response…" : text ? "Response ready" : "";
   return (
     <article
-      aria-label={`Response to: ${prompt.slice(0, 80)}`}
+      aria-label={tx("Response to: {value}", { value: prompt.slice(0, 80) })}
       style={{
         border: `1px solid ${colorTokens.border.primary}`,
         borderRadius: 10,
@@ -176,7 +182,7 @@ export function ModelResponse({
             clip: "rect(0 0 0 0)",
           }}
         >
-          You asked:
+          {tx("You asked:")}
         </span>
         {prompt}
       </div>
@@ -199,7 +205,7 @@ export function ModelResponse({
           {onRetry && (
             <div style={{ marginTop: spacingTokens.xs }}>
               <Button variant="secondary" size="sm" onClick={onRetry}>
-                Try again
+                {tx("Try again")}
               </Button>
             </div>
           )}
@@ -225,16 +231,18 @@ export function ModelResponse({
         }}
       >
         <span>
-          AI-written{model ? ` by ${model}` : ""}
-          {at
-            ? ` · ${at.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" })}`
-            : ""}{" "}
-          · check before you use it
+          {[
+            model ? tx("AI-written by {model}", { model }) : tx("AI-written"),
+            at ? at.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" }) : null,
+            tx("check before you use it"),
+          ]
+            .filter(Boolean)
+            .join(" · ")}
         </span>
         <span style={{ display: "flex", gap: spacingTokens.xs }}>
           {streaming && onStop && (
             <Button variant="tertiary" size="sm" onClick={onStop}>
-              Stop
+              {tx("Stop")}
             </Button>
           )}
           {!streaming && text && <CopyButton value={text} what="response" size="sm" />}
@@ -270,6 +278,7 @@ export function ModelConfiguredCheck({
   onConfigure,
   children,
 }: ModelConfiguredCheckProps) {
+  const tx = useT();
   if (configured) return <>{children}</>;
   return (
     <div
@@ -283,16 +292,16 @@ export function ModelConfiguredCheck({
         gap: spacingTokens.sm,
       }}
     >
-      <strong>Sochen isn’t set up yet</strong>
+      <strong>{tx("Sochen isn’t set up yet")}</strong>
       <span style={{ color: colorTokens.text.secondary }}>
         {reason ? `${reason}. ` : ""}
         {canConfigure
-          ? "Connect a model to start using it."
-          : "Ask your workspace admin to connect a model."}
+          ? tx("Connect a model to start using it.")
+          : tx("Ask your workspace admin to connect a model.")}
       </span>
       {canConfigure && onConfigure && (
         <div>
-          <Button onClick={onConfigure}>Set up a model</Button>
+          <Button onClick={onConfigure}>{tx("Set up a model")}</Button>
         </div>
       )}
     </div>
@@ -329,8 +338,10 @@ export function ThoughtHistory({
   onOpen,
   onDelete,
   activeId,
-  locale = "en-IN",
+  locale: localeProp,
 }: ThoughtHistoryProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const [q, setQ] = useState("");
   const shown = thoughts
     .filter(
@@ -341,7 +352,7 @@ export function ThoughtHistory({
     .sort((a, b) => Number(!!b.pinned) - Number(!!a.pinned) || b.at.getTime() - a.at.getTime());
   return (
     <nav
-      aria-label="Past thoughts"
+      aria-label={tx("Past thoughts")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}
     >
       <label
@@ -353,7 +364,7 @@ export function ThoughtHistory({
           fontWeight: 600,
         }}
       >
-        Search past thoughts
+        {tx("Search past thoughts")}
         <input
           type="search"
           value={q}
@@ -420,7 +431,7 @@ export function ThoughtHistory({
                       clip: "rect(0 0 0 0)",
                     }}
                   >
-                    Pinned:
+                    {tx("Pinned:")}
                   </span>
                 )}
                 {t.pinned && " "}
@@ -446,7 +457,7 @@ export function ThoughtHistory({
               <button
                 type="button"
                 onClick={() => onDelete(t.id)}
-                aria-label={`Delete thought: ${t.text.slice(0, 60)}`}
+                aria-label={tx("Delete thought: {value}", { value: t.text.slice(0, 60) })}
                 style={{
                   minWidth: 30,
                   minHeight: 30,

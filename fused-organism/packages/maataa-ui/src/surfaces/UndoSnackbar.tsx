@@ -4,6 +4,7 @@
  * and is reachable by keyboard (Alt+Z undoes from anywhere while it shows)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -31,6 +32,7 @@ export function UndoSnackbar({
   durationMs = 10000,
   shortcut = true,
 }: UndoSnackbarProps) {
+  const t = useT();
   const [left, setLeft] = useState(durationMs);
   const [paused, setPaused] = useState(false);
 
@@ -106,12 +108,12 @@ export function UndoSnackbar({
               cursor: "pointer",
             }}
           >
-            Undo
+            {t("Undo")}
           </button>
           <button
             type="button"
             onClick={onDismiss}
-            aria-label="Dismiss"
+            aria-label={t("Dismiss")}
             style={{
               width: 40,
               height: 40,

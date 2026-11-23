@@ -4,6 +4,7 @@
  * with a format toolbar, scene navigator and character tracker
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useLayoutEffect, useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -17,12 +18,12 @@ export interface ScriptElement {
 }
 
 export const elementLabels: Record<ScriptElementType, { label: string; key: string }> = {
-  scene: { label: "Scene heading", key: "1" },
-  action: { label: "Action", key: "2" },
-  character: { label: "Character", key: "3" },
-  parenthetical: { label: "Parenthetical", key: "4" },
-  dialogue: { label: "Dialogue", key: "5" },
-  transition: { label: "Transition", key: "6" },
+  scene: { label: msg("Scene heading"), key: "1" },
+  action: { label: msg("Action"), key: "2" },
+  character: { label: msg("Character"), key: "3" },
+  parenthetical: { label: msg("Parenthetical"), key: "4" },
+  dialogue: { label: msg("Dialogue"), key: "5" },
+  transition: { label: msg("Transition"), key: "6" },
 };
 
 const order: ScriptElementType[] = [
@@ -66,11 +67,12 @@ export interface FormatToolbarProps {
  * type. Shortcuts: Ctrl/⌘+1–6, and Tab cycles inside the editor.
  */
 export function FormatToolbar({ current, onChange }: FormatToolbarProps) {
+  const t = useT();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   return (
     <div
       role="toolbar"
-      aria-label="Element type"
+      aria-label={t("Element type")}
       onKeyDown={(e) => {
         const i = refs.current.findIndex((b) => b === document.activeElement);
         if (i < 0) return;
@@ -91,32 +93,32 @@ export function FormatToolbar({ current, onChange }: FormatToolbarProps) {
         background: colorTokens.background.secondary,
       }}
     >
-      {order.map((t, i) => (
+      {order.map((type, i) => (
         <button
-          key={t}
+          key={type}
           ref={(el) => {
             refs.current[i] = el;
           }}
           type="button"
-          tabIndex={(current ?? "scene") === t ? 0 : -1}
-          aria-pressed={current === t}
-          aria-keyshortcuts={`Control+${elementLabels[t].key}`}
+          tabIndex={(current ?? "scene") === type ? 0 : -1}
+          aria-pressed={current === type}
+          aria-keyshortcuts={`Control+${elementLabels[type].key}`}
           onMouseDown={(e) => e.preventDefault()}
-          onClick={() => onChange(t)}
+          onClick={() => onChange(type)}
           style={{
             minHeight: 32,
             padding: "0 10px",
-            border: `1px solid ${current === t ? colorTokens.interactive.primary : colorTokens.border.control}`,
+            border: `1px solid ${current === type ? colorTokens.interactive.primary : colorTokens.border.control}`,
             borderRadius: 6,
             background:
-              current === t ? colorTokens.interactive.primary : colorTokens.background.primary,
-            color: current === t ? colorTokens.text.inverse : colorTokens.text.primary,
+              current === type ? colorTokens.interactive.primary : colorTokens.background.primary,
+            color: current === type ? colorTokens.text.inverse : colorTokens.text.primary,
             cursor: "pointer",
             font: "inherit",
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          {elementLabels[t].label}
+          {t(elementLabels[type].label)}
         </button>
       ))}
     </div>
@@ -150,6 +152,7 @@ export function ScriptEditor({
   onFocusChange,
   newId = () => Math.random().toString(36).slice(2, 9),
 }: ScriptEditorProps) {
+  const t = useT();
   const id = useId();
   const refs = useRef<Record<string, HTMLTextAreaElement | null>>({});
   const pending = useRef<string | null>(null);
@@ -176,7 +179,7 @@ export function ScriptEditor({
     onChange(elements.map((x) => (x.id === eid ? { ...x, type } : x)));
   return (
     <section
-      aria-label={`Script: ${title}`}
+      aria-label={t("Script: {title}", { title })}
       style={{
         background: "#fff",
         color: "#111",
@@ -196,8 +199,11 @@ export function ScriptEditor({
               refs.current[el.id] = n;
             }}
             id={`${id}-${el.id}`}
-            aria-label={`${elementLabels[el.type].label}, line ${i + 1}`}
-            value={el.text}
+            aria-label={t("{value}, line {value2}", {
+              value: elementLabels[el.type].label,
+              value2: i + 1,
+            })}
+            value={t(el.text)}
             rows={1}
             onFocus={() => onFocusChange?.(el.id, el.type)}
             onChange={(e) =>
@@ -289,6 +295,7 @@ export function scenesOf(
 
 /** SceneNavigator: a nav list of scene headings; activating one moves focus there. */
 export function SceneNavigator({ elements, onGo, currentId }: SceneNavigatorProps) {
+  const t = useT();
   const scenes = scenesOf(elements);
   const cur = (() => {
     const i = elements.findIndex((e) => e.id === currentId);
@@ -296,9 +303,9 @@ export function SceneNavigator({ elements, onGo, currentId }: SceneNavigatorProp
     return undefined;
   })();
   return (
-    <nav aria-label="Scenes">
+    <nav aria-label={t("Scenes")}>
       <h3 style={{ margin: `0 0 ${spacingTokens.xs}`, fontSize: typographyTokens.fontSize.md }}>
-        Scenes ({scenes.length})
+        {t("Scenes ({count})", { count: scenes.length })}
       </h3>
       <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {scenes.map((s) => (
@@ -331,7 +338,7 @@ export function SceneNavigator({ elements, onGo, currentId }: SceneNavigatorProp
               >
                 {s.number}
               </span>
-              <span style={{ textTransform: "uppercase" }}>{s.heading}</span>
+              <span style={{ textTransform: "uppercase" }}>{t(s.heading)}</span>
             </button>
           </li>
         ))}
@@ -369,11 +376,12 @@ export function charactersOf(
 
 /** CharacterTracker: speaking parts, most lines first, with scene numbers. */
 export function CharacterTracker({ elements }: { elements: ScriptElement[] }) {
+  const t = useT();
   const chars = charactersOf(elements);
   return (
-    <section aria-label="Characters">
+    <section aria-label={t("Characters")}>
       <h3 style={{ margin: `0 0 ${spacingTokens.xs}`, fontSize: typographyTokens.fontSize.md }}>
-        Characters ({chars.length})
+        {t("Characters ({count})", { count: chars.length })}
       </h3>
       {chars.length === 0 ? (
         <p
@@ -383,7 +391,7 @@ export function CharacterTracker({ elements }: { elements: ScriptElement[] }) {
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          No speaking characters yet.
+          {t("No speaking characters yet.")}
         </p>
       ) : (
         <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -396,7 +404,8 @@ export function CharacterTracker({ elements }: { elements: ScriptElement[] }) {
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              <strong>{c.name}</strong> · {c.lines} speech{c.lines === 1 ? "" : "es"}
+              <strong>{c.name}</strong>{" "}
+              {t.plural(c.lines, "· {count} speech", "· {count} speeches")}
               <span
                 style={{
                   display: "block",
