@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ModelResponse, ThoughtInput, ModelConfiguredCheck, ThoughtHistory } from "./Sochen";
 
 const meta = {

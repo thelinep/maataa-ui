@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SiteFooter } from "./SiteFooter";
 
 const meta = { title: "Navigation/SiteFooter", tags: ["autodocs"] } satisfies Meta;

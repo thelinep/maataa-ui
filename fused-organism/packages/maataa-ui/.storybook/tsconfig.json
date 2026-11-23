@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "types": ["@storybook/react", "node"]
+    "types": ["@storybook/react-vite", "node"]
   },
   "include": ["../src", "."]
 }

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { BrandLogo } from "./BrandLogo";
 
 const meta = {
@@ -14,5 +14,9 @@ export const Default: Story = { args: { variant: "full", size: 40 } };
 export const Mark: Story = { args: { variant: "mark", size: 48 } };
 export const Inverse: Story = {
   args: { tone: "inverse", size: 40 },
-  parameters: { backgrounds: { default: "dark" } },
+  globals: {
+    backgrounds: {
+      value: "dark"
+    }
+  },
 };

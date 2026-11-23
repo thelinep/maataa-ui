@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { JsonExplorer } from "./JsonExplorer";
 
 const meta = { title: "Data/JsonExplorer", tags: ["autodocs"] } satisfies Meta;

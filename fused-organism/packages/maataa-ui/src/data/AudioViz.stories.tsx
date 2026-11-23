@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Waveform, SpectrumAnalyzer, VUMeter } from "./AudioViz";
 
 const meta = { title: "Data/AudioViz", tags: ["autodocs"] } satisfies Meta;

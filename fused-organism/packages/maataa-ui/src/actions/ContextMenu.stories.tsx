@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ContextMenu } from "./ContextMenu";
 
 const meta = { title: "Actions/ContextMenu", tags: ["autodocs"] } satisfies Meta;

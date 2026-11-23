@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ContactForm, NewsletterSignup } from "./ContactBlocks";
 
 const meta = { title: "Forms/ContactBlocks", tags: ["autodocs"] } satisfies Meta;

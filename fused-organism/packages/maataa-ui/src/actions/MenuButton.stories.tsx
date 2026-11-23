@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { MenuButton, SplitButton, ShareMenu, FabMenu } from "./MenuButton";
 
 const meta = { title: "Actions/MenuButton", tags: ["autodocs"] } satisfies Meta;

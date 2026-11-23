@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 
 const preview: Preview = {
   parameters: {
@@ -10,23 +10,30 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "light",
-      values: [
-        {
+      options: {
+        light: {
           name: "light",
           value: "#FFFAF0",
         },
-        {
+
+        dark: {
           name: "dark",
           value: "#3D2817",
         },
-        {
+
+        paper: {
           name: "paper",
           value: "#FAF6F1",
-        },
-      ],
+        }
+      }
     },
   },
+
+  initialGlobals: {
+    backgrounds: {
+      value: "light"
+    }
+  }
 };
 
 export default preview;

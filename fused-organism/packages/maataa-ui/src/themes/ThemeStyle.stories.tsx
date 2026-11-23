@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ThemeStyle } from "./ThemeStyle";
 import { paperTheme, tlpsV2Theme } from "../tokens";
 import { Badge, Button, Card, Input } from "../primitives";

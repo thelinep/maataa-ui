@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Panel } from "./Panel";
 import { Checkbox } from "../forms/Checkbox";
 import { Button } from "../primitives/Button";

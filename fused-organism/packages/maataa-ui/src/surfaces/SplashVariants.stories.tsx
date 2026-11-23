@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ParticleSplash, GlassSplash, CameraScienceSplash } from "./SplashVariants";
 
 const meta = { title: "Surfaces/SplashVariants", tags: ["autodocs"] } satisfies Meta;

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AnimatedCounter, StackedProgressBar, ProgressRing, Gauge } from "./Meters";
 
 const meta = { title: "Data/Meters", tags: ["autodocs"] } satisfies Meta;
