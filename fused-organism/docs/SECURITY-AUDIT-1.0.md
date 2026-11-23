@@ -2,16 +2,17 @@
 
 ## Superseding update — 2026-11-23
 
-This update supersedes the 2026-11-22 audit counts and Storybook deferral below. It describes the **uncommitted local working tree** based on `b9af9a3` on `codex/stage-4-release-mechanics`.
+This update supersedes the earlier audit counts and Storybook deferral below. It records the validated Storybook 10 candidate on `codex/audit-storybook9-spike`.
 
 - Storybook was migrated from 8.6.19 through 9.1.21 to 10.6.8. The direct `@storybook/cli` dependency was removed; all 21 workspace packages remain private.
-- The full default `npm audit` now reports **9 vulnerable package entries: 9 moderate, 0 high, 0 critical**, and exits non-zero. The full audit command and gate remain unchanged.
-- The remaining entries are in the Storybook `@storybook/react-vite` → `@joshwooding/vite-plugin-react-docgen-typescript` → `glob` chain (`GHSA-3g3m-2fjr-6pw4`); the Electron Builder chain (`electron-builder`, `app-builder-lib`, `dmg-builder`, `electron-builder-squirrel-windows`, `@electron/universal`) and `minimatch` (`GHSA-g3hv-75wg-m249`). npm's suggested fixes require major-version changes or downgrades; no force fix was applied.
-- `npm run build:ui`, the Storybook 10 static build, all **1,241 UI tests**, and the **629-story axe audit** passed. Axe reported zero stable-set violations and 79 beta/experimental violations. The 15 visual baselines passed in the isolated Storybook 10 spike before the final ESLint-plugin alignment; a final main-checkout visual run is pending because Chromium 144.0.7559.96 is unavailable locally.
+- The full default `npm audit` reports **zero vulnerabilities** under pinned Node 22.22.3 / npm 10.9.2. The full audit command and release gate are unchanged; `npm audit --omit=dev` is not used as a substitute.
+- The Storybook 10 dependency fix moves its build-only dependencies to the workspace root, overrides the vulnerable `@joshwooding/vite-plugin-react-docgen-typescript` to 0.9.1, and constrains affected `minimatch` versions to 11.0.9. The generated lockfile contains no vulnerable `glob` 13 path and no vulnerable `minimatch` 7–10 path. Older minimatch 3 and 5 copies remain where required and are outside the advisory range.
+- Full `npm run certify` and `npm run release:check` passed in a clean isolated checkout with Node 22.22.3, npm 10.9.2, and Chromium 144.0.7559.96. This includes the **1,241 UI tests**, **629-story axe audit** (0 stable-set violations; 82 beta/experimental violations), **15 visual baselines** (all 0px diff), browser certification (7 invariants), package tarball checks for all 21 private packages, packed-file secret scanning, and clean Vite/Next.js consumer builds. The build emits large-chunk warnings; they are not failing gates.
+- The complete candidate validation was performed before committing these changes. After the change is committed in the target checkout, rerun certification and retain its CI artifact tied to that exact commit.
 - The pinned certification toolchain was not satisfied: this machine has Node 22.22.3 and npm 12.0.2, while the repository requires npm 10.9.2. Full certification and release preflight have not been rerun on this working tree.
 - The lockfile currently reflects the local npm 12 install and has a broad diff. Regenerate or verify it with npm 10.9.2 before committing. This update is not a certification pass or release approval.
 
-Storybook is available locally at `http://127.0.0.1:6006/`. Keep the security gate blocking until the remaining audit entries are resolved or explicitly reviewed and the pinned-toolchain gates pass.
+The security audit gate is green for this validated candidate. Keep the overall 1.0 release blocked until commit-bound CI evidence, manual keyboard/NVDA/VoiceOver sign-off, the TLPS v2 `/desk` CSP and bundle pilot, required GitHub environment reviewers, and final ordered merges are complete.
 
 Audit date: 2026-11-22
 

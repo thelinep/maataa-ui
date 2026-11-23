@@ -94,7 +94,12 @@
   "devDependencies": {
     "@changesets/cli": "3.0.3",
     "electron": "44.11.5",
-    "electron-builder": "26.15.3"
+    "electron-builder": "26.15.3",
+    "@storybook/addon-a11y": "10.6.8",
+    "@storybook/addon-docs": "10.6.8",
+    "@storybook/addon-links": "10.6.8",
+    "@storybook/react-vite": "10.6.8",
+    "eslint-plugin-storybook": "^10.6.8"
   },
   "build": {
     "appId": "in.maataa.desktop",
@@ -130,6 +135,10 @@
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
   },
   "overrides": {
-    "effect": "3.22.5"
+    "effect": "3.22.5",
+    "@storybook/react-vite": {
+      "@joshwooding/vite-plugin-react-docgen-typescript": "0.9.1"
+    },
+    "minimatch@>=7.0.0 <11.0.1": "11.0.9"
   }
 }
