@@ -107,9 +107,7 @@ export function SplashScreen({
         }}
       >
         <BrandLogo size={64} tone="inverse" />
-        <p style={{ margin: 0, fontSize: typographyTokens.fontSize.lg, opacity: 0.85 }}>
-          {tagline}
-        </p>
+        <p style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>{tagline}</p>
       </div>
       <button
         ref={skipRef}

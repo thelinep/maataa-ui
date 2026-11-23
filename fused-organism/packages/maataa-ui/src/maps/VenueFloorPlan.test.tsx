@@ -26,7 +26,9 @@ function ControlledVenueFloorPlan() {
 describe("VenueFloorPlan", () => {
   it("renders an SVG with an accessible label naming the zone count", () => {
     render(<VenueFloorPlan planWidth={40} planHeight={24} zones={zones} />);
-    expect(screen.getByRole("img", { name: "Venue floor plan with 4 zones" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: "Venue floor plan with 4 zones" })
+    ).toBeInTheDocument();
   });
 
   it("renders each zone as a labeled, selectable button", () => {
@@ -45,6 +47,7 @@ describe("VenueFloorPlan", () => {
   it("does not give a blocked zone a button role", () => {
     render(<VenueFloorPlan planWidth={40} planHeight={24} zones={zones} />);
     expect(screen.queryByRole("button", { name: "A4" })).not.toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "A4, unavailable" })).toBeInTheDocument();
   });
 
   it("calls onSelect with the zone id when a zone is clicked", () => {

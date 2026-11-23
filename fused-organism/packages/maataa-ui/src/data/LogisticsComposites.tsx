@@ -479,7 +479,14 @@ export function PermitTimelineStrip({
             <span style={{ display: "block", fontSize: 11, color: colorTokens.text.secondary }}>
               {s.date}
             </span>
-            <span style={{ display: "block", fontSize: 11, color: col[s.state], fontWeight: 700 }}>
+            <span
+              style={{
+                display: "block",
+                fontSize: 11,
+                color: s.state === "upcoming" ? colorTokens.text.secondary : col[s.state],
+                fontWeight: 700,
+              }}
+            >
               {word[s.state]}
             </span>
           </li>

@@ -250,6 +250,7 @@ export function ScriptEditor({
               textAlign: "inherit",
               fontWeight: "inherit",
               padding: 0,
+              minHeight: 24,
               overflow: "hidden",
             }}
           />

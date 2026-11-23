@@ -102,7 +102,7 @@ export function NetworkingContactList({
               alignItems: "flex-start",
               padding: `${spacingTokens.sm} 0`,
               borderBottom: `1px solid ${colorTokens.border.primary}`,
-              opacity: c.consent === "withdrawn" ? 0.65 : 1,
+              background: c.consent === "withdrawn" ? colorTokens.background.secondary : undefined,
             }}
           >
             <Avatar name={c.name} size="md" decorative />

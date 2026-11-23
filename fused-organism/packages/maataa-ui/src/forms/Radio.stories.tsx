@@ -17,7 +17,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => {
     const [checked, setChecked] = useState(false);
-    return <Radio checked={checked} onChange={setChecked} value="option" />;
+    // A radio without a visible label still needs an accessible name.
+    return <Radio checked={checked} onChange={setChecked} value="option" aria-label="Option" />;
   },
 };
 

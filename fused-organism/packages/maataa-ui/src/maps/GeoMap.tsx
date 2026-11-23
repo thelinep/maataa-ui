@@ -102,7 +102,7 @@ export const GeoMap = React.forwardRef<SVGSVGElement, GeoMapProps>(
           width={width}
           height={height}
           viewBox={`0 0 ${width} ${height}`}
-          role="img"
+          role="group"
           aria-label={`Map with ${pins.length} locations`}
         >
           {backgroundImage ? (

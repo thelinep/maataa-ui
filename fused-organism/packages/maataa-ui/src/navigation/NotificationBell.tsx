@@ -30,7 +30,10 @@ export const NotificationBell = React.forwardRef<HTMLButtonElement, Notification
     <button
       ref={ref}
       type="button"
-      aria-label={unread > 0 ? `Notifications, ${unread} unread` : "Notifications"}
+      // The name includes the badge text as shown ("99+"), per WCAG 2.5.3
+      aria-label={
+        unread > 0 ? `Notifications, ${unread > 99 ? "99+" : unread} unread` : "Notifications"
+      }
       aria-haspopup="dialog"
       aria-expanded={expanded}
       style={{

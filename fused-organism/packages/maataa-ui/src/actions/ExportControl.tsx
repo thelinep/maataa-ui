@@ -71,7 +71,12 @@ export function ExportControl({
               name={`${id}-fmt`}
               checked={fmt === f}
               onChange={() => setFmt(f)}
-              style={{ accentColor: colorTokens.interactive.primary }}
+              style={{
+                width: 20,
+                height: 20,
+                margin: 2,
+                accentColor: colorTokens.interactive.primary,
+              }}
             />
             {formatLabel[f]}
           </label>
@@ -84,7 +89,12 @@ export function ExportControl({
             checked={redact}
             onChange={(e) => setRedact(e.target.checked)}
             aria-describedby={`${id}-redact`}
-            style={{ marginTop: 3, accentColor: colorTokens.interactive.primary }}
+            style={{
+              width: 20,
+              height: 20,
+              margin: "1px 2px 2px",
+              accentColor: colorTokens.interactive.primary,
+            }}
           />
           <span>
             Remove personal details

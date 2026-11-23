@@ -18,9 +18,9 @@ describe("MentionInput", () => {
       return <MentionInput label="Note" value={v} onChange={(t) => setV(t)} people={people} />;
     }
     render(<H />);
-    const box = screen.getByRole("combobox", { name: "Note" });
+    const box = screen.getByRole("textbox", { name: "Note" });
     await user.type(box, "Thanks @a");
-    expect(box).toHaveAttribute("aria-expanded", "true");
+    expect(box).toHaveAttribute("aria-controls");
     expect(screen.getAllByRole("option")).toHaveLength(3);
     await user.type(box, "r");
     expect(screen.getByRole("status")).toHaveTextContent("1 person found");

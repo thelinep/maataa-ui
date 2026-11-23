@@ -70,10 +70,24 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
       onChange(applyTimeValue(value, time));
     };
 
+    const autoId = React.useId();
+    const labelId = label ? `${autoId}-label` : undefined;
+    const messageId = error || helperText ? `${autoId}-message` : undefined;
+    const fieldName = label ?? "Date and time";
+
     return (
-      <div ref={ref} className={className} style={{ width: "100%", ...style }}>
+      <div
+        ref={ref}
+        className={className}
+        role="group"
+        aria-labelledby={labelId}
+        aria-label={label ? undefined : fieldName}
+        aria-describedby={messageId}
+        style={{ width: "100%", ...style }}
+      >
         {label && (
           <span
+            id={labelId}
             style={{
               display: "block",
               marginBottom: spacingTokens.xs,
@@ -101,6 +115,8 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
               disabled={disabled}
               min={min}
               max={max}
+              aria-label={`${fieldName}: date`}
+              required={required}
             />
           </div>
           <div style={{ flex: "1 1 120px" }}>
@@ -108,11 +124,15 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
               value={value ? formatTimeValue(value) : ""}
               onChange={handleTimeChange}
               disabled={disabled || !value}
+              aria-label={`${fieldName}: time`}
+              required={required}
             />
           </div>
         </div>
         {error && (
           <span
+            id={messageId}
+            role="alert"
             style={{
               display: "block",
               marginTop: spacingTokens.xs,
@@ -125,6 +145,7 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
         )}
         {helperText && !error && (
           <span
+            id={messageId}
             style={{
               display: "block",
               marginTop: spacingTokens.xs,

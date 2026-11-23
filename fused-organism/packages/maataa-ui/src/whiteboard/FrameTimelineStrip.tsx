@@ -155,7 +155,6 @@ export function FrameTimelineStrip({
                 type="button"
                 onClick={() => onSelect(f.id)}
                 aria-current={on ? "true" : undefined}
-                aria-label={`Frame ${f.number}, ${i + 1} of ${frames.length}${f.shot ? `, ${f.shot}` : ""}: ${f.description || "no description"}`}
                 style={{
                   width: "100%",
                   padding: 0,
@@ -167,6 +166,9 @@ export function FrameTimelineStrip({
                   textAlign: "left",
                 }}
               >
+                {/* Named by content, not aria-label, so the visible shorthand never
+                    contradicts the name (WCAG 2.5.3) */}
+                <VisuallyHidden>{`Frame ${f.number}, ${i + 1} of ${frames.length}${f.shot ? `, ${f.shot}` : ""}: ${f.description || "no description"}`}</VisuallyHidden>
                 <div
                   aria-hidden="true"
                   style={{

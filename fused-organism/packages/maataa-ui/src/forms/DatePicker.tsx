@@ -8,6 +8,7 @@ import { Portal } from "../primitives/Portal";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
 import { CalendarGrid } from "./CalendarGrid";
 import { formatDisplayDate } from "./dateUtils";
+import { VisuallyHidden } from "../primitives/VisuallyHidden";
 
 export interface DatePickerProps {
   /** Currently selected date, or `null` for no selection (controlled). */
@@ -29,6 +30,8 @@ export interface DatePickerProps {
   max?: Date;
 
   placeholder?: string;
+  /** Accessible name when there is no visible `label`. */
+  "aria-label"?: string;
   id?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -58,6 +61,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       min,
       max,
       placeholder = "Select a date",
+      "aria-label": ariaLabel,
       id,
       className,
       style,
@@ -66,6 +70,11 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
   ) => {
     const generatedId = useId();
     const fieldId = id ?? generatedId;
+    // The trigger is named by the label and the shown date together
+    // ("Event date, Jan 15, 2026"), and described by the error/helper text.
+    const labelId = `${fieldId}-label`;
+    const valueId = `${fieldId}-value`;
+    const messageId = error || helperText ? `${fieldId}-message` : undefined;
     const [isOpen, setIsOpen] = useState(false);
     const [visibleMonth, setVisibleMonth] = useState(value ?? new Date());
     const triggerRef = useRef<HTMLButtonElement>(null);
@@ -121,6 +130,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           // A plain preceding label (matching Select's pattern) keeps the
           // button's own content — the actual selected date — as its name.
           <span
+            id={labelId}
             style={{
               fontSize: typographyTokens.fontSize.md,
               fontWeight: typographyTokens.fontWeight.medium,
@@ -136,6 +146,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                 *
               </span>
             )}
+            {required && <VisuallyHidden>, required</VisuallyHidden>}
           </span>
         )}
         <button
@@ -150,6 +161,14 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           onClick={() => setIsOpen((prev) => !prev)}
           aria-haspopup="dialog"
           aria-expanded={isOpen}
+          aria-labelledby={label ? `${labelId} ${valueId}` : undefined}
+          aria-label={
+            !label && ariaLabel
+              ? `${ariaLabel}${required ? ", required" : ""}, ${value ? formatDisplayDate(value) : placeholder}`
+              : undefined
+          }
+          aria-invalid={error ? true : undefined}
+          aria-describedby={messageId}
           style={{
             display: "flex",
             alignItems: "center",
@@ -157,7 +176,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
             width: "100%",
             padding: "10px",
             fontSize: typographyTokens.fontSize.md,
-            border: `2px solid ${error ? colorTokens.interactive.error : colorTokens.interactive.secondary}`,
+            border: `2px solid ${error ? colorTokens.interactive.error : colorTokens.border.control}`,
             borderRadius: radiusTokens.md,
             backgroundColor: disabled
               ? colorTokens.background.tertiary
@@ -167,13 +186,15 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
             opacity: disabled ? 0.6 : 1,
           }}
         >
-          <span>{value ? formatDisplayDate(value) : placeholder}</span>
+          <span id={valueId}>{value ? formatDisplayDate(value) : placeholder}</span>
           <span aria-hidden="true" style={{ color: colorTokens.text.secondary }}>
             📅
           </span>
         </button>
         {error && (
           <span
+            id={messageId}
+            role="alert"
             style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.interactive.error }}
           >
             {error}
@@ -181,6 +202,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
         )}
         {helperText && !error && (
           <span
+            id={messageId}
             style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}
           >
             {helperText}

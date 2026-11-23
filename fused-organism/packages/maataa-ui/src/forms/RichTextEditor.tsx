@@ -100,7 +100,7 @@ const ACTIONS: { id: Action; label: string; glyph: string; key?: string }[] = [
   { id: "italic", label: "Italic", glyph: "I", key: "i" },
   { id: "heading", label: "Heading", glyph: "H" },
   { id: "bullets", label: "Bulleted list", glyph: "•" },
-  { id: "numbers", label: "Numbered list", glyph: "1." },
+  { id: "numbers", label: "Numbered list", glyph: "⒈" },
   { id: "link", label: "Link", glyph: "🔗", key: "k" },
 ];
 

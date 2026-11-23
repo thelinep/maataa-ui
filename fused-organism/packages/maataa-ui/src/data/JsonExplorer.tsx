@@ -80,7 +80,7 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
   const [focus, setFocus] = useState(root.path);
   const [q, setQ] = useState("");
   const [msg, setMsg] = useState("");
-  const refs = useRef<Record<string, HTMLLIElement | null>>({});
+  const refs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const matches = useMemo(() => {
     if (!q.trim()) return null;
@@ -174,25 +174,29 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
           : typeof n.value === "boolean"
             ? colorTokens.interactive.error
             : colorTokens.text.secondary;
+    const siblings = parent[n.path]
+      ? visible
+          .find((x) => x.path === parent[n.path])!
+          .kids.filter((k) => !matches || matches.has(k.path))
+      : [root];
     return (
-      <li
-        key={n.path}
-        ref={(el) => {
-          refs.current[n.path] = el;
-        }}
-        role="treeitem"
-        aria-expanded={isBranch ? expanded : undefined}
-        aria-selected={n.path === focus}
-        aria-label={`${n.key}: ${isBranch ? typeWord(n.value) : `${typeWord(n.value)}, ${preview(n.value)}`}`}
-        tabIndex={n.path === focus ? 0 : -1}
-        onKeyDown={(e) => onKey(e, n)}
-        onFocus={(e) => {
-          e.stopPropagation();
-          setFocus(n.path);
-        }}
-        style={{ listStyle: "none", outlineOffset: -2 }}
-      >
+      // The row is the treeitem (named by its own text); its children follow
+      // in a sibling group, with aria-level/setsize/posinset giving the tree
+      // structure. This keeps each name short and equal to what is shown.
+      <li key={n.path} role="none" style={{ listStyle: "none" }}>
         <div
+          ref={(el) => {
+            refs.current[n.path] = el;
+          }}
+          role="treeitem"
+          aria-level={n.depth + 1}
+          aria-setsize={siblings.length}
+          aria-posinset={siblings.findIndex((k) => k.path === n.path) + 1}
+          aria-expanded={isBranch ? expanded : undefined}
+          aria-selected={n.path === focus}
+          tabIndex={n.path === focus ? 0 : -1}
+          onKeyDown={(e) => onKey(e, n)}
+          onFocus={() => setFocus(n.path)}
           onClick={() => {
             move(n.path);
             if (isBranch) toggle(n.path);
@@ -206,35 +210,26 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
             cursor: isBranch ? "pointer" : "default",
             background: n.path === focus ? colorTokens.background.tertiary : undefined,
             borderRadius: 4,
+            outlineOffset: -2,
           }}
         >
           <span aria-hidden="true" style={{ width: 14, color: colorTokens.text.tertiary }}>
             {isBranch ? (expanded ? "▾" : "▸") : ""}
           </span>
           <span style={{ fontWeight: 600 }}>{n.key}</span>
-          <span style={{ color: colorTokens.text.tertiary }}>:</span>
-          <span style={{ color: valueColor }}>{preview(n.value)}</span>
-          {n.path === focus && (
-            <button
-              type="button"
-              tabIndex={-1}
-              onClick={(e) => {
-                e.stopPropagation();
-                copy(n.path);
-              }}
-              style={{
-                marginLeft: "auto",
-                minHeight: 24,
-                padding: "0 8px",
-                border: `1px solid ${colorTokens.border.control}`,
-                borderRadius: 4,
-                background: colorTokens.background.primary,
-                fontSize: 11,
-                cursor: "pointer",
-              }}
-            >
-              Copy path
-            </button>
+          <span style={{ color: colorTokens.text.tertiary }}>:</span>{" "}
+          {isBranch ? (
+            <>
+              <VisuallyHidden>{typeWord(n.value)}</VisuallyHidden>
+              <span aria-hidden="true" style={{ color: valueColor }}>
+                {preview(n.value)}
+              </span>
+            </>
+          ) : (
+            <>
+              <VisuallyHidden>{`${typeWord(n.value)},`}</VisuallyHidden>{" "}
+              <span style={{ color: valueColor }}>{preview(n.value)}</span>
+            </>
           )}
         </div>
         {isBranch && expanded && (
@@ -312,7 +307,23 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
         </button>
       </div>
       <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-        Path: <code>{focus}</code> · Right or Enter opens, Left closes, C copies the path.
+        Path: <code>{focus}</code> · Right or Enter opens, Left closes, C copies the path.{" "}
+        <button
+          type="button"
+          onClick={() => copy(focus)}
+          style={{
+            minHeight: 24,
+            padding: "0 8px",
+            border: `1px solid ${colorTokens.border.control}`,
+            borderRadius: 4,
+            background: colorTokens.background.primary,
+            color: colorTokens.text.primary,
+            fontSize: 12,
+            cursor: "pointer",
+          }}
+        >
+          Copy path
+        </button>
       </div>
       <ul
         role="tree"

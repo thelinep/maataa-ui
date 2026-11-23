@@ -120,6 +120,7 @@ export function EventCalendar({
         borderRadius: 3,
         padding: "1px 4px",
         marginTop: 2,
+        minHeight: 24, // WCAG 2.5.8 target size
         fontSize: typographyTokens.fontSize.xs,
         color: colorTokens.text.primary,
         cursor: "pointer",
@@ -234,6 +235,7 @@ export function EventCalendar({
                           border: "none",
                           background: "none",
                           padding: "1px 4px",
+                          minHeight: 24, // WCAG 2.5.8 target size
                           fontSize: typographyTokens.fontSize.xs,
                           color: colorTokens.interactive.primary,
                           cursor: "pointer",

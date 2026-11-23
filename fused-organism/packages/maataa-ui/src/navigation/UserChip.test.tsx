@@ -8,7 +8,8 @@ describe("UserChip", () => {
     const onClick = vi.fn();
     const user = userEvent.setup();
     render(<UserChip name="Hemant" subtitle="Producer" onClick={onClick} />);
-    const button = screen.getByRole("button", { name: "Account: Hemant" });
+    // Visible text is part of the name (WCAG 2.5.3)
+    const button = screen.getByRole("button", { name: "Account: Hemant Producer" });
     await user.click(button);
     expect(onClick).toHaveBeenCalled();
     expect(button).not.toHaveAttribute("aria-expanded");

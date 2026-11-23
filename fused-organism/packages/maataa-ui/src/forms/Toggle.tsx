@@ -77,6 +77,14 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
     const currentSize = sizeMap[size];
     const currentColor = colorMap[color];
 
+    // Every switch gets an id, so its label and description are tied to it.
+    const autoId = React.useId();
+    const inputId = props.id ?? autoId;
+    const descriptionId = description ? `${inputId}-description` : undefined;
+    const describedBy =
+      [props["aria-describedby"], descriptionId].filter(Boolean).join(" ") || undefined;
+    const [focusVisible, setFocusVisible] = React.useState(false);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.checked);
     };
@@ -91,26 +99,52 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
     return (
       <div style={{ width: "100%" }}>
         <div style={{ display: "flex", alignItems: "flex-start", gap: spacingTokens.sm }}>
-          <div style={{ position: "relative", display: "flex", marginTop: "2px" }}>
-            {/* Hidden input */}
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              // 24px minimum pointer target (WCAG 2.5.8)
+              minHeight: "24px",
+            }}
+          >
+            {/* Native input laid over the track: it takes the clicks and the focus */}
             <input
+              {...props}
               ref={ref}
+              id={inputId}
               type="checkbox"
+              role="switch"
+              aria-checked={checked}
+              aria-describedby={describedBy}
               checked={checked}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               disabled={disabled}
+              onFocus={(e) => {
+                setFocusVisible(e.currentTarget.matches?.(":focus-visible") ?? true);
+                props.onFocus?.(e);
+              }}
+              onBlur={(e) => {
+                setFocusVisible(false);
+                props.onBlur?.(e);
+              }}
               style={{
                 position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                margin: 0,
                 opacity: 0,
-                width: 0,
-                height: 0,
+                cursor: disabled ? "not-allowed" : "pointer",
+                zIndex: 1,
+                ...props.style,
               }}
-              {...props}
             />
 
             {/* Toggle background */}
             <div
+              aria-hidden="true"
               style={{
                 width: currentSize.width,
                 height: currentSize.height,
@@ -122,7 +156,11 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
                 paddingRight: checked ? spacingTokens.xs : "auto",
                 borderRadius: currentSize.height,
                 backgroundColor: checked ? currentColor : colorTokens.background.secondary,
-                cursor: disabled ? "not-allowed" : "pointer",
+                // The off track needs a 3:1 outline against the page (WCAG 1.4.11)
+                border: `1px solid ${checked ? currentColor : colorTokens.border.control}`,
+                boxSizing: "border-box",
+                outline: focusVisible ? `2px solid ${colorTokens.interactive.primary}` : "none",
+                outlineOffset: "2px",
                 transition: "background-color 0.3s ease",
                 opacity: disabled ? 0.6 : 1,
                 position: "relative",
@@ -155,17 +193,19 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
                     display: "block",
                     fontSize: currentSize.fontSize,
                     fontWeight: 500,
-                    color: colorTokens.text.primary,
+                    // Disabled text stays readable; the state is conveyed by the control
+                    color: disabled ? colorTokens.text.secondary : colorTokens.text.primary,
                     cursor: disabled ? "not-allowed" : "pointer",
-                    opacity: disabled ? 0.6 : 1,
+                    lineHeight: "24px",
                   }}
-                  htmlFor={props.id}
+                  htmlFor={inputId}
                 >
                   {label}
                 </label>
               )}
               {description && (
                 <p
+                  id={descriptionId}
                   style={{
                     fontSize: "calc(" + currentSize.fontSize + " * 0.857)",
                     color: colorTokens.text.secondary,

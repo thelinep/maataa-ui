@@ -85,7 +85,7 @@ export function SceneProgressTracker({
               gap: spacingTokens.sm,
               padding: `${spacingTokens.xs} 0`,
               borderBottom: `1px solid ${colorTokens.border.primary}`,
-              opacity: s.state === "moved" ? 0.6 : 1,
+              background: s.state === "moved" ? colorTokens.background.secondary : undefined,
             }}
           >
             <span>

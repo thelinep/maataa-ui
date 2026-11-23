@@ -45,7 +45,7 @@ export function RehearsalSceneList({
               gap: spacingTokens.sm,
               padding: `${spacingTokens.xs} 0`,
               borderBottom: `1px solid ${colorTokens.border.primary}`,
-              opacity: s.done ? 0.65 : 1,
+              background: s.done ? colorTokens.background.secondary : undefined,
             }}
           >
             <time

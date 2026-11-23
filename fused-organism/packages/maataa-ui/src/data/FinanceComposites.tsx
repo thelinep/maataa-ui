@@ -749,7 +749,6 @@ export function PitchSlideThumbnail({
   return onOpen ? (
     <button
       type="button"
-      aria-label={name}
       aria-current={current ? "true" : undefined}
       onClick={onOpen}
       style={{
@@ -763,7 +762,9 @@ export function PitchSlideThumbnail({
         cursor: "pointer",
       }}
     >
-      {body}
+      {/* Named by its content: the spoken summary, with the visual shorthand ("12s") hidden */}
+      <VisuallyHidden>{name}</VisuallyHidden>
+      <span aria-hidden="true">{body}</span>
     </button>
   ) : (
     <figure aria-label={name} style={{ margin: 0, width: 180 }}>
@@ -994,7 +995,9 @@ export function RewardTierCard({
   const left = limit != null ? limit - (claimed ?? 0) : null;
   const gone = left !== null && left <= 0;
   return (
-    <article style={{ ...card, opacity: gone ? 0.7 : 1 }}>
+    <article
+      style={{ ...card, background: gone ? colorTokens.background.secondary : card.background }}
+    >
       <div
         style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "baseline" }}
       >

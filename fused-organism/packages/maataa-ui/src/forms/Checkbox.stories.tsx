@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => {
     const [checked, setChecked] = useState(false);
-    return <Checkbox checked={checked} onChange={setChecked} />;
+    return <Checkbox checked={checked} onChange={setChecked} aria-label="Email me updates" />;
   },
 };
 
