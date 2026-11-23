@@ -972,7 +972,6 @@ export function ApprovalFrameMarker({
     <button
       type="button"
       onClick={onOpen}
-      aria-label={`Frame ${at}, ${s.label}${reviewer ? ` by ${reviewer}` : ""}${note ? `: ${note}` : ""}`}
       style={{
         display: "block",
         width: 200,
@@ -985,7 +984,10 @@ export function ApprovalFrameMarker({
         cursor: "pointer",
       }}
     >
-      {body}
+      <VisuallyHidden>
+        {`Frame ${at}, ${s.label}${reviewer ? ` by ${reviewer}` : ""}${note ? `: ${note}` : ""}`}
+      </VisuallyHidden>
+      <span aria-hidden="true">{body}</span>
     </button>
   ) : (
     <figure style={{ margin: 0, width: 200 }} aria-label={`Frame ${at}, ${s.label}`}>

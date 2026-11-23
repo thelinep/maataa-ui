@@ -17,7 +17,7 @@ function ControlledGeoMap() {
 describe("GeoMap", () => {
   it("renders an SVG with an accessible label naming the pin count", () => {
     render(<GeoMap pins={pins} />);
-    expect(screen.getByRole("img", { name: "Map with 3 locations" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Map with 3 locations" })).toBeInTheDocument();
   });
 
   it("renders each pin as a labeled, selectable button", () => {

@@ -125,6 +125,12 @@ export const Toast: React.FC<ToastProps> = ({
               opacity: 1;
             }
           }
+          @media (prefers-reduced-motion: reduce) {
+            @keyframes slideInRight {
+              from { transform: none; opacity: 1; }
+              to { transform: none; opacity: 1; }
+            }
+          }
         `}
       </style>
     </div>

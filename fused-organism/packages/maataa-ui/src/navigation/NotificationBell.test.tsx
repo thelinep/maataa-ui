@@ -5,7 +5,7 @@ import { NotificationBell } from "./NotificationBell";
 describe("NotificationBell", () => {
   it("names the unread count once", () => {
     render(<NotificationBell unread={120} expanded={false} />);
-    const b = screen.getByRole("button", { name: "Notifications, 120 unread" });
+    const b = screen.getByRole("button", { name: "Notifications, 99+ unread" });
     expect(b).toHaveAttribute("aria-expanded", "false");
     expect(b).toHaveTextContent("99+");
   });

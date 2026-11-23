@@ -110,7 +110,12 @@ export function EvidencePackBuilder({
                         `${d.name} ${e.target.checked ? "added to" : "removed from"} the pack`
                       );
                     }}
-                    style={{ accentColor: colorTokens.interactive.primary }}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      margin: 2,
+                      accentColor: colorTokens.interactive.primary,
+                    }}
                   />
                   {d.name}
                   {d.sensitive && " "}
@@ -210,7 +215,12 @@ export function EvidencePackBuilder({
             type="checkbox"
             checked={redact}
             onChange={(e) => onRedactChange(e.target.checked)}
-            style={{ marginTop: 3, accentColor: colorTokens.interactive.primary }}
+            style={{
+              width: 20,
+              height: 20,
+              margin: "1px 2px 2px",
+              accentColor: colorTokens.interactive.primary,
+            }}
           />
           <span>
             Remove personal details (cast and crew phone numbers, addresses, ID numbers)
@@ -345,7 +355,12 @@ export function SharePermissions({
             type="checkbox"
             checked={dl}
             onChange={(e) => setDl(e.target.checked)}
-            style={{ accentColor: colorTokens.interactive.primary }}
+            style={{
+              width: 20,
+              height: 20,
+              margin: 2,
+              accentColor: colorTokens.interactive.primary,
+            }}
           />
           Can download
         </label>

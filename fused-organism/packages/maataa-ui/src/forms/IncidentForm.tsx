@@ -119,7 +119,12 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
               name={`${id}-kind`}
               checked={v.kind === k}
               onChange={() => set("kind", k as IncidentValues["kind"])}
-              style={{ accentColor: colorTokens.interactive.primary }}
+              style={{
+                width: 20,
+                height: 20,
+                margin: 2,
+                accentColor: colorTokens.interactive.primary,
+              }}
             />
             {l}
           </label>
@@ -166,7 +171,12 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
               type="checkbox"
               checked={v.firstAidGiven}
               onChange={(e) => set("firstAidGiven", e.target.checked)}
-              style={{ accentColor: colorTokens.interactive.primary }}
+              style={{
+                width: 20,
+                height: 20,
+                margin: 2,
+                accentColor: colorTokens.interactive.primary,
+              }}
             />
             First aid given
           </label>
@@ -175,7 +185,12 @@ export function IncidentForm({ onSubmit, busy }: IncidentFormProps) {
               type="checkbox"
               checked={v.hospitalVisit}
               onChange={(e) => set("hospitalVisit", e.target.checked)}
-              style={{ accentColor: colorTokens.interactive.primary }}
+              style={{
+                width: 20,
+                height: 20,
+                margin: 2,
+                accentColor: colorTokens.interactive.primary,
+              }}
             />
             Went to hospital
           </label>

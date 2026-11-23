@@ -198,7 +198,8 @@ export function NotificationPanel({
               <button
                 type="button"
                 onClick={() => onMarkRead(n.id, !n.read)}
-                aria-label={`Mark ${n.title} as ${n.read ? "unread" : "read"}`}
+                // Starts with the visible text (WCAG 2.5.3), then says which notification
+                aria-label={`${n.read ? "Mark unread" : "Mark read"}: ${n.title}`}
                 style={{
                   alignSelf: "start",
                   background: "none",

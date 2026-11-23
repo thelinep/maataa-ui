@@ -153,9 +153,7 @@ export function FilterPills({
             {p.label}
             {p.count != null && (
               <>
-                <span aria-hidden="true" style={{ opacity: 0.8 }}>
-                  {` (${p.count})`}
-                </span>
+                <span aria-hidden="true">{` (${p.count})`}</span>
                 <VisuallyHidden>
                   , {p.count} {p.count === 1 ? "result" : "results"}
                 </VisuallyHidden>

@@ -65,7 +65,12 @@ export function ErrorSummary({
                 ev.preventDefault();
                 document.getElementById(e.fieldId)?.focus();
               }}
-              style={{ color: colorTokens.interactive.error }}
+              style={{
+                color: colorTokens.interactive.error,
+                display: "inline-block",
+                minHeight: 24, // WCAG 2.5.8 target size
+                lineHeight: "24px",
+              }}
             >
               {e.message}
             </a>

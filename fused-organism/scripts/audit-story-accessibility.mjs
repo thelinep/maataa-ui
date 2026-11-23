@@ -81,6 +81,11 @@ try {
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.locator("#storybook-root").waitFor({ state: "attached", timeout: 15000 });
       await page.waitForTimeout(100);
+      await page.evaluate(() => {
+        const finite = document.getAnimations().filter((animation) => Number.isFinite(animation.effect?.getComputedTiming().endTime ?? Infinity));
+        const settled = Promise.all(finite.map((animation) => animation.finished.catch(() => undefined)));
+        return Promise.race([settled, new Promise((resolve) => setTimeout(resolve, 3000))]);
+      });
       if (!(await page.evaluate(() => Boolean(window.axe)))) await page.addScriptTag({ content: axeSource });
       const axe = await runAxe(page);
       results.push({ id: story.id, title: story.title, name: story.name, stability: classifyStory(story), violations: axe.violations.map((violation) => ({
@@ -102,13 +107,13 @@ try {
   const stableFailed = failed.filter((entry) => entry.stability === "stable");
   const violationCount = failed.reduce((sum, entry) => sum + (entry.violations?.length ?? 0), 0);
   const stableViolationCount = stableFailed.reduce((sum, entry) => sum + (entry.violations?.length ?? 0), 0);
-  console.log("axe audit: " + stories.length + " stories; " + violationCount + " total violations across beta/experimental stories; stable-set violations: " + stableViolationCount + "; report: " + reportPath);
-  if (stableFailed.length || results.some((entry) => entry.error)) {
-    for (const entry of stableFailed.slice(0, 15)) {
+  console.log("axe audit: " + stories.length + " stories; " + violationCount + " total violations (stable-set: " + stableViolationCount + "); report: " + reportPath);
+  if (failed.length) {
+    for (const entry of failed.slice(0, 25)) {
       if (entry.error) console.error(entry.id + ": " + entry.error);
-      else console.error(entry.id + ": " + entry.violations.map((violation) => violation.id + " (" + violation.impact + ")").join(", "));
+      else console.error(entry.id + " [" + entry.stability + "]: " + entry.violations.map((violation) => violation.id + " (" + violation.impact + ")").join(", "));
     }
-    if (stableFailed.length || results.some((entry) => entry.error)) process.exitCode = 1;
+    process.exitCode = 1;
   }
 } finally {
   await browser?.close();

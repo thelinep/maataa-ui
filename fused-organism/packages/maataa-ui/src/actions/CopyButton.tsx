@@ -60,12 +60,19 @@ export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
       const t = setTimeout(() => setState("idle"), 2000);
       return () => clearTimeout(t);
     }, [state]);
+    // The accessible name starts with the visible text (WCAG 2.5.3 Label in
+    // Name), so voice users can say what they see: "Copy" → "Copy share link".
+    const visible =
+      state === "copied" ? "Copied" : typeof children === "string" ? children : "Copy";
+    const accessibleName = visible.toLowerCase().includes(what.toLowerCase())
+      ? visible
+      : `${visible} ${what}`;
     return (
       <>
         <Button
           ref={ref}
           variant={variant}
-          aria-label={`Copy ${what}`}
+          aria-label={accessibleName}
           onClick={async () => {
             const ok = await copyText(value);
             setState(ok ? "copied" : "failed");
@@ -73,7 +80,13 @@ export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
           }}
           {...props}
         >
-          {state === "copied" ? "Copied ✓" : children}
+          {state === "copied" ? (
+            <>
+              Copied <span aria-hidden="true">✓</span>
+            </>
+          ) : (
+            children
+          )}
         </Button>
         <VisuallyHidden role="status">
           {state === "copied"

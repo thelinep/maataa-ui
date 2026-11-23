@@ -131,13 +131,26 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.checked);
     };
+    const [focusVisible, setFocusVisible] = React.useState(false);
+    const descriptionId = description ? `${inputId}-description` : undefined;
 
     return (
       <div style={{ width: "100%" }}>
         <div style={{ display: "flex", alignItems: "flex-start", gap: spacingTokens.sm }}>
-          <div style={{ position: "relative", display: "flex", marginTop: "2px" }}>
-            {/* Hidden input */}
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              // 24px minimum pointer target (WCAG 2.5.8) around the visible circle
+              minWidth: "24px",
+              minHeight: "24px",
+            }}
+          >
+            {/* Native input laid over the circle: it takes the clicks and the focus */}
             <input
+              {...props}
               ref={ref}
               id={inputId}
               type="radio"
@@ -145,17 +158,33 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
               checked={checked}
               onChange={handleChange}
               disabled={disabled}
+              aria-describedby={
+                [props["aria-describedby"], descriptionId].filter(Boolean).join(" ") || undefined
+              }
+              onFocus={(e) => {
+                setFocusVisible(e.currentTarget.matches?.(":focus-visible") ?? true);
+                props.onFocus?.(e);
+              }}
+              onBlur={(e) => {
+                setFocusVisible(false);
+                props.onBlur?.(e);
+              }}
               style={{
                 position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                margin: 0,
                 opacity: 0,
-                width: 0,
-                height: 0,
+                cursor: disabled ? "not-allowed" : "pointer",
+                zIndex: 1,
+                ...props.style,
               }}
-              {...props}
             />
 
             {/* Custom radio visual */}
             <div
+              aria-hidden="true"
               style={{
                 width: currentSize.size,
                 height: currentSize.size,
@@ -167,9 +196,10 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                 border: `2px solid ${checked ? colorTokens.interactive.primary : colorTokens.border.control}`,
                 borderRadius: "50%",
                 backgroundColor: colorTokens.background.primary,
-                cursor: disabled ? "not-allowed" : "pointer",
                 transition: "all 0.2s ease",
                 opacity: disabled ? 0.6 : 1,
+                outline: focusVisible ? `2px solid ${colorTokens.interactive.primary}` : "none",
+                outlineOffset: "2px",
               }}
             >
               {/* Inner dot */}
@@ -195,9 +225,10 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                     display: "block",
                     fontSize: currentSize.fontSize,
                     fontWeight: 500,
-                    color: colorTokens.text.primary,
+                    // Disabled text stays readable; the state is conveyed by the control
+                    color: disabled ? colorTokens.text.secondary : colorTokens.text.primary,
                     cursor: disabled ? "not-allowed" : "pointer",
-                    opacity: disabled ? 0.6 : 1,
+                    lineHeight: "24px",
                   }}
                   htmlFor={inputId}
                 >
@@ -206,6 +237,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
               )}
               {description && (
                 <p
+                  id={descriptionId}
                   style={{
                     fontSize: "calc(" + currentSize.fontSize + " * 0.857)",
                     color: colorTokens.text.secondary,

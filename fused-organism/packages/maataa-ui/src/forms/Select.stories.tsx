@@ -24,7 +24,7 @@ const basicOptions = [
 export const Default: Story = {
   render: () => {
     const [value, setValue] = useState("");
-    return <Select options={basicOptions} value={value} onChange={setValue} />;
+    return <Select options={basicOptions} value={value} onChange={setValue} label="Fruit" />;
   },
 };
 
@@ -129,6 +129,7 @@ export const Small: Story = {
         value={value}
         onChange={setValue}
         size="sm"
+        label="Fruit (small)"
         placeholder="Small select"
       />
     );
@@ -144,6 +145,7 @@ export const Large: Story = {
         value={value}
         onChange={setValue}
         size="lg"
+        label="Fruit (large)"
         placeholder="Large select"
       />
     );

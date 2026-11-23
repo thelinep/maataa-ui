@@ -1,6 +1,6 @@
 /**
  * @maataa/ui/forms/MentionInput
- * Multi-line text where "@" opens a list of people to mention (APG combobox on a textarea)
+ * Multi-line text where "@" opens a list of people to mention (multi-line textbox with aria-autocomplete="list"; textarea cannot take role="combobox")
  */
 
 import React, { useId, useRef, useState } from "react";
@@ -88,9 +88,7 @@ export function MentionInput({
             id={ids.id}
             rows={rows}
             value={value}
-            role="combobox"
             aria-autocomplete="list"
-            aria-expanded={open}
             aria-controls={open ? listId : undefined}
             aria-activedescendant={open ? `${listId}-${active}` : undefined}
             aria-invalid={error ? true : undefined}

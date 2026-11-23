@@ -15,6 +15,8 @@ describe("JsonExplorer", () => {
     render(<JsonExplorer data={data} label="Project data" />);
     const tree = screen.getByRole("tree", { name: "Project data" });
     expect(tree).toBeInTheDocument();
+    // Filter, Expand all, Collapse all, Copy path, then the tree
+    await user.tab();
     await user.tab();
     await user.tab();
     await user.tab();

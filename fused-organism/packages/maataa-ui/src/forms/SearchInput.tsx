@@ -105,12 +105,13 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
             onClick={onClear}
             style={{
               position: "absolute",
-              right: "8px",
+              right: "6px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "20px",
-              height: "20px",
+              // 24px target (WCAG 2.5.8)
+              width: "24px",
+              height: "24px",
               padding: 0,
               border: "none",
               borderRadius: radiusTokens.full,

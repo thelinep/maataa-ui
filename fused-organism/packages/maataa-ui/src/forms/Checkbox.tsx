@@ -66,8 +66,25 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref
   ) => {
-    const inputRef = React.useRef<HTMLInputElement>(null);
-    const mergedRef = React.useMemo(() => (ref || inputRef) as React.Ref<HTMLInputElement>, [ref]);
+    const inputRef = React.useRef<HTMLInputElement | null>(null);
+    const setRefs = React.useCallback(
+      (node: HTMLInputElement | null) => {
+        inputRef.current = node;
+        if (typeof ref === "function") ref(node);
+        else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
+      },
+      [ref]
+    );
+    const [focusVisible, setFocusVisible] = React.useState(false);
+
+    // Every checkbox gets an id, so its label, description and error are
+    // programmatically tied to it (WCAG 1.3.1, 4.1.2).
+    const autoId = React.useId();
+    const inputId = props.id ?? autoId;
+    const descriptionId = description ? `${inputId}-description` : undefined;
+    const errorId = error ? `${inputId}-error` : undefined;
+    const describedBy =
+      [props["aria-describedby"], descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
     const sizeMap = {
       sm: { size: "16px", fontSize: "13px" },
@@ -78,11 +95,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const currentSize = sizeMap[size];
 
     React.useEffect(() => {
-      const input = (mergedRef as any)?.current;
-      if (input) {
-        input.indeterminate = indeterminate;
-      }
-    }, [indeterminate, mergedRef]);
+      if (inputRef.current) inputRef.current.indeterminate = indeterminate;
+    }, [indeterminate]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.checked);
@@ -97,25 +111,52 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <div style={{ width: "100%" }}>
         <div style={{ display: "flex", alignItems: "flex-start", gap: spacingTokens.sm }}>
-          <div style={{ position: "relative", display: "flex", marginTop: "2px" }}>
-            {/* Hidden input */}
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              // 24px minimum pointer target (WCAG 2.5.8) around the visible box
+              minWidth: "24px",
+              minHeight: "24px",
+            }}
+          >
+            {/* Native input laid over the box: it takes the clicks and the focus */}
             <input
-              ref={mergedRef as any}
+              {...props}
+              ref={setRefs}
+              id={inputId}
               type="checkbox"
               checked={checked}
               onChange={handleChange}
               disabled={disabled}
+              aria-invalid={error ? true : props["aria-invalid"]}
+              aria-describedby={describedBy}
+              onFocus={(e) => {
+                setFocusVisible(e.currentTarget.matches?.(":focus-visible") ?? true);
+                props.onFocus?.(e);
+              }}
+              onBlur={(e) => {
+                setFocusVisible(false);
+                props.onBlur?.(e);
+              }}
               style={{
                 position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                margin: 0,
                 opacity: 0,
-                width: 0,
-                height: 0,
+                cursor: disabled ? "not-allowed" : "pointer",
+                zIndex: 1,
+                ...props.style,
               }}
-              {...props}
             />
 
             {/* Custom checkbox visual */}
             <div
+              aria-hidden="true"
               style={{
                 width: currentSize.size,
                 height: currentSize.size,
@@ -133,9 +174,10 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 color: colorTokens.background.primary,
                 fontWeight: "bold",
                 fontSize: "calc(" + currentSize.size + " * 0.6)",
-                cursor: disabled ? "not-allowed" : "pointer",
                 transition: "all 0.2s ease",
                 opacity: disabled ? 0.6 : 1,
+                outline: focusVisible ? `2px solid ${colorTokens.interactive.primary}` : "none",
+                outlineOffset: "2px",
               }}
             >
               {getCheckmarkContent()}
@@ -155,17 +197,19 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                     display: "block",
                     fontSize: currentSize.fontSize,
                     fontWeight: 500,
-                    color: colorTokens.text.primary,
+                    // Disabled text stays readable; the state is conveyed by the control
+                    color: disabled ? colorTokens.text.secondary : colorTokens.text.primary,
                     cursor: disabled ? "not-allowed" : "pointer",
-                    opacity: disabled ? 0.6 : 1,
+                    lineHeight: "24px",
                   }}
-                  htmlFor={props.id}
+                  htmlFor={inputId}
                 >
                   {label}
                 </label>
               )}
               {description && (
                 <p
+                  id={descriptionId}
                   style={{
                     fontSize: "calc(" + currentSize.fontSize + " * 0.857)", // ~12px for md
                     color: colorTokens.text.secondary,
@@ -182,11 +226,12 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         {/* Error message */}
         {error && (
           <p
+            id={errorId}
             style={{
               fontSize: "calc(" + currentSize.fontSize + " * 0.857)",
               color: colorTokens.interactive.error,
               marginTop: "4px",
-              marginLeft: "calc(" + currentSize.size + " + " + spacingTokens.sm + ")",
+              marginLeft: "calc(24px + " + spacingTokens.sm + ")",
             }}
           >
             {error}

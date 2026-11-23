@@ -5,6 +5,7 @@
 
 import React from "react";
 import { Avatar } from "../data/Avatar";
+import { VisuallyHidden } from "../primitives/VisuallyHidden";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
 export interface UserChipProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,7 +32,7 @@ export const UserChip = React.forwardRef<HTMLButtonElement, UserChipProps>(
     <button
       ref={ref}
       type="button"
-      aria-label={`Account: ${name}`}
+      // Name = visible text plus context (WCAG 2.5.3): "Account: Hemant Producer"
       aria-haspopup={expanded === undefined ? undefined : "menu"}
       aria-expanded={expanded}
       style={{
@@ -51,10 +52,12 @@ export const UserChip = React.forwardRef<HTMLButtonElement, UserChipProps>(
       {...props}
     >
       <Avatar name={name} src={avatarSrc} size="sm" decorative />
+      <VisuallyHidden>Account:</VisuallyHidden>{" "}
       <span
         style={{ display: "flex", flexDirection: "column", textAlign: "left", lineHeight: 1.2 }}
       >
         <span style={{ fontWeight: 600 }}>{name}</span>
+        {subtitle && " "}
         {subtitle && (
           <span
             style={{ color: colorTokens.text.secondary, fontSize: typographyTokens.fontSize.xs }}

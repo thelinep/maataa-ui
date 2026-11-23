@@ -42,7 +42,7 @@ describe("NotificationPanel", () => {
     expect(screen.queryByText("Day 4 call time moved")).toBeNull();
     await user.click(screen.getByRole("button", { name: "Unread: Budget needs approval" }));
     expect(onOpen).toHaveBeenCalledWith(items[0]);
-    await user.click(screen.getByRole("button", { name: "Mark Budget needs approval as read" }));
+    await user.click(screen.getByRole("button", { name: "Mark read: Budget needs approval" }));
     expect(onMarkRead).toHaveBeenCalledWith("1", true);
     await user.click(screen.getByRole("button", { name: "Mark all read" }));
     expect(onMarkAllRead).toHaveBeenCalled();

@@ -163,7 +163,7 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
           width={width}
           height={height}
           viewBox={`0 0 ${planWidth} ${planHeight}`}
-          role="img"
+          role="group"
           aria-label={`Venue floor plan with ${zones.length} zones`}
           onWheel={handleWheel}
           onMouseMove={handleMouseMove}
@@ -213,11 +213,10 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
                 : STATUS_STYLES[zone.status ?? "available"];
               const strokeWidth = isSelected ? 0.6 : isHovered && !isBlocked ? 0.4 : 0.15;
               const commonProps = {
-                role: isBlocked ? undefined : "button",
+                role: isBlocked ? "img" : "button",
                 tabIndex: isBlocked ? undefined : 0,
                 "aria-pressed": isBlocked ? undefined : isSelected,
-                "aria-label": zone.label,
-                "aria-disabled": isBlocked || undefined,
+                "aria-label": isBlocked ? `${zone.label}, unavailable` : zone.label,
                 onClick: () => handleSelect(zone),
                 onKeyDown: (e: React.KeyboardEvent) => handleKeyDown(e, zone),
                 onMouseEnter: () => setHoveredId(zone.id),
@@ -255,6 +254,7 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
                     fontSize={Math.min(zone.width, zone.height) * 0.28}
                     fill={colorTokens.text.primary}
                     pointerEvents="none"
+                    aria-hidden="true"
                   >
                     {zone.label}
                   </text>
