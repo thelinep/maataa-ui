@@ -3,6 +3,7 @@ import path from "node:path";
 const root=path.resolve(new URL("..",import.meta.url).pathname);
 const runtime=JSON.parse(fs.readFileSync(path.join(root,"tests/browser/runtime-policy.json"),"utf8"));
 const manifest=JSON.parse(fs.readFileSync(path.join(root,"tests/browser/baselines/manifest.json"),"utf8"));
+const uiManifest=JSON.parse(fs.readFileSync(path.join(root,"tests/browser/ui-baselines/manifest.json"),"utf8"));
 const errors=[];
 if(manifest.browser?.family!==runtime.browserFamily)errors.push("baseline browser family does not match runtime policy");
 if(manifest.browser?.exactVersion!==runtime.exactVersion)errors.push("baseline browser version does not match pinned runtime");
@@ -11,5 +12,12 @@ if(manifest.comparison?.channelTolerance!==10)errors.push("channelTolerance must
 if(manifest.comparison?.maxPixelRatio!==0.003)errors.push("maxPixelRatio must remain 0.003 for M2 closeout");
 if(manifest.updatePolicy?.certificationMayUpdate!==false)errors.push("certification must not update baselines");
 for(const b of manifest.baselines??[])if(!fs.existsSync(path.join(root,"tests/browser/baselines",b.name)))errors.push(`missing baseline ${b.name}`);
+if(uiManifest.browser?.family!==runtime.browserFamily)errors.push("UI baseline browser family does not match runtime policy");
+if(uiManifest.browser?.exactVersion!==runtime.exactVersion)errors.push("UI baseline browser version does not match runtime policy");
+if(uiManifest.deviceScaleFactor!==runtime.deviceScaleFactor)errors.push("UI baseline DPR does not match runtime policy");
+if(uiManifest.comparison?.channelTolerance!==manifest.comparison?.channelTolerance||uiManifest.comparison?.maxPixelRatio!==manifest.comparison?.maxPixelRatio)errors.push("UI baseline comparison thresholds must match the stable visual policy");
+if(uiManifest.updatePolicy?.certificationMayUpdate!==false)errors.push("UI certification must not update baselines");
+if(uiManifest.baselines?.length!==15)errors.push("UI stable visual manifest must cover all 15 rendered core primitives");
+for(const b of uiManifest.baselines??[])if(!fs.existsSync(path.join(root,"tests/browser/ui-baselines",b.name)))errors.push(`missing stable UI baseline ${b.name}`);
 if(errors.length){console.error("visual policy FAIL\n"+errors.join("\n"));process.exit(1);}
 console.log(`visual policy PASS (${runtime.browserFamily} ${runtime.exactVersion}; DPR ${runtime.deviceScaleFactor}; tolerance 10; max ratio 0.003)`);

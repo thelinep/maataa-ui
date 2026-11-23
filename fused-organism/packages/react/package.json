@@ -1,6 +1,6 @@
 {
   "name": "@maataa/react",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -17,12 +17,12 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/core": "*",
-    "@maataa/ai": "*",
-    "@maataa/governance": "*",
-    "@maataa/control": "*",
-    "@maataa/renderer": "*",
-    "@maataa/registry": "*"
+    "@maataa/core": "^0.4.2-alpha.0",
+    "@maataa/ai": "^0.4.2-alpha.0",
+    "@maataa/governance": "^0.4.2-alpha.0",
+    "@maataa/control": "^0.4.2-alpha.0",
+    "@maataa/renderer": "^0.4.2-alpha.0",
+    "@maataa/registry": "^0.4.2-alpha.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20"
@@ -38,5 +38,10 @@
     "runtimeDependencyClaim": "excluded-from-external-dependencies-claim",
     "adapterContractVersion": "1.0.0",
     "browserCertification": "M2-closeout-0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/react"
   }
 }

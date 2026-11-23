@@ -43,3 +43,7 @@ MAATAA_VISUAL_REVIEW=approved npm run visuals:update
 That wrapper is the only supported update path. It passes a private update token to `browser-certify.mjs --update-baselines`. Running certification normally with an update token is rejected.
 
 Baseline changes are expected to be reviewed in source control like any other compatibility artifact.
+
+## Stable UI component baselines
+
+The 1.0 stable primitive set has one Storybook canvas baseline per rendered component in `tests/browser/ui-baselines/manifest.json`. These are captured at 1280×900 on the same pinned Chromium 144.0.7559.96 build as the semantic fixtures. Normal certification compares each image and never updates it. Review and update these separately with `MAATAA_VISUAL_REVIEW=approved npm run visuals:update:ui`.

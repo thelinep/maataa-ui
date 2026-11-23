@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ImageCropUpload } from "./ImageCropUpload";
 
 const meta = { title: "Forms/ImageCropUpload", tags: ["autodocs"] } satisfies Meta;

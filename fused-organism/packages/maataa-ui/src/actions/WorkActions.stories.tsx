@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SaveDraftButton, BulkActionBar } from "./WorkActions";
 
 const meta = { title: "Actions/WorkActions", tags: ["autodocs"] } satisfies Meta;

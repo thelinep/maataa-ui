@@ -1,0 +1,6512 @@
+{
+  "schemaVersion": 1,
+  "generated": true,
+  "package": "@maataa/ui and fused packages",
+  "uiPackageVersion": "1.0.0-alpha.2",
+  "productVersion": "0.4.2-alpha.0",
+  "classification": {
+    "stable": "Only the explicitly listed @maataa/primitives exports and their @maataa/ui aliases are covered by the 1.0 semver promise.",
+    "beta": "Other MAATAA exports remain beta unless explicitly classified as experimental.",
+    "experimental": "All @tlps/* package exports, the @maataa/ui/maps entry, and Web3, finance, logistics, and culture domain composites are experimental."
+  },
+  "stableSet": [
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "AspectRatio"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Badge"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Box"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Button"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Card"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Container"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Divider"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "FieldContext"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Flex"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Grid"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Input"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Portal"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "ScrollArea"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Spacer"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "Stack"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "VisuallyHidden"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "primitiveComponents"
+    },
+    {
+      "package": "@maataa/primitives",
+      "entry": ".",
+      "name": "useField"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "AspectRatio"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "AspectRatio"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Badge"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Badge"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Box"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Box"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Button"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Button"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Card"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Card"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Container"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Container"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Divider"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Divider"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "FieldContext"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "FieldContext"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Flex"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Flex"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Grid"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Grid"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Input"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Input"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Portal"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Portal"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "ScrollArea"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "ScrollArea"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Spacer"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Spacer"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "Stack"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "Stack"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "VisuallyHidden"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "VisuallyHidden"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "primitiveComponents"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "primitiveComponents"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": ".",
+      "name": "useField"
+    },
+    {
+      "package": "@maataa/ui",
+      "entry": "./primitives",
+      "name": "useField"
+    }
+  ],
+  "packages": [
+    {
+      "name": "@maataa/adapter-sdk",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "createCameraSimulatorAdapter",
+          "stability": "beta"
+        },
+        {
+          "name": "defineAdapter",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/ai",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "agentStep",
+          "stability": "beta"
+        },
+        {
+          "name": "createHeadlessComponent",
+          "stability": "beta"
+        },
+        {
+          "name": "recommendationViewModel",
+          "stability": "beta"
+        },
+        {
+          "name": "usageSnapshot",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@tlps/composites",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "CompositesCatalog",
+          "stability": "experimental"
+        },
+        {
+          "name": "CompositesCategories",
+          "stability": "experimental"
+        },
+        {
+          "name": "implementedComposites",
+          "stability": "experimental"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/contracts",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "assertContract",
+          "stability": "beta"
+        },
+        {
+          "name": "schemas",
+          "stability": "beta"
+        },
+        {
+          "name": "validateContract",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/control",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "acquireLease",
+          "stability": "beta"
+        },
+        {
+          "name": "controlComponent",
+          "stability": "beta"
+        },
+        {
+          "name": "controlComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "controlledStopRequest",
+          "stability": "beta"
+        },
+        {
+          "name": "createCommand",
+          "stability": "beta"
+        },
+        {
+          "name": "createHeadlessComponent",
+          "stability": "beta"
+        },
+        {
+          "name": "evaluateSafety",
+          "stability": "beta"
+        },
+        {
+          "name": "executeGovernedCommand",
+          "stability": "beta"
+        },
+        {
+          "name": "isTerminal",
+          "stability": "beta"
+        },
+        {
+          "name": "releaseLease",
+          "stability": "beta"
+        },
+        {
+          "name": "renewLease",
+          "stability": "beta"
+        },
+        {
+          "name": "revokeLease",
+          "stability": "beta"
+        },
+        {
+          "name": "terminalStates",
+          "stability": "beta"
+        },
+        {
+          "name": "transition",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/core",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "accessibleName",
+          "stability": "beta"
+        },
+        {
+          "name": "assertInteractiveA11y",
+          "stability": "beta"
+        },
+        {
+          "name": "createHeadlessComponent",
+          "stability": "beta"
+        },
+        {
+          "name": "liveRegionPoliteness",
+          "stability": "beta"
+        },
+        {
+          "name": "primitive",
+          "stability": "beta"
+        },
+        {
+          "name": "primitiveNames",
+          "stability": "beta"
+        },
+        {
+          "name": "semanticTokens",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@tlps/domain-primitives",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "Canvas",
+          "stability": "experimental"
+        },
+        {
+          "name": "CanvasSurface",
+          "stability": "experimental"
+        },
+        {
+          "name": "DomainPrimitivesCatalog",
+          "stability": "experimental"
+        },
+        {
+          "name": "DomainPrimitivesCategories",
+          "stability": "experimental"
+        },
+        {
+          "name": "Environment",
+          "stability": "experimental"
+        },
+        {
+          "name": "Lighting",
+          "stability": "experimental"
+        },
+        {
+          "name": "Material",
+          "stability": "experimental"
+        },
+        {
+          "name": "OrbitControl",
+          "stability": "experimental"
+        },
+        {
+          "name": "Rotate",
+          "stability": "experimental"
+        },
+        {
+          "name": "Scale",
+          "stability": "experimental"
+        },
+        {
+          "name": "Scene3D",
+          "stability": "experimental"
+        },
+        {
+          "name": "Snapshot",
+          "stability": "experimental"
+        },
+        {
+          "name": "SpatialCanvas",
+          "stability": "experimental"
+        },
+        {
+          "name": "TransformControl",
+          "stability": "experimental"
+        },
+        {
+          "name": "Translate",
+          "stability": "experimental"
+        },
+        {
+          "name": "Viewport",
+          "stability": "experimental"
+        },
+        {
+          "name": "createGeometry3D",
+          "stability": "experimental"
+        },
+        {
+          "name": "createModel3D",
+          "stability": "experimental"
+        },
+        {
+          "name": "defaultCamera3D",
+          "stability": "experimental"
+        },
+        {
+          "name": "implementedDomainPrimitives",
+          "stability": "experimental"
+        },
+        {
+          "name": "modelMatrix",
+          "stability": "experimental"
+        },
+        {
+          "name": "multiply4",
+          "stability": "experimental"
+        },
+        {
+          "name": "perspective4",
+          "stability": "experimental"
+        },
+        {
+          "name": "viewMatrix",
+          "stability": "experimental"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/domain-registry",
+      "version": "0.1.0",
+      "exports": [
+        {
+          "name": "assertRegistryPublishable",
+          "stability": "beta"
+        },
+        {
+          "name": "getContextDependencies",
+          "stability": "beta"
+        },
+        {
+          "name": "getContextDependents",
+          "stability": "beta"
+        },
+        {
+          "name": "getRegistryGate",
+          "stability": "beta"
+        },
+        {
+          "name": "getRegistryHeatmap",
+          "stability": "beta"
+        },
+        {
+          "name": "lookupDependencies",
+          "stability": "beta"
+        },
+        {
+          "name": "manifest",
+          "stability": "beta"
+        },
+        {
+          "name": "registry",
+          "stability": "beta"
+        },
+        {
+          "name": "resolveProductComposition",
+          "stability": "beta"
+        },
+        {
+          "name": "resolveRoute",
+          "stability": "beta"
+        },
+        {
+          "name": "searchRegistry",
+          "stability": "beta"
+        },
+        {
+          "name": "validateRegistry",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@tlps/evidence-primitives",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "EvidencePrimitivesCatalog",
+          "stability": "experimental"
+        },
+        {
+          "name": "EvidencePrimitivesCategories",
+          "stability": "experimental"
+        },
+        {
+          "name": "implementedEvidencePrimitives",
+          "stability": "experimental"
+        }
+      ]
+    },
+    {
+      "name": "@tlps/generative-primitives",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "GenerativePrimitivesCatalog",
+          "stability": "experimental"
+        },
+        {
+          "name": "GenerativePrimitivesCategories",
+          "stability": "experimental"
+        },
+        {
+          "name": "implementedGenerativePrimitives",
+          "stability": "experimental"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/governance",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "canDispatch",
+          "stability": "beta"
+        },
+        {
+          "name": "createHeadlessComponent",
+          "stability": "beta"
+        },
+        {
+          "name": "evidenceReceipt",
+          "stability": "beta"
+        },
+        {
+          "name": "policyOutcomes",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/primitives",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "AspectRatio",
+          "stability": "stable"
+        },
+        {
+          "name": "Badge",
+          "stability": "stable"
+        },
+        {
+          "name": "Box",
+          "stability": "stable"
+        },
+        {
+          "name": "Button",
+          "stability": "stable"
+        },
+        {
+          "name": "Card",
+          "stability": "stable"
+        },
+        {
+          "name": "Container",
+          "stability": "stable"
+        },
+        {
+          "name": "Divider",
+          "stability": "stable"
+        },
+        {
+          "name": "FieldContext",
+          "stability": "stable"
+        },
+        {
+          "name": "Flex",
+          "stability": "stable"
+        },
+        {
+          "name": "Grid",
+          "stability": "stable"
+        },
+        {
+          "name": "Input",
+          "stability": "stable"
+        },
+        {
+          "name": "Portal",
+          "stability": "stable"
+        },
+        {
+          "name": "ScrollArea",
+          "stability": "stable"
+        },
+        {
+          "name": "Spacer",
+          "stability": "stable"
+        },
+        {
+          "name": "Stack",
+          "stability": "stable"
+        },
+        {
+          "name": "VisuallyHidden",
+          "stability": "stable"
+        },
+        {
+          "name": "primitiveComponents",
+          "stability": "stable"
+        },
+        {
+          "name": "useField",
+          "stability": "stable"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/react",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "REACT_ADAPTER_CONTRACT_VERSION",
+          "stability": "beta"
+        },
+        {
+          "name": "REACT_PEER_RANGE",
+          "stability": "beta"
+        },
+        {
+          "name": "createMaataaReact",
+          "stability": "beta"
+        },
+        {
+          "name": "validateReactHost",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/recipes",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "governedCameraControlRecipe",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/registry",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "getRegistryEntry",
+          "stability": "beta"
+        },
+        {
+          "name": "isRegisteredComponent",
+          "stability": "beta"
+        },
+        {
+          "name": "registry",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/renderer",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "createRenderPlan",
+          "stability": "beta"
+        },
+        {
+          "name": "renderText",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@tlps/templates",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "TemplatesCatalog",
+          "stability": "experimental"
+        },
+        {
+          "name": "TemplatesCategories",
+          "stability": "experimental"
+        },
+        {
+          "name": "implementedTemplates",
+          "stability": "experimental"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/testing",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "approvedApproval",
+          "stability": "beta"
+        },
+        {
+          "name": "approvedPolicy",
+          "stability": "beta"
+        },
+        {
+          "name": "assertTerminal",
+          "stability": "beta"
+        },
+        {
+          "name": "connectedCameraSimulator",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@maataa/tokens",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "chartTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "colorTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "darkChartTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "darkColorTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "darkTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "fontFamilyPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "paperColorPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "paperTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "radiusPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "radiusTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "spacingTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "themeToCss",
+          "stability": "beta"
+        },
+        {
+          "name": "themeToCssVariables",
+          "stability": "beta"
+        },
+        {
+          "name": "tlpsV2Theme",
+          "stability": "beta"
+        },
+        {
+          "name": "tokenVarName",
+          "stability": "beta"
+        },
+        {
+          "name": "transitionTokens",
+          "stability": "beta"
+        },
+        {
+          "name": "typographyTokens",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "name": "@tlps/workflow-primitives",
+      "version": "0.4.2-alpha.0",
+      "exports": [
+        {
+          "name": "WorkflowPrimitivesCatalog",
+          "stability": "experimental"
+        },
+        {
+          "name": "WorkflowPrimitivesCategories",
+          "stability": "experimental"
+        },
+        {
+          "name": "implementedWorkflowPrimitives",
+          "stability": "experimental"
+        }
+      ]
+    }
+  ],
+  "uiEntries": [
+    {
+      "entry": ".",
+      "target": "./dist/index.js",
+      "exports": [
+        {
+          "name": "AIChatBubble",
+          "stability": "beta"
+        },
+        {
+          "name": "AITypingIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "AccountSettingsForm",
+          "stability": "beta"
+        },
+        {
+          "name": "AccountTypeSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "ActionSheet",
+          "stability": "beta"
+        },
+        {
+          "name": "AgendaView",
+          "stability": "beta"
+        },
+        {
+          "name": "AltitudeDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "AncestralChainFlow",
+          "stability": "experimental"
+        },
+        {
+          "name": "AnchorNav",
+          "stability": "beta"
+        },
+        {
+          "name": "AnimatedCounter",
+          "stability": "beta"
+        },
+        {
+          "name": "AnnouncementStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "AnomalyAlerts",
+          "stability": "beta"
+        },
+        {
+          "name": "AnonymizeButton",
+          "stability": "beta"
+        },
+        {
+          "name": "AppShell",
+          "stability": "beta"
+        },
+        {
+          "name": "ApplicantDetail",
+          "stability": "beta"
+        },
+        {
+          "name": "ApplicationForm",
+          "stability": "beta"
+        },
+        {
+          "name": "AppliedFilterChips",
+          "stability": "beta"
+        },
+        {
+          "name": "ApprovalActions",
+          "stability": "beta"
+        },
+        {
+          "name": "ApprovalFrameMarker",
+          "stability": "beta"
+        },
+        {
+          "name": "ArchiveButton",
+          "stability": "beta"
+        },
+        {
+          "name": "AreaChart",
+          "stability": "beta"
+        },
+        {
+          "name": "AreaLabel",
+          "stability": "beta"
+        },
+        {
+          "name": "AreaPolygon",
+          "stability": "beta"
+        },
+        {
+          "name": "AspectRatio",
+          "stability": "stable"
+        },
+        {
+          "name": "AssetGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "AssetPreview",
+          "stability": "beta"
+        },
+        {
+          "name": "AssumptionEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "AttachmentUploader",
+          "stability": "beta"
+        },
+        {
+          "name": "AttendanceGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "AudienceRecommendationMeter",
+          "stability": "experimental"
+        },
+        {
+          "name": "AudioPlayer",
+          "stability": "beta"
+        },
+        {
+          "name": "AudioRecorder",
+          "stability": "beta"
+        },
+        {
+          "name": "AuditLogViewer",
+          "stability": "beta"
+        },
+        {
+          "name": "AuditSystem",
+          "stability": "beta"
+        },
+        {
+          "name": "AvailabilityCalendar",
+          "stability": "beta"
+        },
+        {
+          "name": "Avatar",
+          "stability": "beta"
+        },
+        {
+          "name": "AvatarUpload",
+          "stability": "beta"
+        },
+        {
+          "name": "BackgroundSyncToast",
+          "stability": "beta"
+        },
+        {
+          "name": "Badge",
+          "stability": "stable"
+        },
+        {
+          "name": "BarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "BiometricUnlock",
+          "stability": "beta"
+        },
+        {
+          "name": "BookingForm",
+          "stability": "beta"
+        },
+        {
+          "name": "BottomNav",
+          "stability": "beta"
+        },
+        {
+          "name": "Box",
+          "stability": "stable"
+        },
+        {
+          "name": "BrandLogo",
+          "stability": "beta"
+        },
+        {
+          "name": "Breadcrumb",
+          "stability": "beta"
+        },
+        {
+          "name": "BrushColorPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "BudgetLineEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "BufferingIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "BulkActionBar",
+          "stability": "beta"
+        },
+        {
+          "name": "Button",
+          "stability": "stable"
+        },
+        {
+          "name": "ButtonGroup",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAKRAS",
+          "stability": "experimental"
+        },
+        {
+          "name": "CHART_COLORS",
+          "stability": "beta"
+        },
+        {
+          "name": "CallSheetEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "CallSheetPrintView",
+          "stability": "beta"
+        },
+        {
+          "name": "CallSheetPublishBar",
+          "stability": "beta"
+        },
+        {
+          "name": "CallTimeBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "CallbackList",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraAngleAnnotation",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraAnglePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraPreview",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraScienceSplash",
+          "stability": "beta"
+        },
+        {
+          "name": "Card",
+          "stability": "stable"
+        },
+        {
+          "name": "CascadingSelect",
+          "stability": "beta"
+        },
+        {
+          "name": "CastingProfileCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ChakraCategoryRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "CharacterTracker",
+          "stability": "beta"
+        },
+        {
+          "name": "ChartFigure",
+          "stability": "beta"
+        },
+        {
+          "name": "Checkbox",
+          "stability": "beta"
+        },
+        {
+          "name": "Checklist",
+          "stability": "beta"
+        },
+        {
+          "name": "ChoiceCards",
+          "stability": "beta"
+        },
+        {
+          "name": "CleanDownloadButton",
+          "stability": "beta"
+        },
+        {
+          "name": "CloudLayer",
+          "stability": "beta"
+        },
+        {
+          "name": "ClusteredMarkers",
+          "stability": "beta"
+        },
+        {
+          "name": "CodeEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "ColorCorrectionSliders",
+          "stability": "beta"
+        },
+        {
+          "name": "ColorPaletteStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "CommandPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "CompareGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "ComparisonTable",
+          "stability": "beta"
+        },
+        {
+          "name": "CompassRose",
+          "stability": "beta"
+        },
+        {
+          "name": "ComplianceStatusDashboard",
+          "stability": "beta"
+        },
+        {
+          "name": "ConfettiBurst",
+          "stability": "beta"
+        },
+        {
+          "name": "ConfirmButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ConfirmDialog",
+          "stability": "beta"
+        },
+        {
+          "name": "ConflictResolutionPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "ConsentToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ContactForm",
+          "stability": "beta"
+        },
+        {
+          "name": "Container",
+          "stability": "stable"
+        },
+        {
+          "name": "ContextMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "ContractExpiryPill",
+          "stability": "experimental"
+        },
+        {
+          "name": "ContractStatusBadge",
+          "stability": "experimental"
+        },
+        {
+          "name": "CookieConsentBanner",
+          "stability": "beta"
+        },
+        {
+          "name": "CoordinateInput",
+          "stability": "beta"
+        },
+        {
+          "name": "CopyButton",
+          "stability": "beta"
+        },
+        {
+          "name": "CostDriverRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "CountBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "CountrySelector",
+          "stability": "beta"
+        },
+        {
+          "name": "CraftServiceMealCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "CrewPositionRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "CrowdfundingCampaignBuilder",
+          "stability": "beta"
+        },
+        {
+          "name": "CrowdfundingProgressBar",
+          "stability": "experimental"
+        },
+        {
+          "name": "CueList",
+          "stability": "beta"
+        },
+        {
+          "name": "CurrencySelector",
+          "stability": "beta"
+        },
+        {
+          "name": "DEPARTMENT_COLORS",
+          "stability": "experimental"
+        },
+        {
+          "name": "DataGovernanceEngine",
+          "stability": "beta"
+        },
+        {
+          "name": "DataQualityManager",
+          "stability": "beta"
+        },
+        {
+          "name": "DataRetentionManager",
+          "stability": "beta"
+        },
+        {
+          "name": "DataTable",
+          "stability": "beta"
+        },
+        {
+          "name": "DatePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DateRangePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DateTimePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DeadlineList",
+          "stability": "beta"
+        },
+        {
+          "name": "DeliverySpecCard",
+          "stability": "beta"
+        },
+        {
+          "name": "DeliveryStatusList",
+          "stability": "beta"
+        },
+        {
+          "name": "DeliveryTracker",
+          "stability": "beta"
+        },
+        {
+          "name": "DepartmentCoverageGrid",
+          "stability": "experimental"
+        },
+        {
+          "name": "DetailList",
+          "stability": "beta"
+        },
+        {
+          "name": "DeviceInfoCard",
+          "stability": "beta"
+        },
+        {
+          "name": "DietaryBadge",
+          "stability": "experimental"
+        },
+        {
+          "name": "DiffView",
+          "stability": "beta"
+        },
+        {
+          "name": "DirectorNotesPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "DistributionEventLog",
+          "stability": "experimental"
+        },
+        {
+          "name": "DistributionListSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "Divider",
+          "stability": "stable"
+        },
+        {
+          "name": "DocumentList",
+          "stability": "beta"
+        },
+        {
+          "name": "DonutChart",
+          "stability": "beta"
+        },
+        {
+          "name": "Drawer",
+          "stability": "beta"
+        },
+        {
+          "name": "DrawingToolPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "DroneFlightLog",
+          "stability": "beta"
+        },
+        {
+          "name": "Dropdown",
+          "stability": "beta"
+        },
+        {
+          "name": "DurationPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DwellRing",
+          "stability": "beta"
+        },
+        {
+          "name": "EffectSliderBank",
+          "stability": "beta"
+        },
+        {
+          "name": "EffectsLibrary",
+          "stability": "beta"
+        },
+        {
+          "name": "EmbeddingVisualization",
+          "stability": "beta"
+        },
+        {
+          "name": "EmptyState",
+          "stability": "beta"
+        },
+        {
+          "name": "EqFaders",
+          "stability": "beta"
+        },
+        {
+          "name": "EquipmentCatalog",
+          "stability": "beta"
+        },
+        {
+          "name": "EquipmentCheckoutSheet",
+          "stability": "beta"
+        },
+        {
+          "name": "ErrorBoundary",
+          "stability": "beta"
+        },
+        {
+          "name": "ErrorFallback",
+          "stability": "beta"
+        },
+        {
+          "name": "ErrorSummary",
+          "stability": "beta"
+        },
+        {
+          "name": "EventCalendar",
+          "stability": "beta"
+        },
+        {
+          "name": "EvidencePackBuilder",
+          "stability": "beta"
+        },
+        {
+          "name": "ExportControl",
+          "stability": "beta"
+        },
+        {
+          "name": "EyeGazeCalibration",
+          "stability": "beta"
+        },
+        {
+          "name": "FAB",
+          "stability": "beta"
+        },
+        {
+          "name": "FAQAccordion",
+          "stability": "beta"
+        },
+        {
+          "name": "FabMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "FeatureCard",
+          "stability": "beta"
+        },
+        {
+          "name": "FeatureGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "FieldContext",
+          "stability": "stable"
+        },
+        {
+          "name": "FieldFrame",
+          "stability": "beta"
+        },
+        {
+          "name": "FieldShell",
+          "stability": "beta"
+        },
+        {
+          "name": "FileDropzone",
+          "stability": "beta"
+        },
+        {
+          "name": "FileInput",
+          "stability": "beta"
+        },
+        {
+          "name": "FilterBar",
+          "stability": "beta"
+        },
+        {
+          "name": "FilterPills",
+          "stability": "beta"
+        },
+        {
+          "name": "Flex",
+          "stability": "stable"
+        },
+        {
+          "name": "Form",
+          "stability": "beta"
+        },
+        {
+          "name": "FormActions",
+          "stability": "beta"
+        },
+        {
+          "name": "FormRow",
+          "stability": "beta"
+        },
+        {
+          "name": "FormSection",
+          "stability": "beta"
+        },
+        {
+          "name": "FormatToolbar",
+          "stability": "beta"
+        },
+        {
+          "name": "FormulaInput",
+          "stability": "beta"
+        },
+        {
+          "name": "FrameCanvas",
+          "stability": "beta"
+        },
+        {
+          "name": "FrameTimelineStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "FullScreenModal",
+          "stability": "beta"
+        },
+        {
+          "name": "FunnelChart",
+          "stability": "beta"
+        },
+        {
+          "name": "GanttTimeline",
+          "stability": "beta"
+        },
+        {
+          "name": "GasEstimate",
+          "stability": "experimental"
+        },
+        {
+          "name": "Gauge",
+          "stability": "beta"
+        },
+        {
+          "name": "GazeSelectionGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "GeoMap",
+          "stability": "beta"
+        },
+        {
+          "name": "GeoSearchBox",
+          "stability": "beta"
+        },
+        {
+          "name": "GlassPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "GlassSplash",
+          "stability": "beta"
+        },
+        {
+          "name": "GovernanceVoteCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "Graticule",
+          "stability": "beta"
+        },
+        {
+          "name": "Grid",
+          "stability": "stable"
+        },
+        {
+          "name": "GroupedBarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "HamburgerMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "HapticFeedback",
+          "stability": "beta"
+        },
+        {
+          "name": "Heatmap",
+          "stability": "beta"
+        },
+        {
+          "name": "Hero",
+          "stability": "beta"
+        },
+        {
+          "name": "HorizontalBarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "IconButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ImageCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ImageCropUpload",
+          "stability": "beta"
+        },
+        {
+          "name": "IncidentForm",
+          "stability": "beta"
+        },
+        {
+          "name": "IndeterminateProgress",
+          "stability": "beta"
+        },
+        {
+          "name": "InfiniteList",
+          "stability": "beta"
+        },
+        {
+          "name": "InlineEditGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "Input",
+          "stability": "stable"
+        },
+        {
+          "name": "InsetCard",
+          "stability": "beta"
+        },
+        {
+          "name": "InteractionModeSwitcher",
+          "stability": "beta"
+        },
+        {
+          "name": "InvestorRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "InvitationAcceptance",
+          "stability": "beta"
+        },
+        {
+          "name": "InvitationList",
+          "stability": "beta"
+        },
+        {
+          "name": "InvitationRecoveryPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "InviteForm",
+          "stability": "beta"
+        },
+        {
+          "name": "JobPostingForm",
+          "stability": "beta"
+        },
+        {
+          "name": "JsonExplorer",
+          "stability": "beta"
+        },
+        {
+          "name": "LanguageCulturalTimeline",
+          "stability": "experimental"
+        },
+        {
+          "name": "LanguageSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "LastOwnerWarning",
+          "stability": "beta"
+        },
+        {
+          "name": "LayerStack",
+          "stability": "beta"
+        },
+        {
+          "name": "LegalMatterList",
+          "stability": "beta"
+        },
+        {
+          "name": "Legend",
+          "stability": "beta"
+        },
+        {
+          "name": "LegendList",
+          "stability": "beta"
+        },
+        {
+          "name": "LineChart",
+          "stability": "beta"
+        },
+        {
+          "name": "LinkButton",
+          "stability": "beta"
+        },
+        {
+          "name": "LiveDrawingOverlay",
+          "stability": "beta"
+        },
+        {
+          "name": "LiveTranscript",
+          "stability": "beta"
+        },
+        {
+          "name": "LoadMoreButton",
+          "stability": "beta"
+        },
+        {
+          "name": "LoadingOverlay",
+          "stability": "beta"
+        },
+        {
+          "name": "LocationComparisonCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "LocationDetail",
+          "stability": "beta"
+        },
+        {
+          "name": "LocationGallery",
+          "stability": "beta"
+        },
+        {
+          "name": "LocationThumbnailCard",
+          "stability": "beta"
+        },
+        {
+          "name": "LockIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "LogoStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "MFAChallenge",
+          "stability": "beta"
+        },
+        {
+          "name": "MFASetupPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "MLInsightsPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "MapCanvas",
+          "stability": "beta"
+        },
+        {
+          "name": "MapFeatureList",
+          "stability": "beta"
+        },
+        {
+          "name": "MapLayerToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "MapLegend",
+          "stability": "beta"
+        },
+        {
+          "name": "MapPopup",
+          "stability": "beta"
+        },
+        {
+          "name": "MarketingAssetLibrary",
+          "stability": "beta"
+        },
+        {
+          "name": "MarketingCampaignCard",
+          "stability": "beta"
+        },
+        {
+          "name": "MasterApprovalPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "MediaScrubber",
+          "stability": "beta"
+        },
+        {
+          "name": "MentionInput",
+          "stability": "beta"
+        },
+        {
+          "name": "Menu",
+          "stability": "beta"
+        },
+        {
+          "name": "MenuButton",
+          "stability": "beta"
+        },
+        {
+          "name": "MenuPopup",
+          "stability": "beta"
+        },
+        {
+          "name": "MetricCard",
+          "stability": "beta"
+        },
+        {
+          "name": "MilestoneMarker",
+          "stability": "beta"
+        },
+        {
+          "name": "Modal",
+          "stability": "beta"
+        },
+        {
+          "name": "ModeSwitch",
+          "stability": "beta"
+        },
+        {
+          "name": "ModelConfiguredCheck",
+          "stability": "beta"
+        },
+        {
+          "name": "ModelResponse",
+          "stability": "beta"
+        },
+        {
+          "name": "MonthPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "MoodBoardGallery",
+          "stability": "beta"
+        },
+        {
+          "name": "MoonPositionWidget",
+          "stability": "beta"
+        },
+        {
+          "name": "NetworkingContactList",
+          "stability": "beta"
+        },
+        {
+          "name": "NewsletterSignup",
+          "stability": "beta"
+        },
+        {
+          "name": "NotFoundScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "NotificationBell",
+          "stability": "beta"
+        },
+        {
+          "name": "NotificationDetail",
+          "stability": "beta"
+        },
+        {
+          "name": "NotificationPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "NumberStepper",
+          "stability": "beta"
+        },
+        {
+          "name": "OfferLetterPreview",
+          "stability": "beta"
+        },
+        {
+          "name": "OfflineBanner",
+          "stability": "beta"
+        },
+        {
+          "name": "OnboardingCompleteScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "OnboardingTour",
+          "stability": "beta"
+        },
+        {
+          "name": "OperatorSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "OrbPin",
+          "stability": "beta"
+        },
+        {
+          "name": "OtpInput",
+          "stability": "beta"
+        },
+        {
+          "name": "OverrunAlert",
+          "stability": "beta"
+        },
+        {
+          "name": "OvertimeIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "PACKAGE_NAME",
+          "stability": "beta"
+        },
+        {
+          "name": "PackageSummaryBar",
+          "stability": "experimental"
+        },
+        {
+          "name": "Pagination",
+          "stability": "beta"
+        },
+        {
+          "name": "Panel",
+          "stability": "beta"
+        },
+        {
+          "name": "ParticleSplash",
+          "stability": "beta"
+        },
+        {
+          "name": "PasswordInput",
+          "stability": "beta"
+        },
+        {
+          "name": "PasswordResetConfirmForm",
+          "stability": "beta"
+        },
+        {
+          "name": "PasswordResetRequestForm",
+          "stability": "beta"
+        },
+        {
+          "name": "PeopleDirectory",
+          "stability": "beta"
+        },
+        {
+          "name": "PerDiemTable",
+          "stability": "beta"
+        },
+        {
+          "name": "PercentageInput",
+          "stability": "beta"
+        },
+        {
+          "name": "PermissionDeniedScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "PermissionPrompt",
+          "stability": "beta"
+        },
+        {
+          "name": "PermitStatusCard",
+          "stability": "beta"
+        },
+        {
+          "name": "PermitTimelineStrip",
+          "stability": "experimental"
+        },
+        {
+          "name": "PersonForm",
+          "stability": "beta"
+        },
+        {
+          "name": "PersonRow",
+          "stability": "beta"
+        },
+        {
+          "name": "PictureBoard",
+          "stability": "beta"
+        },
+        {
+          "name": "PieChart",
+          "stability": "beta"
+        },
+        {
+          "name": "PinSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "PipelineBoard",
+          "stability": "beta"
+        },
+        {
+          "name": "PitchDeliveryReceipt",
+          "stability": "beta"
+        },
+        {
+          "name": "PitchRecipientSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "PitchSlideThumbnail",
+          "stability": "experimental"
+        },
+        {
+          "name": "Popover",
+          "stability": "beta"
+        },
+        {
+          "name": "Portal",
+          "stability": "stable"
+        },
+        {
+          "name": "PredictionChart",
+          "stability": "beta"
+        },
+        {
+          "name": "PreviewFrame",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingCardRow",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingSourceTable",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingTable",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingTierCard",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingWorksheet",
+          "stability": "beta"
+        },
+        {
+          "name": "PriorityBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "PrivacyRequestManager",
+          "stability": "beta"
+        },
+        {
+          "name": "PrivateNotes",
+          "stability": "beta"
+        },
+        {
+          "name": "ProductionListingCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ProductionListingGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "ProfileCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ProfitDistributionRing",
+          "stability": "experimental"
+        },
+        {
+          "name": "ProgressRing",
+          "stability": "beta"
+        },
+        {
+          "name": "ProgressToast",
+          "stability": "beta"
+        },
+        {
+          "name": "ProjectSummaryCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ProviderSignInButtons",
+          "stability": "beta"
+        },
+        {
+          "name": "PullToRefresh",
+          "stability": "beta"
+        },
+        {
+          "name": "QuadtreeGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "QuarantinePanel",
+          "stability": "beta"
+        },
+        {
+          "name": "QuickActionPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "RBACEngine",
+          "stability": "beta"
+        },
+        {
+          "name": "RadarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "Radio",
+          "stability": "beta"
+        },
+        {
+          "name": "RadioGroup",
+          "stability": "beta"
+        },
+        {
+          "name": "RadiusCircle",
+          "stability": "beta"
+        },
+        {
+          "name": "ReadingFontToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ReceiptDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "RecommendationCards",
+          "stability": "beta"
+        },
+        {
+          "name": "RecordHeader",
+          "stability": "beta"
+        },
+        {
+          "name": "ReferenceCheckPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "RegionSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "RehearsalSceneList",
+          "stability": "beta"
+        },
+        {
+          "name": "RenderProgressRow",
+          "stability": "beta"
+        },
+        {
+          "name": "RenderQueue",
+          "stability": "beta"
+        },
+        {
+          "name": "RescheduleRequest",
+          "stability": "beta"
+        },
+        {
+          "name": "RetryCountdown",
+          "stability": "beta"
+        },
+        {
+          "name": "ReviewThread",
+          "stability": "beta"
+        },
+        {
+          "name": "ReviewerSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "RewardTierCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "RichTextEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "RocketLaunch",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleAssignmentTable",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleBreakdownCard",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleManagementPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleSelectionGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "RoutePolyline",
+          "stability": "beta"
+        },
+        {
+          "name": "SatelliteOrbitPath",
+          "stability": "beta"
+        },
+        {
+          "name": "SaveDraftButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ScaleBar",
+          "stability": "beta"
+        },
+        {
+          "name": "ScanStatusBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "ScannerFailureNotice",
+          "stability": "beta"
+        },
+        {
+          "name": "ScanningSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "ScenarioCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ScenarioSwitcher",
+          "stability": "experimental"
+        },
+        {
+          "name": "SceneNavigator",
+          "stability": "beta"
+        },
+        {
+          "name": "SceneProgressTracker",
+          "stability": "beta"
+        },
+        {
+          "name": "ScheduleConflictBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "ScopeBasedAccessControl",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenReaderModeIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenReaderModeToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenRecordingBar",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreeningAttendeeList",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreeningFeedbackForm",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenshotButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ScriptAnalysisChart",
+          "stability": "beta"
+        },
+        {
+          "name": "ScriptEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "ScrollArea",
+          "stability": "stable"
+        },
+        {
+          "name": "ScrollTable",
+          "stability": "beta"
+        },
+        {
+          "name": "ScrollToTop",
+          "stability": "beta"
+        },
+        {
+          "name": "SearchInput",
+          "stability": "beta"
+        },
+        {
+          "name": "SearchWithResults",
+          "stability": "beta"
+        },
+        {
+          "name": "SegmentedControl",
+          "stability": "beta"
+        },
+        {
+          "name": "SegmentedTabs",
+          "stability": "beta"
+        },
+        {
+          "name": "Select",
+          "stability": "beta"
+        },
+        {
+          "name": "ServiceCard",
+          "stability": "beta"
+        },
+        {
+          "name": "SessionExpiredScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "SessionExpiryWarning",
+          "stability": "beta"
+        },
+        {
+          "name": "SessionManager",
+          "stability": "beta"
+        },
+        {
+          "name": "SettingsPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "ShapeToolPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "ShareLinkDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "ShareMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "SharePermissions",
+          "stability": "beta"
+        },
+        {
+          "name": "Sheet",
+          "stability": "beta"
+        },
+        {
+          "name": "ShotTypeSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "Sidebar",
+          "stability": "beta"
+        },
+        {
+          "name": "SidesViewer",
+          "stability": "beta"
+        },
+        {
+          "name": "SignInForm",
+          "stability": "beta"
+        },
+        {
+          "name": "SignOutButton",
+          "stability": "beta"
+        },
+        {
+          "name": "SignUpForm",
+          "stability": "beta"
+        },
+        {
+          "name": "SignaturePad",
+          "stability": "beta"
+        },
+        {
+          "name": "SignatureStatusList",
+          "stability": "beta"
+        },
+        {
+          "name": "SignedUrlStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "SimplifiedModeToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "SiteFooter",
+          "stability": "beta"
+        },
+        {
+          "name": "Skeleton",
+          "stability": "beta"
+        },
+        {
+          "name": "SkeletonTable",
+          "stability": "beta"
+        },
+        {
+          "name": "SkillMeter",
+          "stability": "experimental"
+        },
+        {
+          "name": "Slate",
+          "stability": "beta"
+        },
+        {
+          "name": "Slider",
+          "stability": "beta"
+        },
+        {
+          "name": "SliderBank",
+          "stability": "beta"
+        },
+        {
+          "name": "SlotPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "SmartContractStatusCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "SortSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "SourceAttribution",
+          "stability": "beta"
+        },
+        {
+          "name": "Spacer",
+          "stability": "stable"
+        },
+        {
+          "name": "Sparkline",
+          "stability": "beta"
+        },
+        {
+          "name": "SpectrumAnalyzer",
+          "stability": "beta"
+        },
+        {
+          "name": "Spinner",
+          "stability": "beta"
+        },
+        {
+          "name": "SplashScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "SplitButton",
+          "stability": "beta"
+        },
+        {
+          "name": "Stack",
+          "stability": "stable"
+        },
+        {
+          "name": "StackedProgressBar",
+          "stability": "beta"
+        },
+        {
+          "name": "StateBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "StatsStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "StatusBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "StatusScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "StepDots",
+          "stability": "beta"
+        },
+        {
+          "name": "StepIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "StickyNavbar",
+          "stability": "beta"
+        },
+        {
+          "name": "SubsidyProgrammeList",
+          "stability": "beta"
+        },
+        {
+          "name": "SummaryReview",
+          "stability": "beta"
+        },
+        {
+          "name": "SunPositionWidget",
+          "stability": "beta"
+        },
+        {
+          "name": "SyncOpsDashboard",
+          "stability": "beta"
+        },
+        {
+          "name": "SyncStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "TLPClassificationCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "Tabs",
+          "stability": "beta"
+        },
+        {
+          "name": "TagInput",
+          "stability": "beta"
+        },
+        {
+          "name": "TelInput",
+          "stability": "beta"
+        },
+        {
+          "name": "TerrainProfile",
+          "stability": "beta"
+        },
+        {
+          "name": "TerritoryMatrix",
+          "stability": "beta"
+        },
+        {
+          "name": "TestimonialCard",
+          "stability": "beta"
+        },
+        {
+          "name": "TestimonialCarousel",
+          "stability": "beta"
+        },
+        {
+          "name": "Textarea",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemeProvider",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemeStyle",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemeToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ThoughtHistory",
+          "stability": "beta"
+        },
+        {
+          "name": "ThoughtInput",
+          "stability": "beta"
+        },
+        {
+          "name": "ThresholdBarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "TimePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "TimecodeReadout",
+          "stability": "beta"
+        },
+        {
+          "name": "Timeline",
+          "stability": "beta"
+        },
+        {
+          "name": "TimelinePlayhead",
+          "stability": "beta"
+        },
+        {
+          "name": "Timer",
+          "stability": "beta"
+        },
+        {
+          "name": "TimesheetEntryForm",
+          "stability": "beta"
+        },
+        {
+          "name": "TimesheetList",
+          "stability": "beta"
+        },
+        {
+          "name": "TimesheetWeekSummary",
+          "stability": "beta"
+        },
+        {
+          "name": "TimezoneDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "Toast",
+          "stability": "beta"
+        },
+        {
+          "name": "ToastContainer",
+          "stability": "beta"
+        },
+        {
+          "name": "Toggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ToggleGroup",
+          "stability": "beta"
+        },
+        {
+          "name": "TokenBalanceCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "Tooltip",
+          "stability": "beta"
+        },
+        {
+          "name": "TopNav",
+          "stability": "beta"
+        },
+        {
+          "name": "TrackerLayer",
+          "stability": "beta"
+        },
+        {
+          "name": "TransactionConfirmDialog",
+          "stability": "experimental"
+        },
+        {
+          "name": "TransactionList",
+          "stability": "experimental"
+        },
+        {
+          "name": "TreeSelect",
+          "stability": "beta"
+        },
+        {
+          "name": "TypedConfirmDialog",
+          "stability": "beta"
+        },
+        {
+          "name": "UndoSnackbar",
+          "stability": "beta"
+        },
+        {
+          "name": "UrlInput",
+          "stability": "beta"
+        },
+        {
+          "name": "UserChip",
+          "stability": "beta"
+        },
+        {
+          "name": "VERSION",
+          "stability": "beta"
+        },
+        {
+          "name": "VUMeter",
+          "stability": "beta"
+        },
+        {
+          "name": "ValidationMessage",
+          "stability": "beta"
+        },
+        {
+          "name": "VarianceBars",
+          "stability": "beta"
+        },
+        {
+          "name": "VehicleCapacityCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "VehicleRateRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "VenueFloorPlan",
+          "stability": "beta"
+        },
+        {
+          "name": "VersionHistoryList",
+          "stability": "beta"
+        },
+        {
+          "name": "VersionSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "VerticalTabs",
+          "stability": "beta"
+        },
+        {
+          "name": "VfxShotTable",
+          "stability": "beta"
+        },
+        {
+          "name": "VideoCallTile",
+          "stability": "beta"
+        },
+        {
+          "name": "VisibilitySelector",
+          "stability": "beta"
+        },
+        {
+          "name": "VisuallyHidden",
+          "stability": "stable"
+        },
+        {
+          "name": "VoiceCommandButton",
+          "stability": "beta"
+        },
+        {
+          "name": "VoiceCommandGuide",
+          "stability": "beta"
+        },
+        {
+          "name": "WaiverSignatureBlock",
+          "stability": "beta"
+        },
+        {
+          "name": "WalletAddress",
+          "stability": "experimental"
+        },
+        {
+          "name": "WalletConnectButton",
+          "stability": "experimental"
+        },
+        {
+          "name": "WardrobeScheduleCard",
+          "stability": "beta"
+        },
+        {
+          "name": "WaterfallChart",
+          "stability": "beta"
+        },
+        {
+          "name": "Waveform",
+          "stability": "beta"
+        },
+        {
+          "name": "WeatherOverlayToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "WeatherWidget",
+          "stability": "experimental"
+        },
+        {
+          "name": "WeekPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "WindLayer",
+          "stability": "beta"
+        },
+        {
+          "name": "WindowEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "WizardShell",
+          "stability": "beta"
+        },
+        {
+          "name": "WrapForm",
+          "stability": "beta"
+        },
+        {
+          "name": "WrapSummary",
+          "stability": "beta"
+        },
+        {
+          "name": "YesNoButtons",
+          "stability": "beta"
+        },
+        {
+          "name": "ZoomSlider",
+          "stability": "beta"
+        },
+        {
+          "name": "accountTypeOptions",
+          "stability": "beta"
+        },
+        {
+          "name": "actionComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "approvalStates",
+          "stability": "beta"
+        },
+        {
+          "name": "bearingDeg",
+          "stability": "beta"
+        },
+        {
+          "name": "boundsAround",
+          "stability": "beta"
+        },
+        {
+          "name": "cameraAngles",
+          "stability": "beta"
+        },
+        {
+          "name": "campaignProblems",
+          "stability": "beta"
+        },
+        {
+          "name": "canonicalPackageBoundaries",
+          "stability": "beta"
+        },
+        {
+          "name": "canonicalPackageBoundaryStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "caretPosition",
+          "stability": "beta"
+        },
+        {
+          "name": "charactersOf",
+          "stability": "beta"
+        },
+        {
+          "name": "chartColor",
+          "stability": "beta"
+        },
+        {
+          "name": "clampCrop",
+          "stability": "beta"
+        },
+        {
+          "name": "clearanceStates",
+          "stability": "beta"
+        },
+        {
+          "name": "clock",
+          "stability": "beta"
+        },
+        {
+          "name": "clusterPoints",
+          "stability": "beta"
+        },
+        {
+          "name": "colorCorrectionParams",
+          "stability": "beta"
+        },
+        {
+          "name": "commonCurrencies",
+          "stability": "beta"
+        },
+        {
+          "name": "commonDialCodes",
+          "stability": "beta"
+        },
+        {
+          "name": "compassWord",
+          "stability": "beta"
+        },
+        {
+          "name": "consumeReturnTo",
+          "stability": "beta"
+        },
+        {
+          "name": "contrastRatio",
+          "stability": "beta"
+        },
+        {
+          "name": "controlStyle",
+          "stability": "beta"
+        },
+        {
+          "name": "countryCodes",
+          "stability": "beta"
+        },
+        {
+          "name": "createMaataaProduct",
+          "stability": "beta"
+        },
+        {
+          "name": "cueLength",
+          "stability": "beta"
+        },
+        {
+          "name": "darkTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "dataComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "daysUntil",
+          "stability": "experimental"
+        },
+        {
+          "name": "defaultPasswordRules",
+          "stability": "beta"
+        },
+        {
+          "name": "defaultShareTargets",
+          "stability": "beta"
+        },
+        {
+          "name": "deliveryStates",
+          "stability": "beta"
+        },
+        {
+          "name": "detectDevice",
+          "stability": "beta"
+        },
+        {
+          "name": "diffLines",
+          "stability": "beta"
+        },
+        {
+          "name": "displayName",
+          "stability": "beta"
+        },
+        {
+          "name": "drawingToolLabels",
+          "stability": "beta"
+        },
+        {
+          "name": "elementLabels",
+          "stability": "beta"
+        },
+        {
+          "name": "eqBandsHz",
+          "stability": "beta"
+        },
+        {
+          "name": "evaluateFormula",
+          "stability": "beta"
+        },
+        {
+          "name": "eventsOn",
+          "stability": "beta"
+        },
+        {
+          "name": "fileMatchesAccept",
+          "stability": "beta"
+        },
+        {
+          "name": "filterCommands",
+          "stability": "beta"
+        },
+        {
+          "name": "findPrimitiveRegistryItem",
+          "stability": "beta"
+        },
+        {
+          "name": "formComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "formatBytes",
+          "stability": "beta"
+        },
+        {
+          "name": "formatCoordinates",
+          "stability": "beta"
+        },
+        {
+          "name": "formatDuration",
+          "stability": "beta"
+        },
+        {
+          "name": "formatHM",
+          "stability": "beta"
+        },
+        {
+          "name": "formatMinutes",
+          "stability": "beta"
+        },
+        {
+          "name": "formatMonthValue",
+          "stability": "beta"
+        },
+        {
+          "name": "formatTimecode",
+          "stability": "beta"
+        },
+        {
+          "name": "formatWeekValue",
+          "stability": "beta"
+        },
+        {
+          "name": "getPrimitiveRegistryCoverage",
+          "stability": "beta"
+        },
+        {
+          "name": "hapticPatterns",
+          "stability": "beta"
+        },
+        {
+          "name": "haversineKm",
+          "stability": "beta"
+        },
+        {
+          "name": "hoursWorked",
+          "stability": "beta"
+        },
+        {
+          "name": "indianLanguages",
+          "stability": "beta"
+        },
+        {
+          "name": "indianStates",
+          "stability": "beta"
+        },
+        {
+          "name": "initialsOf",
+          "stability": "beta"
+        },
+        {
+          "name": "inrShort",
+          "stability": "experimental"
+        },
+        {
+          "name": "isoWeek",
+          "stability": "beta"
+        },
+        {
+          "name": "isoWeekStart",
+          "stability": "beta"
+        },
+        {
+          "name": "leavesOf",
+          "stability": "beta"
+        },
+        {
+          "name": "levelZone",
+          "stability": "beta"
+        },
+        {
+          "name": "mapsComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "masterPrimitiveRegistry",
+          "stability": "beta"
+        },
+        {
+          "name": "masterPrimitiveRegistryItemCount",
+          "stability": "beta"
+        },
+        {
+          "name": "mentionedIn",
+          "stability": "beta"
+        },
+        {
+          "name": "moonIllumination",
+          "stability": "beta"
+        },
+        {
+          "name": "moonPhaseName",
+          "stability": "beta"
+        },
+        {
+          "name": "moonPosition",
+          "stability": "beta"
+        },
+        {
+          "name": "moveItem",
+          "stability": "beta"
+        },
+        {
+          "name": "navigationComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "nextElementType",
+          "stability": "beta"
+        },
+        {
+          "name": "niceScale",
+          "stability": "beta"
+        },
+        {
+          "name": "nineCalibrationPoints",
+          "stability": "beta"
+        },
+        {
+          "name": "normalizeTel",
+          "stability": "beta"
+        },
+        {
+          "name": "orbitGroundTrack",
+          "stability": "beta"
+        },
+        {
+          "name": "pagesFromEighths",
+          "stability": "beta"
+        },
+        {
+          "name": "paperTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "parseEmails",
+          "stability": "beta"
+        },
+        {
+          "name": "parseLatLng",
+          "stability": "beta"
+        },
+        {
+          "name": "parseMonth",
+          "stability": "beta"
+        },
+        {
+          "name": "parseTimecode",
+          "stability": "beta"
+        },
+        {
+          "name": "parseWeek",
+          "stability": "beta"
+        },
+        {
+          "name": "pathLengthKm",
+          "stability": "beta"
+        },
+        {
+          "name": "peaksFrom",
+          "stability": "beta"
+        },
+        {
+          "name": "permitStates",
+          "stability": "beta"
+        },
+        {
+          "name": "priceSteps",
+          "stability": "beta"
+        },
+        {
+          "name": "primitiveComponents",
+          "stability": "stable"
+        },
+        {
+          "name": "productionRoleOptions",
+          "stability": "beta"
+        },
+        {
+          "name": "publicationStates",
+          "stability": "beta"
+        },
+        {
+          "name": "qcStates",
+          "stability": "beta"
+        },
+        {
+          "name": "readingFontStacks",
+          "stability": "beta"
+        },
+        {
+          "name": "relativeDue",
+          "stability": "beta"
+        },
+        {
+          "name": "rememberReturnTo",
+          "stability": "beta"
+        },
+        {
+          "name": "renderMarkdown",
+          "stability": "beta"
+        },
+        {
+          "name": "renderStates",
+          "stability": "beta"
+        },
+        {
+          "name": "safeReturnTo",
+          "stability": "beta"
+        },
+        {
+          "name": "savedAgo",
+          "stability": "beta"
+        },
+        {
+          "name": "scanStatusLabel",
+          "stability": "beta"
+        },
+        {
+          "name": "scenesOf",
+          "stability": "beta"
+        },
+        {
+          "name": "shortAddress",
+          "stability": "experimental"
+        },
+        {
+          "name": "shotTypes",
+          "stability": "beta"
+        },
+        {
+          "name": "signatureStates",
+          "stability": "beta"
+        },
+        {
+          "name": "spectrumBandHz",
+          "stability": "beta"
+        },
+        {
+          "name": "spokenDuration",
+          "stability": "beta"
+        },
+        {
+          "name": "storyboardSwatches",
+          "stability": "beta"
+        },
+        {
+          "name": "sunPosition",
+          "stability": "beta"
+        },
+        {
+          "name": "sunTimes",
+          "stability": "beta"
+        },
+        {
+          "name": "surfaceComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "templateFields",
+          "stability": "beta"
+        },
+        {
+          "name": "themeComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "themeToCss",
+          "stability": "beta"
+        },
+        {
+          "name": "themeToCssVariables",
+          "stability": "beta"
+        },
+        {
+          "name": "tlpsV2Theme",
+          "stability": "beta"
+        },
+        {
+          "name": "useCommandPaletteShortcut",
+          "stability": "beta"
+        },
+        {
+          "name": "useDwell",
+          "stability": "beta"
+        },
+        {
+          "name": "useField",
+          "stability": "stable"
+        },
+        {
+          "name": "useMap",
+          "stability": "beta"
+        },
+        {
+          "name": "useOnlineStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "usePercent",
+          "stability": "beta"
+        },
+        {
+          "name": "useTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "validateReviewers",
+          "stability": "beta"
+        },
+        {
+          "name": "validateUrl",
+          "stability": "beta"
+        },
+        {
+          "name": "vibrate",
+          "stability": "beta"
+        },
+        {
+          "name": "weatherLayers",
+          "stability": "beta"
+        },
+        {
+          "name": "weeksInYear",
+          "stability": "beta"
+        },
+        {
+          "name": "windowConflicts",
+          "stability": "beta"
+        },
+        {
+          "name": "zoneAbbr",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./master-registry",
+      "target": "./dist/masterPrimitiveRegistry.js",
+      "exports": [
+        {
+          "name": "canonicalPackageBoundaries",
+          "stability": "beta"
+        },
+        {
+          "name": "canonicalPackageBoundaryStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "findPrimitiveRegistryItem",
+          "stability": "beta"
+        },
+        {
+          "name": "getPrimitiveRegistryCoverage",
+          "stability": "beta"
+        },
+        {
+          "name": "masterPrimitiveRegistry",
+          "stability": "beta"
+        },
+        {
+          "name": "masterPrimitiveRegistryItemCount",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./primitives",
+      "target": "./dist/primitives/index.js",
+      "exports": [
+        {
+          "name": "AspectRatio",
+          "stability": "stable"
+        },
+        {
+          "name": "Badge",
+          "stability": "stable"
+        },
+        {
+          "name": "Box",
+          "stability": "stable"
+        },
+        {
+          "name": "Button",
+          "stability": "stable"
+        },
+        {
+          "name": "Card",
+          "stability": "stable"
+        },
+        {
+          "name": "Container",
+          "stability": "stable"
+        },
+        {
+          "name": "Divider",
+          "stability": "stable"
+        },
+        {
+          "name": "FieldContext",
+          "stability": "stable"
+        },
+        {
+          "name": "Flex",
+          "stability": "stable"
+        },
+        {
+          "name": "Grid",
+          "stability": "stable"
+        },
+        {
+          "name": "Input",
+          "stability": "stable"
+        },
+        {
+          "name": "Portal",
+          "stability": "stable"
+        },
+        {
+          "name": "ScrollArea",
+          "stability": "stable"
+        },
+        {
+          "name": "Spacer",
+          "stability": "stable"
+        },
+        {
+          "name": "Stack",
+          "stability": "stable"
+        },
+        {
+          "name": "VisuallyHidden",
+          "stability": "stable"
+        },
+        {
+          "name": "primitiveComponents",
+          "stability": "stable"
+        },
+        {
+          "name": "useField",
+          "stability": "stable"
+        }
+      ]
+    },
+    {
+      "entry": "./typography",
+      "target": "./dist/typography/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./forms",
+      "target": "./dist/forms/index.js",
+      "exports": [
+        {
+          "name": "AccountSettingsForm",
+          "stability": "beta"
+        },
+        {
+          "name": "AccountTypeSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "ApplicationForm",
+          "stability": "beta"
+        },
+        {
+          "name": "AppliedFilterChips",
+          "stability": "beta"
+        },
+        {
+          "name": "AssumptionEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "AttachmentUploader",
+          "stability": "beta"
+        },
+        {
+          "name": "AvailabilityCalendar",
+          "stability": "beta"
+        },
+        {
+          "name": "AvatarUpload",
+          "stability": "beta"
+        },
+        {
+          "name": "BookingForm",
+          "stability": "beta"
+        },
+        {
+          "name": "BudgetLineEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "CallSheetEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "CascadingSelect",
+          "stability": "beta"
+        },
+        {
+          "name": "CharacterTracker",
+          "stability": "beta"
+        },
+        {
+          "name": "Checkbox",
+          "stability": "beta"
+        },
+        {
+          "name": "ChoiceCards",
+          "stability": "beta"
+        },
+        {
+          "name": "CodeEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "ColorCorrectionSliders",
+          "stability": "beta"
+        },
+        {
+          "name": "ConsentToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ContactForm",
+          "stability": "beta"
+        },
+        {
+          "name": "CoordinateInput",
+          "stability": "beta"
+        },
+        {
+          "name": "CountrySelector",
+          "stability": "beta"
+        },
+        {
+          "name": "CrowdfundingCampaignBuilder",
+          "stability": "beta"
+        },
+        {
+          "name": "CurrencySelector",
+          "stability": "beta"
+        },
+        {
+          "name": "DatePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DateRangePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DateTimePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DistributionListSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "DurationPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "DwellRing",
+          "stability": "beta"
+        },
+        {
+          "name": "EffectSliderBank",
+          "stability": "beta"
+        },
+        {
+          "name": "EqFaders",
+          "stability": "beta"
+        },
+        {
+          "name": "EquipmentCheckoutSheet",
+          "stability": "beta"
+        },
+        {
+          "name": "ErrorSummary",
+          "stability": "beta"
+        },
+        {
+          "name": "EvidencePackBuilder",
+          "stability": "beta"
+        },
+        {
+          "name": "FieldFrame",
+          "stability": "beta"
+        },
+        {
+          "name": "FieldShell",
+          "stability": "beta"
+        },
+        {
+          "name": "FileDropzone",
+          "stability": "beta"
+        },
+        {
+          "name": "FileInput",
+          "stability": "beta"
+        },
+        {
+          "name": "FilterBar",
+          "stability": "beta"
+        },
+        {
+          "name": "FilterPills",
+          "stability": "beta"
+        },
+        {
+          "name": "Form",
+          "stability": "beta"
+        },
+        {
+          "name": "FormActions",
+          "stability": "beta"
+        },
+        {
+          "name": "FormRow",
+          "stability": "beta"
+        },
+        {
+          "name": "FormSection",
+          "stability": "beta"
+        },
+        {
+          "name": "FormatToolbar",
+          "stability": "beta"
+        },
+        {
+          "name": "FormulaInput",
+          "stability": "beta"
+        },
+        {
+          "name": "GazeSelectionGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "ImageCropUpload",
+          "stability": "beta"
+        },
+        {
+          "name": "IncidentForm",
+          "stability": "beta"
+        },
+        {
+          "name": "InvitationAcceptance",
+          "stability": "beta"
+        },
+        {
+          "name": "InvitationRecoveryPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "InviteForm",
+          "stability": "beta"
+        },
+        {
+          "name": "JobPostingForm",
+          "stability": "beta"
+        },
+        {
+          "name": "LanguageSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "MFAChallenge",
+          "stability": "beta"
+        },
+        {
+          "name": "MentionInput",
+          "stability": "beta"
+        },
+        {
+          "name": "MonthPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "NewsletterSignup",
+          "stability": "beta"
+        },
+        {
+          "name": "NumberStepper",
+          "stability": "beta"
+        },
+        {
+          "name": "OtpInput",
+          "stability": "beta"
+        },
+        {
+          "name": "OvertimeIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "PasswordInput",
+          "stability": "beta"
+        },
+        {
+          "name": "PasswordResetConfirmForm",
+          "stability": "beta"
+        },
+        {
+          "name": "PasswordResetRequestForm",
+          "stability": "beta"
+        },
+        {
+          "name": "PercentageInput",
+          "stability": "beta"
+        },
+        {
+          "name": "PersonForm",
+          "stability": "beta"
+        },
+        {
+          "name": "PinSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingSourceTable",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingWorksheet",
+          "stability": "beta"
+        },
+        {
+          "name": "Radio",
+          "stability": "beta"
+        },
+        {
+          "name": "RadioGroup",
+          "stability": "beta"
+        },
+        {
+          "name": "ReadingFontToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ReferenceCheckPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "RegionSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "ReviewerSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "RichTextEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleAssignmentTable",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleSelectionGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "ScanningSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "SceneNavigator",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreeningFeedbackForm",
+          "stability": "beta"
+        },
+        {
+          "name": "ScriptEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "SearchInput",
+          "stability": "beta"
+        },
+        {
+          "name": "SearchWithResults",
+          "stability": "beta"
+        },
+        {
+          "name": "SegmentedControl",
+          "stability": "beta"
+        },
+        {
+          "name": "Select",
+          "stability": "beta"
+        },
+        {
+          "name": "SharePermissions",
+          "stability": "beta"
+        },
+        {
+          "name": "SignInForm",
+          "stability": "beta"
+        },
+        {
+          "name": "SignUpForm",
+          "stability": "beta"
+        },
+        {
+          "name": "SignaturePad",
+          "stability": "beta"
+        },
+        {
+          "name": "Slider",
+          "stability": "beta"
+        },
+        {
+          "name": "SliderBank",
+          "stability": "beta"
+        },
+        {
+          "name": "SlotPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "SortSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "TagInput",
+          "stability": "beta"
+        },
+        {
+          "name": "TelInput",
+          "stability": "beta"
+        },
+        {
+          "name": "TerritoryMatrix",
+          "stability": "beta"
+        },
+        {
+          "name": "Textarea",
+          "stability": "beta"
+        },
+        {
+          "name": "TimePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "TimesheetEntryForm",
+          "stability": "beta"
+        },
+        {
+          "name": "Toggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ToggleGroup",
+          "stability": "beta"
+        },
+        {
+          "name": "TreeSelect",
+          "stability": "beta"
+        },
+        {
+          "name": "UrlInput",
+          "stability": "beta"
+        },
+        {
+          "name": "ValidationMessage",
+          "stability": "beta"
+        },
+        {
+          "name": "VersionSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "VisibilitySelector",
+          "stability": "beta"
+        },
+        {
+          "name": "WeekPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "WindowEditor",
+          "stability": "beta"
+        },
+        {
+          "name": "WrapForm",
+          "stability": "beta"
+        },
+        {
+          "name": "WrapSummary",
+          "stability": "beta"
+        },
+        {
+          "name": "YesNoButtons",
+          "stability": "beta"
+        },
+        {
+          "name": "accountTypeOptions",
+          "stability": "beta"
+        },
+        {
+          "name": "campaignProblems",
+          "stability": "beta"
+        },
+        {
+          "name": "caretPosition",
+          "stability": "beta"
+        },
+        {
+          "name": "charactersOf",
+          "stability": "beta"
+        },
+        {
+          "name": "clampCrop",
+          "stability": "beta"
+        },
+        {
+          "name": "colorCorrectionParams",
+          "stability": "beta"
+        },
+        {
+          "name": "commonCurrencies",
+          "stability": "beta"
+        },
+        {
+          "name": "commonDialCodes",
+          "stability": "beta"
+        },
+        {
+          "name": "controlStyle",
+          "stability": "beta"
+        },
+        {
+          "name": "countryCodes",
+          "stability": "beta"
+        },
+        {
+          "name": "defaultPasswordRules",
+          "stability": "beta"
+        },
+        {
+          "name": "displayName",
+          "stability": "beta"
+        },
+        {
+          "name": "elementLabels",
+          "stability": "beta"
+        },
+        {
+          "name": "eqBandsHz",
+          "stability": "beta"
+        },
+        {
+          "name": "evaluateFormula",
+          "stability": "beta"
+        },
+        {
+          "name": "fileMatchesAccept",
+          "stability": "beta"
+        },
+        {
+          "name": "formComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "formatBytes",
+          "stability": "beta"
+        },
+        {
+          "name": "formatCoordinates",
+          "stability": "beta"
+        },
+        {
+          "name": "formatHM",
+          "stability": "beta"
+        },
+        {
+          "name": "formatMinutes",
+          "stability": "beta"
+        },
+        {
+          "name": "formatMonthValue",
+          "stability": "beta"
+        },
+        {
+          "name": "formatWeekValue",
+          "stability": "beta"
+        },
+        {
+          "name": "hoursWorked",
+          "stability": "beta"
+        },
+        {
+          "name": "indianLanguages",
+          "stability": "beta"
+        },
+        {
+          "name": "indianStates",
+          "stability": "beta"
+        },
+        {
+          "name": "isoWeek",
+          "stability": "beta"
+        },
+        {
+          "name": "isoWeekStart",
+          "stability": "beta"
+        },
+        {
+          "name": "leavesOf",
+          "stability": "beta"
+        },
+        {
+          "name": "mentionedIn",
+          "stability": "beta"
+        },
+        {
+          "name": "nextElementType",
+          "stability": "beta"
+        },
+        {
+          "name": "normalizeTel",
+          "stability": "beta"
+        },
+        {
+          "name": "parseEmails",
+          "stability": "beta"
+        },
+        {
+          "name": "parseLatLng",
+          "stability": "beta"
+        },
+        {
+          "name": "parseMonth",
+          "stability": "beta"
+        },
+        {
+          "name": "parseWeek",
+          "stability": "beta"
+        },
+        {
+          "name": "priceSteps",
+          "stability": "beta"
+        },
+        {
+          "name": "productionRoleOptions",
+          "stability": "beta"
+        },
+        {
+          "name": "readingFontStacks",
+          "stability": "beta"
+        },
+        {
+          "name": "renderMarkdown",
+          "stability": "beta"
+        },
+        {
+          "name": "scenesOf",
+          "stability": "beta"
+        },
+        {
+          "name": "useDwell",
+          "stability": "beta"
+        },
+        {
+          "name": "validateReviewers",
+          "stability": "beta"
+        },
+        {
+          "name": "validateUrl",
+          "stability": "beta"
+        },
+        {
+          "name": "weeksInYear",
+          "stability": "beta"
+        },
+        {
+          "name": "windowConflicts",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./actions",
+      "target": "./dist/actions/index.js",
+      "exports": [
+        {
+          "name": "AnonymizeButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ApprovalActions",
+          "stability": "beta"
+        },
+        {
+          "name": "ArchiveButton",
+          "stability": "beta"
+        },
+        {
+          "name": "BulkActionBar",
+          "stability": "beta"
+        },
+        {
+          "name": "ButtonGroup",
+          "stability": "beta"
+        },
+        {
+          "name": "CallSheetPublishBar",
+          "stability": "beta"
+        },
+        {
+          "name": "ConfirmButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ContextMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "CopyButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ExportControl",
+          "stability": "beta"
+        },
+        {
+          "name": "FAB",
+          "stability": "beta"
+        },
+        {
+          "name": "FabMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "IconButton",
+          "stability": "beta"
+        },
+        {
+          "name": "LinkButton",
+          "stability": "beta"
+        },
+        {
+          "name": "MenuButton",
+          "stability": "beta"
+        },
+        {
+          "name": "MenuPopup",
+          "stability": "beta"
+        },
+        {
+          "name": "ProviderSignInButtons",
+          "stability": "beta"
+        },
+        {
+          "name": "QuickActionPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "SaveDraftButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ShareMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "SignOutButton",
+          "stability": "beta"
+        },
+        {
+          "name": "SplitButton",
+          "stability": "beta"
+        },
+        {
+          "name": "actionComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "defaultShareTargets",
+          "stability": "beta"
+        },
+        {
+          "name": "savedAgo",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./surfaces",
+      "target": "./dist/surfaces/index.js",
+      "exports": [
+        {
+          "name": "ActionSheet",
+          "stability": "beta"
+        },
+        {
+          "name": "AnnouncementStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "BackgroundSyncToast",
+          "stability": "beta"
+        },
+        {
+          "name": "BiometricUnlock",
+          "stability": "beta"
+        },
+        {
+          "name": "BrandLogo",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraScienceSplash",
+          "stability": "beta"
+        },
+        {
+          "name": "CommandPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "CompareGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "ConfettiBurst",
+          "stability": "beta"
+        },
+        {
+          "name": "ConfirmDialog",
+          "stability": "beta"
+        },
+        {
+          "name": "ConflictResolutionPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "CookieConsentBanner",
+          "stability": "beta"
+        },
+        {
+          "name": "Drawer",
+          "stability": "beta"
+        },
+        {
+          "name": "Dropdown",
+          "stability": "beta"
+        },
+        {
+          "name": "ErrorBoundary",
+          "stability": "beta"
+        },
+        {
+          "name": "ErrorFallback",
+          "stability": "beta"
+        },
+        {
+          "name": "EyeGazeCalibration",
+          "stability": "beta"
+        },
+        {
+          "name": "FAQAccordion",
+          "stability": "beta"
+        },
+        {
+          "name": "FeatureCard",
+          "stability": "beta"
+        },
+        {
+          "name": "FeatureGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "FullScreenModal",
+          "stability": "beta"
+        },
+        {
+          "name": "GlassPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "GlassSplash",
+          "stability": "beta"
+        },
+        {
+          "name": "HapticFeedback",
+          "stability": "beta"
+        },
+        {
+          "name": "Hero",
+          "stability": "beta"
+        },
+        {
+          "name": "ImageCard",
+          "stability": "beta"
+        },
+        {
+          "name": "InsetCard",
+          "stability": "beta"
+        },
+        {
+          "name": "LogoStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "MasterApprovalPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "Modal",
+          "stability": "beta"
+        },
+        {
+          "name": "ModeSwitch",
+          "stability": "beta"
+        },
+        {
+          "name": "NotFoundScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "NotificationDetail",
+          "stability": "beta"
+        },
+        {
+          "name": "NotificationPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "OnboardingCompleteScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "OnboardingTour",
+          "stability": "beta"
+        },
+        {
+          "name": "Panel",
+          "stability": "beta"
+        },
+        {
+          "name": "ParticleSplash",
+          "stability": "beta"
+        },
+        {
+          "name": "PermissionDeniedScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "PermissionPrompt",
+          "stability": "beta"
+        },
+        {
+          "name": "PictureBoard",
+          "stability": "beta"
+        },
+        {
+          "name": "Popover",
+          "stability": "beta"
+        },
+        {
+          "name": "PreviewFrame",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingCardRow",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingTable",
+          "stability": "beta"
+        },
+        {
+          "name": "PricingTierCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ProfileCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ProgressToast",
+          "stability": "beta"
+        },
+        {
+          "name": "PullToRefresh",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenReaderModeToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "ServiceCard",
+          "stability": "beta"
+        },
+        {
+          "name": "SessionExpiredScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "SettingsPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "Sheet",
+          "stability": "beta"
+        },
+        {
+          "name": "SimplifiedModeToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "SplashScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "StatsStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "StatusScreen",
+          "stability": "beta"
+        },
+        {
+          "name": "TestimonialCard",
+          "stability": "beta"
+        },
+        {
+          "name": "TestimonialCarousel",
+          "stability": "beta"
+        },
+        {
+          "name": "Toast",
+          "stability": "beta"
+        },
+        {
+          "name": "ToastContainer",
+          "stability": "beta"
+        },
+        {
+          "name": "Tooltip",
+          "stability": "beta"
+        },
+        {
+          "name": "TypedConfirmDialog",
+          "stability": "beta"
+        },
+        {
+          "name": "UndoSnackbar",
+          "stability": "beta"
+        },
+        {
+          "name": "VoiceCommandGuide",
+          "stability": "beta"
+        },
+        {
+          "name": "filterCommands",
+          "stability": "beta"
+        },
+        {
+          "name": "hapticPatterns",
+          "stability": "beta"
+        },
+        {
+          "name": "nineCalibrationPoints",
+          "stability": "beta"
+        },
+        {
+          "name": "surfaceComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "useCommandPaletteShortcut",
+          "stability": "beta"
+        },
+        {
+          "name": "vibrate",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./navigation",
+      "target": "./dist/navigation/index.js",
+      "exports": [
+        {
+          "name": "AnchorNav",
+          "stability": "beta"
+        },
+        {
+          "name": "AppShell",
+          "stability": "beta"
+        },
+        {
+          "name": "BottomNav",
+          "stability": "beta"
+        },
+        {
+          "name": "Breadcrumb",
+          "stability": "beta"
+        },
+        {
+          "name": "HamburgerMenu",
+          "stability": "beta"
+        },
+        {
+          "name": "InfiniteList",
+          "stability": "beta"
+        },
+        {
+          "name": "LoadMoreButton",
+          "stability": "beta"
+        },
+        {
+          "name": "Menu",
+          "stability": "beta"
+        },
+        {
+          "name": "NotificationBell",
+          "stability": "beta"
+        },
+        {
+          "name": "Pagination",
+          "stability": "beta"
+        },
+        {
+          "name": "ScrollToTop",
+          "stability": "beta"
+        },
+        {
+          "name": "SegmentedTabs",
+          "stability": "beta"
+        },
+        {
+          "name": "Sidebar",
+          "stability": "beta"
+        },
+        {
+          "name": "SiteFooter",
+          "stability": "beta"
+        },
+        {
+          "name": "StepDots",
+          "stability": "beta"
+        },
+        {
+          "name": "StickyNavbar",
+          "stability": "beta"
+        },
+        {
+          "name": "Tabs",
+          "stability": "beta"
+        },
+        {
+          "name": "TopNav",
+          "stability": "beta"
+        },
+        {
+          "name": "UserChip",
+          "stability": "beta"
+        },
+        {
+          "name": "VerticalTabs",
+          "stability": "beta"
+        },
+        {
+          "name": "WizardShell",
+          "stability": "beta"
+        },
+        {
+          "name": "consumeReturnTo",
+          "stability": "beta"
+        },
+        {
+          "name": "navigationComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "rememberReturnTo",
+          "stability": "beta"
+        },
+        {
+          "name": "safeReturnTo",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./maps",
+      "target": "./dist/maps/index.js",
+      "exports": [
+        {
+          "name": "AreaLabel",
+          "stability": "experimental"
+        },
+        {
+          "name": "AreaPolygon",
+          "stability": "experimental"
+        },
+        {
+          "name": "CameraAngleAnnotation",
+          "stability": "experimental"
+        },
+        {
+          "name": "CloudLayer",
+          "stability": "experimental"
+        },
+        {
+          "name": "ClusteredMarkers",
+          "stability": "experimental"
+        },
+        {
+          "name": "CompassRose",
+          "stability": "experimental"
+        },
+        {
+          "name": "GeoMap",
+          "stability": "experimental"
+        },
+        {
+          "name": "GeoSearchBox",
+          "stability": "experimental"
+        },
+        {
+          "name": "Graticule",
+          "stability": "experimental"
+        },
+        {
+          "name": "LocationThumbnailCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "MapCanvas",
+          "stability": "experimental"
+        },
+        {
+          "name": "MapFeatureList",
+          "stability": "experimental"
+        },
+        {
+          "name": "MapLayerToggle",
+          "stability": "experimental"
+        },
+        {
+          "name": "MapLegend",
+          "stability": "experimental"
+        },
+        {
+          "name": "MapPopup",
+          "stability": "experimental"
+        },
+        {
+          "name": "MoonPositionWidget",
+          "stability": "experimental"
+        },
+        {
+          "name": "OrbPin",
+          "stability": "experimental"
+        },
+        {
+          "name": "QuadtreeGrid",
+          "stability": "experimental"
+        },
+        {
+          "name": "RadiusCircle",
+          "stability": "experimental"
+        },
+        {
+          "name": "RocketLaunch",
+          "stability": "experimental"
+        },
+        {
+          "name": "RoutePolyline",
+          "stability": "experimental"
+        },
+        {
+          "name": "SatelliteOrbitPath",
+          "stability": "experimental"
+        },
+        {
+          "name": "ScaleBar",
+          "stability": "experimental"
+        },
+        {
+          "name": "SunPositionWidget",
+          "stability": "experimental"
+        },
+        {
+          "name": "TerrainProfile",
+          "stability": "experimental"
+        },
+        {
+          "name": "TrackerLayer",
+          "stability": "experimental"
+        },
+        {
+          "name": "VenueFloorPlan",
+          "stability": "experimental"
+        },
+        {
+          "name": "WeatherOverlayToggle",
+          "stability": "experimental"
+        },
+        {
+          "name": "WindLayer",
+          "stability": "experimental"
+        },
+        {
+          "name": "ZoomSlider",
+          "stability": "experimental"
+        },
+        {
+          "name": "bearingDeg",
+          "stability": "experimental"
+        },
+        {
+          "name": "boundsAround",
+          "stability": "experimental"
+        },
+        {
+          "name": "clusterPoints",
+          "stability": "experimental"
+        },
+        {
+          "name": "compassWord",
+          "stability": "experimental"
+        },
+        {
+          "name": "haversineKm",
+          "stability": "experimental"
+        },
+        {
+          "name": "mapsComponents",
+          "stability": "experimental"
+        },
+        {
+          "name": "moonIllumination",
+          "stability": "experimental"
+        },
+        {
+          "name": "moonPhaseName",
+          "stability": "experimental"
+        },
+        {
+          "name": "moonPosition",
+          "stability": "experimental"
+        },
+        {
+          "name": "niceScale",
+          "stability": "experimental"
+        },
+        {
+          "name": "orbitGroundTrack",
+          "stability": "experimental"
+        },
+        {
+          "name": "pathLengthKm",
+          "stability": "experimental"
+        },
+        {
+          "name": "sunPosition",
+          "stability": "experimental"
+        },
+        {
+          "name": "sunTimes",
+          "stability": "experimental"
+        },
+        {
+          "name": "useMap",
+          "stability": "experimental"
+        },
+        {
+          "name": "usePercent",
+          "stability": "experimental"
+        },
+        {
+          "name": "weatherLayers",
+          "stability": "experimental"
+        }
+      ]
+    },
+    {
+      "entry": "./data",
+      "target": "./dist/data/index.js",
+      "exports": [
+        {
+          "name": "AgendaView",
+          "stability": "beta"
+        },
+        {
+          "name": "AltitudeDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "AncestralChainFlow",
+          "stability": "experimental"
+        },
+        {
+          "name": "AnimatedCounter",
+          "stability": "beta"
+        },
+        {
+          "name": "ApplicantDetail",
+          "stability": "beta"
+        },
+        {
+          "name": "ApprovalFrameMarker",
+          "stability": "beta"
+        },
+        {
+          "name": "AreaChart",
+          "stability": "beta"
+        },
+        {
+          "name": "AssetGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "AssetPreview",
+          "stability": "beta"
+        },
+        {
+          "name": "AttendanceGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "AudienceRecommendationMeter",
+          "stability": "experimental"
+        },
+        {
+          "name": "AudioPlayer",
+          "stability": "beta"
+        },
+        {
+          "name": "AudioRecorder",
+          "stability": "beta"
+        },
+        {
+          "name": "Avatar",
+          "stability": "beta"
+        },
+        {
+          "name": "BarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAKRAS",
+          "stability": "experimental"
+        },
+        {
+          "name": "CHART_COLORS",
+          "stability": "beta"
+        },
+        {
+          "name": "CallSheetPrintView",
+          "stability": "beta"
+        },
+        {
+          "name": "CallTimeBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "CallbackList",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraPreview",
+          "stability": "beta"
+        },
+        {
+          "name": "CastingProfileCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ChakraCategoryRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "ChartFigure",
+          "stability": "beta"
+        },
+        {
+          "name": "Checklist",
+          "stability": "beta"
+        },
+        {
+          "name": "CleanDownloadButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ComparisonTable",
+          "stability": "beta"
+        },
+        {
+          "name": "ContractExpiryPill",
+          "stability": "experimental"
+        },
+        {
+          "name": "ContractStatusBadge",
+          "stability": "experimental"
+        },
+        {
+          "name": "CostDriverRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "CraftServiceMealCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "CrewPositionRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "CrowdfundingProgressBar",
+          "stability": "experimental"
+        },
+        {
+          "name": "CueList",
+          "stability": "beta"
+        },
+        {
+          "name": "DEPARTMENT_COLORS",
+          "stability": "experimental"
+        },
+        {
+          "name": "DataTable",
+          "stability": "beta"
+        },
+        {
+          "name": "DeadlineList",
+          "stability": "beta"
+        },
+        {
+          "name": "DeliverySpecCard",
+          "stability": "beta"
+        },
+        {
+          "name": "DeliveryStatusList",
+          "stability": "beta"
+        },
+        {
+          "name": "DeliveryTracker",
+          "stability": "beta"
+        },
+        {
+          "name": "DepartmentCoverageGrid",
+          "stability": "experimental"
+        },
+        {
+          "name": "DetailList",
+          "stability": "beta"
+        },
+        {
+          "name": "DeviceInfoCard",
+          "stability": "beta"
+        },
+        {
+          "name": "DietaryBadge",
+          "stability": "experimental"
+        },
+        {
+          "name": "DiffView",
+          "stability": "beta"
+        },
+        {
+          "name": "DirectorNotesPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "DistributionEventLog",
+          "stability": "experimental"
+        },
+        {
+          "name": "DocumentList",
+          "stability": "beta"
+        },
+        {
+          "name": "DonutChart",
+          "stability": "beta"
+        },
+        {
+          "name": "DroneFlightLog",
+          "stability": "beta"
+        },
+        {
+          "name": "EmptyState",
+          "stability": "beta"
+        },
+        {
+          "name": "EquipmentCatalog",
+          "stability": "beta"
+        },
+        {
+          "name": "EventCalendar",
+          "stability": "beta"
+        },
+        {
+          "name": "FunnelChart",
+          "stability": "beta"
+        },
+        {
+          "name": "GanttTimeline",
+          "stability": "beta"
+        },
+        {
+          "name": "GasEstimate",
+          "stability": "experimental"
+        },
+        {
+          "name": "Gauge",
+          "stability": "beta"
+        },
+        {
+          "name": "GovernanceVoteCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "GroupedBarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "Heatmap",
+          "stability": "beta"
+        },
+        {
+          "name": "HorizontalBarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "InlineEditGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "InvestorRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "InvitationList",
+          "stability": "beta"
+        },
+        {
+          "name": "JsonExplorer",
+          "stability": "beta"
+        },
+        {
+          "name": "LanguageCulturalTimeline",
+          "stability": "experimental"
+        },
+        {
+          "name": "LegalMatterList",
+          "stability": "beta"
+        },
+        {
+          "name": "Legend",
+          "stability": "beta"
+        },
+        {
+          "name": "LegendList",
+          "stability": "beta"
+        },
+        {
+          "name": "LineChart",
+          "stability": "beta"
+        },
+        {
+          "name": "LiveTranscript",
+          "stability": "beta"
+        },
+        {
+          "name": "LocationComparisonCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "LocationDetail",
+          "stability": "beta"
+        },
+        {
+          "name": "LocationGallery",
+          "stability": "beta"
+        },
+        {
+          "name": "MarketingAssetLibrary",
+          "stability": "beta"
+        },
+        {
+          "name": "MarketingCampaignCard",
+          "stability": "beta"
+        },
+        {
+          "name": "MediaScrubber",
+          "stability": "beta"
+        },
+        {
+          "name": "MetricCard",
+          "stability": "beta"
+        },
+        {
+          "name": "MilestoneMarker",
+          "stability": "beta"
+        },
+        {
+          "name": "NetworkingContactList",
+          "stability": "beta"
+        },
+        {
+          "name": "OfferLetterPreview",
+          "stability": "beta"
+        },
+        {
+          "name": "OperatorSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "PackageSummaryBar",
+          "stability": "experimental"
+        },
+        {
+          "name": "PeopleDirectory",
+          "stability": "beta"
+        },
+        {
+          "name": "PerDiemTable",
+          "stability": "beta"
+        },
+        {
+          "name": "PermitStatusCard",
+          "stability": "beta"
+        },
+        {
+          "name": "PermitTimelineStrip",
+          "stability": "experimental"
+        },
+        {
+          "name": "PersonRow",
+          "stability": "beta"
+        },
+        {
+          "name": "PieChart",
+          "stability": "beta"
+        },
+        {
+          "name": "PipelineBoard",
+          "stability": "beta"
+        },
+        {
+          "name": "PitchDeliveryReceipt",
+          "stability": "beta"
+        },
+        {
+          "name": "PitchRecipientSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "PitchSlideThumbnail",
+          "stability": "experimental"
+        },
+        {
+          "name": "PrivateNotes",
+          "stability": "beta"
+        },
+        {
+          "name": "ProductionListingCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ProductionListingGrid",
+          "stability": "beta"
+        },
+        {
+          "name": "ProfitDistributionRing",
+          "stability": "experimental"
+        },
+        {
+          "name": "ProgressRing",
+          "stability": "beta"
+        },
+        {
+          "name": "ProjectSummaryCard",
+          "stability": "beta"
+        },
+        {
+          "name": "QuarantinePanel",
+          "stability": "beta"
+        },
+        {
+          "name": "RadarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "ReceiptDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "RecordHeader",
+          "stability": "beta"
+        },
+        {
+          "name": "RehearsalSceneList",
+          "stability": "beta"
+        },
+        {
+          "name": "RescheduleRequest",
+          "stability": "beta"
+        },
+        {
+          "name": "ReviewThread",
+          "stability": "beta"
+        },
+        {
+          "name": "RewardTierCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "RoleBreakdownCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ScannerFailureNotice",
+          "stability": "beta"
+        },
+        {
+          "name": "ScenarioCard",
+          "stability": "beta"
+        },
+        {
+          "name": "ScenarioSwitcher",
+          "stability": "experimental"
+        },
+        {
+          "name": "SceneProgressTracker",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenRecordingBar",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreeningAttendeeList",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenshotButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ScriptAnalysisChart",
+          "stability": "beta"
+        },
+        {
+          "name": "ScrollTable",
+          "stability": "beta"
+        },
+        {
+          "name": "ShareLinkDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "SidesViewer",
+          "stability": "beta"
+        },
+        {
+          "name": "SignatureStatusList",
+          "stability": "beta"
+        },
+        {
+          "name": "SkillMeter",
+          "stability": "experimental"
+        },
+        {
+          "name": "Slate",
+          "stability": "beta"
+        },
+        {
+          "name": "SmartContractStatusCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "SourceAttribution",
+          "stability": "beta"
+        },
+        {
+          "name": "Sparkline",
+          "stability": "beta"
+        },
+        {
+          "name": "SpectrumAnalyzer",
+          "stability": "beta"
+        },
+        {
+          "name": "StackedProgressBar",
+          "stability": "beta"
+        },
+        {
+          "name": "SubsidyProgrammeList",
+          "stability": "beta"
+        },
+        {
+          "name": "SummaryReview",
+          "stability": "beta"
+        },
+        {
+          "name": "TLPClassificationCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "ThresholdBarChart",
+          "stability": "beta"
+        },
+        {
+          "name": "TimecodeReadout",
+          "stability": "beta"
+        },
+        {
+          "name": "Timeline",
+          "stability": "beta"
+        },
+        {
+          "name": "TimelinePlayhead",
+          "stability": "beta"
+        },
+        {
+          "name": "TimesheetList",
+          "stability": "beta"
+        },
+        {
+          "name": "TimesheetWeekSummary",
+          "stability": "beta"
+        },
+        {
+          "name": "TimezoneDisplay",
+          "stability": "beta"
+        },
+        {
+          "name": "TokenBalanceCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "TransactionConfirmDialog",
+          "stability": "experimental"
+        },
+        {
+          "name": "TransactionList",
+          "stability": "experimental"
+        },
+        {
+          "name": "VUMeter",
+          "stability": "beta"
+        },
+        {
+          "name": "VarianceBars",
+          "stability": "beta"
+        },
+        {
+          "name": "VehicleCapacityCard",
+          "stability": "experimental"
+        },
+        {
+          "name": "VehicleRateRow",
+          "stability": "experimental"
+        },
+        {
+          "name": "VersionHistoryList",
+          "stability": "beta"
+        },
+        {
+          "name": "VfxShotTable",
+          "stability": "beta"
+        },
+        {
+          "name": "VideoCallTile",
+          "stability": "beta"
+        },
+        {
+          "name": "VoiceCommandButton",
+          "stability": "beta"
+        },
+        {
+          "name": "WaiverSignatureBlock",
+          "stability": "beta"
+        },
+        {
+          "name": "WalletAddress",
+          "stability": "experimental"
+        },
+        {
+          "name": "WalletConnectButton",
+          "stability": "experimental"
+        },
+        {
+          "name": "WardrobeScheduleCard",
+          "stability": "beta"
+        },
+        {
+          "name": "WaterfallChart",
+          "stability": "beta"
+        },
+        {
+          "name": "Waveform",
+          "stability": "beta"
+        },
+        {
+          "name": "WeatherWidget",
+          "stability": "experimental"
+        },
+        {
+          "name": "chartColor",
+          "stability": "beta"
+        },
+        {
+          "name": "clock",
+          "stability": "beta"
+        },
+        {
+          "name": "cueLength",
+          "stability": "beta"
+        },
+        {
+          "name": "dataComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "daysUntil",
+          "stability": "experimental"
+        },
+        {
+          "name": "detectDevice",
+          "stability": "beta"
+        },
+        {
+          "name": "diffLines",
+          "stability": "beta"
+        },
+        {
+          "name": "eventsOn",
+          "stability": "beta"
+        },
+        {
+          "name": "formatTimecode",
+          "stability": "beta"
+        },
+        {
+          "name": "initialsOf",
+          "stability": "beta"
+        },
+        {
+          "name": "inrShort",
+          "stability": "experimental"
+        },
+        {
+          "name": "levelZone",
+          "stability": "beta"
+        },
+        {
+          "name": "pagesFromEighths",
+          "stability": "beta"
+        },
+        {
+          "name": "parseTimecode",
+          "stability": "beta"
+        },
+        {
+          "name": "peaksFrom",
+          "stability": "beta"
+        },
+        {
+          "name": "relativeDue",
+          "stability": "beta"
+        },
+        {
+          "name": "shortAddress",
+          "stability": "experimental"
+        },
+        {
+          "name": "spectrumBandHz",
+          "stability": "beta"
+        },
+        {
+          "name": "templateFields",
+          "stability": "beta"
+        },
+        {
+          "name": "zoneAbbr",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./effects",
+      "target": "./dist/effects/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./status",
+      "target": "./dist/status/index.js",
+      "exports": [
+        {
+          "name": "BufferingIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "CountBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "IndeterminateProgress",
+          "stability": "beta"
+        },
+        {
+          "name": "LastOwnerWarning",
+          "stability": "beta"
+        },
+        {
+          "name": "LoadingOverlay",
+          "stability": "beta"
+        },
+        {
+          "name": "LockIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "OfflineBanner",
+          "stability": "beta"
+        },
+        {
+          "name": "OverrunAlert",
+          "stability": "beta"
+        },
+        {
+          "name": "PriorityBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "RetryCountdown",
+          "stability": "beta"
+        },
+        {
+          "name": "ScanStatusBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "ScheduleConflictBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "ScreenReaderModeIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "SessionExpiryWarning",
+          "stability": "beta"
+        },
+        {
+          "name": "SignedUrlStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "Skeleton",
+          "stability": "beta"
+        },
+        {
+          "name": "SkeletonTable",
+          "stability": "beta"
+        },
+        {
+          "name": "Spinner",
+          "stability": "beta"
+        },
+        {
+          "name": "StateBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "StatusBadge",
+          "stability": "beta"
+        },
+        {
+          "name": "StepIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "SyncOpsDashboard",
+          "stability": "beta"
+        },
+        {
+          "name": "SyncStatus",
+          "stability": "beta"
+        },
+        {
+          "name": "Timer",
+          "stability": "beta"
+        },
+        {
+          "name": "approvalStates",
+          "stability": "beta"
+        },
+        {
+          "name": "clearanceStates",
+          "stability": "beta"
+        },
+        {
+          "name": "deliveryStates",
+          "stability": "beta"
+        },
+        {
+          "name": "formatDuration",
+          "stability": "beta"
+        },
+        {
+          "name": "permitStates",
+          "stability": "beta"
+        },
+        {
+          "name": "publicationStates",
+          "stability": "beta"
+        },
+        {
+          "name": "qcStates",
+          "stability": "beta"
+        },
+        {
+          "name": "renderStates",
+          "stability": "beta"
+        },
+        {
+          "name": "scanStatusLabel",
+          "stability": "beta"
+        },
+        {
+          "name": "signatureStates",
+          "stability": "beta"
+        },
+        {
+          "name": "spokenDuration",
+          "stability": "beta"
+        },
+        {
+          "name": "useOnlineStatus",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./trust",
+      "target": "./dist/trust/index.js",
+      "exports": [
+        {
+          "name": "AuditLogViewer",
+          "stability": "beta"
+        },
+        {
+          "name": "AuditSystem",
+          "stability": "beta"
+        },
+        {
+          "name": "ComplianceStatusDashboard",
+          "stability": "beta"
+        },
+        {
+          "name": "DataGovernanceEngine",
+          "stability": "beta"
+        },
+        {
+          "name": "DataQualityManager",
+          "stability": "beta"
+        },
+        {
+          "name": "DataRetentionManager",
+          "stability": "beta"
+        },
+        {
+          "name": "MFASetupPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "PrivacyRequestManager",
+          "stability": "beta"
+        },
+        {
+          "name": "RBACEngine",
+          "stability": "beta"
+        },
+        {
+          "name": "RoleManagementPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "ScopeBasedAccessControl",
+          "stability": "beta"
+        },
+        {
+          "name": "SessionManager",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./devices",
+      "target": "./dist/devices/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./graph",
+      "target": "./dist/graph/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./topology",
+      "target": "./dist/topology/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./observability",
+      "target": "./dist/observability/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./hud",
+      "target": "./dist/hud/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./runtime",
+      "target": "./dist/runtime/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./knowledge",
+      "target": "./dist/knowledge/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./ai",
+      "target": "./dist/ai/index.js",
+      "exports": [
+        {
+          "name": "AIChatBubble",
+          "stability": "beta"
+        },
+        {
+          "name": "AITypingIndicator",
+          "stability": "beta"
+        },
+        {
+          "name": "AnomalyAlerts",
+          "stability": "beta"
+        },
+        {
+          "name": "EmbeddingVisualization",
+          "stability": "beta"
+        },
+        {
+          "name": "InteractionModeSwitcher",
+          "stability": "beta"
+        },
+        {
+          "name": "MLInsightsPanel",
+          "stability": "beta"
+        },
+        {
+          "name": "ModelConfiguredCheck",
+          "stability": "beta"
+        },
+        {
+          "name": "ModelResponse",
+          "stability": "beta"
+        },
+        {
+          "name": "PredictionChart",
+          "stability": "beta"
+        },
+        {
+          "name": "RecommendationCards",
+          "stability": "beta"
+        },
+        {
+          "name": "ThoughtHistory",
+          "stability": "beta"
+        },
+        {
+          "name": "ThoughtInput",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./code",
+      "target": "./dist/code/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./notebook",
+      "target": "./dist/notebook/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./whiteboard",
+      "target": "./dist/whiteboard/index.js",
+      "exports": [
+        {
+          "name": "BrushColorPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "CameraAnglePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "ColorPaletteStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "DrawingToolPalette",
+          "stability": "beta"
+        },
+        {
+          "name": "EffectsLibrary",
+          "stability": "beta"
+        },
+        {
+          "name": "FrameCanvas",
+          "stability": "beta"
+        },
+        {
+          "name": "FrameTimelineStrip",
+          "stability": "beta"
+        },
+        {
+          "name": "LayerStack",
+          "stability": "beta"
+        },
+        {
+          "name": "LiveDrawingOverlay",
+          "stability": "beta"
+        },
+        {
+          "name": "MoodBoardGallery",
+          "stability": "beta"
+        },
+        {
+          "name": "RenderProgressRow",
+          "stability": "beta"
+        },
+        {
+          "name": "RenderQueue",
+          "stability": "beta"
+        },
+        {
+          "name": "ShapeToolPicker",
+          "stability": "beta"
+        },
+        {
+          "name": "ShotTypeSelector",
+          "stability": "beta"
+        },
+        {
+          "name": "cameraAngles",
+          "stability": "beta"
+        },
+        {
+          "name": "contrastRatio",
+          "stability": "beta"
+        },
+        {
+          "name": "drawingToolLabels",
+          "stability": "beta"
+        },
+        {
+          "name": "moveItem",
+          "stability": "beta"
+        },
+        {
+          "name": "shotTypes",
+          "stability": "beta"
+        },
+        {
+          "name": "storyboardSwatches",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./deploy",
+      "target": "./dist/deploy/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./mobile",
+      "target": "./dist/mobile/index.js",
+      "exports": []
+    },
+    {
+      "entry": "./themes",
+      "target": "./dist/themes/index.js",
+      "exports": [
+        {
+          "name": "ThemeProvider",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemeStyle",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemeToggle",
+          "stability": "beta"
+        },
+        {
+          "name": "darkTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "paperTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "themeComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "themeToCss",
+          "stability": "beta"
+        },
+        {
+          "name": "themeToCssVariables",
+          "stability": "beta"
+        },
+        {
+          "name": "tlpsV2Theme",
+          "stability": "beta"
+        },
+        {
+          "name": "useTheme",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./theme-style",
+      "target": "./dist/theme-style.js",
+      "exports": [
+        {
+          "name": "ThemeStyle",
+          "stability": "beta"
+        },
+        {
+          "name": "darkTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "paperTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "tlpsV2Theme",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./types",
+      "target": "./dist/trust/types.js",
+      "exports": []
+    }
+  ],
+  "registryComponents": [
+    {
+      "componentId": "maataa.ai.agent-cancel",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.agent-error",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.agent-plan",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.agent-step",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.alternative-card",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.confidence-indicator",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.context-freshness",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.context-panel",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.explanation",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.model-selector",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.prompt-editor",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.prompt-history",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.recommendation-card",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.risk-card",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.source-reference",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.streaming-status",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.tool-activity",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.uncertainty",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.ai.usage-meter",
+      "package": "@maataa/ai",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.authority-transfer",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-ack",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-audit",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-button",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-cancel",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-nack",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-preview",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-provenance",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-rejection",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-status",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.command-timeout",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.control-handover",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.control-lease",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.controlled-stop-request",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.desired-observed-state",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.emergency-stop-status",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.hardware-safety-state",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.interlock-override-request",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.interlock-status",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.lease-renew",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.lease-revoke",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.safety-reset-request",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.control.telemetry-value",
+      "package": "@maataa/control",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.alert",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.aria-live",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.avatar",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.box",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.button",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.checkbox",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.command-palette",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.container",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.dialog",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.drawer",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.field",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.flex",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.focus-trap",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.form",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.grid",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.icon",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.input",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.label",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.menu",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.notification-center",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.pagination",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.popover",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.portal",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.radio",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.search",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.select",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.settings-panel",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.stack",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.switch",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.table",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.tabs",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.text",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.textarea",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.toast",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.tooltip",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.user-menu",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.core.visually-hidden",
+      "package": "@maataa/core",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.approval-decision",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.approval-gate",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.audit-trail",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.authoritative-state",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.conflict-state",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.evidence-viewer",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.execution-receipt",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.policy-status",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.proposal-diff",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.provenance-trail",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    },
+    {
+      "componentId": "maataa.governance.stale-state-warning",
+      "package": "@maataa/governance",
+      "stability": "beta"
+    }
+  ]
+}

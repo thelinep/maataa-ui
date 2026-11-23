@@ -1,6 +1,6 @@
 {
   "name": "@maataa/ai",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -17,7 +17,12 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@maataa/contracts": "*",
-    "@maataa/core": "*"
+    "@maataa/contracts": "^0.4.2-alpha.0",
+    "@maataa/core": "^0.4.2-alpha.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/ai"
   }
 }

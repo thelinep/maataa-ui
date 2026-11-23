@@ -1,6 +1,6 @@
 {
   "name": "@tlps/domain-primitives",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -22,11 +22,16 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@maataa/primitives": "*",
-    "@maataa/tokens": "*"
+    "@maataa/primitives": "^0.4.2-alpha.0",
+    "@maataa/tokens": "^0.4.2-alpha.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",
     "react-dom": ">=18.2.0 <20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/domain-primitives"
   }
 }

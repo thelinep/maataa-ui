@@ -39,6 +39,16 @@ function makeRelativeImportsNodeCompatible(directory) {
   }
 }
 
+// Preserve Next.js client boundaries in the emitted JavaScript. TypeScript
+// currently preserves directives, but this explicit build step keeps the
+// package contract intact if the compiler pipeline changes.
+function addClientBoundary(filename) {
+  const source = fs.readFileSync(filename, "utf8");
+  if (!/^\uFEFF?\s*["']use client["'];/.test(source)) {
+    fs.writeFileSync(filename, `"use client";\n${source}`);
+  }
+}
+
 if (!fs.existsSync(tsc)) {
   console.error("build: TypeScript is unavailable; install the fused workspace dependencies first");
   process.exit(1);
@@ -58,6 +68,22 @@ for (const packageDirectory of packages) {
   if (compile.status !== 0) process.exit(compile.status ?? 1);
 
   makeRelativeImportsNodeCompatible(path.join(packageRoot, "dist"));
+  if (manifest.name === "@maataa/ui") {
+    const dist = path.join(packageRoot, "dist");
+    // These categories contain hooks, browser APIs, or event-driven controls.
+    // Keep static categories, registry data, tokens, and ThemeStyle server-safe.
+    const clientCategories = new Set([
+      "./actions", "./ai", "./data", "./forms", "./maps", "./navigation",
+      "./status", "./surfaces", "./themes", "./trust", "./whiteboard",
+    ]);
+    for (const [name, entry] of Object.entries(manifest.exports)) {
+      if (!clientCategories.has(name)) continue;
+      const target = entry.default && path.resolve(packageRoot, entry.default);
+      if (target && fs.existsSync(target)) addClientBoundary(target);
+    }
+    // The root re-exports the full visual surface, so it is itself a client entry.
+    addClientBoundary(path.join(dist, "index.js"));
+  }
   const entry = path.join(packageRoot, "dist", "index.js");
   if (!fs.existsSync(entry) || !fs.existsSync(path.join(packageRoot, "dist", "index.d.ts"))) {
     console.error(`build: ${manifest.name} did not emit its declared entry points`);

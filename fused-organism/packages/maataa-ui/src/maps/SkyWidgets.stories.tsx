@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SunPositionWidget, MoonPositionWidget, TerrainProfile, RocketLaunch } from "./SkyWidgets";
 
 const meta = { title: "Maps/SkyWidgets", tags: ["autodocs"] } satisfies Meta;

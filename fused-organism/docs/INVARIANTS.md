@@ -1,6 +1,6 @@
 # Architecture Invariant → Test Map
 
-Generated from `architecture.json` for MAATAA UI 0.4.1. Do not edit manually.
+Generated from `architecture.json` for MAATAA UI 0.4.2-alpha.0. Do not edit manually.
 
 | Invariant | Statement | Named test/check | File |
 | --- | --- | --- | --- |

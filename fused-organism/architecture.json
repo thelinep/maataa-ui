@@ -1,6 +1,6 @@
 {
   "name": "MAATAA UI V3",
-  "version": "0.4.1",
+  "version": "0.4.2-alpha.0",
   "strategy": "foundation-first",
   "packageManager": "npm@10.9.2",
   "activePackages": [
@@ -363,9 +363,8 @@
   ],
   "notCertified": [
     "third-party React implementation or React version matrix; M2 certifies the MAATAA host-adapter contract only",
-    "cross-browser behaviour outside pinned Chromium 144.0.7559.96",
+    "Safari/WebKit and Firefox are not certified; browser certification currently pins Chromium 144.0.7559.96",
     "full WCAG conformance or manual assistive-technology certification",
-    "axe-core rules-engine coverage",
     "Playwright test-runner coverage",
     "real ONVIF/RTSP/WebRTC camera interoperability",
     "real robotics, PLC, IoT, building, industrial, show-control, mobility or energy control",

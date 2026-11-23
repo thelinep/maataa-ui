@@ -1,6 +1,6 @@
 {
   "name": "@maataa/ui",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "maataaPolicy": {
     "versioning": "independent",
     "apiManifest": "separate-typescript-package",
@@ -9,13 +9,14 @@
   "description": "MAATAA visual UI package, composed from @maataa/tokens and @maataa/primitives",
   "author": "MAATAA UI Team",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/maataa/maataa-ui",
+  "homepage": "https://github.com/thelinep/maataa-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/maataa/maataa-ui.git"
+    "url": "https://github.com/thelinep/maataa-ui.git",
+    "directory": "fused-organism/packages/maataa-ui"
   },
   "bugs": {
-    "url": "https://github.com/maataa/maataa-ui/issues"
+    "url": "https://github.com/thelinep/maataa-ui/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
@@ -134,6 +135,10 @@
       "types": "./dist/themes/index.d.ts",
       "default": "./dist/themes/index.js"
     },
+    "./theme-style": {
+      "types": "./dist/theme-style.d.ts",
+      "default": "./dist/theme-style.js"
+    },
     "./types": {
       "types": "./dist/trust/types.d.ts",
       "default": "./dist/trust/types.js"
@@ -157,7 +162,7 @@
     "dev": "tsc --project tsconfig.json --watch",
     "typecheck": "tsc --noEmit",
     "typecheck:strict": "tsc --noEmit --strict",
-    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src --ext .ts,.tsx --ignore-pattern '**/*.stories.tsx' --ignore-pattern '**/*.test.tsx' --config .eslintrc.json",
     "lint:fix": "eslint src/ --fix --ext .ts,.tsx",
     "format": "prettier --write src/ .storybook",
     "format:check": "prettier --check src/ .storybook",
@@ -165,8 +170,8 @@
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "test:ui": "vitest --ui",
-    "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
+    "storybook": "node ../../scripts/run-storybook.mjs dev -p 6006",
+    "storybook:build": "node ../../scripts/run-storybook.mjs build",
     "storybook:serve": "storybook serve storybook-static",
     "clean": "rm -rf dist/ coverage/ .turbo/ storybook-static/",
     "prebuild": "npm run clean && npm run typecheck:strict",
@@ -174,46 +179,46 @@
     "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
-    "@maataa/governance": "*",
-    "@maataa/react": "*",
-    "@maataa/primitives": "*",
-    "@maataa/tokens": "*"
+    "@maataa/governance": "^0.4.2-alpha.0",
+    "@maataa/primitives": "^0.4.2-alpha.0",
+    "@maataa/react": "^0.4.2-alpha.0",
+    "@maataa/tokens": "^0.4.2-alpha.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",
     "react-dom": ">=18.2.0 <20"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.6.0",
-    "@storybook/addon-interactions": "^7.6.0",
-    "@storybook/addon-links": "^7.6.0",
-    "@storybook/cli": "^7.6.0",
-    "@storybook/react": "^7.6.0",
-    "@storybook/react-vite": "^7.6.0",
+    "@storybook/addon-a11y": "10.6.8",
+    "@storybook/addon-docs": "10.6.8",
+    "@storybook/addon-links": "10.6.8",
+    "@storybook/react-vite": "10.6.8",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.0.0",
-    "@types/node": "^20.0.0",
+    "@types/node": "22.20.5",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "@vitest/coverage-v8": "^1.6.1",
-    "@vitest/ui": "^1.0.0",
+    "@vitejs/plugin-react": "5.1.1",
+    "@vitest/coverage-v8": "5.1.1",
+    "@vitest/ui": "5.1.1",
+    "axe-core": "^4.14.1",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^10.6.8",
     "jsdom": "^30.0.1",
     "playwright": "^1.63.0",
     "prettier": "^3.0.0",
-    "storybook": "^7.6.24",
+    "storybook": "10.6.8",
     "typescript": "^5.2.0",
-    "vite": "^5.0.0",
-    "vitest": "^1.0.0"
+    "vite": "6.4.6",
+    "vitest": "5.1.1"
   },
   "engines": {
     "node": ">=18.0.0",

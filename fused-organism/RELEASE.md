@@ -21,3 +21,15 @@ M2 additionally requires:
 - ADR-005 documenting direct CDP instead of Playwright/axe-core.
 
 Licence: Apache License 2.0, chosen 22 Nov 2026 (`LICENSE` and `NOTICE` in the root and in every package; the trademarks are not licensed). Publishing remains disabled. External publication still requires package ownership, provenance/signing, security review, and release-channel decisions. M2 does not provide full WCAG, cross-browser, protocol, HIL, penetration-test, or production-deployment certification.
+
+## Stage 4 release controls
+
+The selected first channel is versioned tarballs vendored into each consuming app. All 21 workspace packages remain `private: true`; the internal tarball workflow packs them without publishing to a registry. The provided GitHub identity is `thelinep`, and all package `repository` fields and the `@maataa/ui` homepage/bugs links now match `https://github.com/thelinep/maataa-ui`. This does not confirm npm ownership of either the `@maataa` or `@tlps` scope; public npm remains unselected.
+
+The fused CI lane runs `npm audit --audit-level=high`, retains the existing `tests/security` checks, and certification scans the exact files listed by `npm pack --dry-run` for credential signatures. Package dry-run and clean Vite/Next.js consumer builds remain release checks. `npm run check:package-secrets` can be run locally; it reports package/file and signature type only and never prints matched values.
+
+The latest successful full dependency audit, after applying available non-breaking lockfile fixes, still reported 44 advisories (28 moderate, 11 high, 5 critical). The production-only audit reported no vulnerabilities, but does not replace the full audit gate. A fresh audit could not reach `registry.npmjs.org` from the current environment; rerun the full audit when registry access is available and keep the release blocked until the high/critical findings are resolved or explicitly dispositioned through the project’s security process.
+
+Changesets CLI 3.0.3 is configured for independent package versions, changelogs, and private-package tags. Use prerelease mode before versioning alpha packages (`npm run release:pre:enter-alpha`, then `npm run release:version`); exit prerelease mode only when the beta/1.0 version decision is approved. The manual tarball workflow runs on `master`, requires the `internal-tarball-release` GitHub environment, certifies the commit, scans packages, creates SHA-256 manifests, pushes only generated `@scope/package@version` tags, and uploads the tarball bundle. Configure that environment with required reviewers before running it.
+
+No npm publish workflow is enabled for the selected channel. If public npm is later chosen, first confirm control of both npm scopes and make the provenance source repository public; npm's GitHub OIDC provenance requires a compatible public repository/package setup. GitHub Packages under `maataaos` would require package names scoped to that GitHub namespace, so it is not compatible with the current names as-is. The app teams still need to vendor each tarball bundle and define their update cadence.

@@ -32,6 +32,7 @@ jobs:
     env:
       ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      MAATAA_AXE_REPORT: ${{ runner.temp }}/maataa-story-a11y.json
     steps:
       - uses: actions/checkout@v5
 
@@ -44,6 +45,9 @@ jobs:
           cache-dependency-path: fused-organism/package-lock.json
 
       - run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
 
       # Build before certification: its drift gate imports each package's dist/.
       - name: Build packages
@@ -78,6 +82,8 @@ jobs:
           mkdir -p "$evidence"
           if [ -f certification/certification.json ]; then cp certification/certification.json "$evidence/"; fi
           if [ -f certification/REPORT.md ]; then cp certification/REPORT.md "$evidence/"; fi
+          if [ -f "$MAATAA_AXE_REPORT" ]; then cp "$MAATAA_AXE_REPORT" "$evidence/"; fi
+          if [ -d packages/maataa-ui/storybook-static ]; then cp -R packages/maataa-ui/storybook-static "$evidence/storybook-static"; fi
           printf '%s\n' "$GITHUB_SHA" > "$evidence/tested-commit.txt"
           git restore -- certification/certification.json certification/REPORT.md
 

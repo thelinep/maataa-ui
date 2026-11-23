@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { UndoSnackbar } from "./UndoSnackbar";
 
 const meta = { title: "Surfaces/UndoSnackbar", tags: ["autodocs"] } satisfies Meta;
