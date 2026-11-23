@@ -24,16 +24,16 @@ const preview: Preview = {
         paper: {
           name: "paper",
           value: "#FAF6F1",
-        }
-      }
+        },
+      },
     },
   },
 
   initialGlobals: {
     backgrounds: {
-      value: "light"
-    }
-  }
+      value: "light",
+    },
+  },
 };
 
 export default preview;

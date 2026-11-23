@@ -16,7 +16,7 @@ export const Inverse: Story = {
   args: { tone: "inverse", size: 40 },
   globals: {
     backgrounds: {
-      value: "dark"
-    }
+      value: "dark",
+    },
   },
 };
