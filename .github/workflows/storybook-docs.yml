@@ -1,0 +1,82 @@
+name: Storybook docs
+
+# Builds the @maataa/ui Storybook on every master change and keeps it as a
+# workflow artifact (download it and open index.html). Deploying it to
+# GitHub Pages only happens when someone runs this workflow by hand, so the
+# site's visibility stays a deliberate choice: set it under Settings > Pages
+# before the first manual run.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, main]
+    paths:
+      - ".github/workflows/storybook-docs.yml"
+      - "fused-organism/**"
+
+concurrency:
+  group: storybook-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: fused-organism
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.22.3
+          cache: npm
+          cache-dependency-path: fused-organism/package-lock.json
+
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Build packages
+        run: |
+          npm run build
+          npm run build:ui
+
+      - name: Build Storybook
+        run: npm run docs:storybook:build
+
+      - name: Keep the static site
+        uses: actions/upload-artifact@v4
+        with:
+          name: maataa-storybook-${{ github.sha }}
+          path: fused-organism/packages/maataa-ui/storybook-static
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Prepare the Pages upload
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: fused-organism/packages/maataa-ui/storybook-static
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

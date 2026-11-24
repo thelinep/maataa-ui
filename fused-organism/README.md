@@ -4,6 +4,10 @@ Release: **0.4.1 — M2 closeout**
 
 MAATAA UI remains foundation-first: 11 active workspace packages, M1-frozen v1 contract/API/registry compatibility, and an M2 browser/React-adapter certification lane whose evidence boundaries are now explicit before M3 begins.
 
+## Component docs (Storybook)
+
+`npm run storybook --workspace=@maataa/ui` runs the @maataa/ui Storybook locally; `npm run docs:storybook:build` writes the static site to `packages/maataa-ui/storybook-static`. On every change to `master`, the **Storybook docs** workflow builds it and keeps it for 90 days as the artifact `maataa-storybook-<commit>`: download it and open `index.html`. Running that workflow by hand also deploys it to GitHub Pages; choose who can see the Pages site in the repository settings first.
+
 ## Active kernel
 
 `contracts → core/registry → ai/governance/renderer/adapter-sdk → control → react → recipes → testing`
