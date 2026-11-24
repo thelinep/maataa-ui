@@ -7,16 +7,24 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { getEntityManager } from '@/core/entity-manager-singleton';
-import type { Organization } from '@/core/phase2-entity-manager';
+import type { EntityType, Organization } from '@/core/phase2-entity-manager';
 
 export interface Entity {
   id: string;
   type: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   created_at: string;
   updated_at: string;
   created_by?: string;
   relationships?: Record<string, string[]>;
+}
+
+/** Fields a project can be created or updated with. */
+export interface ProjectInput {
+  name?: string;
+  description?: string;
+  status?: string;
+  teamSize?: number;
 }
 
 export interface EntitySchema {
@@ -26,7 +34,7 @@ export interface EntitySchema {
     name: string;
     type: 'string' | 'number' | 'boolean' | 'date' | 'relationship';
     required?: boolean;
-    validation?: Record<string, any>;
+    validation?: Record<string, unknown>;
   }>;
 }
 
@@ -51,7 +59,7 @@ export interface UseEntityReturn {
   /** Fetch entity by ID */
   fetchEntity: (id: string) => Promise<Entity>;
   /** Create new entity */
-  createEntity: (data: Record<string, any>) => Promise<Entity>;
+  createEntity: (data: Record<string, unknown>) => Promise<Entity>;
   /** Update entity */
   updateEntity: (id: string, data: Partial<Entity['data']>) => Promise<Entity>;
   /** Delete entity */
@@ -59,7 +67,7 @@ export interface UseEntityReturn {
   /** Get schema for entity type */
   fetchSchema: (type: string) => Promise<EntitySchema>;
   /** Validate entity data against schema */
-  validateEntity: (data: Record<string, any>) => { valid: boolean; errors?: Record<string, string> };
+  validateEntity: (data: Record<string, unknown>) => { valid: boolean; errors?: Record<string, string> };
   /** Get all entities of a type */
   getEntitiesByType: (type: string) => Promise<Entity[]>;
 }
@@ -142,7 +150,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
         // Projects are stored as organizations with 'project' tag
         const phase2Entities = queryType === 'project'
           ? manager.getEntitiesByTag('project')
-          : manager.getEntitiesByType(queryType as any);
+          : manager.getEntitiesByType(queryType as EntityType);
 
         return phase2Entities
           .filter((e): e is Organization => e.type === 'organization')
@@ -160,7 +168,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
    * Create new entity via Phase 2
    */
   const createEntity = useCallback(
-    async (data: Record<string, any>): Promise<Entity> => {
+    async (data: ProjectInput): Promise<Entity> => {
       setLoading(true);
       setError(null);
       try {
@@ -174,7 +182,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
             status: data.status || 'planning',
             teamSize: data.teamSize || 0,
           },
-        } as any);
+        });
 
         const convertedEntity = organizationToEntity(phase2Entity as Organization);
         setEntity(convertedEntity);
@@ -198,7 +206,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
    * Update entity via Phase 2
    */
   const updateEntity = useCallback(
-    async (id: string, data: Partial<Entity['data']>): Promise<Entity> => {
+    async (id: string, data: ProjectInput): Promise<Entity> => {
       setLoading(true);
       setError(null);
       try {
@@ -209,7 +217,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
             status: data.status,
             teamSize: data.teamSize,
           },
-        } as any);
+        });
 
         if (!updated) {
           throw new Error(`Entity not found: ${id}`);
@@ -283,7 +291,7 @@ export function useEntity(options: UseEntityOptions = {}): UseEntityReturn {
    * Validate entity data against schema
    */
   const validateEntity = useCallback(
-    (data: Record<string, any>): { valid: boolean; errors?: Record<string, string> } => {
+    (data: Record<string, unknown>): { valid: boolean; errors?: Record<string, string> } => {
       if (!schema) {
         return { valid: false, errors: { schema: 'Schema not loaded' } };
       }

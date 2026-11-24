@@ -13,7 +13,7 @@ export interface Relationship {
   direction: 'directed' | 'undirected';
   strength: number;
   confidence: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   tags?: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -68,7 +68,7 @@ export class RelationshipManager {
       direction?: 'directed' | 'undirected';
       strength?: number;
       confidence?: number;
-      metadata?: Record<string, any>;
+      metadata?: Record<string, unknown>;
       tags?: string[];
       evidence?: string[];
       notes?: string;

@@ -12,7 +12,7 @@ export function useTouchGestures(handlers: GestureHandlers) {
   const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchDetector.recordTouchStart(e as any);
+    touchDetector.recordTouchStart(e.nativeEvent);
 
     // Setup long press detection
     longPressTimeoutRef.current = setTimeout(() => {
@@ -21,7 +21,7 @@ export function useTouchGestures(handlers: GestureHandlers) {
   }, [handlers]);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    touchDetector.recordTouchEnd(e as any);
+    touchDetector.recordTouchEnd(e.nativeEvent);
 
     // Clear long press timeout
     if (longPressTimeoutRef.current) {

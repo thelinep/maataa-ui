@@ -100,7 +100,7 @@ const InfoRow = styled.div`
 const Badge = styled.span`
   display: inline-block;
   padding: 2px 6px;
-  background: ${(props: any) => props.color};
+  background: ${({ color }: { color?: string }) => color};
   color: white;
   border-radius: 3px;
   font-size: 10px;
@@ -178,7 +178,7 @@ const LegendColor = styled.div`
   width: 16px;
   height: 16px;
   border-radius: 2px;
-  background: ${(props: any) => props.color};
+  background: ${({ color }: { color?: string }) => color};
 `;
 
 /**

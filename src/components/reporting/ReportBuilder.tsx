@@ -161,7 +161,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
           <StyledLabel>Format</StyledLabel>
           <StyledSelect
             value={config.format || 'pdf'}
-            onChange={e => setConfig({ ...config, format: e.target.value as any })}
+            onChange={e => setConfig({ ...config, format: e.target.value as ReportConfig['format'] })}
           >
             <option value="pdf">PDF</option>
             <option value="csv">CSV</option>

@@ -110,7 +110,7 @@ const LegendColor = styled.div`
   width: 16px;
   height: 16px;
   border-radius: 2px;
-  background: ${(props: any) => props.color};
+  background: ${({ color }: { color?: string }) => color};
 `;
 
 /**
@@ -167,7 +167,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({
 
   const getMonths = () => {
     const months = [];
-    let current = new Date(startDate);
+    const current = new Date(startDate);
     while (current <= new Date(endDate)) {
       months.push(new Date(current));
       current.setMonth(current.getMonth() + 1);

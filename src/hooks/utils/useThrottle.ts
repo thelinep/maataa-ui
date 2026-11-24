@@ -11,14 +11,14 @@ import { useCallback, useRef } from 'react';
  * useThrottle Hook
  * Throttle a callback to execute at most once per delay
  */
-export function useThrottle<T extends (...args: any[]) => any>(
+export function useThrottle<T extends (...args: never[]) => unknown>(
   callback: T,
   delay: number = 500
 ): T {
   const lastRunRef = useRef(Date.now());
 
   return useCallback(
-    (...args: any[]) => {
+    (...args: Parameters<T>) => {
       const now = Date.now();
       if (now - lastRunRef.current >= delay) {
         lastRunRef.current = now;

@@ -70,7 +70,7 @@ function initializeMockData(manager: EntityManager): void {
   ];
 
   projects.forEach(project => {
-    manager.createEntity(project as any);
+    manager.createEntity(project);
   });
 }
 

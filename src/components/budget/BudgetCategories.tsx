@@ -77,7 +77,7 @@ const CategoryName = styled.div`
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: ${(props: any) => props.color || colorTokens.interactive.primary};
+    background-color: ${({ color }: { color?: string }) => color || colorTokens.interactive.primary};
   }
 `;
 
@@ -111,7 +111,7 @@ const Stats = styled.div`
 `;
 
 const StatValue = styled.span`
-  color: ${(props: any) => props.color || colorTokens.text.secondary};
+  color: ${({ color }: { color?: string }) => color || colorTokens.text.secondary};
 `;
 
 const EmptyState = styled.div`

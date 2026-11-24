@@ -106,8 +106,8 @@ const AlertChannels = styled.div`
 const Channel = styled.span`
   display: inline-block;
   padding: 2px 8px;
-  background: ${(props: any) => `${props.color}20`};
-  color: ${(props: any) => props.color};
+  background: ${({ color }: { color?: string }) => `${color}20`};
+  color: ${({ color }: { color?: string }) => color};
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;
@@ -251,7 +251,7 @@ export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
     if (formData.type && formData.triggerValue !== undefined) {
       const newAlert: SpendingAlert = {
         id: `alert-${Date.now()}`,
-        type: formData.type as any,
+        type: formData.type,
         triggerValue: formData.triggerValue,
         isActive: true,
         notificationChannels: formData.notificationChannels || ['in-app'],
@@ -288,7 +288,7 @@ export const BudgetAlerts: React.FC<BudgetAlertsProps> = ({
             <Label>Alert Type</Label>
             <Select
               value={formData.type || 'threshold'}
-              onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
+              onChange={(e) => setFormData({ ...formData, type: e.target.value as SpendingAlert['type'] })}
             >
               {Object.entries(ALERT_TYPES).map(([key, { label }]) => (
                 <option key={key} value={key}>{label}</option>

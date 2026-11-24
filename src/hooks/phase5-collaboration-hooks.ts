@@ -60,8 +60,8 @@ export function useCollaboration() {
     window.postMessage({ type: 'collaboration:message', message }, '*');
   }, []);
 
-  const onMessage = useCallback((type: string, handler: (msg: WebSocketMessage) => void) => {
-    messageHandlers.current.set(type, handler);
+  const onMessage = useCallback(<P = unknown>(type: string, handler: (msg: WebSocketMessage<P>) => void) => {
+    messageHandlers.current.set(type, handler as (msg: WebSocketMessage) => void);
 
     const listener = (event: MessageEvent) => {
       if (event.data?.type === 'collaboration:message' && event.data?.message?.type === type) {
@@ -119,7 +119,7 @@ export function usePresence(entityId: string) {
 
   // Listen for presence updates
   useEffect(() => {
-    const unsubscribe = onMessage('presence:update', (msg) => {
+    const unsubscribe = onMessage<PresenceIndicator>('presence:update', (msg) => {
       if (msg.entityId === entityId) {
         setParticipants((prev) => {
           const updated = [...prev];
@@ -223,7 +223,7 @@ export function useActivityFeed(options: { userId?: string; entityId?: string; l
 
   // Listen for new activities
   useEffect(() => {
-    const unsubscribe = onMessage('activity:new', (msg) => {
+    const unsubscribe = onMessage<Activity>('activity:new', (msg) => {
       const newActivity: Activity = msg.payload;
       setActivities((prev) => [newActivity, ...prev].slice(0, options.limit || 50));
     });
@@ -301,11 +301,11 @@ export function useEntityEdit(entityId: string) {
   const [content, setContent] = useState('');
   const [saving, setSaving] = useState(false);
   const [version, setVersion] = useState(0);
-  const pendingOperationsRef = useRef<any[]>([]);
+  const pendingOperationsRef = useRef<unknown[]>([]);
 
   useEffect(() => {
     // Subscribe to entity updates
-    const unsubscribe = onMessage('entity:update', (msg) => {
+    const unsubscribe = onMessage<{ content: string }>('entity:update', (msg) => {
       if (msg.entityId === entityId) {
         setContent(msg.payload.content);
         setVersion(msg.version || 0);
@@ -364,10 +364,10 @@ export function useEntityEdit(entityId: string) {
 export function useWorkflow(workflowId: string) {
   const { sendMessage, onMessage } = useCollaboration();
   const [status, setStatus] = useState<'idle' | 'running' | 'completed' | 'error'>('idle');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<unknown>(null);
 
   const execute = useCallback(
-    async (input?: any) => {
+    async (input?: unknown) => {
       setStatus('running');
       try {
         sendMessage({
@@ -387,7 +387,7 @@ export function useWorkflow(workflowId: string) {
   );
 
   useEffect(() => {
-    const unsubscribe = onMessage('workflow:result', (msg) => {
+    const unsubscribe = onMessage<{ workflowId: string; result: unknown; success: boolean }>('workflow:result', (msg) => {
       if (msg.payload.workflowId === workflowId) {
         setResult(msg.payload.result);
         setStatus(msg.payload.success ? 'completed' : 'error');
@@ -407,7 +407,7 @@ export function useWorkflow(workflowId: string) {
 /**
  * Hook for collaboration session management
  */
-export function useCollaborationSession(entityId: string, onConflict?: (conflicts: any[]) => void) {
+export function useCollaborationSession(entityId: string, onConflict?: (conflicts: unknown[]) => void) {
   const { sendMessage, onMessage } = useCollaboration();
   const [sessionInfo, setSessionInfo] = useState({
     participants: 0,
@@ -416,7 +416,7 @@ export function useCollaborationSession(entityId: string, onConflict?: (conflict
   });
 
   useEffect(() => {
-    const unsubscribe = onMessage('session:sync', (msg) => {
+    const unsubscribe = onMessage<{ participantCount: number; conflicts?: unknown[] }>('session:sync', (msg) => {
       if (msg.entityId === entityId) {
         setSessionInfo({
           participants: msg.payload.participantCount,

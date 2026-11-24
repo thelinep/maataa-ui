@@ -8,8 +8,8 @@
 import { useState, useCallback } from 'react';
 
 export interface UseLocalStorageOptions {
-  serialize?: (value: any) => string;
-  deserialize?: (value: string) => any;
+  serialize?: (value: unknown) => string;
+  deserialize?: (value: string) => unknown;
 }
 
 /**

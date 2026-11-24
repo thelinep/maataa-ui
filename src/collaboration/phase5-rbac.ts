@@ -487,7 +487,7 @@ export class RBACEngine {
    * Get role hierarchy info
    */
   public getRoleHierarchy(): Record<Role, RoleDefinition> {
-    const hierarchy: Record<Role, RoleDefinition> = {} as any;
+    const hierarchy = {} as Record<Role, RoleDefinition>;
 
     for (const [name, def] of this.roles.entries()) {
       hierarchy[name as Role] = def;

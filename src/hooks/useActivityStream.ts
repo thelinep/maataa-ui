@@ -13,8 +13,8 @@ export interface Activity {
   userId: string;
   userName: string;
   action: 'created' | 'updated' | 'deleted' | 'commented';
-  changes?: Record<string, { old: any; new: any }>;
-  metadata?: Record<string, any>;
+  changes?: Record<string, { old: unknown; new: unknown }>;
+  metadata?: Record<string, unknown>;
   timestamp: string;
 }
 

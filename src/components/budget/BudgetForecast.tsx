@@ -71,7 +71,7 @@ const MetricLabel = styled.span`
 const MetricValue = styled.span`
   font-size: ${typography.heading.sm.fontSize};
   font-weight: 600;
-  color: ${(props: any) => props.color || colorTokens.text.primary};
+  color: ${({ color }: { color?: string }) => color || colorTokens.text.primary};
 `;
 
 const Timeline = styled.div`
@@ -116,8 +116,8 @@ const TimelineLabel = styled.span`
 
 const Alert = styled.div`
   padding: ${spacing.md};
-  border-left: 4px solid ${(props: any) => props.color || colorTokens.interactive.warning};
-  background: ${(props: any) => `${props.color || colorTokens.interactive.warning}20`};
+  border-left: 4px solid ${({ color }: { color?: string }) => color || colorTokens.interactive.warning};
+  background: ${({ color }: { color?: string }) => `${color || colorTokens.interactive.warning}20`};
   border-radius: ${borderRadius.sm};
   font-size: ${typography.bodySmall.fontSize};
   color: ${colorTokens.text.primary};

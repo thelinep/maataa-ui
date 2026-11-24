@@ -31,10 +31,10 @@ export interface ClientSession {
   joinedAt: number;
   messageQueue: WebSocketMessage[];
   subscriptions: Set<string>;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
-export interface WebSocketMessage {
+export interface WebSocketMessage<P = unknown> {
   id: string;
   type: string;
   clientId: string;
@@ -42,7 +42,7 @@ export interface WebSocketMessage {
   entityId?: string;
   relationshipId?: string;
   timestamp: number;
-  payload: any;
+  payload: P;
   ack?: boolean;
   version?: number;
 }
@@ -493,7 +493,7 @@ export class WebSocketMessageFactory {
     clientId: string,
     userId: string,
     entityId: string,
-    payload: any
+    payload: unknown
   ): WebSocketMessage {
     return {
       id: uuidv4(),
@@ -513,7 +513,7 @@ export class WebSocketMessageFactory {
     clientId: string,
     userId: string,
     relationshipId: string,
-    payload: any
+    payload: unknown
   ): WebSocketMessage {
     return {
       id: uuidv4(),
@@ -533,7 +533,7 @@ export class WebSocketMessageFactory {
     userId: string,
     action: 'join' | 'leave' | 'typing' | 'idle',
     entityId: string,
-    metadata: any = {}
+    metadata: Record<string, unknown> = {}
   ): WebSocketMessage {
     return {
       id: uuidv4(),
@@ -552,7 +552,7 @@ export class WebSocketMessageFactory {
     userId: string,
     action: string,
     entityId: string,
-    changes: Record<string, any>
+    changes: Record<string, unknown>
   ): WebSocketMessage {
     return {
       id: uuidv4(),

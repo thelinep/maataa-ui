@@ -191,7 +191,7 @@ const ScriptEditor: React.FC<ScriptEditorProps> = ({ scriptId, currentUser = 'Yo
       scriptData.versions[scriptData.versions.length - 1];
     setActiveVersion(current?.version ?? null);
     setScriptContent(current?.content ?? '');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Runs only when a different script is loaded; scriptData is read from that load.
   }, [loadedId]);
 
   if (error) return <ErrorState error={error} />;
