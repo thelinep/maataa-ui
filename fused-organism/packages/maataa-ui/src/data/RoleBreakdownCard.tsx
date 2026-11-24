@@ -59,8 +59,12 @@ export function RoleBreakdownCard({ role: r, actions }: RoleBreakdownCardProps) 
       </div>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
         {r.kind === "cast" ? t("Cast") : t("Crew")}
-        {r.scenes !== undefined ? ` · ${r.scenes} scenes` : ""}
-        {r.shootDays !== undefined ? ` · ${r.shootDays} shoot days` : ""}
+        {r.scenes !== undefined
+          ? " · " + t.plural(r.scenes, "{count} scene", "{count} scenes")
+          : ""}
+        {r.shootDays !== undefined
+          ? " · " + t.plural(r.shootDays, "{count} shoot day", "{count} shoot days")
+          : ""}
       </div>
       {r.description && <p style={{ margin: 0 }}>{r.description}</p>}
       {r.requirements && r.requirements.length > 0 && (

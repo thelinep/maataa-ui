@@ -111,7 +111,8 @@ export function SceneProgressTracker({
                   color: colorTokens.text.secondary,
                 }}
               >
-                {pages(s.eighths)} pages{s.takes ? ` · ${s.takes} takes` : ""}
+                {t("{pages} pages", { pages: pages(s.eighths) })}
+                {s.takes ? " · " + t.plural(s.takes, "{count} take", "{count} takes") : ""}
               </span>
             </span>
             {onChangeState ? (

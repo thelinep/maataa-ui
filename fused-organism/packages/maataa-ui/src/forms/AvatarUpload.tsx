@@ -60,7 +60,9 @@ export function AvatarUpload({
             variant="secondary"
             onClick={() => inputRef.current?.click()}
             disabled={disabled}
-            aria-label={`${src ? t("Change") : t("Add")} photo for ${name}`}
+            aria-label={
+              src ? t("Change photo for {name}", { name }) : t("Add photo for {name}", { name })
+            }
           >
             {src ? t("Change photo") : t("Add photo")}
           </Button>
@@ -103,7 +105,9 @@ export function AvatarUpload({
           if (!file) return;
           if (!file.type.startsWith("image/")) onError?.("Choose an image file.");
           else if (file.size > maxSizeBytes)
-            onError?.(`That photo is over ${Math.round(maxSizeBytes / 1024 / 1024)} MB.`);
+            onError?.(
+              t("That photo is over {size} MB.", { size: Math.round(maxSizeBytes / 1024 / 1024) })
+            );
           else onSelect(file);
         }}
       />

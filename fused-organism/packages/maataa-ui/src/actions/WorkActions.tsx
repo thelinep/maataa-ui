@@ -8,14 +8,17 @@ import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
+import { englishT, type TranslateFn } from "../i18n/LocaleProvider";
 
 /** "just now", "2 min ago", "at 14:05" */
-export function savedAgo(savedAt: Date, now: Date = new Date()): string {
+export function savedAgo(savedAt: Date, now: Date = new Date(), t: TranslateFn = englishT): string {
   const s = Math.round((now.getTime() - savedAt.getTime()) / 1000);
-  if (s < 45) return "just now";
+  if (s < 45) return t("just now");
   const m = Math.round(s / 60);
-  if (m < 60) return `${m} min ago`;
-  return `at ${savedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  if (m < 60) return t("{m} min ago", { m });
+  return t("at {time}", {
+    time: savedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+  });
 }
 
 export interface SaveDraftButtonProps {
@@ -75,13 +78,13 @@ export function SaveDraftButton({
     state === "saving"
       ? "Saving…"
       : state === "error"
-        ? "Couldn’t save the draft. Check your connection and try again."
+        ? t("Couldn’t save the draft. Check your connection and try again.")
         : dirty
           ? autosaveMs
             ? t("Unsaved changes (saves automatically)")
             : t("Unsaved changes")
           : savedAt
-            ? `Draft saved ${savedAgo(savedAt)}`
+            ? t("Draft saved {when}", { when: savedAgo(savedAt, new Date(), t) })
             : "";
 
   return (

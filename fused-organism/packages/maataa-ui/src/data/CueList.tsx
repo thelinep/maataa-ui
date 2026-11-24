@@ -81,9 +81,14 @@ export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
           {caption} · {cues.length} cues
           {uncleared ? (
-            <span
-              style={{ color: colorTokens.interactive.error }}
-            >{` · ${uncleared} music cue${uncleared === 1 ? "" : "s"} not cleared`}</span>
+            <span style={{ color: colorTokens.interactive.error }}>
+              {" · " +
+                t.plural(
+                  uncleared,
+                  "{count} music cue not cleared",
+                  "{count} music cues not cleared"
+                )}
+            </span>
           ) : null}
         </caption>
         <thead>

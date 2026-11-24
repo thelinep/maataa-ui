@@ -3,7 +3,7 @@
  * Pick one reviewer per role, with the usual approval rules
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { englishT, useT, type TranslateFn } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -43,24 +43,29 @@ export function validateReviewers(
   roles: ReviewerRole[],
   value: ReviewerAssignment,
   people: ReviewerCandidate[],
-  authorId?: string
+  authorId?: string,
+  t: TranslateFn = englishT
 ): Record<string, string> {
   const errors: Record<string, string> = {};
   const seen = new Map<string, string>();
   for (const role of roles) {
     const pick = value[role.id];
     if (!pick) {
-      if (role.required !== false) errors[role.id] = `Choose a ${role.label.toLowerCase()}.`;
+      if (role.required !== false)
+        errors[role.id] = t("Choose a {role}.", { role: t(role.label).toLowerCase() });
       continue;
     }
     if (authorId && pick === authorId) {
-      errors[role.id] = "The author cannot review their own work.";
+      errors[role.id] = t("The author cannot review their own work.");
       continue;
     }
     const other = seen.get(pick);
     if (other) {
-      const name = people.find((p) => p.id === pick)?.name ?? "This person";
-      errors[role.id] = `${name} is already the ${other.toLowerCase()}. Choose someone else.`;
+      const name = people.find((p) => p.id === pick)?.name ?? t("This person");
+      errors[role.id] = t("{name} is already the {role}. Choose someone else.", {
+        name,
+        role: t(other).toLowerCase(),
+      });
       continue;
     }
     seen.set(pick, role.label);
@@ -91,7 +96,7 @@ export function ReviewerSelector({
   const t = useT();
   const label = labelProp ?? t("Reviewers");
   const id = useId();
-  const errors = showErrors ? validateReviewers(roles, value, people, authorId) : {};
+  const errors = showErrors ? validateReviewers(roles, value, people, authorId, t) : {};
   const options = people.filter((p) => p.id !== authorId);
   return (
     <fieldset

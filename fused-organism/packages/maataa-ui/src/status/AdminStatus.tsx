@@ -147,14 +147,14 @@ export function SyncOpsDashboard({
   const pending = devices.reduce((n, d) => n + d.pending, 0);
   const failed = devices.reduce((n, d) => n + d.failed, 0);
   const ago = (d?: Date) => {
-    if (!d) return "never";
+    if (!d) return t("never");
     const m = Math.round((now.getTime() - d.getTime()) / 60000);
     return m < 1
-      ? "just now"
+      ? t("just now")
       : m < 60
-        ? `${m} min ago`
+        ? t("{m} min ago", { m })
         : m < 1440
-          ? `${Math.round(m / 60)} h ago`
+          ? t("{h} h ago", { h: Math.round(m / 60) })
           : d.toLocaleDateString(locale, { day: "numeric", month: "short" });
   };
   const stat = (label: string, value: number, bad?: boolean) => (

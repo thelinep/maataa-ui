@@ -4,7 +4,7 @@
  * VoiceCommandButton, LiveTranscript and VideoCallTile
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { msg, useT, type Translator } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -30,13 +30,42 @@ const btn = (primary?: boolean, danger?: boolean): React.CSSProperties => ({
   gap: 6,
 });
 
-function permissionMessage(err: unknown, what: string): string {
+type Device = "Camera" | "Screen sharing" | "Microphone";
+const DEVICE_MESSAGES: Record<
+  Device,
+  [refused: string, missing: string, busy: string, failed: string]
+> = {
+  Camera: [
+    msg("Camera permission was refused. Allow it in your browser’s site settings and try again."),
+    msg("No camera was found on this device."),
+    msg("The camera is being used by another app."),
+    msg("Couldn’t start the camera."),
+  ],
+  "Screen sharing": [
+    msg(
+      "Screen sharing permission was refused. Allow it in your browser’s site settings and try again."
+    ),
+    msg("No screen sharing was found on this device."),
+    msg("The screen sharing is being used by another app."),
+    msg("Couldn’t start the screen sharing."),
+  ],
+  Microphone: [
+    msg(
+      "Microphone permission was refused. Allow it in your browser’s site settings and try again."
+    ),
+    msg("No microphone was found on this device."),
+    msg("The microphone is being used by another app."),
+    msg("Couldn’t start the microphone."),
+  ],
+};
+
+function permissionMessage(err: unknown, what: Device, t: Translator): string {
   const name = (err as { name?: string })?.name;
-  if (name === "NotAllowedError")
-    return `${what} permission was refused. Allow it in your browser’s site settings and try again.`;
-  if (name === "NotFoundError") return `No ${what.toLowerCase()} was found on this device.`;
-  if (name === "NotReadableError") return `The ${what.toLowerCase()} is being used by another app.`;
-  return `Couldn’t start the ${what.toLowerCase()}.`;
+  const [refused, missing, busy, failed] = DEVICE_MESSAGES[what];
+  if (name === "NotAllowedError") return t(refused);
+  if (name === "NotFoundError") return t(missing);
+  if (name === "NotReadableError") return t(busy);
+  return t(failed);
 }
 
 /* ───────────────────────── CameraPreview ───────────────────────── */
@@ -89,7 +118,7 @@ export function CameraPreview({
       setMsg("Camera is on.");
     } catch (e) {
       setState("error");
-      setMsg(permissionMessage(e, "Camera"));
+      setMsg(permissionMessage(e, "Camera", t));
     }
   };
   const capture = () => {
@@ -244,7 +273,7 @@ export function ScreenRecordingBar({ onRecorded, withMicrophone }: ScreenRecordi
       setState("recording");
       setMsg("Recording started.");
     } catch (e) {
-      setMsg(permissionMessage(e, "Screen sharing"));
+      setMsg(permissionMessage(e, "Screen sharing", t));
     }
   };
   return (
@@ -465,7 +494,7 @@ export function AudioRecorder({ onRecorded, label: labelProp, maxSeconds }: Audi
       setState("recording");
       setMsg("Recording.");
     } catch (e) {
-      setMsg(permissionMessage(e, "Microphone"));
+      setMsg(permissionMessage(e, "Microphone", t));
     }
   };
   return (
@@ -783,6 +812,7 @@ export function VideoCallTile({
   isYou,
   pinned,
 }: VideoCallTileProps) {
+  const t = useT();
   const v = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (v.current && stream) v.current.srcObject = stream;
@@ -802,7 +832,7 @@ export function VideoCallTile({
   ].filter(Boolean);
   return (
     <figure
-      aria-label={`${name}${isYou ? " (you)" : ""}${states.length ? `, ${states.join(", ")}` : ""}`}
+      aria-label={`${name}${isYou ? t(" (you)") : ""}${states.length ? `, ${states.join(", ")}` : ""}`}
       style={{
         margin: 0,
         position: "relative",

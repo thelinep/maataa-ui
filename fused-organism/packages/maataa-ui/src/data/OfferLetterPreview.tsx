@@ -60,8 +60,13 @@ export function OfferLetterPreview({ template, values, labels = {} }: OfferLette
         }}
       >
         {missing.length
-          ? `${missing.length} field${missing.length === 1 ? "" : "s"} to fill: ${missing.map(label).join(", ")}`
-          : "All fields filled"}
+          ? t.plural(
+              missing.length,
+              "{count} field to fill: {fields}",
+              "{count} fields to fill: {fields}",
+              { fields: missing.map(label).join(", ") }
+            )
+          : t("All fields filled")}
       </div>
       <article
         aria-label={t("Offer letter preview")}

@@ -143,7 +143,7 @@ export function NetworkingContactList({
               >
                 {c.howWeMet}
                 {c.lastContact
-                  ? `${c.howWeMet ? " · " : ""}last in touch ${c.lastContact.toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}`
+                  ? `${c.howWeMet ? " · " : ""}${t("last in touch {date}", { date: c.lastContact.toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" }) })}`
                   : ""}
               </div>
               {c.consent === "withdrawn" && (

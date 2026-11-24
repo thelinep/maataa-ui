@@ -6,7 +6,7 @@
  * RewardTierCard and AudienceRecommendationMeter
  */
 
-import { useLocale, useT } from "../i18n/LocaleProvider";
+import { englishT, useLocale, useT, type TranslateFn } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -24,10 +24,13 @@ const card: React.CSSProperties = {
 };
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 /** ₹ in lakh/crore words for large numbers */
-export function inrShort(n: number): string {
+export function inrShort(n: number, t: TranslateFn = englishT): string {
   const a = Math.abs(n);
-  if (a >= 1e7) return `₹${(n / 1e7).toFixed(a >= 1e8 ? 0 : 2).replace(/\.?0+$/, "")} crore`;
-  if (a >= 1e5) return `₹${(n / 1e5).toFixed(1).replace(/\.0$/, "")} lakh`;
+  if (a >= 1e7)
+    return t("₹{amount} crore", {
+      amount: (n / 1e7).toFixed(a >= 1e8 ? 0 : 2).replace(/\.?0+$/, ""),
+    });
+  if (a >= 1e5) return t("₹{amount} lakh", { amount: (n / 1e5).toFixed(1).replace(/\.0$/, "") });
   return inr(n);
 }
 
@@ -121,7 +124,7 @@ export function CostDriverRow({
                   fontSize: typographyTokens.fontSize.sm,
                 }}
               >
-                {inrShort(d.amount)}{" "}
+                {inrShort(d.amount, t)}{" "}
                 <span style={{ color: colorTokens.text.secondary }}>({share}%)</span>
                 {d.delta ? (
                   <span
@@ -136,7 +139,7 @@ export function CostDriverRow({
                     }}
                   >
                     <span aria-hidden="true">{d.delta > 0 ? "▲ " : "▼ "}</span>
-                    {d.delta > 0 ? "up" : "down"} {inrShort(Math.abs(d.delta))}
+                    {d.delta > 0 ? "up" : "down"} {inrShort(Math.abs(d.delta), t)}
                   </span>
                 ) : null}
               </span>
@@ -237,7 +240,7 @@ export function ScenarioSwitcher({
             <span
               style={{ display: "block", fontSize: typographyTokens.fontSize.xl, fontWeight: 800 }}
             >
-              {inrShort(s.value)}
+              {inrShort(s.value, t)}
             </span>{" "}
             {s.note && (
               <span style={{ display: "block", fontSize: 12, color: colorTokens.text.secondary }}>
@@ -270,15 +273,16 @@ export function ContractExpiryPill({
   today?: Date;
   warnDays?: number;
 }) {
+  const t = useT();
   const locale = useLocale();
   const d = daysUntil(expires, today);
   const expired = d < 0;
   const soon = !expired && d <= warnDays;
   const text = expired
-    ? `Expired ${-d} ${d === -1 ? "day" : "days"} ago`
+    ? t.plural(-d, "Expired {count} day ago", "Expired {count} days ago")
     : d === 0
-      ? "Expires today"
-      : `Expires in ${d} ${d === 1 ? "day" : "days"}`;
+      ? t("Expires today")
+      : t.plural(d, "Expires in {count} day", "Expires in {count} days");
   const [bg, fg, sym] = expired
     ? [colorTokens.semantic.error.bg, colorTokens.semantic.error.text, "✕"]
     : soon
@@ -529,7 +533,7 @@ export function ProfitDistributionRing({
           y={14}
           style={{ fontSize: 13, fontWeight: 800, fill: colorTokens.text.primary }}
         >
-          {pool != null ? inrShort(pool) : `${total}%`}
+          {pool != null ? inrShort(pool, t) : `${total}%`}
         </text>
       </svg>
       <div style={{ flex: 1, minWidth: 180 }}>
@@ -557,7 +561,7 @@ export function ProfitDistributionRing({
                 <span
                   style={{ color: colorTokens.text.secondary, minWidth: 80, textAlign: "right" }}
                 >
-                  {inrShort((pool * s.percent) / 100)}
+                  {inrShort((pool * s.percent) / 100, t)}
                 </span>
               )}
             </li>
@@ -624,9 +628,18 @@ export function GovernanceVoteCard({
         </p>
       )}
       <p style={{ margin: 0, fontSize: 12, color: colorTokens.text.secondary }}>
-        {closed ? `Closed · ${lead.label} won` : `Closes ${closesAt}`}
+        {closed
+          ? t("Closed · {label} won", { label: lead.label })
+          : t("Closes {closesAt}", { closesAt })}
         {quorum != null &&
-          ` · Quorum ${quorum} votes (${total >= quorum ? "reached" : `${quorum - total} more needed`})`}
+          " · " +
+            t("Quorum {quorum} votes ({state})", {
+              quorum,
+              state:
+                total >= quorum
+                  ? t("reached")
+                  : t("{count} more needed", { count: quorum - total }),
+            })}
       </p>
       <fieldset
         style={{
@@ -727,6 +740,7 @@ export function PitchSlideThumbnail({
   viewedSeconds?: number;
   onOpen?: () => void;
 }) {
+  const t = useT();
   const body = (
     <>
       <span
@@ -756,7 +770,14 @@ export function PitchSlideThumbnail({
       </span>
     </>
   );
-  const name = `Slide ${number}: ${title}${viewedSeconds != null ? `, viewed ${viewedSeconds} seconds` : ""}`;
+  const name =
+    viewedSeconds != null
+      ? t("Slide {number}: {title}, viewed {seconds} seconds", {
+          number,
+          title,
+          seconds: viewedSeconds,
+        })
+      : t("Slide {number}: {title}", { number, title });
   return onOpen ? (
     <button
       type="button"
@@ -819,7 +840,7 @@ export function InvestorRow({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <p style={{ margin: 0, fontSize: typographyTokens.fontSize.sm }}>
-        {t("Committed so far:")} <strong>{inrShort(committed)}</strong>
+        {t("Committed so far:")} <strong>{inrShort(committed, t)}</strong>
       </p>
       <div role="region" aria-label={label} tabIndex={0} style={{ overflowX: "auto" }}>
         <table
@@ -1013,6 +1034,7 @@ export function RewardTierCard({
   claimed?: number;
   onSelect?: () => void;
 }) {
+  const t = useT();
   const left = limit != null ? limit - (claimed ?? 0) : null;
   const gone = left !== null && left <= 0;
   return (
@@ -1031,8 +1053,9 @@ export function RewardTierCard({
         ))}
       </ul>
       <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-        {delivery && `Estimated delivery ${delivery}`}
-        {left !== null && ` · ${gone ? "All claimed" : `${left} of ${limit} left`}`}
+        {delivery && t("Estimated delivery {delivery}", { delivery })}
+        {left !== null &&
+          " · " + (gone ? t("All claimed") : t("{left} of {limit} left", { left, limit }))}
       </div>
       {onSelect && (
         <button
@@ -1050,7 +1073,7 @@ export function RewardTierCard({
             cursor: gone ? "not-allowed" : "pointer",
           }}
         >
-          {gone ? "All claimed" : `Back for ${inr(amount)}`}
+          {gone ? t("All claimed") : t("Back for {amount}", { amount: inr(amount) })}
           <VisuallyHidden>: {title}</VisuallyHidden>
         </button>
       )}

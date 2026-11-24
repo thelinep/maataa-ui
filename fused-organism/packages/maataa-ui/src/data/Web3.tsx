@@ -218,17 +218,19 @@ export function WalletConnectButton({
                 disabled={!!busy}
                 onClick={async () => {
                   setBusy(w.id);
-                  setMsg(`Waiting for ${w.name}…`);
+                  setMsg(t("Waiting for {name}…", { name: w.name }));
                   try {
                     await connect(w.id);
-                    setMsg(`Connected with ${w.name}.`);
+                    setMsg(t("Connected with {name}.", { name: w.name }));
                     setOpen(false);
                   } catch (e) {
                     const code = (e as { code?: number }).code;
                     setMsg(
                       code === 4001
-                        ? `You declined the request in ${w.name}.`
-                        : `Couldn’t connect to ${w.name}. Is it installed and unlocked?`
+                        ? t("You declined the request in {name}.", { name: w.name })
+                        : t("Couldn’t connect to {name}. Is it installed and unlocked?", {
+                            name: w.name,
+                          })
                     );
                   } finally {
                     setBusy(null);
@@ -613,7 +615,7 @@ export function DistributionEventLog({
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       {sum > 0 && (
         <p style={{ margin: 0 }}>
-          {t("You have received")} <strong>{inrShort(sum)}</strong> across {events.length}{" "}
+          {t("You have received")} <strong>{inrShort(sum, t)}</strong> across {events.length}{" "}
           distributions.
         </p>
       )}
@@ -650,10 +652,10 @@ export function DistributionEventLog({
                 <th scope="row" style={{ ...td, fontWeight: 500 }}>
                   {e.source}
                 </th>
-                <td style={{ ...td, textAlign: "right" }}>{inrShort(e.total)}</td>
+                <td style={{ ...td, textAlign: "right" }}>{inrShort(e.total, t)}</td>
                 <td style={{ ...td, textAlign: "right" }}>{e.recipients.toLocaleString(locale)}</td>
                 <td style={{ ...td, textAlign: "right", fontWeight: 700 }}>
-                  {e.yourShare != null ? inrShort(e.yourShare) : "—"}
+                  {e.yourShare != null ? inrShort(e.yourShare, t) : "—"}
                 </td>
                 <td style={{ ...td, fontFamily: mono }}>
                   {e.txHash ? (

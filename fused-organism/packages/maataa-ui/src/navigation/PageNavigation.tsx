@@ -585,6 +585,7 @@ export function LoadMoreButton({
   loading,
   noun = "items",
 }: LoadMoreButtonProps) {
+  const t = useT();
   const done = shown >= total;
   return (
     <div
@@ -620,7 +621,7 @@ export function LoadMoreButton({
             cursor: loading ? "progress" : "pointer",
           }}
         >
-          {loading ? "Loading…" : `Load more ${noun}`}
+          {loading ? t("Loading…") : t("Load more {noun}", { noun })}
         </button>
       )}
     </div>

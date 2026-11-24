@@ -4,6 +4,7 @@
  */
 
 import React from "react";
+import { useT } from "../i18n/LocaleProvider";
 import { chartTokens } from "../tokens";
 import { buildLinePath } from "./chartUtils";
 
@@ -51,6 +52,7 @@ export const Sparkline = React.forwardRef<SVGSVGElement, SparklineProps>(
     },
     ref
   ) => {
+    const t = useT();
     const padding = 3;
     const min = Math.min(...data, 0);
     const max = Math.max(...data, 1);
@@ -74,7 +76,10 @@ export const Sparkline = React.forwardRef<SVGSVGElement, SparklineProps>(
         height={height}
         viewBox={`0 0 ${width} ${height}`}
         role="img"
-        aria-label={ariaLabel ?? `Trend sparkline, ${data.length} points`}
+        aria-label={
+          ariaLabel ??
+          t.plural(data.length, "Trend sparkline, {count} point", "Trend sparkline, {count} points")
+        }
         style={style}
       >
         <path

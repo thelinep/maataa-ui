@@ -154,8 +154,13 @@ export function BookingForm({
       {dayRate !== undefined && (
         <div role="status" style={{ fontSize: typographyTokens.fontSize.sm }}>
           {days
-            ? `Estimate: ${days} day${days === 1 ? "" : "s"} × ${qty} × ${money.format(dayRate)} = ${money.format(days * qty * dayRate)}`
-            : `Day rate ${money.format(dayRate)}`}
+            ? t.plural(
+                days,
+                "Estimate: {count} day × {qty} × {rate} = {total}",
+                "Estimate: {count} days × {qty} × {rate} = {total}",
+                { qty, rate: money.format(dayRate), total: money.format(days * qty * dayRate) }
+              )
+            : t("Day rate {rate}", { rate: money.format(dayRate) })}
         </div>
       )}
       {error && (

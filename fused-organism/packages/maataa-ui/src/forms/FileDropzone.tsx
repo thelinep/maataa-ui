@@ -97,7 +97,10 @@ export function FileDropzone({
       if (!fileMatchesAccept(file, accept))
         rejected.push({ file, reason: "file type not allowed" });
       else if (maxSizeBytes !== undefined && file.size > maxSizeBytes)
-        rejected.push({ file, reason: `larger than ${formatBytes(maxSizeBytes)}` });
+        rejected.push({
+          file,
+          reason: t("larger than {size}", { size: formatBytes(maxSizeBytes) }),
+        });
       else accepted.push(file);
     }
     if (accepted.length) onFiles(accepted);
@@ -105,7 +108,8 @@ export function FileDropzone({
     const parts: string[] = [];
     if (accepted.length)
       parts.push(`${accepted.length} ${accepted.length === 1 ? "file" : "files"} added`);
-    for (const r of rejected) parts.push(`${r.file.name} not added: ${r.reason}`);
+    for (const r of rejected)
+      parts.push(t("{name} not added: {reason}", { name: r.file.name, reason: r.reason }));
     setMessage(parts.join(". "));
   };
 

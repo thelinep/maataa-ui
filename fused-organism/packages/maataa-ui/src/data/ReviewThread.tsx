@@ -269,7 +269,11 @@ export function ReviewThread({
                     variant="tertiary"
                     size="sm"
                     onClick={() => onToggleResolved(n.id)}
-                    aria-label={`${n.resolved ? t("Reopen") : t("Resolve")} note at ${n.timecode}`}
+                    aria-label={
+                      n.resolved
+                        ? t("Reopen note at {timecode}", { timecode: n.timecode })
+                        : t("Resolve note at {timecode}", { timecode: n.timecode })
+                    }
                   >
                     {n.resolved ? t("Reopen") : t("Resolve")}
                   </Button>

@@ -60,7 +60,13 @@ export function FrameTimelineStrip({
   const reorder = (to: number) => {
     if (!onReorder || idx < 0 || to === idx || to < 0 || to >= frames.length) return;
     onReorder(moveItem(frames, idx, to).map((f) => f.id));
-    setMsg(`Frame ${frames[idx].number} moved to position ${to + 1} of ${frames.length}`);
+    setMsg(
+      t("Frame {number} moved to position {position} of {total}", {
+        number: frames[idx].number,
+        position: to + 1,
+        total: frames.length,
+      })
+    );
   };
   const small: React.CSSProperties = {
     minHeight: 32,
@@ -173,7 +179,7 @@ export function FrameTimelineStrip({
               >
                 {/* Named by content, not aria-label, so the visible shorthand never
                     contradicts the name (WCAG 2.5.3) */}
-                <VisuallyHidden>{`Frame ${f.number}, ${i + 1} of ${frames.length}${f.shot ? `, ${f.shot}` : ""}: ${f.description || "no description"}`}</VisuallyHidden>
+                <VisuallyHidden>{`${t("Frame {number}, {position} of {total}", { number: f.number, position: i + 1, total: frames.length })}${f.shot ? `, ${f.shot}` : ""}: ${f.description || t("no description")}`}</VisuallyHidden>
                 <div
                   aria-hidden="true"
                   style={{

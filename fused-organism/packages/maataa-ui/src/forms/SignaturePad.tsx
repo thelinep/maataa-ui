@@ -217,9 +217,9 @@ export function SignaturePad({
         >
           {value
             ? value.kind === "drawn"
-              ? `Signed by drawing at ${time}.`
-              : `Signed as ${value.name} at ${time}.`
-            : "Not signed yet."}
+              ? t("Signed by drawing at {time}.", { time })
+              : t("Signed as {name} at {time}.", { name: value.name, time })
+            : t("Not signed yet.")}
         </span>
       </div>
       {error && (

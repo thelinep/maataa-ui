@@ -40,7 +40,7 @@ export function AIChatBubble({
   const who = name ?? (mine ? t("You") : t("Assistant"));
   return (
     <article
-      aria-label={`${who}${time ? `, ${time}` : ""}`}
+      aria-label={time ? t("{who}, {time}", { who, time }) : who}
       style={{
         display: "flex",
         flexDirection: "column",

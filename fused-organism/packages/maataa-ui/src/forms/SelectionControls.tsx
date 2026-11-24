@@ -353,7 +353,12 @@ export function NumberStepper({
       </button>
     );
   };
-  const limit = value <= min ? `Minimum is ${min}.` : value >= max ? `Maximum is ${max}.` : "";
+  const limit =
+    value <= min
+      ? t("Minimum is {min}.", { min })
+      : value >= max
+        ? t("Maximum is {max}.", { max })
+        : "";
   return (
     <FieldFrame label={label} hint={hint}>
       {(ids) => (

@@ -235,12 +235,14 @@ export function WrapSummary({
       <DetailList
         items={[
           { label: msg("Scenes completed"), value: wrap.scenesCompleted },
-          { label: msg("Scenes moved"), value: wrap.scenesMoved || "None" },
+          { label: msg("Scenes moved"), value: wrap.scenesMoved || t("None") },
           { label: msg("Pages shot"), value: wrap.pagesShot },
           { label: msg("Setups"), value: String(wrap.setups) },
           {
             label: msg("Backup"),
-            value: wrap.cardsBackedUp ? `Done by ${wrap.backupBy}` : "Not confirmed",
+            value: wrap.cardsBackedUp
+              ? t("Done by {name}", { name: wrap.backupBy })
+              : t("Not confirmed"),
           },
           {
             label: msg("Incidents"),

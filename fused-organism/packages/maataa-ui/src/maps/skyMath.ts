@@ -1,3 +1,5 @@
+import { msg } from "../i18n/LocaleProvider";
+
 /**
  * @maataa/ui/maps/skyMath
  * Low-precision sun and moon positions (after the well-known NOAA/Meeus
@@ -169,26 +171,29 @@ export function moonPhaseName(phase: number): string {
 
 /** 0–360° → "north-east" etc. (16-point) */
 export function compassWord(deg: number): string {
-  const words = [
-    "north",
-    "north-north-east",
-    "north-east",
-    "east-north-east",
-    "east",
-    "east-south-east",
-    "south-east",
-    "south-south-east",
-    "south",
-    "south-south-west",
-    "south-west",
-    "west-south-west",
-    "west",
-    "west-north-west",
-    "north-west",
-    "north-north-west",
-  ];
+  const words = COMPASS_WORDS;
   return words[Math.round((((deg % 360) + 360) % 360) / 22.5) % 16]!;
 }
+
+/** The 16 compass words, marked for translation. */
+const COMPASS_WORDS: readonly string[] = [
+  msg("north"),
+  msg("north-north-east"),
+  msg("north-east"),
+  msg("east-north-east"),
+  msg("east"),
+  msg("east-south-east"),
+  msg("south-east"),
+  msg("south-south-east"),
+  msg("south"),
+  msg("south-south-west"),
+  msg("south-west"),
+  msg("west-south-west"),
+  msg("west"),
+  msg("west-north-west"),
+  msg("north-west"),
+  msg("north-north-west"),
+];
 
 /** Great-circle distance in km */
 export function haversineKm(

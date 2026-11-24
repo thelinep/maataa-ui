@@ -75,7 +75,7 @@ export function ProviderSignInButtons({
               {p.icon}
             </span>
           )}
-          {pendingId === p.id ? `Opening ${p.name}…` : `${verb} ${p.name}`}
+          {pendingId === p.id ? t("Opening {name}…", { name: p.name }) : `${verb} ${p.name}`}
         </button>
       ))}
     </div>

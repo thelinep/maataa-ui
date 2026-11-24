@@ -97,6 +97,7 @@ export function SunPositionWidget({
 }: SunPositionWidgetProps) {
   const locale = useLocale();
   const pos = sunPosition(date, lat, lng);
+  const tx = useT();
   const t = sunTimes(date, lat, lng);
   const up = pos.altitude > 0;
   const rows: [string, string][] = [
@@ -110,7 +111,7 @@ export function SunPositionWidget({
   ];
   return (
     <section
-      aria-label={`Sun${place ? ` at ${place}` : ""}`}
+      aria-label={place ? tx("Sun at {place}", { place }) : tx("Sun")}
       style={{
         display: "flex",
         gap: spacingTokens.md,
@@ -132,8 +133,12 @@ export function SunPositionWidget({
           }}
         >
           {up
-            ? `Sun is ${Math.round(pos.altitude)}° up, in the ${compassWord(pos.azimuth)} (${Math.round(pos.azimuth)}°).`
-            : `Sun is below the horizon (${Math.round(pos.altitude)}°).`}
+            ? tx("Sun is {altitude}° up, in the {direction} ({azimuth}°).", {
+                altitude: Math.round(pos.altitude),
+                direction: tx(compassWord(pos.azimuth)),
+                azimuth: Math.round(pos.azimuth),
+              })
+            : tx("Sun is below the horizon ({altitude}°).", { altitude: Math.round(pos.altitude) })}
         </p>
       </div>
       <div style={{ flex: 1, minWidth: 200 }}>
@@ -200,7 +205,7 @@ export function MoonPositionWidget({
   const k = 1 - 2 * ill.fraction;
   return (
     <section
-      aria-label={`Moon${place ? ` at ${place}` : ""}`}
+      aria-label={place ? t("Moon at {place}", { place }) : t("Moon")}
       style={{
         display: "flex",
         gap: spacingTokens.md,
@@ -233,8 +238,11 @@ export function MoonPositionWidget({
           }}
         >
           {pos.altitude > 0
-            ? `${Math.round(pos.altitude)}° up in the ${compassWord(pos.azimuth)}`
-            : "Below the horizon"}
+            ? t("{altitude}° up in the {direction}", {
+                altitude: Math.round(pos.altitude),
+                direction: t(compassWord(pos.azimuth)),
+              })
+            : t("Below the horizon")}
         </p>
       </div>
     </section>
@@ -258,6 +266,7 @@ export interface ElevationSample {
  * total climb/descent and highest point; data table included.
  */
 export function TerrainProfile({ title, samples }: { title: string; samples: ElevationSample[] }) {
+  const t = useT();
   const W = 560;
   const H = 180;
   const pad = { l: 44, r: 10, t: 24, b: 24 };
@@ -276,10 +285,27 @@ export function TerrainProfile({ title, samples }: { title: string; samples: Ele
   }
   const top = samples.reduce((a, b) => (b.m > a.m ? b : a), samples[0]!);
   const line = samples.map((s, i) => `${i ? "L" : "M"}${x(s.km)} ${y(s.m)}`).join(" ");
+  const climb = {
+    distance: maxKm.toFixed(1),
+    up: Math.round(up),
+    down: Math.round(down),
+    top: Math.round(top.m),
+    at: top.km.toFixed(1),
+  };
   return (
     <ChartFigure
       title={title}
-      summary={`${maxKm.toFixed(1)} km, climbing ${Math.round(up)} m and descending ${Math.round(down)} m. Highest point ${Math.round(top.m)} m${top.label ? ` at ${top.label}` : ""} (${top.km.toFixed(1)} km).`}
+      summary={
+        top.label
+          ? t(
+              "{distance} km, climbing {up} m and descending {down} m. Highest point {top} m at {label} ({at} km).",
+              { ...climb, label: top.label }
+            )
+          : t(
+              "{distance} km, climbing {up} m and descending {down} m. Highest point {top} m ({at} km).",
+              climb
+            )
+      }
       table={{
         columns: ["Distance (km)", "Elevation (m)", "Waypoint"],
         rows: samples.map((s) => [s.km.toFixed(1), Math.round(s.m), s.label ?? ""]),
@@ -371,11 +397,13 @@ export function RocketLaunch({ at, mission, onLaunch, now = Date.now }: RocketLa
   }, [at, now]);
   useEffect(() => {
     if (left === 0) {
-      setSay(`${mission}: lift-off!`);
+      setSay(t("{mission}: lift-off!", { mission }));
       onLaunch?.();
     } else if (left === 10 || left === 5 || (left > 0 && left % 60 === 0))
       setSay(
-        `T minus ${left >= 60 ? `${left / 60} minute${left === 60 ? "" : "s"}` : `${left} seconds`}`
+        left >= 60
+          ? t.plural(left / 60, "T minus {count} minute", "T minus {count} minutes")
+          : t.plural(left, "T minus {count} second", "T minus {count} seconds")
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [left]);

@@ -52,7 +52,12 @@ export function PipelineBoard({
   const move = (c: PipelineCard, to: string) => {
     if (to === c.stage) return;
     onMove(c.id, to);
-    setMsg(`${c.title} moved to ${stages.find((s) => s.id === to)?.label ?? to}`);
+    setMsg(
+      t("{title} moved to {stage}", {
+        title: c.title,
+        stage: stages.find((s) => s.id === to)?.label ?? to,
+      })
+    );
   };
   return (
     <section aria-label={label}>
@@ -176,7 +181,9 @@ export function PipelineBoard({
                     >
                       {stages.map((s) => (
                         <option key={s.id} value={s.id}>
-                          {s.id === c.stage ? `In ${s.label}` : `Move to ${s.label}`}
+                          {s.id === c.stage
+                            ? t("In {stage}", { stage: s.label })
+                            : t("Move to {stage}", { stage: s.label })}
                         </option>
                       ))}
                     </select>

@@ -111,7 +111,9 @@ export function EvidencePackBuilder({
                         e.target.checked ? [...included, d.id] : included.filter((x) => x !== d.id)
                       );
                       setMsg(
-                        `${d.name} ${e.target.checked ? "added to" : "removed from"} the pack`
+                        e.target.checked
+                          ? tx("{name} added to the pack", { name: d.name })
+                          : tx("{name} removed from the pack", { name: d.name })
                       );
                     }}
                     style={{
@@ -184,7 +186,7 @@ export function EvidencePackBuilder({
                       aria-label={tx("Move {value} earlier", { value: byId(id)?.name })}
                       onClick={() => {
                         onChange(moveItem(included, i, i - 1));
-                        setMsg(`Moved to position ${i}`);
+                        setMsg(tx("Moved to position {position}", { position: i }));
                       }}
                     >
                       <span aria-hidden="true">↑</span>
@@ -196,7 +198,7 @@ export function EvidencePackBuilder({
                       aria-label={tx("Move {value} later", { value: byId(id)?.name })}
                       onClick={() => {
                         onChange(moveItem(included, i, i + 1));
-                        setMsg(`Moved to position ${i + 2}`);
+                        setMsg(tx("Moved to position {position}", { position: i + 2 }));
                       }}
                     >
                       <span aria-hidden="true">↓</span>
@@ -407,8 +409,11 @@ export function SharePermissions({
                 }}
               >
                 {g.canDownload ? tx("Can download") : tx("View only")}
-                {g.expiresAt ? ` · until ${d(g.expiresAt)}` : ""}
-                {g.lastViewed ? ` · last viewed ${d(g.lastViewed)}` : " · not opened yet"}
+                {g.expiresAt ? " · " + tx("until {date}", { date: d(g.expiresAt) }) : ""}
+                {" · " +
+                  (g.lastViewed
+                    ? tx("last viewed {date}", { date: d(g.lastViewed) })
+                    : tx("not opened yet"))}
               </span>
             </span>
             <button

@@ -90,8 +90,8 @@ export function AvailabilityCalendar({
   const status = value.start
     ? value.end
       ? `${fmt(value.start)} to ${fmt(value.end)} chosen`
-      : `Start ${fmt(value.start)}. Now pick the last day.`
-    : "Pick the first day";
+      : t("Start {date}. Now pick the last day.", { date: fmt(value.start) })
+    : t("Pick the first day");
   const btn: React.CSSProperties = {
     minWidth: 36,
     minHeight: 36,

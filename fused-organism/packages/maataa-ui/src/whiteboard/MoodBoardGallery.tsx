@@ -79,7 +79,10 @@ export function MoodBoardGallery({
             color: missing ? colorTokens.interactive.warning : colorTokens.text.secondary,
           }}
         >
-          {images.length} images{missing ? ` · ${missing} need a description` : ""}
+          {t.plural(images.length, "{count} image", "{count} images")}
+          {missing
+            ? " · " + t.plural(missing, "{count} needs a description", "{count} need a description")
+            : ""}
         </span>
       </div>
       <ul
@@ -193,7 +196,7 @@ export function MoodBoardGallery({
                         aria-label={t("Move image {value} earlier", { value: i + 1 })}
                         onClick={() => {
                           onChange(moveItem(images, i, i - 1));
-                          setMsg(`Moved to position ${i}`);
+                          setMsg(t("Moved to position {position}", { position: i }));
                         }}
                       >
                         <span aria-hidden="true">←</span>
@@ -205,7 +208,7 @@ export function MoodBoardGallery({
                         aria-label={t("Move image {value} later", { value: i + 1 })}
                         onClick={() => {
                           onChange(moveItem(images, i, i + 1));
-                          setMsg(`Moved to position ${i + 2}`);
+                          setMsg(t("Moved to position {position}", { position: i + 2 }));
                         }}
                       >
                         <span aria-hidden="true">→</span>
@@ -213,7 +216,11 @@ export function MoodBoardGallery({
                       <button
                         type="button"
                         style={small}
-                        aria-label={`Remove image ${i + 1}${img.alt ? `, ${img.alt}` : ""}`}
+                        aria-label={
+                          img.alt
+                            ? t("Remove image {number}, {alt}", { number: i + 1, alt: img.alt })
+                            : t("Remove image {number}", { number: i + 1 })
+                        }
                         onClick={() => {
                           onChange(images.filter((x) => x.id !== img.id));
                           setMsg("Image removed");

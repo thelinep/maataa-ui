@@ -389,7 +389,7 @@ export function PricingTierCard({
         type="button"
         onClick={onSelect}
         disabled={current}
-        aria-label={current ? `${name} is your current plan` : `${ctaLabel} ${name}`}
+        aria-label={current ? t("{name} is your current plan", { name }) : `${ctaLabel} ${name}`}
         style={{
           minHeight: 48,
           borderRadius: 10,

@@ -63,7 +63,12 @@ export function OtpInput({
   return (
     <FieldFrame
       label={label}
-      hint={hint ?? `Enter the ${length}-${alphanumeric ? "character" : "digit"} code we sent you.`}
+      hint={
+        hint ??
+        (alphanumeric
+          ? t("Enter the {length}-character code we sent you.", { length })
+          : t("Enter the {length}-digit code we sent you.", { length }))
+      }
       error={error}
     >
       {(ids) => (
@@ -115,7 +120,7 @@ export function OtpInput({
                 }}
                 style={smallButtonStyle}
               >
-                {wait > 0 ? `Send a new code in ${wait} s` : "Send a new code"}
+                {wait > 0 ? t("Send a new code in {wait} s", { wait }) : t("Send a new code")}
               </button>
             </div>
           )}

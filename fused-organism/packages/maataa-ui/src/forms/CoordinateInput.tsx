@@ -106,7 +106,9 @@ export function CoordinateInput({
         setLng(String(c.lng));
         setOwn(null);
         onChange(c);
-        setStatus(`Location found, accurate to about ${c.accuracy} metres.`);
+        setStatus(
+          t("Location found, accurate to about {accuracy} metres.", { accuracy: c.accuracy })
+        );
       },
       (err) => {
         setStatus(

@@ -131,7 +131,9 @@ export function ConflictResolutionPanel({
                       color: colorTokens.text.secondary,
                     }}
                   >
-                    {side === "mine" ? "Your version" : `${theirAuthor}'s version`}
+                    {side === "mine"
+                      ? t("Your version")
+                      : t("{name}'s version", { name: theirAuthor })}
                   </span>
                   {side === "mine" ? f.mine : f.theirs}
                 </span>

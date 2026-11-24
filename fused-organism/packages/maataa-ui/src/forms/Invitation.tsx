@@ -162,11 +162,28 @@ export function InvitationRecoveryPanel({
       </h1>
       <p style={{ margin: 0, color: colorTokens.text.secondary }}>
         {problem === "used"
-          ? `If you already joined${workspaceName ? ` ${workspaceName}` : ""}, sign in to continue. Otherwise ask ${who} for a new invitation.`
-          : `Ask ${who} to send a new one${workspaceName ? ` for ${workspaceName}` : ""}. Invitations last 7 days.`}
+          ? workspaceName
+            ? t(
+                "If you already joined {workspace}, sign in to continue. Otherwise ask {who} for a new invitation.",
+                { workspace: workspaceName, who }
+              )
+            : t(
+                "If you already joined, sign in to continue. Otherwise ask {who} for a new invitation.",
+                { who }
+              )
+          : workspaceName
+            ? t("Ask {who} to send a new one for {workspace}. Invitations last 7 days.", {
+                who,
+                workspace: workspaceName,
+              })
+            : t("Ask {who} to send a new one. Invitations last 7 days.", { who })}
       </p>
       <div role="status">
-        {requested ? `Request sent. ${inviterName ?? "They"} will get an email.` : ""}
+        {requested
+          ? inviterName
+            ? t("Request sent. {name} will get an email.", { name: inviterName })
+            : t("Request sent. They will get an email.")
+          : ""}
       </div>
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         {onRequestNew && problem !== "invalid" && !requested && (

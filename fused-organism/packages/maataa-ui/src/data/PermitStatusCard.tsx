@@ -71,7 +71,7 @@ export function PermitStatusCard({
       </div>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
         {p.authority}
-        {p.reference ? ` · Ref ${p.reference}` : ""}
+        {p.reference ? " · " + t("Ref {reference}", { reference: p.reference }) : ""}
       </div>
       {p.validFrom && p.validTo && (
         <div style={{ fontSize: typographyTokens.fontSize.sm }}>

@@ -51,11 +51,11 @@ export function TagInput({
     const added: string[] = [];
     for (const p of parts) {
       if (maxTags != null && next.length >= maxTags) {
-        setMsg(`You can add up to ${maxTags} tags.`);
+        setMsg(t("You can add up to {max} tags.", { max: maxTags }));
         break;
       }
       if (next.some((t) => t.toLowerCase() === p.toLowerCase())) {
-        setMsg(`${p} is already added.`);
+        setMsg(t("{tag} is already added.", { tag: p }));
         continue;
       }
       next.push(p);
@@ -138,7 +138,7 @@ export function TagInput({
             value={text}
             disabled={full}
             list={suggestions ? listId : undefined}
-            placeholder={full ? `Limit of ${maxTags} reached` : undefined}
+            placeholder={full ? t("Limit of {max} reached", { max: maxTags }) : undefined}
             onChange={(e) => {
               const v = e.target.value;
               if (v.endsWith(",")) add(v);

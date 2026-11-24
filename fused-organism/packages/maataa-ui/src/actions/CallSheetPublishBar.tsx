@@ -143,7 +143,9 @@ export function CallSheetPublishBar({
         size="sm"
         closeButton={false}
         title={
-          dialog === "withdraw" ? "Withdraw this call sheet?" : `Reissue as version ${version + 1}?`
+          dialog === "withdraw"
+            ? t("Withdraw this call sheet?")
+            : t("Reissue as version {version}?", { version: version + 1 })
         }
         footer={
           <div style={{ display: "flex", justifyContent: "flex-end", gap: spacingTokens.sm }}>

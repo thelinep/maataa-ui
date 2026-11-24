@@ -202,10 +202,13 @@ export function PitchDeliveryReceipt({
         </Badge>
       </div>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-        Sent {t(sentAt)}
-        {openedAt ? ` · opened ${t(openedAt)}` : ""}
-        {total ? ` · ${Math.floor(total / 60)} min ${total % 60} s reading` : ""}
-        {downloaded ? " · downloaded" : ""}
+        {tx("Sent {date}", { date: t(sentAt) })}
+        {openedAt ? " · " + tx("opened {date}", { date: t(openedAt) }) : ""}
+        {total
+          ? " · " +
+            tx("{min} min {sec} s reading", { min: Math.floor(total / 60), sec: total % 60 })
+          : ""}
+        {downloaded ? " · " + tx("downloaded") : ""}
       </div>
       {slideSeconds.length > 0 && (
         <table style={{ width: "100%", borderCollapse: "collapse" }}>

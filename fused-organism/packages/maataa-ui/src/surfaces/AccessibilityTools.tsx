@@ -481,17 +481,19 @@ export function HapticFeedback({
     const ran = enabled && vibrate(name);
     setMsg(
       ran
-        ? `Played ${name}.`
-        : `${name} shown as a visual pulse${supported ? "" : " (this device can’t vibrate)"}.`
+        ? t("Played {name}.", { name })
+        : supported
+          ? t("{name} shown as a visual pulse.", { name })
+          : t("{name} shown as a visual pulse (this device can’t vibrate).", { name })
     );
     if (!visualPulse) return;
     const seq = [...hapticPatterns[name]];
-    let t = 0;
+    let at = 0;
     seq.forEach((d, n) => {
-      setTimeout(() => setPulse((p) => ({ on: n % 2 === 0, key: p.key + 1 })), t);
-      t += d;
+      setTimeout(() => setPulse((p) => ({ on: n % 2 === 0, key: p.key + 1 })), at);
+      at += d;
     });
-    setTimeout(() => setPulse((p) => ({ on: false, key: p.key + 1 })), t);
+    setTimeout(() => setPulse((p) => ({ on: false, key: p.key + 1 })), at);
   };
   return (
     <section

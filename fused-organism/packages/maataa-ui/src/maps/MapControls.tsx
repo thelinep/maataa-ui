@@ -199,7 +199,11 @@ export function ZoomSlider({
         min={min}
         max={max}
         value={value}
-        aria-valuetext={`Zoom ${value}${name ? `, ${name.toLowerCase()}` : ""}`}
+        aria-valuetext={
+          name
+            ? t("Zoom {value}, {name}", { value, name: t(name).toLowerCase() })
+            : t("Zoom {value}", { value })
+        }
         onChange={(e) => onChange(Number(e.target.value))}
         style={{
           writingMode: "vertical-lr",
@@ -319,7 +323,11 @@ export function CompassRose({
   const t = useT();
   const r = ((rotation % 360) + 360) % 360;
   const dir =
-    r === 0 ? "North is up" : `North points ${compassWord(360 - r).replace(/-/g, " ")} on screen`;
+    r === 0
+      ? t("North is up")
+      : t("North points {direction} on screen", {
+          direction: t(compassWord(360 - r)).replace(/-/g, " "),
+        });
   const svg = (
     <svg
       width={size}

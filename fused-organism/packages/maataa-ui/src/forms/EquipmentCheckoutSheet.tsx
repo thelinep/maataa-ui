@@ -67,9 +67,9 @@ export function EquipmentCheckoutSheet({ title, lines, onChange }: EquipmentChec
             }}
           >
             {stillOut
-              ? `${stillOut} item${stillOut === 1 ? "" : "s"} still out`
-              : "Everything is back"}
-            {problems ? ` · ${problems} damaged or missing` : ""}
+              ? t.plural(stillOut, "{count} item still out", "{count} items still out")
+              : t("Everything is back")}
+            {problems ? " · " + t("{count} damaged or missing", { count: problems }) : ""}
           </span>
         </caption>
         <thead>

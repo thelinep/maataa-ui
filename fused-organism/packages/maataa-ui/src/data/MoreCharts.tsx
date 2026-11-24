@@ -63,7 +63,11 @@ export function HorizontalBarChart({
       title={title}
       summary={
         summary ??
-        `${rows.length} bars. Highest is ${top?.label} at ${format(top?.value ?? 0)}${unit ? ` ${unit}` : ""}.`
+        t("{count} bars. Highest is {label} at {value}.", {
+          count: rows.length,
+          label: top?.label,
+          value: `${format(top?.value ?? 0)}${unit ? ` ${unit}` : ""}`,
+        })
       }
       table={{
         columns: ["Item", unit ? `Value (${unit})` : "Value"],
@@ -108,6 +112,7 @@ export function GroupedBarChart({
   format = defaultFormat,
   unit,
 }: GroupedBarChartProps) {
+  const t = useT();
   const W = 560;
   const H = 240;
   const pad = { l: 48, r: 8, t: 10, b: 28 };
@@ -122,7 +127,12 @@ export function GroupedBarChart({
       title={title}
       summary={
         summary ??
-        `${series.map((s) => s.name).join(" and ")} compared across ${categories.length} categories.`
+        t.plural(
+          categories.length,
+          "{names} compared across {count} category.",
+          "{names} compared across {count} categories.",
+          { names: series.map((s) => s.name).join(t(" and ")) }
+        )
       }
       table={{
         columns: ["Category", ...series.map((s) => (unit ? `${s.name} (${unit})` : s.name))],
@@ -215,8 +225,18 @@ export function ThresholdBarChart({
       summary={
         summary ??
         (over.length
-          ? `${over.length} of ${data.length} over the ${thresholdLabel.toLowerCase()} of ${format(threshold)}: ${over.map((d) => d.label).join(", ")}.`
-          : `All ${data.length} are within the ${thresholdLabel.toLowerCase()} of ${format(threshold)}.`)
+          ? t("{over} of {total} over the {threshold} of {value}: {labels}.", {
+              over: over.length,
+              total: data.length,
+              threshold: thresholdLabel.toLowerCase(),
+              value: format(threshold),
+              labels: over.map((d) => d.label).join(", "),
+            })
+          : t("All {total} are within the {threshold} of {value}.", {
+              total: data.length,
+              threshold: thresholdLabel.toLowerCase(),
+              value: format(threshold),
+            }))
       }
       table={{
         columns: ["Item", unit ? `Value (${unit})` : "Value", "Over?"],
@@ -323,7 +343,12 @@ export function PieChart({
       title={title}
       summary={
         summary ??
-        `${data.length} parts of a total ${format(total)}${unit ? ` ${unit}` : ""}. Largest is ${top?.label} at ${pct(top?.value ?? 0)}%.`
+        t("{count} parts of a total {total}. Largest is {label} at {percent}%.", {
+          count: data.length,
+          total: `${format(total)}${unit ? ` ${unit}` : ""}`,
+          label: top?.label,
+          percent: pct(top?.value ?? 0),
+        })
       }
       table={{
         columns: ["Part", unit ? `Value (${unit})` : "Value", "Share"],
@@ -406,7 +431,14 @@ export function FunnelChart({ title, summary, stages, format = defaultFormat }: 
       title={title}
       summary={
         summary ??
-        `${stages.length} stages from ${format(first)} ${stages[0]?.label.toLowerCase()} to ${format(last?.value ?? 0)} ${last?.label.toLowerCase()} (${Math.round(((last?.value ?? 0) / first) * 100)}% overall).`
+        t("{count} stages from {first} {firstLabel} to {last} {lastLabel} ({percent}% overall).", {
+          count: stages.length,
+          first: format(first),
+          firstLabel: stages[0]?.label.toLowerCase(),
+          last: format(last?.value ?? 0),
+          lastLabel: last?.label.toLowerCase(),
+          percent: Math.round(((last?.value ?? 0) / first) * 100),
+        })
       }
       table={{
         columns: ["Stage", "Count", "From previous"],
@@ -491,7 +523,11 @@ export function WaterfallChart({
       title={title}
       summary={
         summary ??
-        `Starts at ${format(start.value)} and ends at ${format(run)}${unit ? ` ${unit}` : ""} after ${steps.length} changes.`
+        t("Starts at {start} and ends at {end} after {count} changes.", {
+          start: format(start.value),
+          end: `${format(run)}${unit ? ` ${unit}` : ""}`,
+          count: steps.length,
+        })
       }
       table={{
         columns: ["Step", unit ? `Change (${unit})` : "Change", "Running total"],
@@ -573,6 +609,7 @@ export function RadarChart({
   max = 10,
   format = defaultFormat,
 }: RadarChartProps) {
+  const t = useT();
   const C = 150;
   const R = 95;
   const ang = (i: number) => -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
@@ -588,7 +625,10 @@ export function RadarChart({
       title={title}
       summary={
         summary ??
-        `${axes.length} dimensions scored out of ${max}. ${s0?.name}: strongest on ${best}, weakest on ${worst}.`
+        t(
+          "{count} dimensions scored out of {max}. {name}: strongest on {best}, weakest on {worst}.",
+          { count: axes.length, max, name: s0?.name, best, worst }
+        )
       }
       table={{
         columns: ["Dimension", ...series.map((s) => s.name)],
@@ -689,6 +729,7 @@ export function Heatmap({
   scale = ["#F5EDE4", "#5C3D1E"],
   format = defaultFormat,
 }: HeatmapProps) {
+  const t = useT();
   const flat = values.flat();
   const lo = Math.min(...flat);
   const hi = Math.max(...flat);
@@ -702,7 +743,14 @@ export function Heatmap({
       title={title}
       summary={
         summary ??
-        `${rows.length} by ${columns.length} grid from ${format(lo)} to ${format(hi)}. Highest: ${rows[peak.r]}, ${columns[peak.c]}.`
+        t("{rows} by {columns} grid from {low} to {high}. Highest: {row}, {column}.", {
+          rows: rows.length,
+          columns: columns.length,
+          low: format(lo),
+          high: format(hi),
+          row: rows[peak.r],
+          column: columns[peak.c],
+        })
       }
       table={{ columns: ["", ...columns], rows: rows.map((r, ri) => [r, ...(values[ri] ?? [])]) }}
       footer={

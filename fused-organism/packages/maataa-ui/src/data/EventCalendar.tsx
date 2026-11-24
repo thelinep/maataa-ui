@@ -78,13 +78,19 @@ export function EventCalendar({
   const id = useId();
   const time = (d: Date) => d.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" });
   const evName = (e: CalendarEvent) =>
-    `${e.allDay ? "All day" : time(e.start)}, ${e.title}${e.kind ? `, ${e.kind}` : ""}`;
+    `${e.allDay ? t("All day") : time(e.start)}, ${e.title}${e.kind ? `, ${e.kind}` : ""}`;
   const weekStart = startOfWeek(date, weekStartsOn);
   const title =
     view === "month"
       ? date.toLocaleDateString(locale, { month: "long", year: "numeric" })
       : view === "week"
-        ? `Week of ${weekStart.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })}`
+        ? t("Week of {date}", {
+            date: weekStart.toLocaleDateString(locale, {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }),
+          })
         : date.toLocaleDateString(locale, {
             weekday: "long",
             day: "numeric",
@@ -206,7 +212,7 @@ export function EventCalendar({
                         onDateChange(d);
                         onViewChange("day");
                       }}
-                      aria-label={`${d.toLocaleDateString(locale, { day: "numeric", month: "long" })}${isToday ? ", today" : ""}, ${evs.length ? `${evs.length} event${evs.length === 1 ? "" : "s"}` : "no events"}`}
+                      aria-label={`${d.toLocaleDateString(locale, { day: "numeric", month: "long" })}${isToday ? t(", today") : ""}, ${evs.length ? t.plural(evs.length, "{count} event", "{count} events") : t("no events")}`}
                       aria-current={isToday ? "date" : undefined}
                       style={{
                         minWidth: 28,

@@ -213,7 +213,13 @@ export function LayerStack({
     const next = [...layers];
     [next[i], next[j]] = [next[j]!, next[i]!];
     onChange(next);
-    setMsg(`${layers[i]!.name} moved to position ${j + 1} of ${layers.length}.`);
+    setMsg(
+      t("{name} moved to position {position} of {total}.", {
+        name: layers[i]!.name,
+        position: j + 1,
+        total: layers.length,
+      })
+    );
     const atEnd = (which === "down" && j === layers.length - 1) || (which === "up" && j === 0);
     const target = atEnd ? (which === "down" ? "up" : "down") : which;
     requestAnimationFrame(() => moveRefs.current[`${layers[i]!.id}-${target}`]?.focus());
@@ -812,8 +818,8 @@ export function RenderProgressRow({ job, onCancel, onRetry, onPause }: RenderPro
   const eta =
     job.eta != null
       ? job.eta >= 60
-        ? `${Math.round(job.eta / 60)} min left`
-        : `${Math.round(job.eta)} s left`
+        ? t("{min} min left", { min: Math.round(job.eta / 60) })
+        : t("{sec} s left", { sec: Math.round(job.eta) })
       : "";
   return (
     <div
