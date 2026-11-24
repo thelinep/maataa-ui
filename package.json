@@ -12,6 +12,7 @@
     "postinstall": "node scripts/check-fused-packages.mjs",
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:analyze": "tsc && vite build --config vite.config.performance.mts",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
