@@ -9,6 +9,7 @@ import { colorTokens, spacing, typography } from '@/design-system/theme-colors';
 import { LoadingState } from '@/pages/shared/AsyncState';
 import { A11yToolbar, A11yTools, MAIN_ID, NAV_ID, SkipLink } from '@/accessibility/A11yTools';
 import { NAV_SECTIONS } from './navigation';
+import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 const Shell = styled.div`
   display: grid;
@@ -153,9 +154,11 @@ export const AppLayout: React.FC = () => (
       ))}
     </Sidebar>
     <Main id={MAIN_ID} tabIndex={-1}>
-      <Suspense fallback={<LoadingState announce={false} />}>
-        <Outlet />
-      </Suspense>
+      <RouteErrorBoundary>
+        <Suspense fallback={<LoadingState announce={false} />}>
+          <Outlet />
+        </Suspense>
+      </RouteErrorBoundary>
     </Main>
     <A11yTools />
   </Shell>
@@ -198,8 +201,10 @@ export const WorkflowTabs: React.FC<{ label: string; tabs: { label: string; to: 
         </TabLink>
       ))}
     </TabBar>
-    <Suspense fallback={<LoadingState announce={false} />}>
-      <Outlet />
-    </Suspense>
+    <RouteErrorBoundary region={label}>
+      <Suspense fallback={<LoadingState announce={false} />}>
+        <Outlet />
+      </Suspense>
+    </RouteErrorBoundary>
   </>
 );
