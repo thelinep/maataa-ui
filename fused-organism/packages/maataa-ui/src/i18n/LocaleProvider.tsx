@@ -28,6 +28,25 @@ const LocaleContext = createContext<LocaleContextValue>({
   messages: {},
 });
 
+/** Digit sets components can show. Any Unicode numbering-system id also works. */
+export type Numerals = "latn" | "deva" | "brah" | (string & Record<never, never>);
+
+/**
+ * The locale with a numbering system added: ("hi-IN", "brah") → "hi-IN-u-nu-brah".
+ * An existing -nu- value is replaced. Returns the locale unchanged when
+ * `numerals` is empty or the runtime doesn't know it.
+ */
+export function withNumerals(locale: string, numerals?: string): string {
+  if (!numerals) return locale;
+  try {
+    const tagged = new Intl.Locale(locale, { numberingSystem: numerals }).toString();
+    const resolved = new Intl.NumberFormat(tagged).resolvedOptions().numberingSystem;
+    return resolved === numerals ? tagged : locale;
+  } catch {
+    return locale;
+  }
+}
+
 /** The language part of a locale: "hi-IN" → "hi". */
 export function languageOf(locale: string): string {
   return locale.split(/[-_]/)[0].toLowerCase();
@@ -49,6 +68,13 @@ export interface LocaleProviderProps {
   messages?: Messages;
   /** Text direction. @default worked out from the locale */
   dir?: "ltr" | "rtl";
+  /**
+   * Digits for every number, date and currency below: "latn" (0123),
+   * "deva" (०१२३), "brah" (Brahmi 𑁦𑁧𑁨𑁩) or any other Unicode numbering
+   * system. Brahmi needs a font that has it, such as Noto Sans Brahmi.
+   * @default the locale's own digits
+   */
+  numerals?: Numerals;
   /**
    * Wrap children in an element carrying `lang` and `dir`, so screen readers
    * pronounce the text in the right language. Turn off when `<html lang>`
@@ -76,17 +102,18 @@ export function LocaleProvider({
   locale,
   messages,
   dir,
+  numerals,
   wrap = true,
   children,
 }: LocaleProviderProps) {
   const value = useMemo<LocaleContextValue>(() => {
     const builtIn = builtInMessages[languageOf(locale)] ?? {};
     return {
-      locale,
+      locale: withNumerals(locale, numerals),
       dir: dir ?? directionOf(locale),
       messages: messages ? { ...builtIn, ...messages } : builtIn,
     };
-  }, [locale, messages, dir]);
+  }, [locale, messages, dir, numerals]);
 
   return (
     <LocaleContext.Provider value={value}>

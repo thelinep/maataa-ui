@@ -7,6 +7,7 @@ import {
   LocaleProvider,
   directionOf,
   translate,
+  withNumerals,
   useLocale,
   useT,
   type MessageValues,
@@ -122,5 +123,33 @@ describe("LocaleProvider", () => {
       </LocaleProvider>
     );
     expect(screen.getByText("3 दिन में")).toBeInTheDocument();
+  });
+});
+
+describe("numerals", () => {
+  it("adds the numbering system to the locale every component formats with", () => {
+    render(
+      <LocaleProvider locale="hi-IN" numerals="brah">
+        <Probe />
+      </LocaleProvider>
+    );
+    expect(screen.getByTestId("locale")).toHaveTextContent("hi-IN-u-nu-brah");
+    expect(screen.getByTestId("plural-3")).toHaveTextContent("𑁩 परिणाम");
+  });
+
+  it("keeps the plain locale on the lang attribute", () => {
+    const { container } = render(
+      <LocaleProvider locale="hi-IN" numerals="deva">
+        <span />
+      </LocaleProvider>
+    );
+    expect(container.firstElementChild).toHaveAttribute("lang", "hi-IN");
+  });
+
+  it("replaces an existing numbering system and ignores unknown ones", () => {
+    expect(withNumerals("hi-IN-u-nu-deva", "brah")).toBe("hi-IN-u-nu-brah");
+    expect(withNumerals("en-IN", "latn")).toBe("en-IN-u-nu-latn");
+    expect(withNumerals("hi-IN", "nope")).toBe("hi-IN");
+    expect(withNumerals("hi-IN")).toBe("hi-IN");
   });
 });

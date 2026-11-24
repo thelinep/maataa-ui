@@ -6,6 +6,7 @@ import {
   CountrySelector,
   RegionSelector,
   CurrencySelector,
+  NumeralsSelector,
 } from "./LocaleSelectors";
 import { displayName, indianStates, indianLanguages } from "./localeData";
 
@@ -47,5 +48,20 @@ describe("selectors", () => {
     await user.click(screen.getByRole("combobox", { name: "State or union territory" }));
     await user.click(screen.getByRole("option", { name: "Goa" }));
     expect(onChange).toHaveBeenCalledWith({ state: "GA", district: undefined });
+  });
+});
+
+describe("NumeralsSelector", () => {
+  it("previews each digit set and reports the choice", async () => {
+    const onChange = vi.fn();
+    const user = userEvent.setup();
+    render(<NumeralsSelector value="latn" onChange={onChange} locale="hi-IN" />);
+    const box = screen.getByRole("combobox", { name: "Digits" });
+    expect(box).toHaveTextContent("International (0–9) · 123");
+    await user.click(box);
+    const options = screen.getAllByRole("option").map((o) => o.textContent?.replace("✓", ""));
+    expect(options).toEqual(["International (0–9) · 123", "Devanagari · १२३", "Brahmi · 𑁧𑁨𑁩"]);
+    await user.click(screen.getByRole("option", { name: "Brahmi · 𑁧𑁨𑁩" }));
+    expect(onChange).toHaveBeenCalledWith("brah");
   });
 });

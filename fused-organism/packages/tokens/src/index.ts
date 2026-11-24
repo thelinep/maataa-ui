@@ -502,8 +502,73 @@ export const highContrastTheme: MaataaTheme = {
   colorScheme: "light",
 };
 
+/**
+ * Hemant (हेमंत), the early-winter ritu: misty ivory mornings, mustard-field
+ * cream, marigold and sindoor accents, wood-smoke ink. A warm light theme.
+ *
+ * Contrast (WCAG 2.2 AA), measured on all three backgrounds (#FBF7EE,
+ * #F4ECDA, #EADFC4): text.primary 12.3:1 or more, secondary 8.5:1 or more,
+ * tertiary 5.5:1 or more; border.control 3.3:1 or more (WCAG 1.4.11);
+ * interactive.primary 5.1:1 or more, with the inverse text on it 6.4:1;
+ * success, warning, error and info 4.8:1 or more; every semantic
+ * text-on-fill pair 6.8:1 or more. Checked by `hemantTheme` tests in @maataa/ui.
+ */
+export const hemantTheme: MaataaTheme = {
+  name: "hemant",
+  label: "Hemant",
+  colors: {
+    text: {
+      primary: "#2B1D12",
+      secondary: "#4A3726",
+      tertiary: "#685239",
+      inverse: "#FBF7EE",
+      disabled: "#9C8B73",
+    },
+    background: {
+      primary: "#FBF7EE",
+      secondary: "#F4ECDA",
+      tertiary: "#EADFC4",
+      inverse: "#2B1D12",
+    },
+    border: {
+      primary: "#D6C7A6",
+      secondary: "#E2D6BA",
+      tertiary: "#ECE3CF",
+      control: "#8A7553",
+    },
+    interactive: {
+      primary: "#9C3D0C",
+      secondary: "#E6D7B5",
+      success: "#3D6A26",
+      warning: "#805300",
+      error: "#A11D22",
+      info: "#2C4E78",
+    },
+    semantic: {
+      success: { bg: "#E5EED9", text: "#33591F" },
+      warning: { bg: "#F6E7C4", text: "#6B4500" },
+      error: { bg: "#F9E1DC", text: "#8E1A1E" },
+      info: { bg: "#E0E8F2", text: "#264468" },
+    },
+    shadow: {
+      sm: "0 1px 2px rgba(43, 29, 18, 0.06)",
+      md: "0 6px 20px rgba(43, 29, 18, 0.08)",
+      lg: "0 14px 40px rgba(43, 29, 18, 0.12)",
+      xl: "0 22px 60px rgba(43, 29, 18, 0.16)",
+    },
+  },
+  chartSingle: "#C2640F",
+  colorScheme: "light",
+};
+
 /** Every theme that ships with MAATAA, in picker order. */
-export const builtInThemes: readonly MaataaTheme[] = [paperTheme, darkTheme, tlpsV2Theme, highContrastTheme];
+export const builtInThemes: readonly MaataaTheme[] = [
+  paperTheme,
+  darkTheme,
+  tlpsV2Theme,
+  highContrastTheme,
+  hemantTheme,
+];
 
 /** The CSS custom properties for a theme, as a `{ "--maataa-…": value }` map. */
 export function themeToCssVariables(theme: MaataaTheme): Record<string, string> {

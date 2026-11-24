@@ -217,6 +217,7 @@ Entry: `./dist/index.js`
 - `darkColorTokens`
 - `darkTheme`
 - `fontFamilyPalette`
+- `hemantTheme`
 - `highContrastTheme`
 - `paperColorPalette`
 - `paperTheme`
