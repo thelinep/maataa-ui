@@ -37,6 +37,7 @@ export {
   tlpsV2Theme,
   highContrastTheme,
   hemantTheme,
+  limeTheme,
   builtInThemes,
   themeToCss,
   themeToCssVariables,

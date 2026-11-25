@@ -219,6 +219,7 @@ Entry: `./dist/index.js`
 - `fontFamilyPalette`
 - `hemantTheme`
 - `highContrastTheme`
+- `limeTheme`
 - `paperColorPalette`
 - `paperTheme`
 - `radiusPalette`

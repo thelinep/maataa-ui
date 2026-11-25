@@ -127,5 +127,12 @@ fieldset { border: 1px solid ${line}; border-radius: 10px; padding: 10px; }
   button.icon { min-width: 44px; }
   .task input[type="checkbox"] { width: 24px; height: 24px; }
 }
+/* Lime theme: bright lime marks what is selected; text on it stays dark. */
+[data-maataa-theme="lime"] .row-button[aria-current="true"],
+[data-maataa-theme="lime"] .tab[aria-selected="true"],
+[data-maataa-theme="lime"] button.chip[aria-pressed="true"] { background: #D9F99D !important; color: #1C1F1C; }
+[data-maataa-theme="lime"] .count { background: #A3E635; color: #1C1F1C; }
+[data-maataa-theme="lime"] .top { border-bottom: 3px solid #A3E635; }
+[data-maataa-theme="lime"] .artifact-icon { color: #4D7C0F; }
 @media (prefers-reduced-motion: reduce) { .side { transition: none; } }
 `;

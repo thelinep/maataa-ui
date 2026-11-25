@@ -673,6 +673,7 @@ export const hi: Readonly<Record<string, string>> = {
   "Height above ground · limit {ceilingM} m": "ज़मीन से ऊँचाई · सीमा {ceilingM} मी",
   "Held because the scan found a problem.": "स्कैन में समस्या मिली, इसलिए रोका गया।",
   Hemant: "हेमंत",
+  Lime: "लाइम",
   Hide: "छिपाएँ",
   "Hide resolved": "सुलझे हुए छिपाएँ",
   "Hide {name}": "{name} छिपाएँ",

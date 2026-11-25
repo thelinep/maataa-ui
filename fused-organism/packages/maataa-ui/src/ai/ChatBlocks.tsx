@@ -65,6 +65,7 @@ interface ChartData {
 }
 
 const PALETTE = [
+  `var(--maataa-chart-single, ${colorTokens.interactive.primary})`,
   colorTokens.interactive.primary,
   colorTokens.interactive.info,
   colorTokens.interactive.success,

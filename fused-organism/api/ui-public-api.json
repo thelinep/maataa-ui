@@ -2441,6 +2441,10 @@
           "stability": "beta"
         },
         {
+          "name": "limeTheme",
+          "stability": "beta"
+        },
+        {
           "name": "listLocalModels",
           "stability": "beta"
         },
@@ -5628,6 +5632,10 @@
           "stability": "beta"
         },
         {
+          "name": "limeTheme",
+          "stability": "beta"
+        },
+        {
           "name": "paperTheme",
           "stability": "beta"
         },
@@ -5797,6 +5805,10 @@
         },
         {
           "name": "highContrastTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "limeTheme",
           "stability": "beta"
         },
         {

@@ -612,6 +612,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - languageOf — beta
 - leavesOf — beta
 - levelZone — beta
+- limeTheme — beta
 - listLocalModels — beta
 - mapsComponents — beta
 - masterPrimitiveRegistry — beta
@@ -1464,6 +1465,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - darkTheme — beta
 - hemantTheme — beta
 - highContrastTheme — beta
+- limeTheme — beta
 - paperTheme — beta
 - resolveThemeChoice — beta
 - themeComponents — beta
@@ -1510,6 +1512,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - darkTheme — beta
 - hemantTheme — beta
 - highContrastTheme — beta
+- limeTheme — beta
 - paperTheme — beta
 - themeInitScript — beta
 - themePreferenceCss — beta

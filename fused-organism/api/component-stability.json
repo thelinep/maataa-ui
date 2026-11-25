@@ -887,6 +887,10 @@
           "stability": "beta"
         },
         {
+          "name": "limeTheme",
+          "stability": "beta"
+        },
+        {
           "name": "paperColorPalette",
           "stability": "beta"
         },
@@ -3390,6 +3394,10 @@
         },
         {
           "name": "levelZone",
+          "stability": "beta"
+        },
+        {
+          "name": "limeTheme",
           "stability": "beta"
         },
         {
@@ -6580,6 +6588,10 @@
           "stability": "beta"
         },
         {
+          "name": "limeTheme",
+          "stability": "beta"
+        },
+        {
           "name": "paperTheme",
           "stability": "beta"
         },
@@ -6749,6 +6761,10 @@
         },
         {
           "name": "highContrastTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "limeTheme",
           "stability": "beta"
         },
         {
