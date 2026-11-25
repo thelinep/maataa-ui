@@ -101,7 +101,7 @@ export function MermaidDiagram({ code, closed }: { code: string; closed: boolean
       </div>
     );
   if (!svg) return <p className="block-note">{t("Drawing the diagram…")}</p>;
-  const height = Math.min(640, Math.max(120, Math.round((svg.h / svg.w) * 560)));
+  const height = Math.min(640, Math.max(80, Math.round(svg.h * Math.min(1, 640 / svg.w)) + 8));
   const page = `<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:${isDark() ? "#111" : "#fff"}}svg{display:block;max-width:100%;height:auto;margin:0 auto}</style></head><body>${svg.markup}</body></html>`;
   return (
     <figure className="diagram">

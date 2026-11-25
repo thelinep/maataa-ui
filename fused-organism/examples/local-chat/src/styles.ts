@@ -95,7 +95,7 @@ button.chip[aria-pressed="true"] { background: ${bg3}; border-color: ${accent}; 
 .artifact-icon { font-size: 22px; flex: none; }
 .artifact-card-text { display: grid; flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .block-note { margin: 0; padding: 8px 10px; border-radius: 10px; background: ${bg3}; color: ${text2}; }
-.diagram { margin: 0; display: grid; gap: 4px; min-width: 0; width: min(640px, 100%); }
+.diagram { margin: 0; display: grid; gap: 4px; min-width: 0; width: 640px; max-width: 100%; }
 .diagram iframe { width: 100%; border: 1px solid ${line}; border-radius: 10px; background: #fff; }
 .live { margin: 0; display: grid; border: 1px solid ${line}; border-radius: 12px; overflow: hidden; min-width: 0; background: ${bg1}; }
 .live-bar { display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 10px; border-bottom: 1px solid ${line}; }
