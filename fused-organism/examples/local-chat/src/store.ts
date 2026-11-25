@@ -53,15 +53,27 @@ export interface Task {
   novaId?: string;
 }
 
+/** A picture, sound or video made through Maataa Workstation for a reply block. */
+export interface MediaRecord {
+  /** Hash of the block that asked for it */
+  id: string;
+  jobId: string;
+  status: "running" | "done" | "failed" | "cancelled";
+  mediaIds: string[];
+  error?: string;
+  updatedAt: string;
+}
+
 export interface Data {
   projects: Project[];
   conversations: Conversation[];
   artifacts: Artifact[];
   tasks: Task[];
+  media: MediaRecord[];
 }
 
 type Kind = keyof Data;
-const KINDS: Kind[] = ["projects", "conversations", "artifacts", "tasks"];
+const KINDS: Kind[] = ["projects", "conversations", "artifacts", "tasks", "media"];
 const DB_NAME = "maataa-local-chat";
 
 export const now = () => new Date().toISOString();
@@ -86,7 +98,7 @@ function openDb(): Promise<IDBDatabase | null> {
   if (dbPromise) return dbPromise;
   dbPromise = new Promise((resolve) => {
     if (typeof indexedDB === "undefined") return resolve(null);
-    const req = indexedDB.open(DB_NAME, 1);
+    const req = indexedDB.open(DB_NAME, 2);
     req.onupgradeneeded = () => {
       for (const kind of KINDS)
         if (!req.result.objectStoreNames.contains(kind))
@@ -102,7 +114,7 @@ function openDb(): Promise<IDBDatabase | null> {
 /** Everything saved so far, with the two starter projects if none exist. */
 export async function loadAll(): Promise<Data> {
   const db = await openDb();
-  const data: Data = { projects: [], conversations: [], artifacts: [], tasks: [] };
+  const data: Data = { projects: [], conversations: [], artifacts: [], tasks: [], media: [] };
   if (db) {
     await Promise.all(
       KINDS.map(
@@ -174,4 +186,14 @@ export function titleFrom(messages: LocalChatMessage[], fallback: string): strin
     .replace(/\s+/g, " ");
   if (!first) return fallback;
   return first.length > 60 ? `${first.slice(0, 57)}…` : first;
+}
+
+/** A short stable id for a block's text (FNV-1a). */
+export function hashText(text: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return `m_${(h >>> 0).toString(36)}_${text.length.toString(36)}`;
 }

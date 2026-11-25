@@ -94,6 +94,19 @@ button.chip[aria-pressed="true"] { background: ${bg3}; border-color: ${accent}; 
 .artifact-card { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid ${line}; border-radius: 12px; background: ${bg1}; min-width: 0; }
 .artifact-icon { font-size: 22px; flex: none; }
 .artifact-card-text { display: grid; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.block-note { margin: 0; padding: 8px 10px; border-radius: 10px; background: ${bg3}; color: ${text2}; }
+.diagram { margin: 0; display: grid; gap: 4px; min-width: 0; width: min(640px, 100%); }
+.diagram iframe { width: 100%; border: 1px solid ${line}; border-radius: 10px; background: #fff; }
+.live { margin: 0; display: grid; border: 1px solid ${line}; border-radius: 12px; overflow: hidden; min-width: 0; background: ${bg1}; }
+.live-bar { display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 10px; border-bottom: 1px solid ${line}; }
+.live-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.live iframe { width: 100%; height: 300px; border: 0; background: #fff; }
+.media { margin: 0; display: grid; gap: 8px; padding: 10px; border: 1px solid ${line}; border-radius: 12px; background: ${bg1}; min-width: 0; }
+.media-prompt { margin: 0; overflow-wrap: anywhere; }
+.media-item { display: grid; gap: 4px; justify-items: start; }
+.media-item img, .media-item video { max-width: 100%; max-height: 420px; border-radius: 8px; }
+.media-item audio { width: 100%; }
+.tex-block { overflow-x: auto; max-width: 100%; }
 .artifact { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 .artifact-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 10px; }
 .artifact-title { margin: 0; font-size: 15px; flex: 1; min-width: 0; overflow-wrap: anywhere; }

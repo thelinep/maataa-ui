@@ -6,7 +6,9 @@ A chat app that runs on your computer and talks to a local model (Ollama or LM S
 - **Artifacts:** when a reply contains a page (` ```html `, ` ```svg `), a titled document (` ```markdown title="Shoot plan" `) or long code, it shows as a card and opens in the side panel, with versions, Copy and Download. Pages run in a sandboxed frame with no access to the app.
 - **Tasks:** checklists in a reply (`- [ ] Book the van`) can be added with one tap; `/task` adds one by hand. Optionally copied to the Radheya board in Maataa Workstation.
 - **Pictures:** attach, paste or drop up to 4 pictures. Needs a model that can see (gemma3, llava, qwen2.5vl).
-- **Rich replies:** Markdown, tables, charts, tap-to-answer options, and MAATAA call sheets, shot lists, crew cards and Vikram Samvat dates.
+- **Rich replies:** Markdown, tables, charts, tap-to-answer options, maps, Mermaid diagrams, maths (KaTeX), and MAATAA call sheets, shot lists, crew cards and Vikram Samvat dates.
+- **Live pages:** HTML in a reply, fenced or written straight in, runs right there in a sealed frame (no access to the app, your data or the internet in the desktop app) and opens as an artifact.
+- **Pictures, sound and video:** with Maataa Workstation running, the model can ask for a picture (ComfyUI), music, sound effects or a voice-over, or a short video (LTX-2). Each shows its description and a **Make** button (or starts by itself if you turn that on in Settings); the result plays in the chat, with Download, and is remembered.
 - **Voice:** Read aloud on each reply; the microphone button types what you say (browser speech, where available).
 
 Everything is kept in this browser (IndexedDB). Hindi and English.

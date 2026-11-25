@@ -61,6 +61,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - CHART_COLORS — beta
 - CHAT_BLOCKS_PROMPT — beta
 - CHAT_BLOCK_KINDS — beta
+- CHAT_DIAGRAM_PROMPT — beta
+- CHAT_MEDIA_PROMPT — beta
 - CadPlanViewer — beta
 - CallSheetEditor — beta
 - CallSheetPrintView — beta
@@ -79,6 +81,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ChartFigure — beta
 - ChatChart — beta
 - ChatChoices — beta
+- ChatMap — beta
 - ChatMarkdown — beta
 - Checkbox — beta
 - Checklist — beta
@@ -656,6 +659,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - rememberReturnTo — beta
 - renderChatBlock — beta
 - renderInline — beta
+- renderInlineWithMath — beta
 - renderMarkdown — beta
 - renderStates — beta
 - resolveThemeChoice — beta
@@ -1381,8 +1385,11 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - AnomalyAlerts — beta
 - CHAT_BLOCKS_PROMPT — beta
 - CHAT_BLOCK_KINDS — beta
+- CHAT_DIAGRAM_PROMPT — beta
+- CHAT_MEDIA_PROMPT — beta
 - ChatChart — beta
 - ChatChoices — beta
+- ChatMap — beta
 - ChatMarkdown — beta
 - CodeBlock — beta
 - DEFAULT_LOCAL_MODEL_URL — beta
@@ -1407,6 +1414,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - parseMarkdown — beta
 - renderChatBlock — beta
 - renderInline — beta
+- renderInlineWithMath — beta
 - speakableText — beta
 - streamChat — beta
 - tokenize — beta

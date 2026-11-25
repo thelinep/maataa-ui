@@ -27,3 +27,20 @@ export const MaataaBlocks: Story = {
       '```shotlist\n{"title":"Dhoop","scenes":[{"scene":"1","heading":"INT. KITCHEN - DAY","shots":[{"shot":"1A","size":"WS","angle":"Eye level","movement":"Static","description":"Steam rises from the pot"},{"shot":"1B","size":"CU","angle":"Low","movement":"Push in","description":"Amma’s hands"}]}]}\n```\n\n```date\n{"date":"2026-11-25"}\n```',
   },
 };
+
+/** A ```map block: places drawn offline, each linking to OpenStreetMap. */
+export const MapBlock: Story = {
+  args: {
+    renderBlock: (b) => renderChatBlock(b),
+    children:
+      '```map\n{"title":"Recce, Old Delhi","places":[{"name":"Haveli","lat":28.6562,"lng":77.2301,"note":"Location"},{"name":"LNJP Hospital","lat":28.6386,"lng":77.2385,"note":"Nearest hospital"},{"name":"Parking","lat":28.6505,"lng":77.2334}]}\n```',
+  },
+};
+
+/** HTML written straight into a reply becomes an html block (shown as code here; apps run it in a sandbox). */
+export const RawHtml: Story = {
+  args: {
+    children:
+      "Here is a counter:\n<!doctype html>\n<html><body><h1>0</h1></body></html>\nTap the button.",
+  },
+};

@@ -240,3 +240,68 @@ describe("LocalChat states", () => {
     expect(await screen.findByRole("button", { name: "Keep Done" })).toBeInTheDocument();
   });
 });
+
+describe("maths, raw HTML and maps", () => {
+  const tex = (s: string, display: boolean) => (
+    <span data-tex={display ? "block" : "inline"}>{s}</span>
+  );
+
+  it("draws inline and block maths only when a renderer is given, and leaves prices alone", () => {
+    const text =
+      "Area is $\\pi r^2$ and \\(e^x\\). It costs $5 and $10.\n\n$$\nE = mc^2\n$$\n\n\\[a+b\\]";
+    const { container, rerender } = render(<ChatMarkdown renderMath={tex}>{text}</ChatMarkdown>);
+    const found = [...container.querySelectorAll("[data-tex]")].map((e) => [
+      e.getAttribute("data-tex"),
+      e.textContent,
+    ]);
+    expect(found).toEqual([
+      ["inline", "\\pi r^2"],
+      ["inline", "e^x"],
+      ["block", "E = mc^2"],
+      ["block", "a+b"],
+    ]);
+    expect(container.textContent).toContain("It costs $5 and $10.");
+    rerender(<ChatMarkdown>{text}</ChatMarkdown>);
+    expect(container.querySelector("[data-tex]")).toBeNull();
+    expect(container.textContent).toContain("$\\pi r^2$");
+  });
+
+  it("treats ```latex as maths", () => {
+    const { container } = render(
+      <ChatMarkdown renderMath={tex}>{"```latex\n\\frac{1}{2}\n```"}</ChatMarkdown>
+    );
+    expect(container.querySelector('[data-tex="block"]')?.textContent).toBe("\\frac{1}{2}");
+  });
+
+  it("turns HTML written straight into a reply into an html block and artifact", () => {
+    const reply =
+      'Here you go:\n<!doctype html>\n<html><body><h1>Hi</h1>\n<script>1</script></body>\n</html>\nEnjoy.\n<svg viewBox="0 0 10 10">\n<circle r="4"/>\n</svg>';
+    const blocks = parseMarkdown(reply).filter((b) => b.kind === "code");
+    expect(
+      blocks.map((b) => b.kind === "code" && [b.block.lang, b.block.raw, b.block.closed])
+    ).toEqual([
+      ["html", true, true],
+      ["svg", true, true],
+    ]);
+    expect(findArtifacts(reply).map((a) => a.type)).toEqual(["html", "svg"]);
+    const { container } = render(<ChatMarkdown>{reply}</ChatMarkdown>);
+    expect(container.querySelector("h1")).toBeNull();
+    expect(container.querySelector("script")).toBeNull();
+    expect(screen.getByText("Enjoy.")).toBeInTheDocument();
+  });
+
+  it("draws a map with links to OpenStreetMap, and rejects made-up shapes", () => {
+    render(
+      <ChatMarkdown renderBlock={(b) => renderChatBlock(b)}>
+        {
+          '```map\n{"title":"Recce","places":[{"name":"Haveli","lat":28.6562,"lng":77.2301},{"name":"LNJP Hospital","lat":28.6386,"lng":77.2385,"note":"Nearest hospital"}]}\n```\n\n```map\n{"places":[{"name":"Nowhere","lat":200,"lng":0}]}\n```'
+        }
+      </ChatMarkdown>
+    );
+    expect(screen.getByRole("link", { name: "LNJP Hospital" })).toHaveAttribute(
+      "href",
+      expect.stringContaining("openstreetmap.org/?mlat=28.6386&mlon=77.2385")
+    );
+    expect(screen.getByText("The model sent a map that couldn’t be read.")).toBeInTheDocument();
+  });
+});

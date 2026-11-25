@@ -13,6 +13,7 @@ import { CallSheetPrintView } from "../data/CallSheetPrintView";
 import { ShotList } from "../data/ShotList";
 import { CrewIdCard, type CrewPerson } from "../data/CrewIdCard";
 import { IndianDate } from "../i18n/IndianDate";
+import { GeoMap, type GeoMapPin } from "../maps/GeoMap";
 import { fromNovaCallSheet, fromNovaShotList, readNovaOutput } from "../data/nova";
 import { findFencedBlocks, type FencedBlock } from "./ChatMarkdown";
 
@@ -24,6 +25,8 @@ export const CHAT_BLOCK_KINDS = [
   "shotlist",
   "crew",
   "date",
+  "map",
+  "location",
 ] as const;
 
 /**
@@ -52,9 +55,37 @@ export const CHAT_BLOCKS_PROMPT = `You can answer with special fenced blocks tha
 {"date":"2026-12-01"}
 \`\`\`
 (shows the Vikram Samvat date)
+\`\`\`map
+{"title":"Recce, Old Delhi","places":[{"name":"Haveli","lat":28.6562,"lng":77.2301,"note":"Location"},{"name":"LNJP Hospital","lat":28.6386,"lng":77.2385,"note":"Nearest hospital"}]}
+\`\`\`
+(real coordinates only; never guess them)
 For a page, document or code the person will keep, use a fenced block with a title, e.g. \`\`\`html title="Poster" or \`\`\`markdown title="Shoot plan". It opens as an artifact.
 For a to-do list, use a checklist: "- [ ] task".
 Use Markdown tables for tabular data.`;
+
+/**
+ * Teaches a model diagrams and maths. Add it when the app passes a Mermaid
+ * renderer (renderBlock for ```mermaid) and `renderMath`.
+ */
+export const CHAT_DIAGRAM_PROMPT = `For a flowchart, timeline, sequence or org chart, use a \`\`\`mermaid block (Mermaid syntax).
+For maths, use LaTeX: $…$ inline and $$…$$ on its own lines.`;
+
+/**
+ * Teaches a model to ask for pictures, sound and video. Only add it when the
+ * app can make them (e.g. through Maataa Workstation).
+ */
+export const CHAT_MEDIA_PROMPT = `You can have pictures, sound and short videos made on this computer. Write one block per item; the person sees it and it is made for them:
+\`\`\`image
+{"prompt":"golden hour over a Delhi rooftop, kites in the sky, cinematic","width":1024,"height":576}
+\`\`\`
+\`\`\`audio
+{"kind":"music","prompt":"slow tabla and strings, hopeful","seconds":20}
+\`\`\`
+(kind is "music", "sfx" for sound effects, or "voice" with "text" to speak)
+\`\`\`video
+{"prompt":"slow push-in on a steaming chai glass, street sounds","seconds":4}
+\`\`\`
+Describe pictures and videos in English, in detail.`;
 
 interface ChartData {
   type?: "bar" | "line";
@@ -327,6 +358,97 @@ export function ChatChoices({
   );
 }
 
+interface MapPlace {
+  name: string;
+  lat: number;
+  lng: number;
+  note?: string;
+}
+
+function readPlaces(data: Record<string, unknown>): MapPlace[] {
+  const isPlace = (p: unknown): p is MapPlace => {
+    const x = p as MapPlace;
+    return (
+      !!x &&
+      typeof x.name === "string" &&
+      typeof x.lat === "number" &&
+      typeof x.lng === "number" &&
+      Math.abs(x.lat) <= 90 &&
+      Math.abs(x.lng) <= 180
+    );
+  };
+  // ```location {"name","lat","lng","address","points":[{"label","lat","lng"}]}
+  if (typeof data.name === "string" && typeof data.lat === "number") {
+    const main = {
+      name: data.name,
+      lat: data.lat as number,
+      lng: data.lng as number,
+      note: data.address as string | undefined,
+    };
+    const points = Array.isArray(data.points)
+      ? (data.points as Record<string, unknown>[]).map((p) => ({
+          ...p,
+          name: String(p.name ?? p.label ?? ""),
+        }))
+      : [];
+    return [main, ...points].filter(isPlace);
+  }
+  return Array.isArray(data.places) ? (data.places as unknown[]).filter(isPlace) : [];
+}
+
+/** Places on a map, with links to open each in OpenStreetMap. Draws offline. */
+export function ChatMap({ title, places }: { title?: string; places: MapPlace[] }) {
+  const t = useT();
+  const lats = places.map((p) => p.lat);
+  const lngs = places.map((p) => p.lng);
+  const padLat = Math.max(0.004, (Math.max(...lats) - Math.min(...lats)) * 0.25);
+  const padLng = Math.max(0.006, (Math.max(...lngs) - Math.min(...lngs)) * 0.25);
+  const bounds = {
+    minLat: Math.min(...lats) - padLat,
+    maxLat: Math.max(...lats) + padLat,
+    minLng: Math.min(...lngs) - padLng,
+    maxLng: Math.max(...lngs) + padLng,
+  };
+  const pins: GeoMapPin[] = places.map((p, i) => ({
+    id: String(i),
+    label: p.name,
+    lat: p.lat,
+    lng: p.lng,
+    status: i === 0 ? "active" : "default",
+  }));
+  const osm = (p: MapPlace) =>
+    `https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lng}#map=17/${p.lat}/${p.lng}`;
+  return (
+    <figure style={{ margin: 0, display: "grid", gap: spacingTokens.xs, minWidth: 0 }}>
+      <figcaption style={{ fontWeight: 600, fontSize: typographyTokens.fontSize.sm }}>
+        {title ?? t("Map")}
+      </figcaption>
+      <div style={scroller} tabIndex={0} role="region" aria-label={title ?? t("Map")}>
+        <GeoMap pins={pins} bounds={bounds} width={440} height={260} />
+      </div>
+      <ol style={{ margin: 0, paddingLeft: 20, fontSize: typographyTokens.fontSize.sm }}>
+        {places.map((p, i) => (
+          <li key={i}>
+            <a
+              href={osm(p)}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: colorTokens.interactive.primary }}
+            >
+              {p.name}
+            </a>
+            {p.note ? ` · ${p.note}` : ""}
+            <span style={{ color: colorTokens.text.secondary }}>
+              {" "}
+              ({p.lat.toFixed(4)}, {p.lng.toFixed(4)})
+            </span>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  );
+}
+
 function Pending({ label }: { label: string }) {
   return (
     <p
@@ -403,6 +525,8 @@ function ChatBlock({ block, options }: { block: FencedBlock; options: ChatBlockO
     shotlist: t("shot list"),
     crew: t("crew card"),
     date: t("date"),
+    map: t("map"),
+    location: t("map"),
   };
   const name = names[block.lang] ?? block.lang;
   if (!block.closed) return <Pending label={t("Preparing the {name}…", { name })} />;
@@ -458,6 +582,12 @@ function ChatBlock({ block, options }: { block: FencedBlock; options: ChatBlockO
           side="front"
         />
       </div>
+    );
+  } else if (block.lang === "map" || block.lang === "location") {
+    const places = readPlaces(data);
+    if (!places.length) return bad;
+    body = (
+      <ChatMap title={typeof data.title === "string" ? data.title : undefined} places={places} />
     );
   } else if (block.lang === "date") {
     const when = new Date(String(data.date ?? ""));

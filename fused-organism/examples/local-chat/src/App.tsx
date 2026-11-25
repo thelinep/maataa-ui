@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   CHAT_BLOCKS_PROMPT,
+  CHAT_BLOCK_KINDS,
+  CHAT_DIAGRAM_PROMPT,
+  CHAT_MEDIA_PROMPT,
   LocalChat,
   LocaleProvider,
   ThemePicker,
@@ -24,6 +27,7 @@ import { appMessagesHi } from "./messages";
 import { ArtifactsPanel, ProjectPanel, TasksPanel } from "./panels";
 import {
   fileChunks,
+  hashText,
   loadAll,
   newId,
   now,
@@ -38,6 +42,7 @@ import {
 } from "./store";
 import { archiveTask, novaAvailable, pushTask, setTaskDone } from "./nova";
 import { APP_CSS } from "./styles";
+import { LivePreview, MediaBlock, MermaidDiagram, isMediaBlock, renderMath } from "./rich";
 
 type ServerKind = "ollama" | "lmstudio" | "custom";
 type PanelTab = "artifacts" | "tasks" | "project";
@@ -49,6 +54,8 @@ interface Settings {
   language: "en-IN" | "hi-IN";
   projectId: string;
   syncTasks: boolean;
+  /** Make pictures, sound and video as soon as a reply asks, without a tap. */
+  autoMedia: boolean;
 }
 
 const STORAGE_KEY = "maataa-local-chat";
@@ -59,6 +66,7 @@ const DEFAULTS: Settings = {
   language: "en-IN",
   projectId: "general",
   syncTasks: false,
+  autoMedia: false,
 };
 
 function loadSettings(): Settings {
@@ -108,7 +116,14 @@ function Main({
   setSettings: (update: (s: Settings) => Settings) => void;
 }) {
   const t = useT();
-  const ids = { server: useId(), url: useId(), model: useId(), language: useId(), sync: useId() };
+  const ids = {
+    server: useId(),
+    url: useId(),
+    model: useId(),
+    language: useId(),
+    sync: useId(),
+    media: useId(),
+  };
   const theme = useThemePreference();
   const set = <K extends keyof Settings>(key: K, value: Settings[K]) =>
     setSettings((s) => ({ ...s, [key]: value }));
@@ -404,6 +419,9 @@ function Main({
       : [
           `You are a helpful assistant running locally on the user's own computer, working with a film and event production team in India. Be clear and concise. ${languageLine}`,
           CHAT_BLOCKS_PROMPT,
+          CHAT_DIAGRAM_PROMPT,
+          "To show a working page, write a complete HTML page in a ```html block; it runs live in the chat.",
+          nova === "on" ? CHAT_MEDIA_PROMPT : "",
           project?.instructions.trim()
             ? `Project "${project.name}" instructions:\n${project.instructions.trim()}`
             : "",
@@ -522,28 +540,42 @@ function Main({
 
   // Artifacts show in the reply as a card; the full content opens in the panel.
   const renderBlock = (block: FencedBlock) => {
-    const kinds = ["chart", "choices", "callsheet", "shotlist", "crew", "date"];
-    if (kinds.includes(block.lang)) return undefined;
+    if ((CHAT_BLOCK_KINDS as readonly string[]).includes(block.lang)) return undefined;
+    if (block.lang === "mermaid") return <MermaidDiagram code={block.code} closed={block.closed} />;
+    if (isMediaBlock(block.lang))
+      return (
+        <MediaBlock
+          block={block as FencedBlock & { lang: typeof block.lang }}
+          nova={nova}
+          autoStart={settings.autoMedia}
+          saved={data?.media.find((r) => r.id === hashText(`${block.lang}:${block.code}`))}
+          onSaved={(r) =>
+            setData((d) => (d ? { ...d, media: [r, ...d.media.filter((x) => x.id !== r.id)] } : d))
+          }
+        />
+      );
     const isPage = block.lang === "html" || block.lang === "svg";
     if (!isPage && !block.meta.title && block.code.split("\n").length < 40) return undefined;
-    const found = block.closed
-      ? findArtifacts(
-          "```" +
-            block.lang +
-            (block.meta.title ? ` title="${block.meta.title}"` : "") +
-            "\n" +
-            block.code +
-            "\n```",
-        )[0]
-      : undefined;
-    const title = found?.title ?? block.meta.title ?? block.lang;
+    const artifact: ChatArtifact = {
+      title:
+        block.meta.title ||
+        (block.lang === "html" ? /<title>([^<]+)<\/title>/i.exec(block.code)?.[1]?.trim() : undefined) ||
+        (isPage ? t("Page") : block.lang || "text"),
+      type: block.lang === "md" ? "markdown" : block.lang || "text",
+      content: block.code,
+    };
+    const open = () => {
+      const saved = saveArtifact(artifact);
+      if (saved) showArtifact(saved.id);
+    };
+    if (isPage) return <LivePreview block={block} title={artifact.title} onOpen={open} />;
     return (
       <div className="artifact-card">
         <span className="artifact-icon" aria-hidden="true">
           ◧
         </span>
         <span className="artifact-card-text">
-          <strong>{title}</strong>
+          <strong>{artifact.title}</strong>
           <span className="muted small">
             {block.closed
               ? t.plural(block.code.split("\n").length, "{type} · {count} line", "{type} · {count} lines", {
@@ -552,14 +584,8 @@ function Main({
               : t("Writing…")}
           </span>
         </span>
-        {found && (
-          <button
-            type="button"
-            onClick={() => {
-              const saved = saveArtifact(found);
-              if (saved) showArtifact(saved.id);
-            }}
-          >
+        {block.closed && (
+          <button type="button" onClick={open}>
             {t("Open")}
           </button>
         )}
@@ -738,6 +764,7 @@ function Main({
             onReplyDone={onReplyDone}
             messageActions={messageActions}
             renderBlock={renderBlock}
+            renderMath={renderMath}
             placeholder={t("Ask anything…")}
             starterQuestions={starters}
             style={{ maxWidth: 860, width: "100%", margin: "0 auto" }}
@@ -894,6 +921,17 @@ function Main({
                 onChange={(e) => set("syncTasks", e.target.checked)}
               />
               <label htmlFor={ids.sync}>{t("Copy tasks to its Radheya board")}</label>
+            </div>
+            <div className="inline">
+              <input
+                type="checkbox"
+                id={ids.media}
+                checked={settings.autoMedia}
+                onChange={(e) => set("autoMedia", e.target.checked)}
+              />
+              <label htmlFor={ids.media}>
+                {t("Make pictures, sound and video as soon as a reply asks (otherwise press Make)")}
+              </label>
             </div>
             <p className="muted small" style={{ margin: 0 }}>
               {nova === "on"

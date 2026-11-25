@@ -237,6 +237,14 @@
           "stability": "beta"
         },
         {
+          "name": "CHAT_DIAGRAM_PROMPT",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAT_MEDIA_PROMPT",
+          "stability": "beta"
+        },
+        {
           "name": "CadPlanViewer",
           "stability": "beta"
         },
@@ -306,6 +314,10 @@
         },
         {
           "name": "ChatChoices",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatMap",
           "stability": "beta"
         },
         {
@@ -2614,6 +2626,10 @@
         },
         {
           "name": "renderInline",
+          "stability": "beta"
+        },
+        {
+          "name": "renderInlineWithMath",
           "stability": "beta"
         },
         {
@@ -5352,11 +5368,23 @@
           "stability": "beta"
         },
         {
+          "name": "CHAT_DIAGRAM_PROMPT",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAT_MEDIA_PROMPT",
+          "stability": "beta"
+        },
+        {
           "name": "ChatChart",
           "stability": "beta"
         },
         {
           "name": "ChatChoices",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatMap",
           "stability": "beta"
         },
         {
@@ -5453,6 +5481,10 @@
         },
         {
           "name": "renderInline",
+          "stability": "beta"
+        },
+        {
+          "name": "renderInlineWithMath",
           "stability": "beta"
         },
         {

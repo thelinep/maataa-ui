@@ -11,7 +11,7 @@ import { useLocale, useT } from "../i18n/LocaleProvider";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
 import { AIChatBubble, AITypingIndicator } from "./AssistantUI";
-import { ChatMarkdown, type FencedBlock } from "./ChatMarkdown";
+import { ChatMarkdown, type FencedBlock, type MathRenderer } from "./ChatMarkdown";
 import { renderChatBlock } from "./ChatBlocks";
 import { useSpeech } from "./speech";
 import {
@@ -99,6 +99,8 @@ export interface LocalChatProps {
   allowImages?: boolean;
   /** Format replies (Markdown, tables, charts, options, MAATAA blocks). @default true */
   richReplies?: boolean;
+  /** Draw LaTeX maths in replies (e.g. with KaTeX). See ChatMarkdown. */
+  renderMath?: MathRenderer;
   /** Draw extra fenced-block kinds. Return nothing to use the built-in ones. */
   renderBlock?: (block: FencedBlock) => React.ReactNode | null | undefined;
   /** Offer reading replies aloud and speaking instead of typing. */
@@ -181,6 +183,7 @@ export function LocalChat({
   allowImages = false,
   richReplies = true,
   renderBlock,
+  renderMath,
   voice = false,
   messageActions,
   placeholder,
@@ -666,7 +669,11 @@ export function LocalChat({
                 </span>
               )}
               {rich ? (
-                <ChatMarkdown renderBlock={blockRenderer(m)} style={{ whiteSpace: "normal" }}>
+                <ChatMarkdown
+                  renderBlock={blockRenderer(m)}
+                  renderMath={renderMath}
+                  style={{ whiteSpace: "normal" }}
+                >
                   {m.content}
                 </ChatMarkdown>
               ) : (

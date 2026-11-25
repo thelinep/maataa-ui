@@ -123,4 +123,22 @@ export const appMessagesHi: Record<string, string> = {
   "Writing…": "लिखा जा रहा है…",
   Open: "खोलें",
   "Ask anything…": "कुछ भी पूछें…",
+  "Drawing the diagram…": "डायग्राम बन रहा है…",
+  "The diagram couldn’t be drawn: {message}": "डायग्राम नहीं बन सका: {message}",
+  Diagram: "डायग्राम",
+  "Diagram code": "डायग्राम का कोड",
+  "live page": "चालू पेज",
+  Page: "पेज",
+  picture: "तस्वीर",
+  voice: "आवाज़",
+  "sound effect": "साउंड इफ़ेक्ट",
+  music: "संगीत",
+  video: "वीडियो",
+  "Making the {name}…": "{name} बन रहा है…",
+  "Maataa Workstation makes pictures, sound and video. Start it (port 8787), then come back here.":
+    "तस्वीर, आवाज़ और वीडियो Maataa Workstation बनाता है। उसे (पोर्ट 8787) शुरू करें, फिर यहाँ लौटें।",
+  "Make the {name}": "{name} बनाएँ",
+  "Cancelled.": "रद्द किया गया।",
+  "Make pictures, sound and video as soon as a reply asks (otherwise press Make)":
+    "जवाब में माँगते ही तस्वीर, आवाज़ और वीडियो बनाएँ (नहीं तो 'बनाएँ' दबाएँ)",
 };

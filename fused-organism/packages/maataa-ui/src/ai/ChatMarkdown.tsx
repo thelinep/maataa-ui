@@ -18,6 +18,11 @@ export interface FencedBlock {
   code: string;
   /** False while the reply is still streaming and the fence hasn't closed. */
   closed: boolean;
+  /**
+   * True when the reply had HTML (or SVG) written straight into the text, not
+   * in a fence; it's treated like a ```html block.
+   */
+  raw?: boolean;
 }
 
 export interface ChatMarkdownProps {
@@ -27,9 +32,17 @@ export interface ChatMarkdownProps {
    * nothing to fall back to an ordinary code block.
    */
   renderBlock?: (block: FencedBlock) => React.ReactNode | null | undefined;
+  /**
+   * Draw maths written as LaTeX: $…$ and \(…\) inline, $$…$$, \[…\] and
+   * ```math as blocks. Without it, maths stays as written.
+   */
+  renderMath?: MathRenderer;
   className?: string;
   style?: React.CSSProperties;
 }
+
+/** Turns LaTeX into something to show; `display` is true for block maths. */
+export type MathRenderer = (tex: string, display: boolean) => React.ReactNode;
 
 type Block =
   | { kind: "p"; text: string }
@@ -73,6 +86,78 @@ const splitRow = (line: string) =>
 const isTableDivider = (line: string) =>
   /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(line);
 const listRe = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
+const MATH_LANGS = ["math", "latex", "tex", "katex"];
+const mathStart = (line: string) => /^\s*(\$\$|\\\[)/.test(line);
+const HTML_START =
+  /^\s*(<!doctype html|<html[\s>]|<(svg|div|section|main|article|header|footer|nav|table|form|canvas|style|script|body|h[1-6]|ul|ol|button|iframe|video|audio|img|figure|details)\b)/i;
+
+/** Reads HTML written straight into a reply, from line `start`, as one block. */
+function readRawHtml(lines: string[], start: number): { block: FencedBlock; next: number } {
+  const first = lines[start]!;
+  const whole = /^\s*(<!doctype html|<html[\s>])/i.test(first);
+  const tag = whole ? "html" : (/^\s*<([a-z0-9]+)/i.exec(first)?.[1] ?? "div").toLowerCase();
+  const selfClosing = ["img"].includes(tag);
+  const open = new RegExp(`<${tag}\\b`, "gi");
+  const close = new RegExp(`</${tag}\\s*>`, "gi");
+  const body: string[] = [];
+  let depth = 0;
+  let closed = false;
+  let i = start;
+  while (i < lines.length) {
+    const line = lines[i]!;
+    body.push(line);
+    i++;
+    if (selfClosing) {
+      closed = />\s*$/.test(line);
+      if (closed) break;
+      continue;
+    }
+    depth += (line.match(open)?.length ?? 0) - (line.match(close)?.length ?? 0);
+    if (depth <= 0 && close.test(line)) {
+      closed = true;
+      break;
+    }
+    close.lastIndex = 0;
+  }
+  return {
+    block: {
+      lang: tag === "svg" ? "svg" : "html",
+      meta: {},
+      code: body.join("\n").trim(),
+      closed,
+      raw: true,
+    },
+    next: i,
+  };
+}
+
+/** Reads $$…$$ or \[…\] maths from line `start`. */
+function readMathBlock(lines: string[], start: number): { block: FencedBlock; next: number } {
+  const first = lines[start]!.trim();
+  const dollars = first.startsWith("$$");
+  const end = dollars ? "$$" : "\\]";
+  const opener = dollars ? 2 : 2;
+  const rest = first.slice(opener);
+  if (rest.trim().endsWith(end) && rest.trim().length >= end.length) {
+    const tex = rest.trim().slice(0, -end.length);
+    return { block: { lang: "math", meta: {}, code: tex.trim(), closed: true }, next: start + 1 };
+  }
+  const body: string[] = rest.trim() ? [rest] : [];
+  let i = start + 1;
+  let closed = false;
+  while (i < lines.length) {
+    const line = lines[i]!;
+    i++;
+    const at = line.indexOf(end);
+    if (at >= 0) {
+      if (line.slice(0, at).trim()) body.push(line.slice(0, at));
+      closed = true;
+      break;
+    }
+    body.push(line);
+  }
+  return { block: { lang: "math", meta: {}, code: body.join("\n").trim(), closed }, next: i };
+}
 
 /** Splits markdown into blocks. Exported for tests and for finding blocks. */
 export function parseMarkdown(source: string): Block[] {
@@ -103,10 +188,21 @@ export function parseMarkdown(source: string): Block[] {
         body.push(lines[i]!);
         i++;
       }
-      blocks.push({
-        kind: "code",
-        block: { ...parseFenceInfo(fence[2] ?? ""), code: body.join("\n"), closed },
-      });
+      const info = parseFenceInfo(fence[2] ?? "");
+      if (MATH_LANGS.includes(info.lang)) info.lang = "math";
+      blocks.push({ kind: "code", block: { ...info, code: body.join("\n"), closed } });
+      continue;
+    }
+    if (mathStart(line)) {
+      const { block, next } = readMathBlock(lines, i);
+      blocks.push({ kind: "code", block });
+      i = next;
+      continue;
+    }
+    if (HTML_START.test(line)) {
+      const { block, next } = readRawHtml(lines, i);
+      blocks.push({ kind: "code", block });
+      i = next;
       continue;
     }
     const heading = /^(#{1,6})\s+(.*?)\s*#*\s*$/.exec(line);
@@ -176,6 +272,8 @@ export function parseMarkdown(source: string): Block[] {
       !/^\s*(`{3,}|~{3,})/.test(lines[i]!) &&
       !/^#{1,6}\s/.test(lines[i]!) &&
       !/^\s*>/.test(lines[i]!) &&
+      !mathStart(lines[i]!) &&
+      !HTML_START.test(lines[i]!) &&
       !(para.length && listRe.test(lines[i]!)) &&
       !(lines[i]!.includes("|") && i + 1 < lines.length && isTableDivider(lines[i + 1]!))
     )
@@ -259,6 +357,36 @@ export function renderInline(text: string, keyPrefix = "i"): React.ReactNode[] {
   return out;
 }
 
+/**
+ * Like renderInline, but also draws $…$ and \(…\) maths with `math`. Code
+ * spans are left alone, and "$5 and $10" isn't maths (no space may follow the
+ * opening $ or precede the closing one, and no digit may follow it).
+ */
+export function renderInlineWithMath(
+  text: string,
+  keyPrefix: string,
+  math?: MathRenderer
+): React.ReactNode[] {
+  if (!math) return renderInline(text, keyPrefix);
+  const out: React.ReactNode[] = [];
+  const re =
+    /(`+)[\s\S]+?\1|\\\(([\s\S]+?)\\\)|(?<![\\$\w])\$(?![\s$])([^$\n]+?)(?<![\s\\])\$(?![\d$\w])/g;
+  let last = 0;
+  let n = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    if (m[1] !== undefined) continue;
+    if (m.index > last) out.push(...renderInline(text.slice(last, m.index), `${keyPrefix}-t${n}`));
+    out.push(
+      <React.Fragment key={`${keyPrefix}-m${n}`}>{math((m[2] ?? m[3])!, false)}</React.Fragment>
+    );
+    n++;
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(...renderInline(text.slice(last), `${keyPrefix}-t${n}`));
+  return out;
+}
+
 /** A code block with its language and a Copy button. */
 export function CodeBlock({ code, lang }: { code: string; lang?: string }) {
   const t = useT();
@@ -339,8 +467,15 @@ export function CodeBlock({ code, lang }: { code: string; lang?: string }) {
  * <ChatMarkdown>{"**Call time** is 6 am.\n\n- Camera\n- Sound"}</ChatMarkdown>
  * ```
  */
-export function ChatMarkdown({ children, renderBlock, className, style }: ChatMarkdownProps) {
+export function ChatMarkdown({
+  children,
+  renderBlock,
+  renderMath,
+  className,
+  style,
+}: ChatMarkdownProps) {
   const t = useT();
+  const inl = (text: string, key: string) => renderInlineWithMath(text, key, renderMath);
   const blocks = parseMarkdown(children);
   const cell: React.CSSProperties = {
     border: `1px solid ${colorTokens.border.secondary}`,
@@ -364,7 +499,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
           case "p":
             return (
               <p key={key} style={{ margin: 0 }}>
-                {renderInline(b.text, key)}
+                {inl(b.text, key)}
               </p>
             );
           case "h": {
@@ -379,7 +514,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                   fontWeight: 700,
                 }}
               >
-                {renderInline(b.text, key)}
+                {inl(b.text, key)}
               </Tag>
             );
           }
@@ -406,12 +541,20 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                   color: colorTokens.text.secondary,
                 }}
               >
-                <ChatMarkdown renderBlock={renderBlock}>{b.text}</ChatMarkdown>
+                <ChatMarkdown renderBlock={renderBlock} renderMath={renderMath}>
+                  {b.text}
+                </ChatMarkdown>
               </blockquote>
             );
           case "code": {
             const custom = renderBlock?.(b.block);
             if (custom) return <React.Fragment key={key}>{custom}</React.Fragment>;
+            if (b.block.lang === "math" && renderMath && b.block.closed)
+              return (
+                <div key={key} style={{ overflowX: "auto", maxWidth: "100%" }}>
+                  {renderMath(b.block.code, true)}
+                </div>
+              );
             return <CodeBlock key={key} code={b.block.code} lang={b.block.lang} />;
           }
           case "list": {
@@ -437,7 +580,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                     {it.checked !== undefined && (
                       <span style={visuallyHidden}>{it.checked ? t("Done:") : t("To do:")} </span>
                     )}
-                    {renderInline(it.text, `${key}-${j}`)}
+                    {inl(it.text, `${key}-${j}`)}
                   </li>
                 ))}
               </Tag>
@@ -477,7 +620,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                             background: colorTokens.background.tertiary,
                           }}
                         >
-                          {renderInline(h, `${key}-h${j}`)}
+                          {inl(h, `${key}-h${j}`)}
                         </th>
                       ))}
                     </tr>
@@ -493,7 +636,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                               textAlign: b.align[j] ?? (numeric[j] ? "right" : "left"),
                             }}
                           >
-                            {renderInline(r[j] ?? "", `${key}-${ri}-${j}`)}
+                            {inl(r[j] ?? "", `${key}-${ri}-${j}`)}
                           </td>
                         ))}
                       </tr>

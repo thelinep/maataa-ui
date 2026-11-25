@@ -78,6 +78,10 @@ A model can also answer with fenced blocks that hold JSON, and the chat draws th
 | ` ```crew `                        | `CrewIdCard` (front)                                                                   |
 | ` ```date `                        | `IndianDate` (Vikram Samvat)                                                           |
 
+| ` ```map ` (or ` ```location `) | `ChatMap`: places drawn offline (no map tiles are fetched), each linking to OpenStreetMap |
+
+Maths: pass `renderMath` (for example with KaTeX) and `$…$`, `\(…\)`, `$$…$$`, `\[…\]` and ` ```math ` are drawn; "$5 and $10" is left alone. HTML written straight into a reply (a page starting `<!doctype html>`, or a block starting with a tag such as `<div>` or `<svg>`) becomes an ` ```html ` / ` ```svg ` block, so apps can run it in a sandbox like any page; it is never injected into the chat itself. `CHAT_DIAGRAM_PROMPT` teaches Mermaid and LaTeX, `CHAT_MEDIA_PROMPT` teaches ` ```image `, ` ```audio ` and ` ```video ` blocks (add it only when the app can make them).
+
 A block that is still streaming shows "Preparing the chart…"; one that can't be read says so instead of breaking the reply. Pass `renderBlock` to draw kinds of your own; `findArtifacts(reply)` and `findTasks(reply)` pull pages, documents and checklists out of a reply.
 
 ```tsx
