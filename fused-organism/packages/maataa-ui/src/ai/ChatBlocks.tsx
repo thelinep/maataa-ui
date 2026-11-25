@@ -97,9 +97,9 @@ function isChart(d: unknown): d is ChartData {
 export function ChatChart({ data }: { data: ChartData }) {
   const t = useT();
   const titleId = useId();
-  const W = 520;
-  const H = 240;
-  const pad = { l: 44, r: 12, t: 12, b: 40 };
+  const W = 440;
+  const H = 220;
+  const pad = { l: 40, r: 8, t: 12, b: 30 };
   const all = data.series.flatMap((s) => s.values);
   const max = Math.max(0, ...all);
   const min = Math.min(0, ...all);
@@ -144,7 +144,7 @@ export function ChatChart({ data }: { data: ChartData }) {
               x={pad.l - 6}
               y={y(v) + 4}
               textAnchor="end"
-              fontSize={11}
+              fontSize={13}
               fill={colorTokens.text.secondary}
             >
               {fmt(v)}
@@ -157,7 +157,7 @@ export function ChatChart({ data }: { data: ChartData }) {
             x={pad.l + bandW * (i + 0.5)}
             y={H - pad.b + 16}
             textAnchor="middle"
-            fontSize={11}
+            fontSize={13}
             fill={colorTokens.text.secondary}
           >
             {l.length > 10 ? `${l.slice(0, 9)}…` : l}
@@ -427,12 +427,14 @@ function ChatBlock({ block, options }: { block: FencedBlock; options: ChatBlockO
     try {
       const out = readNovaOutput(data);
       body = (
-        <div style={scroller}>
-          {out.kind === "callsheet" ? (
-            <CallSheetPrintView {...fromNovaCallSheet(out.data)} />
-          ) : (
-            <ShotList {...fromNovaShotList(out.data)} />
-          )}
+        <div style={scroller} tabIndex={0} role="region" aria-label={name}>
+          <div style={{ minWidth: 560 }}>
+            {out.kind === "callsheet" ? (
+              <CallSheetPrintView {...fromNovaCallSheet(out.data)} />
+            ) : (
+              <ShotList {...fromNovaShotList(out.data)} />
+            )}
+          </div>
         </div>
       );
     } catch {
@@ -442,7 +444,7 @@ function ChatBlock({ block, options }: { block: FencedBlock; options: ChatBlockO
     const person = data.person as CrewPerson | undefined;
     if (!person || typeof person.name !== "string") return bad;
     body = (
-      <div style={scroller}>
+      <div style={scroller} tabIndex={0} role="region" aria-label={name}>
         <CrewIdCard
           person={{
             id: String(person.id ?? "—"),

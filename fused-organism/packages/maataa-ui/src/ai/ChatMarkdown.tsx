@@ -368,7 +368,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
               </p>
             );
           case "h": {
-            const Tag = `h${Math.min(6, b.level + 2)}` as "h3";
+            const Tag = `h${Math.min(6, Math.max(3, b.level + 1))}` as "h3";
             return (
               <Tag
                 key={key}
@@ -443,7 +443,13 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
               </Tag>
             );
           }
-          case "table":
+          case "table": {
+            const numeric = b.head.map(
+              (_, j) =>
+                b.rows.length > 0 &&
+                b.rows.every((r) => /^[-+₹$]?[\d,.]+%?$|^$/.test((r[j] ?? "").trim())) &&
+                b.rows.some((r) => (r[j] ?? "").trim())
+            );
             return (
               <div
                 key={key}
@@ -467,7 +473,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                           scope="col"
                           style={{
                             ...cell,
-                            textAlign: b.align[j] ?? "left",
+                            textAlign: b.align[j] ?? (numeric[j] ? "right" : "left"),
                             background: colorTokens.background.tertiary,
                           }}
                         >
@@ -484,9 +490,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                             key={j}
                             style={{
                               ...cell,
-                              textAlign:
-                                b.align[j] ??
-                                (/^[-+₹$]?[\d,.]+%?$/.test(r[j] ?? "") ? "right" : "left"),
+                              textAlign: b.align[j] ?? (numeric[j] ? "right" : "left"),
                             }}
                           >
                             {renderInline(r[j] ?? "", `${key}-${ri}-${j}`)}
@@ -498,6 +502,7 @@ export function ChatMarkdown({ children, renderBlock, className, style }: ChatMa
                 </table>
               </div>
             );
+          }
         }
       })}
     </div>

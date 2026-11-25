@@ -107,6 +107,8 @@ export interface LocalChatProps {
   messageActions?: (message: LocalChatMessage) => React.ReactNode;
   /** Placeholder in the message box. */
   placeholder?: string;
+  /** Called once when a reply finishes (not when it fails or is stopped). */
+  onReplyDone?: (reply: LocalChatMessage, question: LocalChatMessage) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -182,6 +184,7 @@ export function LocalChat({
   voice = false,
   messageActions,
   placeholder,
+  onReplyDone,
   className,
   style,
 }: LocalChatProps) {
@@ -287,6 +290,15 @@ export function LocalChat({
         patch({ content: reply });
       }
       setAnnouncement(t("{name} replied.", { name: botName }));
+      onReplyDone?.(
+        {
+          id: replyId,
+          role: "assistant",
+          content: reply,
+          ...(context?.sources?.length ? { sources: context.sources } : {}),
+        },
+        userMessage
+      );
     } catch (error) {
       if ((error as Error)?.name === "AbortError" || controller.signal.aborted) {
         patch({ content: reply, stopped: true });
@@ -860,6 +872,7 @@ export function LocalChat({
             <textarea
               ref={inputRef}
               id={inputId}
+              className="mc-t"
               rows={1}
               value={draft}
               placeholder={placeholder ?? t("Message {name}…", { name: botName })}
@@ -1002,6 +1015,7 @@ export function LocalChat({
         </div>
         <span
           id={`${inputId}-hint`}
+          className="mc-hint"
           style={{
             fontSize: typographyTokens.fontSize.xs,
             color: colorTokens.text.secondary,

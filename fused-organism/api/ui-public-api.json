@@ -229,6 +229,14 @@
           "stability": "beta"
         },
         {
+          "name": "CHAT_BLOCKS_PROMPT",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAT_BLOCK_KINDS",
+          "stability": "beta"
+        },
+        {
           "name": "CadPlanViewer",
           "stability": "beta"
         },
@@ -293,6 +301,18 @@
           "stability": "beta"
         },
         {
+          "name": "ChatChart",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatChoices",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatMarkdown",
+          "stability": "beta"
+        },
+        {
           "name": "Checkbox",
           "stability": "beta"
         },
@@ -314,6 +334,10 @@
         },
         {
           "name": "ClusteredMarkers",
+          "stability": "beta"
+        },
+        {
+          "name": "CodeBlock",
           "stability": "beta"
         },
         {
@@ -2281,7 +2305,19 @@
           "stability": "beta"
         },
         {
+          "name": "findArtifacts",
+          "stability": "beta"
+        },
+        {
+          "name": "findFencedBlocks",
+          "stability": "beta"
+        },
+        {
           "name": "findPrimitiveRegistryItem",
+          "stability": "beta"
+        },
+        {
+          "name": "findTasks",
           "stability": "beta"
         },
         {
@@ -2493,7 +2529,15 @@
           "stability": "beta"
         },
         {
+          "name": "parseFenceInfo",
+          "stability": "beta"
+        },
+        {
           "name": "parseLatLng",
+          "stability": "beta"
+        },
+        {
+          "name": "parseMarkdown",
           "stability": "beta"
         },
         {
@@ -2561,6 +2605,14 @@
           "stability": "beta"
         },
         {
+          "name": "renderChatBlock",
+          "stability": "beta"
+        },
+        {
+          "name": "renderInline",
+          "stability": "beta"
+        },
+        {
           "name": "renderMarkdown",
           "stability": "beta"
         },
@@ -2602,6 +2654,10 @@
         },
         {
           "name": "signatureStates",
+          "stability": "beta"
+        },
+        {
+          "name": "speakableText",
           "stability": "beta"
         },
         {
@@ -2710,6 +2766,10 @@
         },
         {
           "name": "usePercent",
+          "stability": "beta"
+        },
+        {
+          "name": "useSpeech",
           "stability": "beta"
         },
         {
@@ -5280,6 +5340,30 @@
           "stability": "beta"
         },
         {
+          "name": "CHAT_BLOCKS_PROMPT",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAT_BLOCK_KINDS",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatChart",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatChoices",
+          "stability": "beta"
+        },
+        {
+          "name": "ChatMarkdown",
+          "stability": "beta"
+        },
+        {
+          "name": "CodeBlock",
+          "stability": "beta"
+        },
+        {
           "name": "DEFAULT_LOCAL_MODEL_URL",
           "stability": "beta"
         },
@@ -5332,6 +5416,18 @@
           "stability": "beta"
         },
         {
+          "name": "findArtifacts",
+          "stability": "beta"
+        },
+        {
+          "name": "findFencedBlocks",
+          "stability": "beta"
+        },
+        {
+          "name": "findTasks",
+          "stability": "beta"
+        },
+        {
           "name": "formatContext",
           "stability": "beta"
         },
@@ -5340,11 +5436,35 @@
           "stability": "beta"
         },
         {
+          "name": "parseFenceInfo",
+          "stability": "beta"
+        },
+        {
+          "name": "parseMarkdown",
+          "stability": "beta"
+        },
+        {
+          "name": "renderChatBlock",
+          "stability": "beta"
+        },
+        {
+          "name": "renderInline",
+          "stability": "beta"
+        },
+        {
+          "name": "speakableText",
+          "stability": "beta"
+        },
+        {
           "name": "streamChat",
           "stability": "beta"
         },
         {
           "name": "tokenize",
+          "stability": "beta"
+        },
+        {
+          "name": "useSpeech",
           "stability": "beta"
         }
       ]
