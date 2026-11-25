@@ -11,6 +11,24 @@ export {
   type FloorPlanZoneStatus,
 } from "./VenueFloorPlan";
 export { GeoMap, type GeoMapProps, type GeoMapPin, type GeoMapPinStatus } from "./GeoMap";
+export { CadPlanViewer, type CadPlanViewerProps } from "./CadPlanViewer";
+export {
+  parseDxf,
+  metresPerUnit,
+  type DxfDrawing,
+  type DxfEntity,
+  type DxfLayer,
+  type DxfPoint,
+  type DxfUnit,
+} from "./dxf";
+export { georeference, distanceMetres, type ControlPoint, type Georeference } from "./georeference";
+export {
+  LocationSite,
+  type LocationSiteProps,
+  type SiteZone,
+  type SitePoint,
+  type SiteMeasurement,
+} from "./LocationSite";
 
 // Component metadata for Storybook and docs
 // UI element catalog batch I
@@ -104,5 +122,20 @@ export const mapsComponents = [
     component: "GeoMap",
     category: "Maps",
     description: "A lat/lng pin map with no external tile-service dependency",
+  },
+  {
+    id: "cad-plan-viewer",
+    name: "CadPlanViewer",
+    component: "CadPlanViewer",
+    category: "Maps",
+    description: "Shows a DXF floor plan with layers, zoom, pan and a measuring tool",
+  },
+  {
+    id: "location-site",
+    name: "LocationSite",
+    component: "LocationSite",
+    category: "Maps",
+    description:
+      "A shoot location's map pin, georeferenced floor plan, zones, measurements and permits",
   },
 ];

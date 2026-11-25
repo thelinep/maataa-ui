@@ -44,6 +44,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - BackgroundSyncToast — beta
 - Badge — stable
 - BarChart — beta
+- BeingAvatar — beta
 - BiometricUnlock — beta
 - BookingForm — beta
 - BottomNav — beta
@@ -58,6 +59,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ButtonGroup — beta
 - CHAKRAS — experimental
 - CHART_COLORS — beta
+- CadPlanViewer — beta
 - CallSheetEditor — beta
 - CallSheetPrintView — beta
 - CallSheetPublishBar — beta
@@ -104,7 +106,9 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - CountBadge — beta
 - CountrySelector — beta
 - CraftServiceMealCard — experimental
+- CrewIdCard — beta
 - CrewPositionRow — experimental
+- CrewProfile — beta
 - CrowdfundingCampaignBuilder — beta
 - CrowdfundingProgressBar — experimental
 - CueList — beta
@@ -232,6 +236,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - LocationComparisonCard — experimental
 - LocationDetail — beta
 - LocationGallery — beta
+- LocationSite — beta
 - LocationThumbnailCard — beta
 - LockIndicator — beta
 - LogoStrip — beta
@@ -278,6 +283,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - OverrunAlert — beta
 - OvertimeIndicator — beta
 - PACKAGE_NAME — beta
+- PRODUCTION_DEPARTMENTS — beta
 - PackageSummaryBar — experimental
 - Pagination — beta
 - Panel — beta
@@ -322,6 +328,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ProjectSummaryCard — beta
 - ProviderSignInButtons — beta
 - PullToRefresh — beta
+- QrCode — beta
 - QuadtreeGrid — beta
 - QuarantinePanel — beta
 - QuickActionPanel — beta
@@ -352,6 +359,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - RoleManagementPanel — beta
 - RoleSelectionGrid — beta
 - RoutePolyline — beta
+- SPECIES — beta
 - SatelliteOrbitPath — beta
 - SaveDraftButton — beta
 - ScaleBar — beta
@@ -419,6 +427,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - SplitButton — beta
 - Stack — stable
 - StackedProgressBar — beta
+- StarRating — beta
 - StateBadge — beta
 - StatsStrip — beta
 - StatusBadge — beta
@@ -544,13 +553,16 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - defaultPasswordRules — beta
 - defaultShareTargets — beta
 - deliveryStates — beta
+- departmentColor — beta
 - detectDevice — beta
 - diffLines — beta
 - directionOf — beta
 - displayName — beta
+- distanceMetres — beta
 - drawingToolLabels — beta
 - elementLabels — beta
 - elongation — beta
+- encodeQr — beta
 - englishT — beta
 - eqBandsHz — beta
 - evaluateFormula — beta
@@ -568,6 +580,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - formatMonthValue — beta
 - formatTimecode — beta
 - formatWeekValue — beta
+- georeference — beta
 - getPrimitiveRegistryCoverage — beta
 - hapticPatterns — beta
 - haversineKm — beta
@@ -590,6 +603,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - masterPrimitiveRegistry — beta
 - masterPrimitiveRegistryItemCount — beta
 - mentionedIn — beta
+- metresPerUnit — beta
 - moonIllumination — beta
 - moonLongitude — beta
 - moonPhaseName — beta
@@ -604,6 +618,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - orbitGroundTrack — beta
 - pagesFromEighths — beta
 - paperTheme — beta
+- parseDxf — beta
 - parseEmails — beta
 - parseLatLng — beta
 - parseMonth — beta
@@ -1002,6 +1017,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 
 - AreaLabel — experimental
 - AreaPolygon — experimental
+- CadPlanViewer — experimental
 - CameraAngleAnnotation — experimental
 - CloudLayer — experimental
 - ClusteredMarkers — experimental
@@ -1009,6 +1025,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - GeoMap — experimental
 - GeoSearchBox — experimental
 - Graticule — experimental
+- LocationSite — experimental
 - LocationThumbnailCard — experimental
 - MapCanvas — experimental
 - MapFeatureList — experimental
@@ -1034,13 +1051,17 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - boundsAround — experimental
 - clusterPoints — experimental
 - compassWord — experimental
+- distanceMetres — experimental
+- georeference — experimental
 - haversineKm — experimental
 - mapsComponents — experimental
+- metresPerUnit — experimental
 - moonIllumination — experimental
 - moonPhaseName — experimental
 - moonPosition — experimental
 - niceScale — experimental
 - orbitGroundTrack — experimental
+- parseDxf — experimental
 - pathLengthKm — experimental
 - sunPosition — experimental
 - sunTimes — experimental
@@ -1065,6 +1086,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - AudioRecorder — beta
 - Avatar — beta
 - BarChart — beta
+- BeingAvatar — beta
 - CHAKRAS — experimental
 - CHART_COLORS — beta
 - CallSheetPrintView — beta
@@ -1081,7 +1103,9 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ContractStatusBadge — experimental
 - CostDriverRow — experimental
 - CraftServiceMealCard — experimental
+- CrewIdCard — beta
 - CrewPositionRow — experimental
+- CrewProfile — beta
 - CrowdfundingProgressBar — experimental
 - CueList — beta
 - DEPARTMENT_COLORS — experimental
@@ -1132,6 +1156,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - NetworkingContactList — beta
 - OfferLetterPreview — beta
 - OperatorSelector — beta
+- PRODUCTION_DEPARTMENTS — beta
 - PackageSummaryBar — experimental
 - PeopleDirectory — beta
 - PerDiemTable — beta
@@ -1149,6 +1174,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ProfitDistributionRing — experimental
 - ProgressRing — beta
 - ProjectSummaryCard — beta
+- QrCode — beta
 - QuarantinePanel — beta
 - RadarChart — beta
 - ReceiptDisplay — beta
@@ -1158,6 +1184,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ReviewThread — beta
 - RewardTierCard — experimental
 - RoleBreakdownCard — beta
+- SPECIES — beta
 - ScannerFailureNotice — beta
 - ScenarioCard — beta
 - ScenarioSwitcher — experimental
@@ -1177,6 +1204,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - Sparkline — beta
 - SpectrumAnalyzer — beta
 - StackedProgressBar — beta
+- StarRating — beta
 - SubsidyProgrammeList — beta
 - SummaryReview — beta
 - TLPClassificationCard — experimental
@@ -1210,8 +1238,10 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - cueLength — beta
 - dataComponents — beta
 - daysUntil — experimental
+- departmentColor — beta
 - detectDevice — beta
 - diffLines — beta
+- encodeQr — beta
 - eventsOn — beta
 - formatTimecode — beta
 - initialsOf — beta
