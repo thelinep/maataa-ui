@@ -108,6 +108,15 @@ button.chip[aria-pressed="true"] { background: ${bg3}; border-color: ${accent}; 
 .media-item { display: grid; gap: 4px; justify-items: start; }
 .media-item img, .media-item video { max-width: 100%; max-height: 420px; border-radius: 8px; }
 .media-item audio { width: 100%; }
+.compare-head { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.compare-original { width: 120px; max-height: 120px; object-fit: cover; border-radius: 8px; border: 1px solid ${line}; }
+.compare-grid { display: grid; gap: 10px; }
+.compare-cell { margin: 0; display: grid; gap: 4px; min-width: 0; }
+.compare-cell img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; display: block; }
+.compare-cell figcaption { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; font-size: 12px; overflow-wrap: anywhere; }
+.compare-wait { aspect-ratio: 1; display: grid; place-items: center; padding: 8px; text-align: center; border-radius: 8px; background: ${bg3}; color: ${text2}; font-size: 12px; }
+.lic { padding: 0 6px; border-radius: 999px; font-size: 11px; line-height: 18px; border: 1px solid currentColor; }
+.lic-ok { color: ${ok}; } .lic-limited { color: ${v("interactive-warning", "#8A5300")}; } .lic-no { color: ${bad}; }
 .tex-block { overflow-x: auto; max-width: 100%; }
 .artifact { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 .artifact-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 10px; }

@@ -43,10 +43,11 @@ import {
 } from "./store";
 import { archiveTask, novaAvailable, pushTask, setTaskDone } from "./nova";
 import { APP_CSS } from "./styles";
+import { ComparePanel, type CompareSource } from "./compare";
 import { LivePreview, MediaBlock, MermaidDiagram, RUNNABLE, isMediaBlock, renderMath } from "./rich";
 
 type ServerKind = "ollama" | "lmstudio" | "custom";
-type PanelTab = "artifacts" | "tasks" | "project";
+type PanelTab = "artifacts" | "tasks" | "project" | "compare";
 
 interface Settings {
   server: ServerKind;
@@ -208,6 +209,22 @@ function Main({
   const [sideOpen, setSideOpen] = useState(false);
   const [panel, setPanel] = useState<PanelTab | null>(null);
   const [openArtifact, setOpenArtifact] = useState<string | null>(null);
+  const [compareSource, setCompareSource] = useState<CompareSource | null>(null);
+  /** The picture and words of the user message just before `reply`, if it had a picture. */
+  const pictureBefore = (reply: LocalChatMessage | null): CompareSource | null => {
+    const msgs = latest.current?.id === convId ? latest.current.messages : (conversation?.messages ?? []);
+    const at = reply ? msgs.findIndex((x) => x.id === reply.id) : msgs.length;
+    for (let i = at - 1; i >= 0; i--) {
+      const m = msgs[i]!;
+      if (m.role === "user" && m.images?.length) return { image: m.images[0]!, prompt: m.content };
+      if (reply && m.role === "user") return null;
+    }
+    return null;
+  };
+  const openCompare = (source: CompareSource) => {
+    setCompareSource(source);
+    setPanel("compare");
+  };
   const settingsRef = useRef<HTMLDialogElement>(null);
   const openSettings = () => settingsRef.current?.showModal();
   useEffect(() => {
@@ -517,14 +534,31 @@ function Main({
       },
     },
     { name: "check", description: t("Check the model server again"), run: () => void checkServer() },
+    {
+      name: "compare",
+      args: "<what to change>",
+      description: t("Compare image models on the last picture"),
+      run: (text) => {
+        const picture = pictureBefore(null);
+        if (!picture) return t("Attach a picture first, then type /compare and what should change.");
+        openCompare({ image: picture.image, prompt: text || picture.prompt });
+      },
+    },
   ];
 
   const messageActions = (m: LocalChatMessage) => {
+    const picture = pictureBefore(m);
+    const compare = picture && (
+      <button type="button" className="chip" onClick={() => openCompare(picture)}>
+        <span aria-hidden="true">▦ </span>
+        {t("Compare image models")}
+      </button>
+    );
     const list = findTasks(m.content).filter((x) => !x.done);
-    if (!list.length) return null;
+    if (!list.length) return compare || null;
     const have = new Set(tasks.map((x) => x.title.toLowerCase()));
     const fresh = list.filter((x) => !have.has(x.title.toLowerCase()));
-    return (
+    const taskButton = (
       <button
         type="button"
         className="chip"
@@ -537,6 +571,14 @@ function Main({
         <span aria-hidden="true">☐ </span>
         {fresh.length ? t.plural(fresh.length, "Add {count} task", "Add {count} tasks") : t("Tasks added")}
       </button>
+    );
+    return compare ? (
+      <>
+        {compare}
+        {taskButton}
+      </>
+    ) : (
+      taskButton
     );
   };
 
@@ -780,7 +822,7 @@ function Main({
         <aside className="panel" aria-label={t("Side panel")}>
           <div className="panel-head">
             <div role="tablist" aria-label={t("Side panel")} className="inline">
-              {(["artifacts", "tasks", "project"] as PanelTab[]).map((tab) => (
+              {(["artifacts", "tasks", "project", "compare"] as PanelTab[]).map((tab) => (
                 <button
                   key={tab}
                   type="button"
@@ -789,7 +831,13 @@ function Main({
                   className="tab"
                   onClick={() => setPanel(tab)}
                 >
-                  {tab === "artifacts" ? t("Artifacts") : tab === "tasks" ? t("Tasks") : t("Project")}
+                  {tab === "artifacts"
+                    ? t("Artifacts")
+                    : tab === "tasks"
+                      ? t("Tasks")
+                      : tab === "project"
+                        ? t("Project")
+                        : t("Compare")}
                 </button>
               ))}
             </div>
@@ -830,6 +878,7 @@ function Main({
                 }
               />
             )}
+            {panel === "compare" && <ComparePanel source={compareSource} nova={nova} />}
             {panel === "project" && (
               <ProjectPanel
                 project={project}

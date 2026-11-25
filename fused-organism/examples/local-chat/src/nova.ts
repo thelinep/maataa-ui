@@ -109,3 +109,51 @@ export function startMedia(kind: MediaKind, data: Record<string, unknown>): Prom
 export const getJob = (id: string) => novaCall<NovaJob>(`/images/jobs/${encodeURIComponent(id)}`);
 export const cancelJob = (id: string) =>
   novaCall<unknown>(`/images/jobs/${encodeURIComponent(id)}/cancel`, { method: "POST", body: "{}" });
+
+// ---- comparing image models ---------------------------------------------
+
+export interface ImageStatus {
+  reachable: boolean;
+  checkpoints: string[];
+  error?: string;
+}
+
+/** Whether ComfyUI is up, and which image models it has. */
+export async function imageStatus(): Promise<ImageStatus> {
+  const s = await novaCall<Partial<ImageStatus>>("/images/status");
+  return { reachable: !!s.reachable, checkpoints: s.checkpoints ?? [], error: s.error };
+}
+
+/** Sends a picture to Workstation's library; returns its media id. */
+export async function uploadPicture(dataUrl: string, name: string): Promise<string> {
+  // Decoded here rather than with fetch(dataUrl): the desktop app's security
+  // policy only lets the page connect to its own server.
+  const [head, b64 = ""] = dataUrl.split(",", 2);
+  const type = /^data:([^;,]+)/.exec(head ?? "")?.[1] ?? "application/octet-stream";
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const blob = new Blob([bytes], { type });
+  const res = await fetch("/nova/api/media", {
+    method: "POST",
+    headers: {
+      "Content-Type": blob.type || "application/octet-stream",
+      "X-File-Name": encodeURIComponent(name),
+    },
+    body: blob,
+  });
+  const body = (await res.json().catch(() => null)) as { id?: string; error?: string } | null;
+  if (!res.ok || !body?.id) throw new Error(body?.error ?? `HTTP ${res.status}`);
+  return body.id;
+}
+
+/** Image to image: the picture partly re-drawn to follow the prompt. */
+export function startImageToImage(input: {
+  mediaId: string;
+  prompt: string;
+  checkpoint: string;
+  strength: number;
+  seed: number;
+}): Promise<NovaJob> {
+  return novaCall<NovaJob>("/images/img2img", { method: "POST", body: JSON.stringify(input) });
+}

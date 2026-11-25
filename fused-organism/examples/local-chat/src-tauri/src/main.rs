@@ -144,6 +144,8 @@ async fn forward(s: &AppState, req: Request, base: &str, rest: &str) -> Response
     let content_type = req.headers().get(header::CONTENT_TYPE).cloned();
     let authorization = req.headers().get(header::AUTHORIZATION).cloned();
     let accept = req.headers().get(header::ACCEPT).cloned();
+    // Workstation names an uploaded file by this header.
+    let file_name = req.headers().get("x-file-name").cloned();
     let body = match axum::body::to_bytes(req.into_body(), MAX_BODY).await {
         Ok(b) => b,
         Err(_) => return plain(StatusCode::PAYLOAD_TOO_LARGE, "Request too large."),
@@ -157,6 +159,9 @@ async fn forward(s: &AppState, req: Request, base: &str, rest: &str) -> Response
         if let Some(v) = value {
             upstream = upstream.header(name, v);
         }
+    }
+    if let Some(v) = file_name {
+        upstream = upstream.header("x-file-name", v);
     }
     match upstream.send().await {
         Ok(r) => {
