@@ -8,6 +8,7 @@ A chat app that runs on your computer and talks to a local model (Ollama or LM S
 - **Pictures:** attach, paste or drop up to 4 pictures. Needs a model that can see (gemma3, llava, qwen2.5vl).
 - **Rich replies:** Markdown, tables, charts, tap-to-answer options, maps, Mermaid diagrams, maths (KaTeX), and MAATAA call sheets, shot lists, crew cards and Vikram Samvat dates.
 - **Live pages:** HTML in a reply, fenced or written straight in, runs right there in a sealed frame (no access to the app, your data or the internet in the desktop app) and opens as an artifact.
+- **3D scenes (Three.js):** a ` ```threejs ` block of plain JavaScript runs as a live 3D scene in the reply and in the artifact panel, with orbit, zoom and pan. three.js, a camera, controls, lights and an animation loop (`onFrame((t, dt) => …)`) are ready, and three.js is built into the app, so scenes need no internet. Download saves a single .html file that opens anywhere.
 - **Pictures, sound and video:** with Maataa Workstation running, the model can ask for a picture (ComfyUI), music, sound effects or a voice-over, or a short video (LTX-2). Each shows its description and a **Make** button (or starts by itself if you turn that on in Settings); the result plays in the chat, with Download, and is remembered.
 - **Voice:** Read aloud on each reply; the microphone button types what you say (browser speech, where available).
 

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import {
   CHAT_BLOCKS_PROMPT,
   CHAT_BLOCK_KINDS,
+  CHAT_3D_PROMPT,
   CHAT_DIAGRAM_PROMPT,
   CHAT_MEDIA_PROMPT,
   LocalChat,
@@ -42,7 +43,7 @@ import {
 } from "./store";
 import { archiveTask, novaAvailable, pushTask, setTaskDone } from "./nova";
 import { APP_CSS } from "./styles";
-import { LivePreview, MediaBlock, MermaidDiagram, isMediaBlock, renderMath } from "./rich";
+import { LivePreview, MediaBlock, MermaidDiagram, RUNNABLE, isMediaBlock, renderMath } from "./rich";
 
 type ServerKind = "ollama" | "lmstudio" | "custom";
 type PanelTab = "artifacts" | "tasks" | "project";
@@ -420,6 +421,7 @@ function Main({
           `You are a helpful assistant running locally on the user's own computer, working with a film and event production team in India. Be clear and concise. ${languageLine}`,
           CHAT_BLOCKS_PROMPT,
           CHAT_DIAGRAM_PROMPT,
+          CHAT_3D_PROMPT,
           "To show a working page, write a complete HTML page in a ```html block; it runs live in the chat.",
           nova === "on" ? CHAT_MEDIA_PROMPT : "",
           project?.instructions.trim()
@@ -554,13 +556,13 @@ function Main({
           }
         />
       );
-    const isPage = block.lang === "html" || block.lang === "svg";
+    const isPage = RUNNABLE.includes(block.lang);
     if (!isPage && !block.meta.title && block.code.split("\n").length < 40) return undefined;
     const artifact: ChatArtifact = {
       title:
         block.meta.title ||
         (block.lang === "html" ? /<title>([^<]+)<\/title>/i.exec(block.code)?.[1]?.trim() : undefined) ||
-        (isPage ? t("Page") : block.lang || "text"),
+        (block.lang === "threejs" ? t("3D scene") : isPage ? t("Page") : block.lang || "text"),
       type: block.lang === "md" ? "markdown" : block.lang || "text",
       content: block.code,
     };

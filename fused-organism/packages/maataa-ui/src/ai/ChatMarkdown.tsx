@@ -87,6 +87,8 @@ const isTableDivider = (line: string) =>
   /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(line);
 const listRe = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
 const MATH_LANGS = ["math", "latex", "tex", "katex"];
+/** ```threejs, ```three, ```three.js and ```scene all mean a 3D scene. */
+const SCENE_LANGS = ["three", "three.js", "threejs", "scene"];
 const mathStart = (line: string) => /^\s*(\$\$|\\\[)/.test(line);
 const HTML_START =
   /^\s*(<!doctype html|<html[\s>]|<(svg|div|section|main|article|header|footer|nav|table|form|canvas|style|script|body|h[1-6]|ul|ol|button|iframe|video|audio|img|figure|details)\b)/i;
@@ -190,6 +192,7 @@ export function parseMarkdown(source: string): Block[] {
       }
       const info = parseFenceInfo(fence[2] ?? "");
       if (MATH_LANGS.includes(info.lang)) info.lang = "math";
+      if (SCENE_LANGS.includes(info.lang)) info.lang = "threejs";
       blocks.push({ kind: "code", block: { ...info, code: body.join("\n"), closed } });
       continue;
     }

@@ -91,6 +91,7 @@ export {
   findTasks,
   CHAT_BLOCKS_PROMPT,
   CHAT_DIAGRAM_PROMPT,
+  CHAT_3D_PROMPT,
   CHAT_MEDIA_PROMPT,
   CHAT_BLOCK_KINDS,
   type ChatArtifact,

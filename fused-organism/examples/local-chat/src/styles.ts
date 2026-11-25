@@ -101,6 +101,8 @@ button.chip[aria-pressed="true"] { background: ${bg3}; border-color: ${accent}; 
 .live-bar { display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 10px; border-bottom: 1px solid ${line}; }
 .live-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .live iframe { width: 100%; height: 300px; border: 0; background: #fff; }
+.live iframe.scene-frame { height: 380px; background: #eef0f2; }
+.artifact-body iframe.scene-frame { background: #eef0f2; }
 .media { margin: 0; display: grid; gap: 8px; padding: 10px; border: 1px solid ${line}; border-radius: 12px; background: ${bg1}; min-width: 0; }
 .media-prompt { margin: 0; overflow-wrap: anywhere; }
 .media-item { display: grid; gap: 4px; justify-items: start; }

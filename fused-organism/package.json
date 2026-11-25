@@ -55,8 +55,8 @@
     "test:ui:smoke": "node --loader ./scripts/extensionless-loader.mjs scripts/smoke-ui-product.mjs",
     "check:ui-types": "node_modules/typescript/bin/tsc --project packages/maataa-ui/tsconfig.json --noEmit",
     "check:ui-messages": "node scripts/check-ui-messages.mjs",
-    "chat:local": "npm run build:ui && node scripts/build-ui-docs-index.mjs && vite --config examples/local-chat/vite.config.mjs",
-    "chat:local:build": "node scripts/build-ui-docs-index.mjs && vite build --config examples/local-chat/vite.config.mjs",
+    "chat:local": "npm run build:ui && node scripts/build-ui-docs-index.mjs && node scripts/build-three-vendor.mjs && vite --config examples/local-chat/vite.config.mjs",
+    "chat:local:build": "node scripts/build-ui-docs-index.mjs && node scripts/build-three-vendor.mjs && vite build --config examples/local-chat/vite.config.mjs",
     "chat:desktop": "npm run build && npm run build:ui && npm run chat:local:build && cargo run --release --manifest-path examples/local-chat/src-tauri/Cargo.toml",
     "build:ui": "node scripts/build-ui-packages.mjs",
     "lint:ui": "ESLINT_USE_FLAT_CONFIG=false node_modules/eslint/bin/eslint.js packages/maataa-ui/src packages/tokens/src packages/primitives/src packages/domain-primitives/src packages/workflow-primitives/src packages/evidence-primitives/src packages/generative-primitives/src packages/composites/src packages/templates/src --ext .ts,.tsx --ignore-pattern '**/*.stories.tsx' --ignore-pattern '**/*.test.tsx' --config packages/maataa-ui/.eslintrc.json",
@@ -105,7 +105,8 @@
     "electron-builder": "26.15.3",
     "eslint-plugin-storybook": "^10.6.8",
     "katex": "^0.16.47",
-    "mermaid": "^11.17.2"
+    "mermaid": "^11.17.2",
+    "three": "^0.187.0"
   },
   "build": {
     "appId": "in.maataa.desktop",

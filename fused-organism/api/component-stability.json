@@ -1185,6 +1185,10 @@
           "stability": "beta"
         },
         {
+          "name": "CHAT_3D_PROMPT",
+          "stability": "beta"
+        },
+        {
           "name": "CHAT_BLOCKS_PROMPT",
           "stability": "beta"
         },
@@ -6313,6 +6317,10 @@
         },
         {
           "name": "AnomalyAlerts",
+          "stability": "beta"
+        },
+        {
+          "name": "CHAT_3D_PROMPT",
           "stability": "beta"
         },
         {

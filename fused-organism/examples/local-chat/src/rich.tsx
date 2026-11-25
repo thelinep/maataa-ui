@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { CodeBlock, useT, type FencedBlock } from "@maataa/ui";
 import { cancelJob, getJob, mediaUrl, startMedia, type MediaKind } from "./nova";
 import { hashText, now, put, type MediaRecord } from "./store";
+import { loadThree, scenePage } from "./scene";
 
 // ---- maths ----------------------------------------------------------------
 
@@ -114,7 +115,43 @@ export function MermaidDiagram({ code, closed }: { code: string; closed: boolean
   );
 }
 
-// ---- live HTML ------------------------------------------------------------
+// ---- live HTML and 3D scenes ---------------------------------------------
+
+/** Kinds of artifact that run as a page. */
+export const RUNNABLE = ["html", "svg", "threejs"];
+
+/** The frame's sandbox for each kind: pages and scenes may run scripts; pictures may not. */
+export const sandboxFor = (type: string) => (type === "svg" ? "" : "allow-scripts allow-modals");
+
+/**
+ * The page to show for a runnable artifact, or null while three.js loads.
+ * `error` is set when it can't be built.
+ */
+export function usePage(
+  type: string,
+  content: string,
+  title: string,
+): { page: string | null; error?: string } {
+  const [three, setThree] = useState<string | null>(null);
+  const [error, setError] = useState<string>();
+  useEffect(() => {
+    if (type !== "threejs") return;
+    let live = true;
+    loadThree()
+      .then((src) => live && setThree(src))
+      .catch((e: Error) => live && setError(e.message));
+    return () => {
+      live = false;
+    };
+  }, [type]);
+  if (type === "svg")
+    return {
+      page: `<!doctype html><html><body style="margin:0;display:grid;place-items:center;min-height:100vh">${content}</body></html>`,
+    };
+  if (type === "threejs")
+    return { page: three === null ? null : scenePage(content, title, three, isDark()), error };
+  return { page: content };
+}
 
 /**
  * A page or picture from a reply, running live in a sealed frame, with a
@@ -142,30 +179,46 @@ export function LivePreview({
         </span>
       </div>
     );
-  const page =
-    block.lang === "svg"
-      ? `<!doctype html><html><body style="margin:0;display:grid;place-items:center;min-height:100vh">${block.code}</body></html>`
-      : block.code;
+  return <RunningPreview block={block} title={title} onOpen={onOpen} />;
+}
+
+function RunningPreview({
+  block,
+  title,
+  onOpen,
+}: {
+  block: FencedBlock;
+  title: string;
+  onOpen?: () => void;
+}) {
+  const t = useT();
+  const { page, error } = usePage(block.lang, block.code, title);
+  const kindLabel = block.lang === "svg" ? "svg" : block.lang === "threejs" ? t("3D scene") : t("live page");
   return (
     <figure className="live">
       <div className="live-bar">
         <span className="artifact-icon" aria-hidden="true">
-          ◧
+          {block.lang === "threejs" ? "⬢" : "◧"}
         </span>
         <strong className="live-title">{title}</strong>
-        <span className="muted small">{block.lang === "svg" ? "svg" : t("live page")}</span>
+        <span className="muted small">{kindLabel}</span>
         {onOpen && (
           <button type="button" onClick={onOpen}>
             {t("Open")}
           </button>
         )}
       </div>
-      <iframe
-        title={title}
-        srcDoc={page}
-        sandbox={block.lang === "html" ? "allow-scripts allow-modals" : ""}
-        referrerPolicy="no-referrer"
-      />
+      {page === null ? (
+        <p className="block-note">{error ?? t("Loading the 3D engine…")}</p>
+      ) : (
+        <iframe
+          title={title}
+          srcDoc={page}
+          sandbox={sandboxFor(block.lang)}
+          referrerPolicy="no-referrer"
+          className={block.lang === "threejs" ? "scene-frame" : undefined}
+        />
+      )}
     </figure>
   );
 }

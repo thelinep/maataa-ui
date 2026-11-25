@@ -71,6 +71,18 @@ export const CHAT_DIAGRAM_PROMPT = `For a flowchart, timeline, sequence or org c
 For maths, use LaTeX: $…$ inline and $$…$$ on its own lines.`;
 
 /**
+ * Teaches a model to write Three.js 3D scenes. Add it when the app runs
+ * ```threejs blocks (the local chat example does).
+ */
+export const CHAT_3D_PROMPT = `For a 3D scene or model, write a \`\`\`threejs title="…" block of plain JavaScript (no imports, no files from the internet). Ready for you: THREE (with THREE.OrbitControls), scene, camera, renderer, controls, and soft lights. Add meshes to scene; units are metres, the ground is y = 0. For movement: onFrame((t, dt) => { … }) with t and dt in seconds. Example:
+\`\`\`threejs title="Spinning cube"
+const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ color: "#c2640f" }));
+cube.position.y = 0.5;
+scene.add(cube);
+onFrame((t) => { cube.rotation.y = t; });
+\`\`\``;
+
+/**
  * Teaches a model to ask for pictures, sound and video. Only add it when the
  * app can make them (e.g. through Maataa Workstation).
  */
@@ -605,7 +617,8 @@ export interface ChatArtifact {
   content: string;
 }
 
-const PAGE_TYPES = ["html", "svg"];
+/** Runnable artifacts: web pages, pictures and Three.js 3D scenes. */
+const PAGE_TYPES = ["html", "svg", "threejs"];
 const DOC_TYPES = ["markdown", "md"];
 
 /**

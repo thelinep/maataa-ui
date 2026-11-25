@@ -9,6 +9,7 @@ const ignoredByteSensitivePaths = [
   "packages/domain-registry/schema-sources/approvals/",
   "packages/domain-registry/control-plane/generated/control-plane.canonical.json",
   "examples/local-chat/src-tauri/gen/",
+  "examples/local-chat/public/vendor/",
 ];
 const bad = [];
 

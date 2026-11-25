@@ -59,6 +59,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ButtonGroup — beta
 - CHAKRAS — experimental
 - CHART_COLORS — beta
+- CHAT_3D_PROMPT — beta
 - CHAT_BLOCKS_PROMPT — beta
 - CHAT_BLOCK_KINDS — beta
 - CHAT_DIAGRAM_PROMPT — beta
@@ -1383,6 +1384,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - AIChatBubble — beta
 - AITypingIndicator — beta
 - AnomalyAlerts — beta
+- CHAT_3D_PROMPT — beta
 - CHAT_BLOCKS_PROMPT — beta
 - CHAT_BLOCK_KINDS — beta
 - CHAT_DIAGRAM_PROMPT — beta

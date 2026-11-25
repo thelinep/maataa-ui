@@ -2,6 +2,7 @@
 import { useEffect, useId, useState } from "react";
 import { ChatMarkdown, CodeBlock, renderChatBlock, useT } from "@maataa/ui";
 import type { Artifact, Project, ProjectFile, Task } from "./store";
+import { RUNNABLE, sandboxFor, usePage } from "./rich";
 
 const EXT: Record<string, string> = {
   html: "html",
@@ -51,6 +52,8 @@ export function ArtifactsPanel({
   const [version, setVersion] = useState(0);
   const [confirming, setConfirming] = useState(false);
   const versionId = useId();
+  const current = open?.versions[Math.min(version, (open?.versions.length ?? 1) - 1)];
+  const built = usePage(open?.type ?? "", current?.content ?? "", open?.title ?? "");
   useEffect(() => {
     setVersion(open ? open.versions.length - 1 : 0);
     setConfirming(false);
@@ -84,13 +87,8 @@ export function ArtifactsPanel({
 
   const v = open.versions[Math.min(version, open.versions.length - 1)]!;
   const ext = EXT[open.type] ?? "txt";
-  const page =
-    open.type === "html"
-      ? v.content
-      : open.type === "svg"
-        ? `<!doctype html><html><body style="margin:0;display:grid;place-items:center;min-height:100vh">${v.content}</body></html>`
-        : null;
-
+  const runnable = RUNNABLE.includes(open.type);
+  const page = runnable ? built.page : null;
   return (
     <div className="artifact">
       <div className="artifact-bar">
@@ -119,7 +117,13 @@ export function ArtifactsPanel({
         </button>
         <button
           type="button"
-          onClick={() => download(`${slug(open.title)}.${ext}`, v.content, page ? "text/html" : "text/plain")}
+          onClick={() =>
+            download(
+              `${slug(open.title)}.${open.type === "threejs" ? "html" : ext}`,
+              open.type === "threejs" && page ? page : v.content,
+              runnable ? "text/html" : "text/plain",
+            )
+          }
         >
           {t("Download")}
         </button>
@@ -134,11 +138,14 @@ export function ArtifactsPanel({
         )}
       </div>
       <div className="artifact-body">
-        {page !== null ? (
+        {runnable && page === null ? (
+          <p className="muted pad">{built.error ?? t("Loading the 3D engine…")}</p>
+        ) : page !== null ? (
           <iframe
             title={open.title}
             srcDoc={page}
-            sandbox={open.type === "html" ? "allow-scripts allow-popups allow-modals" : ""}
+            sandbox={sandboxFor(open.type)}
+            className={open.type === "threejs" ? "scene-frame" : undefined}
             referrerPolicy="no-referrer"
           />
         ) : open.type === "markdown" ? (
@@ -151,7 +158,7 @@ export function ArtifactsPanel({
           </div>
         )}
       </div>
-      {page !== null && (
+      {runnable && (
         <p className="muted small pad">
           {t("Pages run in a sealed frame: they can’t see this app, your files or your other chats.")}
         </p>

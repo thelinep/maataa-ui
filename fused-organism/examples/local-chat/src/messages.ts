@@ -141,4 +141,6 @@ export const appMessagesHi: Record<string, string> = {
   "Cancelled.": "रद्द किया गया।",
   "Make pictures, sound and video as soon as a reply asks (otherwise press Make)":
     "जवाब में माँगते ही तस्वीर, आवाज़ और वीडियो बनाएँ (नहीं तो 'बनाएँ' दबाएँ)",
+  "3D scene": "3D दृश्य",
+  "Loading the 3D engine…": "3D इंजन लोड हो रहा है…",
 };

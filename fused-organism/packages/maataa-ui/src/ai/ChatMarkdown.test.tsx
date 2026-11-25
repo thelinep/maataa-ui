@@ -1,7 +1,13 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ChatMarkdown, parseFenceInfo, parseMarkdown } from "./ChatMarkdown";
-import { CHAT_BLOCKS_PROMPT, findArtifacts, findTasks, renderChatBlock } from "./ChatBlocks";
+import {
+  CHAT_3D_PROMPT,
+  CHAT_BLOCKS_PROMPT,
+  findArtifacts,
+  findTasks,
+  renderChatBlock,
+} from "./ChatBlocks";
 import { LocalChat, type ChatTransport } from "./LocalChat";
 import { streamChat, type ChatMessage } from "./localModel";
 import { speakableText } from "./speech";
@@ -303,5 +309,18 @@ describe("maths, raw HTML and maps", () => {
       expect.stringContaining("openstreetmap.org/?mlat=28.6386&mlon=77.2385")
     );
     expect(screen.getByText("The model sent a map that couldn’t be read.")).toBeInTheDocument();
+  });
+});
+
+describe("3D scenes", () => {
+  it("reads ```three, ```scene and ```threejs as one kind and keeps them as artifacts", () => {
+    const reply =
+      '```three title="Set"\nscene.add(new THREE.Mesh());\n```\n```scene\nconst a = 1;\n```\n```threejs title="Dolly"\nonFrame(() => {});\n```';
+    expect(findArtifacts(reply).map((a) => [a.title, a.type])).toEqual([
+      ["Set", "threejs"],
+      ["threejs 2", "threejs"],
+      ["Dolly", "threejs"],
+    ]);
+    expect(CHAT_3D_PROMPT).toContain("onFrame");
   });
 });
