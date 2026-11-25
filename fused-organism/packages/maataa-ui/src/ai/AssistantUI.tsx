@@ -19,6 +19,8 @@ export interface AIChatBubbleProps {
   actions?: React.ReactNode;
   /** The answer was cut off or failed */
   error?: string;
+  /** Let the bubble use the full width, e.g. for tables and call sheets. */
+  wide?: boolean;
 }
 
 /**
@@ -34,6 +36,7 @@ export function AIChatBubble({
   sources,
   actions,
   error,
+  wide = false,
 }: AIChatBubbleProps) {
   const t = useT();
   const mine = from === "user";
@@ -56,7 +59,9 @@ export function AIChatBubble({
       </span>
       <div
         style={{
-          maxWidth: "min(560px, 90%)",
+          maxWidth: wide ? "100%" : "min(560px, 90%)",
+          minWidth: 0,
+          boxSizing: "border-box",
           padding: "10px 14px",
           borderRadius: mine ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
           background: mine ? colorTokens.interactive.primary : colorTokens.background.secondary,
@@ -99,7 +104,7 @@ export function AIChatBubble({
           </ol>
         </details>
       )}
-      {actions && <div style={{ display: "flex", gap: 4 }}>{actions}</div>}
+      {actions && <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{actions}</div>}
     </article>
   );
 }

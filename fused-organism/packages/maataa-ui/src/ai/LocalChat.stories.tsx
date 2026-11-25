@@ -103,3 +103,51 @@ export const Hindi: Story = {
     </LocaleProvider>
   ),
 };
+
+const RICH_REPLY = `## Day 1 plan
+
+**Call time** is 6 am at the haveli. Bring the \`35mm\` lens.
+
+| Department | Crew | Call |
+|---|---:|---|
+| Camera | 4 | 06:00 |
+| Sound | 2 | 06:30 |
+
+\`\`\`chart
+{"type":"bar","title":"Crew per department","labels":["Camera","Sound","Art"],"series":[{"name":"Crew","values":[4,2,3]}]}
+\`\`\`
+
+- [ ] Book the van
+- [x] Confirm the location
+
+\`\`\`choices
+{"question":"Which day should we start?","options":["Monday","Tuesday"]}
+\`\`\``;
+
+/** Replies are formatted: headings, tables, checklists, charts and tappable options. */
+export const RichReplies: Story = {
+  args: {
+    title: "Chat",
+    send: demoModel,
+    voice: true,
+    allowImages: true,
+    initialMessages: [
+      { id: "q", role: "user", content: "Plan day 1 with a crew chart" },
+      { id: "a", role: "assistant", content: RICH_REPLY },
+    ],
+    height: 560,
+  },
+};
+
+/** Before a model is available, the chat says so and sending is off. */
+export const Unavailable: Story = {
+  args: {
+    title: "Chat",
+    send: demoModel,
+    starterQuestions: ["Explain golden hour in two lines"],
+    unavailable: (
+      <p style={{ margin: 0 }}>Can’t reach the model server. Start Ollama, then check again.</p>
+    ),
+    height: 240,
+  },
+};

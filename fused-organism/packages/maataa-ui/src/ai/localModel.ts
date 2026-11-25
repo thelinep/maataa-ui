@@ -10,6 +10,29 @@ export type ChatRole = "system" | "user" | "assistant";
 export interface ChatMessage {
   role: ChatRole;
   content: string;
+  /**
+   * Pictures sent with this message, as data URLs ("data:image/png;base64,…")
+   * or bare base64. Needs a model that can see, e.g. llava, gemma3, qwen2.5vl.
+   */
+  images?: string[];
+}
+
+const bareBase64 = (image: string) => image.replace(/^data:[^,]*,/, "");
+const dataUrl = (image: string) =>
+  image.startsWith("data:") ? image : `data:image/png;base64,${image}`;
+
+/** The message in the shape each API expects. */
+function toWire(message: ChatMessage, api: LocalModelApi): unknown {
+  if (!message.images?.length) return { role: message.role, content: message.content };
+  if (api === "ollama")
+    return { role: message.role, content: message.content, images: message.images.map(bareBase64) };
+  return {
+    role: message.role,
+    content: [
+      { type: "text", text: message.content },
+      ...message.images.map((image) => ({ type: "image_url", image_url: { url: dataUrl(image) } })),
+    ],
+  };
 }
 
 export type LocalModelApi = "ollama" | "openai";
@@ -121,11 +144,12 @@ export async function* streamChat(
 ): AsyncGenerator<string> {
   const base = trimSlash(options.baseUrl ?? DEFAULT_LOCAL_MODEL_URL);
   const api = options.api ?? "ollama";
+  const wire = messages.map((m) => toWire(m, api));
   const body =
     api === "ollama"
       ? {
           model: options.model,
-          messages,
+          messages: wire,
           stream: true,
           ...(options.temperature !== undefined
             ? { options: { temperature: options.temperature } }
@@ -133,7 +157,7 @@ export async function* streamChat(
         }
       : {
           model: options.model,
-          messages,
+          messages: wire,
           stream: true,
           ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
         };

@@ -67,3 +67,27 @@ export {
   type DocChunk,
   type DocHit,
 } from "./docsSearch";
+
+// Rich replies
+export {
+  ChatMarkdown,
+  CodeBlock,
+  parseMarkdown,
+  parseFenceInfo,
+  findFencedBlocks,
+  renderInline,
+  type ChatMarkdownProps,
+  type FencedBlock,
+} from "./ChatMarkdown";
+export {
+  ChatChart,
+  ChatChoices,
+  renderChatBlock,
+  findArtifacts,
+  findTasks,
+  CHAT_BLOCKS_PROMPT,
+  CHAT_BLOCK_KINDS,
+  type ChatArtifact,
+  type ChatBlockOptions,
+} from "./ChatBlocks";
+export { useSpeech, speakableText } from "./speech";
