@@ -8,6 +8,7 @@ const ignoredByteSensitivePaths = [
   "packages/domain-registry/sources/",
   "packages/domain-registry/schema-sources/approvals/",
   "packages/domain-registry/control-plane/generated/control-plane.canonical.json",
+  "examples/local-chat/src-tauri/gen/",
 ];
 const bad = [];
 
@@ -15,7 +16,7 @@ function walk(directory) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const filePath = path.join(directory, entry.name);
     const relativePath = path.relative(root, filePath).split(path.sep).join("/");
-    if (entry.isDirectory() && !["node_modules", "dist", "release", "legacy-artifacts", "storybook-static"].includes(entry.name)) {
+    if (entry.isDirectory() && !["node_modules", "dist", "release", "legacy-artifacts", "storybook-static", "target"].includes(entry.name)) {
       walk(filePath);
     } else if (
       entry.isFile() &&

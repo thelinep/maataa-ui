@@ -31,6 +31,8 @@ The dev server forwards `/ollama` to `http://localhost:11434`, `/lmstudio` to `h
 
 The app has projects (each with its own chats, instructions and text files), artifacts in a side panel, tasks, pictures and voice. See [the example's README](../examples/local-chat/README.md). On a phone the project list becomes a drawer (☰) and the side panel opens full screen.
 
+It also runs as a desktop app (Rust and Tauri): `npm run chat:desktop`. See [Desktop app](../examples/local-chat/README.md#desktop-app-rust) for installers and how its local server is locked down.
+
 ## Use the component
 
 ```tsx

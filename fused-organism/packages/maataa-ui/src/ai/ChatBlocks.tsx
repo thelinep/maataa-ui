@@ -66,11 +66,11 @@ interface ChartData {
 
 const PALETTE = [
   `var(--maataa-chart-single, ${colorTokens.interactive.primary})`,
-  colorTokens.interactive.primary,
   colorTokens.interactive.info,
   colorTokens.interactive.success,
   colorTokens.interactive.warning,
   colorTokens.interactive.error,
+  colorTokens.interactive.primary,
 ];
 
 function readJson<T>(code: string): T | null {
