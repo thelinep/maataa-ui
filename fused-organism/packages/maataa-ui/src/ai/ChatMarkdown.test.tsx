@@ -324,3 +324,32 @@ describe("3D scenes", () => {
     expect(CHAT_3D_PROMPT).toContain("onFrame");
   });
 });
+
+describe("backend events", () => {
+  it("shows sources, progress and follow-up questions a backend reports", async () => {
+    const user = userEvent.setup();
+    let release: () => void = () => undefined;
+    const send: ChatTransport = async function* () {
+      yield { type: "status", text: "Searched your knowledge" };
+      yield "Call time is 6 am.";
+      await new Promise<void>((r) => (release = r));
+      yield { type: "sources", sources: [{ title: "Shoot notes.md" }] };
+      yield { type: "followups", items: ["Who is on set?", "Where do we park?"] };
+    };
+    const seen: string[] = [];
+    render(
+      <LocalChat
+        send={async function* (m, s) {
+          seen.push(m.at(-1)!.content);
+          yield* send(m, s);
+        }}
+      />
+    );
+    await user.type(screen.getByRole("textbox", { name: "Your message" }), "When?{Enter}");
+    expect(await screen.findByText("Searched your knowledge")).toBeInTheDocument();
+    release();
+    expect(await screen.findByText("Shoot notes.md")).toBeInTheDocument();
+    await user.click(await screen.findByRole("button", { name: "Where do we park?" }));
+    await waitFor(() => expect(seen).toEqual(["When?", "Where do we park?"]));
+  });
+});

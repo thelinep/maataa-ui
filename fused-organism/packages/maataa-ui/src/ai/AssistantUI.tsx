@@ -86,7 +86,16 @@ export function AIChatBubble({
       </div>
       {sources && sources.length > 0 && (
         <details style={{ fontSize: 12 }}>
-          <summary style={{ cursor: "pointer", color: colorTokens.interactive.primary }}>
+          <summary
+            className="mc-t"
+            style={{
+              cursor: "pointer",
+              color: colorTokens.interactive.primary,
+              minHeight: 24,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             {t.plural(sources.length, "{count} source", "{count} sources")}
           </summary>
           <ol style={{ margin: "4px 0 0", paddingLeft: 18 }}>

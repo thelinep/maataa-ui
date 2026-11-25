@@ -177,4 +177,38 @@ export const appMessagesHi: Record<string, string> = {
   "Attach a picture first, then type /compare and what should change.":
     "पहले तस्वीर जोड़ें, फिर /compare और बदलाव लिखें।",
   Compare: "तुलना",
+  "Let thinking models reason before answering (slower)": "सोचने वाले मॉडल को जवाब से पहले सोचने दें (धीमा)",
+  Think: "सोचें",
+  "Reply through Maataa Workstation (its memory, knowledge and sources)":
+    "जवाब Maataa Workstation से लें (उसकी याद, जानकारी और स्रोत)",
+  "Keep chats in Workstation’s sessions too": "चैट Workstation के sessions में भी रखें",
+  "Projects and artifacts stay in this browser; chats are also kept as Workstation sessions when that is on.":
+    "प्रोजेक्ट और आर्टिफ़ैक्ट इसी ब्राउज़र में रहते हैं; यह चालू हो तो चैट Workstation के sessions में भी रहती हैं।",
+  "Skills run in Maataa Workstation. Start it (port 8787), then come back here.":
+    "Skills Maataa Workstation में चलती हैं। उसे (पोर्ट 8787) शुरू करें, फिर यहाँ लौटें।",
+  "Asking Maataa Workstation for its skills…": "Maataa Workstation से उसकी skills पूछी जा रही हैं…",
+  Skill: "Skill",
+  "Work from this text": "इस text से काम करें",
+  "Paste a script, notes or a schedule, or leave the last reply here.":
+    "स्क्रिप्ट, नोट्स या schedule चिपकाएँ, या आख़िरी जवाब ही रहने दें।",
+  "Use the last reply": "आख़िरी जवाब लें",
+  "Production name (optional)": "प्रोडक्शन का नाम (चाहें तो)",
+  Into: "किस भाषा में",
+  Slides: "स्लाइड",
+  "Length in words": "कितने शब्द",
+  "Working…": "काम चल रहा है…",
+  "Run {name}": "{name} चलाएँ",
+  "The model is writing; this can take a minute.": "मॉडल लिख रहा है; इसमें एक मिनट लग सकता है।",
+  Result: "नतीजा",
+  result: "नतीजा",
+  "Keep as artifact": "आर्टिफ़ैक्ट की तरह रखें",
+  "The skill finished but returned nothing to show.": "Skill पूरी हुई पर दिखाने को कुछ नहीं लौटा।",
+  "Also saved in Workstation’s Library: {path}": "Workstation की Library में भी रखा: {path}",
+  Skills: "Skills",
+  "Call Sheet": "कॉल शीट",
+  "Shot List": "शॉट लिस्ट",
+  "Treatment Writer": "ट्रीटमेंट लेखक",
+  Translate: "अनुवाद",
+  "Session Summarizer": "बातचीत का सार",
+  "Export to Slides": "स्लाइड बनाएँ",
 };

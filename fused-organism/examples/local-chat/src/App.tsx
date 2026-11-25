@@ -44,10 +44,19 @@ import {
 import { archiveTask, novaAvailable, pushTask, setTaskDone } from "./nova";
 import { APP_CSS } from "./styles";
 import { ComparePanel, type CompareSource } from "./compare";
+import { SkillsPanel } from "./skills";
+import {
+  deleteSession,
+  listSessions,
+  saveSession,
+  toConversation,
+  workstationTransport,
+  type WorkstationSession,
+} from "./workstation";
 import { LivePreview, MediaBlock, MermaidDiagram, RUNNABLE, isMediaBlock, renderMath } from "./rich";
 
 type ServerKind = "ollama" | "lmstudio" | "custom";
-type PanelTab = "artifacts" | "tasks" | "project" | "compare";
+type PanelTab = "artifacts" | "tasks" | "skills" | "project" | "compare";
 
 interface Settings {
   server: ServerKind;
@@ -58,6 +67,12 @@ interface Settings {
   syncTasks: boolean;
   /** Make pictures, sound and video as soon as a reply asks, without a tap. */
   autoMedia: boolean;
+  /** "workstation": replies come from Maataa Workstation's smart chat when it runs. */
+  backend: "workstation" | "direct";
+  /** Keep chats in Workstation's sessions too, shared with its own screen. */
+  syncSessions: boolean;
+  /** Let thinking models reason before answering. */
+  think: boolean;
 }
 
 const STORAGE_KEY = "maataa-local-chat";
@@ -69,6 +84,9 @@ const DEFAULTS: Settings = {
   projectId: "general",
   syncTasks: false,
   autoMedia: false,
+  backend: "workstation",
+  syncSessions: true,
+  think: false,
 };
 
 function loadSettings(): Settings {
@@ -125,6 +143,8 @@ function Main({
     language: useId(),
     sync: useId(),
     media: useId(),
+    backend: useId(),
+    sessions: useId(),
   };
   const theme = useThemePreference();
   const set = <K extends keyof Settings>(key: K, value: Settings[K]) =>
@@ -180,6 +200,54 @@ function Main({
   useEffect(() => {
     void loadAll().then(setData);
   }, []);
+  // Workstation's saved sessions: brought in once it answers, newer copy wins.
+  const remoteSessions = useRef(new Map<string, WorkstationSession>());
+  const sessionsLoaded = useRef(false);
+  useEffect(() => {
+    if (!data || nova !== "on" || !settings.syncSessions || sessionsLoaded.current) return;
+    sessionsLoaded.current = true;
+    void listSessions()
+      .then((list) => {
+        for (const s of list) remoteSessions.current.set(s.id, s);
+        setData((d) => {
+          if (!d) return d;
+          const byId = new Map(d.conversations.map((c) => [c.id, c]));
+          for (const s of list) {
+            const local = byId.get(s.id);
+            const conv = toConversation(s, local?.projectId ?? "general");
+            if (!local || conv.updatedAt > local.updatedAt) {
+              // Keep pictures the local copy has; Workstation keeps only words.
+              const merged = local
+                ? {
+                    ...conv,
+                    messages: conv.messages.map((m) => ({
+                      ...m,
+                      ...(local.messages.find((x) => x.id === m.id)?.images
+                        ? { images: local.messages.find((x) => x.id === m.id)!.images }
+                        : {}),
+                    })),
+                  }
+                : conv;
+              byId.set(s.id, merged);
+              void put("conversations", merged);
+            }
+          }
+          return {
+            ...d,
+            conversations: [...byId.values()].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
+          };
+        });
+      })
+      .catch(() => {
+        sessionsLoaded.current = false;
+      });
+  }, [data, nova, settings.syncSessions]);
+  const pushSession = (c: Conversation) => {
+    if (nova !== "on" || !settings.syncSessions) return;
+    void saveSession(c, settings.model, remoteSessions.current.get(c.id))
+      .then((saved) => remoteSessions.current.set(saved.id, saved))
+      .catch(() => undefined);
+  };
   const project = data?.projects.find((p) => p.id === settings.projectId) ?? data?.projects[0] ?? null;
   const [convId, setConvId] = useState(() => newId("c"));
   const conversation = data?.conversations.find((c) => c.id === convId) ?? null;
@@ -203,6 +271,10 @@ function Main({
   const drop = (kind: keyof Data, id: string) => {
     setData((d) => (d ? { ...d, [kind]: (d[kind] as { id: string }[]).filter((x) => x.id !== id) } : d));
     void remove(kind, id);
+    if (kind === "conversations" && remoteSessions.current.has(id) && nova === "on") {
+      remoteSessions.current.delete(id);
+      void deleteSession(id).catch(() => undefined);
+    }
   };
 
   // ---- layout -------------------------------------------------------------
@@ -339,7 +411,10 @@ function Main({
   };
   const flushSave = () => {
     window.clearTimeout(saveTimer.current);
-    if (latest.current) void put("conversations", latest.current);
+    if (latest.current) {
+      void put("conversations", latest.current);
+      pushSession(latest.current);
+    }
   };
   useEffect(() => {
     window.addEventListener("pagehide", flushSave);
@@ -451,6 +526,7 @@ function Main({
           .filter(Boolean)
           .join("\n\n");
 
+  const useWorkstation = settings.backend === "workstation" && nova === "on";
   const model: LocalModelOptions | undefined = settings.model
     ? { ...conn, model: settings.model }
     : undefined;
@@ -682,6 +758,18 @@ function Main({
           <span className={`dot ${statusDot}`} aria-hidden="true" />
           <span className="lbl">{settings.model || t("No model")}</span>
         </button>
+        {useWorkstation && (
+          <button
+            type="button"
+            className="chip"
+            aria-pressed={settings.think}
+            title={t("Let thinking models reason before answering (slower)")}
+            onClick={() => set("think", !settings.think)}
+          >
+            <span aria-hidden="true">✦</span>
+            <span className="lbl"> {t("Think")}</span>
+          </button>
+        )}
         <button
           type="button"
           className="chip"
@@ -800,6 +888,11 @@ function Main({
             assistantName={project.kind === "docs" ? t("Docs helper") : undefined}
             commands={commands}
             model={model}
+            send={
+              useWorkstation && settings.model
+                ? workstationTransport({ model: settings.model, sessionId: convId, think: settings.think })
+                : undefined
+            }
             unavailable={unavailable}
             systemPrompt={systemPrompt}
             getContext={getContext}
@@ -822,7 +915,7 @@ function Main({
         <aside className="panel" aria-label={t("Side panel")}>
           <div className="panel-head">
             <div role="tablist" aria-label={t("Side panel")} className="inline">
-              {(["artifacts", "tasks", "project", "compare"] as PanelTab[]).map((tab) => (
+              {(["artifacts", "tasks", "skills", "project", "compare"] as PanelTab[]).map((tab) => (
                 <button
                   key={tab}
                   type="button"
@@ -837,7 +930,9 @@ function Main({
                       ? t("Tasks")
                       : tab === "project"
                         ? t("Project")
-                        : t("Compare")}
+                        : tab === "skills"
+                          ? t("Skills")
+                          : t("Compare")}
                 </button>
               ))}
             </div>
@@ -879,6 +974,21 @@ function Main({
               />
             )}
             {panel === "compare" && <ComparePanel source={compareSource} nova={nova} />}
+            {panel === "skills" && (
+              <SkillsPanel
+                nova={nova}
+                model={settings.model}
+                sessionId={convId}
+                lastReply={
+                  [...(conversation?.messages ?? [])].reverse().find((m) => m.role === "assistant")
+                    ?.content ?? ""
+                }
+                onKeep={(title, markdown) => {
+                  const saved = saveArtifact({ title, type: "markdown", content: markdown });
+                  if (saved) showArtifact(saved.id);
+                }}
+              />
+            )}
             {panel === "project" && (
               <ProjectPanel
                 project={project}
@@ -976,6 +1086,26 @@ function Main({
             <div className="inline">
               <input
                 type="checkbox"
+                id={ids.backend}
+                checked={settings.backend === "workstation"}
+                onChange={(e) => set("backend", e.target.checked ? "workstation" : "direct")}
+              />
+              <label htmlFor={ids.backend}>
+                {t("Reply through Maataa Workstation (its memory, knowledge and sources)")}
+              </label>
+            </div>
+            <div className="inline">
+              <input
+                type="checkbox"
+                id={ids.sessions}
+                checked={settings.syncSessions}
+                onChange={(e) => set("syncSessions", e.target.checked)}
+              />
+              <label htmlFor={ids.sessions}>{t("Keep chats in Workstation’s sessions too")}</label>
+            </div>
+            <div className="inline">
+              <input
+                type="checkbox"
                 id={ids.media}
                 checked={settings.autoMedia}
                 onChange={(e) => set("autoMedia", e.target.checked)}
@@ -991,7 +1121,7 @@ function Main({
                   ? t("Not running. Start it (port 8787) and press Check.")
                   : t("Checking…")}{" "}
               {t(
-                "Projects, chats and artifacts stay in this browser; Maataa Workstation has no place for them yet.",
+                "Projects and artifacts stay in this browser; chats are also kept as Workstation sessions when that is on.",
               )}
             </p>
             <button type="button" onClick={() => void checkNova()} style={{ justifySelf: "start" }}>

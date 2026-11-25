@@ -23,7 +23,23 @@ import {
 } from "./localModel";
 
 /** Sends the conversation somewhere and streams back the reply. */
-export type ChatTransport = (messages: ChatMessage[], signal: AbortSignal) => AsyncIterable<string>;
+/**
+ * Something a backend reports while it answers, besides the reply's text:
+ * the passages it read, what it is doing now, or questions to ask next.
+ */
+export type ChatTransportEvent =
+  | { type: "sources"; sources: { title: string; href?: string }[] }
+  | { type: "status"; text: string }
+  | { type: "followups"; items: string[] };
+
+/**
+ * Streams a reply. Yield text as it arrives; a backend that knows more can
+ * also yield ChatTransportEvent objects (sources, status, follow-ups).
+ */
+export type ChatTransport = (
+  messages: ChatMessage[],
+  signal: AbortSignal
+) => AsyncIterable<string | ChatTransportEvent>;
 
 /** Passages that help answer a question, e.g. from a docs search. */
 export interface ChatContext {
@@ -52,6 +68,8 @@ export interface LocalChatMessage {
   /** Pictures the person attached, as data URLs. */
   images?: string[];
   sources?: { title: string; href?: string }[];
+  /** Questions the backend suggests asking next; shown under the latest reply. */
+  followups?: string[];
   error?: string;
   stopped?: boolean;
 }
@@ -195,6 +213,8 @@ export function LocalChat({
   const locale = useLocale();
   const speech = useSpeech(locale);
   const [images, setImages] = useState<string[]>([]);
+  /** What the backend says it is doing, while a reply is on its way. */
+  const [progress, setProgress] = useState("");
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const draftBeforeListen = useRef("");
@@ -287,10 +307,20 @@ export function LocalChat({
           })),
         { role: "user", content: question, ...(pictures.length ? { images: pictures } : {}) },
       ];
-      if (context?.sources?.length) patch({ sources: context.sources });
+      let sources = context?.sources?.length ? context.sources : undefined;
+      if (sources) patch({ sources });
       for await (const piece of transport(outgoing, controller.signal)) {
-        reply += piece;
-        patch({ content: reply });
+        if (typeof piece === "string") {
+          reply += piece;
+          patch({ content: reply });
+        } else if (piece.type === "sources") {
+          sources = [...(sources ?? []), ...piece.sources];
+          patch({ sources });
+        } else if (piece.type === "status") {
+          setProgress(piece.text);
+        } else if (piece.type === "followups") {
+          patch({ followups: piece.items.slice(0, 4) });
+        }
       }
       setAnnouncement(t("{name} replied.", { name: botName }));
       onReplyDone?.(
@@ -298,7 +328,7 @@ export function LocalChat({
           id: replyId,
           role: "assistant",
           content: reply,
-          ...(context?.sources?.length ? { sources: context.sources } : {}),
+          ...(sources ? { sources } : {}),
         },
         userMessage
       );
@@ -314,6 +344,7 @@ export function LocalChat({
     } finally {
       if (abortRef.current === controller) abortRef.current = null;
       setBusy(false);
+      setProgress("");
     }
   };
 
@@ -686,6 +717,43 @@ export function LocalChat({
           );
         })}
         {busy && <AITypingIndicator name={botName} />}
+        {busy && progress && (
+          <p
+            style={{
+              margin: 0,
+              fontSize: typographyTokens.fontSize.xs,
+              color: colorTokens.text.secondary,
+            }}
+          >
+            {progress}
+          </p>
+        )}
+        {!busy && !blocked && lastAssistant?.followups?.length ? (
+          <ul
+            aria-label={t("Suggested next questions")}
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
+              display: "flex",
+              flexWrap: "wrap",
+              gap: spacingTokens.xs,
+            }}
+          >
+            {lastAssistant.followups.map((q) => (
+              <li key={q}>
+                <button
+                  type="button"
+                  className="mc-t"
+                  onClick={() => submit(q)}
+                  style={{ ...smallAction, borderRadius: 999 }}
+                >
+                  {q}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
 
       <form

@@ -1511,6 +1511,7 @@ export const hi: Readonly<Record<string, string>> = {
   "Subscribing…": "सदस्यता ली जा रही है…",
   "Subsidy programmes": "सब्सिडी योजनाएँ",
   Subtotal: "उप-योग",
+  "Suggested next questions": "आगे पूछने के लिए सुझाए सवाल",
   "Summary email": "सारांश ईमेल",
   Sun: "सूरज",
   "Sun at {place}": "{place} पर सूरज",

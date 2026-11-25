@@ -49,6 +49,7 @@ export {
   type ChatTransport,
   type ChatContext,
   type ChatCommand,
+  type ChatTransportEvent,
 } from "./LocalChat";
 export {
   streamChat,
