@@ -45,6 +45,9 @@ import { archiveTask, novaAvailable, pushTask, setTaskDone } from "./nova";
 import { APP_CSS } from "./styles";
 import { ComparePanel, type CompareSource } from "./compare";
 import { SkillsPanel } from "./skills";
+import { MediaStudio } from "./media";
+import { TaskBoard } from "./board";
+import { PreProduction } from "./preprod";
 import {
   deleteSession,
   listSessions,
@@ -57,6 +60,14 @@ import { LivePreview, MediaBlock, MermaidDiagram, RUNNABLE, isMediaBlock, render
 
 type ServerKind = "ollama" | "lmstudio" | "custom";
 type PanelTab = "artifacts" | "tasks" | "skills" | "project" | "compare";
+/** What fills the middle: the chat, or one of the studio screens. */
+type View = "chat" | "media" | "board" | "preprod";
+const VIEW_NAMES: Record<Exclude<View, "chat">, string> = {
+  media: "Media studio",
+  board: "Task board",
+  preprod: "Pre-production",
+};
+const VIEW_ICONS: Record<View, string> = { chat: "💬", media: "🎞", board: "🗂", preprod: "📋" };
 
 interface Settings {
   server: ServerKind;
@@ -280,6 +291,11 @@ function Main({
   // ---- layout -------------------------------------------------------------
   const [sideOpen, setSideOpen] = useState(false);
   const [panel, setPanel] = useState<PanelTab | null>(null);
+  const [view, setView] = useState<View>("chat");
+  const openView = (v: View) => {
+    setView(v);
+    setSideOpen(false);
+  };
   const [openArtifact, setOpenArtifact] = useState<string | null>(null);
   const [compareSource, setCompareSource] = useState<CompareSource | null>(null);
   /** The picture and words of the user message just before `reply`, if it had a picture. */
@@ -312,10 +328,12 @@ function Main({
 
   const newChat = () => {
     setConvId(newId("c"));
+    setView("chat");
     setSideOpen(false);
   };
   const openChat = (c: Conversation) => {
     setConvId(c.id);
+    setView("chat");
     setSideOpen(false);
   };
   const chooseProject = (id: string) => {
@@ -743,8 +761,12 @@ function Main({
           ☰
         </button>
         <h1 className="top-title">
-          <span className="muted">{projectName}</span>
-          {conversation && <span className="crumb"> › {conversation.title}</span>}
+          <span className="muted">{view === "chat" ? projectName : t("Studio")}</span>
+          {view !== "chat" ? (
+            <span className="crumb"> › {t(VIEW_NAMES[view])}</span>
+          ) : (
+            conversation && <span className="crumb"> › {conversation.title}</span>
+          )}
         </h1>
         <button
           type="button"
@@ -800,6 +822,22 @@ function Main({
 
       {sideOpen && <div className="scrim only-narrow" onClick={() => setSideOpen(false)} />}
       <nav id="side" className={`side${sideOpen ? " open" : ""}`} aria-label={t("Projects and chats")}>
+        <h2 className="side-h">{t("Studio")}</h2>
+        <ul className="plain-list">
+          {(["chat", "media", "board", "preprod"] as View[]).map((v) => (
+            <li key={v}>
+              <button
+                type="button"
+                className="row-button row-inline"
+                aria-current={view === v ? "page" : undefined}
+                onClick={() => openView(v)}
+              >
+                <span aria-hidden="true">{VIEW_ICONS[v]} </span>
+                <span className="row-title">{v === "chat" ? t("Chat") : t(VIEW_NAMES[v])}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
         <h2 className="side-h">{t("Projects")}</h2>
         <ul className="plain-list">
           {data?.projects.map((p) => (
@@ -875,40 +913,70 @@ function Main({
       </nav>
 
       <main className="main">
-        {data && project ? (
-          <LocalChat
-            key={`${convId}-${settings.language}`}
-            fill
-            bare
-            hideTitle
-            hideNewConversation
-            allowImages
-            voice
-            title={conversation?.title ?? t("New chat")}
-            assistantName={project.kind === "docs" ? t("Docs helper") : undefined}
-            commands={commands}
-            model={model}
-            send={
-              useWorkstation && settings.model
-                ? workstationTransport({ model: settings.model, sessionId: convId, think: settings.think })
-                : undefined
-            }
-            unavailable={unavailable}
-            systemPrompt={systemPrompt}
-            getContext={getContext}
-            initialMessages={conversation?.messages}
-            onMessagesChange={onMessagesChange}
-            onReplyDone={onReplyDone}
-            messageActions={messageActions}
-            renderBlock={renderBlock}
-            renderMath={renderMath}
-            placeholder={t("Ask anything…")}
-            starterQuestions={starters}
-            style={{ maxWidth: 860, width: "100%", margin: "0 auto" }}
-          />
-        ) : (
-          <p className="muted pad">{t("Loading your projects…")}</p>
+        {view !== "chat" && (
+          <div className="studio-view">
+            {nova !== "on" ? (
+              <div className="offline">
+                <strong>{t("Maataa Workstation isn’t running")}</strong>
+                <span>
+                  {nova === "unknown"
+                    ? t("Checking for Maataa Workstation…")
+                    : t(
+                        "The studio shows what Workstation has made and planned. Start Workstation, then come back here.",
+                      )}
+                </span>
+              </div>
+            ) : view === "media" ? (
+              <MediaStudio onCompare={openCompare} />
+            ) : view === "board" ? (
+              <TaskBoard projectName={projectName} />
+            ) : (
+              <PreProduction
+                onNewWithSkill={() => setPanel("skills")}
+                onKeep={(title, markdown) => {
+                  const saved = saveArtifact({ title, type: "markdown", content: markdown });
+                  if (saved) showArtifact(saved.id);
+                }}
+              />
+            )}
+          </div>
         )}
+        <div className="chat-wrap" hidden={view !== "chat"}>
+          {data && project ? (
+            <LocalChat
+              key={`${convId}-${settings.language}`}
+              fill
+              bare
+              hideTitle
+              hideNewConversation
+              allowImages
+              voice
+              title={conversation?.title ?? t("New chat")}
+              assistantName={project.kind === "docs" ? t("Docs helper") : undefined}
+              commands={commands}
+              model={model}
+              send={
+                useWorkstation && settings.model
+                  ? workstationTransport({ model: settings.model, sessionId: convId, think: settings.think })
+                  : undefined
+              }
+              unavailable={unavailable}
+              systemPrompt={systemPrompt}
+              getContext={getContext}
+              initialMessages={conversation?.messages}
+              onMessagesChange={onMessagesChange}
+              onReplyDone={onReplyDone}
+              messageActions={messageActions}
+              renderBlock={renderBlock}
+              renderMath={renderMath}
+              placeholder={t("Ask anything…")}
+              starterQuestions={starters}
+              style={{ maxWidth: 860, width: "100%", margin: "0 auto" }}
+            />
+          ) : (
+            <p className="muted pad">{t("Loading your projects…")}</p>
+          )}
+        </div>
       </main>
 
       {panel && project && (

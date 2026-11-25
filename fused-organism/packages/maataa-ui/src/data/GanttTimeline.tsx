@@ -118,7 +118,8 @@ export function GanttTimeline({
     <div role="region" aria-label={caption} tabIndex={0} style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 720 }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.sm }}>
-          {caption} · {date(new Date(min))} to {date(new Date(max - DAY))}
+          {caption} ·{" "}
+          {t("{from} to {to}", { from: date(new Date(min)), to: date(new Date(max - DAY)) })}
         </caption>
         <thead>
           <tr style={{ color: colorTokens.text.secondary, textAlign: "left" }}>

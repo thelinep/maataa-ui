@@ -2074,5 +2074,9 @@ export const hi: Readonly<Record<string, string>> = {
   "₹{amount} crore": "₹{amount} करोड़",
   "₹{amount} lakh": "₹{amount} लाख",
   "✓ No conflicts": "✓ कोई टकराव नहीं",
+  "{count} conflict": "{count} टकराव",
+  "{from} to {to}": "{from} से {to}",
+  "{count} conflicts": "{count} टकराव",
+  "{conflicts} on {subject}": "{subject} को {conflicts}",
   "✓ Resolved": "✓ सुलझ गया",
 };

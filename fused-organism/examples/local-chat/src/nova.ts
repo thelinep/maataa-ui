@@ -41,11 +41,15 @@ export async function pushTask(task: Task, projectName: string): Promise<string>
   return card.id;
 }
 
-/** Moves the card to done (or back to backlog). */
+/**
+ * Moves the card to Review when the task is ticked (or back to Backlog).
+ * Workstation only lets a person move a card from Review to Done, and only
+ * with evidence attached, so the last step happens on the board.
+ */
 export async function setTaskDone(novaId: string, done: boolean): Promise<void> {
   await call(`/cards/${encodeURIComponent(novaId)}/move`, {
     method: "POST",
-    body: JSON.stringify({ to: done ? "done" : "backlog" }),
+    body: JSON.stringify({ to: done ? "review" : "backlog" }),
   });
 }
 
@@ -157,3 +161,108 @@ export function startImageToImage(input: {
 }): Promise<NovaJob> {
   return novaCall<NovaJob>("/images/img2img", { method: "POST", body: JSON.stringify(input) });
 }
+
+// ---- studio: everything Workstation has made, and its job queue ----------
+
+export interface MediaRecord {
+  id: string;
+  kind: "image" | "audio" | "video";
+  mime: string;
+  bytes: number;
+  originalName: string;
+  source: string;
+  createdAt: string;
+  provenance?: Record<string, unknown> | null;
+}
+
+export interface GenerationJob {
+  id: string;
+  type: string;
+  status: "running" | "done" | "failed" | "cancelled";
+  settings?: Record<string, unknown> | null;
+  mediaIds: string[];
+  error?: string | null;
+  progress?: string | null;
+  createdAt: string;
+  finishedAt?: string | null;
+}
+
+/** Every picture, sound and video Workstation holds, newest first. */
+export const listMedia = () => novaCall<MediaRecord[]>("/media");
+/** Making jobs, newest first. */
+export const listJobs = () => novaCall<GenerationJob[]>("/images/jobs");
+export const deleteMedia = (id: string) =>
+  novaCall<unknown>(`/media/${encodeURIComponent(id)}`, { method: "DELETE" });
+
+/** The words a made file was made from, if Workstation kept them. */
+export function promptOf(m: Pick<MediaRecord, "provenance">): string {
+  const p = m.provenance ?? {};
+  const words = p.prompt ?? p.text ?? p.lyrics;
+  return typeof words === "string" ? words : "";
+}
+
+/** Which "make" a file came from, so "Make again" asks for the same kind. */
+export function makeKindOf(m: MediaRecord, jobs: GenerationJob[]): MakeKind {
+  const type = jobs.find((j) => j.id === m.provenance?.jobId)?.type ?? "";
+  if (m.kind === "video") return "video";
+  if (m.kind === "image") return "image";
+  if (type === "audio-voice" || typeof m.provenance?.text === "string") return "voice";
+  if (type === "audio-sfx") return "sfx";
+  return "music";
+}
+
+export type MakeKind = "image" | "music" | "sfx" | "voice" | "video";
+
+/** Starts a new make from the studio's form. */
+export function startMake(kind: MakeKind, prompt: string, seconds?: number): Promise<NovaJob> {
+  if (kind === "image") return startMedia("image", { prompt });
+  if (kind === "video") return startMedia("video", { prompt, seconds: seconds ?? 4 });
+  if (kind === "voice") return startMedia("audio", { kind: "voice", text: prompt });
+  return startMedia("audio", { kind, prompt, ...(seconds ? { seconds } : {}) });
+}
+
+// ---- studio: the Radheya board -------------------------------------------
+
+export const RADHEYA_COLUMNS = ["backlog", "ready", "doing", "review", "done", "blocked"] as const;
+export type RadheyaColumn = (typeof RADHEYA_COLUMNS)[number];
+
+export interface RadheyaCard {
+  id: string;
+  title: string;
+  body: string;
+  column: RadheyaColumn;
+  labels: string[];
+  assignee?: { kind: string; model?: string | null };
+  notes?: { id?: string; text: string; at?: string; by?: string }[];
+  evidence?: { id?: string; kind: string; url?: string | null; label?: string }[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface RadheyaView {
+  columns: string[];
+  board?: { wip?: Record<string, number> };
+  cards: RadheyaCard[];
+  running: { cardId: string; runId: string }[];
+}
+
+export const radheyaView = () => call<RadheyaView>("");
+export const createCard = (input: { title: string; body?: string; column?: string; labels?: string[] }) =>
+  call<RadheyaCard>("/cards", { method: "POST", body: JSON.stringify(input) });
+export const updateCard = (id: string, input: { title: string; body?: string; labels?: string[] }) =>
+  call<RadheyaCard>(`/cards/${encodeURIComponent(id)}`, { method: "POST", body: JSON.stringify(input) });
+export const moveCard = (id: string, to: string) =>
+  call<RadheyaCard>(`/cards/${encodeURIComponent(id)}/move`, {
+    method: "POST",
+    body: JSON.stringify({ to }),
+  });
+export const addCardNote = (id: string, text: string) =>
+  call<RadheyaCard>(`/cards/${encodeURIComponent(id)}/notes`, {
+    method: "POST",
+    body: JSON.stringify({ text }),
+  });
+export const addCardLink = (id: string, url: string, label?: string) =>
+  call<RadheyaCard>(`/cards/${encodeURIComponent(id)}/evidence`, {
+    method: "POST",
+    body: JSON.stringify({ url, label }),
+  });
