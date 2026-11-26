@@ -663,6 +663,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - renderInlineWithMath — beta
 - renderMarkdown — beta
 - renderStates — beta
+- repairShotList — beta
 - resolveThemeChoice — beta
 - safeReturnTo — beta
 - savedAgo — beta
@@ -1417,6 +1418,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - renderChatBlock — beta
 - renderInline — beta
 - renderInlineWithMath — beta
+- repairShotList — beta
 - speakableText — beta
 - streamChat — beta
 - tokenize — beta

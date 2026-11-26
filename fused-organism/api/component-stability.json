@@ -3601,6 +3601,10 @@
           "stability": "beta"
         },
         {
+          "name": "repairShotList",
+          "stability": "beta"
+        },
+        {
           "name": "resolveThemeChoice",
           "stability": "beta"
         },
@@ -6449,6 +6453,10 @@
         },
         {
           "name": "renderInlineWithMath",
+          "stability": "beta"
+        },
+        {
+          "name": "repairShotList",
           "stability": "beta"
         },
         {
