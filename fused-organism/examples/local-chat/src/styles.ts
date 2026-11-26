@@ -147,6 +147,30 @@ button.chip[aria-pressed="true"] { background: ${bg3}; border-color: ${accent}; 
 .job-text { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .note-list li { padding: 4px 0; border-bottom: 1px solid ${line}; overflow-wrap: anywhere; }
 .day-list { gap: 8px; }
+.tile-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.big-number { font-size: 24px; font-weight: 700; margin: 0; }
+.break { overflow-wrap: anywhere; }
+.pre-wrap { white-space: pre-wrap; }
+.code-box { margin: 0; padding: 8px 10px; border-radius: 8px; background: ${bg2}; border: 1px solid ${line}; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 360px; overflow: auto; }
+.log-box { max-height: 280px; }
+.diff-del { border-left: 3px solid ${bad}; }
+.diff-add { border-left: 3px solid ${ok}; }
+.plain-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.plain-table th, .plain-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid ${line}; vertical-align: top; }
+.plain-table th { font-weight: 600; }
+.hit-list { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.hit-list p { margin: 2px 0 0; }
+.step-list { margin: 0; padding-left: 20px; display: grid; gap: 2px; }
+.step-list .step-done, .step-list .step-completed { color: ${ok}; }
+.step-list .step-failed { color: ${bad}; }
+.step-list .step-active, .step-list .step-awaiting_approval { font-weight: 600; }
+.change-list li { padding: 4px 0; border-bottom: 1px solid ${line}; }
+.activity-list li { padding: 3px 0; overflow-wrap: anywhere; }
+.answer { padding: 8px 10px; border-radius: 8px; background: ${bg2}; overflow-wrap: anywhere; }
+.plain-fieldset { border: 0; padding: 0; margin: 0; }
+.plain-fieldset legend { padding: 0; margin-bottom: 4px; }
+.badge { margin-left: auto; min-width: 20px; padding: 0 6px; border-radius: 10px; background: ${accent}; color: ${inverse}; font-size: 12px; font-weight: 700; text-align: center; line-height: 20px; }
+.tone-warn { color: ${text1}; border-left: 3px solid #C98A00; padding-left: 8px; }
 .settings { width: min(640px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); border: 1px solid ${line}; border-radius: 14px; background: ${bg1}; color: ${text1}; padding: 18px; }
 .settings::backdrop { background: rgba(0, 0, 0, .35); }
 fieldset { border: 1px solid ${line}; border-radius: 10px; padding: 10px; }

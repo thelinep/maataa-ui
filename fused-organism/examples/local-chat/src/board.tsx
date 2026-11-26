@@ -16,6 +16,7 @@ import {
   type RadheyaColumn,
   type RadheyaView,
 } from "./nova";
+import { cancelCardRun, ollamaStatus, runCard } from "./ws-api";
 
 const COLUMN_NAMES: Record<RadheyaColumn, string> = {
   backlog: "Backlog",
@@ -69,6 +70,13 @@ export function TaskBoard({ projectName }: { projectName: string }) {
   const [body, setBody] = useState("");
   const [column, setColumn] = useState<RadheyaColumn>("backlog");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [models, setModels] = useState<string[]>([]);
+  useEffect(() => {
+    void ollamaStatus().then(
+      (s) => setModels(s.models.map((m) => m.name)),
+      () => setModels([]),
+    );
+  }, []);
 
   const refresh = useCallback(async () => {
     try {
@@ -253,6 +261,7 @@ export function TaskBoard({ projectName }: { projectName: string }) {
           key={open.id}
           card={open}
           running={running.has(open.id)}
+          models={models}
           ids={ids}
           onClose={() => setOpenId(null)}
           act={act}
@@ -265,12 +274,14 @@ export function TaskBoard({ projectName }: { projectName: string }) {
 function CardDetail({
   card,
   running,
+  models,
   ids,
   onClose,
   act,
 }: {
   card: RadheyaCard;
   running: boolean;
+  models: string[];
   ids: Record<"eTitle" | "eBody" | "eLabels" | "note" | "link", string>;
   onClose: () => void;
   act: (work: () => Promise<unknown>, done?: string) => Promise<boolean>;
@@ -282,6 +293,14 @@ function CardDetail({
   const [note, setNote] = useState("");
   const [link, setLink] = useState("");
   const [confirmArchive, setConfirmArchive] = useState(false);
+  const runIds = { kind: useId(), model: useId(), url: useId(), query: useId() };
+  const [runKind, setRunKind] = useState<"local" | "browser">(
+    card.assignee?.kind === "browser" ? "browser" : "local",
+  );
+  const [runModel, setRunModel] = useState(card.assignee?.model ?? "");
+  const [runUrl, setRunUrl] = useState("");
+  const [runQuery, setRunQuery] = useState("");
+  const canRun = !["done", "blocked", "backlog"].includes(card.column);
   const headRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     headRef.current?.scrollIntoView({ block: "start" });
@@ -339,6 +358,83 @@ function CardDetail({
           </button>
         </div>
       </form>
+
+      <h4>{t("Let Radheya work on it")}</h4>
+      {running ? (
+        <div className="inline">
+          <span>{t("A run is working on this card. Its answer will appear in the notes.")}</span>
+          <button
+            type="button"
+            className="danger"
+            onClick={() => void act(() => cancelCardRun(card.id), t("Run stopped."))}
+          >
+            {t("Stop the run")}
+          </button>
+        </div>
+      ) : !canRun ? (
+        <p className="muted small">{t("Move the card to Ready or Doing to run it.")}</p>
+      ) : (
+        <form
+          className="stack"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void act(
+              () =>
+                runCard(card.id, {
+                  kind: runKind,
+                  ...(runKind === "local" && runModel ? { model: runModel } : {}),
+                  ...(runKind === "browser" && runUrl.trim() ? { url: runUrl.trim() } : {}),
+                  ...(runKind === "browser" && runQuery.trim() ? { query: runQuery.trim() } : {}),
+                }),
+              t("Run started."),
+            );
+          }}
+        >
+          <div className="inline">
+            <div className="field">
+              <label htmlFor={runIds.kind}>{t("Who works on it")}</label>
+              <select
+                id={runIds.kind}
+                value={runKind}
+                onChange={(e) => setRunKind(e.target.value as "local" | "browser")}
+              >
+                <option value="local">{t("A model on this computer")}</option>
+                <option value="browser">{t("The browser (reads a web page)")}</option>
+              </select>
+            </div>
+            {runKind === "local" ? (
+              <div className="field">
+                <label htmlFor={runIds.model}>{t("Model")}</label>
+                <select id={runIds.model} value={runModel} onChange={(e) => setRunModel(e.target.value)}>
+                  <option value="">{t("Workstation’s choice")}</option>
+                  {models.map((m) => (
+                    <option key={m}>{m}</option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <>
+                <div className="field">
+                  <label htmlFor={runIds.url}>{t("Page to open (optional)")}</label>
+                  <input
+                    id={runIds.url}
+                    type="url"
+                    value={runUrl}
+                    onChange={(e) => setRunUrl(e.target.value)}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor={runIds.query}>{t("Or search for")}</label>
+                  <input id={runIds.query} value={runQuery} onChange={(e) => setRunQuery(e.target.value)} />
+                </div>
+              </>
+            )}
+          </div>
+          <div>
+            <button type="submit">{t("Start a run")}</button>
+          </div>
+        </form>
+      )}
 
       <h4>{t("Notes")}</h4>
       {card.notes?.length ? (

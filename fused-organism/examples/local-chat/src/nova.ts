@@ -73,7 +73,7 @@ export interface NovaJob {
 /** Where a made file can be shown or downloaded from (through the proxy). */
 export const mediaUrl = (id: string) => `/nova/api/media/${encodeURIComponent(id)}/file`;
 
-async function novaCall<T>(path: string, init?: RequestInit): Promise<T> {
+export async function novaCall<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch("/nova/api" + path, {
     ...init,
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },

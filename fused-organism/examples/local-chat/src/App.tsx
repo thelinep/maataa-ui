@@ -48,6 +48,10 @@ import { SkillsPanel } from "./skills";
 import { MediaStudio } from "./media";
 import { TaskBoard } from "./board";
 import { PreProduction } from "./preprod";
+import { Knowledge } from "./knowledge";
+import { AgentsStudio, countApprovals } from "./agents";
+import { CodingStudio } from "./coding";
+import { SystemStatus } from "./system";
 import {
   deleteSession,
   listSessions,
@@ -61,13 +65,27 @@ import { LivePreview, MediaBlock, MermaidDiagram, RUNNABLE, isMediaBlock, render
 type ServerKind = "ollama" | "lmstudio" | "custom";
 type PanelTab = "artifacts" | "tasks" | "skills" | "project" | "compare";
 /** What fills the middle: the chat, or one of the studio screens. */
-type View = "chat" | "media" | "board" | "preprod";
+type View = "chat" | "media" | "board" | "preprod" | "knowledge" | "agents" | "coding" | "system";
+const VIEWS: View[] = ["chat", "media", "board", "preprod", "knowledge", "agents", "coding", "system"];
 const VIEW_NAMES: Record<Exclude<View, "chat">, string> = {
   media: "Media studio",
   board: "Task board",
   preprod: "Pre-production",
+  knowledge: "Knowledge",
+  agents: "Agents and automations",
+  coding: "Coding studio",
+  system: "System",
 };
-const VIEW_ICONS: Record<View, string> = { chat: "💬", media: "🎞", board: "🗂", preprod: "📋" };
+const VIEW_ICONS: Record<View, string> = {
+  chat: "💬",
+  media: "🎞",
+  board: "🗂",
+  preprod: "📋",
+  knowledge: "📚",
+  agents: "🤖",
+  coding: "⌨",
+  system: "🩺",
+};
 
 interface Settings {
   server: ServerKind;
@@ -202,6 +220,14 @@ function Main({
   const [nova, setNova] = useState<"unknown" | "on" | "off">("unknown");
   const [novaNote, setNovaNote] = useState("");
   const checkNova = useCallback(async () => setNova((await novaAvailable()) ? "on" : "off"), []);
+  // Requests waiting for a person (commands, tools, workflow sign-offs), shown on the menu.
+  useEffect(() => {
+    if (nova !== "on") return;
+    const check = () => void countApprovals().then(setWaiting, () => setWaiting(0));
+    check();
+    const timer = window.setInterval(check, 15_000);
+    return () => window.clearInterval(timer);
+  }, [nova]);
   useEffect(() => {
     void checkNova();
   }, [checkNova]);
@@ -292,6 +318,7 @@ function Main({
   const [sideOpen, setSideOpen] = useState(false);
   const [panel, setPanel] = useState<PanelTab | null>(null);
   const [view, setView] = useState<View>("chat");
+  const [waiting, setWaiting] = useState(0);
   const openView = (v: View) => {
     setView(v);
     setSideOpen(false);
@@ -824,7 +851,7 @@ function Main({
       <nav id="side" className={`side${sideOpen ? " open" : ""}`} aria-label={t("Projects and chats")}>
         <h2 className="side-h">{t("Studio")}</h2>
         <ul className="plain-list">
-          {(["chat", "media", "board", "preprod"] as View[]).map((v) => (
+          {VIEWS.map((v) => (
             <li key={v}>
               <button
                 type="button"
@@ -834,6 +861,11 @@ function Main({
               >
                 <span aria-hidden="true">{VIEW_ICONS[v]} </span>
                 <span className="row-title">{v === "chat" ? t("Chat") : t(VIEW_NAMES[v])}</span>
+                {v === "agents" && waiting > 0 && (
+                  <span className="badge" aria-label={t("{count} waiting for you", { count: waiting })}>
+                    {waiting}
+                  </span>
+                )}
               </button>
             </li>
           ))}
@@ -930,6 +962,14 @@ function Main({
               <MediaStudio onCompare={openCompare} />
             ) : view === "board" ? (
               <TaskBoard projectName={projectName} />
+            ) : view === "knowledge" ? (
+              <Knowledge />
+            ) : view === "agents" ? (
+              <AgentsStudio />
+            ) : view === "coding" ? (
+              <CodingStudio />
+            ) : view === "system" ? (
+              <SystemStatus />
             ) : (
               <PreProduction
                 onNewWithSkill={() => setPanel("skills")}
