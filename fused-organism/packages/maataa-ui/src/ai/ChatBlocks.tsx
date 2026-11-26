@@ -408,6 +408,74 @@ function readPlaces(data: Record<string, unknown>): MapPlace[] {
   return Array.isArray(data.places) ? (data.places as unknown[]).filter(isPlace) : [];
 }
 
+const isRecord = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
+const text = (v: unknown) =>
+  typeof v === "string" ? v.trim() : typeof v === "number" ? String(v) : "";
+
+/** Shot size and camera move named in a shot's own words ("Close-up on…", "the camera pans…"). */
+function shotWords(words: string): { size: string; movement: string } {
+  const w = words.toLowerCase();
+  const size = /extreme close|ecu\b/.test(w)
+    ? "ECU"
+    : /close[- ]?up|\bcu\b/.test(w)
+      ? "CU"
+      : /medium|\bms\b|\bmcu\b/.test(w)
+        ? "MS"
+        : /wide|establish|\bws\b|long shot|\bls\b/.test(w)
+          ? "WS"
+          : "—";
+  const movement = /\bpan/.test(w)
+    ? "Pan"
+    : /\btilt/.test(w)
+      ? "Tilt"
+      : /track|dolly|follow/.test(w)
+        ? "Track"
+        : /push in|zoom in/.test(w)
+          ? "Push in"
+          : "Static";
+  return { size, movement };
+}
+
+/**
+ * Small local models often send a shot list as a flat list of shots, or as "scenes" that are
+ * really shots with no "shots" inside. This turns those into the shape ShotList draws, keeping
+ * every word the model wrote. A list that already has shots is returned unchanged.
+ */
+export function repairShotList(data: Record<string, unknown>): Record<string, unknown> {
+  const scenes = Array.isArray(data.scenes) ? data.scenes : null;
+  const flat = Array.isArray(data.shots) ? data.shots : null;
+  if (scenes && scenes.every((sc) => isRecord(sc) && Array.isArray(sc.shots))) return data;
+  const items = (scenes ?? flat ?? []).filter(isRecord);
+  if (!items.length) return data;
+  const sceneHeading = /^(INT|EXT|INT\.?\/EXT)\b/i;
+  const first = items[0]!;
+  const headingItem = [text(first.title), text(first.heading)].find((h) => sceneHeading.test(h));
+  const rows = (headingItem ? items.slice(1) : items).map((it) => {
+    const words = [text(it.title), text(it.heading), text(it.description)].filter(Boolean);
+    const description = [...new Set(words)].join(" — ") || "—";
+    const guess = shotWords(description);
+    return {
+      shot: text(it.shot),
+      size: text(it.size) || guess.size,
+      angle: text(it.angle) || "—",
+      movement: text(it.movement) || guess.movement,
+      description,
+    };
+  });
+  const heading = headingItem ?? (text(data.heading) || "—");
+  // The heading item's other line describes the opening picture: keep it as the first shot.
+  const opening = headingItem
+    ? [text(first.title), text(first.heading)].find((h) => h && h !== headingItem)
+    : undefined;
+  if (opening) rows.unshift({ shot: "", ...shotWords(opening), angle: "—", description: opening });
+  const shots = rows.map((r, i) => ({
+    ...r,
+    shot: r.shot || `1${String.fromCharCode(65 + (i % 26))}`,
+  }));
+  return { ...data, scenes: [{ scene: text(data.scene) || "1", heading, shots }] };
+}
+
 /** Places on a map, with links to open each in OpenStreetMap. Draws offline. */
 export function ChatMap({ title, places }: { title?: string; places: MapPlace[] }) {
   const t = useT();
@@ -452,11 +520,29 @@ export function ChatMap({ title, places }: { title?: string; places: MapPlace[] 
             {p.note ? ` · ${p.note}` : ""}
             <span style={{ color: colorTokens.text.secondary }}>
               {" "}
-              ({p.lat.toFixed(4)}, {p.lng.toFixed(4)})
+              ({p.lat.toFixed(4)}, {p.lng.toFixed(4)}) ·{" "}
             </span>
+            <a
+              href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(p.name)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t("Find {name} by name", { name: p.name })}
+              style={{ color: colorTokens.interactive.primary }}
+            >
+              {t("find by name")}
+            </a>
           </li>
         ))}
       </ol>
+      <p
+        style={{
+          margin: 0,
+          fontSize: typographyTokens.fontSize.xs,
+          color: colorTokens.text.secondary,
+        }}
+      >
+        {t("The AI placed these pins and can get places wrong. Check by name before you go.")}
+      </p>
     </figure>
   );
 }
@@ -562,7 +648,7 @@ function ChatBlock({ block, options }: { block: FencedBlock; options: ChatBlockO
     );
   } else if (block.lang === "callsheet" || block.lang === "shotlist") {
     try {
-      const out = readNovaOutput(data);
+      const out = readNovaOutput(block.lang === "shotlist" ? repairShotList(data) : data);
       body = (
         <div style={scroller} tabIndex={0} role="region" aria-label={name}>
           <div style={{ minWidth: 560 }}>

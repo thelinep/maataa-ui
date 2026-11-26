@@ -2076,6 +2076,10 @@ export const hi: Readonly<Record<string, string>> = {
   "✓ No conflicts": "✓ कोई टकराव नहीं",
   "{count} conflict": "{count} टकराव",
   "{from} to {to}": "{from} से {to}",
+  "Find {name} by name": "{name} को नाम से खोजें",
+  "find by name": "नाम से खोजें",
+  "The AI placed these pins and can get places wrong. Check by name before you go.":
+    "ये निशान AI ने लगाए हैं और जगह ग़लत हो सकती है। जाने से पहले नाम से जाँच लें।",
   "{count} conflicts": "{count} टकराव",
   "{conflicts} on {subject}": "{subject} को {conflicts}",
   "✓ Resolved": "✓ सुलझ गया",

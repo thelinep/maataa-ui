@@ -88,6 +88,7 @@ export {
   ChatChoices,
   ChatMap,
   renderChatBlock,
+  repairShotList,
   findArtifacts,
   findTasks,
   CHAT_BLOCKS_PROMPT,

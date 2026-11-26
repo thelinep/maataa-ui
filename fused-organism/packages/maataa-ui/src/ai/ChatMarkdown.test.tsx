@@ -7,6 +7,7 @@ import {
   findArtifacts,
   findTasks,
   renderChatBlock,
+  repairShotList,
 } from "./ChatBlocks";
 import { LocalChat, type ChatTransport } from "./LocalChat";
 import { streamChat, type ChatMessage } from "./localModel";
@@ -318,6 +319,59 @@ describe("maths, raw HTML and maps", () => {
       expect.stringContaining("openstreetmap.org/?mlat=28.6386&mlon=77.2385")
     );
     expect(screen.getByText("The model sent a map that couldn’t be read.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Find LNJP Hospital by name" })).toHaveAttribute(
+      "href",
+      "https://www.openstreetmap.org/search?query=LNJP%20Hospital"
+    );
+    expect(screen.getByText(/can get places wrong/)).toBeInTheDocument();
+  });
+});
+
+describe("shot lists from small models", () => {
+  it("turns scenes that are really shots into one scene of shots, keeping the words", () => {
+    const fixed = repairShotList({
+      title: "Kitchen",
+      scenes: [
+        { title: "INT. KITCHEN - DAY", heading: "Amma stands at the stove." },
+        { title: "Close-up on Amma's hands as she adds spices.", heading: "Quick and precise." },
+        { title: "Medium shot of Amma stirring.", heading: "The camera pans to the window." },
+      ],
+    }) as {
+      scenes: {
+        heading: string;
+        shots: { shot: string; size: string; movement: string; description: string }[];
+      }[];
+    };
+    expect(fixed.scenes).toHaveLength(1);
+    expect(fixed.scenes[0]!.heading).toBe("INT. KITCHEN - DAY");
+    expect(fixed.scenes[0]!.shots.map((s) => [s.shot, s.size, s.movement])).toEqual([
+      ["1A", "—", "Static"],
+      ["1B", "CU", "Static"],
+      ["1C", "MS", "Pan"],
+    ]);
+    expect(fixed.scenes[0]!.shots[1]!.description).toContain("Quick and precise.");
+    render(
+      <ChatMarkdown renderBlock={(b) => renderChatBlock(b)}>
+        {"```shotlist\n" +
+          JSON.stringify({ title: "Kitchen", scenes: [{ title: "Wide shot of the kitchen" }] }) +
+          "\n```"}
+      </ChatMarkdown>
+    );
+    expect(screen.getByText(/Wide shot of the kitchen/)).toBeInTheDocument();
+  });
+
+  it("leaves a proper shot list alone", () => {
+    const ok = {
+      title: "x",
+      scenes: [
+        {
+          scene: "4",
+          heading: "INT. A",
+          shots: [{ shot: "4A", size: "WS", angle: "Eye", movement: "Static", description: "d" }],
+        },
+      ],
+    };
+    expect(repairShotList(ok)).toBe(ok);
   });
 });
 
