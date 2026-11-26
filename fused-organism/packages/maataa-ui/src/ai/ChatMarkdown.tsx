@@ -87,6 +87,13 @@ const isTableDivider = (line: string) =>
   /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(line);
 const listRe = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
 const MATH_LANGS = ["math", "latex", "tex", "katex"];
+/**
+ * A code block with no language whose first line starts a Mermaid diagram is a diagram:
+ * small local models often leave out the word "mermaid".
+ */
+const MERMAID_START =
+  /^\s*(?:(?:graph|flowchart)\s+(?:TD|TB|BT|RL|LR)\b|(?:sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|gantt|pie|mindmap|timeline|journey|gitGraph|quadrantChart)\b)/;
+
 /** ```threejs, ```three, ```three.js and ```scene all mean a 3D scene. */
 const SCENE_LANGS = ["three", "three.js", "threejs", "scene"];
 const mathStart = (line: string) => /^\s*(\$\$|\\\[)/.test(line);
@@ -193,6 +200,7 @@ export function parseMarkdown(source: string): Block[] {
       const info = parseFenceInfo(fence[2] ?? "");
       if (MATH_LANGS.includes(info.lang)) info.lang = "math";
       if (SCENE_LANGS.includes(info.lang)) info.lang = "threejs";
+      if (!info.lang && MERMAID_START.test(body.find((l) => l.trim()) ?? "")) info.lang = "mermaid";
       blocks.push({ kind: "code", block: { ...info, code: body.join("\n"), closed } });
       continue;
     }

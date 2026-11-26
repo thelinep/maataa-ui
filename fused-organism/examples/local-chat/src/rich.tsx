@@ -65,6 +65,17 @@ const loadMermaid = (dark: boolean) =>
 const isDark = () => document.documentElement.getAttribute("data-maataa-theme") === "dark";
 
 /**
+ * Fixes the slips small models make in Mermaid, so their diagram can still be drawn:
+ * an arrow label closed with "|>" ("A -->|Start|> B") and single-dash arrows ("A -> B").
+ * Used only when the diagram as written can't be drawn.
+ */
+export function repairMermaid(code: string): string {
+  return code
+    .replace(/(-->|---|-\.->|==>)\|([^|\n]*)\|>/g, "$1|$2|")
+    .replace(/([\w\])}])\s+->\s+/g, "$1 --> ");
+}
+
+/**
  * A Mermaid diagram. The drawn SVG is shown in a frame with no scripts, so
  * even a strange diagram can't touch the app.
  */
@@ -77,7 +88,14 @@ export function MermaidDiagram({ code, closed }: { code: string; closed: boolean
     if (!closed) return;
     let live = true;
     void loadMermaid(isDark())
-      .then((mermaid) => mermaid.render(id, code))
+      .then((mermaid) =>
+        mermaid.render(id, code).catch((first: unknown) => {
+          const fixed = repairMermaid(code);
+          if (fixed === code) throw first;
+          document.getElementById(`d${id}`)?.remove();
+          return mermaid.render(id, fixed);
+        }),
+      )
       .then(({ svg: markup }) => {
         if (!live) return;
         const box = /viewBox="[\d.-]+ [\d.-]+ ([\d.]+) ([\d.]+)"/.exec(markup);

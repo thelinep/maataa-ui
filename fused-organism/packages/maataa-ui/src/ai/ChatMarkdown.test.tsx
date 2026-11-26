@@ -13,6 +13,15 @@ import { streamChat, type ChatMessage } from "./localModel";
 import { speakableText } from "./speech";
 
 describe("ChatMarkdown", () => {
+  it("treats an unnamed code block that starts a Mermaid diagram as a diagram", () => {
+    const code = (md: string) =>
+      parseMarkdown(md).flatMap((b) => (b.kind === "code" ? [b.block.lang] : []));
+    expect(code("```\ngraph LR\n  A --> B\n```")).toEqual(["mermaid"]);
+    expect(code("```\n\nsequenceDiagram\n  A->>B: hi\n```")).toEqual(["mermaid"]);
+    expect(code("```\nconst graph = 1;\n```")).toEqual([""]);
+    expect(code("```js\ngraph LR\n```")).toEqual(["js"]);
+  });
+
   it("formats bold, code, lists, links and headings without raw marks", () => {
     render(
       <ChatMarkdown>
