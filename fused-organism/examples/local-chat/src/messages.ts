@@ -603,4 +603,10 @@ export const appMessagesHi: Record<string, string> = {
   "Create a folder": "folder बनाना",
   "Move to Trash": "Trash में डालना",
   "Let Maataa work in a folder": "Maataa को folder में काम करने देना",
+  Cloud: "क्लाउड",
+  "Runs online": "ऑनलाइन चलता है",
+  "On a schedule": "तय समय पर",
+  Paused: "रुका हुआ",
+  "The search model {model} isn’t installed in Ollama, so adding files and searching won’t work. Install it with: ollama pull {model} (about 270 MB).":
+    "खोज वाला model {model} Ollama में install नहीं है, इसलिए फ़ाइलें जोड़ना और खोजना नहीं चलेगा। इसे install करें: ollama pull {model} (करीब 270 MB)।",
 };

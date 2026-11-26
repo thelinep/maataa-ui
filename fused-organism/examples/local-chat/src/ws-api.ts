@@ -11,6 +11,9 @@ const put = <T>(path: string, body: unknown) =>
 const del = <T>(path: string) => novaCall<T>(path, { method: "DELETE" });
 const id = (s: string) => encodeURIComponent(s);
 
+/** Ollama's cloud models (e.g. "deepseek-v4.1-flash:cloud") run on someone else's computer. */
+export const isCloudModel = (name: string) => /(:|-)cloud$/i.test(name);
+
 /** A short random id in the style Workstation uses for its own records. */
 export const newId = (prefix: string) =>
   `${prefix}_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
@@ -204,6 +207,7 @@ export interface WorkspaceRoot {
   id: string;
   path: string;
   name?: string;
+  label?: string;
 }
 export interface CodingTask {
   id: string;

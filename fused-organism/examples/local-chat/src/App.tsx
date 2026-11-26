@@ -46,6 +46,7 @@ import { APP_CSS } from "./styles";
 import { ComparePanel, type CompareSource } from "./compare";
 import { SkillsPanel } from "./skills";
 import { MediaStudio } from "./media";
+import { isCloudModel } from "./ws-api";
 import { TaskBoard } from "./board";
 import { PreProduction } from "./preprod";
 import { Knowledge } from "./knowledge";
@@ -202,7 +203,10 @@ function Main({
         tone: "ok",
         text: t.plural(names.length, "Connected · {count} model", "Connected · {count} models"),
       });
-      setSettings((s) => (names.includes(s.model) ? s : { ...s, model: names[0]! }));
+      // A new user starts on a model on this computer; cloud models (name:cloud) stay a choice.
+      setSettings((s) =>
+        names.includes(s.model) ? s : { ...s, model: names.find((n) => !isCloudModel(n)) ?? names[0]! },
+      );
     } catch {
       setModels([]);
       setStatus({

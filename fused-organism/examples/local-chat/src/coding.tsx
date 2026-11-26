@@ -12,6 +12,7 @@ import {
   createCodingTask,
   listBatches,
   listRoots,
+  isCloudModel,
   ollamaStatus,
   retryCodingTask,
   reviewCodingTask,
@@ -53,7 +54,8 @@ const OP_NAMES: Record<ProposedChange["operation"], string> = {
 };
 const BUSY_STATES = ["queued", "assigned", "running"];
 const msg = (e: unknown, t: T) => t(e instanceof Error ? e.message : String(e));
-const folderName = (r: WorkspaceRoot) => r.name || r.path.split("/").filter(Boolean).pop() || r.path;
+const folderName = (r: WorkspaceRoot) =>
+  r.label || r.name || r.path.split("/").filter(Boolean).pop() || r.path;
 
 export function CodingStudio() {
   const t = useT();
@@ -88,7 +90,17 @@ export function CodingStudio() {
       (s) => {
         const names = s.models.map((m) => m.name);
         setModels(names);
-        setModel((m) => m || names.find((n) => /coder|code/i.test(n)) || names[0] || "");
+        // Coding runs on this computer: prefer a coding model, then qwen2.5:7b (it passed
+        // Workstation's 18 coding checks on this Mac), then any model that isn't a cloud one.
+        const local = names.filter((n) => !isCloudModel(n));
+        setModel(
+          (m) =>
+            m ||
+            local.find((n) => /coder|code/i.test(n)) ||
+            local.find((n) => n === "qwen2.5:7b") ||
+            local[0] ||
+            "",
+        );
       },
       () => setModels([]),
     );

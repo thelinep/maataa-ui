@@ -9,6 +9,7 @@ import {
   comfyStatus,
   diskInfo,
   health,
+  isCloudModel,
   loadModel,
   ollamaStatus,
   recentActivity,
@@ -76,7 +77,8 @@ export function SystemStatus() {
     setOllama(o);
     setComfy(c);
     setSched(sc);
-    setActivity(a?.rows ?? []);
+    // Workstation pages by last change; show what happened most recently first.
+    setActivity([...(a?.rows ?? [])].sort((x, y) => String(y.startedAt).localeCompare(String(x.startedAt))));
     setServices({ pictures: readyOf(i), sound: readyOf(au), video: readyOf(v) });
     try {
       setDisk(await diskInfo());
@@ -301,10 +303,11 @@ export function SystemStatus() {
                 {ollama.models.map((m) => {
                   const inMem = ollama.runningModelNames.includes(m.name);
                   const l = loaded.get(m.name);
+                  const cloud = isCloudModel(m.name);
                   return (
                     <tr key={m.name}>
                       <td>{m.name}</td>
-                      <td>{gb(m.size)}</td>
+                      <td>{cloud ? t("Cloud") : gb(m.size)}</td>
                       <td>
                         {m.details?.parameter_size ?? "—"}
                         {m.details?.quantization_level ? ` · ${m.details.quantization_level}` : ""}
@@ -313,7 +316,9 @@ export function SystemStatus() {
                         {inMem ? (l?.size ? t("Yes, {size}", { size: gb(l.size) }) : t("Yes")) : t("No")}
                       </td>
                       <td>
-                        {inMem ? (
+                        {cloud ? (
+                          <span className="muted small">{t("Runs online")}</span>
+                        ) : inMem ? (
                           <button
                             type="button"
                             className="small-btn"

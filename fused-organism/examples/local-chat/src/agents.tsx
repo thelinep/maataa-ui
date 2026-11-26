@@ -50,6 +50,8 @@ const STATUS_NAMES: Record<string, string> = {
   done: "Finished",
   completed: "Finished",
   failed: "Failed",
+  scheduled: "On a schedule",
+  paused: "Paused",
   Draft: "Off",
   Enabled: "On",
 };

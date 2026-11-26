@@ -10,6 +10,7 @@ import {
   ingestDocument,
   listCollections,
   listDocuments,
+  ollamaStatus,
   reindexCollection,
   searchKnowledge,
   type KnowledgeCollection,
@@ -34,10 +35,16 @@ export function Knowledge() {
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState("");
   const [confirm, setConfirm] = useState<string | null>(null);
+  const [installed, setInstalled] = useState<string[] | null>(null);
 
   const refresh = useCallback(async () => {
     try {
-      const [c, d] = await Promise.all([listCollections(), listDocuments()]);
+      const [c, d, o] = await Promise.all([
+        listCollections(),
+        listDocuments(),
+        ollamaStatus().catch(() => null),
+      ]);
+      setInstalled(o?.reachable ? o.models.map((m) => m.name) : null);
       setCollections(c);
       setDocs(d);
       setSelected((s) => (s && c.some((x) => x.id === s) ? s : (c[0]?.id ?? null)));
@@ -52,6 +59,14 @@ export function Knowledge() {
   }, [refresh]);
 
   const current = collections?.find((c) => c.id === selected) ?? null;
+  // Counts come from the files actually listed: a collection's stored totals can be out of date.
+  const countsFor = (id: string) => {
+    const files = docs.filter((d) => d.collectionId === id);
+    return { docs: files.length, chunks: files.reduce((n, d) => n + (d.chunkCount || 0), 0) };
+  };
+  const searchModel = current?.embeddingModel ?? "nomic-embed-text";
+  const searchModelMissing =
+    installed !== null && !installed.some((m) => m === searchModel || m.startsWith(`${searchModel}:`));
   const inCurrent = useMemo(() => docs.filter((d) => d.collectionId === selected), [docs, selected]);
   const fail = (e: unknown) => setError(t(e instanceof Error ? e.message : String(e)));
 
@@ -137,10 +152,7 @@ export function Knowledge() {
                   >
                     <span className="row-title">{c.name}</span>
                     <span className="muted small">
-                      {t("{docs} files · {chunks} passages", {
-                        docs: c.docCount ?? 0,
-                        chunks: c.chunkCount ?? 0,
-                      })}
+                      {t("{docs} files · {chunks} passages", countsFor(c.id))}
                     </span>
                   </button>
                 </li>
@@ -179,10 +191,16 @@ export function Knowledge() {
             <>
               <div className="studio-head">
                 <h3>{current.name}</h3>
-                <span className="muted small">
-                  {t("Search model: {model}", { model: current.embeddingModel ?? "nomic-embed-text" })}
-                </span>
+                <span className="muted small">{t("Search model: {model}", { model: searchModel })}</span>
               </div>
+              {searchModelMissing && (
+                <p className="tone-warn small">
+                  {t(
+                    "The search model {model} isn’t installed in Ollama, so adding files and searching won’t work. Install it with: ollama pull {model} (about 270 MB).",
+                    { model: searchModel },
+                  )}
+                </p>
+              )}
               <div className="inline">
                 <input
                   ref={fileRef}

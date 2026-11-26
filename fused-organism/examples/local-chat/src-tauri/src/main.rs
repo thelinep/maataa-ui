@@ -163,6 +163,11 @@ async fn forward(s: &AppState, req: Request, base: &str, rest: &str) -> Response
     if let Some(v) = file_name {
         upstream = upstream.header("x-file-name", v);
     }
+    // Maataa Workstation accepts a change (POST, PUT, DELETE) only with its own Origin. The
+    // checks above already refused cross-site requests, so this app speaks for its own page.
+    if let Ok(target) = reqwest::Url::parse(base) {
+        upstream = upstream.header(header::ORIGIN, target.origin().ascii_serialization());
+    }
     match upstream.send().await {
         Ok(r) => {
             let mut res = Response::builder()
