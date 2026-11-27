@@ -30,6 +30,18 @@ export interface ChatContext {
   sources?: { title: string; href?: string }[];
 }
 
+/** A slash command, typed as "/name optional words". */
+export interface ChatCommand {
+  /** Without the slash, e.g. "model". */
+  name: string;
+  /** Shown in the suggestions and in /help. */
+  description: string;
+  /** Hint for what follows the name, e.g. "<name>". */
+  args?: string;
+  /** Runs the command. A returned string is shown under the chat. */
+  run: (args: string) => void | string | Promise<void | string>;
+}
+
 export interface LocalChatMessage {
   id: string;
   role: "user" | "assistant";
@@ -58,6 +70,11 @@ export interface LocalChatProps {
   starterQuestions?: string[];
   initialMessages?: LocalChatMessage[];
   onMessagesChange?: (messages: LocalChatMessage[]) => void;
+  /**
+   * Slash commands. Typing "/" lists them; /clear and /help are always there.
+   * Text starting with "/" that matches no command is sent as a normal message.
+   */
+  commands?: ChatCommand[];
   /** How many earlier messages are sent with each question. @default 20 */
   maxHistory?: number;
   /** Height of the scrolling conversation. @default 480 */
@@ -89,6 +106,7 @@ export function LocalChat({
   starterQuestions,
   initialMessages,
   onMessagesChange,
+  commands = [],
   maxHistory = 20,
   height = 480,
   className,
@@ -101,6 +119,10 @@ export function LocalChat({
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [announcement, setAnnouncement] = useState("");
+  const [notice, setNotice] = useState("");
+  const [activeCommand, setActiveCommand] = useState(0);
+  const [commandsDismissed, setCommandsDismissed] = useState(false);
+  const listId = useId();
   const abortRef = useRef<AbortController | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -191,9 +213,69 @@ export function LocalChat({
     }
   };
 
+  const builtIns: ChatCommand[] = [
+    { name: "clear", description: t("Start a new conversation"), run: () => clear() },
+    {
+      name: "help",
+      description: t("List the commands"),
+      run: () =>
+        t("Commands: {list}", {
+          list: allCommands
+            .map((c) => `/${c.name}${c.args ? ` ${c.args}` : ""} (${c.description})`)
+            .join(", "),
+        }),
+    },
+  ];
+  const allCommands: ChatCommand[] = [
+    ...commands,
+    ...builtIns.filter((b) => !commands.some((c) => c.name === b.name)),
+  ];
+  const slash = /^\/(\S*)$/.exec(draft);
+  const suggestions =
+    slash && !commandsDismissed
+      ? allCommands.filter((c) => c.name.toLowerCase().startsWith(slash[1].toLowerCase()))
+      : [];
+  const showSuggestions = suggestions.length > 0;
+  const active = Math.min(activeCommand, Math.max(suggestions.length - 1, 0));
+
+  const complete = (command: ChatCommand) => {
+    setDraft(`/${command.name}${command.args ? " " : ""}`);
+    setCommandsDismissed(true);
+    inputRef.current?.focus();
+  };
+
+  const runCommand = async (text: string): Promise<boolean> => {
+    const match = /^\/(\S+)\s*([\s\S]*)$/.exec(text);
+    const command =
+      match && allCommands.find((c) => c.name.toLowerCase() === match[1].toLowerCase());
+    if (!command || !match) return false;
+    setDraft("");
+    setCommandsDismissed(false);
+    try {
+      const result = await command.run(match[2].trim());
+      setNotice(result || t("Done: /{name}", { name: command.name }));
+    } catch (error) {
+      setNotice(
+        t("That command didn’t work: {message}", { message: (error as Error)?.message ?? "" })
+      );
+    }
+    inputRef.current?.focus();
+    return true;
+  };
+
   const submit = (text = draft) => {
     const question = text.trim();
     if (!question || busy) return;
+    if (question.startsWith("/")) {
+      void runCommand(question).then((handled) => {
+        if (!handled) {
+          setDraft("");
+          void ask(question, messages);
+        }
+      });
+      return;
+    }
+    setNotice("");
     setDraft("");
     void ask(question, messages);
     inputRef.current?.focus();
@@ -342,7 +424,70 @@ export function LocalChat({
         }}
         style={{ display: "flex", gap: spacingTokens.sm, alignItems: "flex-end" }}
       >
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            position: "relative",
+          }}
+        >
+          {showSuggestions && (
+            <ul
+              id={listId}
+              role="listbox"
+              aria-label={t("Commands")}
+              style={{
+                position: "absolute",
+                bottom: "100%",
+                left: 0,
+                right: 0,
+                margin: "0 0 4px",
+                padding: 4,
+                listStyle: "none",
+                background: colorTokens.background.primary,
+                border: `1px solid ${colorTokens.border.control}`,
+                borderRadius: radiusTokens.md,
+                boxShadow: colorTokens.shadow.md,
+                zIndex: 5,
+              }}
+            >
+              {suggestions.map((c, i) => (
+                <li
+                  key={c.name}
+                  id={`${listId}-${i}`}
+                  role="option"
+                  aria-selected={i === active}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => complete(c)}
+                  style={{
+                    display: "flex",
+                    gap: spacingTokens.sm,
+                    alignItems: "baseline",
+                    minHeight: 32,
+                    padding: `4px ${spacingTokens.sm}`,
+                    borderRadius: radiusTokens.sm,
+                    cursor: "pointer",
+                    background: i === active ? colorTokens.background.tertiary : undefined,
+                  }}
+                >
+                  <code style={{ fontWeight: 700 }}>
+                    /{c.name}
+                    {c.args ? ` ${c.args}` : ""}
+                  </code>
+                  <span
+                    style={{
+                      color: colorTokens.text.secondary,
+                      fontSize: typographyTokens.fontSize.sm,
+                    }}
+                  >
+                    {c.description}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
           <label
             htmlFor={inputId}
             style={{ fontSize: typographyTokens.fontSize.sm, fontWeight: 600 }}
@@ -354,8 +499,41 @@ export function LocalChat({
             id={inputId}
             rows={2}
             value={draft}
-            onChange={(event) => setDraft(event.target.value)}
+            onChange={(event) => {
+              setDraft(event.target.value);
+              setCommandsDismissed(false);
+              setActiveCommand(0);
+            }}
+            aria-autocomplete={allCommands.length ? "list" : undefined}
+            aria-controls={showSuggestions ? listId : undefined}
+            aria-activedescendant={showSuggestions ? `${listId}-${active}` : undefined}
             onKeyDown={(event) => {
+              if (showSuggestions) {
+                if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                  event.preventDefault();
+                  const d = event.key === "ArrowDown" ? 1 : -1;
+                  setActiveCommand((active + d + suggestions.length) % suggestions.length);
+                  return;
+                }
+                if (event.key === "Escape") {
+                  event.preventDefault();
+                  setCommandsDismissed(true);
+                  return;
+                }
+                if (
+                  (event.key === "Tab" || (event.key === "Enter" && !event.shiftKey)) &&
+                  !event.nativeEvent.isComposing
+                ) {
+                  const pick = suggestions[active]!;
+                  event.preventDefault();
+                  if (event.key === "Enter" && !pick.args) {
+                    submit(`/${pick.name}`);
+                    return;
+                  }
+                  complete(pick);
+                  return;
+                }
+              }
               if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
                 event.preventDefault();
                 submit();
@@ -377,7 +555,9 @@ export function LocalChat({
             id={`${inputId}-hint`}
             style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}
           >
-            {t("Enter sends · Shift+Enter adds a line")}
+            {allCommands.length > 2 || commands.length
+              ? t("Enter sends · Shift+Enter adds a line · / for commands")
+              : t("Enter sends · Shift+Enter adds a line")}
           </span>
         </div>
         <button
@@ -399,8 +579,22 @@ export function LocalChat({
           {t("Send")}
         </button>
       </form>
+      <p
+        role="status"
+        style={{
+          margin: 0,
+          fontSize: typographyTokens.fontSize.sm,
+          color: colorTokens.text.secondary,
+        }}
+      >
+        {notice}
+      </p>
       <VisuallyHidden>
-        <span role="status">{announcement}</span>
+        <span role="status">
+          {showSuggestions
+            ? t.plural(suggestions.length, "{count} command matches", "{count} commands match")
+            : announcement}
+        </span>
       </VisuallyHidden>
     </section>
   );

@@ -1781,6 +1781,10 @@
           "stability": "beta"
         },
         {
+          "name": "ThumbMenu",
+          "stability": "beta"
+        },
+        {
           "name": "TimePicker",
           "stability": "beta"
         },
@@ -3451,6 +3455,10 @@
         },
         {
           "name": "SplitButton",
+          "stability": "beta"
+        },
+        {
+          "name": "ThumbMenu",
           "stability": "beta"
         },
         {

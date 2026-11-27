@@ -447,6 +447,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ThoughtHistory — beta
 - ThoughtInput — beta
 - ThresholdBarChart — beta
+- ThumbMenu — beta
 - TimePicker — beta
 - TimecodeReadout — beta
 - Timeline — beta
@@ -874,6 +875,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ShareMenu — beta
 - SignOutButton — beta
 - SplitButton — beta
+- ThumbMenu — beta
 - actionComponents — beta
 - defaultShareTargets — beta
 - savedAgo — beta

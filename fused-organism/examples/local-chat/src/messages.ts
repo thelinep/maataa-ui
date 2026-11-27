@@ -30,4 +30,17 @@ export const appMessagesHi: Record<string, string> = {
   "How do I show the app in Hindi?": "ऐप को हिन्दी में कैसे दिखाऊँ?",
   "The docs index is missing. Start the app with npm run chat:local to build it.":
     "दस्तावेज़ इंडेक्स नहीं मिला। इसे बनाने के लिए ऐप को npm run chat:local से शुरू करें।",
+  "Switch to free chat": "खुली चैट पर जाएँ",
+  "Switch to MAATAA UI docs": "MAATAA UI दस्तावेज़ पर जाएँ",
+  "Choose the model": "मॉडल चुनें",
+  "Installed models: {list}": "इंस्टॉल मॉडल: {list}",
+  "No installed model is called {name}.": "{name} नाम का कोई मॉडल इंस्टॉल नहीं है।",
+  "Model: {name}": "मॉडल: {name}",
+  "Change the language": "भाषा बदलें",
+  "Use /lang en or /lang hi": "/lang en या /lang hi लिखें",
+  "Change the theme": "थीम बदलें",
+  "Themes: {list}": "थीम: {list}",
+  "Check the model server again": "मॉडल सर्वर फिर से जाँचें",
+  "Quick actions": "त्वरित काम",
+  "Next theme": "अगली थीम",
 };

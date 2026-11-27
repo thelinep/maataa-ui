@@ -9,6 +9,7 @@ import ts from "typescript";
 
 const root = path.resolve(new URL("..", import.meta.url).pathname);
 const src = path.join(root, "packages", "maataa-ui", "src");
+const primitivesSrc = path.join(root, "packages", "primitives", "src");
 const out = path.resolve(
   process.argv[2] ?? path.join(root, "examples", "local-chat", "public", "maataa-docs.json"),
 );
@@ -67,8 +68,14 @@ const chunks = [];
 const interfaces = new Map();
 const exportsFound = [];
 
-for (const file of walk(src)) {
-  const rel = path.relative(src, file).replace(/\\/g, "/");
+const files = [
+  ...walk(src).map((file) => ({ file, base: src, pkg: "@maataa/ui" })),
+  ...(fs.existsSync(primitivesSrc)
+    ? walk(primitivesSrc).map((file) => ({ file, base: primitivesSrc, pkg: "@maataa/primitives" }))
+    : []),
+];
+for (const { file, base, pkg } of files) {
+  const rel = (pkg === "@maataa/ui" ? "" : "primitives:") + path.relative(base, file).replace(/\\/g, "/");
   if (rel.startsWith("i18n/messages/")) continue;
   const sf = ts.createSourceFile(file, fs.readFileSync(file, "utf8"), ts.ScriptTarget.Latest, true);
   const exported = (node) => node.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword);
@@ -106,14 +113,22 @@ for (const file of walk(src)) {
     if (!name) return;
     const doc = jsdocOf(node, sf);
     if (!doc && kind === "value") return;
-    exportsFound.push({ name, kind, doc, rel });
+    exportsFound.push({ name, kind, doc, rel, pkg });
   });
 }
 
-for (const { name, kind, doc, rel } of exportsFound) {
-  const info = stability.get(name);
+// @maataa/ui re-exports the primitives; keep the first (richest) record of each name.
+const seen = new Set();
+for (const { name, kind, doc, rel, pkg } of exportsFound) {
+  if (seen.has(name)) continue;
+  seen.add(name);
+  const info = pkg === "@maataa/primitives" ? { stability: "stable" } : stability.get(name);
   const entry =
-    info?.entry && info.entry !== "." ? `@maataa/ui/${info.entry.replace(/^\.\//, "")}` : "@maataa/ui";
+    pkg !== "@maataa/ui"
+      ? pkg
+      : info?.entry && info.entry !== "."
+        ? `@maataa/ui/${info.entry.replace(/^\.\//, "")}`
+        : "@maataa/ui";
   const props = interfaces.get(`${name}Props`);
   const lines = [
     `${name} (${kind}${info ? `, ${info.stability}` : ""})`,
@@ -125,7 +140,9 @@ for (const { name, kind, doc, rel } of exportsFound) {
     id: `src:${rel}#${name}`,
     title: name,
     text: clean(lines.join("\n")),
-    source: `packages/maataa-ui/src/${rel}`,
+    source: rel.startsWith("primitives:")
+      ? `packages/primitives/src/${rel.slice("primitives:".length)}`
+      : `packages/maataa-ui/src/${rel}`,
   });
 }
 
