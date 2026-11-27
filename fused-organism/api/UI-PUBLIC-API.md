@@ -110,6 +110,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - CueList — beta
 - CurrencySelector — beta
 - DEFAULT_LOCALE — beta
+- DEFAULT_LOCAL_MODEL_URL — beta
 - DEFAULT_THEME_STORAGE_KEY — beta
 - DEPARTMENT_COLORS — experimental
 - DataGovernanceEngine — beta
@@ -224,6 +225,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - LiveTranscript — beta
 - LoadMoreButton — beta
 - LoadingOverlay — beta
+- LocalChat — beta
+- LocalModelError — beta
 - LocaleProvider — beta
 - LocationComparisonCard — experimental
 - LocationDetail — beta
@@ -526,6 +529,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - contrastRatio — beta
 - controlStyle — beta
 - countryCodes — beta
+- createKeywordRetriever — beta
 - createMaataaProduct — beta
 - cueLength — beta
 - darkTheme — beta
@@ -548,6 +552,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - findPrimitiveRegistryItem — beta
 - formComponents — beta
 - formatBytes — beta
+- formatContext — beta
 - formatCoordinates — beta
 - formatDuration — beta
 - formatHM — beta
@@ -570,6 +575,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - languageOf — beta
 - leavesOf — beta
 - levelZone — beta
+- listLocalModels — beta
 - mapsComponents — beta
 - masterPrimitiveRegistry — beta
 - masterPrimitiveRegistryItemCount — beta
@@ -616,6 +622,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - spectrumBandHz — beta
 - spokenDuration — beta
 - storyboardSwatches — beta
+- streamChat — beta
 - sunPosition — beta
 - sunTimes — beta
 - surfaceComponents — beta
@@ -627,6 +634,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - themeToCssVariables — beta
 - themesToCss — beta
 - tlpsV2Theme — beta
+- tokenize — beta
 - translate — beta
 - useCommandPaletteShortcut — beta
 - useDwell — beta
@@ -1292,8 +1300,11 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - AIChatBubble — beta
 - AITypingIndicator — beta
 - AnomalyAlerts — beta
+- DEFAULT_LOCAL_MODEL_URL — beta
 - EmbeddingVisualization — beta
 - InteractionModeSwitcher — beta
+- LocalChat — beta
+- LocalModelError — beta
 - MLInsightsPanel — beta
 - ModelConfiguredCheck — beta
 - ModelResponse — beta
@@ -1301,6 +1312,11 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - RecommendationCards — beta
 - ThoughtHistory — beta
 - ThoughtInput — beta
+- createKeywordRetriever — beta
+- formatContext — beta
+- listLocalModels — beta
+- streamChat — beta
+- tokenize — beta
 
 ## ./code
 

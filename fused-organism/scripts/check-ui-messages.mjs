@@ -47,7 +47,11 @@ const compiled = ts.transpileModule(fs.readFileSync(catalogFile, "utf8"), {
 }).outputText;
 const { hi } = await import("data:text/javascript;base64," + Buffer.from(compiled).toString("base64"));
 
-const placeholders = (text) => [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort().join(",");
+const placeholders = (text) =>
+  [...text.matchAll(/\{(\w+)\}/g)]
+    .map((m) => m[1])
+    .sort()
+    .join(",");
 const missing = [];
 const mismatched = [];
 for (const [key, where] of keys) {
@@ -57,16 +61,23 @@ for (const [key, where] of keys) {
 const unused = Object.keys(hi).filter((key) => !keys.has(key));
 
 if (process.argv.includes("--list")) {
-  console.log(JSON.stringify(missing.map((m) => m.key), null, 1));
+  console.log(
+    JSON.stringify(
+      missing.map((m) => m.key),
+      null,
+      1,
+    ),
+  );
   process.exit(0);
 }
 
 console.log(
   `ui messages: ${keys.size} English strings; Hindi ${keys.size - missing.length}/${keys.size}; ` +
-    `${unused.length} unused catalog entries`
+    `${unused.length} unused catalog entries`,
 );
 if (missing.length || mismatched.length) {
-  for (const { key, where } of missing.slice(0, 30)) console.error(`missing hi: ${JSON.stringify(key)} (${where})`);
+  for (const { key, where } of missing.slice(0, 30))
+    console.error(`missing hi: ${JSON.stringify(key)} (${where})`);
   if (missing.length > 30) console.error(`… and ${missing.length - 30} more`);
   for (const key of mismatched) console.error(`placeholder mismatch: ${JSON.stringify(key)}`);
   process.exit(1);
