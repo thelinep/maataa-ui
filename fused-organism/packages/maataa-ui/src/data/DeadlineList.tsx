@@ -3,6 +3,7 @@
  * Upcoming deadlines, soonest first, with overdue and due-soon in words
  */
 
+import { useLocale, useT, type Translator } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -35,25 +36,39 @@ const DAY = 86_400_000;
 /** "Overdue by 2 days" / "Due today" / "Due in 3 days" */
 export function relativeDue(
   due: Date,
-  now: Date
+  now: Date,
+  /** Pass `useT()` to get the text in the active language. @default English */
+  t: Pick<Translator, "plural"> & ((source: string) => string) = englishText
 ): { text: string; tone: "error" | "warning" | "default" } {
   const start = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
   const days = Math.round((start(due) - start(now)) / DAY);
-  if (days < 0) return { text: `Overdue by ${-days} day${days === -1 ? "" : "s"}`, tone: "error" };
-  if (days === 0) return { text: "Due today", tone: "warning" };
-  if (days === 1) return { text: "Due tomorrow", tone: "warning" };
-  return { text: `Due in ${days} days`, tone: "default" };
+  if (days < 0)
+    return {
+      text: t.plural(-days, "Overdue by {count} day", "Overdue by {count} days"),
+      tone: "error",
+    };
+  if (days === 0) return { text: t("Due today"), tone: "warning" };
+  if (days === 1) return { text: t("Due tomorrow"), tone: "warning" };
+  return { text: t.plural(days, "Due in {count} day", "Due in {count} days"), tone: "default" };
 }
+
+const englishText = Object.assign((source: string) => source, {
+  plural: (count: number, one: string, other: string) =>
+    (count === 1 ? one : other).replace("{count}", String(count)),
+});
 
 /** DeadlineList: sorted by date; state is a badge with words. */
 export function DeadlineList({
   items,
-  title = "Upcoming deadlines",
+  title: titleProp,
   soonDays = 3,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
   hideDone = true,
 }: DeadlineListProps) {
+  const t = useT();
+  const title = titleProp ?? t("Upcoming deadlines");
+  const locale = useLocale(localeProp);
   const shown = items
     .filter((i) => !(hideDone && i.done))
     .sort((a, b) => a.due.getTime() - b.due.getTime());
@@ -63,11 +78,11 @@ export function DeadlineList({
         {title}
       </h2>
       {shown.length === 0 ? (
-        <p style={{ color: colorTokens.text.secondary }}>Nothing due. Nice.</p>
+        <p style={{ color: colorTokens.text.secondary }}>{t("Nothing due. Nice.")}</p>
       ) : (
         <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
           {shown.map((d) => {
-            const r = relativeDue(d.due, now);
+            const r = relativeDue(d.due, now, t);
             const soon = r.tone === "default" && d.due.getTime() - now.getTime() <= soonDays * DAY;
             return (
               <li
@@ -96,10 +111,10 @@ export function DeadlineList({
                         textAlign: "left",
                       }}
                     >
-                      {d.title}
+                      {t(d.title)}
                     </button>
                   ) : (
-                    <span style={{ fontWeight: 600 }}>{d.title}</span>
+                    <span style={{ fontWeight: 600 }}>{t(d.title)}</span>
                   )}
                   <div
                     style={{
@@ -126,7 +141,7 @@ export function DeadlineList({
                         : "default"
                   }
                 >
-                  {r.text}
+                  {t(r.text)}
                 </Badge>
               </li>
             );

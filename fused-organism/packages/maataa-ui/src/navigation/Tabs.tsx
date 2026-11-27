@@ -3,6 +3,7 @@
  * Tabbed interface component with keyboard navigation
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { Stack } from "../primitives/Stack";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -66,6 +67,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     },
     ref
   ) => {
+    const t = useT();
     const [uncontrolledTab, setUncontrolledTab] = useState(defaultTab || tabs[0]?.id || "");
     const activeTab = controlledTab ?? uncontrolledTab;
     const idPrefix = useId();
@@ -220,7 +222,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
             }}
           >
             <VisuallyHidden>
-              Tab {tabIndex + 1} of {tabs.length}
+              {t("Tab {value} of {count}", { value: tabIndex + 1, count: tabs.length })}
             </VisuallyHidden>
             {tab.content}
           </div>

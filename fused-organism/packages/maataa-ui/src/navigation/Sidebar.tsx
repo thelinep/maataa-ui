@@ -3,6 +3,7 @@
  * Vertical application navigation rail, with an optional collapsed/icon-only mode
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 import { Menu, type MenuItem } from "./Menu";
@@ -84,7 +85,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   activeId,
   onSelect,
   orientation = "vertical",
-  label = "Sidebar navigation",
+  label: labelProp,
   header,
   footer,
   collapsed = false,
@@ -92,6 +93,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   collapsedWidth = "64px",
   children,
 }) => {
+  const t = useT();
+  const label = labelProp ?? t("Sidebar navigation");
   return (
     <aside
       aria-label={label}

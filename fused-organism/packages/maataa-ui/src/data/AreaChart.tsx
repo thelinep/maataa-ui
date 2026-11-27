@@ -3,6 +3,7 @@
  * A line chart with a soft fill wash under each series
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { chartTokens, colorTokens, typographyTokens } from "../tokens";
 import type { ChartSeries } from "./LineChart";
@@ -48,6 +49,7 @@ export const AreaChart = React.forwardRef<SVGSVGElement, AreaChartProps>(
     { series, categories, width = 480, height = 240, valueFormatter = String, className, style },
     ref
   ) => {
+    const t = useT();
     const [tooltip, setTooltip] = useState<ChartTooltipState | null>(null);
 
     const plotWidth = width - PADDING.left - PADDING.right;
@@ -93,7 +95,10 @@ export const AreaChart = React.forwardRef<SVGSVGElement, AreaChartProps>(
           height={height}
           viewBox={`0 0 ${width} ${height}`}
           role="img"
-          aria-label={`Area chart with ${series.length} series over ${categories.length} categories`}
+          aria-label={t("Area chart with {count} series over {count2} categories", {
+            count: series.length,
+            count2: categories.length,
+          })}
         >
           {ticks.map((tick) => {
             const y = yFor(tick);

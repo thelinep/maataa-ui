@@ -3,6 +3,7 @@
  * What we detected about this device, to prefill settings
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useMemo } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -66,18 +67,19 @@ export interface DeviceInfoCardProps {
  * nothing is sent anywhere.
  */
 export function DeviceInfoCard({ info, onUse }: DeviceInfoCardProps) {
+  const t = useT();
   const d = useMemo(() => info ?? detectDevice(), [info]);
   const rows: [string, string][] = [
     ["Browser", `${d.browser} on ${d.os}`],
     ["Screen", d.screen],
     ["Language", d.language],
     ["Time zone", d.timeZone],
-    ["Motion", d.reducedMotion ? "Reduced (we'll keep animation off)" : "Standard"],
-    ["Input", d.touch ? "Touch" : "Mouse and keyboard"],
+    ["Motion", d.reducedMotion ? t("Reduced (we'll keep animation off)") : t("Standard")],
+    ["Input", d.touch ? t("Touch") : t("Mouse and keyboard")],
   ];
   return (
     <section
-      aria-label="This device"
+      aria-label={t("This device")}
       style={{
         border: `1px solid ${colorTokens.border.primary}`,
         borderRadius: 8,
@@ -86,7 +88,7 @@ export function DeviceInfoCard({ info, onUse }: DeviceInfoCardProps) {
       }}
     >
       <h3 style={{ margin: `0 0 ${spacingTokens.sm}`, fontSize: typographyTokens.fontSize.lg }}>
-        We detected this device
+        {t("We detected this device")}
       </h3>
       <dl
         style={{
@@ -104,11 +106,11 @@ export function DeviceInfoCard({ info, onUse }: DeviceInfoCardProps) {
         ))}
       </dl>
       <p style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}>
-        This is read from your browser and isn’t sent anywhere.
+        {t("This is read from your browser and isn’t sent anywhere.")}
       </p>
       {onUse && (
         <Button variant="secondary" onClick={() => onUse(d)}>
-          Use these settings
+          {t("Use these settings")}
         </Button>
       )}
     </section>

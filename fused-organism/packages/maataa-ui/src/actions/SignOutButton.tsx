@@ -3,6 +3,7 @@
  * Sign out, warning first if there are unsynced changes
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Button, type ButtonProps } from "../primitives/Button";
 import { ConfirmDialog } from "../surfaces/ConfirmDialog";
@@ -23,6 +24,7 @@ export interface SignOutButtonProps extends Omit<ButtonProps, "onClick" | "child
  */
 export const SignOutButton = React.forwardRef<HTMLButtonElement, SignOutButtonProps>(
   ({ onSignOut, unsyncedCount = 0, variant = "tertiary", ...props }, ref) => {
+    const t = useT();
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -32,13 +34,13 @@ export const SignOutButton = React.forwardRef<HTMLButtonElement, SignOutButtonPr
           onClick={() => (unsyncedCount > 0 ? setOpen(true) : onSignOut())}
           {...props}
         >
-          Sign out
+          {t("Sign out")}
         </Button>
         <ConfirmDialog
           isOpen={open}
-          title="Sign out with unsynced changes?"
+          title={t("Sign out with unsynced changes?")}
           message={`${unsyncedCount} ${unsyncedCount === 1 ? "change hasn't" : "changes haven't"} reached the server yet. If you sign out now, ${unsyncedCount === 1 ? "it stays" : "they stay"} on this device and sync next time you sign in here.`}
-          confirmLabel="Sign out anyway"
+          confirmLabel={t("Sign out anyway")}
           destructive
           onCancel={() => setOpen(false)}
           onConfirm={() => {

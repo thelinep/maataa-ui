@@ -3,6 +3,7 @@
  * A lat/lng pin map with no external tile-service dependency
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Portal } from "../primitives/Portal";
 import { chartTokens, colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -81,6 +82,7 @@ export const GeoMap = React.forwardRef<SVGSVGElement, GeoMapProps>(
     },
     ref
   ) => {
+    const t = useT();
     const [hovered, setHovered] = useState<{ pin: GeoMapPin; x: number; y: number } | null>(null);
     const { lats, lngs } = graticuleLines(bounds);
 
@@ -103,7 +105,7 @@ export const GeoMap = React.forwardRef<SVGSVGElement, GeoMapProps>(
           height={height}
           viewBox={`0 0 ${width} ${height}`}
           role="group"
-          aria-label={`Map with ${pins.length} locations`}
+          aria-label={t("Map with {count} locations", { count: pins.length })}
         >
           {backgroundImage ? (
             <image

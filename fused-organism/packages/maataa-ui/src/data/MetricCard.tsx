@@ -3,6 +3,7 @@
  * A stat tile: label, headline value, optional delta and trend sparkline
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
 import { formatCompactNumber } from "./chartUtils";
@@ -68,6 +69,7 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(
     },
     ref
   ) => {
+    const t = useT();
     const displayValue =
       typeof value === "number" ? formatCompactNumber(value, valuePrefix) : value;
 
@@ -140,7 +142,7 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(
                   ? colorTokens.interactive.success
                   : colorTokens.interactive.error
               }
-              aria-label={`${label} trend`}
+              aria-label={t("{label} trend", { label })}
             />
           )}
         </div>

@@ -4,6 +4,7 @@
  * inputs are missing in several browsers)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle, smallButtonStyle } from "./fieldKit";
@@ -69,6 +70,7 @@ export function MonthPicker({
   fromYear = new Date().getFullYear() - 5,
   toYear = new Date().getFullYear() + 5,
 }: MonthPickerProps) {
+  const t = useT();
   const now = new Date();
   const cur = parseMonth(value) ?? { year: now.getFullYear(), month: now.getMonth() + 1 };
   const step = (d: number) => {
@@ -80,10 +82,11 @@ export function MonthPicker({
       {(ids) => (
         <div style={{ display: "flex", gap: spacingTokens.xs, flexWrap: "wrap" }}>
           <button type="button" style={smallButtonStyle} onClick={() => step(-1)}>
-            <span aria-hidden="true">‹ </span>Previous month
+            <span aria-hidden="true">‹ </span>
+            {t("Previous month")}
           </button>
           <select
-            aria-label="Month"
+            aria-label={t("Month")}
             aria-describedby={ids.describedBy}
             value={cur.month}
             onChange={(e) => onChange(formatMonthValue(cur.year, Number(e.target.value)))}
@@ -96,7 +99,7 @@ export function MonthPicker({
             ))}
           </select>
           <select
-            aria-label="Year"
+            aria-label={t("Year")}
             value={cur.year}
             onChange={(e) => onChange(formatMonthValue(Number(e.target.value), cur.month))}
             style={selectStyle}
@@ -108,7 +111,8 @@ export function MonthPicker({
             ))}
           </select>
           <button type="button" style={smallButtonStyle} onClick={() => step(1)}>
-            Next month<span aria-hidden="true"> ›</span>
+            {t("Next month")}
+            <span aria-hidden="true"> ›</span>
           </button>
         </div>
       )}
@@ -173,6 +177,7 @@ export function WeekPicker({
   fromYear = new Date().getFullYear() - 2,
   toYear = new Date().getFullYear() + 2,
 }: WeekPickerProps) {
+  const t = useT();
   const cur = parseWeek(value) ?? isoWeek(new Date());
   const total = weeksInYear(cur.year);
   const start = isoWeekStart(cur.year, cur.week);
@@ -192,10 +197,11 @@ export function WeekPicker({
         <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
           <div style={{ display: "flex", gap: spacingTokens.xs, flexWrap: "wrap" }}>
             <button type="button" style={smallButtonStyle} onClick={() => step(-1)}>
-              <span aria-hidden="true">‹ </span>Previous week
+              <span aria-hidden="true">‹ </span>
+              {t("Previous week")}
             </button>
             <select
-              aria-label="Week"
+              aria-label={t("Week")}
               aria-describedby={[ids.describedBy, `${ids.id}-range`].filter(Boolean).join(" ")}
               value={cur.week}
               onChange={(e) => onChange(formatWeekValue(cur.year, Number(e.target.value)))}
@@ -203,12 +209,12 @@ export function WeekPicker({
             >
               {weekOptions.map((w) => (
                 <option key={w} value={w}>
-                  Week {w}
+                  {t("Week {w}", { w })}
                 </option>
               ))}
             </select>
             <select
-              aria-label="Year"
+              aria-label={t("Year")}
               value={cur.year}
               onChange={(e) => {
                 const y = Number(e.target.value);
@@ -223,7 +229,8 @@ export function WeekPicker({
               ))}
             </select>
             <button type="button" style={smallButtonStyle} onClick={() => step(1)}>
-              Next week<span aria-hidden="true"> ›</span>
+              {t("Next week")}
+              <span aria-hidden="true"> ›</span>
             </button>
           </div>
           <span

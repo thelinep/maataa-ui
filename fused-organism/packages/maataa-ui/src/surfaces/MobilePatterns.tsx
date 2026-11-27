@@ -4,6 +4,7 @@
  * BiometricUnlock
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -51,6 +52,7 @@ export interface ActionSheetProps {
  * cancels, focus returns to the opener.
  */
 export function ActionSheet({ open, onClose, title, message, actions }: ActionSheetProps) {
+  const t = useT();
   const id = useId();
   const box = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
@@ -151,7 +153,7 @@ export function ActionSheet({ open, onClose, title, message, actions }: ActionSh
                   style={{ ...big(false, a.destructive), borderRadius: 0 }}
                 >
                   {a.icon && <span aria-hidden="true">{a.icon} </span>}
-                  {a.label}
+                  {t(a.label)}
                 </button>
               </li>
             ))}
@@ -162,7 +164,7 @@ export function ActionSheet({ open, onClose, title, message, actions }: ActionSh
           onClick={onClose}
           style={{ ...big(), fontWeight: 700, borderRadius: 14 }}
         >
-          Cancel
+          {t("Cancel")}
         </button>
       </div>
     </div>,
@@ -192,6 +194,7 @@ export function PullToRefresh({
   threshold = 70,
   lastUpdated,
 }: PullToRefreshProps) {
+  const t = useT();
   const [pull, setPull] = useState(0);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
@@ -241,7 +244,7 @@ export function PullToRefresh({
           }}
         >
           <span aria-hidden="true">↻ </span>
-          {busy ? "Refreshing…" : "Refresh"}
+          {busy ? t("Refreshing…") : t("Refresh")}
         </button>
       </div>
       <div
@@ -315,6 +318,7 @@ export function BackgroundSyncToast({
   onRetry,
   onDismiss,
 }: BackgroundSyncToastProps) {
+  const t = useT();
   const text =
     state === "offline"
       ? `${pending} ${noun} saved on this device. They’ll upload when you’re back online.`
@@ -379,14 +383,14 @@ export function BackgroundSyncToast({
             cursor: "pointer",
           }}
         >
-          Try again
+          {t("Try again")}
         </button>
       )}
       {state === "synced" && onDismiss && (
         <button
           type="button"
           onClick={onDismiss}
-          aria-label="Dismiss"
+          aria-label={t("Dismiss")}
           style={{
             width: 36,
             height: 36,
@@ -409,10 +413,10 @@ export function BackgroundSyncToast({
 export type PermissionKind = "camera" | "microphone" | "location" | "notifications";
 
 const PERM: Record<PermissionKind, { icon: string; title: string }> = {
-  camera: { icon: "📷", title: "Use your camera" },
-  microphone: { icon: "🎙", title: "Use your microphone" },
-  location: { icon: "📍", title: "Use your location" },
-  notifications: { icon: "🔔", title: "Send you notifications" },
+  camera: { icon: "📷", title: msg("Use your camera") },
+  microphone: { icon: "🎙", title: msg("Use your microphone") },
+  location: { icon: "📍", title: msg("Use your location") },
+  notifications: { icon: "🔔", title: msg("Send you notifications") },
 };
 
 export interface PermissionPromptProps {
@@ -438,6 +442,7 @@ export function PermissionPrompt({
   onDecline,
   blocked,
 }: PermissionPromptProps) {
+  const t = useT();
   const id = useId();
   const p = PERM[kind];
   return (
@@ -460,7 +465,7 @@ export function PermissionPrompt({
         {p.icon}
       </span>
       <h2 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
-        Allow maataa to {p.title.toLowerCase()}?
+        {t("Allow maataa to {value}?", { value: p.title.toLowerCase() })}
       </h2>
       <p style={{ margin: 0, color: colorTokens.text.secondary }}>{reason}</p>
       {blocked ? (
@@ -474,20 +479,23 @@ export function PermissionPrompt({
             color: colorTokens.semantic.warning.text,
           }}
         >
-          <strong>It’s turned off for this site.</strong> To turn it on: open the site settings (the
-          icon left of the address bar), set {kind} to Allow, then reload.
+          <strong>{t("It’s turned off for this site.")}</strong>{" "}
+          {t(
+            "To turn it on: open the site settings (the icon left of the address bar), set {kind} to Allow, then reload.",
+            { kind }
+          )}
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 6, width: "100%" }}>
           <button type="button" onClick={onAllow} style={big(true)}>
-            Allow
+            {t("Allow")}
           </button>
           <button
             type="button"
             onClick={onDecline}
             style={{ ...big(), border: `1px solid ${colorTokens.border.control}` }}
           >
-            Not now
+            {t("Not now")}
           </button>
         </div>
       )}
@@ -520,6 +528,7 @@ export function BiometricUnlock({
   method = "fingerprint",
   appName = "maataa",
 }: BiometricUnlockProps) {
+  const t = useT();
   const [busy, setBusy] = useState(false);
   const [fails, setFails] = useState(0);
   const [msg, setMsg] = useState("");
@@ -547,7 +556,7 @@ export function BiometricUnlock({
   };
   return (
     <section
-      aria-label={`${appName} is locked`}
+      aria-label={t("{appName} is locked", { appName })}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -561,7 +570,9 @@ export function BiometricUnlock({
         textAlign: "center",
       }}
     >
-      <h2 style={{ margin: 0, fontSize: typographyTokens.fontSize.xl }}>{appName} is locked</h2>
+      <h2 style={{ margin: 0, fontSize: typographyTokens.fontSize.xl }}>
+        {t("{appName} is locked", { appName })}
+      </h2>
       <span
         aria-hidden="true"
         style={{
@@ -599,7 +610,7 @@ export function BiometricUnlock({
           border: "1px solid rgba(255,255,255,0.5)",
         }}
       >
-        Use passcode
+        {t("Use passcode")}
       </button>
       <p
         role="status"

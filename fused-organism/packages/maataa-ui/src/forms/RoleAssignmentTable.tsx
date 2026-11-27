@@ -3,6 +3,7 @@
  * Change each member's role on a project, protecting the last owner
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Avatar } from "../data/Avatar";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -38,6 +39,7 @@ export function RoleAssignmentTable({
   ownerRole = "owner",
   caption = "Team roles",
 }: RoleAssignmentTableProps) {
+  const t = useT();
   const owners = members.filter((m) => m.role === ownerRole).length;
   const td: React.CSSProperties = {
     padding: spacingTokens.sm,
@@ -60,7 +62,7 @@ export function RoleAssignmentTable({
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            Person
+            {t("Person")}
           </th>
           <th
             scope="col"
@@ -71,7 +73,7 @@ export function RoleAssignmentTable({
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            Role
+            {t("Role")}
           </th>
         </tr>
       </thead>
@@ -100,7 +102,7 @@ export function RoleAssignmentTable({
               </th>
               <td style={td}>
                 <select
-                  aria-label={`Role for ${m.name}`}
+                  aria-label={t("Role for {name}", { name: m.name })}
                   value={m.role}
                   disabled={lastOwner}
                   aria-describedby={lastOwner ? `last-owner-${m.id}` : undefined}
@@ -128,7 +130,7 @@ export function RoleAssignmentTable({
                       marginTop: 2,
                     }}
                   >
-                    Only owner. Make someone else an owner first.
+                    {t("Only owner. Make someone else an owner first.")}
                   </div>
                 )}
               </td>

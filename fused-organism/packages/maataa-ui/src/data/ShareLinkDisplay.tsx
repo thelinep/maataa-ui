@@ -3,6 +3,7 @@
  * A share link with copy, expiry and revoke
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { CopyButton } from "../actions/CopyButton";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -26,13 +27,15 @@ export function ShareLinkDisplay({
   expiresAt,
   audience,
   onRevoke,
-  locale = "en-IN",
+  locale: localeProp,
 }: ShareLinkDisplayProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
       <label htmlFor={id} style={{ fontWeight: 500 }}>
-        Link to the {what}
+        {t("Link to the {what}", { what })}
       </label>
       <div style={{ display: "flex", gap: spacingTokens.xs }}>
         <input
@@ -80,7 +83,7 @@ export function ShareLinkDisplay({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Turn off this link
+          {t("Turn off this link")}
         </button>
       )}
     </div>

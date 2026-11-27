@@ -3,6 +3,7 @@
  * Choose who receives a call sheet, by department
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -33,8 +34,10 @@ export function DistributionListSelector({
   recipients,
   value,
   onChange,
-  legend = "Send to",
+  legend: legendProp,
 }: DistributionListSelectorProps) {
+  const t = useT();
+  const legend = legendProp ?? t("Send to");
   const depts = Array.from(new Set(recipients.map((r) => r.department)));
   const reachable = recipients.filter((r) => !r.unreachable);
   return (
@@ -51,7 +54,7 @@ export function DistributionListSelector({
       <legend style={{ fontWeight: 700, padding: 0, marginBottom: spacingTokens.xs }}>
         {legend}{" "}
         <span style={{ fontWeight: 400, color: colorTokens.text.secondary }}>
-          · {value.length} of {reachable.length} chosen
+          {t("· {count} of {count2} chosen", { count: value.length, count2: reachable.length })}
         </span>
       </legend>
       <div>
@@ -70,7 +73,7 @@ export function DistributionListSelector({
             font: "inherit",
           }}
         >
-          {value.length === reachable.length ? "Clear everyone" : "Choose everyone"}
+          {value.length === reachable.length ? t("Clear everyone") : t("Choose everyone")}
         </button>
       </div>
       {depts.map((d) => {
@@ -147,7 +150,7 @@ export function DistributionListSelector({
                     {p.name} · {p.role}
                     {p.unreachable && (
                       <span style={{ display: "block", fontSize: typographyTokens.fontSize.xs }}>
-                        No email or phone on file
+                        {t("No email or phone on file")}
                       </span>
                     )}
                   </span>

@@ -3,6 +3,7 @@
  * Reference images with captions, alt text, ordering and an image drop zone
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { FileDropzone } from "../forms/FileDropzone";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -42,6 +43,7 @@ export function MoodBoardGallery({
   onAddFiles,
   readOnly,
 }: MoodBoardGalleryProps) {
+  const t = useT();
   const [msg, setMsg] = useState("");
   const upd = (id: string, patch: Partial<MoodImage>) =>
     onChange(images.map((i) => (i.id === id ? { ...i, ...patch } : i)));
@@ -146,7 +148,7 @@ export function MoodBoardGallery({
                         fontWeight: 600,
                       }}
                     >
-                      What it shows
+                      {t("What it shows")}
                       <input
                         value={img.alt}
                         onChange={(e) => upd(img.id, { alt: e.target.value })}
@@ -169,7 +171,7 @@ export function MoodBoardGallery({
                         fontWeight: 600,
                       }}
                     >
-                      Why it’s here
+                      {t("Why it’s here")}
                       <input
                         value={img.caption ?? ""}
                         onChange={(e) => upd(img.id, { caption: e.target.value })}
@@ -188,7 +190,7 @@ export function MoodBoardGallery({
                         type="button"
                         style={small}
                         disabled={i === 0}
-                        aria-label={`Move image ${i + 1} earlier`}
+                        aria-label={t("Move image {value} earlier", { value: i + 1 })}
                         onClick={() => {
                           onChange(moveItem(images, i, i - 1));
                           setMsg(`Moved to position ${i}`);
@@ -200,7 +202,7 @@ export function MoodBoardGallery({
                         type="button"
                         style={small}
                         disabled={i === images.length - 1}
-                        aria-label={`Move image ${i + 1} later`}
+                        aria-label={t("Move image {value} later", { value: i + 1 })}
                         onClick={() => {
                           onChange(moveItem(images, i, i + 1));
                           setMsg(`Moved to position ${i + 2}`);
@@ -229,7 +231,7 @@ export function MoodBoardGallery({
       </ul>
       {onAddFiles && !readOnly && (
         <FileDropzone
-          label="Add reference images"
+          label={t("Add reference images")}
           accept="image/*"
           hint="JPEG, PNG or WebP. You'll be asked what each one shows."
           onFiles={onAddFiles}

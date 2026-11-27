@@ -3,6 +3,7 @@
  * Versions of a cut, contract, deck or mix, with compare / restore / download
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge, type BadgeProps } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -58,8 +59,10 @@ export function VersionHistoryList({
   onCompare,
   onRestore,
   onDownload,
-  locale = "en-IN",
+  locale: localeProp,
 }: VersionHistoryListProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const sorted = [...versions].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   return (
     <section aria-label={title}>
@@ -107,7 +110,7 @@ export function VersionHistoryList({
                   ) : (
                     <strong>{v.label}</strong>
                   )}
-                  {cur && <Badge variant="success">Current</Badge>}
+                  {cur && <Badge variant="success">{t("Current")}</Badge>}
                   {v.status && <Badge variant={v.statusVariant ?? "default"}>{v.status}</Badge>}
                 </div>
                 <div
@@ -139,9 +142,9 @@ export function VersionHistoryList({
                     type="button"
                     style={link}
                     onClick={() => onCompare(v)}
-                    aria-label={`Compare ${v.label} with current`}
+                    aria-label={t("Compare {label} with current", { label: v.label })}
                   >
-                    Compare
+                    {t("Compare")}
                   </button>
                 )}
                 {onRestore && !cur && (
@@ -149,9 +152,9 @@ export function VersionHistoryList({
                     type="button"
                     style={link}
                     onClick={() => onRestore(v)}
-                    aria-label={`Restore ${v.label}`}
+                    aria-label={t("Restore {label}", { label: v.label })}
                   >
-                    Restore
+                    {t("Restore")}
                   </button>
                 )}
                 {onDownload && (
@@ -159,9 +162,9 @@ export function VersionHistoryList({
                     type="button"
                     style={link}
                     onClick={() => onDownload(v)}
-                    aria-label={`Download ${v.label}`}
+                    aria-label={t("Download {label}", { label: v.label })}
                   >
-                    Download
+                    {t("Download")}
                   </button>
                 )}
               </div>

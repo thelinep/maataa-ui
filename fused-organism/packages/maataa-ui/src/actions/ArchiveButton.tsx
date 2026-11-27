@@ -3,6 +3,7 @@
  * Archive or restore a record, with a confirmation step
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Button, type ButtonProps } from "../primitives/Button";
 import { ConfirmDialog } from "../surfaces/ConfirmDialog";
@@ -28,23 +29,24 @@ export interface ArchiveButtonProps extends Omit<ButtonProps, "onClick" | "onCha
  */
 export const ArchiveButton = React.forwardRef<HTMLButtonElement, ArchiveButtonProps>(
   ({ itemName, archived, onChange, variant = "secondary", ...props }, ref) => {
+    const t = useT();
     const [open, setOpen] = useState(false);
     return (
       <>
         <Button
           ref={ref}
           variant={variant}
-          aria-label={`${archived ? "Restore" : "Archive"} ${itemName}`}
+          aria-label={`${archived ? t("Restore") : t("Archive")} ${itemName}`}
           onClick={() => (archived ? onChange(false) : setOpen(true))}
           {...props}
         >
-          {archived ? "Restore" : "Archive"}
+          {archived ? t("Restore") : t("Archive")}
         </Button>
         <ConfirmDialog
           isOpen={open}
-          title={`Archive ${itemName}?`}
+          title={t("Archive {itemName}?", { itemName })}
           message="It moves out of active lists. Nothing is deleted, and you can restore it at any time."
-          confirmLabel="Archive"
+          confirmLabel={t("Archive")}
           onCancel={() => setOpen(false)}
           onConfirm={() => {
             setOpen(false);

@@ -3,6 +3,7 @@
  * Post a cast or crew opening
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Input } from "../primitives/Input";
 import { Button } from "../primitives/Button";
@@ -38,6 +39,7 @@ export interface JobPostingFormProps {
  * private until you publish.
  */
 export function JobPostingForm({ initial = {}, onSubmit, onSaveDraft, busy }: JobPostingFormProps) {
+  const t = useT();
   const id = useId();
   const [v, setV] = useState<JobPostingValues>({
     title: "",
@@ -64,21 +66,25 @@ export function JobPostingForm({ initial = {}, onSubmit, onSaveDraft, busy }: Jo
   return (
     <form
       noValidate
-      aria-label="Post an opening"
+      aria-label={t("Post an opening")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 560 }}
       onSubmit={(e) => {
         e.preventDefault();
         const errs: FormError[] = [];
-        if (!v.title.trim()) errs.push({ fieldId: `${id}-title`, message: "Enter the role title" });
+        if (!v.title.trim())
+          errs.push({ fieldId: `${id}-title`, message: msg("Enter the role title") });
         if (v.description.trim().length < 30)
           errs.push({
             fieldId: `${id}-description`,
-            message: "Describe the role in at least 30 characters",
+            message: msg("Describe the role in at least 30 characters"),
           });
         if (!v.pay.trim())
-          errs.push({ fieldId: `${id}-pay`, message: "State the pay, or write Negotiable" });
+          errs.push({ fieldId: `${id}-pay`, message: msg("State the pay, or write Negotiable") });
         if (v.startDate && v.endDate && v.endDate < v.startDate)
-          errs.push({ fieldId: `${id}-endDate`, message: "End date is before the start date" });
+          errs.push({
+            fieldId: `${id}-endDate`,
+            message: msg("End date is before the start date"),
+          });
         setErrors(errs);
         if (!errs.length) onSubmit(v);
       }}
@@ -88,7 +94,7 @@ export function JobPostingForm({ initial = {}, onSubmit, onSaveDraft, busy }: Jo
         style={{ border: "none", margin: 0, padding: 0, display: "flex", gap: spacingTokens.md }}
       >
         <legend style={{ fontWeight: 500, padding: 0, marginBottom: spacingTokens.xs }}>
-          Opening for
+          {t("Opening for")}
         </legend>
         {(["crew", "cast"] as const).map((k) => (
           <label key={k} style={{ display: "flex", gap: 6, alignItems: "center" }}>
@@ -99,12 +105,12 @@ export function JobPostingForm({ initial = {}, onSubmit, onSaveDraft, busy }: Jo
               onChange={() => set("kind", k)}
               style={{ accentColor: colorTokens.interactive.primary }}
             />
-            {k === "crew" ? "Crew" : "Cast"}
+            {k === "crew" ? t("Crew") : t("Cast")}
           </label>
         ))}
       </fieldset>
       <Input
-        label="Role title"
+        label={t("Role title")}
         {...bind("title")}
         helperText={
           v.kind === "cast" ? "e.g. Meera (lead), female 25–35" : "e.g. Gaffer, Sound recordist"
@@ -112,20 +118,20 @@ export function JobPostingForm({ initial = {}, onSubmit, onSaveDraft, busy }: Jo
       />
       <Textarea
         id={`${id}-description`}
-        label="What the role involves"
+        label={t("What the role involves")}
         rows={4}
-        value={v.description}
+        value={t(v.description)}
         onChange={(e) => set("description", e.target.value)}
         error={err("description")}
       />
-      <Input label="Location" {...bind("location")} />
+      <Input label={t("Location")} {...bind("location")} />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
-        <Input label="Start date" type="date" {...bind("startDate")} />
-        <Input label="End date" type="date" {...bind("endDate")} />
+        <Input label={t("Start date")} type="date" {...bind("startDate")} />
+        <Input label={t("End date")} type="date" {...bind("endDate")} />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
-        <Input label="Pay" {...bind("pay")} helperText="e.g. ₹8,000/day" />
-        <Input label="Applications close" type="date" {...bind("closesOn")} />
+        <Input label={t("Pay")} {...bind("pay")} helperText={t("e.g. ₹8,000/day")} />
+        <Input label={t("Applications close")} type="date" {...bind("closesOn")} />
       </div>
       <VisibilitySelector
         value={v.visibility}
@@ -134,11 +140,11 @@ export function JobPostingForm({ initial = {}, onSubmit, onSaveDraft, busy }: Jo
       />
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         <Button type="submit" disabled={busy}>
-          {v.visibility === "private" ? "Save opening" : "Publish opening"}
+          {v.visibility === "private" ? t("Save opening") : t("Publish opening")}
         </Button>
         {onSaveDraft && (
           <Button variant="secondary" onClick={() => onSaveDraft(v)} disabled={busy}>
-            Save draft
+            {t("Save draft")}
           </Button>
         )}
       </div>

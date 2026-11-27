@@ -3,6 +3,7 @@
  * A modal question before a consequential action
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useState } from "react";
 import { Modal } from "./Modal";
 import { Button } from "../primitives/Button";
@@ -45,11 +46,14 @@ export function ConfirmDialog({
   onConfirm,
   title,
   message,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel: confirmLabelProp,
+  cancelLabel: cancelLabelProp,
   destructive = false,
   busy = false,
 }: ConfirmDialogProps) {
+  const t = useT();
+  const cancelLabel = cancelLabelProp ?? t("Cancel");
+  const confirmLabel = confirmLabelProp ?? t("Confirm");
   return (
     <Modal
       isOpen={isOpen}
@@ -105,10 +109,13 @@ export function TypedConfirmDialog({
   title,
   message,
   confirmationText,
-  confirmLabel = "Delete",
-  cancelLabel = "Cancel",
+  confirmLabel: confirmLabelProp,
+  cancelLabel: cancelLabelProp,
   busy = false,
 }: TypedConfirmDialogProps) {
+  const t = useT();
+  const cancelLabel = cancelLabelProp ?? t("Cancel");
+  const confirmLabel = confirmLabelProp ?? t("Delete");
   const id = useId();
   const [typed, setTyped] = useState("");
   useEffect(() => {
@@ -143,7 +150,7 @@ export function TypedConfirmDialog({
         htmlFor={`${id}-input`}
         style={{ display: "block", marginTop: spacingTokens.md, fontWeight: 600 }}
       >
-        Type <strong>{confirmationText}</strong> to confirm
+        {t("Type")} <strong>{confirmationText}</strong> {t("to confirm")}
       </label>
       <input
         id={`${id}-input`}

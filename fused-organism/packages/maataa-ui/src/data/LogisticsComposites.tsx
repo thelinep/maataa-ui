@@ -5,6 +5,7 @@
  * CrewPositionRow, DepartmentCoverageGrid, SkillMeter and PackageSummaryBar
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -67,6 +68,7 @@ export function WeatherWidget({
   windAlertAt = 30,
   source,
 }: WeatherWidgetProps) {
+  const t = useT();
   const risky = hours.filter((h) => h.rain >= rainAlertAt || h.windKmh >= windAlertAt);
   const th: React.CSSProperties = {
     padding: "6px 8px",
@@ -81,7 +83,7 @@ export function WeatherWidget({
     fontVariantNumeric: "tabular-nums",
   };
   return (
-    <section aria-label={`Weather for ${place}, ${date}`} style={card}>
+    <section aria-label={t("Weather for {place}, {date}", { place, date })} style={card}>
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
         {place}{" "}
         <span
@@ -106,7 +108,7 @@ export function WeatherWidget({
           ? `Watch: ${risky.map((h) => h.time).join(", ")}`
           : "No weather risk for the shoot hours"}
       </p>
-      <ScrollTable label={`Hourly forecast, ${place}`}>
+      <ScrollTable label={t("Hourly forecast, {place}", { place })}>
         <table
           style={{
             borderCollapse: "collapse",
@@ -117,22 +119,22 @@ export function WeatherWidget({
           <thead>
             <tr>
               <th scope="col" style={th}>
-                Time
+                {t("Time")}
               </th>
               <th scope="col" style={th}>
-                Sky
+                {t("Sky")}
               </th>
               <th scope="col" style={th}>
-                Temp
+                {t("Temp")}
               </th>
               <th scope="col" style={th}>
-                Rain
+                {t("Rain")}
               </th>
               <th scope="col" style={th}>
-                Wind
+                {t("Wind")}
               </th>
               <th scope="col" style={th}>
-                Risk
+                {t("Risk")}
               </th>
             </tr>
           </thead>
@@ -170,7 +172,9 @@ export function WeatherWidget({
         </table>
       </ScrollTable>
       {source && (
-        <span style={{ fontSize: 11, color: colorTokens.text.tertiary }}>Source: {source}</span>
+        <span style={{ fontSize: 11, color: colorTokens.text.tertiary }}>
+          {t("Source: {source}", { source })}
+        </span>
       )}
     </section>
   );
@@ -206,6 +210,7 @@ export function LocationComparisonCard({
   chosenId?: string;
   onChoose?: (id: string) => void;
 }) {
+  const t = useT();
   const total = (o: LocationOption) => criteria.reduce((s, c) => s + (o.scores[c] ?? 0), 0);
   const top = options.reduce((a, b) => (total(b) > total(a) ? b : a), options[0]!);
   const th: React.CSSProperties = {
@@ -227,10 +232,11 @@ export function LocationComparisonCard({
           color: colorTokens.text.secondary,
         }}
       >
-        Highest total: <strong style={{ color: colorTokens.text.primary }}>{top.name}</strong> (
-        {total(top)} of {criteria.length * 5})
+        {t("Highest total:")}{" "}
+        <strong style={{ color: colorTokens.text.primary }}>{top.name}</strong> ({total(top)} of{" "}
+        {criteria.length * 5})
       </p>
-      <ScrollTable label={`${title} scores`}>
+      <ScrollTable label={t("{title} scores", { title })}>
         <table
           style={{
             borderCollapse: "collapse",
@@ -272,7 +278,7 @@ export function LocationComparisonCard({
                         color: colorTokens.interactive.primary,
                       }}
                     >
-                      Chosen
+                      {t("Chosen")}
                     </span>
                   )}
                 </th>
@@ -300,8 +306,7 @@ export function LocationComparisonCard({
                         {v}/5
                         {v === best && (
                           <span style={{ fontSize: 11, color: colorTokens.interactive.success }}>
-                            {" "}
-                            best
+                            {t(" best")}
                           </span>
                         )}
                       </td>
@@ -312,7 +317,7 @@ export function LocationComparisonCard({
             })}
             <tr>
               <th scope="row" style={{ ...td, fontWeight: 500 }}>
-                Cost per day
+                {t("Cost per day")}
               </th>
               {options.map((o) => (
                 <td key={o.id} style={{ ...td, fontVariantNumeric: "tabular-nums" }}>
@@ -322,7 +327,7 @@ export function LocationComparisonCard({
             </tr>
             <tr>
               <th scope="row" style={{ ...td, fontWeight: 700 }}>
-                Total score
+                {t("Total score")}
               </th>
               {options.map((o) => (
                 <td key={o.id} style={{ ...td, fontWeight: 700 }}>
@@ -383,6 +388,7 @@ export function PermitTimelineStrip({
   authority?: string;
   steps: PermitStep[];
 }) {
+  const t = useT();
   const col = {
     done: colorTokens.interactive.success,
     current: colorTokens.interactive.primary,
@@ -390,13 +396,13 @@ export function PermitTimelineStrip({
     blocked: colorTokens.interactive.error,
   };
   const word = {
-    done: "Done",
-    current: "In progress",
-    upcoming: "Not started",
-    blocked: "Blocked",
+    done: msg("Done"),
+    current: msg("In progress"),
+    upcoming: msg("Not started"),
+    blocked: msg("Blocked"),
   };
   return (
-    <section aria-label={`${permit} timeline`} style={card}>
+    <section aria-label={t("{permit} timeline", { permit })} style={card}>
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>
         {permit}
         {authority && (
@@ -424,7 +430,7 @@ export function PermitTimelineStrip({
       >
         {steps.map((s, i) => (
           <li
-            key={s.label}
+            key={t(s.label)}
             aria-current={s.state === "current" ? "step" : undefined}
             style={{ position: "relative", padding: "22px 6px 0", textAlign: "center" }}
           >
@@ -475,7 +481,7 @@ export function PermitTimelineStrip({
             >
               {s.state === "done" ? "✓" : s.state === "blocked" ? "!" : ""}
             </span>
-            <span style={{ display: "block", fontSize: 12, fontWeight: 600 }}>{s.label}</span>
+            <span style={{ display: "block", fontSize: 12, fontWeight: 600 }}>{t(s.label)}</span>
             <span style={{ display: "block", fontSize: 11, color: colorTokens.text.secondary }}>
               {s.date}
             </span>
@@ -487,7 +493,7 @@ export function PermitTimelineStrip({
                 fontWeight: 700,
               }}
             >
-              {word[s.state]}
+              {t(word[s.state])}
             </span>
           </li>
         ))}
@@ -521,6 +527,7 @@ export function VehicleCapacityCard({
   from,
   to,
 }: VehicleCapacityCardProps) {
+  const t = useT();
   const over = assigned.length > seats;
   const pct = Math.min(100, (assigned.length / seats) * 100);
   return (
@@ -534,7 +541,7 @@ export function VehicleCapacityCard({
       )}
       <div
         role="meter"
-        aria-label={`${name} seats`}
+        aria-label={t("{name} seats", { name })}
         aria-valuemin={0}
         aria-valuemax={seats}
         aria-valuenow={assigned.length}
@@ -566,7 +573,9 @@ export function VehicleCapacityCard({
         {over ? ` — ${assigned.length - seats} over capacity` : ""}
       </div>
       {driver && (
-        <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>Driver: {driver}</div>
+        <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>
+          {t("Driver: {driver}", { driver })}
+        </div>
       )}
       <details>
         <summary
@@ -602,11 +611,13 @@ export interface VehicleRate {
 /** Vehicle rate card rows as a table (8h/80km base + extras). */
 export function VehicleRateRow({
   rates,
-  label = "Vehicle rates",
+  label: labelProp,
 }: {
   rates: VehicleRate[];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Vehicle rates");
   const th: React.CSSProperties = {
     padding: "8px 10px",
     textAlign: "right",
@@ -632,19 +643,19 @@ export function VehicleRateRow({
         <thead>
           <tr>
             <th scope="col" style={{ ...th, textAlign: "left" }}>
-              Vehicle
+              {t("Vehicle")}
             </th>
             <th scope="col" style={th}>
-              Seats
+              {t("Seats")}
             </th>
             <th scope="col" style={th}>
-              Day (8 h / 80 km)
+              {t("Day (8 h / 80 km)")}
             </th>
             <th scope="col" style={th}>
-              Extra hour
+              {t("Extra hour")}
             </th>
             <th scope="col" style={th}>
-              Extra km
+              {t("Extra km")}
             </th>
           </tr>
         </thead>
@@ -683,14 +694,14 @@ export function VehicleRateRow({
 export type Diet = "veg" | "nonveg" | "egg" | "vegan" | "jain" | "glutenfree" | "nutfree" | "halal";
 
 const DIET: Record<Diet, { label: string; sym: string; color: string }> = {
-  veg: { label: "Vegetarian", sym: "●", color: "#2D6A3E" },
-  nonveg: { label: "Non-vegetarian", sym: "▲", color: "#8B3A2B" },
-  egg: { label: "Contains egg", sym: "◆", color: "#7A6100" },
-  vegan: { label: "Vegan", sym: "V", color: "#2D6A3E" },
-  jain: { label: "Jain", sym: "J", color: "#5B4B8A" },
-  glutenfree: { label: "Gluten-free", sym: "GF", color: "#1E3A5F" },
-  nutfree: { label: "Nut-free", sym: "NF", color: "#1E3A5F" },
-  halal: { label: "Halal", sym: "H", color: "#2F6F73" },
+  veg: { label: msg("Vegetarian"), sym: "●", color: "#2D6A3E" },
+  nonveg: { label: msg("Non-vegetarian"), sym: "▲", color: "#8B3A2B" },
+  egg: { label: msg("Contains egg"), sym: "◆", color: "#7A6100" },
+  vegan: { label: msg("Vegan"), sym: "V", color: "#2D6A3E" },
+  jain: { label: msg("Jain"), sym: "J", color: "#5B4B8A" },
+  glutenfree: { label: msg("Gluten-free"), sym: "GF", color: "#1E3A5F" },
+  nutfree: { label: msg("Nut-free"), sym: "NF", color: "#1E3A5F" },
+  halal: { label: msg("Halal"), sym: "H", color: "#2F6F73" },
 };
 
 /**
@@ -699,6 +710,7 @@ const DIET: Record<Diet, { label: string; sym: string; color: string }> = {
  * as lettered badges — always with the word.
  */
 export function DietaryBadge({ diet, compact }: { diet: Diet; compact?: boolean }) {
+  const t = useT();
   const d = DIET[diet];
   const fssai = diet === "veg" || diet === "nonveg";
   return (
@@ -731,7 +743,7 @@ export function DietaryBadge({ diet, compact }: { diet: Diet; compact?: boolean 
       >
         {d.sym}
       </span>
-      {compact ? <VisuallyHidden>{d.label}</VisuallyHidden> : d.label}
+      {compact ? <VisuallyHidden>{t(d.label)}</VisuallyHidden> : d.label}
     </span>
   );
 }
@@ -755,6 +767,7 @@ export function CraftServiceMealCard({
   counts,
   vendor,
 }: CraftServiceMealCardProps) {
+  const t = useT();
   return (
     <article style={card}>
       <div
@@ -796,7 +809,7 @@ export function CraftServiceMealCard({
             ))}
             {it.allergens && it.allergens.length > 0 && (
               <span style={{ fontSize: 12, color: colorTokens.interactive.error }}>
-                Contains: {it.allergens.join(", ")}
+                {t("Contains: {value}", { value: it.allergens.join(", ") })}
               </span>
             )}
           </li>
@@ -816,7 +829,7 @@ export function CraftServiceMealCard({
         >
           {(Object.entries(counts) as [Diet, number][]).map(([d, n]) => (
             <div key={d} style={{ display: "flex", gap: 4 }}>
-              <dt>{DIET[d].label}</dt>
+              <dt>{t(DIET[d].label)}</dt>
               <dd style={{ margin: 0, fontWeight: 700 }}>{n}</dd>
             </div>
           ))}
@@ -854,11 +867,13 @@ export interface CrewPosition {
 /** Crew positions as table rows with a department colour bar and status words. */
 export function CrewPositionRow({
   positions,
-  label = "Crew list",
+  label: labelProp,
 }: {
   positions: CrewPosition[];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Crew list");
   const word = { confirmed: "Confirmed", hold: "On hold", open: "Open — not filled" };
   const td: React.CSSProperties = {
     padding: "8px 10px",
@@ -928,7 +943,7 @@ export function CrewPositionRow({
                         : colorTokens.interactive.success,
                 }}
               >
-                {word[p.status]}
+                {t(word[p.status])}
               </td>
             </tr>
           ))}
@@ -948,7 +963,7 @@ export function DepartmentCoverageGrid({
   departments,
   needed,
   crewed,
-  label = "Department coverage",
+  label: labelProp,
 }: {
   days: string[];
   departments: string[];
@@ -956,6 +971,8 @@ export function DepartmentCoverageGrid({
   crewed: number[][];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Department coverage");
   const td: React.CSSProperties = {
     padding: "6px 8px",
     textAlign: "center",
@@ -1043,6 +1060,7 @@ export function SkillMeter({
   max?: number;
   levelNames?: string[];
 }) {
+  const t = useT();
   const name = levelNames[Math.max(0, Math.min(levelNames.length - 1, Math.round(level) - 1))];
   return (
     <div
@@ -1061,7 +1079,7 @@ export function SkillMeter({
         aria-valuemin={0}
         aria-valuemax={max}
         aria-valuenow={level}
-        aria-valuetext={`${level} of ${max}, ${name}`}
+        aria-valuetext={t("{level} of {max}, {name}", { level, max, name })}
         style={{ display: "inline-flex", gap: 3 }}
       >
         {Array.from({ length: max }, (_, i) => (
@@ -1098,7 +1116,7 @@ export interface PackageLine {
 export function PackageSummaryBar({
   lines,
   gstRate = 0.18,
-  actionLabel = "Request quote",
+  actionLabel: actionLabelProp,
   onAction,
 }: {
   lines: PackageLine[];
@@ -1106,12 +1124,14 @@ export function PackageSummaryBar({
   actionLabel?: string;
   onAction: () => void;
 }) {
+  const t = useT();
+  const actionLabel = actionLabelProp ?? t("Request quote");
   const sub = lines.reduce((s, l) => s + l.amount, 0);
   const gst = Math.round(sub * gstRate);
   return (
     <div
       role="region"
-      aria-label="Package summary"
+      aria-label={t("Package summary")}
       style={{
         position: "sticky",
         bottom: 0,
@@ -1141,15 +1161,17 @@ export function PackageSummaryBar({
         }}
       >
         <div>
-          <dt style={{ opacity: 0.8, fontSize: 11 }}>Subtotal</dt>
+          <dt style={{ opacity: 0.8, fontSize: 11 }}>{t("Subtotal")}</dt>
           <dd style={{ margin: 0 }}>{inr(sub)}</dd>
         </div>
         <div>
-          <dt style={{ opacity: 0.8, fontSize: 11 }}>GST {Math.round(gstRate * 100)}%</dt>
+          <dt style={{ opacity: 0.8, fontSize: 11 }}>
+            {t("GST {value}%", { value: Math.round(gstRate * 100) })}
+          </dt>
           <dd style={{ margin: 0 }}>{inr(gst)}</dd>
         </div>
         <div>
-          <dt style={{ opacity: 0.8, fontSize: 11 }}>Total</dt>
+          <dt style={{ opacity: 0.8, fontSize: 11 }}>{t("Total")}</dt>
           <dd
             aria-live="polite"
             style={{ margin: 0, fontSize: typographyTokens.fontSize.lg, fontWeight: 800 }}

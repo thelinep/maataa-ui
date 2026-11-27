@@ -4,6 +4,7 @@
  * SortSelector (field + direction)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -38,6 +39,7 @@ export function AppliedFilterChips({
   resultCount,
   noun = "results",
 }: AppliedFilterChipsProps) {
+  const t = useT();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const clearRef = useRef<HTMLButtonElement>(null);
   const [msg, setMsg] = useState("");
@@ -52,7 +54,7 @@ export function AppliedFilterChips({
             {resultCount != null ? `${resultCount} ${noun}, filtered by:` : "Filtered by:"}
           </span>
           <ul
-            aria-label="Active filters"
+            aria-label={t("Active filters")}
             style={{
               listStyle: "none",
               margin: 0,
@@ -91,7 +93,7 @@ export function AppliedFilterChips({
                     cursor: "pointer",
                   }}
                 >
-                  <VisuallyHidden>Remove filter:</VisuallyHidden>{" "}
+                  <VisuallyHidden>{t("Remove filter:")}</VisuallyHidden>{" "}
                   <span>
                     <span style={{ color: colorTokens.text.secondary }}>{f.field}:</span> {f.value}
                   </span>
@@ -131,7 +133,7 @@ export function AppliedFilterChips({
               cursor: "pointer",
             }}
           >
-            Clear all
+            {t("Clear all")}
           </button>
         </>
       )}
@@ -163,7 +165,9 @@ export interface SortSelectorProps {
  * One native select listing every field × direction in words ("Date —
  * newest first"), so the choice is one control and fully announced.
  */
-export function SortSelector({ fields, value, onChange, label = "Sort by" }: SortSelectorProps) {
+export function SortSelector({ fields, value, onChange, label: labelProp }: SortSelectorProps) {
+  const t = useT();
+  const label = labelProp ?? t("Sort by");
   const opts = fields.flatMap((f) => {
     const [a, d] = f.directions ?? ["A to Z", "Z to A"];
     return [

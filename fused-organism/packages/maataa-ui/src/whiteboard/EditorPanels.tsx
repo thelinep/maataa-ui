@@ -4,6 +4,7 @@
  * RenderProgressRow and RenderQueue
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -24,17 +25,21 @@ const iconBtn: React.CSSProperties = {
 export type ShapeKind = "rectangle" | "ellipse" | "line" | "arrow" | "triangle" | "star" | "text";
 
 const SHAPES: { id: ShapeKind; label: string; path: React.ReactNode }[] = [
-  { id: "rectangle", label: "Rectangle", path: <rect x="4" y="6" width="16" height="12" rx="1" /> },
-  { id: "ellipse", label: "Ellipse", path: <ellipse cx="12" cy="12" rx="8" ry="6" /> },
-  { id: "line", label: "Line", path: <line x1="4" y1="18" x2="20" y2="6" /> },
-  { id: "arrow", label: "Arrow", path: <path d="M4 18 L20 6 M20 6 h-6 M20 6 v6" /> },
-  { id: "triangle", label: "Triangle", path: <path d="M12 5 L20 19 H4 Z" /> },
+  {
+    id: "rectangle",
+    label: msg("Rectangle"),
+    path: <rect x="4" y="6" width="16" height="12" rx="1" />,
+  },
+  { id: "ellipse", label: msg("Ellipse"), path: <ellipse cx="12" cy="12" rx="8" ry="6" /> },
+  { id: "line", label: msg("Line"), path: <line x1="4" y1="18" x2="20" y2="6" /> },
+  { id: "arrow", label: msg("Arrow"), path: <path d="M4 18 L20 6 M20 6 h-6 M20 6 v6" /> },
+  { id: "triangle", label: msg("Triangle"), path: <path d="M12 5 L20 19 H4 Z" /> },
   {
     id: "star",
-    label: "Star",
+    label: msg("Star"),
     path: <path d="M12 4l2.4 5 5.6.6-4.2 3.8 1.2 5.6L12 16.3 7 19l1.2-5.6L4 9.6l5.6-.6z" />,
   },
-  { id: "text", label: "Text box", path: <path d="M6 6h12M12 6v12" /> },
+  { id: "text", label: msg("Text box"), path: <path d="M6 6h12M12 6v12" /> },
 ];
 
 export interface ShapeToolPickerProps {
@@ -57,6 +62,7 @@ export function ShapeToolPicker({
   onFilledChange,
   shapes,
 }: ShapeToolPickerProps) {
+  const t = useT();
   const list = SHAPES.filter((s) => !shapes || shapes.includes(s.id));
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const idx = Math.max(
@@ -79,7 +85,7 @@ export function ShapeToolPicker({
     >
       <div
         role="radiogroup"
-        aria-label="Shape"
+        aria-label={t("Shape")}
         style={{
           display: "inline-flex",
           gap: 2,
@@ -99,8 +105,8 @@ export function ShapeToolPicker({
               type="button"
               role="radio"
               aria-checked={on}
-              aria-label={s.label}
-              title={s.label}
+              aria-label={t(s.label)}
+              title={t(s.label)}
               tabIndex={n === idx ? 0 : -1}
               onClick={() => onChange(s.id)}
               onKeyDown={(e) => {
@@ -155,7 +161,7 @@ export function ShapeToolPicker({
             onChange={(e) => onFilledChange(e.target.checked)}
             style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
           />
-          Fill
+          {t("Fill")}
         </label>
       )}
     </div>
@@ -193,8 +199,10 @@ export function LayerStack({
   onChange,
   selectedId,
   onSelect,
-  label = "Layers",
+  label: labelProp,
 }: LayerStackProps) {
+  const t = useT();
+  const label = labelProp ?? t("Layers");
   const [msg, setMsg] = useState("");
   const moveRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const set = (id: string, patch: Partial<Layer>) =>
@@ -230,7 +238,9 @@ export function LayerStack({
         }}
       >
         {label}{" "}
-        <span style={{ fontWeight: 400, color: colorTokens.text.secondary }}>(top first)</span>
+        <span style={{ fontWeight: 400, color: colorTokens.text.secondary }}>
+          {t("(top first)")}
+        </span>
       </h3>
       <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {layers.map((l, i) => {
@@ -250,7 +260,7 @@ export function LayerStack({
               <button
                 type="button"
                 aria-pressed={!l.visible ? true : false}
-                aria-label={`Hide ${l.name}`}
+                aria-label={t("Hide {name}", { name: l.name })}
                 onClick={() => set(l.id, { visible: !l.visible })}
                 style={{
                   ...iconBtn,
@@ -264,7 +274,7 @@ export function LayerStack({
               <button
                 type="button"
                 aria-pressed={l.locked}
-                aria-label={`Lock ${l.name}`}
+                aria-label={t("Lock {name}", { name: l.name })}
                 onClick={() => set(l.id, { locked: !l.locked })}
                 style={{ ...iconBtn, border: 0, background: "transparent" }}
               >
@@ -304,7 +314,7 @@ export function LayerStack({
                   moveRefs.current[`${l.id}-up`] = el;
                 }}
                 type="button"
-                aria-label={`Move ${l.name} up`}
+                aria-label={t("Move {name} up", { name: l.name })}
                 disabled={i === 0}
                 onClick={() => move(i, -1, "up")}
                 style={{ ...iconBtn, opacity: i === 0 ? 0.4 : 1 }}
@@ -316,7 +326,7 @@ export function LayerStack({
                   moveRefs.current[`${l.id}-down`] = el;
                 }}
                 type="button"
-                aria-label={`Move ${l.name} down`}
+                aria-label={t("Move {name} down", { name: l.name })}
                 disabled={i === layers.length - 1}
                 onClick={() => move(i, 1, "down")}
                 style={{ ...iconBtn, opacity: i === layers.length - 1 ? 0.4 : 1 }}
@@ -360,8 +370,10 @@ export function EffectsLibrary({
   effects,
   onApply,
   applied = [],
-  label = "Effects",
+  label: labelProp,
 }: EffectsLibraryProps) {
+  const t = useT();
+  const label = labelProp ?? t("Effects");
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("All");
   const cats = ["All", ...Array.from(new Set(effects.map((e) => e.category)))];
@@ -386,7 +398,7 @@ export function EffectsLibrary({
             minWidth: 160,
           }}
         >
-          Search effects
+          {t("Search effects")}
           <input
             type="search"
             value={q}
@@ -410,7 +422,7 @@ export function EffectsLibrary({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Category
+          {t("Category")}
           <select
             value={cat}
             onChange={(e) => setCat(e.target.value)}
@@ -492,7 +504,7 @@ export function EffectsLibrary({
                       color: colorTokens.text.secondary,
                     }}
                   >
-                    {e.description}
+                    {t(e.description)}
                   </span>
                 )}
                 <button
@@ -513,12 +525,13 @@ export function EffectsLibrary({
                 >
                   {on ? (
                     <>
-                      <span aria-hidden="true">✓ </span>Applied
+                      <span aria-hidden="true">✓ </span>
+                      {t("Applied")}
                       <VisuallyHidden>: {e.name}</VisuallyHidden>
                     </>
                   ) : (
                     <>
-                      Apply <VisuallyHidden>{e.name}</VisuallyHidden>
+                      {t("Apply")} <VisuallyHidden>{e.name}</VisuallyHidden>
                     </>
                   )}
                 </button>
@@ -568,6 +581,7 @@ export function LiveDrawingOverlay({
   color = "#F5D547",
   author,
 }: LiveDrawingOverlayProps) {
+  const t = useT();
   const errId = useId();
   const [on, setOn] = useState(false);
   const [note, setNote] = useState("");
@@ -621,7 +635,7 @@ export function LiveDrawingOverlay({
             width={960}
             height={540}
             role="img"
-            aria-label="Drawing layer over the frame"
+            aria-label={t("Drawing layer over the frame")}
             onPointerDown={(e) => {
               const ctx = e.currentTarget.getContext?.("2d");
               if (!ctx) return;
@@ -663,7 +677,8 @@ export function LiveDrawingOverlay({
           onClick={() => setOn((x) => !x)}
           style={{ ...iconBtn, minHeight: 44, padding: "0 12px" }}
         >
-          <span aria-hidden="true">✏️ </span>Draw on frame
+          <span aria-hidden="true">✏️ </span>
+          {t("Draw on frame")}
         </button>
         {on && (
           <button
@@ -671,7 +686,7 @@ export function LiveDrawingOverlay({
             onClick={clear}
             style={{ ...iconBtn, minHeight: 44, padding: "0 12px" }}
           >
-            Clear drawing
+            {t("Clear drawing")}
           </button>
         )}
         <label
@@ -714,7 +729,7 @@ export function LiveDrawingOverlay({
             fontWeight: 700,
           }}
         >
-          Add note
+          {t("Add note")}
         </button>
       </div>
       {err && (
@@ -727,7 +742,7 @@ export function LiveDrawingOverlay({
       )}
       {annotations.length > 0 && (
         <ol
-          aria-label="Review notes"
+          aria-label={t("Review notes")}
           style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 4 }}
         >
           {annotations.map((a) => (
@@ -740,9 +755,9 @@ export function LiveDrawingOverlay({
               >
                 {m(a.at)}
               </span>{" "}
-              {a.note}
+              {t(a.note)}
               {a.drawing && (
-                <span style={{ color: colorTokens.text.secondary }}> (with drawing)</span>
+                <span style={{ color: colorTokens.text.secondary }}> {t("(with drawing)")}</span>
               )}
               {a.author && <span style={{ color: colorTokens.text.secondary }}> — {a.author}</span>}
             </li>
@@ -771,11 +786,11 @@ export interface RenderJob {
 }
 
 const STATE_LABEL: Record<RenderState, string> = {
-  queued: "Queued",
-  rendering: "Rendering",
-  done: "Done",
-  failed: "Failed",
-  paused: "Paused",
+  queued: msg("Queued"),
+  rendering: msg("Rendering"),
+  done: msg("Done"),
+  failed: msg("Failed"),
+  paused: msg("Paused"),
 };
 
 export interface RenderProgressRowProps {
@@ -787,6 +802,7 @@ export interface RenderProgressRowProps {
 
 /** One render: name, preset, state in words, progressbar and ETA. */
 export function RenderProgressRow({ job, onCancel, onRetry, onPause }: RenderProgressRowProps) {
+  const t = useT();
   const col =
     job.state === "failed"
       ? colorTokens.interactive.error
@@ -818,16 +834,16 @@ export function RenderProgressRow({ job, onCancel, onRetry, onPause }: RenderPro
         </span>
       </div>
       <span style={{ fontSize: typographyTokens.fontSize.sm, fontWeight: 700, color: col }}>
-        {STATE_LABEL[job.state]}
+        {t(STATE_LABEL[job.state])}
         {job.state === "rendering" && job.percent != null ? ` ${Math.round(job.percent)}%` : ""}
       </span>
       <div
         role="progressbar"
-        aria-label={`${job.name} render`}
+        aria-label={t("{name} render", { name: job.name })}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={job.state === "done" ? 100 : (job.percent ?? 0)}
-        aria-valuetext={`${STATE_LABEL[job.state]}${job.percent != null && job.state !== "done" ? `, ${Math.round(job.percent)}%` : ""}${eta ? `, ${eta}` : ""}`}
+        aria-valuetext={`${t(STATE_LABEL[job.state])}${job.percent != null && job.state !== "done" ? `, ${Math.round(job.percent)}%` : ""}${eta ? `, ${eta}` : ""}`}
         style={{
           height: 6,
           borderRadius: 999,
@@ -847,18 +863,18 @@ export function RenderProgressRow({ job, onCancel, onRetry, onPause }: RenderPro
       <div style={{ display: "flex", gap: 4 }}>
         {job.state === "rendering" && onPause && (
           <button type="button" style={iconBtn} onClick={() => onPause(job.id)}>
-            Pause <VisuallyHidden>{job.name}</VisuallyHidden>
+            {t("Pause")} <VisuallyHidden>{job.name}</VisuallyHidden>
           </button>
         )}
         {(job.state === "rendering" || job.state === "queued" || job.state === "paused") &&
           onCancel && (
             <button type="button" style={iconBtn} onClick={() => onCancel(job.id)}>
-              Cancel <VisuallyHidden>{job.name}</VisuallyHidden>
+              {t("Cancel")} <VisuallyHidden>{job.name}</VisuallyHidden>
             </button>
           )}
         {job.state === "failed" && onRetry && (
           <button type="button" style={iconBtn} onClick={() => onRetry(job.id)}>
-            Retry <VisuallyHidden>{job.name}</VisuallyHidden>
+            {t("Retry")} <VisuallyHidden>{job.name}</VisuallyHidden>
           </button>
         )}
       </div>
@@ -887,7 +903,9 @@ export interface RenderQueueProps extends Omit<RenderProgressRowProps, "job"> {
  * List of renders with a summary ("1 rendering, 2 queued, 1 failed").
  * Finishing and failing jobs are announced once.
  */
-export function RenderQueue({ jobs, label = "Render queue", ...actions }: RenderQueueProps) {
+export function RenderQueue({ jobs, label: labelProp, ...actions }: RenderQueueProps) {
+  const t = useT();
+  const label = labelProp ?? t("Render queue");
   const prev = useRef<Record<string, RenderState>>({});
   const [msg, setMsg] = useState("");
   useEffect(() => {
@@ -898,13 +916,13 @@ export function RenderQueue({ jobs, label = "Render queue", ...actions }: Render
         (j.state === "done" || j.state === "failed")
     );
     if (changed.length)
-      setMsg(changed.map((j) => `${j.name}: ${STATE_LABEL[j.state].toLowerCase()}`).join(". "));
+      setMsg(changed.map((j) => `${j.name}: ${t(STATE_LABEL[j.state]).toLowerCase()}`).join(". "));
     prev.current = Object.fromEntries(jobs.map((j) => [j.id, j.state]));
-  }, [jobs]);
+  }, [jobs, t]);
   const counts = (Object.keys(STATE_LABEL) as RenderState[])
     .map((s) => [s, jobs.filter((j) => j.state === s).length] as const)
     .filter(([, n]) => n)
-    .map(([s, n]) => `${n} ${STATE_LABEL[s].toLowerCase()}`)
+    .map(([s, n]) => `${n} ${t(STATE_LABEL[s]).toLowerCase()}`)
     .join(", ");
   return (
     <section

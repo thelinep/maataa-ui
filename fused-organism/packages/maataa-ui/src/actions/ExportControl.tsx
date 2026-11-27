@@ -3,6 +3,7 @@
  * Export data as CSV, Excel or PDF, optionally with personal details redacted
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -22,9 +23,9 @@ export interface ExportControlProps {
 }
 
 const formatLabel: Record<ExportFormat, string> = {
-  csv: "CSV (opens in any spreadsheet)",
-  xlsx: "Excel workbook",
-  pdf: "PDF (for printing or sharing)",
+  csv: msg("CSV (opens in any spreadsheet)"),
+  xlsx: msg("Excel workbook"),
+  pdf: msg("PDF (for printing or sharing)"),
 };
 
 /**
@@ -40,12 +41,13 @@ export function ExportControl({
   defaultRedact = true,
   busy,
 }: ExportControlProps) {
+  const t = useT();
   const id = useId();
   const [fmt, setFmt] = useState<ExportFormat>(formats[0]);
   const [redact, setRedact] = useState(allowRedaction && defaultRedact);
   return (
     <form
-      aria-label={`Export ${subject}`}
+      aria-label={t("Export {subject}", { subject })}
       onSubmit={(e) => {
         e.preventDefault();
         onExport(fmt, { redact: allowRedaction && redact });
@@ -54,7 +56,7 @@ export function ExportControl({
     >
       <fieldset style={{ border: "none", margin: 0, padding: 0 }}>
         <legend style={{ fontWeight: 600, padding: 0, marginBottom: spacingTokens.xs }}>
-          Format
+          {t("Format")}
         </legend>
         {formats.map((f) => (
           <label
@@ -78,7 +80,7 @@ export function ExportControl({
                 accentColor: colorTokens.interactive.primary,
               }}
             />
-            {formatLabel[f]}
+            {t(formatLabel[f])}
           </label>
         ))}
       </fieldset>
@@ -97,7 +99,7 @@ export function ExportControl({
             }}
           />
           <span>
-            Remove personal details
+            {t("Remove personal details")}
             <span
               id={`${id}-redact`}
               style={{

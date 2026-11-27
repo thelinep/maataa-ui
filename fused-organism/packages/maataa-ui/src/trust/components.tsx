@@ -3,6 +3,7 @@
  * Display components for trust and compliance data supplied by an application.
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens } from "../tokens";
 
@@ -53,12 +54,13 @@ export const RoleManagementPanel: React.FC<RoleManagementPanelProps> = ({
   userId,
   currentRoles,
 }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Role Management</h3>
-      <p>User: {userId}</p>
+      <h3>{t("Role Management")}</h3>
+      <p>{t("User: {userId}", { userId })}</p>
       <div>
-        <strong>Current Roles:</strong>
+        <strong>{t("Current Roles:")}</strong>
         <ul>
           {currentRoles.map((role) => (
             <li key={role}>{role}</li>
@@ -66,7 +68,7 @@ export const RoleManagementPanel: React.FC<RoleManagementPanelProps> = ({
         </ul>
       </div>
       <p style={{ fontSize: "12px", color: colorTokens.text.secondary }}>
-        Display only. Connect an authoritative identity service before enabling role changes.
+        {t("Display only. Connect an authoritative identity service before enabling role changes.")}
       </p>
     </div>
   );
@@ -77,10 +79,11 @@ export const RoleManagementPanel: React.FC<RoleManagementPanelProps> = ({
  * Configure multi-factor authentication
  */
 export const MFASetupPanel: React.FC<MFASetupPanelProps> = ({ userId }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>MFA Setup</h3>
-      <p>User: {userId}</p>
+      <h3>{t("MFA Setup")}</h3>
+      <p>{t("User: {userId}", { userId })}</p>
       <p>
         Authentication setup is not connected. Use your organization’s identity provider to
         configure MFA.
@@ -94,8 +97,9 @@ export const MFASetupPanel: React.FC<MFASetupPanelProps> = ({ userId }) => {
  * Display and filter audit events
  */
 export const AuditLogViewer: React.FC<AuditLogViewerProps> = ({ events, isLoading, error }) => {
+  const t = useT();
   if (isLoading) {
-    return <div style={{ padding: "16px" }}>Loading events...</div>;
+    return <div style={{ padding: "16px" }}>{t("Loading events...")}</div>;
   }
 
   if (error) {
@@ -115,13 +119,13 @@ export const AuditLogViewer: React.FC<AuditLogViewerProps> = ({ events, isLoadin
 
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Audit Log</h3>
+      <h3>{t("Audit Log")}</h3>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
         <thead>
           <tr style={{ borderBottom: "2px solid #ddd" }}>
-            <th style={{ padding: "8px", textAlign: "left" }}>Timestamp</th>
-            <th style={{ padding: "8px", textAlign: "left" }}>Action</th>
-            <th style={{ padding: "8px", textAlign: "left" }}>Status</th>
+            <th style={{ padding: "8px", textAlign: "left" }}>{t("Timestamp")}</th>
+            <th style={{ padding: "8px", textAlign: "left" }}>{t("Action")}</th>
+            <th style={{ padding: "8px", textAlign: "left" }}>{t("Status")}</th>
           </tr>
         </thead>
         <tbody>
@@ -142,7 +146,7 @@ export const AuditLogViewer: React.FC<AuditLogViewerProps> = ({ events, isLoadin
         </tbody>
       </table>
       <p style={{ fontSize: "12px", color: colorTokens.text.tertiary, marginTop: "8px" }}>
-        Showing 10 of {events.length} events
+        {t("Showing 10 of {count} events", { count: events.length })}
       </p>
     </div>
   );
@@ -157,6 +161,7 @@ export const ComplianceStatusDashboard: React.FC<ComplianceStatusDashboardProps>
   statuses = {},
   compact,
 }) => {
+  const t = useT();
   return (
     <div
       style={{
@@ -165,15 +170,15 @@ export const ComplianceStatusDashboard: React.FC<ComplianceStatusDashboardProps>
         borderRadius: "8px",
       }}
     >
-      <h3>Compliance Status</h3>
+      <h3>{t("Compliance Status")}</h3>
       {frameworks.map((framework) => {
         const status = statuses[framework] ?? "unknown";
         const label =
           status === "reported-compliant"
             ? "Reported compliant"
             : status === "attention-needed"
-              ? "Attention needed"
-              : "Not connected";
+              ? t("Attention needed")
+              : t("Not connected");
         return (
           <div
             key={framework}
@@ -222,24 +227,25 @@ export const PrivacyRequestManager: React.FC<PrivacyRequestManagerProps> = ({
   userId,
   onRequestSubmit,
 }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Privacy Requests</h3>
-      <p>User: {userId}</p>
-      <p>Request types:</p>
+      <h3>{t("Privacy Requests")}</h3>
+      <p>{t("User: {userId}", { userId })}</p>
+      <p>{t("Request types:")}</p>
       <ul>
         <li>
-          <button onClick={() => onRequestSubmit?.("access")}>Access</button>
+          <button onClick={() => onRequestSubmit?.("access")}>{t("Access")}</button>
         </li>
         <li>
-          <button onClick={() => onRequestSubmit?.("delete")}>Deletion</button>
+          <button onClick={() => onRequestSubmit?.("delete")}>{t("Deletion")}</button>
         </li>
         <li>
-          <button onClick={() => onRequestSubmit?.("portability")}>Portability</button>
+          <button onClick={() => onRequestSubmit?.("portability")}>{t("Portability")}</button>
         </li>
       </ul>
       <p style={{ fontSize: "12px", color: colorTokens.text.tertiary }}>
-        TODO: Implement privacy request workflow
+        {t("TODO: Implement privacy request workflow")}
       </p>
     </div>
   );
@@ -250,18 +256,19 @@ export const PrivacyRequestManager: React.FC<PrivacyRequestManagerProps> = ({
  * Manage user sessions and active logins
  */
 export const SessionManager: React.FC<SessionManagerProps> = ({ sessions, onRevoke }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Active Sessions</h3>
+      <h3>{t("Active Sessions")}</h3>
       {sessions.length === 0 ? (
-        <p>No active sessions</p>
+        <p>{t("No active sessions")}</p>
       ) : (
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
           <thead>
             <tr style={{ borderBottom: "2px solid #ddd" }}>
-              <th style={{ padding: "8px", textAlign: "left" }}>Started</th>
-              <th style={{ padding: "8px", textAlign: "left" }}>Browser</th>
-              <th style={{ padding: "8px", textAlign: "left" }}>Action</th>
+              <th style={{ padding: "8px", textAlign: "left" }}>{t("Started")}</th>
+              <th style={{ padding: "8px", textAlign: "left" }}>{t("Browser")}</th>
+              <th style={{ padding: "8px", textAlign: "left" }}>{t("Action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -281,7 +288,7 @@ export const SessionManager: React.FC<SessionManagerProps> = ({ sessions, onRevo
                       cursor: "pointer",
                     }}
                   >
-                    Revoke
+                    {t("Revoke")}
                   </button>
                 </td>
               </tr>

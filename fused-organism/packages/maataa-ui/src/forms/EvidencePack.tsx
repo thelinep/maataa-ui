@@ -3,6 +3,7 @@
  * Build an investor evidence pack, and share or revoke it
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Button } from "../primitives/Button";
 import { moveItem } from "../whiteboard/FrameTimelineStrip";
@@ -43,6 +44,7 @@ export function EvidencePackBuilder({
   onRedactChange,
   onPreview,
 }: EvidencePackBuilderProps) {
+  const tx = useT();
   const [msg, setMsg] = useState("");
   const byId = (id: string) => available.find((d) => d.id === id);
   const sensitiveIn = included.filter((id) => byId(id)?.sensitive).length;
@@ -72,7 +74,9 @@ export function EvidencePackBuilder({
           margin: 0,
         }}
       >
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Documents</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {tx("Documents")}
+        </legend>
         {Array.from(new Set(available.map((d) => d.category))).map((cat) => (
           <div key={cat} style={{ marginBottom: spacingTokens.sm }}>
             <div
@@ -127,7 +131,7 @@ export function EvidencePackBuilder({
                         fontWeight: 600,
                       }}
                     >
-                      · confidential
+                      {tx("· confidential")}
                     </span>
                   )}
                 </label>
@@ -136,7 +140,7 @@ export function EvidencePackBuilder({
         ))}
       </fieldset>
       <section
-        aria-label="Pack contents"
+        aria-label={tx("Pack contents")}
         style={{
           border: `1px solid ${colorTokens.border.primary}`,
           borderRadius: 8,
@@ -147,7 +151,7 @@ export function EvidencePackBuilder({
         }}
       >
         <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>
-          Pack · {included.length} documents, in this order
+          {tx("Pack · {count} documents, in this order", { count: included.length })}
         </h3>
         {included.length === 0 ? (
           <p
@@ -157,7 +161,7 @@ export function EvidencePackBuilder({
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            Tick documents on the left to add them.
+            {tx("Tick documents on the left to add them.")}
           </p>
         ) : (
           <ol style={{ margin: 0, paddingLeft: spacingTokens.lg }}>
@@ -177,7 +181,7 @@ export function EvidencePackBuilder({
                       type="button"
                       style={small}
                       disabled={i === 0}
-                      aria-label={`Move ${byId(id)?.name} earlier`}
+                      aria-label={tx("Move {value} earlier", { value: byId(id)?.name })}
                       onClick={() => {
                         onChange(moveItem(included, i, i - 1));
                         setMsg(`Moved to position ${i}`);
@@ -189,7 +193,7 @@ export function EvidencePackBuilder({
                       type="button"
                       style={small}
                       disabled={i === included.length - 1}
-                      aria-label={`Move ${byId(id)?.name} later`}
+                      aria-label={tx("Move {value} later", { value: byId(id)?.name })}
                       onClick={() => {
                         onChange(moveItem(included, i, i + 1));
                         setMsg(`Moved to position ${i + 2}`);
@@ -237,7 +241,7 @@ export function EvidencePackBuilder({
         {onPreview && (
           <div>
             <Button variant="secondary" onClick={onPreview} disabled={!included.length}>
-              Preview pack
+              {tx("Preview pack")}
             </Button>
           </div>
         )}
@@ -279,8 +283,10 @@ export function SharePermissions({
   grants,
   onAdd,
   onRevoke,
-  locale = "en-IN",
+  locale: localeProp,
 }: SharePermissionsProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const [email, setEmail] = useState("");
   const [days, setDays] = useState(30);
   const [dl, setDl] = useState(false);
@@ -295,10 +301,12 @@ export function SharePermissions({
   };
   return (
     <section
-      aria-label={`Who can see ${subject}`}
+      aria-label={tx("Who can see {subject}", { subject })}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
-      <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>Who can see {subject}</h3>
+      <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>
+        {tx("Who can see {subject}", { subject })}
+      </h3>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -319,7 +327,7 @@ export function SharePermissions({
             minWidth: 180,
           }}
         >
-          Email
+          {tx("Email")}
           <input
             type="email"
             value={email}
@@ -335,11 +343,11 @@ export function SharePermissions({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Access for
+          {tx("Access for")}
           <select value={days} onChange={(e) => setDays(Number(e.target.value))} style={inp}>
-            <option value={7}>7 days</option>
-            <option value={30}>30 days</option>
-            <option value={90}>90 days</option>
+            <option value={7}>{tx("7 days")}</option>
+            <option value={30}>{tx("30 days")}</option>
+            <option value={90}>{tx("90 days")}</option>
           </select>
         </label>
         <label
@@ -362,10 +370,10 @@ export function SharePermissions({
               accentColor: colorTokens.interactive.primary,
             }}
           />
-          Can download
+          {tx("Can download")}
         </label>
         <Button type="submit" size="sm">
-          Share
+          {tx("Share")}
         </Button>
       </form>
       {err && (
@@ -398,7 +406,7 @@ export function SharePermissions({
                   color: colorTokens.text.secondary,
                 }}
               >
-                {g.canDownload ? "Can download" : "View only"}
+                {g.canDownload ? tx("Can download") : tx("View only")}
                 {g.expiresAt ? ` · until ${d(g.expiresAt)}` : ""}
                 {g.lastViewed ? ` · last viewed ${d(g.lastViewed)}` : " · not opened yet"}
               </span>
@@ -406,7 +414,7 @@ export function SharePermissions({
             <button
               type="button"
               onClick={() => onRevoke(g.id)}
-              aria-label={`Revoke access for ${g.name}`}
+              aria-label={tx("Revoke access for {name}", { name: g.name })}
               style={{
                 background: "none",
                 border: "none",
@@ -417,7 +425,7 @@ export function SharePermissions({
                 font: "inherit",
               }}
             >
-              Revoke
+              {tx("Revoke")}
             </button>
           </li>
         ))}

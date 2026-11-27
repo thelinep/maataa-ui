@@ -3,6 +3,7 @@
  * A zoomable/pannable floor-plan canvas with placeable, selectable zones
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useRef, useState } from "react";
 import { colorTokens, radiusTokens, spacingTokens, typographyTokens } from "../tokens";
 import { clamp } from "./mapUtils";
@@ -101,6 +102,7 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
     },
     ref
   ) => {
+    const t = useT();
     const [hoveredId, setHoveredId] = useState<string | null>(null);
     const [view, setView] = useState({ scale: 1, x: 0, y: 0 });
     const dragState = useRef<{
@@ -164,7 +166,7 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
           height={height}
           viewBox={`0 0 ${planWidth} ${planHeight}`}
           role="group"
-          aria-label={`Venue floor plan with ${zones.length} zones`}
+          aria-label={t("Venue floor plan with {count} zones", { count: zones.length })}
           onWheel={handleWheel}
           onMouseMove={handleMouseMove}
           onMouseUp={stopDrag}
@@ -275,13 +277,13 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
               gap: "2px",
             }}
           >
-            <ZoomButton label="Zoom in" onClick={() => zoomBy(1.25)}>
+            <ZoomButton label={t("Zoom in")} onClick={() => zoomBy(1.25)}>
               +
             </ZoomButton>
-            <ZoomButton label="Zoom out" onClick={() => zoomBy(1 / 1.25)}>
+            <ZoomButton label={t("Zoom out")} onClick={() => zoomBy(1 / 1.25)}>
               −
             </ZoomButton>
-            <ZoomButton label="Reset view" onClick={resetView}>
+            <ZoomButton label={t("Reset view")} onClick={resetView}>
               ⟲
             </ZoomButton>
           </div>

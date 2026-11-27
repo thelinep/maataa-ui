@@ -3,6 +3,7 @@
  * Short cinematic opening, with a skip control and a still fallback
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef } from "react";
 import { BrandLogo } from "./BrandLogo";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -44,6 +45,7 @@ export function SplashScreen({
   tagline = "From first idea to final cut",
   reducedMotion,
 }: SplashScreenProps) {
+  const t = useT();
   const still = reducedMotion ?? prefersReducedMotion();
   const skipRef = useRef<HTMLButtonElement>(null);
   const finished = useRef(false);
@@ -78,7 +80,7 @@ export function SplashScreen({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="maataa is starting"
+      aria-label={t("maataa is starting")}
       style={{
         position: "fixed",
         inset: 0,
@@ -127,7 +129,7 @@ export function SplashScreen({
           cursor: "pointer",
         }}
       >
-        Skip intro
+        {t("Skip intro")}
       </button>
     </div>
   );

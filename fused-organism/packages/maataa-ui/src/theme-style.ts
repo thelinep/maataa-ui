@@ -3,4 +3,19 @@
  * Keep this module free of client-only hooks and browser APIs.
  */
 export { ThemeStyle, type ThemeStyleProps } from "./themes/ThemeStyle";
-export { paperTheme, darkTheme, tlpsV2Theme, type MaataaTheme } from "./tokens";
+export { ThemePreferenceHead, type ThemePreferenceHeadProps } from "./themes/ThemePreferenceHead";
+export {
+  themeInitScript,
+  themePreferenceCss,
+  type ThemeChoice,
+  type ThemePreferenceOptions,
+} from "./themes/themePreference";
+export {
+  paperTheme,
+  darkTheme,
+  tlpsV2Theme,
+  highContrastTheme,
+  builtInThemes,
+  themesToCss,
+  type MaataaTheme,
+} from "./tokens";

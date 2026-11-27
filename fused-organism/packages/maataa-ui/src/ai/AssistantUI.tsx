@@ -3,6 +3,7 @@
  * AIChatBubble, AITypingIndicator and InteractionModeSwitcher
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -35,8 +36,9 @@ export function AIChatBubble({
   actions,
   error,
 }: AIChatBubbleProps) {
+  const t = useT();
   const mine = from === "user";
-  const who = name ?? (mine ? "You" : "Assistant");
+  const who = name ?? (mine ? t("You") : t("Assistant"));
   return (
     <article
       aria-label={`${who}${time ? `, ${time}` : ""}`}
@@ -50,7 +52,7 @@ export function AIChatBubble({
     >
       <span style={{ fontSize: 12, color: colorTokens.text.secondary }}>
         <strong style={{ color: colorTokens.text.primary }}>{who}</strong>
-        {!mine && <span> · AI-generated</span>}
+        {!mine && <span> {t("· AI-generated")}</span>}
         {time && <span> · {time}</span>}
       </span>
       <div
@@ -85,10 +87,10 @@ export function AIChatBubble({
           </summary>
           <ol style={{ margin: "4px 0 0", paddingLeft: 18 }}>
             {sources.map((s) => (
-              <li key={s.title}>
+              <li key={t(s.title)}>
                 {s.href ? (
                   <a href={s.href} style={{ color: colorTokens.interactive.primary }}>
-                    {s.title}
+                    {t(s.title)}
                   </a>
                 ) : (
                   s.title
@@ -115,6 +117,7 @@ export function AITypingIndicator({
   name?: string;
   onStop?: () => void;
 }) {
+  const t = useT();
   return (
     <div style={{ display: "inline-flex", alignItems: "center", gap: spacingTokens.sm }}>
       <style>{`@keyframes maataa-dot { 0%, 80%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } } @media (prefers-reduced-motion: reduce) { .maataa-dot { animation: none !important; opacity: .7 !important; } }`}</style>
@@ -144,7 +147,7 @@ export function AITypingIndicator({
         ))}
       </span>
       <span role="status" style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-        {name} is writing…
+        {t("{name} is writing…", { name })}
       </span>
       {onStop && (
         <button
@@ -162,7 +165,7 @@ export function AITypingIndicator({
             cursor: "pointer",
           }}
         >
-          Stop <VisuallyHidden>writing</VisuallyHidden>
+          {t("Stop")} <VisuallyHidden>writing</VisuallyHidden>
         </button>
       )}
     </div>
@@ -172,10 +175,10 @@ export function AITypingIndicator({
 export type InteractionMode = "text" | "voice" | "sign" | "simple";
 
 const MODES: { id: InteractionMode; label: string; icon: string; hint: string }[] = [
-  { id: "text", label: "Type", icon: "⌨️", hint: "Type and read" },
-  { id: "voice", label: "Speak", icon: "🎙", hint: "Talk and listen" },
-  { id: "sign", label: "Sign", icon: "🤟", hint: "Indian Sign Language video" },
-  { id: "simple", label: "Simple", icon: "🔤", hint: "Short answers, plain words" },
+  { id: "text", label: msg("Type"), icon: "⌨️", hint: msg("Type and read") },
+  { id: "voice", label: msg("Speak"), icon: "🎙", hint: msg("Talk and listen") },
+  { id: "sign", label: msg("Sign"), icon: "🤟", hint: msg("Indian Sign Language video") },
+  { id: "simple", label: msg("Simple"), icon: "🔤", hint: msg("Short answers, plain words") },
 ];
 
 /**
@@ -192,6 +195,7 @@ export function InteractionModeSwitcher({
   onChange: (m: InteractionMode) => void;
   available?: InteractionMode[];
 }) {
+  const t = useT();
   const list = MODES.filter((m) => available.includes(m.id));
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const idx = Math.max(
@@ -206,7 +210,7 @@ export function InteractionModeSwitcher({
   return (
     <div
       role="radiogroup"
-      aria-label="How do you want to interact?"
+      aria-label={t("How do you want to interact?")}
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${list.length}, minmax(90px, 1fr))`,
@@ -249,9 +253,9 @@ export function InteractionModeSwitcher({
             <span aria-hidden="true" style={{ fontSize: 24 }}>
               {m.icon}
             </span>
-            <span style={{ fontWeight: 700 }}>{m.label}</span>{" "}
+            <span style={{ fontWeight: 700 }}>{t(m.label)}</span>{" "}
             <span style={{ fontSize: 11, color: colorTokens.text.secondary, textAlign: "center" }}>
-              {m.hint}
+              {t(m.hint)}
             </span>
           </button>
         );

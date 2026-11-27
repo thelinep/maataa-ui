@@ -3,6 +3,7 @@
  * Public production cards (Dispatch) and their grid
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { EmptyState } from "./EmptyState";
@@ -39,6 +40,7 @@ export function ProductionListingCard({
   onOpen,
   headingLevel = 3,
 }: ProductionListingCardProps) {
+  const t = useT();
   const H = `h${headingLevel}` as "h3";
   return (
     <article
@@ -111,7 +113,7 @@ export function ProductionListingCard({
                 clip: "rect(0 0 0 0)",
               }}
             >
-              Hiring:
+              {t("Hiring:")}
             </span>
             {item.openRoles.map((r) => (
               <Badge key={r} variant="info">
@@ -146,13 +148,15 @@ export function ProductionListingGrid({
   onOpen,
   hiddenCount = 0,
   onClearFilters,
-  label = "Productions",
+  label: labelProp,
 }: ProductionListingGridProps) {
+  const t = useT();
+  const label = labelProp ?? t("Productions");
   if (items.length === 0) {
     return (
       <EmptyState
         icon="🔍"
-        title="No public productions match"
+        title={t("No public productions match")}
         description={
           hiddenCount > 0
             ? `${hiddenCount} production${hiddenCount === 1 ? " is" : "s are"} set to private or unlisted, so ${hiddenCount === 1 ? "it isn't" : "they aren't"} shown here. Try fewer filters.`
@@ -172,7 +176,7 @@ export function ProductionListingGrid({
                 font: "inherit",
               }}
             >
-              Clear filters
+              {t("Clear filters")}
             </button>
           ) : undefined
         }

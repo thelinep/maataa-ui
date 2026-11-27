@@ -3,6 +3,7 @@
  * Gear with availability and day rates
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -31,8 +32,10 @@ export function EquipmentCatalog({
   items,
   onBook,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
 }: EquipmentCatalogProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -95,7 +98,7 @@ export function EquipmentCatalog({
                     type="button"
                     disabled={i.available === 0}
                     onClick={() => onBook(i)}
-                    aria-label={`Book ${i.name}`}
+                    aria-label={t("Book {name}", { name: i.name })}
                     style={{
                       marginTop: 4,
                       alignSelf: "flex-start",
@@ -109,7 +112,7 @@ export function EquipmentCatalog({
                       opacity: i.available ? 1 : 0.5,
                     }}
                   >
-                    Book
+                    {t("Book")}
                   </button>
                 </li>
               ))}

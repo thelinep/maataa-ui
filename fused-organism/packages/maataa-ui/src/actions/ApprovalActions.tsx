@@ -3,6 +3,7 @@
  * Approve, or send back with a reason
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -29,11 +30,14 @@ export function ApprovalActions({
   subject,
   onApprove,
   onReject,
-  approveLabel = "Approve",
-  rejectLabel = "Send back",
+  approveLabel: approveLabelProp,
+  rejectLabel: rejectLabelProp,
   disabledReason,
   busy,
 }: ApprovalActionsProps) {
+  const t = useT();
+  const rejectLabel = rejectLabelProp ?? t("Send back");
+  const approveLabel = approveLabelProp ?? t("Approve");
   const id = useId();
   const [rejecting, setRejecting] = useState(false);
   const [reason, setReason] = useState("");
@@ -53,7 +57,7 @@ export function ApprovalActions({
   return (
     <div
       role="group"
-      aria-label={`Decision on ${subject}`}
+      aria-label={t("Decision on {subject}", { subject })}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
       {!rejecting ? (
@@ -79,7 +83,7 @@ export function ApprovalActions({
           style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}
         >
           <label htmlFor={`${id}-r`} style={{ fontWeight: 500 }}>
-            Why are you sending it back?
+            {t("Why are you sending it back?")}
           </label>
           <textarea
             id={`${id}-r`}
@@ -101,7 +105,7 @@ export function ApprovalActions({
             id={`${id}-h`}
             style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}
           >
-            They’ll see this message.
+            {t("They’ll see this message.")}
           </span>
           {err && (
             <span
@@ -120,7 +124,7 @@ export function ApprovalActions({
               {rejectLabel}
             </Button>
             <Button variant="secondary" onClick={() => setRejecting(false)}>
-              Cancel
+              {t("Cancel")}
             </Button>
           </div>
         </form>

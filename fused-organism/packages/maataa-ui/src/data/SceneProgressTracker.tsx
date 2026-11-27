@@ -3,6 +3,7 @@
  * Today's scenes: done, shooting, to go, with pages shot
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -26,10 +27,10 @@ export interface SceneProgressTrackerProps {
 const pages = (e: number) =>
   e < 8 ? (e ? `${e}/8` : "0") : `${Math.floor(e / 8)}${e % 8 ? ` ${e % 8}/8` : ""}`;
 const stateText = {
-  todo: "To shoot",
-  shooting: "Shooting now",
-  done: "Done",
-  moved: "Moved to another day",
+  todo: msg("To shoot"),
+  shooting: msg("Shooting now"),
+  done: msg("Done"),
+  moved: msg("Moved to another day"),
 };
 
 /**
@@ -40,8 +41,10 @@ const stateText = {
 export function SceneProgressTracker({
   scenes,
   onChangeState,
-  title = "Today’s scenes",
+  title: titleProp,
 }: SceneProgressTrackerProps) {
+  const t = useT();
+  const title = titleProp ?? t("Today’s scenes");
   const total = scenes.filter((s) => s.state !== "moved").reduce((a, s) => a + s.eighths, 0);
   const done = scenes.filter((s) => s.state === "done").reduce((a, s) => a + s.eighths, 0);
   const pct = total ? Math.round((done / total) * 100) : 0;
@@ -53,15 +56,23 @@ export function SceneProgressTracker({
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>{title}</h3>
       <div>
         <div style={{ fontSize: typographyTokens.fontSize.sm, marginBottom: 4 }}>
-          {pages(done)} of {pages(total)} pages shot ({pct}%)
+          {t("{value} of {value2} pages shot ({pct}%)", {
+            value: pages(done),
+            value2: pages(total),
+            pct,
+          })}
         </div>
         <div
           role="meter"
-          aria-label="Pages shot"
+          aria-label={t("Pages shot")}
           aria-valuemin={0}
           aria-valuemax={total}
           aria-valuenow={done}
-          aria-valuetext={`${pages(done)} of ${pages(total)} pages, ${pct}%`}
+          aria-valuetext={t("{value} of {value2} pages, {pct}%", {
+            value: pages(done),
+            value2: pages(total),
+            pct,
+          })}
           style={{ height: 10, background: colorTokens.background.tertiary, borderRadius: 5 }}
         >
           <div
@@ -105,7 +116,7 @@ export function SceneProgressTracker({
             </span>
             {onChangeState ? (
               <select
-                aria-label={`State of scene ${s.scene}`}
+                aria-label={t("State of scene {scene}", { scene: s.scene })}
                 value={s.state}
                 onChange={(e) => onChangeState(s.id, e.target.value as TrackedScene["state"])}
                 style={{
@@ -123,7 +134,9 @@ export function SceneProgressTracker({
                 ))}
               </select>
             ) : (
-              <span style={{ fontSize: typographyTokens.fontSize.sm }}>{stateText[s.state]}</span>
+              <span style={{ fontSize: typographyTokens.fontSize.sm }}>
+                {t(stateText[s.state])}
+              </span>
             )}
           </li>
         ))}

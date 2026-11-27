@@ -3,6 +3,7 @@
  * Timecoded review notes on a cut, with replies and resolve
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Avatar } from "./Avatar";
 import { Button } from "../primitives/Button";
@@ -45,8 +46,10 @@ export function ReviewThread({
   onToggleResolved,
   onAdd,
   currentTimecode,
-  locale = "en-IN",
+  locale: localeProp,
 }: ReviewThreadProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const [hideResolved, setHideResolved] = useState(false);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
@@ -77,7 +80,7 @@ export function ReviewThread({
         }}
       >
         <h3 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
-          Review notes · {open} open of {notes.length}
+          {t("Review notes · {open} open of {count}", { open, count: notes.length })}
         </h3>
         <label
           style={{
@@ -93,7 +96,7 @@ export function ReviewThread({
             onChange={(e) => setHideResolved(e.target.checked)}
             style={{ accentColor: colorTokens.interactive.primary }}
           />
-          Hide resolved
+          {t("Hide resolved")}
         </label>
       </div>
       {onAdd && (
@@ -129,7 +132,7 @@ export function ReviewThread({
             />
           </label>
           <Button type="submit" size="sm">
-            Add note
+            {t("Add note")}
           </Button>
         </form>
       )}
@@ -169,7 +172,7 @@ export function ReviewThread({
                   <button
                     type="button"
                     onClick={() => onSeek?.(n.timecode)}
-                    aria-label={`Go to ${n.timecode}`}
+                    aria-label={t("Go to {timecode}", { timecode: n.timecode })}
                     disabled={!onSeek}
                     style={{
                       fontFamily: typographyTokens.fontFamily.mono,
@@ -201,14 +204,17 @@ export function ReviewThread({
                         fontWeight: 600,
                       }}
                     >
-                      ✓ Resolved
+                      {t("✓ Resolved")}
                     </span>
                   )}
                 </div>
                 <p style={{ margin: `${spacingTokens.xs} 0` }}>{n.text}</p>
                 {n.replies && n.replies.length > 0 && (
                   <ul
-                    aria-label={`Replies to ${n.author}'s note at ${n.timecode}`}
+                    aria-label={t("Replies to {author}'s note at {timecode}", {
+                      author: n.author,
+                      timecode: n.timecode,
+                    })}
                     style={{
                       listStyle: "none",
                       margin: 0,
@@ -235,7 +241,10 @@ export function ReviewThread({
                   }}
                 >
                   <input
-                    aria-label={`Reply to ${n.author} at ${n.timecode}`}
+                    aria-label={t("Reply to {author} at {timecode}", {
+                      author: n.author,
+                      timecode: n.timecode,
+                    })}
                     value={drafts[n.id] ?? ""}
                     onChange={(e) => setDrafts({ ...drafts, [n.id]: e.target.value })}
                     onKeyDown={(e) => {
@@ -245,7 +254,7 @@ export function ReviewThread({
                         setDrafts({ ...drafts, [n.id]: "" });
                       }
                     }}
-                    placeholder="Reply, then press Enter"
+                    placeholder={t("Reply, then press Enter")}
                     style={{
                       flex: 1,
                       minWidth: 140,
@@ -260,9 +269,9 @@ export function ReviewThread({
                     variant="tertiary"
                     size="sm"
                     onClick={() => onToggleResolved(n.id)}
-                    aria-label={`${n.resolved ? "Reopen" : "Resolve"} note at ${n.timecode}`}
+                    aria-label={`${n.resolved ? t("Reopen") : t("Resolve")} note at ${n.timecode}`}
                   >
-                    {n.resolved ? "Reopen" : "Resolve"}
+                    {n.resolved ? t("Reopen") : t("Resolve")}
                   </Button>
                 </div>
               </div>

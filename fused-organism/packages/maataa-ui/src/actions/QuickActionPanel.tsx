@@ -3,6 +3,7 @@
  * Dashboard shortcuts to the most common tasks
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -27,7 +28,9 @@ export interface QuickActionPanelProps {
  * QuickActionPanel
  * A labelled region of large buttons. Disabled actions say why.
  */
-export function QuickActionPanel({ actions, title = "Quick actions" }: QuickActionPanelProps) {
+export function QuickActionPanel({ actions, title: titleProp }: QuickActionPanelProps) {
+  const t = useT();
+  const title = titleProp ?? t("Quick actions");
   return (
     <section aria-label={title}>
       <h2 style={{ margin: `0 0 ${spacingTokens.sm}`, fontSize: typographyTokens.fontSize.lg }}>

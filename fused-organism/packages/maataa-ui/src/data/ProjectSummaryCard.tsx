@@ -3,6 +3,7 @@
  * Dashboard card for one project: stage, budget use, next milestone, team
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { Avatar } from "./Avatar";
@@ -31,6 +32,7 @@ export interface ProjectSummaryCardProps {
  * the percentage is written out. Over 100% is flagged in words.
  */
 export function ProjectSummaryCard({ project: p, onOpen }: ProjectSummaryCardProps) {
+  const t = useT();
   const pct = p.budgetUsed !== undefined ? Math.round(p.budgetUsed * 100) : undefined;
   const over = pct !== undefined && pct > 100;
   return (
@@ -80,7 +82,7 @@ export function ProjectSummaryCard({ project: p, onOpen }: ProjectSummaryCardPro
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            <span>Budget used</span>
+            <span>{t("Budget used")}</span>
             <span
               style={{
                 fontWeight: 600,
@@ -93,7 +95,7 @@ export function ProjectSummaryCard({ project: p, onOpen }: ProjectSummaryCardPro
           </div>
           <div
             role="meter"
-            aria-label="Budget used"
+            aria-label={t("Budget used")}
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.min(pct, 100)}
@@ -122,7 +124,7 @@ export function ProjectSummaryCard({ project: p, onOpen }: ProjectSummaryCardPro
       )}
       {p.nextMilestone && (
         <div style={{ fontSize: typographyTokens.fontSize.sm }}>
-          <span style={{ color: colorTokens.text.secondary }}>Next: </span>
+          <span style={{ color: colorTokens.text.secondary }}>{t("Next:")} </span>
           {p.nextMilestone}
         </div>
       )}

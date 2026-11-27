@@ -3,6 +3,7 @@
  * One consent: what it allows, its state and when it was given
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -40,16 +41,18 @@ export function ConsentToggle({
   onChange,
   linkedAccount,
   consentedAt,
-  locale = "en-IN",
+  locale: localeProp,
   locked = false,
 }: ConsentToggleProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const when =
     granted && consentedAt
       ? `Given on ${consentedAt.toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}`
       : granted
-        ? "Given"
-        : "Not given";
+        ? t("Given")
+        : t("Not given");
   return (
     <div
       style={{
@@ -69,7 +72,11 @@ export function ConsentToggle({
           style={{ color: colorTokens.text.secondary, fontSize: typographyTokens.fontSize.sm }}
         >
           {description && <span style={{ display: "block" }}>{description}</span>}
-          {linkedAccount && <span style={{ display: "block" }}>Account: {linkedAccount}</span>}
+          {linkedAccount && (
+            <span style={{ display: "block" }}>
+              {t("Account: {linkedAccount}", { linkedAccount })}
+            </span>
+          )}
           <span style={{ display: "block" }}>
             {when}
             {locked ? " · required, cannot be withdrawn here" : ""}
@@ -109,7 +116,7 @@ export function ConsentToggle({
             background: granted ? colorTokens.text.inverse : colorTokens.border.control,
           }}
         />
-        {granted ? "On" : "Off"}
+        {granted ? t("On") : t("Off")}
       </button>
     </div>
   );

@@ -3,6 +3,7 @@
  * Ctrl/⌘+K: jump to a page or run an action by typing
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useMemo, useState } from "react";
 import { Modal } from "./Modal";
 import { SearchWithResults, type SearchResult } from "../forms/SearchWithResults";
@@ -74,8 +75,10 @@ export function CommandPalette({
   isOpen,
   onClose,
   commands,
-  title = "Go to or do…",
+  title: titleProp,
 }: CommandPaletteProps) {
+  const t = useT();
+  const title = titleProp ?? t("Go to or do…");
   const [query, setQuery] = useState("");
   useEffect(() => {
     if (!isOpen) setQuery("");
@@ -91,14 +94,14 @@ export function CommandPalette({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="md" closeButton={false}>
       <SearchWithResults
-        label="Search commands"
+        label={t("Search commands")}
         hideLabel
         alwaysOpen
         query={query}
         onQueryChange={setQuery}
         results={results}
-        placeholder="Type a page or action"
-        emptyText="No commands match"
+        placeholder={t("Type a page or action")}
+        emptyText={t("No commands match")}
         onEscape={onClose}
         onSelect={(r) => {
           const cmd = commands.find((c) => c.id === r.id);

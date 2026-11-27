@@ -3,6 +3,7 @@
  * Latitude/longitude entry: type, paste "lat, lng", or use this device's location
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle, smallButtonStyle } from "./fieldKit";
@@ -48,6 +49,7 @@ export function CoordinateInput({
   allowGeolocation = true,
   precision = 6,
 }: CoordinateInputProps) {
+  const t = useT();
   const [lat, setLat] = useState(value ? String(value.lat) : "");
   const [lng, setLng] = useState(value ? String(value.lng) : "");
   const [own, setOwn] = useState<string | null>(null);
@@ -109,8 +111,10 @@ export function CoordinateInput({
       (err) => {
         setStatus(
           err.code === 1
-            ? "Location permission was refused. Allow it in your browser settings, or type the coordinates."
-            : "Couldn’t get a location fix. Try again outdoors, or type the coordinates."
+            ? t(
+                "Location permission was refused. Allow it in your browser settings, or type the coordinates."
+              )
+            : t("Couldn’t get a location fix. Try again outdoors, or type the coordinates.")
         );
       },
       { enableHighAccuracy: true, timeout: 15000 }
@@ -126,7 +130,7 @@ export function CoordinateInput({
             style={{ display: "flex", gap: spacingTokens.sm, flexWrap: "wrap", alignItems: "end" }}
           >
             <label style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              Latitude
+              {t("Latitude")}
               <input
                 id={ids.id}
                 inputMode="decimal"
@@ -141,7 +145,7 @@ export function CoordinateInput({
               />
             </label>
             <label style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              Longitude
+              {t("Longitude")}
               <input
                 inputMode="decimal"
                 value={lng}
@@ -156,7 +160,7 @@ export function CoordinateInput({
             </label>
             {allowGeolocation && (
               <button type="button" style={smallButtonStyle} onClick={locate}>
-                Use my location
+                {t("Use my location")}
               </button>
             )}
           </div>

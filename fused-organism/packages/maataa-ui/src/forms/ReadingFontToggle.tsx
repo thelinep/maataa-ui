@@ -3,6 +3,7 @@
  * Switch to a reading-friendly font (dyslexia support)
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -25,17 +26,18 @@ export interface ReadingFontToggleProps {
  * Apply the chosen stack with readingFontStacks[value] on the app root.
  */
 export function ReadingFontToggle({ value, onChange }: ReadingFontToggleProps) {
+  const t = useT();
   const opts: { v: ReadingFont; label: string; hint: string }[] = [
-    { v: "default", label: "Standard", hint: "The app's usual font" },
+    { v: "default", label: msg("Standard"), hint: msg("The app's usual font") },
     {
       v: "atkinson",
-      label: "Atkinson Hyperlegible",
-      hint: "Clearer letter shapes; helps low vision",
+      label: msg("Atkinson Hyperlegible"),
+      hint: msg("Clearer letter shapes; helps low vision"),
     },
     {
       v: "opendyslexic",
-      label: "OpenDyslexic",
-      hint: "Weighted letters; some dyslexic readers prefer it",
+      label: msg("OpenDyslexic"),
+      hint: msg("Weighted letters; some dyslexic readers prefer it"),
     },
   ];
   return (
@@ -50,7 +52,7 @@ export function ReadingFontToggle({ value, onChange }: ReadingFontToggleProps) {
       }}
     >
       <legend style={{ fontWeight: 600, padding: 0, marginBottom: spacingTokens.xs }}>
-        Reading font
+        {t("Reading font")}
       </legend>
       {opts.map((o) => (
         <label
@@ -74,7 +76,7 @@ export function ReadingFontToggle({ value, onChange }: ReadingFontToggleProps) {
           />
           <span>
             <span style={{ display: "block", fontWeight: 600, fontFamily: readingFontStacks[o.v] }}>
-              {o.label}
+              {t(o.label)}
             </span>
             <span
               style={{
@@ -83,7 +85,7 @@ export function ReadingFontToggle({ value, onChange }: ReadingFontToggleProps) {
                 color: colorTokens.text.secondary,
               }}
             >
-              {o.hint}
+              {t(o.hint)}
             </span>
             <span
               aria-hidden="true"
@@ -94,7 +96,7 @@ export function ReadingFontToggle({ value, onChange }: ReadingFontToggleProps) {
                 marginTop: 2,
               }}
             >
-              Call time moved to 6:30 am. Bring the rain covers.
+              {t("Call time moved to 6:30 am. Bring the rain covers.")}
             </span>
           </span>
         </label>

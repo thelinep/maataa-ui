@@ -3,6 +3,7 @@
  * One moment shown in several time zones (call times for remote crew)
  */
 
+import { useLocale } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -38,8 +39,9 @@ export function TimezoneDisplay({
   at,
   zones,
   labels = {},
-  locale = "en-IN",
+  locale: localeProp,
 }: TimezoneDisplayProps) {
+  const locale = useLocale(localeProp);
   const fmt = (zone: string, opts: Intl.DateTimeFormatOptions) =>
     new Intl.DateTimeFormat(locale, { timeZone: zone, ...opts }).format(at);
   const dayKey = (zone: string) =>

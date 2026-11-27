@@ -4,6 +4,7 @@
  * EyeGazeCalibration, HapticFeedback and PictureBoard
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -24,6 +25,7 @@ export interface ModeSwitchProps {
  * ScreenReaderModeToggle and SimplifiedModeToggle (presets below).
  */
 export function ModeSwitch({ label, description, checked, onChange }: ModeSwitchProps) {
+  const t = useT();
   const id = React.useId();
   return (
     <div
@@ -70,7 +72,7 @@ export function ModeSwitch({ label, description, checked, onChange }: ModeSwitch
           cursor: "pointer",
         }}
       >
-        <span aria-hidden="true">{checked ? "On" : "Off"}</span>
+        <span aria-hidden="true">{checked ? t("On") : t("Off")}</span>
         <span
           aria-hidden="true"
           style={{
@@ -86,20 +88,26 @@ export function ModeSwitch({ label, description, checked, onChange }: ModeSwitch
 }
 
 export function ScreenReaderModeToggle(props: Omit<ModeSwitchProps, "label" | "description">) {
+  const t = useT();
   return (
     <ModeSwitch
-      label="Screen-reader mode"
-      description="Turns off animations and auto-advancing content, expands collapsed details, and adds text descriptions to charts and boards."
+      label={t("Screen-reader mode")}
+      description={t(
+        "Turns off animations and auto-advancing content, expands collapsed details, and adds text descriptions to charts and boards."
+      )}
       {...props}
     />
   );
 }
 
 export function SimplifiedModeToggle(props: Omit<ModeSwitchProps, "label" | "description">) {
+  const t = useT();
   return (
     <ModeSwitch
-      label="Simplified mode"
-      description="Shows one task at a time with larger buttons, plain words and fewer options. You can switch back at any time."
+      label={t("Simplified mode")}
+      description={t(
+        "Shows one task at a time with larger buttons, plain words and fewer options. You can switch back at any time."
+      )}
       {...props}
     />
   );
@@ -133,8 +141,10 @@ export interface VoiceCommandGuideProps {
 export function VoiceCommandGuide({
   commands,
   speakable = true,
-  title = "Voice commands",
+  title: titleProp,
 }: VoiceCommandGuideProps) {
+  const t = useT();
+  const title = titleProp ?? t("Voice commands");
   const [q, setQ] = useState("");
   const shown = commands.filter((c) =>
     (c.phrase + c.action + (c.alternatives ?? []).join(" ")).toLowerCase().includes(q.toLowerCase())
@@ -156,7 +166,7 @@ export function VoiceCommandGuide({
           maxWidth: 360,
         }}
       >
-        Find a command
+        {t("Find a command")}
         <input
           type="search"
           value={q}
@@ -219,7 +229,8 @@ export function VoiceCommandGuide({
                           cursor: "pointer",
                         }}
                       >
-                        Hear it<VisuallyHidden>: {c.phrase}</VisuallyHidden>
+                        {t("Hear it")}
+                        <VisuallyHidden>: {c.phrase}</VisuallyHidden>
                       </button>
                     )}
                   </dt>
@@ -282,6 +293,7 @@ export function EyeGazeCalibration({
   points = nineCalibrationPoints,
   dwellMs = 1500,
 }: EyeGazeCalibrationProps) {
+  const t = useT();
   const [i, setI] = useState(0);
   const [fill, setFill] = useState(0);
   const [hovering, setHovering] = useState(false);
@@ -320,7 +332,9 @@ export function EyeGazeCalibration({
       tabIndex={-1}
       role="application"
       aria-roledescription="calibration"
-      aria-label="Eye-gaze calibration. Look at each target until it fills, or press Space. Escape cancels."
+      aria-label={t(
+        "Eye-gaze calibration. Look at each target until it fills, or press Space. Escape cancels."
+      )}
       onKeyDown={(e) => {
         if (e.key === " " || e.key === "Enter") {
           e.preventDefault();
@@ -390,7 +404,7 @@ export function EyeGazeCalibration({
             />
             <circle cx="36" cy="36" r="8" fill="#FFFFFF" />
           </svg>
-          <VisuallyHidden>Confirm point {i + 1}</VisuallyHidden>
+          <VisuallyHidden>{t("Confirm point {value}", { value: i + 1 })}</VisuallyHidden>
         </button>
       )}
       {onCancel && !done && (
@@ -411,7 +425,7 @@ export function EyeGazeCalibration({
             cursor: "pointer",
           }}
         >
-          Cancel
+          {t("Cancel")}
         </button>
       )}
     </div>
@@ -459,6 +473,7 @@ export function HapticFeedback({
   onEnabledChange,
   visualPulse = true,
 }: HapticFeedbackProps) {
+  const t = useT();
   const [pulse, setPulse] = useState<{ on: boolean; key: number }>({ on: false, key: 0 });
   const [msg, setMsg] = useState("");
   const supported = typeof navigator !== "undefined" && "vibrate" in navigator;
@@ -480,12 +495,12 @@ export function HapticFeedback({
   };
   return (
     <section
-      aria-label="Haptic feedback"
+      aria-label={t("Haptic feedback")}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
       <ModeSwitch
-        label="Vibration feedback"
-        description="Short vibrations confirm taps, saves and errors."
+        label={t("Vibration feedback")}
+        description={t("Short vibrations confirm taps, saves and errors.")}
         checked={enabled}
         onChange={onEnabledChange}
       />
@@ -533,7 +548,7 @@ export function HapticFeedback({
             color: colorTokens.text.secondary,
           }}
         >
-          This device can’t vibrate, so patterns are shown visually.
+          {t("This device can’t vibrate, so patterns are shown visually.")}
         </p>
       )}
       <VisuallyHidden role="status">{msg}</VisuallyHidden>
@@ -570,8 +585,10 @@ export function PictureBoard({
   symbols,
   onSpeak,
   lang = "en-IN",
-  title = "Picture board",
+  title: titleProp,
 }: PictureBoardProps) {
+  const t = useT();
+  const title = titleProp ?? t("Picture board");
   const cats = useMemo(() => Array.from(new Set(symbols.map((s) => s.category))), [symbols]);
   const [cat, setCat] = useState(cats[0] ?? "");
   const [sentence, setSentence] = useState<PictureSymbol[]>([]);
@@ -605,7 +622,7 @@ export function PictureBoard({
       >
         <div
           role="group"
-          aria-label={`Sentence: ${text || "empty"}`}
+          aria-label={t("Sentence: {value}", { value: text || "empty" })}
           style={{
             flex: 1,
             minHeight: 72,
@@ -621,7 +638,7 @@ export function PictureBoard({
         >
           {sentence.length === 0 && (
             <span style={{ color: colorTokens.text.secondary }}>
-              Choose pictures to build a sentence
+              {t("Choose pictures to build a sentence")}
             </span>
           )}
           {sentence.map((s, n) => (
@@ -644,7 +661,7 @@ export function PictureBoard({
               <span aria-hidden="true" style={{ fontSize: 22 }}>
                 {s.symbol}
               </span>
-              <VisuallyHidden>Remove</VisuallyHidden> {s.label}
+              <VisuallyHidden>{t("Remove")}</VisuallyHidden> {s.label}
             </button>
           ))}
         </div>
@@ -660,7 +677,8 @@ export function PictureBoard({
             minWidth: 110,
           }}
         >
-          <span aria-hidden="true">🔊 </span>Speak
+          <span aria-hidden="true">🔊 </span>
+          {t("Speak")}
         </button>
         <button
           type="button"
@@ -673,7 +691,7 @@ export function PictureBoard({
             color: colorTokens.text.primary,
           }}
         >
-          Delete last
+          {t("Delete last")}
         </button>
         <button
           type="button"
@@ -686,12 +704,12 @@ export function PictureBoard({
             color: colorTokens.text.primary,
           }}
         >
-          Clear
+          {t("Clear")}
         </button>
       </div>
       <div
         role="group"
-        aria-label="Categories"
+        aria-label={t("Categories")}
         style={{ display: "flex", gap: 6, flexWrap: "wrap" }}
       >
         {cats.map((c) => (
@@ -714,7 +732,7 @@ export function PictureBoard({
         ))}
       </div>
       <ul
-        aria-label={`${cat} pictures`}
+        aria-label={t("{cat} pictures", { cat })}
         style={{
           listStyle: "none",
           margin: 0,

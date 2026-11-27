@@ -3,6 +3,7 @@
  * Actuals against budget, per category, with the variance in words
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { ScrollTable } from "./ScrollTable";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -31,9 +32,12 @@ export interface VarianceBarsProps {
 export function VarianceBars({
   rows,
   currency = "INR",
-  locale = "en-IN",
-  title = "Actuals vs budget",
+  locale: localeProp,
+  title: titleProp,
 }: VarianceBarsProps) {
+  const t = useT();
+  const title = titleProp ?? t("Actuals vs budget");
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -54,16 +58,16 @@ export function VarianceBars({
         <thead>
           <tr style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
             <th scope="col" style={{ ...td, textAlign: "left" }}>
-              Category
+              {t("Category")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Budget
+              {t("Budget")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Actual
+              {t("Actual")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Variance
+              {t("Variance")}
             </th>
             <th scope="col" style={{ ...td, width: "30%" }}>
               <span
@@ -75,7 +79,7 @@ export function VarianceBars({
                   clip: "rect(0 0 0 0)",
                 }}
               >
-                Chart
+                {t("Chart")}
               </span>
             </th>
           </tr>

@@ -3,6 +3,7 @@
  * "2 conflicts" with what clashes, on demand
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -24,6 +25,7 @@ export interface ScheduleConflictBadgeProps {
  * "No conflicts" in quiet text when there are none.
  */
 export function ScheduleConflictBadge({ conflicts, subject }: ScheduleConflictBadgeProps) {
+  const t = useT();
   const id = useId();
   const [open, setOpen] = useState(false);
   if (conflicts.length === 0)
@@ -31,7 +33,7 @@ export function ScheduleConflictBadge({ conflicts, subject }: ScheduleConflictBa
       <span
         style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.interactive.success }}
       >
-        ✓ No conflicts
+        {t("✓ No conflicts")}
       </span>
     );
   const label = `${conflicts.length} conflict${conflicts.length === 1 ? "" : "s"}`;

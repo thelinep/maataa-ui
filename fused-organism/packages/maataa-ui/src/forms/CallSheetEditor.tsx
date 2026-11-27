@@ -3,6 +3,7 @@
  * Build a call sheet: day details plus one row per scene
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -59,6 +60,7 @@ export function CallSheetEditor({
   newId = () => Math.random().toString(36).slice(2, 9),
   readOnly,
 }: CallSheetEditorProps) {
+  const t = useT();
   const setDay = (k: keyof CallSheetDay, v: string) =>
     onDayChange({ ...day, [k]: k === "shootDay" || k === "of" ? Number(v) || 0 : v });
   const upd = (id: string, patch: Partial<SceneRow>) =>
@@ -131,8 +133,9 @@ export function CallSheetEditor({
         }}
       >
         <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
-          Day {day.shootDay}
-          {day.of ? ` of ${day.of}` : ""}
+          {day.of
+            ? t("Day {shootDay} of {total}", { shootDay: day.shootDay, total: day.of })
+            : t("Day {shootDay}", { shootDay: day.shootDay })}
         </legend>
         {field("date", "Date", "date", true)}
         {field("crewCall", "Crew call", "time", true)}
@@ -143,12 +146,13 @@ export function CallSheetEditor({
         {field("basecamp", "Basecamp")}
         {field("hospital", "Nearest hospital", "text", true)}
       </fieldset>
-      <div role="region" aria-label="Scenes" tabIndex={0} style={{ overflowX: "auto" }}>
+      <div role="region" aria-label={t("Scenes")} tabIndex={0} style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", minWidth: 820, borderCollapse: "collapse" }}>
           <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-            Scenes · {scenes.length} scene{scenes.length === 1 ? "" : "s"},{" "}
-            {Math.floor(totalEighths / 8)}
-            {totalEighths % 8 ? ` ${totalEighths % 8}/8` : ""} pages
+            {t("Scenes · {scenes}, {pages} pages", {
+              scenes: t.plural(scenes.length, "{count} scene", "{count} scenes"),
+              pages: `${Math.floor(totalEighths / 8)}${totalEighths % 8 ? ` ${totalEighths % 8}/8` : ""}`,
+            })}
           </caption>
           <thead>
             <tr
@@ -159,22 +163,22 @@ export function CallSheetEditor({
               }}
             >
               <th scope="col" style={{ ...td, width: 60 }}>
-                Scene
+                {t("Scene")}
               </th>
               <th scope="col" style={td}>
-                Set
+                {t("Set")}
               </th>
               <th scope="col" style={{ ...td, width: 90 }}>
                 D/N
               </th>
               <th scope="col" style={{ ...td, width: 70 }}>
-                Pages
+                {t("Pages")}
               </th>
               <th scope="col" style={td}>
-                Cast
+                {t("Cast")}
               </th>
               <th scope="col" style={td}>
-                Location
+                {t("Location")}
               </th>
               {!readOnly && (
                 <th scope="col" style={{ ...td, width: 110 }}>
@@ -187,7 +191,7 @@ export function CallSheetEditor({
                       clip: "rect(0 0 0 0)",
                     }}
                   >
-                    Order and remove
+                    {t("Order and remove")}
                   </span>
                 </th>
               )}
@@ -200,7 +204,7 @@ export function CallSheetEditor({
                 <tr key={s.id}>
                   <td style={td}>
                     <input
-                      aria-label={`Scene number, row ${i + 1}`}
+                      aria-label={t("Scene number, row {value}", { value: i + 1 })}
                       value={s.scene}
                       readOnly={readOnly}
                       onChange={(e) => upd(s.id, { scene: e.target.value })}
@@ -209,7 +213,7 @@ export function CallSheetEditor({
                   </td>
                   <td style={td}>
                     <input
-                      aria-label={`Set for scene ${n}`}
+                      aria-label={t("Set for scene {n}", { n })}
                       value={s.set}
                       readOnly={readOnly}
                       onChange={(e) => upd(s.id, { set: e.target.value })}
@@ -218,7 +222,7 @@ export function CallSheetEditor({
                   </td>
                   <td style={td}>
                     <select
-                      aria-label={`Time of day for scene ${n}`}
+                      aria-label={t("Time of day for scene {n}", { n })}
                       value={s.dayNight}
                       disabled={readOnly}
                       onChange={(e) =>
@@ -235,7 +239,7 @@ export function CallSheetEditor({
                   </td>
                   <td style={td}>
                     <input
-                      aria-label={`Pages for scene ${n}`}
+                      aria-label={t("Pages for scene {n}", { n })}
                       value={s.pages}
                       readOnly={readOnly}
                       onChange={(e) => upd(s.id, { pages: e.target.value })}
@@ -245,7 +249,7 @@ export function CallSheetEditor({
                   </td>
                   <td style={td}>
                     <input
-                      aria-label={`Cast for scene ${n}`}
+                      aria-label={t("Cast for scene {n}", { n })}
                       value={s.cast}
                       readOnly={readOnly}
                       onChange={(e) => upd(s.id, { cast: e.target.value })}
@@ -254,7 +258,7 @@ export function CallSheetEditor({
                   </td>
                   <td style={td}>
                     <input
-                      aria-label={`Location for scene ${n}`}
+                      aria-label={t("Location for scene {n}", { n })}
                       value={s.location}
                       readOnly={readOnly}
                       onChange={(e) => upd(s.id, { location: e.target.value })}
@@ -265,7 +269,7 @@ export function CallSheetEditor({
                     <td style={{ ...td, whiteSpace: "nowrap" }}>
                       <button
                         type="button"
-                        aria-label={`Move scene ${n} up`}
+                        aria-label={t("Move scene {n} up", { n })}
                         disabled={i === 0}
                         onClick={() => move(i, -1)}
                         style={{ minWidth: 30, minHeight: 30, cursor: "pointer" }}
@@ -274,7 +278,7 @@ export function CallSheetEditor({
                       </button>
                       <button
                         type="button"
-                        aria-label={`Move scene ${n} down`}
+                        aria-label={t("Move scene {n} down", { n })}
                         disabled={i === scenes.length - 1}
                         onClick={() => move(i, 1)}
                         style={{ minWidth: 30, minHeight: 30, cursor: "pointer" }}
@@ -283,7 +287,7 @@ export function CallSheetEditor({
                       </button>
                       <button
                         type="button"
-                        aria-label={`Remove scene ${n}`}
+                        aria-label={t("Remove scene {n}", { n })}
                         onClick={() => onScenesChange(scenes.filter((x) => x.id !== s.id))}
                         style={{ minWidth: 30, minHeight: 30, cursor: "pointer" }}
                       >
@@ -316,7 +320,7 @@ export function CallSheetEditor({
               ])
             }
           >
-            Add scene
+            {t("Add scene")}
           </Button>
         </div>
       )}

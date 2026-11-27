@@ -5,6 +5,7 @@
  * DeliverySpecCard and ApprovalFrameMarker
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -56,12 +57,14 @@ export function pagesFromEighths(e: number): string {
  * and day/night splits written as percentages.
  */
 export function ScriptAnalysisChart({
-  title = "Script pacing",
+  title: titleProp,
   scenes,
 }: {
   title?: string;
   scenes: SceneStat[];
 }) {
+  const t = useT();
+  const title = titleProp ?? t("Script pacing");
   const total = scenes.reduce((s, x) => s + x.eighths, 0) || 1;
   const pct = (f: (s: SceneStat) => boolean) =>
     Math.round((scenes.filter(f).reduce((s, x) => s + x.eighths, 0) / total) * 100);
@@ -89,9 +92,9 @@ export function ScriptAnalysisChart({
       footer={
         <LegendList
           items={[
-            { label: "Day", color: "#C9A100" },
-            { label: "Dawn / dusk", color: chartColor(4) },
-            { label: "Night", color: chartColor(1) },
+            { label: msg("Day"), color: "#C9A100" },
+            { label: msg("Dawn / dusk"), color: chartColor(4) },
+            { label: msg("Night"), color: chartColor(1) },
           ]}
         />
       }
@@ -115,7 +118,7 @@ export function ScriptAnalysisChart({
           );
         })}
         <text x={0} y={H + 17} style={{ fontSize: 10, fill: colorTokens.text.secondary }}>
-          Green underline = exterior
+          {t("Green underline = exterior")}
         </text>
       </svg>
     </ChartFigure>
@@ -155,6 +158,7 @@ export function CastingProfileCard({
   forRole,
   actions,
 }: CastingProfileCardProps) {
+  const t = useT();
   return (
     <article style={{ ...card, flexDirection: "row", gap: spacingTokens.md }}>
       <div
@@ -201,26 +205,26 @@ export function CastingProfileCard({
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          <dt style={{ color: colorTokens.text.secondary }}>Playing age</dt>
+          <dt style={{ color: colorTokens.text.secondary }}>{t("Playing age")}</dt>
           <dd style={{ margin: 0 }}>{playingAge}</dd>
-          <dt style={{ color: colorTokens.text.secondary }}>Languages</dt>
+          <dt style={{ color: colorTokens.text.secondary }}>{t("Languages")}</dt>
           <dd style={{ margin: 0 }}>{languages.join(", ")}</dd>
           {height && (
             <>
-              <dt style={{ color: colorTokens.text.secondary }}>Height</dt>
+              <dt style={{ color: colorTokens.text.secondary }}>{t("Height")}</dt>
               <dd style={{ margin: 0 }}>{height}</dd>
             </>
           )}
           {agent && (
             <>
-              <dt style={{ color: colorTokens.text.secondary }}>Agent</dt>
+              <dt style={{ color: colorTokens.text.secondary }}>{t("Agent")}</dt>
               <dd style={{ margin: 0 }}>{agent}</dd>
             </>
           )}
         </dl>
         {skills && skills.length > 0 && (
           <ul
-            aria-label="Skills"
+            aria-label={t("Skills")}
             style={{
               listStyle: "none",
               margin: 0,
@@ -251,7 +255,8 @@ export function CastingProfileCard({
               href={showreelHref}
               style={{ color: colorTokens.interactive.primary, fontWeight: 600 }}
             >
-              Showreel<VisuallyHidden>: {name}</VisuallyHidden>
+              {t("Showreel")}
+              <VisuallyHidden>: {name}</VisuallyHidden>
             </a>
           )}
           {actions}
@@ -276,10 +281,12 @@ export interface CallTimeBadgeProps {
 /** A call time with its kind; a change from the previous call is shown and said. */
 export function CallTimeBadge({
   time,
-  label = "Call",
+  label: labelProp,
   changedFrom,
   size = "sm",
 }: CallTimeBadgeProps) {
+  const t = useT();
+  const label = labelProp ?? t("Call");
   const big = size === "lg";
   return (
     <span
@@ -329,7 +336,7 @@ export function CallTimeBadge({
           >
             <span aria-hidden="true">was </span>
             <s aria-hidden="true">{changedFrom}</s>
-            <VisuallyHidden>changed from {changedFrom}</VisuallyHidden>
+            <VisuallyHidden>{t("changed from {changedFrom}", { changedFrom })}</VisuallyHidden>
           </span>
         )}
       </span>
@@ -359,6 +366,7 @@ export interface SidesViewerProps {
  * Text size can be enlarged in place.
  */
 export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
+  const t = useT();
   const [zoom, setZoom] = useState(1);
   const mono = "'Courier Prime', 'Courier New', ui-monospace, monospace";
   return (
@@ -374,7 +382,7 @@ export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
         }}
       >
         <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.md }}>{title}</h3>
-        <div role="group" aria-label="Text size" style={{ display: "flex", gap: 4 }}>
+        <div role="group" aria-label={t("Text size")} style={{ display: "flex", gap: 4 }}>
           <button
             type="button"
             onClick={() => setZoom((z) => Math.max(0.8, +(z - 0.1).toFixed(1)))}
@@ -388,7 +396,7 @@ export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
               font: "inherit",
             }}
           >
-            A− <VisuallyHidden>smaller text</VisuallyHidden>
+            A− <VisuallyHidden>{t("smaller text")}</VisuallyHidden>
           </button>
           <button
             type="button"
@@ -403,7 +411,7 @@ export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
               font: "inherit",
             }}
           >
-            A+ <VisuallyHidden>larger text</VisuallyHidden>
+            A+ <VisuallyHidden>{t("larger text")}</VisuallyHidden>
           </button>
         </div>
       </header>
@@ -420,7 +428,11 @@ export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
         }}
       >
         {scenes.map((sc) => (
-          <section key={sc.number} aria-label={`Scene ${sc.number}`} style={{ marginBottom: 24 }}>
+          <section
+            key={sc.number}
+            aria-label={t("Scene {number}", { number: sc.number })}
+            style={{ marginBottom: 24 }}
+          >
             {sc.lines.map((l, i) => {
               const mine =
                 highlight &&
@@ -443,7 +455,7 @@ export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
               if (l.kind === "heading")
                 return (
                   <h4 key={i} style={{ ...s.heading, fontSize: "1em", fontFamily: mono }}>
-                    {sc.number}. {l.text}
+                    {sc.number}. {t(l.text)}
                   </h4>
                 );
               return (
@@ -455,8 +467,8 @@ export function SidesViewer({ title, scenes, highlight }: SidesViewerProps) {
                     padding: mine || mineParen ? "2px 4px" : undefined,
                   }}
                 >
-                  {(mine || mineParen) && <VisuallyHidden>Your line: </VisuallyHidden>}
-                  {l.text}
+                  {(mine || mineParen) && <VisuallyHidden>{t("Your line:")} </VisuallyHidden>}
+                  {t(l.text)}
                 </p>
               );
             })}
@@ -480,22 +492,22 @@ export interface WardrobeChange {
 const WARDROBE_STATUS: Record<WardrobeChange["status"], { label: string; bg: string; fg: string }> =
   {
     ready: {
-      label: "Ready",
+      label: msg("Ready"),
       bg: colorTokens.semantic.success.bg,
       fg: colorTokens.semantic.success.text,
     },
     fitting: {
-      label: "Fitting booked",
+      label: msg("Fitting booked"),
       bg: colorTokens.semantic.info.bg,
       fg: colorTokens.semantic.info.text,
     },
     alteration: {
-      label: "Needs alteration",
+      label: msg("Needs alteration"),
       bg: colorTokens.semantic.warning.bg,
       fg: colorTokens.semantic.warning.text,
     },
     missing: {
-      label: "Missing",
+      label: msg("Missing"),
       bg: colorTokens.semantic.error.bg,
       fg: colorTokens.semantic.error.text,
     },
@@ -513,12 +525,14 @@ export function WardrobeScheduleCard({
   changes: WardrobeChange[];
   fittingAt?: string;
 }) {
+  const t = useT();
   return (
     <article style={card}>
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>{character}</h3>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-        Played by {actor}
-        {fittingAt && ` · Next fitting ${fittingAt}`}
+        {fittingAt
+          ? t("Played by {actor} · Next fitting {fittingAt}", { actor, fittingAt })
+          : t("Played by {actor}", { actor })}
       </div>
       <ol
         style={{
@@ -546,12 +560,12 @@ export function WardrobeScheduleCard({
             >
               <strong>{c.id}</strong>
               <span>
-                {c.description}
+                {t(c.description)}
                 <span style={{ display: "block", fontSize: 12, color: colorTokens.text.secondary }}>
-                  Scenes {c.scenes.join(", ")}
+                  {t("Scenes {value}", { value: c.scenes.join(", ") })}
                 </span>
               </span>
-              <span style={pill(st.bg, st.fg)}>{st.label}</span>
+              <span style={pill(st.bg, st.fg)}>{t(st.label)}</span>
             </li>
           );
         })}
@@ -574,13 +588,9 @@ export interface PerDiemRow {
 }
 
 /** Per-diem per person with totals and balance due; numbers right-aligned. */
-export function PerDiemTable({
-  rows,
-  label = "Per diems",
-}: {
-  rows: PerDiemRow[];
-  label?: string;
-}) {
+export function PerDiemTable({ rows, label: labelProp }: { rows: PerDiemRow[]; label?: string }) {
+  const t = useT();
+  const label = labelProp ?? t("Per diems");
   const total = rows.reduce((s, r) => s + r.days * r.rate, 0);
   const paid = rows.reduce((s, r) => s + (r.paid ?? 0), 0);
   const th: React.CSSProperties = {
@@ -611,22 +621,22 @@ export function PerDiemTable({
         <thead>
           <tr>
             <th scope="col" style={th}>
-              Name
+              {t("Name")}
             </th>
             <th scope="col" style={th}>
-              Role
+              {t("Role")}
             </th>
             <th scope="col" style={{ ...th, textAlign: "right" }}>
-              Days
+              {t("Days")}
             </th>
             <th scope="col" style={{ ...th, textAlign: "right" }}>
-              Rate
+              {t("Rate")}
             </th>
             <th scope="col" style={{ ...th, textAlign: "right" }}>
-              Total
+              {t("Total")}
             </th>
             <th scope="col" style={{ ...th, textAlign: "right" }}>
-              Balance due
+              {t("Balance due")}
             </th>
           </tr>
         </thead>
@@ -660,7 +670,7 @@ export function PerDiemTable({
         <tfoot>
           <tr>
             <th scope="row" colSpan={4} style={{ ...td, textAlign: "right" }}>
-              Total
+              {t("Total")}
             </th>
             <td style={{ ...num, fontWeight: 700 }}>{inr(total)}</td>
             <td style={{ ...num, fontWeight: 700 }}>{inr(total - paid)}</td>
@@ -703,6 +713,7 @@ export function WaiverSignatureBlock({
   onGuardianChange,
   onSubmit,
 }: WaiverSignatureBlockProps) {
+  const t = useT();
   const [agreed, setAgreed] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const id = React.useId();
@@ -732,7 +743,7 @@ export function WaiverSignatureBlock({
             color: colorTokens.semantic.error.text,
           }}
         >
-          <strong>Before you submit:</strong>
+          <strong>{t("Before you submit:")}</strong>
           <ul style={{ margin: "4px 0 0", paddingLeft: 20 }}>
             {errors.map((e) => (
               <li key={e}>{e}</li>
@@ -742,7 +753,7 @@ export function WaiverSignatureBlock({
       )}
       <div
         role="region"
-        aria-label="Terms"
+        aria-label={t("Terms")}
         tabIndex={0}
         style={{
           maxHeight: 160,
@@ -763,12 +774,16 @@ export function WaiverSignatureBlock({
           onChange={(e) => setAgreed(e.target.checked)}
           style={{ width: 20, height: 20, accentColor: colorTokens.interactive.primary }}
         />
-        I have read and agree
+        {t("I have read and agree")}
       </label>
-      <SignaturePad label={`Signature of ${signerName}`} value={value} onChange={onChange} />
+      <SignaturePad
+        label={t("Signature of {signerName}", { signerName })}
+        value={value}
+        onChange={onChange}
+      />
       {guardianRequired && onGuardianChange && (
         <SignaturePad
-          label="Signature of parent or guardian"
+          label={t("Signature of parent or guardian")}
           value={guardianValue ?? null}
           onChange={onGuardianChange}
         />
@@ -789,7 +804,7 @@ export function WaiverSignatureBlock({
             cursor: "pointer",
           }}
         >
-          Submit signed form
+          {t("Submit signed form")}
         </button>
       </div>
     </section>
@@ -817,6 +832,7 @@ export function DeliverySpecCard({
   due?: string;
   specs: DeliverySpec[];
 }) {
+  const t = useT();
   const fails = specs.filter((s) => s.ok === false).length;
   return (
     <article style={card}>
@@ -833,8 +849,9 @@ export function DeliverySpecCard({
         </span>
       </div>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-        For {recipient}
-        {due && ` · Due ${due}`}
+        {due
+          ? t("For {recipient} · Due {due}", { recipient, due })
+          : t("For {recipient}", { recipient })}
       </div>
       <dl
         style={{
@@ -846,8 +863,8 @@ export function DeliverySpecCard({
         }}
       >
         {specs.map((s) => (
-          <React.Fragment key={s.label}>
-            <dt style={{ color: colorTokens.text.secondary }}>{s.label}</dt>
+          <React.Fragment key={t(s.label)}>
+            <dt style={{ color: colorTokens.text.secondary }}>{t(s.label)}</dt>
             <dd style={{ margin: 0, fontFamily: "ui-monospace, Menlo, monospace" }}>{s.value}</dd>
             <dd
               style={{
@@ -885,19 +902,19 @@ export interface ApprovalFrameMarkerProps {
 
 const FRAME_STATUS = {
   approved: {
-    label: "Approved",
+    label: msg("Approved"),
     sym: "✓",
     bg: colorTokens.semantic.success.bg,
     fg: colorTokens.semantic.success.text,
   },
   changes: {
-    label: "Changes requested",
+    label: msg("Changes requested"),
     sym: "!",
     bg: colorTokens.semantic.warning.bg,
     fg: colorTokens.semantic.warning.text,
   },
   pending: {
-    label: "Awaiting review",
+    label: msg("Awaiting review"),
     sym: "…",
     bg: colorTokens.background.tertiary,
     fg: colorTokens.text.primary,
@@ -913,6 +930,7 @@ export function ApprovalFrameMarker({
   note,
   onOpen,
 }: ApprovalFrameMarkerProps) {
+  const t = useT();
   const s = FRAME_STATUS[status];
   const body = (
     <>
@@ -958,7 +976,7 @@ export function ApprovalFrameMarker({
         }}
       >
         <span style={{ fontFamily: "ui-monospace, Menlo, monospace" }}>{at}</span>
-        <span style={{ fontWeight: 700, color: s.fg }}>{s.label}</span>
+        <span style={{ fontWeight: 700, color: s.fg }}>{t(s.label)}</span>
       </span>
       {(reviewer || note) && (
         <span style={{ display: "block", fontSize: 12, color: colorTokens.text.secondary }}>
@@ -985,12 +1003,15 @@ export function ApprovalFrameMarker({
       }}
     >
       <VisuallyHidden>
-        {`Frame ${at}, ${s.label}${reviewer ? ` by ${reviewer}` : ""}${note ? `: ${note}` : ""}`}
+        {`Frame ${at}, ${t(s.label)}${reviewer ? ` by ${reviewer}` : ""}${note ? `: ${note}` : ""}`}
       </VisuallyHidden>
       <span aria-hidden="true">{body}</span>
     </button>
   ) : (
-    <figure style={{ margin: 0, width: 200 }} aria-label={`Frame ${at}, ${s.label}`}>
+    <figure
+      style={{ margin: 0, width: 200 }}
+      aria-label={t("Frame {at}, {label}", { at, label: s.label })}
+    >
       {body}
     </figure>
   );

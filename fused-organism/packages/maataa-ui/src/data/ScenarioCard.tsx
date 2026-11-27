@@ -3,6 +3,7 @@
  * One what-if scenario: its assumptions and results, selectable
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -46,6 +47,7 @@ const dl: React.CSSProperties = {
  */
 export const ScenarioCard = React.forwardRef<HTMLElement, ScenarioCardProps>(
   ({ name, summary, assumptions, results, selected = false, onSelect, style, ...props }, ref) => {
+    const t = useT();
     const id = useId();
     const block = (title: string, figures: ScenarioFigure[]) => (
       <div>
@@ -100,7 +102,7 @@ export const ScenarioCard = React.forwardRef<HTMLElement, ScenarioCardProps>(
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              (selected)
+              {t("(selected)")}
             </span>
           )}
         </h3>
@@ -129,7 +131,7 @@ export const ScenarioCard = React.forwardRef<HTMLElement, ScenarioCardProps>(
               cursor: "pointer",
             }}
           >
-            {selected ? "Selected" : "Use this scenario"}
+            {selected ? t("Selected") : t("Use this scenario")}
           </button>
         )}
       </article>

@@ -210,12 +210,14 @@ Entry: `./src/index.mjs`
 
 Entry: `./dist/index.js`
 
+- `builtInThemes`
 - `chartTokens`
 - `colorTokens`
 - `darkChartTokens`
 - `darkColorTokens`
 - `darkTheme`
 - `fontFamilyPalette`
+- `highContrastTheme`
 - `paperColorPalette`
 - `paperTheme`
 - `radiusPalette`
@@ -223,6 +225,7 @@ Entry: `./dist/index.js`
 - `spacingTokens`
 - `themeToCss`
 - `themeToCssVariables`
+- `themesToCss`
 - `tlpsV2Theme`
 - `tokenVarName`
 - `transitionTokens`

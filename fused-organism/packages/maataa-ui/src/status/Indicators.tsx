@@ -4,6 +4,7 @@
  * LoadingOverlay and SkeletonTable
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -75,25 +76,25 @@ export type Priority = "urgent" | "high" | "medium" | "low";
 
 const PRIORITY: Record<Priority, { label: string; bars: number; bg: string; fg: string }> = {
   urgent: {
-    label: "Urgent",
+    label: msg("Urgent"),
     bars: 4,
     bg: colorTokens.semantic.error.bg,
     fg: colorTokens.semantic.error.text,
   },
   high: {
-    label: "High",
+    label: msg("High"),
     bars: 3,
     bg: colorTokens.semantic.warning.bg,
     fg: colorTokens.semantic.warning.text,
   },
   medium: {
-    label: "Medium",
+    label: msg("Medium"),
     bars: 2,
     bg: colorTokens.semantic.info.bg,
     fg: colorTokens.semantic.info.text,
   },
   low: {
-    label: "Low",
+    label: msg("Low"),
     bars: 1,
     bg: colorTokens.background.tertiary,
     fg: colorTokens.text.secondary,
@@ -111,6 +112,7 @@ export interface PriorityBadgeProps {
  * Level is shown three ways: word, number of bars, and colour.
  */
 export function PriorityBadge({ priority, compact }: PriorityBadgeProps) {
+  const t = useT();
   const p = PRIORITY[priority];
   return (
     <span
@@ -141,10 +143,10 @@ export function PriorityBadge({ priority, compact }: PriorityBadgeProps) {
         ))}
       </svg>
       {compact ? (
-        <VisuallyHidden>{p.label} priority</VisuallyHidden>
+        <VisuallyHidden>{t(p.label)} priority</VisuallyHidden>
       ) : (
         <span>
-          {p.label}
+          {t(p.label)}
           <VisuallyHidden> priority</VisuallyHidden>
         </span>
       )}
@@ -223,6 +225,7 @@ export function BufferingIndicator({
   percent,
   announceAfterMs = 1500,
 }: BufferingIndicatorProps) {
+  const t = useT();
   const [say, setSay] = useState("");
   const [announced, setAnnounced] = useState(false);
   useEffect(() => {
@@ -266,9 +269,11 @@ export function BufferingIndicator({
               color: "#FFFFFF",
             }}
           >
-            <Spinner size="lg" label="Buffering" />
+            <Spinner size="lg" label={t("Buffering")} />
             <span style={{ fontSize: typographyTokens.fontSize.sm }}>
-              Buffering{percent != null ? ` ${Math.round(percent)}%` : "…"}
+              {percent != null
+                ? t("Buffering {pct}%", { pct: Math.round(percent) })
+                : t("Buffering…")}
             </span>
           </div>
         </div>
@@ -295,6 +300,7 @@ export interface LoadingOverlayProps {
  * content behind is marked busy and inert while it shows.
  */
 export function LoadingOverlay({ loading, label, fullPage, onCancel }: LoadingOverlayProps) {
+  const t = useT();
   if (!loading) return null;
   return (
     <div
@@ -344,7 +350,7 @@ export function LoadingOverlay({ loading, label, fullPage, onCancel }: LoadingOv
               cursor: "pointer",
             }}
           >
-            Cancel
+            {t("Cancel")}
           </button>
         )}
       </div>

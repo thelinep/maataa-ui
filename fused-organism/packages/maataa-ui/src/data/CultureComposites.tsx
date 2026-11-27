@@ -4,6 +4,7 @@
  * TLPClassificationCard
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -20,49 +21,49 @@ export const CHAKRAS: Record<
     english: "Root",
     devanagari: "मूलाधार",
     color: "#B3261E",
-    theme: "Grounding, survival, home",
+    theme: msg("Grounding, survival, home"),
   },
   sacral: {
     sanskrit: "Svadhisthana",
     english: "Sacral",
     devanagari: "स्वाधिष्ठान",
     color: "#C2570C",
-    theme: "Desire, creativity, pleasure",
+    theme: msg("Desire, creativity, pleasure"),
   },
   solar: {
     sanskrit: "Manipura",
     english: "Solar plexus",
     devanagari: "मणिपूर",
     color: "#9A7B00",
-    theme: "Will, power, ambition",
+    theme: msg("Will, power, ambition"),
   },
   heart: {
     sanskrit: "Anahata",
     english: "Heart",
     devanagari: "अनाहत",
     color: "#2D6A3E",
-    theme: "Love, grief, compassion",
+    theme: msg("Love, grief, compassion"),
   },
   throat: {
     sanskrit: "Vishuddha",
     english: "Throat",
     devanagari: "विशुद्ध",
     color: "#1D5C8C",
-    theme: "Truth, voice, expression",
+    theme: msg("Truth, voice, expression"),
   },
   thirdEye: {
     sanskrit: "Ajna",
     english: "Third eye",
     devanagari: "आज्ञा",
     color: "#3B3B8F",
-    theme: "Insight, intuition, vision",
+    theme: msg("Insight, intuition, vision"),
   },
   crown: {
     sanskrit: "Sahasrara",
     english: "Crown",
     devanagari: "सहस्रार",
     color: "#6A3D8F",
-    theme: "Transcendence, the spiritual",
+    theme: msg("Transcendence, the spiritual"),
   },
 };
 
@@ -172,10 +173,11 @@ export function LanguageCulturalTimeline({
   language: string;
   eras: CulturalEra[];
 }) {
+  const tx = useT();
   return (
-    <section aria-label={`${language} through time`}>
+    <section aria-label={tx("{language} through time", { language })}>
       <h3 style={{ margin: "0 0 8px", fontSize: typographyTokens.fontSize.lg }}>
-        {language} through time
+        {tx("{language} through time", { language })}
       </h3>
       <ol
         style={{
@@ -211,7 +213,7 @@ export function LanguageCulturalTimeline({
             >
               {e.period}
             </div>
-            <div style={{ fontWeight: 700 }}>{e.title}</div>
+            <div style={{ fontWeight: 700 }}>{tx(e.title)}</div>
             {e.description && (
               <p
                 style={{
@@ -220,7 +222,7 @@ export function LanguageCulturalTimeline({
                   color: colorTokens.text.secondary,
                 }}
               >
-                {e.description}
+                {tx(e.description)}
               </p>
             )}
             {e.sample && (
@@ -284,6 +286,7 @@ export function AncestralChainFlow({
   chain: Ancestor[];
   direction?: "vertical" | "horizontal";
 }) {
+  const tx = useT();
   const h = direction === "horizontal";
   return (
     <section aria-label={title}>
@@ -322,7 +325,7 @@ export function AncestralChainFlow({
                 </div>
               )}
               {a.note && (
-                <div style={{ fontSize: 11, color: colorTokens.text.secondary }}>{a.note}</div>
+                <div style={{ fontSize: 11, color: colorTokens.text.secondary }}>{tx(a.note)}</div>
               )}
             </div>
             {i < chain.length - 1 && (
@@ -351,29 +354,33 @@ export type TLPLevel = "RED" | "AMBER+STRICT" | "AMBER" | "GREEN" | "CLEAR" | "W
 const TLP: Record<TLPLevel, { color: string; who: string; detail: string }> = {
   RED: {
     color: "#FF2B2B",
-    who: "For the named recipients only",
-    detail: "Do not share beyond the people in the room or on the message.",
+    who: msg("For the named recipients only"),
+    detail: msg("Do not share beyond the people in the room or on the message."),
   },
   "AMBER+STRICT": {
     color: "#FFC000",
-    who: "Your organisation only",
-    detail: "Share only inside your own organisation.",
+    who: msg("Your organisation only"),
+    detail: msg("Share only inside your own organisation."),
   },
   AMBER: {
     color: "#FFC000",
-    who: "Your organisation and its clients",
-    detail: "Share on a need-to-know basis within your organisation and its clients.",
+    who: msg("Your organisation and its clients"),
+    detail: msg("Share on a need-to-know basis within your organisation and its clients."),
   },
   GREEN: {
     color: "#33FF00",
-    who: "Your community",
-    detail: "Share within your community, but not publicly.",
+    who: msg("Your community"),
+    detail: msg("Share within your community, but not publicly."),
   },
-  CLEAR: { color: "#FFFFFF", who: "Anyone", detail: "No limit on sharing; subject to copyright." },
+  CLEAR: {
+    color: "#FFFFFF",
+    who: msg("Anyone"),
+    detail: msg("No limit on sharing; subject to copyright."),
+  },
   WHITE: {
     color: "#FFFFFF",
-    who: "Anyone (TLP:WHITE is now TLP:CLEAR)",
-    detail: "No limit on sharing; subject to copyright.",
+    who: msg("Anyone (TLP:WHITE is now TLP:CLEAR)"),
+    detail: msg("No limit on sharing; subject to copyright."),
   },
 };
 
@@ -393,6 +400,7 @@ export function TLPClassificationCard({
   owner?: string;
   compact?: boolean;
 }) {
+  const tx = useT();
   const t = TLP[level];
   const label = (
     <span
@@ -410,10 +418,10 @@ export function TLPClassificationCard({
       TLP:{level}
     </span>
   );
-  if (compact) return <span title={t.who}>{label}</span>;
+  if (compact) return <span title={tx(t.who)}>{label}</span>;
   return (
     <section
-      aria-label={`Classification TLP ${level}`}
+      aria-label={tx("Classification TLP {level}", { level })}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -429,7 +437,7 @@ export function TLPClassificationCard({
         {label}
         {title && <strong>{title}</strong>}
       </div>
-      <p style={{ margin: 0, fontWeight: 700 }}>Who can see this: {t.who}</p>
+      <p style={{ margin: 0, fontWeight: 700 }}>Who can see this: {tx(t.who)}</p>
       <p
         style={{
           margin: 0,
@@ -437,11 +445,11 @@ export function TLPClassificationCard({
           color: colorTokens.text.secondary,
         }}
       >
-        {t.detail}
+        {tx(t.detail)}
       </p>
       {owner && (
         <p style={{ margin: 0, fontSize: 12, color: colorTokens.text.secondary }}>
-          Classified by {owner}
+          {tx("Classified by {owner}", { owner })}
         </p>
       )}
     </section>

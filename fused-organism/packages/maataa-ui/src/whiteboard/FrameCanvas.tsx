@@ -3,6 +3,7 @@
  * One storyboard frame: draw with a pointer, describe it in words
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, {
   forwardRef,
   useCallback,
@@ -66,6 +67,7 @@ export const FrameCanvas = forwardRef<FrameCanvasHandle, FrameCanvasProps>(funct
   },
   ref
 ) {
+  const t = useT();
   const id = useId();
   const canvas = useRef<HTMLCanvasElement>(null);
   const history = useRef<ImageData[]>([]);
@@ -186,7 +188,10 @@ export const FrameCanvas = forwardRef<FrameCanvasHandle, FrameCanvasProps>(funct
         width={width}
         height={height}
         role="img"
-        aria-label={`Frame ${frame}: ${description.trim() || "no description yet"}`}
+        aria-label={t("Frame {frame}: {value}", {
+          frame,
+          value: description.trim() || "no description yet",
+        })}
         tabIndex={0}
         onKeyDown={(e) => {
           if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
@@ -265,7 +270,7 @@ export const FrameCanvas = forwardRef<FrameCanvasHandle, FrameCanvasProps>(funct
         value={description}
         onChange={(e) => onDescriptionChange(e.target.value)}
         aria-describedby={`${id}-h`}
-        placeholder="e.g. MCU Meera at the window, rain on glass, she turns as the door opens"
+        placeholder={t("e.g. MCU Meera at the window, rain on glass, she turns as the door opens")}
         style={{
           padding: spacingTokens.sm,
           border: `2px solid ${description.trim() ? colorTokens.border.control : colorTokens.interactive.warning}`,
@@ -282,8 +287,8 @@ export const FrameCanvas = forwardRef<FrameCanvasHandle, FrameCanvasProps>(funct
         }}
       >
         {description.trim()
-          ? "This description is read out in place of the drawing and goes into the shot list."
-          : "Add a description: it's how screen-reader users and the shot list see this frame."}
+          ? t("This description is read out in place of the drawing and goes into the shot list.")
+          : t("Add a description: it's how screen-reader users and the shot list see this frame.")}
       </span>
     </div>
   );

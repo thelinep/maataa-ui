@@ -3,6 +3,7 @@
  * Password field with Show/Hide and optional rules checklist
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -13,8 +14,8 @@ export interface PasswordRule {
 
 /** Sensible defaults: length over complexity (NIST 800-63B) */
 export const defaultPasswordRules: PasswordRule[] = [
-  { label: "At least 12 characters", test: (v) => v.length >= 12 },
-  { label: "Not only numbers", test: (v) => v.length > 0 && !/^\d+$/.test(v) },
+  { label: msg("At least 12 characters"), test: (v) => v.length >= 12 },
+  { label: msg("Not only numbers"), test: (v) => v.length > 0 && !/^\d+$/.test(v) },
 ];
 
 export interface PasswordInputProps extends Omit<
@@ -51,6 +52,7 @@ export function PasswordInput({
   id: idProp,
   ...props
 }: PasswordInputProps) {
+  const t = useT();
   const gen = useId();
   const id = idProp ?? gen;
   const [shown, setShown] = useState(false);
@@ -104,7 +106,7 @@ export function PasswordInput({
             font: "inherit",
           }}
         >
-          {shown ? "Hide" : "Show"}{" "}
+          {shown ? t("Hide") : t("Show")}{" "}
           <span
             style={{
               position: "absolute",
@@ -140,11 +142,11 @@ export function PasswordInput({
             const ok = r.test(value);
             return (
               <li
-                key={r.label}
+                key={t(r.label)}
                 style={{ color: ok ? colorTokens.interactive.success : colorTokens.text.secondary }}
               >
                 <span aria-hidden="true">{ok ? "✓ " : "○ "}</span>
-                {r.label}
+                {t(r.label)}
                 <span
                   style={{
                     position: "absolute",

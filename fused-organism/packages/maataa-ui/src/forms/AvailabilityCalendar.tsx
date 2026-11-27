@@ -3,6 +3,7 @@
  * Month of available / booked days; pick a start and end
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -42,9 +43,11 @@ export function AvailabilityCalendar({
   booked,
   value,
   onChange,
-  locale = "en-IN",
+  locale: localeProp,
   min,
 }: AvailabilityCalendarProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const gridRef = useRef<HTMLTableElement>(null);
   const bookedSet = new Set(booked.map(key));
@@ -104,7 +107,7 @@ export function AvailabilityCalendar({
         <button
           type="button"
           style={btn}
-          aria-label="Previous month"
+          aria-label={t("Previous month")}
           onClick={() => onMonthChange(new Date(month.getFullYear(), month.getMonth() - 1, 1))}
         >
           ‹
@@ -124,7 +127,7 @@ export function AvailabilityCalendar({
         <button
           type="button"
           style={btn}
-          aria-label="Next month"
+          aria-label={t("Next month")}
           onClick={() => onMonthChange(new Date(month.getFullYear(), month.getMonth() + 1, 1))}
         >
           ›

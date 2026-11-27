@@ -4,6 +4,7 @@
  * LoadMoreButton and InfiniteList
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -56,8 +57,10 @@ export function StickyNavbar({
   currentHref,
   actions,
   glass = true,
-  label = "Main",
+  label: labelProp,
 }: StickyNavbarProps) {
+  const t = useT();
+  const label = labelProp ?? t("Main");
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 4);
@@ -126,7 +129,9 @@ export interface HamburgerMenuProps {
  * A disclosure: the button says "Menu" (with aria-expanded) and opens a link
  * list. Escape closes it and returns focus to the button.
  */
-export function HamburgerMenu({ links, currentHref, label = "Main" }: HamburgerMenuProps) {
+export function HamburgerMenu({ links, currentHref, label: labelProp }: HamburgerMenuProps) {
+  const t = useT();
+  const label = labelProp ?? t("Main");
   const id = useId();
   const [open, setOpen] = useState(false);
   const btn = useRef<HTMLButtonElement>(null);
@@ -183,7 +188,7 @@ export function HamburgerMenu({ links, currentHref, label = "Main" }: HamburgerM
             />
           )}
         </svg>
-        Menu
+        {t("Menu")}
       </button>
       <ul
         id={id}
@@ -239,7 +244,9 @@ export interface BottomNavProps {
  * Mobile tab bar of 3–5 links, each with an icon and a visible label.
  * Leaves room for the home indicator (safe-area inset).
  */
-export function BottomNav({ links, currentHref, label = "Main" }: BottomNavProps) {
+export function BottomNav({ links, currentHref, label: labelProp }: BottomNavProps) {
+  const t = useT();
+  const label = labelProp ?? t("Main");
   return (
     <nav
       aria-label={label}
@@ -305,7 +312,7 @@ export function BottomNav({ links, currentHref, label = "Main" }: BottomNavProps
                     >
                       {l.badge}
                     </span>
-                    <VisuallyHidden>, {l.badge} new</VisuallyHidden>
+                    <VisuallyHidden>{t(", {badge} new", { badge: l.badge })}</VisuallyHidden>
                   </>
                 ) : null}
               </a>
@@ -416,7 +423,9 @@ export interface AnchorNavProps {
  * "On this page" jump links. Following a link moves focus to the target
  * section (it gets tabindex=-1), so keyboard and screen-reader users land there.
  */
-export function AnchorNav({ items, label = "On this page", trackActive = true }: AnchorNavProps) {
+export function AnchorNav({ items, label: labelProp, trackActive = true }: AnchorNavProps) {
+  const t = useT();
+  const label = labelProp ?? t("On this page");
   const [active, setActive] = useState<string | null>(null);
   useEffect(() => {
     if (!trackActive || typeof IntersectionObserver === "undefined") return undefined;
@@ -509,6 +518,7 @@ export interface ScrollToTopProps {
  * scrolling, so the next Tab starts from the top.
  */
 export function ScrollToTop({ threshold = 600, focusTargetId }: ScrollToTopProps) {
+  const t = useT();
   const [shown, setShown] = useState(false);
   useEffect(() => {
     const on = () => setShown(window.scrollY > threshold);
@@ -547,7 +557,8 @@ export function ScrollToTop({ threshold = 600, focusTargetId }: ScrollToTopProps
         cursor: "pointer",
       }}
     >
-      <span aria-hidden="true">↑ </span>Back to top
+      <span aria-hidden="true">↑ </span>
+      {t("Back to top")}
     </button>
   );
 }

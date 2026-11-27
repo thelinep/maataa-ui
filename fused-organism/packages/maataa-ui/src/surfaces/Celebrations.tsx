@@ -3,6 +3,7 @@
  * ProgressToast (long task progress in a corner) and ConfettiBurst
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { CHART_COLORS } from "../data/chartKit";
@@ -36,6 +37,7 @@ export function ProgressToast({
   onDismiss,
   onRetry,
 }: ProgressToastProps) {
+  const t = useT();
   const [say, setSay] = useState("");
   const lastStep = useRef(-1);
   useEffect(() => {
@@ -151,17 +153,17 @@ export function ProgressToast({
           <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
             {state === "running" && onCancel && (
               <button type="button" style={btn} onClick={onCancel}>
-                Cancel
+                {t("Cancel")}
               </button>
             )}
             {state === "failed" && onRetry && (
               <button type="button" style={btn} onClick={onRetry}>
-                Try again
+                {t("Try again")}
               </button>
             )}
             {state !== "running" && onDismiss && (
               <button type="button" style={btn} onClick={onDismiss}>
-                Dismiss
+                {t("Dismiss")}
               </button>
             )}
           </div>

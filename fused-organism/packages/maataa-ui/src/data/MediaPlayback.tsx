@@ -4,6 +4,7 @@
  * AudioPlayer and Slate
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -61,10 +62,12 @@ export interface TimecodeReadoutProps {
 export function TimecodeReadout({
   seconds,
   fps = 25,
-  label = "Timecode",
+  label: labelProp,
   size = "lg",
   live,
 }: TimecodeReadoutProps) {
+  const tx = useT();
+  const label = labelProp ?? tx("Timecode");
   const tc = formatTimecode(seconds, fps);
   const frames = Number(tc.slice(-2));
   return (
@@ -77,7 +80,7 @@ export function TimecodeReadout({
           letterSpacing: 1,
         }}
       >
-        {label} <span aria-hidden="true">· {fps} fps</span>
+        {label} <span aria-hidden="true">{tx("· {fps} fps", { fps })}</span>
       </span>
       <span
         aria-live={live ? "off" : undefined}
@@ -95,7 +98,7 @@ export function TimecodeReadout({
       >
         <span aria-hidden="true">{tc}</span>
         <VisuallyHidden>
-          {spokenSeconds(Math.floor(seconds))}, frame {frames}
+          {tx("{value}, frame {frames}", { value: spokenSeconds(Math.floor(seconds)), frames })}
         </VisuallyHidden>
       </span>
     </div>
@@ -134,12 +137,14 @@ export function MediaScrubber({
   value,
   duration,
   onChange,
-  label = "Seek",
+  label: labelProp,
   buffered,
   markers,
   step = 5,
   fps,
 }: MediaScrubberProps) {
+  const tx = useT();
+  const label = labelProp ?? tx("Seek");
   const pct = (s: number) => `${(Math.min(duration, Math.max(0, s)) / (duration || 1)) * 100}%`;
   const fmt = (s: number) => (fps ? formatTimecode(s, fps) : clock(s));
   return (
@@ -199,7 +204,10 @@ export function MediaScrubber({
           max={duration}
           step={step}
           value={value}
-          aria-valuetext={`${spokenSeconds(value)} of ${spokenSeconds(duration)}`}
+          aria-valuetext={tx("{value} of {value2}", {
+            value: spokenSeconds(value),
+            value2: spokenSeconds(duration),
+          })}
           onChange={(e) => onChange(Number(e.target.value))}
           style={{
             position: "relative",
@@ -226,7 +234,7 @@ export function MediaScrubber({
       </div>
       {markers && markers.length > 0 && (
         <ul
-          aria-label="Markers"
+          aria-label={tx("Markers")}
           style={{
             listStyle: "none",
             margin: 0,
@@ -293,8 +301,10 @@ export function TimelinePlayhead({
   fps = 25,
   children,
   height = 96,
-  label = "Playhead",
+  label: labelProp,
 }: TimelinePlayheadProps) {
+  const tx = useT();
+  const label = labelProp ?? tx("Playhead");
   const track = useRef<HTMLDivElement>(null);
   const clampT = (s: number) => Math.min(duration, Math.max(0, s));
   const fromX = (clientX: number) => {
@@ -395,6 +405,7 @@ export interface AudioPlayerProps {
  * with names. A transcript disclosure is offered when provided.
  */
 export function AudioPlayer({ src, title, subtitle, transcript }: AudioPlayerProps) {
+  const tx = useT();
   const id = useId();
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -461,12 +472,19 @@ export function AudioPlayer({ src, title, subtitle, transcript }: AudioPlayerPro
           </div>
         )}
       </div>
-      <MediaScrubber value={t} duration={dur} onChange={seek} label={`Seek ${title}`} step={1} />
+      <MediaScrubber
+        value={t}
+        duration={dur}
+        onChange={seek}
+        label={tx("Seek {title}", { title })}
+        step={1}
+      />
       <div
         style={{ display: "flex", flexWrap: "wrap", gap: spacingTokens.xs, alignItems: "center" }}
       >
         <button type="button" style={btn} onClick={() => seek(t - 10)}>
-          <span aria-hidden="true">↺ </span>Back 10 seconds
+          <span aria-hidden="true">↺ </span>
+          {tx("Back 10 seconds")}
         </button>
         <button
           type="button"
@@ -486,10 +504,11 @@ export function AudioPlayer({ src, title, subtitle, transcript }: AudioPlayerPro
             minWidth: 90,
           }}
         >
-          {playing ? "Pause" : "Play"}
+          {playing ? tx("Pause") : tx("Play")}
         </button>
         <button type="button" style={btn} onClick={() => seek(t + 10)}>
-          Forward 10 seconds<span aria-hidden="true"> ↻</span>
+          {tx("Forward 10 seconds")}
+          <span aria-hidden="true"> ↻</span>
         </button>
         <label
           style={{
@@ -499,7 +518,7 @@ export function AudioPlayer({ src, title, subtitle, transcript }: AudioPlayerPro
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Speed
+          {tx("Speed")}
           <select
             value={rate}
             onChange={(e) => {
@@ -524,7 +543,7 @@ export function AudioPlayer({ src, title, subtitle, transcript }: AudioPlayerPro
             fontSize: typographyTokens.fontSize.sm,
           }}
         >
-          Volume
+          {tx("Volume")}
           <input
             type="range"
             min={0}
@@ -552,7 +571,7 @@ export function AudioPlayer({ src, title, subtitle, transcript }: AudioPlayerPro
               color: colorTokens.interactive.primary,
             }}
           >
-            Transcript
+            {tx("Transcript")}
           </summary>
           <div style={{ padding: "8px 0", maxHeight: 240, overflow: "auto" }} tabIndex={0}>
             {transcript}
@@ -595,6 +614,7 @@ export function Slate({
   flags,
   clapKey,
 }: SlateProps) {
+  const tx = useT();
   const [flash, setFlash] = useState(false);
   const first = useRef(true);
   useEffect(() => {
@@ -633,7 +653,7 @@ export function Slate({
   );
   return (
     <figure
-      aria-label={`Slate: scene ${scene}, take ${take}`}
+      aria-label={tx("Slate: scene {scene}, take {take}", { scene, take })}
       style={{
         margin: 0,
         maxWidth: 520,
@@ -673,7 +693,7 @@ export function Slate({
           }}
         >
           <dt style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, opacity: 0.85 }}>
-            Production
+            {tx("Production")}
           </dt>
           <dd style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>{production}</dd>
         </div>
@@ -701,7 +721,7 @@ export function Slate({
                 clip: "rect(0 0 0 0)",
               }}
             >
-              Notes
+              {tx("Notes")}
             </dt>
             <dd style={{ margin: 0, display: "flex", gap: 8 }}>
               {flags.map((f) => (

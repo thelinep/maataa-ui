@@ -3,6 +3,7 @@
  * Book a location or equipment for a date range
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { AvailabilityCalendar, type DateRangeValue } from "./AvailabilityCalendar";
@@ -48,9 +49,11 @@ export function BookingForm({
   onSubmit,
   onCancel,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
   initialMonth = new Date(),
 }: BookingFormProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const [month, setMonth] = useState(
     new Date(initialMonth.getFullYear(), initialMonth.getMonth(), 1)
@@ -71,7 +74,7 @@ export function BookingForm({
   return (
     <form
       noValidate
-      aria-label={`Book ${subject}`}
+      aria-label={t("Book {subject}", { subject })}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 520 }}
       onSubmit={(e) => {
         e.preventDefault();
@@ -99,7 +102,7 @@ export function BookingForm({
       />
       {withQuantity && (
         <label style={{ display: "flex", flexDirection: "column", gap: 2, fontWeight: 500 }}>
-          Quantity
+          {t("Quantity")}
           <input
             type="number"
             min={1}
@@ -119,7 +122,7 @@ export function BookingForm({
         </label>
       )}
       <label style={{ display: "flex", flexDirection: "column", gap: 2, fontWeight: 500 }}>
-        What it’s for
+        {t("What it’s for")}
         <input
           value={purpose}
           onChange={(e) => setPurpose(e.target.value)}
@@ -134,7 +137,7 @@ export function BookingForm({
         />
       </label>
       <label style={{ display: "flex", flexDirection: "column", gap: 2, fontWeight: 500 }}>
-        Scenes (optional)
+        {t("Scenes (optional)")}
         <input
           value={scenes}
           onChange={(e) => setScenes(e.target.value)}
@@ -161,10 +164,10 @@ export function BookingForm({
         </div>
       )}
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
-        <Button type="submit">Request booking</Button>
+        <Button type="submit">{t("Request booking")}</Button>
         {onCancel && (
           <Button variant="secondary" onClick={onCancel}>
-            Cancel
+            {t("Cancel")}
           </Button>
         )}
       </div>

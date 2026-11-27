@@ -4,6 +4,7 @@
  * safe parser (no eval) and the result or error in words
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle, smallButtonStyle } from "./fieldKit";
@@ -154,6 +155,7 @@ export function FormulaInput({
   formatResult = (n) => n.toLocaleString("en-IN", { maximumFractionDigits: 2 }),
   hint,
 }: FormulaInputProps) {
+  const t = useT();
   const ref = useRef<HTMLInputElement>(null);
   const vars = Object.fromEntries(variables.map((v) => [v.name, v.value]));
   const result = value.trim() ? evaluateFormula(value, vars) : null;
@@ -192,7 +194,7 @@ export function FormulaInput({
           />
           <div
             role="group"
-            aria-label="Insert a value"
+            aria-label={t("Insert a value")}
             style={{ display: "flex", flexWrap: "wrap", gap: spacingTokens.xs }}
           >
             {variables.map((v) => (

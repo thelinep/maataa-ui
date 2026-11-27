@@ -31,6 +31,7 @@ const gates = [
   ["ui-typescript", "npm run check:ui-types"],
   ["ui-lint", "npm run lint:ui"],
   ["ui-format", "npm run format:check:ui"],
+  ["ui-messages", "npm run check:ui-messages"],
   ["ui-vitest", "npm run test:ui"],
   ["ui-storybook-build", "npm run docs:storybook:build"],
   ["ui-story-axe", "npm run test:a11y:stories"],

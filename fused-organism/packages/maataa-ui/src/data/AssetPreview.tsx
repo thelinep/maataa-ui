@@ -3,6 +3,7 @@
  * Image or video preview with alt text, captions and file facts
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { formatBytes } from "../forms/FileDropzone";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -41,6 +42,7 @@ const kindIcon: Record<Asset["kind"], string> = {
  * without alt text shows a visible "Add a description" warning.
  */
 export function AssetPreview({ asset: a, maxHeight = 360 }: AssetPreviewProps) {
+  const t = useT();
   const media: React.CSSProperties = {
     display: "block",
     maxWidth: "100%",
@@ -57,7 +59,7 @@ export function AssetPreview({ asset: a, maxHeight = 360 }: AssetPreviewProps) {
         <video controls preload="metadata" poster={a.thumbnailUrl} style={media}>
           <source src={a.url} />
           {a.captionsUrl && (
-            <track kind="captions" src={a.captionsUrl} srcLang="en" label="English" default />
+            <track kind="captions" src={a.captionsUrl} srcLang="en" label={t("English")} default />
           )}
         </video>
       ) : a.kind === "audio" && a.url ? (
@@ -86,12 +88,12 @@ export function AssetPreview({ asset: a, maxHeight = 360 }: AssetPreviewProps) {
         </span>
         {a.kind === "image" && !a.alt && (
           <div style={{ color: colorTokens.interactive.warning, fontWeight: 600 }}>
-            No description yet. Add one so screen-reader users know what this shows.
+            {t("No description yet. Add one so screen-reader users know what this shows.")}
           </div>
         )}
         {a.kind === "video" && !a.captionsUrl && (
           <div style={{ color: colorTokens.interactive.warning, fontWeight: 600 }}>
-            No captions yet.
+            {t("No captions yet.")}
           </div>
         )}
       </figcaption>
@@ -119,8 +121,10 @@ export function AssetGrid({
   onOpen,
   selected,
   onToggleSelect,
-  label = "Assets",
+  label: labelProp,
 }: AssetGridProps) {
+  const t = useT();
+  const label = labelProp ?? t("Assets");
   return (
     <ul
       aria-label={label}
@@ -189,7 +193,7 @@ export function AssetGrid({
           {onToggleSelect && (
             <input
               type="checkbox"
-              aria-label={`Select ${a.name}`}
+              aria-label={t("Select {name}", { name: a.name })}
               checked={selected?.includes(a.id) ?? false}
               onChange={() => onToggleSelect(a.id)}
               style={{

@@ -3,6 +3,7 @@
  * Navigation breadcrumb trail component
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
 import { colorTokens, spacingTokens } from "../tokens";
@@ -38,7 +39,9 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLOListElement> 
  * Navigation breadcrumb trail component
  */
 export const Breadcrumb = React.forwardRef<HTMLOListElement, BreadcrumbProps>(
-  ({ items, separator = "/", ariaLabel = "Breadcrumb", ...props }, ref) => {
+  ({ items, separator = "/", ariaLabel: ariaLabelProp, ...props }, ref) => {
+    const t = useT();
+    const ariaLabel = ariaLabelProp ?? t("Breadcrumb");
     return (
       <nav aria-label={ariaLabel}>
         <ol

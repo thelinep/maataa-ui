@@ -54,6 +54,7 @@
     "test:ui": "npm exec --workspace=@maataa/ui -- vitest run",
     "test:ui:smoke": "node --loader ./scripts/extensionless-loader.mjs scripts/smoke-ui-product.mjs",
     "check:ui-types": "node_modules/typescript/bin/tsc --project packages/maataa-ui/tsconfig.json --noEmit",
+    "check:ui-messages": "node scripts/check-ui-messages.mjs",
     "build:ui": "node scripts/build-ui-packages.mjs",
     "lint:ui": "ESLINT_USE_FLAT_CONFIG=false node_modules/eslint/bin/eslint.js packages/maataa-ui/src packages/tokens/src packages/primitives/src packages/domain-primitives/src packages/workflow-primitives/src packages/evidence-primitives/src packages/generative-primitives/src packages/composites/src packages/templates/src --ext .ts,.tsx --ignore-pattern '**/*.stories.tsx' --ignore-pattern '**/*.test.tsx' --config packages/maataa-ui/.eslintrc.json",
     "format:check:ui": "node_modules/prettier/bin/prettier.cjs --check packages/maataa-ui/src packages/maataa-ui/.storybook packages/tokens/src packages/primitives/src packages/domain-primitives/src packages/workflow-primitives/src packages/evidence-primitives/src packages/generative-primitives/src packages/composites/src packages/templates/src",

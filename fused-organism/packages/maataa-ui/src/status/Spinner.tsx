@@ -3,6 +3,7 @@
  * Indeterminate loading indicator with an accessible name
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens } from "../tokens";
 
@@ -54,7 +55,9 @@ const hidden: React.CSSProperties = {
  * ```
  */
 export const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(
-  ({ label = "Loading", size = "md", showLabel = false, style, ...props }, ref) => {
+  ({ label: labelProp, size = "md", showLabel = false, style, ...props }, ref) => {
+    const t = useT();
+    const label = labelProp ?? t("Loading");
     const px = sizes[size];
     const still = prefersReducedMotion();
     return (

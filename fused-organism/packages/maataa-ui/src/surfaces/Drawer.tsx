@@ -3,6 +3,7 @@
  * Slide-in overlay panel anchored to a screen edge
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { colorTokens, radiusTokens, spacingTokens } from "../tokens";
@@ -76,6 +77,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   size = "320px",
   children,
 }) => {
+  const t = useT();
   useEffect(() => {
     if (!isOpen) return;
 
@@ -148,7 +150,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             {closeButton && (
               <button
                 onClick={onClose}
-                aria-label="Close"
+                aria-label={t("Close")}
                 style={{
                   background: "none",
                   border: "none",

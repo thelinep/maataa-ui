@@ -3,6 +3,7 @@
  * Notification list with read state, type filter, mark-all-read and detail
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -52,9 +53,12 @@ export function NotificationPanel({
   onOpen,
   onMarkRead,
   onMarkAllRead,
-  locale = "en-IN",
-  title = "Notifications",
+  locale: localeProp,
+  title: titleProp,
 }: NotificationPanelProps) {
+  const t = useT();
+  const title = titleProp ?? t("Notifications");
+  const locale = useLocale(localeProp);
   const id = useId();
   const [filter, setFilter] = useState<string>("all");
   const types = Array.from(new Set(items.map((i) => i.type)));
@@ -106,12 +110,12 @@ export function NotificationPanel({
           </span>
         </h2>
         <Button variant="tertiary" size="sm" onClick={onMarkAllRead} disabled={unread === 0}>
-          Mark all read
+          {t("Mark all read")}
         </Button>
       </div>
       <div
         role="group"
-        aria-label="Show"
+        aria-label={t("Show")}
         style={{ display: "flex", gap: spacingTokens.xs, flexWrap: "wrap" }}
       >
         {chip("all", "All")}
@@ -119,7 +123,9 @@ export function NotificationPanel({
         {types.map((t) => chip(t, typeLabels[t] ?? t[0].toUpperCase() + t.slice(1)))}
       </div>
       {shown.length === 0 ? (
-        <p style={{ color: colorTokens.text.secondary, margin: spacingTokens.sm }}>Nothing here.</p>
+        <p style={{ color: colorTokens.text.secondary, margin: spacingTokens.sm }}>
+          {t("Nothing here.")}
+        </p>
       ) : (
         <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
           {shown.map((n) => (
@@ -169,7 +175,7 @@ export function NotificationPanel({
                         clip: "rect(0 0 0 0)",
                       }}
                     >
-                      Unread:
+                      {t("Unread:")}
                     </span>
                   )}
                   {!n.read && " "}
@@ -199,7 +205,7 @@ export function NotificationPanel({
                 type="button"
                 onClick={() => onMarkRead(n.id, !n.read)}
                 // Starts with the visible text (WCAG 2.5.3), then says which notification
-                aria-label={`${n.read ? "Mark unread" : "Mark read"}: ${n.title}`}
+                aria-label={`${n.read ? t("Mark unread") : t("Mark read")}: ${n.title}`}
                 style={{
                   alignSelf: "start",
                   background: "none",
@@ -211,7 +217,7 @@ export function NotificationPanel({
                   textDecoration: "underline",
                 }}
               >
-                {n.read ? "Mark unread" : "Mark read"}
+                {n.read ? t("Mark unread") : t("Mark read")}
               </button>
             </li>
           ))}
@@ -239,8 +245,10 @@ export function NotificationDetail({
   onBack,
   actionLabel,
   onAction,
-  locale = "en-IN",
+  locale: localeProp,
 }: NotificationDetailProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   return (
     <article
       aria-label={item.title}
@@ -248,7 +256,7 @@ export function NotificationDetail({
     >
       <div>
         <Button variant="tertiary" size="sm" onClick={onBack}>
-          ← All notifications
+          ← {t("All notifications")}
         </Button>
       </div>
       <h2 style={{ margin: 0, fontSize: typographyTokens.fontSize.xl }}>{item.title}</h2>

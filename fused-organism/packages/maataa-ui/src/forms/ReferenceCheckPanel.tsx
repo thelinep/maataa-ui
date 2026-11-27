@@ -3,6 +3,7 @@
  * Record reference checks for an applicant
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { Badge } from "../primitives/Badge";
@@ -25,11 +26,11 @@ export interface ReferenceCheckPanelProps {
 }
 
 const label: Record<ReferenceCheck["status"], string> = {
-  toContact: "Not contacted",
-  contacted: "Contacted",
-  positive: "Positive",
-  concerns: "Concerns",
-  noReply: "No reply",
+  toContact: msg("Not contacted"),
+  contacted: msg("Contacted"),
+  positive: msg("Positive"),
+  concerns: msg("Concerns"),
+  noReply: msg("No reply"),
 };
 const tone = {
   toContact: "default",
@@ -49,6 +50,7 @@ export function ReferenceCheckPanel({
   references,
   onUpdate,
 }: ReferenceCheckPanelProps) {
+  const t = useT();
   const id = useId();
   const [open, setOpen] = useState<string | null>(null);
   const done = references.filter((r) => r.status === "positive" || r.status === "concerns").length;
@@ -58,7 +60,7 @@ export function ReferenceCheckPanel({
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.sm }}
     >
       <h3 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
-        References for {applicantName}{" "}
+        {t("References for {applicantName} ", { applicantName })}
         <span
           style={{
             fontWeight: 400,
@@ -93,7 +95,7 @@ export function ReferenceCheckPanel({
               <strong>{r.refereeName}</strong>{" "}
               <span style={{ color: colorTokens.text.secondary }}>· {r.relation}</span>
             </span>
-            <Badge variant={tone[r.status]}>{label[r.status]}</Badge>
+            <Badge variant={tone[r.status]}>{t(label[r.status])}</Badge>
           </div>
           <label
             style={{
@@ -103,7 +105,7 @@ export function ReferenceCheckPanel({
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            Status
+            {t("Status")}
             <select
               value={r.status}
               onChange={(e) =>
@@ -130,7 +132,7 @@ export function ReferenceCheckPanel({
             aria-expanded={open === r.id}
             onClick={() => setOpen(open === r.id ? null : r.id)}
           >
-            {open === r.id ? "Hide notes" : r.notes ? "Show notes" : "Add notes"}
+            {open === r.id ? "Hide notes" : r.notes ? t("Show notes") : t("Add notes")}
           </Button>
           {open === r.id && (
             <label
@@ -141,7 +143,7 @@ export function ReferenceCheckPanel({
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              Internal notes (never shared with the applicant)
+              {t("Internal notes (never shared with the applicant)")}
               <textarea
                 rows={3}
                 defaultValue={r.notes}

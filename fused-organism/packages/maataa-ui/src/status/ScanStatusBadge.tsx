@@ -3,6 +3,7 @@
  * Malware-scan state of an uploaded document
  */
 
+import { msg, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge, type BadgeProps } from "../primitives/Badge";
 
@@ -13,11 +14,11 @@ export interface ScanStatusBadgeProps extends Omit<BadgeProps, "variant" | "chil
 }
 
 const config: Record<ScanStatus, { variant: NonNullable<BadgeProps["variant"]>; text: string }> = {
-  pending: { variant: "default", text: "Waiting for scan" },
-  scanning: { variant: "info", text: "Scanning" },
-  clean: { variant: "success", text: "Clean" },
-  quarantined: { variant: "error", text: "Quarantined" },
-  failed: { variant: "warning", text: "Scan failed" },
+  pending: { variant: "default", text: msg("Waiting for scan") },
+  scanning: { variant: "info", text: msg("Scanning") },
+  clean: { variant: "success", text: msg("Clean") },
+  quarantined: { variant: "error", text: msg("Quarantined") },
+  failed: { variant: "warning", text: msg("Scan failed") },
 };
 
 /**
@@ -31,11 +32,14 @@ const config: Record<ScanStatus, { variant: NonNullable<BadgeProps["variant"]>; 
  * ```
  */
 export const ScanStatusBadge = React.forwardRef<HTMLSpanElement, ScanStatusBadgeProps>(
-  ({ status, ...props }, ref) => (
-    <Badge ref={ref} variant={config[status].variant} {...props}>
-      {config[status].text}
-    </Badge>
-  )
+  ({ status, ...props }, ref) => {
+    const t = useT();
+    return (
+      <Badge ref={ref} variant={config[status].variant} {...props}>
+        {t(config[status].text)}
+      </Badge>
+    );
+  }
 );
 
 ScanStatusBadge.displayName = "ScanStatusBadge";

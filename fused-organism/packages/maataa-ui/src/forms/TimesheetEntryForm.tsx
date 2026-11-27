@@ -3,6 +3,7 @@
  * One day's hours: call, wrap, breaks, with the total and overtime worked out
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -82,6 +83,7 @@ export function TimesheetEntryForm({
   standardMinutes = 720,
   readOnly,
 }: TimesheetEntryFormProps) {
+  const t = useT();
   const id = useId();
   const total = hoursWorked(v);
   const crossed = v.overnight || (v.callTime && v.wrapTime && v.wrapTime < v.callTime);
@@ -113,11 +115,11 @@ export function TimesheetEntryForm({
       disabled={readOnly}
     >
       <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
-        Hours for {v.date || "this day"}
+        {v.date ? t("Hours for {date}", { date: v.date }) : t("Hours for this day")}
       </legend>
       <div style={{ display: "flex", gap: spacingTokens.md, flexWrap: "wrap" }}>
         <label style={lab}>
-          Date
+          {t("Date")}
           <input
             type="date"
             value={v.date}
@@ -126,7 +128,7 @@ export function TimesheetEntryForm({
           />
         </label>
         <label style={lab}>
-          Call time
+          {t("Call time")}
           <input
             type="time"
             value={v.callTime}
@@ -135,7 +137,7 @@ export function TimesheetEntryForm({
           />
         </label>
         <label style={lab}>
-          Wrap time
+          {t("Wrap time")}
           <input
             type="time"
             value={v.wrapTime}
@@ -145,7 +147,7 @@ export function TimesheetEntryForm({
           />
         </label>
         <label style={lab}>
-          Breaks (minutes)
+          {t("Breaks (minutes)")}
           <input
             type="number"
             min={0}
@@ -161,17 +163,17 @@ export function TimesheetEntryForm({
           id={`${id}-night`}
           style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}
         >
-          Wrap is after midnight (next day).
+          {t("Wrap is after midnight (next day).")}
         </span>
       )}
       <div role="status" style={{ display: "flex", gap: spacingTokens.md, alignItems: "baseline" }}>
         <span>
-          Total <strong>{formatHM(total)}</strong>
+          {t("Total")} <strong>{formatHM(total)}</strong>
         </span>
         <OvertimeIndicator minutes={total} standardMinutes={standardMinutes} />
       </div>
       <label style={lab}>
-        Notes (optional)
+        {t("Notes (optional)")}
         <input
           value={v.notes ?? ""}
           onChange={(e) => set({ notes: e.target.value })}

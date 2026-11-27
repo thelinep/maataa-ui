@@ -4,6 +4,7 @@
  * with an optional visible "More actions" button so it is never hidden-only
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { colorTokens } from "../tokens";
 import { MenuPopup, type MenuAction } from "./MenuButton";
@@ -30,6 +31,7 @@ export function ContextMenu({
   showButton = true,
   style,
 }: ContextMenuProps) {
+  const t = useT();
   const id = useId();
   const [at, setAt] = useState<{ x: number; y: number } | null>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -66,7 +68,7 @@ export function ContextMenu({
           aria-haspopup="menu"
           aria-expanded={!!at}
           aria-controls={at ? id : undefined}
-          aria-label={`More actions: ${label}`}
+          aria-label={t("More actions: {label}", { label })}
           onClick={(e) => {
             const r = box.current!.getBoundingClientRect();
             const b = e.currentTarget.getBoundingClientRect();

@@ -3,6 +3,7 @@
  * Choose one or several places, from a list or by coordinates
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -52,6 +53,7 @@ export function PinSelector({
   onAddPin,
   map,
 }: PinSelectorProps) {
+  const t = useT();
   const id = useId();
   const [coords, setCoords] = useState("");
   const [name, setName] = useState("");
@@ -84,7 +86,7 @@ export function PinSelector({
             <>
               {" "}
               <span style={{ fontWeight: 400, color: colorTokens.text.secondary }}>
-                · {value.length} chosen
+                {t("· {count} chosen", { count: value.length })}
               </span>
             </>
           )}
@@ -137,7 +139,7 @@ export function PinSelector({
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              New place name
+              {t("New place name")}
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -157,7 +159,7 @@ export function PinSelector({
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              Coordinates (latitude, longitude)
+              {t("Coordinates (latitude, longitude)")}
               <input
                 value={coords}
                 onChange={(e) => setCoords(e.target.value)}
@@ -198,7 +200,7 @@ export function PinSelector({
                   setCoords("");
                 }}
               >
-                Add place
+                {t("Add place")}
               </Button>
             </div>
           </div>

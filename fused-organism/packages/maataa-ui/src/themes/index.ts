@@ -1,7 +1,8 @@
 /**
  * @maataa/ui/themes
  * Category: themes
- * Runtime light/dark theme switching: ThemeProvider, useTheme, ThemeToggle
+ * Themes: ThemePicker (Light, Dark, TLPS v2, High contrast, System), ThemeStyle,
+ * and runtime light/dark switching with ThemeProvider, useTheme, ThemeToggle
  */
 
 export {
@@ -14,12 +15,33 @@ export {
 export { ThemeToggle, type ThemeToggleProps } from "./ThemeToggle";
 export { ThemeStyle, type ThemeStyleProps } from "./ThemeStyle";
 export {
+  ThemePicker,
+  useThemePreference,
+  type ThemePickerProps,
+  type ThemePreference,
+} from "./ThemePicker";
+export { ThemePreferenceHead, type ThemePreferenceHeadProps } from "./ThemePreferenceHead";
+export {
+  THEME_ATTRIBUTE,
+  THEME_CHOICE_ATTRIBUTE,
+  DEFAULT_THEME_STORAGE_KEY,
+  resolveThemeChoice,
+  themeInitScript,
+  themePreferenceCss,
+  type ThemeChoice,
+  type ThemePreferenceOptions,
+} from "./themePreference";
+export {
   paperTheme,
   darkTheme,
   tlpsV2Theme,
+  highContrastTheme,
+  builtInThemes,
   themeToCss,
   themeToCssVariables,
+  themesToCss,
   type MaataaTheme,
+  type ThemesToCssOptions,
 } from "../tokens";
 
 // Component metadata for Storybook and docs
@@ -37,6 +59,20 @@ export const themeComponents = [
     component: "ThemeStyle",
     category: "Themes",
     description: "Applies a whole-library theme (paper, dark, TLPS v2) as CSS variables",
+  },
+  {
+    id: "theme-picker",
+    name: "ThemePicker",
+    component: "ThemePicker",
+    category: "Themes",
+    description: "Chooses Light, Dark, TLPS v2, High contrast or System, and remembers the choice",
+  },
+  {
+    id: "theme-preference-head",
+    name: "ThemePreferenceHead",
+    component: "ThemePreferenceHead",
+    category: "Themes",
+    description: "Head tags that load the saved theme before first paint, with no flash",
   },
   {
     id: "theme-toggle",

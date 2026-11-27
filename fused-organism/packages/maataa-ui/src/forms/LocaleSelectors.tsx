@@ -3,6 +3,7 @@
  * Language, country, state/district and currency pickers
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useMemo } from "react";
 import { Select, type SelectOption } from "./Select";
 import {
@@ -34,10 +35,12 @@ const one = (v: string | string[]) => (Array.isArray(v) ? (v[0] ?? "") : v);
 export function LanguageSelector({
   value,
   onChange,
-  label = "Language",
+  label: labelProp,
   languages = indianLanguages,
   ...p
 }: Common & { languages?: typeof indianLanguages }) {
+  const t = useT();
+  const label = labelProp ?? t("Language");
   const options: SelectOption[] = useMemo(
     () =>
       languages.map((l) => ({
@@ -73,11 +76,14 @@ LanguageSelector.displayName = "LanguageSelector";
 export function CountrySelector({
   value,
   onChange,
-  label = "Country",
-  locale = "en-IN",
+  label: labelProp,
+  locale: localeProp,
   priority = ["IN"],
   ...p
 }: Common & { priority?: string[] }) {
+  const t = useT();
+  const label = labelProp ?? t("Country");
+  const locale = useLocale(localeProp);
   const options = useMemo(() => {
     const all = countryCodes.map((c) => ({ value: c, label: displayName(c, "region", locale) }));
     all.sort((a, b) => a.label.localeCompare(b.label, locale));
@@ -125,6 +131,7 @@ export function RegionSelector({
   stateError,
   districtError,
 }: RegionSelectorProps) {
+  const t = useT();
   const states = useMemo(
     () => indianStates.map((s) => ({ value: s.code, label: s.ut ? `${s.name} (UT)` : s.name })),
     []
@@ -133,7 +140,7 @@ export function RegionSelector({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <Select
-        label="State or union territory"
+        label={t("State or union territory")}
         searchable
         value={value.state}
         onChange={(v) => onChange({ state: one(v), district: undefined })}
@@ -142,7 +149,7 @@ export function RegionSelector({
       />
       {districtsFor && (
         <Select
-          label="District"
+          label={t("District")}
           searchable
           disabled={!value.state}
           description={value.state ? undefined : "Choose a state first"}
@@ -161,11 +168,14 @@ RegionSelector.displayName = "RegionSelector";
 export function CurrencySelector({
   value,
   onChange,
-  label = "Currency",
-  locale = "en-IN",
+  label: labelProp,
+  locale: localeProp,
   currencies = commonCurrencies,
   ...p
 }: Common & { currencies?: string[] }) {
+  const t = useT();
+  const label = labelProp ?? t("Currency");
+  const locale = useLocale(localeProp);
   const options = useMemo(
     () =>
       currencies.map((c) => {

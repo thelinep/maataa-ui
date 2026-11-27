@@ -3,6 +3,7 @@
  * Toast notification component
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect } from "react";
 import { colorTokens, radiusTokens, spacingTokens } from "../tokens";
 
@@ -49,6 +50,7 @@ export const Toast: React.FC<ToastProps> = ({
   onClose,
   action,
 }) => {
+  const t = useT();
   const style = colorTokens.semantic[type];
 
   useEffect(() => {
@@ -95,7 +97,7 @@ export const Toast: React.FC<ToastProps> = ({
       )}
       <button
         onClick={() => onClose(id)}
-        aria-label="Dismiss notification"
+        aria-label={t("Dismiss notification")}
         style={{
           backgroundColor: "transparent",
           border: "none",

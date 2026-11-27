@@ -5,6 +5,7 @@
  * AnnouncementStrip and CookieConsentBanner
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -360,6 +361,7 @@ export interface Testimonial {
 
 /** Quote in a blockquote with the attribution in a figcaption. */
 export function TestimonialCard({ quote, name, role, photoSrc, rating }: Testimonial) {
+  const t = useT();
   return (
     <figure
       style={{
@@ -381,7 +383,7 @@ export function TestimonialCard({ quote, name, role, photoSrc, rating }: Testimo
             {"★".repeat(rating)}
             {"☆".repeat(5 - rating)}
           </span>
-          <VisuallyHidden>Rated {rating} out of 5</VisuallyHidden>
+          <VisuallyHidden>{t("Rated {rating} out of 5", { rating })}</VisuallyHidden>
         </span>
       )}
       <blockquote
@@ -434,7 +436,7 @@ export function TestimonialCard({ quote, name, role, photoSrc, rating }: Testimo
  * hover/focus and with reduced motion.
  */
 export function TestimonialCarousel({
-  label = "What people say",
+  label: labelProp,
   items,
   autoRotateMs,
 }: {
@@ -442,6 +444,8 @@ export function TestimonialCarousel({
   items: Testimonial[];
   autoRotateMs?: number;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("What people say");
   const id = useId();
   const [i, setI] = useState(0);
   const [playing, setPlaying] = useState(!!autoRotateMs);
@@ -479,11 +483,12 @@ export function TestimonialCarousel({
       <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
         {autoRotateMs && (
           <button type="button" style={b} onClick={() => setPlaying((p) => !p)}>
-            {playing ? "Pause" : "Play"} <VisuallyHidden>rotation</VisuallyHidden>
+            {playing ? t("Pause") : t("Play")} <VisuallyHidden>rotation</VisuallyHidden>
           </button>
         )}
         <button type="button" style={b} aria-controls={id} onClick={() => go(i - 1)}>
-          <span aria-hidden="true">‹ </span>Previous
+          <span aria-hidden="true">‹ </span>
+          {t("Previous")}
         </button>
         <button type="button" style={b} aria-controls={id} onClick={() => go(i + 1)}>
           Next<span aria-hidden="true"> ›</span>
@@ -499,7 +504,11 @@ export function TestimonialCarousel({
         </span>
       </div>
       <div id={id} aria-live={playing && !hover ? "off" : "polite"}>
-        <div role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${items.length}`}>
+        <div
+          role="group"
+          aria-roledescription="slide"
+          aria-label={t("{value} of {count}", { value: i + 1, count: items.length })}
+        >
           <TestimonialCard {...items[i]!} />
         </div>
       </div>
@@ -510,12 +519,14 @@ export function TestimonialCarousel({
 /* ───────────────────────── LogoStrip / StatsStrip ───────────────────────── */
 
 export function LogoStrip({
-  label = "Trusted by",
+  label: labelProp,
   logos,
 }: {
   label?: string;
   logos: { name: string; src?: string }[];
 }) {
+  const t = useT();
+  const label = labelProp ?? t("Trusted by");
   return (
     <section
       aria-label={label}
@@ -579,11 +590,13 @@ export function LogoStrip({
 
 export function StatsStrip({
   stats,
-  label = "In numbers",
+  label: labelProp,
 }: {
   stats: { value: string; label: string }[];
   label?: string;
 }) {
+  const t = useT();
+  const label = labelProp ?? t("In numbers");
   return (
     <section aria-label={label}>
       <dl
@@ -631,6 +644,7 @@ export function PricingCardRow({
   billing?: "monthly" | "yearly";
   onBillingChange?: (b: "monthly" | "yearly") => void;
 }) {
+  const t = useT();
   const id = useId();
   return (
     <div
@@ -662,7 +676,7 @@ export function PricingCardRow({
               clip: "rect(0 0 0 0)",
             }}
           >
-            Billing
+            {t("Billing")}
           </legend>
           {(["monthly", "yearly"] as const).map((b) => (
             <label
@@ -686,7 +700,7 @@ export function PricingCardRow({
                 onChange={() => onBillingChange(b)}
                 style={{ accentColor: colorTokens.interactive.primary }}
               />
-              {b === "monthly" ? "Monthly" : "Yearly (2 months free)"}
+              {b === "monthly" ? t("Monthly") : t("Yearly (2 months free)")}
             </label>
           ))}
         </fieldset>
@@ -733,6 +747,7 @@ export interface PricingTableProps {
  * plan and row headers per feature; ✓/– always with "Included" words.
  */
 export function PricingTable({ plans, rows, caption = "Compare plans" }: PricingTableProps) {
+  const t = useT();
   const th: React.CSSProperties = {
     padding: "10px 12px",
     borderBottom: `1px solid ${colorTokens.border.secondary}`,
@@ -837,12 +852,12 @@ export function PricingTable({ plans, rows, caption = "Compare plans" }: Pricing
                       {v === true ? (
                         <span style={{ color: colorTokens.interactive.success, fontWeight: 800 }}>
                           <span aria-hidden="true">✓</span>
-                          <VisuallyHidden>Included</VisuallyHidden>
+                          <VisuallyHidden>{t("Included")}</VisuallyHidden>
                         </span>
                       ) : v === false ? (
                         <span style={{ color: colorTokens.text.tertiary }}>
                           <span aria-hidden="true">–</span>
-                          <VisuallyHidden>Not included</VisuallyHidden>
+                          <VisuallyHidden>{t("Not included")}</VisuallyHidden>
                         </span>
                       ) : (
                         v
@@ -884,12 +899,14 @@ export function PricingTable({ plans, rows, caption = "Compare plans" }: Pricing
  * no JavaScript, find-in-page opens matches, and "Expand all" is offered.
  */
 export function FAQAccordion({
-  title = "Frequently asked questions",
+  title: titleProp,
   items,
 }: {
   title?: string;
   items: { q: string; a: React.ReactNode }[];
 }) {
+  const t = useT();
+  const title = titleProp ?? t("Frequently asked questions");
   const id = useId();
   const [all, setAll] = useState<boolean | null>(null);
   return (
@@ -922,7 +939,7 @@ export function FAQAccordion({
             cursor: "pointer",
           }}
         >
-          {all ? "Collapse all" : "Expand all"}
+          {all ? t("Collapse all") : t("Expand all")}
         </button>
       </div>
       {items.map((it) => (
@@ -953,7 +970,7 @@ export function FAQAccordion({
 export function AnnouncementStrip({
   children,
   href,
-  linkLabel = "Learn more",
+  linkLabel: linkLabelProp,
   onDismiss,
   tone = "brand",
 }: {
@@ -963,12 +980,14 @@ export function AnnouncementStrip({
   onDismiss?: () => void;
   tone?: "brand" | "warning";
 }) {
+  const t = useT();
+  const linkLabel = linkLabelProp ?? t("Learn more");
   const bg = tone === "warning" ? colorTokens.semantic.warning.bg : colorTokens.background.inverse;
   const fg = tone === "warning" ? colorTokens.text.primary : colorTokens.text.inverse;
   return (
     <div
       role="region"
-      aria-label="Announcement"
+      aria-label={t("Announcement")}
       style={{
         display: "flex",
         alignItems: "center",
@@ -993,7 +1012,7 @@ export function AnnouncementStrip({
         <button
           type="button"
           onClick={onDismiss}
-          aria-label="Dismiss announcement"
+          aria-label={t("Dismiss announcement")}
           style={{
             position: "absolute",
             right: 8,
@@ -1036,6 +1055,7 @@ export function CookieConsentBanner({
   onSave: (c: CookieChoices) => void;
   policyHref?: string;
 }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const [c, setC] = useState<CookieChoices>({
     necessary: true,
@@ -1045,7 +1065,7 @@ export function CookieConsentBanner({
   const b: React.CSSProperties = { ...btn(false), minHeight: 44, padding: "0 16px" };
   return (
     <section
-      aria-label="Cookie choices"
+      aria-label={t("Cookie choices")}
       style={{
         position: "sticky",
         bottom: 0,
@@ -1063,7 +1083,7 @@ export function CookieConsentBanner({
         marketing cookies.{" "}
         {policyHref && (
           <a href={policyHref} style={{ color: colorTokens.interactive.primary }}>
-            Cookie policy
+            {t("Cookie policy")}
           </a>
         )}
       </p>
@@ -1078,7 +1098,7 @@ export function CookieConsentBanner({
             gap: 6,
           }}
         >
-          <legend style={{ fontWeight: 700, marginBottom: 4 }}>Choose cookies</legend>
+          <legend style={{ fontWeight: 700, marginBottom: 4 }}>{t("Choose cookies")}</legend>
           <label
             style={{
               display: "flex",
@@ -1100,8 +1120,8 @@ export function CookieConsentBanner({
                 style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
               />
               {k === "analytics"
-                ? "Analytics — how the site is used"
-                : "Marketing — personalised ads"}
+                ? t("Analytics — how the site is used")
+                : t("Marketing — personalised ads")}
             </label>
           ))}
         </fieldset>
@@ -1112,14 +1132,14 @@ export function CookieConsentBanner({
           style={b}
           onClick={() => onSave({ necessary: true, analytics: false, marketing: false })}
         >
-          Reject all
+          {t("Reject all")}
         </button>
         <button
           type="button"
           style={b}
           onClick={() => onSave({ necessary: true, analytics: true, marketing: true })}
         >
-          Accept all
+          {t("Accept all")}
         </button>
         {open ? (
           <button
@@ -1127,7 +1147,7 @@ export function CookieConsentBanner({
             style={{ ...b, ...btn(true), minHeight: 44, padding: "0 16px" }}
             onClick={() => onSave(c)}
           >
-            Save my choices
+            {t("Save my choices")}
           </button>
         ) : (
           <button
@@ -1136,7 +1156,7 @@ export function CookieConsentBanner({
             aria-expanded={false}
             onClick={() => setOpen(true)}
           >
-            Choose
+            {t("Choose")}
           </button>
         )}
       </div>

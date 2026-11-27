@@ -3,6 +3,7 @@
  * Combines DatePicker and TimePicker into a single date+time value
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { DatePicker } from "./DatePicker";
@@ -56,6 +57,7 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
     },
     ref
   ) => {
+    const t = useT();
     const handleDateChange = (date: Date | null) => {
       if (!date) {
         onChange(null);
@@ -115,7 +117,7 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
               disabled={disabled}
               min={min}
               max={max}
-              aria-label={`${fieldName}: date`}
+              aria-label={t("{fieldName}: date", { fieldName })}
               required={required}
             />
           </div>
@@ -124,7 +126,7 @@ export const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerPro
               value={value ? formatTimeValue(value) : ""}
               onChange={handleTimeChange}
               disabled={disabled || !value}
-              aria-label={`${fieldName}: time`}
+              aria-label={t("{fieldName}: time", { fieldName })}
               required={required}
             />
           </div>

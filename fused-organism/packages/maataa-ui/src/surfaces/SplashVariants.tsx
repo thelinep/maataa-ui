@@ -5,6 +5,7 @@
  * its own, and a still frame with reduced motion
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { BrandLogo } from "./BrandLogo";
@@ -33,6 +34,7 @@ function SplashFrame({
   background,
   label,
 }: SplashVariantProps & { children?: React.ReactNode; background: string; label: string }) {
+  const t = useT();
   const still = reducedMotion ?? prefersReduced();
   const skip = useRef<HTMLButtonElement>(null);
   const done = useRef(false);
@@ -103,7 +105,7 @@ function SplashFrame({
           cursor: "pointer",
         }}
       >
-        Skip intro
+        {t("Skip intro")}
       </button>
     </div>
   );
@@ -117,6 +119,7 @@ function SplashFrame({
  * scatter of motes.
  */
 export function ParticleSplash(props: SplashVariantProps) {
+  const t = useT();
   const canvas = useRef<HTMLCanvasElement>(null);
   const still = props.reducedMotion ?? prefersReduced();
   useEffect(() => {
@@ -173,7 +176,7 @@ export function ParticleSplash(props: SplashVariantProps) {
   return (
     <SplashFrame
       {...props}
-      label="maataa is starting"
+      label={t("maataa is starting")}
       background="radial-gradient(ellipse at 20% 50%, #3A2A1A, #0E0A06 70%)"
     >
       <canvas
@@ -193,10 +196,11 @@ export function ParticleSplash(props: SplashVariantProps) {
  * slowly sweeps across (CSS only). Still: the lens at rest.
  */
 export function GlassSplash(props: SplashVariantProps) {
+  const t = useT();
   const still = props.reducedMotion ?? prefersReduced();
   const dur = props.duration ?? 2800;
   return (
-    <SplashFrame {...props} label="maataa is starting" background="#120E0A">
+    <SplashFrame {...props} label={t("maataa is starting")} background="#120E0A">
       <style>{`@keyframes maataa-glass { from { transform: translateX(-30%) rotate(-8deg); } to { transform: translateX(30%) rotate(8deg); } } @keyframes maataa-glow { 0%,100% { opacity: .55 } 50% { opacity: .95 } }`}</style>
       <div aria-hidden="true" style={{ position: "absolute", inset: 0 }}>
         {[
@@ -256,11 +260,12 @@ export function GlassSplash(props: SplashVariantProps) {
  * lens markings, then reveals the logo. Still: the open iris.
  */
 export function CameraScienceSplash(props: SplashVariantProps) {
+  const t = useT();
   const still = props.reducedMotion ?? prefersReduced();
   const dur = props.duration ?? 2800;
   const blades = 9;
   return (
-    <SplashFrame {...props} label="maataa is starting" background="#0B0B0D">
+    <SplashFrame {...props} label={t("maataa is starting")} background="#0B0B0D">
       <style>{`@keyframes maataa-iris { from { transform: rotate(0deg) scale(1); } to { transform: rotate(38deg) scale(1.9); } } @keyframes maataa-ring { from { transform: rotate(-60deg); } to { transform: rotate(0deg); } } @keyframes maataa-fade { from { opacity: 1 } to { opacity: 0 } }`}</style>
       <svg
         aria-hidden="true"

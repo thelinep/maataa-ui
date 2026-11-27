@@ -3,6 +3,7 @@
  * One cast or crew role: who it is, what it needs, how hiring is going
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -30,6 +31,7 @@ export interface RoleBreakdownCardProps {
 
 /** RoleBreakdownCard */
 export function RoleBreakdownCard({ role: r, actions }: RoleBreakdownCardProps) {
+  const t = useT();
   const filled = Boolean(r.filledBy);
   return (
     <article
@@ -56,7 +58,7 @@ export function RoleBreakdownCard({ role: r, actions }: RoleBreakdownCardProps) 
         <Badge variant={filled ? "success" : "info"}>{filled ? "Filled" : r.stage}</Badge>
       </div>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-        {r.kind === "cast" ? "Cast" : "Crew"}
+        {r.kind === "cast" ? t("Cast") : t("Crew")}
         {r.scenes !== undefined ? ` · ${r.scenes} scenes` : ""}
         {r.shootDays !== undefined ? ` · ${r.shootDays} shoot days` : ""}
       </div>
@@ -77,7 +79,7 @@ export function RoleBreakdownCard({ role: r, actions }: RoleBreakdownCardProps) 
       <div style={{ fontSize: typographyTokens.fontSize.sm }}>
         {filled ? (
           <>
-            Cast: <strong>{r.filledBy}</strong>
+            {t("Cast:")} <strong>{r.filledBy}</strong>
           </>
         ) : (
           `${r.applicants ?? 0} applicant${r.applicants === 1 ? "" : "s"}`

@@ -4,6 +4,7 @@
  * validation in words
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 import { FieldFrame, controlStyle } from "./fieldKit";
@@ -138,6 +139,7 @@ export function TelInput({
   id,
   ...props
 }: TelInputProps) {
+  const t = useT();
   const [touched, setTouched] = useState(false);
   const digits = normalizeTel(value.number);
   const own =
@@ -150,7 +152,7 @@ export function TelInput({
       {(ids) => (
         <div style={{ display: "flex", gap: spacingTokens.xs }}>
           <select
-            aria-label="Country code"
+            aria-label={t("Country code")}
             value={value.dialCode}
             onChange={(e) => onChange({ ...value, dialCode: e.target.value })}
             autoComplete="tel-country-code"
@@ -167,7 +169,7 @@ export function TelInput({
             type="tel"
             inputMode="tel"
             autoComplete="tel-national"
-            aria-label="Phone number"
+            aria-label={t("Phone number")}
             value={value.number}
             onChange={(e) => onChange({ ...value, number: e.target.value })}
             onBlur={() => setTouched(true)}

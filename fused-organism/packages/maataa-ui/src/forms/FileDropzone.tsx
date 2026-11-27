@@ -3,6 +3,7 @@
  * Drag files in, or choose them with a button
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -80,6 +81,7 @@ export function FileDropzone({
   disabled = false,
   style,
 }: FileDropzoneProps) {
+  const t = useT();
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [over, setOver] = useState(false);
@@ -140,10 +142,10 @@ export function FileDropzone({
         {label}
       </span>
       <span style={{ color: colorTokens.text.secondary, fontSize: typographyTokens.fontSize.sm }}>
-        Drag {multiple ? "files" : "a file"} here, or
+        {t("Drag {value} here, or", { value: multiple ? "files" : "a file" })}
       </span>
       <Button variant="secondary" onClick={() => inputRef.current?.click()} disabled={disabled}>
-        Choose {multiple ? "files" : "file"}
+        {multiple ? t("Choose files") : t("Choose file")}
       </Button>
       {hint && (
         <span

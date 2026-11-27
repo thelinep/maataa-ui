@@ -3,6 +3,7 @@
  * Territory × rights matrix, release windows, and a delivery tracker
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { Button } from "../primitives/Button";
 import { ScrollTable } from "../data/ScrollTable";
@@ -12,10 +13,10 @@ import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
 export type RightsState = "available" | "negotiating" | "sold" | "excluded";
 const rightsText: Record<RightsState, string> = {
-  available: "Available",
-  negotiating: "Negotiating",
-  sold: "Sold",
-  excluded: "Not offered",
+  available: msg("Available"),
+  negotiating: msg("Negotiating"),
+  sold: msg("Sold"),
+  excluded: msg("Not offered"),
 };
 const rightsMark: Record<RightsState, string> = {
   available: "○",
@@ -47,6 +48,7 @@ export function TerritoryMatrix({
   onChange,
   buyers = {},
 }: TerritoryMatrixProps) {
+  const t = useT();
   const td: React.CSSProperties = {
     padding: 3,
     border: `1px solid ${colorTokens.border.primary}`,
@@ -58,15 +60,18 @@ export function TerritoryMatrix({
     0
   );
   return (
-    <ScrollTable label="Territory rights">
+    <ScrollTable label={t("Territory rights")}>
       <table style={{ borderCollapse: "collapse", minWidth: 160 + rights.length * 130 }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          Territory rights · {sold} of {territories.length * rights.length} sold
+          {t("Territory rights · {sold} of {value} sold", {
+            sold,
+            value: territories.length * rights.length,
+          })}
         </caption>
         <thead>
           <tr>
             <th scope="col" style={{ ...td, textAlign: "left" }}>
-              Territory
+              {t("Territory")}
             </th>
             {rights.map((r) => (
               <th key={r} scope="col" style={td}>
@@ -76,13 +81,13 @@ export function TerritoryMatrix({
           </tr>
         </thead>
         <tbody>
-          {territories.map((t) => (
-            <tr key={t}>
+          {territories.map((terr) => (
+            <tr key={terr}>
               <th scope="row" style={{ ...td, textAlign: "left" }}>
-                {t}
+                {terr}
               </th>
               {rights.map((r) => {
-                const s = value[t]?.[r] ?? "available";
+                const s = value[terr]?.[r] ?? "available";
                 return (
                   <td
                     key={r}
@@ -92,9 +97,9 @@ export function TerritoryMatrix({
                     }}
                   >
                     <select
-                      aria-label={`${t}, ${r}`}
+                      aria-label={`${terr}, ${r}`}
                       value={s}
-                      onChange={(e) => onChange(t, r, e.target.value as RightsState)}
+                      onChange={(e) => onChange(terr, r, e.target.value as RightsState)}
                       style={{
                         padding: 2,
                         border: `1px solid ${colorTokens.border.control}`,
@@ -106,18 +111,18 @@ export function TerritoryMatrix({
                     >
                       {(Object.keys(rightsText) as RightsState[]).map((k) => (
                         <option key={k} value={k}>
-                          {rightsMark[k]} {rightsText[k]}
+                          {rightsMark[k]} {t(rightsText[k])}
                         </option>
                       ))}
                     </select>
-                    {s === "sold" && buyers[t]?.[r] && (
+                    {s === "sold" && buyers[terr]?.[r] && (
                       <div
                         style={{
                           fontSize: typographyTokens.fontSize.xs,
                           color: colorTokens.text.secondary,
                         }}
                       >
-                        {buyers[t][r]}
+                        {buyers[terr][r]}
                       </div>
                     )}
                   </td>
@@ -178,6 +183,7 @@ export function WindowEditor({
   territories,
   newId = () => Math.random().toString(36).slice(2, 9),
 }: WindowEditorProps) {
+  const t = useT();
   const upd = (id: string, p: Partial<ReleaseWindow>) =>
     onChange(windows.map((w) => (w.id === id ? { ...w, ...p } : w)));
   const conflicts = windowConflicts(windows);
@@ -210,20 +216,18 @@ export function WindowEditor({
             color: colorTokens.interactive.error,
           }}
         >
-          <strong>Exclusive windows overlap:</strong>
+          <strong>{t("Exclusive windows overlap:")}</strong>
           <ul style={{ margin: "4px 0 0", paddingLeft: spacingTokens.lg }}>
             {conflicts.map(([a, b]) => (
-              <li key={a + b}>
-                {name(a)} and {name(b)}
-              </li>
+              <li key={a + b}>{t("{value} and {value2}", { value: name(a), value2: name(b) })}</li>
             ))}
           </ul>
         </div>
       )}
-      <ScrollTable label="Release windows">
+      <ScrollTable label={t("Release windows")}>
         <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse" }}>
           <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-            Release windows
+            {t("Release windows")}
           </caption>
           <thead>
             <tr
@@ -234,19 +238,19 @@ export function WindowEditor({
               }}
             >
               <th scope="col" style={td}>
-                Platform
+                {t("Platform")}
               </th>
               <th scope="col" style={td}>
-                Territory
+                {t("Territory")}
               </th>
               <th scope="col" style={td}>
-                From
+                {t("From")}
               </th>
               <th scope="col" style={td}>
-                Until
+                {t("Until")}
               </th>
               <th scope="col" style={td}>
-                Exclusive
+                {t("Exclusive")}
               </th>
               <th scope="col" style={td}>
                 <span
@@ -258,7 +262,7 @@ export function WindowEditor({
                     clip: "rect(0 0 0 0)",
                   }}
                 >
-                  Remove
+                  {t("Remove")}
                 </span>
               </th>
             </tr>
@@ -271,7 +275,7 @@ export function WindowEditor({
                 <tr key={w.id} style={{ background: bad ? "#FBEDEA" : undefined }}>
                   <td style={td}>
                     <input
-                      aria-label={`Platform, row ${i + 1}`}
+                      aria-label={t("Platform, row {value}", { value: i + 1 })}
                       value={w.platform}
                       onChange={(e) => upd(w.id, { platform: e.target.value })}
                       style={inp}
@@ -279,7 +283,7 @@ export function WindowEditor({
                   </td>
                   <td style={td}>
                     <select
-                      aria-label={`Territory for ${n}`}
+                      aria-label={t("Territory for {n}", { n })}
                       value={w.territory}
                       onChange={(e) => upd(w.id, { territory: e.target.value })}
                       style={inp}
@@ -292,7 +296,7 @@ export function WindowEditor({
                   <td style={td}>
                     <input
                       type="date"
-                      aria-label={`Start of ${n}`}
+                      aria-label={t("Start of {n}", { n })}
                       value={w.start}
                       onChange={(e) => upd(w.id, { start: e.target.value })}
                       style={inp}
@@ -301,7 +305,7 @@ export function WindowEditor({
                   <td style={td}>
                     <input
                       type="date"
-                      aria-label={`End of ${n}`}
+                      aria-label={t("End of {n}", { n })}
                       value={w.end}
                       onChange={(e) => upd(w.id, { end: e.target.value })}
                       style={inp}
@@ -310,7 +314,7 @@ export function WindowEditor({
                   <td style={{ ...td, textAlign: "center" }}>
                     <input
                       type="checkbox"
-                      aria-label={`${n} is exclusive`}
+                      aria-label={t("{n} is exclusive", { n })}
                       checked={w.exclusive}
                       onChange={(e) => upd(w.id, { exclusive: e.target.checked })}
                       style={{
@@ -323,7 +327,7 @@ export function WindowEditor({
                   <td style={td}>
                     <button
                       type="button"
-                      aria-label={`Remove ${n}`}
+                      aria-label={t("Remove {n}", { n })}
                       onClick={() => onChange(windows.filter((x) => x.id !== w.id))}
                       style={{ minWidth: 30, minHeight: 30, cursor: "pointer" }}
                     >
@@ -353,7 +357,7 @@ export function WindowEditor({
             ])
           }
         >
-          Add window
+          {t("Add window")}
         </Button>
       </div>
     </div>

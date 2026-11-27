@@ -3,6 +3,7 @@
  * Warns before a session times out, with time to extend it (WCAG 2.2.1)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useState } from "react";
 import { Modal } from "../surfaces/Modal";
 import { Button } from "../primitives/Button";
@@ -43,6 +44,7 @@ export function SessionExpiryWarning({
   onSignOut,
   now = Date.now,
 }: SessionExpiryWarningProps) {
+  const t = useT();
   const secondsLeft = () => Math.max(0, Math.round((expiresAt.getTime() - now()) / 1000));
   const [left, setLeft] = useState(secondsLeft);
   useEffect(() => {
@@ -56,21 +58,21 @@ export function SessionExpiryWarning({
     <Modal
       isOpen={open}
       onClose={onExtend}
-      title="You'll be signed out soon"
+      title={t("You'll be signed out soon")}
       size="sm"
       closeButton={false}
       footer={
         <div style={{ display: "flex", justifyContent: "flex-end", gap: spacingTokens.sm }}>
-          <Button onClick={onExtend}>Stay signed in</Button>
+          <Button onClick={onExtend}>{t("Stay signed in")}</Button>
           <Button variant="secondary" onClick={onSignOut}>
-            Sign out now
+            {t("Sign out now")}
           </Button>
         </div>
       }
     >
       <p style={{ margin: 0, color: colorTokens.text.primary }}>
-        For your security, you’ll be signed out in <strong>{minutesText(left)}</strong>. Unsaved
-        work on this page is kept on this device.
+        {t("For your security, you’ll be signed out in")} <strong>{minutesText(left)}</strong>.
+        Unsaved work on this page is kept on this device.
       </p>
     </Modal>
   );

@@ -3,6 +3,7 @@
  * Profile photo with change and remove
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { Avatar } from "../data/Avatar";
 import { Button } from "../primitives/Button";
@@ -48,6 +49,7 @@ export function AvatarUpload({
   error,
   disabled,
 }: AvatarUploadProps) {
+  const t = useT();
   const inputRef = useRef<HTMLInputElement>(null);
   return (
     <div style={{ display: "flex", alignItems: "center", gap: spacingTokens.md }}>
@@ -58,23 +60,25 @@ export function AvatarUpload({
             variant="secondary"
             onClick={() => inputRef.current?.click()}
             disabled={disabled}
-            aria-label={`${src ? "Change" : "Add"} photo for ${name}`}
+            aria-label={`${src ? t("Change") : t("Add")} photo for ${name}`}
           >
-            {src ? "Change photo" : "Add photo"}
+            {src ? t("Change photo") : t("Add photo")}
           </Button>
           {onRemove && src && (
             <Button
               variant="tertiary"
               onClick={onRemove}
               disabled={disabled}
-              aria-label={`Remove photo for ${name}`}
+              aria-label={t("Remove photo for {name}", { name })}
             >
-              Remove
+              {t("Remove")}
             </Button>
           )}
         </div>
         <span style={{ color: colorTokens.text.secondary, fontSize: typographyTokens.fontSize.xs }}>
-          PNG, JPEG or WebP, up to {Math.round(maxSizeBytes / 1024 / 1024)} MB
+          {t("PNG, JPEG or WebP, up to {value} MB", {
+            value: Math.round(maxSizeBytes / 1024 / 1024),
+          })}
         </span>
         {error && (
           <span

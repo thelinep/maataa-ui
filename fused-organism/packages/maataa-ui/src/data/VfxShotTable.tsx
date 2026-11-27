@@ -3,6 +3,7 @@
  * VFX shot breakdown with artist assignment and render state
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { StateBadge, renderStates } from "../status/StateBadge";
 import { ScrollTable } from "./ScrollTable";
@@ -40,9 +41,11 @@ export function VfxShotTable({
   shots,
   artists,
   onAssign,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
 }: VfxShotTableProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const td: React.CSSProperties = {
     padding: spacingTokens.xs,
     borderBottom: `1px solid ${colorTokens.border.primary}`,
@@ -51,30 +54,33 @@ export function VfxShotTable({
   };
   const unassigned = shots.filter((s) => !s.artistId).length;
   return (
-    <ScrollTable label="VFX shots">
+    <ScrollTable label={t("VFX shots")}>
       <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse" }}>
         <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: spacingTokens.xs }}>
-          VFX shots · {shots.length} shots, {unassigned} unassigned
+          {t("VFX shots · {count} shots, {unassigned} unassigned", {
+            count: shots.length,
+            unassigned,
+          })}
         </caption>
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Shot
+              {t("Shot")}
             </th>
             <th scope="col" style={td}>
-              Work
+              {t("Work")}
             </th>
             <th scope="col" style={{ ...td, textAlign: "right" }}>
-              Frames
+              {t("Frames")}
             </th>
             <th scope="col" style={td}>
-              Artist
+              {t("Artist")}
             </th>
             <th scope="col" style={td}>
-              Due
+              {t("Due")}
             </th>
             <th scope="col" style={td}>
-              Render
+              {t("Render")}
             </th>
           </tr>
         </thead>
@@ -102,7 +108,7 @@ export function VfxShotTable({
                 </td>
                 <td style={td}>
                   <select
-                    aria-label={`Artist for ${s.code}`}
+                    aria-label={t("Artist for {code}", { code: s.code })}
                     value={s.artistId ?? ""}
                     onChange={(e) => onAssign(s.id, e.target.value)}
                     style={{
@@ -113,7 +119,7 @@ export function VfxShotTable({
                       background: colorTokens.background.primary,
                     }}
                   >
-                    <option value="">Unassigned</option>
+                    <option value="">{t("Unassigned")}</option>
                     {artists.map((a) => (
                       <option key={a.id} value={a.id}>
                         {a.name}

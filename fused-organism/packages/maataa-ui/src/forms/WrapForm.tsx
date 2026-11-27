@@ -3,6 +3,7 @@
  * End-of-day wrap report and its summary
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { DetailList } from "../data/RecordHeader";
@@ -35,6 +36,7 @@ export interface WrapFormProps {
  * without it. Ticking "incidents" reminds you to file an incident report.
  */
 export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormProps) {
+  const t = useT();
   const id = useId();
   const [v, setV] = useState<WrapValues>({
     wrapTime: "",
@@ -68,16 +70,16 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
   return (
     <form
       noValidate
-      aria-label={`Wrap report, day ${shootDay}`}
+      aria-label={t("Wrap report, day {shootDay}", { shootDay })}
       style={{ display: "flex", flexDirection: "column", gap: spacingTokens.md, maxWidth: 560 }}
       onSubmit={(e) => {
         e.preventDefault();
         const errs: FormError[] = [];
-        if (!v.wrapTime) errs.push({ fieldId: `${id}-wrap`, message: "Enter the wrap time" });
+        if (!v.wrapTime) errs.push({ fieldId: `${id}-wrap`, message: msg("Enter the wrap time") });
         if (!v.cardsBackedUp || !v.backupBy.trim())
           errs.push({
             fieldId: `${id}-backup`,
-            message: "Confirm the cards are backed up, and by whom",
+            message: msg("Confirm the cards are backed up, and by whom"),
           });
         setErrors(errs);
         if (!errs.length) onSubmit(v);
@@ -86,7 +88,7 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
       <ErrorSummary errors={errors} />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
         <label style={lab}>
-          Wrap time
+          {t("Wrap time")}
           <input
             id={`${id}-wrap`}
             type="time"
@@ -96,7 +98,7 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
           />
         </label>
         <label style={lab}>
-          Setups
+          {t("Setups")}
           <input
             type="number"
             min={0}
@@ -106,7 +108,7 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
           />
         </label>
         <label style={lab}>
-          Scenes completed
+          {t("Scenes completed")}
           <input
             value={v.scenesCompleted}
             onChange={(e) => set("scenesCompleted", e.target.value)}
@@ -115,7 +117,7 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
           />
         </label>
         <label style={lab}>
-          Pages shot
+          {t("Pages shot")}
           <input
             value={v.pagesShot}
             onChange={(e) => set("pagesShot", e.target.value)}
@@ -125,7 +127,7 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
         </label>
       </div>
       <label style={lab}>
-        Scenes moved to another day
+        {t("Scenes moved to another day")}
         <input
           value={v.scenesMoved}
           onChange={(e) => set("scenesMoved", e.target.value)}
@@ -142,7 +144,9 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
           gap: spacingTokens.xs,
         }}
       >
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Media backup</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {t("Media backup")}
+        </legend>
         <label style={{ display: "flex", gap: spacingTokens.sm, alignItems: "center" }}>
           <input
             id={`${id}-backup`}
@@ -151,10 +155,10 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
             onChange={(e) => set("cardsBackedUp", e.target.checked)}
             style={{ width: 18, height: 18, accentColor: colorTokens.interactive.primary }}
           />
-          All camera and sound cards are backed up to two drives
+          {t("All camera and sound cards are backed up to two drives")}
         </label>
         <label style={lab}>
-          Backed up by
+          {t("Backed up by")}
           <input value={v.backupBy} onChange={(e) => set("backupBy", e.target.value)} style={inp} />
         </label>
       </fieldset>
@@ -178,13 +182,13 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
                 fontWeight: 600,
               }}
             >
-              File an incident report before you leave set.
+              {t("File an incident report before you leave set.")}
             </span>
           )}
         </span>
       </label>
       <label style={lab}>
-        Notes for tomorrow
+        {t("Notes for tomorrow")}
         <textarea
           rows={3}
           value={v.notes}
@@ -194,7 +198,7 @@ export function WrapForm({ shootDay, initial = {}, onSubmit, busy }: WrapFormPro
       </label>
       <div>
         <Button type="submit" disabled={busy}>
-          Submit wrap report
+          {t("Submit wrap report")}
         </Button>
       </div>
     </form>
@@ -212,9 +216,10 @@ export function WrapSummary({
   wrap: WrapValues;
   submittedBy?: string;
 }) {
+  const t = useT();
   return (
     <section
-      aria-label={`Wrap summary, day ${shootDay}`}
+      aria-label={t("Wrap summary, day {shootDay}", { shootDay })}
       style={{
         border: `1px solid ${colorTokens.border.primary}`,
         borderRadius: 8,
@@ -225,25 +230,28 @@ export function WrapSummary({
       }}
     >
       <h3 style={{ margin: 0, fontSize: typographyTokens.fontSize.lg }}>
-        Day {shootDay} wrapped at {wrap.wrapTime}
+        {t("Day {shootDay} wrapped at {wrapTime}", { shootDay, wrapTime: wrap.wrapTime })}
       </h3>
       <DetailList
         items={[
-          { label: "Scenes completed", value: wrap.scenesCompleted },
-          { label: "Scenes moved", value: wrap.scenesMoved || "None" },
-          { label: "Pages shot", value: wrap.pagesShot },
-          { label: "Setups", value: String(wrap.setups) },
+          { label: msg("Scenes completed"), value: wrap.scenesCompleted },
+          { label: msg("Scenes moved"), value: wrap.scenesMoved || "None" },
+          { label: msg("Pages shot"), value: wrap.pagesShot },
+          { label: msg("Setups"), value: String(wrap.setups) },
           {
-            label: "Backup",
+            label: msg("Backup"),
             value: wrap.cardsBackedUp ? `Done by ${wrap.backupBy}` : "Not confirmed",
           },
-          { label: "Incidents", value: wrap.incidents ? "Yes, see incident report" : "None" },
+          {
+            label: msg("Incidents"),
+            value: wrap.incidents ? t("Yes, see incident report") : t("None"),
+          },
         ]}
       />
       {wrap.notes && <p style={{ margin: 0 }}>{wrap.notes}</p>}
       {submittedBy && (
         <span style={{ fontSize: typographyTokens.fontSize.xs, color: colorTokens.text.secondary }}>
-          Submitted by {submittedBy}
+          {t("Submitted by {submittedBy}", { submittedBy })}
         </span>
       )}
     </section>

@@ -5,6 +5,7 @@
  * MapFeatureList gives the same features as a list.
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { createContext, useContext, useMemo } from "react";
 import { colorTokens, typographyTokens } from "../tokens";
 import { type GeoBounds, projectLatLng } from "./mapUtils";
@@ -980,6 +981,7 @@ export interface MapPopupProps {
  * non-modal dialog named by its title; Escape and the Close button close it.
  */
 export function MapPopup({ at, title, children, onClose }: MapPopupProps) {
+  const t = useT();
   const pct = usePercent();
   const pos = pct(at);
   const id = React.useId();
@@ -1016,7 +1018,7 @@ export function MapPopup({ at, title, children, onClose }: MapPopupProps) {
         </strong>
         <button
           type="button"
-          aria-label="Close"
+          aria-label={t("Close")}
           onClick={onClose}
           style={{
             width: 28,

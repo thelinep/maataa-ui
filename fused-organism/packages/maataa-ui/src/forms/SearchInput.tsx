@@ -3,6 +3,7 @@
  * Text input specialized for search, with a search icon and clear button
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { colorTokens, radiusTokens } from "../tokens";
 
@@ -45,9 +46,11 @@ export interface SearchInputProps extends Omit<
  */
 export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
   (
-    { value = "", onChange, onClear, placeholder = "Search...", className, style, ...props },
+    { value = "", onChange, onClear, placeholder: placeholderProp, className, style, ...props },
     ref
   ) => {
+    const t = useT();
+    const placeholder = placeholderProp ?? t("Search...");
     const [focused, setFocused] = useState(false);
 
     return (
@@ -101,7 +104,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
         {value && (
           <button
             type="button"
-            aria-label="Clear search"
+            aria-label={t("Clear search")}
             onClick={onClear}
             style={{
               position: "absolute",

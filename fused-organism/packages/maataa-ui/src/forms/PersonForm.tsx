@@ -3,6 +3,7 @@
  * Create or edit a person (crew, cast, contact)
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Input } from "../primitives/Input";
 import { Button } from "../primitives/Button";
@@ -39,8 +40,10 @@ export function PersonForm({
   onSubmit,
   onCancel,
   busy,
-  submitLabel = "Save person",
+  submitLabel: submitLabelProp,
 }: PersonFormProps) {
+  const t = useT();
+  const submitLabel = submitLabelProp ?? t("Save person");
   const id = useId();
   const [v, setV] = useState<PersonValues>({
     name: "",
@@ -69,17 +72,23 @@ export function PersonForm({
         e.preventDefault();
         const errs: FormError[] = [];
         if (!v.name.trim())
-          errs.push({ fieldId: `${id}-name`, message: "Enter the person's name" });
+          errs.push({ fieldId: `${id}-name`, message: msg("Enter the person's name") });
         if (!v.role.trim())
-          errs.push({ fieldId: `${id}-role`, message: "Enter their role, like Editor or Gaffer" });
+          errs.push({
+            fieldId: `${id}-role`,
+            message: msg("Enter their role, like Editor or Gaffer"),
+          });
         if (!v.email.trim() && !v.phone.trim())
-          errs.push({ fieldId: `${id}-email`, message: "Add an email or a phone number" });
+          errs.push({ fieldId: `${id}-email`, message: msg("Add an email or a phone number") });
         if (v.email.trim() && !EMAIL.test(v.email.trim()))
-          errs.push({ fieldId: `${id}-email`, message: "Enter an email like name@example.com" });
+          errs.push({
+            fieldId: `${id}-email`,
+            message: msg("Enter an email like name@example.com"),
+          });
         if (v.phone.trim() && !/^\+?[\d\s-]{8,16}$/.test(v.phone.trim()))
           errs.push({
             fieldId: `${id}-phone`,
-            message: "Enter a phone number like +91 98765 43210",
+            message: msg("Enter a phone number like +91 98765 43210"),
           });
         setErrors(errs);
         if (!errs.length)
@@ -91,23 +100,23 @@ export function PersonForm({
       }}
     >
       <ErrorSummary errors={errors} />
-      <Input label="Full name" autoComplete="off" {...bind("name")} />
+      <Input label={t("Full name")} autoComplete="off" {...bind("name")} />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
-        <Input label="Role" {...bind("role")} />
-        <Input label="Department (optional)" {...bind("department")} />
+        <Input label={t("Role")} {...bind("role")} />
+        <Input label={t("Department (optional)")} {...bind("department")} />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: spacingTokens.md }}>
-        <Input label="Email" type="email" inputMode="email" {...bind("email")} />
-        <Input label="Phone" type="tel" inputMode="tel" {...bind("phone")} />
+        <Input label={t("Email")} type="email" inputMode="email" {...bind("email")} />
+        <Input label={t("Phone")} type="tel" inputMode="tel" {...bind("phone")} />
       </div>
-      <Input label="City (optional)" {...bind("city")} />
+      <Input label={t("City (optional)")} {...bind("city")} />
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         <Button type="submit" disabled={busy}>
           {submitLabel}
         </Button>
         {onCancel && (
           <Button variant="secondary" onClick={onCancel}>
-            Cancel
+            {t("Cancel")}
           </Button>
         )}
       </div>

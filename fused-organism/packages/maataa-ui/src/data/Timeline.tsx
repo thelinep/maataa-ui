@@ -3,6 +3,7 @@
  * Vertical history: activity, audit or version events
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -37,7 +38,10 @@ export interface TimelineProps extends React.HTMLAttributes<HTMLOListElement> {
  * ```
  */
 export const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
-  ({ events, label, locale = "en-IN", emptyText = "Nothing yet", style, ...props }, ref) => {
+  ({ events, label, locale: localeProp, emptyText: emptyTextProp, style, ...props }, ref) => {
+    const t = useT();
+    const emptyText = emptyTextProp ?? t("Nothing yet");
+    const locale = useLocale(localeProp);
     if (events.length === 0) {
       return <p style={{ color: colorTokens.text.secondary }}>{emptyText}</p>;
     }

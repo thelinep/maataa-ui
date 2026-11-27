@@ -5,6 +5,7 @@
  * blink scanning) and YesNoButtons
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -127,6 +128,7 @@ export function GazeSelectionGrid({
   targetSize = 120,
   selectedId,
 }: GazeSelectionGridProps) {
+  const t = useT();
   const [said, setSaid] = useState("");
   const pick = (id: string) => {
     onSelect(id);
@@ -176,7 +178,7 @@ export function GazeSelectionGrid({
                   {it.symbol}
                 </span>
               )}
-              {it.label}
+              {t(it.label)}
               {dwelling && (
                 <span style={{ position: "absolute", top: 6, right: 6 }}>
                   <DwellRing progress={dwell.progress} size={32} />
@@ -224,6 +226,7 @@ export function ScanningSelector({
   announce = true,
   switchSignal,
 }: ScanningSelectorProps) {
+  const t = useT();
   const [idx, setIdx] = useState(0);
   const [said, setSaid] = useState("");
   const idxRef = useRef(0);
@@ -245,7 +248,7 @@ export function ScanningSelector({
     if (!it) return;
     onSelect(it.id);
     onRunningChange(false);
-    setSaid(`${it.label} selected`);
+    setSaid(`${t(it.label)} selected`);
   };
 
   const first = useRef(true);
@@ -307,7 +310,7 @@ export function ScanningSelector({
                   {it.symbol}
                 </span>
               )}
-              {it.label}
+              {t(it.label)}
             </li>
           );
         })}
@@ -327,7 +330,7 @@ export function ScanningSelector({
           cursor: "pointer",
         }}
       >
-        {running ? "Select" : "Start scanning"}
+        {running ? t("Select") : t("Start scanning")}
       </button>
       {running && (
         <button
@@ -341,7 +344,7 @@ export function ScanningSelector({
             cursor: "pointer",
           }}
         >
-          Stop scanning
+          {t("Stop scanning")}
         </button>
       )}
       <VisuallyHidden aria-live="polite">
@@ -373,9 +376,12 @@ export function YesNoButtons({
   value,
   onChange,
   allowUnsure,
-  yesLabel = "Yes",
-  noLabel = "No",
+  yesLabel: yesLabelProp,
+  noLabel: noLabelProp,
 }: YesNoButtonsProps) {
+  const t = useT();
+  const noLabel = noLabelProp ?? t("No");
+  const yesLabel = yesLabelProp ?? t("Yes");
   const opts = [
     {
       v: "yes" as const,
@@ -395,7 +401,7 @@ export function YesNoButtons({
       ? [
           {
             v: "unsure" as const,
-            label: "Not sure",
+            label: msg("Not sure"),
             sym: "?",
             bg: colorTokens.background.tertiary,
             fg: colorTokens.text.primary,
@@ -451,7 +457,7 @@ export function YesNoButtons({
               <span aria-hidden="true" style={{ fontSize: 40 }}>
                 {o.sym}
               </span>
-              {o.label}
+              {t(o.label)}
             </button>
           );
         })}

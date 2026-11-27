@@ -3,6 +3,7 @@
  * Production schedule as bars on a date axis, with milestones
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -43,11 +44,12 @@ const DAY = 86_400_000;
  */
 export function MilestoneMarker({
   milestone,
-  locale = "en-IN",
+  locale: localeProp,
 }: {
   milestone: Milestone;
   locale?: string;
 }) {
+  const locale = useLocale(localeProp);
   return (
     <span
       style={{
@@ -88,9 +90,11 @@ export function GanttTimeline({
   tasks,
   milestones = [],
   caption = "Schedule",
-  locale = "en-IN",
+  locale: localeProp,
   today,
 }: GanttTimelineProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const times = [
     ...tasks.flatMap((t) => [t.start.getTime(), t.end.getTime()]),
     ...milestones.map((m) => m.date.getTime()),
@@ -119,13 +123,13 @@ export function GanttTimeline({
         <thead>
           <tr style={{ color: colorTokens.text.secondary, textAlign: "left" }}>
             <th scope="col" style={td}>
-              Task
+              {t("Task")}
             </th>
             <th scope="col" style={td}>
-              Dates
+              {t("Dates")}
             </th>
             <th scope="col" style={td}>
-              Progress
+              {t("Progress")}
             </th>
             <th scope="col" style={{ ...td, width: "50%" }}>
               <span
@@ -137,7 +141,7 @@ export function GanttTimeline({
                   clip: "rect(0 0 0 0)",
                 }}
               >
-                Timeline
+                {t("Timeline")}
               </span>
             </th>
           </tr>
@@ -220,7 +224,7 @@ export function GanttTimeline({
             ) : (
               <tr key={r.m.id}>
                 <th scope="row" style={{ ...td, textAlign: "left", fontWeight: 500 }}>
-                  Milestone: {r.m.name}
+                  {t("Milestone: {name}", { name: r.m.name })}
                 </th>
                 <td style={td}>{date(r.m.date)}</td>
                 <td style={td}>—</td>

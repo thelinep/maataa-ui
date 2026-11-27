@@ -31,6 +31,7 @@ export * from "./whiteboard";
 export * from "./deploy";
 export * from "./mobile";
 export * from "./themes";
+export * from "./i18n";
 export * from "./masterPrimitiveRegistry";
 export { createMaataaProduct } from "./kernelIntegration";
 export type {

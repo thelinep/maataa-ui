@@ -3,6 +3,7 @@
  * Multi-step progress for approval and submission flows
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -29,10 +30,10 @@ export interface StepIndicatorProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const stateText: Record<StepState, string> = {
-  done: "Completed",
-  current: "Current step",
-  upcoming: "Not started",
-  error: "Needs attention",
+  done: msg("Completed"),
+  current: msg("Current step"),
+  upcoming: msg("Not started"),
+  error: msg("Needs attention"),
 };
 
 const mark: Record<StepState, string> = { done: "✓", current: "", upcoming: "", error: "!" };
@@ -52,7 +53,9 @@ const mark: Record<StepState, string> = { done: "✓", current: "", upcoming: ""
  * ```
  */
 export const StepIndicator = React.forwardRef<HTMLElement, StepIndicatorProps>(
-  ({ steps, label = "Progress", orientation = "horizontal", style, ...props }, ref) => {
+  ({ steps, label: labelProp, orientation = "horizontal", style, ...props }, ref) => {
+    const t = useT();
+    const label = labelProp ?? t("Progress");
     const vertical = orientation === "vertical";
     return (
       <nav ref={ref} aria-label={label} style={style} {...props}>
@@ -114,7 +117,7 @@ export const StepIndicator = React.forwardRef<HTMLElement, StepIndicatorProps>(
                       fontSize: typographyTokens.fontSize.md,
                     }}
                   >
-                    {step.label}
+                    {t(step.label)}
                   </span>
                   <span
                     style={{
@@ -122,8 +125,8 @@ export const StepIndicator = React.forwardRef<HTMLElement, StepIndicatorProps>(
                       fontSize: typographyTokens.fontSize.xs,
                     }}
                   >
-                    {stateText[step.state]}
-                    {step.description ? ` · ${step.description}` : ""}
+                    {t(stateText[step.state])}
+                    {step.description ? ` · ${t(step.description)}` : ""}
                   </span>
                 </span>
               </li>

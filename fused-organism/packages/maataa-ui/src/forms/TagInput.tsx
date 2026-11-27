@@ -3,6 +3,7 @@
  * Free-text tags: type and press Enter or comma; each tag has its own Remove button
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle } from "./fieldKit";
@@ -36,6 +37,7 @@ export function TagInput({
   error,
   normalize = (t) => t.trim(),
 }: TagInputProps) {
+  const t = useT();
   const listId = useId();
   const [text, setText] = useState("");
   const [msg, setMsg] = useState("");
@@ -83,7 +85,7 @@ export function TagInput({
         <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.xs }}>
           {value.length > 0 && (
             <ul
-              aria-label={`${label}: ${value.length} tags`}
+              aria-label={t("{label}: {count} tags", { label, count: value.length })}
               style={{
                 listStyle: "none",
                 margin: 0,

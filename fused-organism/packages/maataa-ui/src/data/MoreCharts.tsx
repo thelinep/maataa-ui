@@ -5,6 +5,7 @@
  * labels, a spoken summary and a data table (via ChartFigure)
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, typographyTokens } from "../tokens";
 import { niceTicks } from "./chartUtils";
@@ -50,6 +51,7 @@ export function HorizontalBarChart({
   sort,
   color = chartColor(0),
 }: HorizontalBarChartProps) {
+  const t = useT();
   const rows = sort ? [...data].sort((a, b) => b.value - a.value) : data;
   const max = Math.max(...rows.map((d) => d.value), 0) || 1;
   const labelW = 130;
@@ -73,9 +75,9 @@ export function HorizontalBarChart({
           const w = ((W - labelW - 70) * Math.max(0, d.value)) / max;
           const y = i * rowH + 4;
           return (
-            <g key={d.label}>
+            <g key={t(d.label)}>
               <text x={labelW - 8} y={y + 17} textAnchor="end" style={labelText}>
-                {d.label}
+                {t(d.label)}
               </text>
               <rect x={labelW} y={y + 4} width={w} height={rowH - 10} rx={3} fill={color} />
               <text x={labelW + w + 6} y={y + 17} style={labelText}>
@@ -196,6 +198,7 @@ export function ThresholdBarChart({
   format = defaultFormat,
   unit,
 }: ThresholdBarChartProps) {
+  const t = useT();
   const W = 560;
   const H = 240;
   const pad = { l: 48, r: 8, t: 16, b: 28 };
@@ -217,13 +220,13 @@ export function ThresholdBarChart({
       }
       table={{
         columns: ["Item", unit ? `Value (${unit})` : "Value", "Over?"],
-        rows: data.map((d) => [d.label, d.value, d.value > threshold ? "Over" : "Within"]),
+        rows: data.map((d) => [d.label, d.value, d.value > threshold ? t("Over") : t("Within")]),
       }}
       footer={
         <LegendList
           items={[
-            { label: "Within", color: chartColor(1) },
-            { label: "Over (▲)", color: overC },
+            { label: msg("Within"), color: chartColor(1) },
+            { label: msg("Over (▲)"), color: overC },
             {
               label: `${thresholdLabel}: ${format(threshold)}`,
               color: colorTokens.text.primary,
@@ -252,7 +255,7 @@ export function ThresholdBarChart({
           const isOver = d.value > threshold;
           const x = pad.l + i * bw + bw * 0.15;
           return (
-            <g key={d.label}>
+            <g key={t(d.label)}>
               <rect
                 x={x}
                 y={y(d.value)}
@@ -272,7 +275,7 @@ export function ThresholdBarChart({
                 </text>
               )}
               <text x={pad.l + i * bw + bw / 2} y={H - 8} textAnchor="middle" style={axisText}>
-                {d.label}
+                {t(d.label)}
               </text>
             </g>
           );
@@ -308,6 +311,7 @@ export function PieChart({
   format = defaultFormat,
   unit,
 }: PieChartProps) {
+  const t = useT();
   const total = data.reduce((s, d) => s + Math.max(0, d.value), 0) || 1;
   const R = 90;
   const C = 110;
@@ -328,7 +332,7 @@ export function PieChart({
       footer={
         <LegendList
           items={data.map((d, i) => ({
-            label: `${d.label} — ${pct(d.value)}%`,
+            label: `${t(d.label)} — ${pct(d.value)}%`,
             color: chartColor(i),
           }))}
         />
@@ -354,7 +358,7 @@ export function PieChart({
           const mid = (a0 + a1) / 2;
           const lr = R * (hole ? (1 + hole) / 2 : 0.62);
           const el = (
-            <g key={d.label}>
+            <g key={t(d.label)}>
               <path
                 d={path}
                 fill={chartColor(i)}
@@ -390,6 +394,7 @@ export interface FunnelChartProps extends CommonProps {
 
 /** Each stage shows its count and the conversion from the stage before. */
 export function FunnelChart({ title, summary, stages, format = defaultFormat }: FunnelChartProps) {
+  const t = useT();
   const first = stages[0]?.value || 1;
   const last = stages[stages.length - 1];
   const W = 520;
@@ -413,7 +418,7 @@ export function FunnelChart({ title, summary, stages, format = defaultFormat }: 
           const w = Math.max(40, ((W - 200) * s.value) / first);
           const x = (W - 200 - w) / 2;
           return (
-            <g key={s.label}>
+            <g key={t(s.label)}>
               <rect
                 x={x}
                 y={i * rowH + 4}
@@ -423,7 +428,7 @@ export function FunnelChart({ title, summary, stages, format = defaultFormat }: 
                 fill={chartColor(i)}
               />
               <text x={W - 192} y={i * rowH + 20} style={{ ...labelText, fontWeight: 600 }}>
-                {s.label}: {format(s.value)}
+                {t(s.label)}: {format(s.value)}
               </text>
               <text x={W - 192} y={i * rowH + 36} style={axisText}>
                 {i === 0 ? "start" : `${conv(i)} of previous`}
@@ -455,10 +460,12 @@ export function WaterfallChart({
   summary,
   start,
   steps,
-  endLabel = "End",
+  endLabel: endLabelProp,
   format = defaultFormat,
   unit,
 }: WaterfallChartProps) {
+  const t = useT();
+  const endLabel = endLabelProp ?? t("End");
   const W = 560;
   const H = 260;
   const pad = { l: 56, r: 8, t: 18, b: 40 };
@@ -493,9 +500,9 @@ export function WaterfallChart({
       footer={
         <LegendList
           items={[
-            { label: "Total", color: col.total },
-            { label: "Increase (+)", color: col.up },
-            { label: "Decrease (−)", color: col.down },
+            { label: msg("Total"), color: col.total },
+            { label: msg("Increase (+)"), color: col.up },
+            { label: msg("Decrease (−)"), color: col.down },
           ]}
         />
       }
@@ -538,7 +545,7 @@ export function WaterfallChart({
                   : `${delta >= 0 ? "+" : "−"}${format(Math.abs(delta))}`}
               </text>
               <text x={pad.l + i * bw + bw / 2} y={H - 22} textAnchor="middle" style={axisText}>
-                {b.label}
+                {t(b.label)}
               </text>
             </g>
           );

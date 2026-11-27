@@ -3,6 +3,7 @@
  * Choose pitch recipients, and see how a sent pitch was read
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Badge } from "../primitives/Badge";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -36,8 +37,10 @@ export function PitchRecipientSelector({
   contacts,
   value,
   onChange,
-  locale = "en-IN",
+  locale: localeProp,
 }: PitchRecipientSelectorProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const [q, setQ] = useState("");
   const now = Date.now();
   const shown = contacts.filter(
@@ -56,7 +59,7 @@ export function PitchRecipientSelector({
       }}
     >
       <legend style={{ fontWeight: 700, padding: 0, marginBottom: spacingTokens.xs }}>
-        Send the pitch to · {value.length} chosen
+        {tx("Send the pitch to · {count} chosen", { count: value.length })}
       </legend>
       <label
         style={{
@@ -66,7 +69,7 @@ export function PitchRecipientSelector({
           fontSize: typographyTokens.fontSize.sm,
         }}
       >
-        Search contacts
+        {tx("Search contacts")}
         <input
           type="search"
           value={q}
@@ -106,7 +109,7 @@ export function PitchRecipientSelector({
               <strong>{c.name}</strong> · {c.company} · {c.kind}
               {c.optedOut && (
                 <span style={{ display: "block", fontSize: typographyTokens.fontSize.xs }}>
-                  Asked not to receive pitches
+                  {tx("Asked not to receive pitches")}
                 </span>
               )}
               {!c.optedOut && recent && (
@@ -158,8 +161,10 @@ export function PitchDeliveryReceipt({
   slideSeconds = [],
   slideTitles = [],
   downloaded,
-  locale = "en-IN",
+  locale: localeProp,
 }: PitchDeliveryReceiptProps) {
+  const tx = useT();
+  const locale = useLocale(localeProp);
   const t = (d: Date) =>
     d.toLocaleString(locale, {
       day: "numeric",
@@ -171,7 +176,7 @@ export function PitchDeliveryReceipt({
   const total = slideSeconds.reduce((a, b) => a + b, 0);
   return (
     <section
-      aria-label={`${deck} sent to ${recipient}`}
+      aria-label={tx("{deck} sent to {recipient}", { deck, recipient })}
       style={{
         border: `1px solid ${colorTokens.border.primary}`,
         borderRadius: 8,
@@ -193,7 +198,7 @@ export function PitchDeliveryReceipt({
           {deck} → {recipient}
         </h3>
         <Badge variant={openedAt ? "success" : "info"}>
-          {openedAt ? "Opened" : "Not opened yet"}
+          {openedAt ? tx("Opened") : tx("Not opened yet")}
         </Badge>
       </div>
       <div style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
@@ -213,7 +218,7 @@ export function PitchDeliveryReceipt({
               clip: "rect(0 0 0 0)",
             }}
           >
-            Time on each slide
+            {tx("Time on each slide")}
           </caption>
           <thead>
             <tr
@@ -223,9 +228,9 @@ export function PitchDeliveryReceipt({
                 textAlign: "left",
               }}
             >
-              <th scope="col">Slide</th>
+              <th scope="col">{tx("Slide")}</th>
               <th scope="col" style={{ textAlign: "right" }}>
-                Time
+                {tx("Time")}
               </th>
               <th scope="col" style={{ width: "45%" }}>
                 <span
@@ -237,7 +242,7 @@ export function PitchDeliveryReceipt({
                     clip: "rect(0 0 0 0)",
                   }}
                 >
-                  Bar
+                  {tx("Bar")}
                 </span>
               </th>
             </tr>

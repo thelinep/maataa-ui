@@ -4,6 +4,7 @@
  * GlassPanel, CompareGrid, PreviewFrame and FullScreenModal
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -161,6 +162,7 @@ export function ProfileCard({
   actions,
   availability,
 }: ProfileCardProps) {
+  const t = useT();
   const H = `h${level}` as "h3";
   const initials = name
     .split(/\s+/)
@@ -237,8 +239,8 @@ export function ProfileCard({
           }}
         >
           {facts.map((f) => (
-            <React.Fragment key={f.label}>
-              <dt style={{ color: colorTokens.text.secondary }}>{f.label}</dt>
+            <React.Fragment key={t(f.label)}>
+              <dt style={{ color: colorTokens.text.secondary }}>{t(f.label)}</dt>
               <dd style={{ margin: 0 }}>{f.value}</dd>
             </React.Fragment>
           ))}
@@ -246,7 +248,7 @@ export function ProfileCard({
       )}
       {tags && tags.length > 0 && (
         <ul
-          aria-label="Skills"
+          aria-label={t("Skills")}
           style={{
             listStyle: "none",
             margin: 0,
@@ -314,6 +316,7 @@ export function PricingTierCard({
   current,
   level = 3,
 }: PricingTierCardProps) {
+  const t = useT();
   const H = `h${level}` as "h3";
   return (
     <article
@@ -359,7 +362,7 @@ export function PricingTierCard({
       >
         {features.map((f) => (
           <li
-            key={f.label}
+            key={t(f.label)}
             style={{
               display: "flex",
               gap: 8,
@@ -376,7 +379,7 @@ export function PricingTierCard({
               {f.included ? "✓" : "–"}
             </span>
             <span>
-              {f.label}
+              {t(f.label)}
               <VisuallyHidden>{f.included ? ", included" : ", not included"}</VisuallyHidden>
             </span>
           </li>
@@ -434,6 +437,7 @@ export function ServiceCard({
   level = 3,
   actions,
 }: ServiceCardProps) {
+  const t = useT();
   const H = `h${level}` as "h3";
   return (
     <article style={{ ...cardBase, padding: spacingTokens.lg, gap: spacingTokens.sm }}>
@@ -484,13 +488,13 @@ export function ServiceCard({
         >
           {price && (
             <div>
-              <dt style={{ color: colorTokens.text.secondary }}>From</dt>
+              <dt style={{ color: colorTokens.text.secondary }}>{t("From")}</dt>
               <dd style={{ margin: 0, fontWeight: 700 }}>{price}</dd>
             </div>
           )}
           {turnaround && (
             <div>
-              <dt style={{ color: colorTokens.text.secondary }}>Turnaround</dt>
+              <dt style={{ color: colorTokens.text.secondary }}>{t("Turnaround")}</dt>
               <dd style={{ margin: 0, fontWeight: 700 }}>{turnaround}</dd>
             </div>
           )}
@@ -632,9 +636,9 @@ export interface PreviewFrameProps {
 }
 
 const VIEWPORTS = [
-  { id: "phone", label: "Phone", width: 375 },
-  { id: "tablet", label: "Tablet", width: 768 },
-  { id: "full", label: "Full width", width: 0 },
+  { id: "phone", label: msg("Phone"), width: 375 },
+  { id: "tablet", label: msg("Tablet"), width: 768 },
+  { id: "full", label: msg("Full width"), width: 0 },
 ] as const;
 
 /**
@@ -643,6 +647,7 @@ const VIEWPORTS = [
  * the live preview in a labelled region, and optional code.
  */
 export function PreviewFrame({ title, children, code, viewports = true }: PreviewFrameProps) {
+  const t = useT();
   const id = useId();
   const [vp, setVp] = useState<(typeof VIEWPORTS)[number]["id"]>("full");
   const w = VIEWPORTS.find((v) => v.id === vp)!.width;
@@ -681,7 +686,7 @@ export function PreviewFrame({ title, children, code, viewports = true }: Previe
                 clip: "rect(0 0 0 0)",
               }}
             >
-              Preview width
+              {t("Preview width")}
             </legend>
             {VIEWPORTS.map((v) => (
               <label
@@ -704,7 +709,7 @@ export function PreviewFrame({ title, children, code, viewports = true }: Previe
                   onChange={() => setVp(v.id)}
                   style={{ accentColor: colorTokens.interactive.primary }}
                 />
-                {v.label}
+                {t(v.label)}
               </label>
             ))}
           </fieldset>
@@ -740,7 +745,7 @@ export function PreviewFrame({ title, children, code, viewports = true }: Previe
               fontSize: typographyTokens.fontSize.sm,
             }}
           >
-            Show code
+            {t("Show code")}
           </summary>
           <pre
             tabIndex={0}
@@ -786,8 +791,10 @@ export function FullScreenModal({
   title,
   children,
   actions,
-  closeLabel = "Close",
+  closeLabel: closeLabelProp,
 }: FullScreenModalProps) {
+  const t = useT();
+  const closeLabel = closeLabelProp ?? t("Close");
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);

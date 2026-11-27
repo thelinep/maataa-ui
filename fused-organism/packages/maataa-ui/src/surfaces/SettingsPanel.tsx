@@ -3,6 +3,7 @@
  * Settings sections with a sticky save bar that appears on change
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -42,6 +43,7 @@ export function SettingsPanel({
   saving,
   savedMessage,
 }: SettingsPanelProps) {
+  const t = useT();
   const id = useId();
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingTokens.lg }}>
@@ -105,16 +107,16 @@ export function SettingsPanel({
             borderTop: `1px solid ${colorTokens.border.primary}`,
           }}
         >
-          <span>You have unsaved changes.</span>
+          <span>{t("You have unsaved changes.")}</span>
           <span style={{ display: "flex", gap: spacingTokens.sm }}>
             {onDiscard && (
               <Button variant="secondary" onClick={onDiscard} disabled={saving}>
-                Discard
+                {t("Discard")}
               </Button>
             )}
             {onSave && (
               <Button onClick={onSave} disabled={saving} aria-busy={saving || undefined}>
-                {saving ? "Saving…" : "Save changes"}
+                {saving ? t("Saving…") : t("Save changes")}
               </Button>
             )}
           </span>

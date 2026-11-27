@@ -4,6 +4,7 @@
  * path and expand/collapse all
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useMemo, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -66,7 +67,9 @@ export interface JsonExplorerProps {
  * path. Each item reads
  * its key, type and value. Search filters to matching paths.
  */
-export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExplorerProps) {
+export function JsonExplorer({ data, label: labelProp, initialDepth = 1 }: JsonExplorerProps) {
+  const t = useT();
+  const label = labelProp ?? t("Data");
   const root = useMemo(() => build(data, "root", "$", 0), [data]);
   const [open, setOpen] = useState<Set<string>>(() => {
     const s = new Set<string>();
@@ -259,7 +262,7 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
             minWidth: 200,
           }}
         >
-          Filter keys and values
+          {t("Filter keys and values")}
           <input
             type="search"
             value={q}
@@ -288,7 +291,7 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
             cursor: "pointer",
           }}
         >
-          Expand all
+          {t("Expand all")}
         </button>
         <button
           type="button"
@@ -303,11 +306,12 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
             cursor: "pointer",
           }}
         >
-          Collapse all
+          {t("Collapse all")}
         </button>
       </div>
       <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>
-        Path: <code>{focus}</code> · Right or Enter opens, Left closes, C copies the path.{" "}
+        {t("Path:")} <code>{focus}</code>{" "}
+        {t("· Right or Enter opens, Left closes, C copies the path. ")}
         <button
           type="button"
           onClick={() => copy(focus)}
@@ -322,7 +326,7 @@ export function JsonExplorer({ data, label = "Data", initialDepth = 1 }: JsonExp
             cursor: "pointer",
           }}
         >
-          Copy path
+          {t("Copy path")}
         </button>
       </div>
       <ul

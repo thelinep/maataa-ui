@@ -4,6 +4,7 @@
  * (Esc, then Tab) so keyboard users never get trapped
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame } from "./fieldKit";
@@ -44,6 +45,7 @@ export function CodeEditor({
   indent = 2,
   readOnly,
 }: CodeEditorProps) {
+  const t = useT();
   const ref = useRef<HTMLTextAreaElement>(null);
   const gutter = useRef<HTMLDivElement>(null);
   const [escaped, setEscaped] = useState(false);
@@ -175,8 +177,12 @@ export function CodeEditor({
             }}
           >
             <span id={`${ids.id}-pos`}>
-              Line {pos.line}, column {pos.column}
-              {escaped ? " · Tab will leave the editor" : ""}
+              {escaped
+                ? t("Line {line}, column {column} · Tab will leave the editor", {
+                    line: pos.line,
+                    column: pos.column,
+                  })
+                : t("Line {line}, column {column}", { line: pos.line, column: pos.column })}
             </span>
             {language && <span>{language}</span>}
           </div>

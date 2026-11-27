@@ -3,6 +3,7 @@
  * ML/AI visualization components
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens } from "../tokens";
 
@@ -38,14 +39,16 @@ export interface EmbeddingVisualizationProps {
  * Display ML-derived insights
  */
 export const MLInsightsPanel: React.FC<MLInsightsPanelProps> = ({
-  title = "ML Insights",
+  title: titleProp,
   insights = [],
 }) => {
+  const t = useT();
+  const title = titleProp ?? t("ML Insights");
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
       <h3>{title}</h3>
       {insights.length === 0 ? (
-        <p>No insights available</p>
+        <p>{t("No insights available")}</p>
       ) : (
         <ul>
           {insights.map((insight) => (
@@ -68,12 +71,21 @@ export const PredictionChart: React.FC<PredictionChartProps> = ({
   historical,
   confidence,
 }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Predictions</h3>
+      <h3>{t("Predictions")}</h3>
       <p style={{ fontSize: "12px", color: colorTokens.text.tertiary }}>
-        Showing {historical.length} historical + {predictions.length} predicted points
-        {confidence && ` (Confidence: ${(confidence * 100).toFixed(0)}%)`}
+        {confidence
+          ? t("Showing {count} historical + {count2} predicted points (confidence: {pct}%)", {
+              count: historical.length,
+              count2: predictions.length,
+              pct: (confidence * 100).toFixed(0),
+            })
+          : t("Showing {count} historical + {count2} predicted points", {
+              count: historical.length,
+              count2: predictions.length,
+            })}
       </p>
       <div
         style={{
@@ -85,7 +97,7 @@ export const PredictionChart: React.FC<PredictionChartProps> = ({
           justifyContent: "center",
         }}
       >
-        <p style={{ color: colorTokens.text.tertiary }}>Chart placeholder</p>
+        <p style={{ color: colorTokens.text.tertiary }}>{t("Chart placeholder")}</p>
       </div>
     </div>
   );
@@ -96,11 +108,12 @@ export const PredictionChart: React.FC<PredictionChartProps> = ({
  * Display detected anomalies
  */
 export const AnomalyAlerts: React.FC<AnomalyAlertsProps> = ({ anomalies = [], onDismiss }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Anomaly Alerts</h3>
+      <h3>{t("Anomaly Alerts")}</h3>
       {anomalies.length === 0 ? (
-        <p style={{ color: "#0a0" }}>No anomalies detected</p>
+        <p style={{ color: "#0a0" }}>{t("No anomalies detected")}</p>
       ) : (
         <ul style={{ listStyle: "none", padding: 0 }}>
           {anomalies.map((anomaly) => (
@@ -146,11 +159,12 @@ export const RecommendationCards: React.FC<RecommendationCardsProps> = ({
   onAccept,
   onDismiss,
 }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Recommendations</h3>
+      <h3>{t("Recommendations")}</h3>
       {recommendations.length === 0 ? (
-        <p>No recommendations available</p>
+        <p>{t("No recommendations available")}</p>
       ) : (
         <div
           style={{
@@ -193,7 +207,7 @@ export const RecommendationCards: React.FC<RecommendationCardsProps> = ({
                     cursor: "pointer",
                   }}
                 >
-                  Accept
+                  {t("Accept")}
                 </button>
                 <button
                   onClick={() => onDismiss?.(rec.id)}
@@ -207,7 +221,7 @@ export const RecommendationCards: React.FC<RecommendationCardsProps> = ({
                     cursor: "pointer",
                   }}
                 >
-                  Dismiss
+                  {t("Dismiss")}
                 </button>
               </div>
             </div>
@@ -226,9 +240,10 @@ export const EmbeddingVisualization: React.FC<EmbeddingVisualizationProps> = ({
   embeddings = [],
   onNodeClick,
 }) => {
+  const t = useT();
   return (
     <div style={{ padding: "16px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h3>Embedding Visualization</h3>
+      <h3>{t("Embedding Visualization")}</h3>
       <div
         style={{
           width: "100%",
@@ -243,7 +258,7 @@ export const EmbeddingVisualization: React.FC<EmbeddingVisualizationProps> = ({
         }}
       >
         {embeddings.length === 0 ? (
-          <p style={{ color: colorTokens.text.tertiary }}>No embeddings to visualize</p>
+          <p style={{ color: colorTokens.text.tertiary }}>{t("No embeddings to visualize")}</p>
         ) : (
           <svg width="100%" height="100%">
             {embeddings.map((embedding) => (
@@ -262,7 +277,7 @@ export const EmbeddingVisualization: React.FC<EmbeddingVisualizationProps> = ({
         )}
       </div>
       <p style={{ fontSize: "12px", color: colorTokens.text.tertiary, marginTop: "8px" }}>
-        Showing {embeddings.length} embeddings
+        {t("Showing {count} embeddings", { count: embeddings.length })}
       </p>
     </div>
   );

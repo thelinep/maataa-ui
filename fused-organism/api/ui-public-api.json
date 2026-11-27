@@ -429,6 +429,14 @@
           "stability": "beta"
         },
         {
+          "name": "DEFAULT_LOCALE",
+          "stability": "beta"
+        },
+        {
+          "name": "DEFAULT_THEME_STORAGE_KEY",
+          "stability": "beta"
+        },
+        {
           "name": "DEPARTMENT_COLORS",
           "stability": "experimental"
         },
@@ -878,6 +886,10 @@
         },
         {
           "name": "LoadingOverlay",
+          "stability": "beta"
+        },
+        {
+          "name": "LocaleProvider",
           "stability": "beta"
         },
         {
@@ -1681,6 +1693,14 @@
           "stability": "beta"
         },
         {
+          "name": "THEME_ATTRIBUTE",
+          "stability": "beta"
+        },
+        {
+          "name": "THEME_CHOICE_ATTRIBUTE",
+          "stability": "beta"
+        },
+        {
           "name": "TLPClassificationCard",
           "stability": "experimental"
         },
@@ -1714,6 +1734,14 @@
         },
         {
           "name": "Textarea",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemePreferenceHead",
           "stability": "beta"
         },
         {
@@ -1985,6 +2013,14 @@
           "stability": "beta"
         },
         {
+          "name": "builtInMessages",
+          "stability": "beta"
+        },
+        {
+          "name": "builtInThemes",
+          "stability": "beta"
+        },
+        {
           "name": "cameraAngles",
           "stability": "beta"
         },
@@ -2101,6 +2137,10 @@
           "stability": "beta"
         },
         {
+          "name": "directionOf",
+          "stability": "beta"
+        },
+        {
           "name": "displayName",
           "stability": "beta"
         },
@@ -2185,6 +2225,14 @@
           "stability": "beta"
         },
         {
+          "name": "hiMessages",
+          "stability": "beta"
+        },
+        {
+          "name": "highContrastTheme",
+          "stability": "beta"
+        },
+        {
           "name": "hoursWorked",
           "stability": "beta"
         },
@@ -2210,6 +2258,10 @@
         },
         {
           "name": "isoWeekStart",
+          "stability": "beta"
+        },
+        {
+          "name": "languageOf",
           "stability": "beta"
         },
         {
@@ -2250,6 +2302,10 @@
         },
         {
           "name": "moveItem",
+          "stability": "beta"
+        },
+        {
+          "name": "msg",
           "stability": "beta"
         },
         {
@@ -2357,6 +2413,10 @@
           "stability": "beta"
         },
         {
+          "name": "resolveThemeChoice",
+          "stability": "beta"
+        },
+        {
           "name": "safeReturnTo",
           "stability": "beta"
         },
@@ -2417,6 +2477,14 @@
           "stability": "beta"
         },
         {
+          "name": "themeInitScript",
+          "stability": "beta"
+        },
+        {
+          "name": "themePreferenceCss",
+          "stability": "beta"
+        },
+        {
           "name": "themeToCss",
           "stability": "beta"
         },
@@ -2425,7 +2493,15 @@
           "stability": "beta"
         },
         {
+          "name": "themesToCss",
+          "stability": "beta"
+        },
+        {
           "name": "tlpsV2Theme",
+          "stability": "beta"
+        },
+        {
+          "name": "translate",
           "stability": "beta"
         },
         {
@@ -2441,6 +2517,14 @@
           "stability": "stable"
         },
         {
+          "name": "useLocale",
+          "stability": "beta"
+        },
+        {
+          "name": "useLocaleContext",
+          "stability": "beta"
+        },
+        {
           "name": "useMap",
           "stability": "beta"
         },
@@ -2453,7 +2537,15 @@
           "stability": "beta"
         },
         {
+          "name": "useT",
+          "stability": "beta"
+        },
+        {
           "name": "useTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "useThemePreference",
           "stability": "beta"
         },
         {
@@ -5052,6 +5144,26 @@
       "target": "./dist/themes/index.js",
       "exports": [
         {
+          "name": "DEFAULT_THEME_STORAGE_KEY",
+          "stability": "beta"
+        },
+        {
+          "name": "THEME_ATTRIBUTE",
+          "stability": "beta"
+        },
+        {
+          "name": "THEME_CHOICE_ATTRIBUTE",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemePicker",
+          "stability": "beta"
+        },
+        {
+          "name": "ThemePreferenceHead",
+          "stability": "beta"
+        },
+        {
           "name": "ThemeProvider",
           "stability": "beta"
         },
@@ -5064,7 +5176,15 @@
           "stability": "beta"
         },
         {
+          "name": "builtInThemes",
+          "stability": "beta"
+        },
+        {
           "name": "darkTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "highContrastTheme",
           "stability": "beta"
         },
         {
@@ -5072,7 +5192,19 @@
           "stability": "beta"
         },
         {
+          "name": "resolveThemeChoice",
+          "stability": "beta"
+        },
+        {
           "name": "themeComponents",
+          "stability": "beta"
+        },
+        {
+          "name": "themeInitScript",
+          "stability": "beta"
+        },
+        {
+          "name": "themePreferenceCss",
           "stability": "beta"
         },
         {
@@ -5084,11 +5216,69 @@
           "stability": "beta"
         },
         {
+          "name": "themesToCss",
+          "stability": "beta"
+        },
+        {
           "name": "tlpsV2Theme",
           "stability": "beta"
         },
         {
           "name": "useTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "useThemePreference",
+          "stability": "beta"
+        }
+      ]
+    },
+    {
+      "entry": "./i18n",
+      "target": "./dist/i18n/index.js",
+      "exports": [
+        {
+          "name": "DEFAULT_LOCALE",
+          "stability": "beta"
+        },
+        {
+          "name": "LocaleProvider",
+          "stability": "beta"
+        },
+        {
+          "name": "builtInMessages",
+          "stability": "beta"
+        },
+        {
+          "name": "directionOf",
+          "stability": "beta"
+        },
+        {
+          "name": "hiMessages",
+          "stability": "beta"
+        },
+        {
+          "name": "languageOf",
+          "stability": "beta"
+        },
+        {
+          "name": "msg",
+          "stability": "beta"
+        },
+        {
+          "name": "translate",
+          "stability": "beta"
+        },
+        {
+          "name": "useLocale",
+          "stability": "beta"
+        },
+        {
+          "name": "useLocaleContext",
+          "stability": "beta"
+        },
+        {
+          "name": "useT",
           "stability": "beta"
         }
       ]
@@ -5098,7 +5288,15 @@
       "target": "./dist/theme-style.js",
       "exports": [
         {
+          "name": "ThemePreferenceHead",
+          "stability": "beta"
+        },
+        {
           "name": "ThemeStyle",
+          "stability": "beta"
+        },
+        {
+          "name": "builtInThemes",
           "stability": "beta"
         },
         {
@@ -5106,7 +5304,23 @@
           "stability": "beta"
         },
         {
+          "name": "highContrastTheme",
+          "stability": "beta"
+        },
+        {
           "name": "paperTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "themeInitScript",
+          "stability": "beta"
+        },
+        {
+          "name": "themePreferenceCss",
+          "stability": "beta"
+        },
+        {
+          "name": "themesToCss",
           "stability": "beta"
         },
         {

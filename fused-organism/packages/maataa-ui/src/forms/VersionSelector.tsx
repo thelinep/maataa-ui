@@ -3,6 +3,7 @@
  * Pick a version of a budget, mix, grade, contract or deck
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -45,8 +46,10 @@ export function VersionSelector({
   currentId,
   compareWith,
   onCompareChange,
-  locale = "en-IN",
+  locale: localeProp,
 }: VersionSelectorProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const sorted = [...versions].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   const text = (v: VersionOption) =>
@@ -94,13 +97,13 @@ export function VersionSelector({
         </label>
         {onCompareChange && (
           <label style={{ display: "flex", flexDirection: "column", gap: 2, fontWeight: 500 }}>
-            Compare with
+            {t("Compare with")}
             <select
               value={compareWith ?? ""}
               onChange={(e) => onCompareChange(e.target.value)}
               style={sel}
             >
-              <option value="">Don’t compare</option>
+              <option value="">{t("Don’t compare")}</option>
               {sorted
                 .filter((v) => v.id !== value)
                 .map((v) => (

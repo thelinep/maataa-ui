@@ -135,6 +135,10 @@
       "types": "./dist/themes/index.d.ts",
       "default": "./dist/themes/index.js"
     },
+    "./i18n": {
+      "types": "./dist/i18n/index.d.ts",
+      "default": "./dist/i18n/index.js"
+    },
     "./theme-style": {
       "types": "./dist/theme-style.d.ts",
       "default": "./dist/theme-style.js"

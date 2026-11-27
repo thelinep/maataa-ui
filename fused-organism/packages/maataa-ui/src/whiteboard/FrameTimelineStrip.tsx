@@ -3,6 +3,7 @@
  * Storyboard frames in order, with selection and reordering
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -49,8 +50,10 @@ export function FrameTimelineStrip({
   onSelect,
   onReorder,
   onAdd,
-  label = "Storyboard frames",
+  label: labelProp,
 }: FrameTimelineStripProps) {
+  const t = useT();
+  const label = labelProp ?? t("Storyboard frames");
   const [msg, setMsg] = useState("");
   const idx = frames.findIndex((f) => f.id === selectedId);
   const total = frames.reduce((s, f) => s + (f.duration ?? 0), 0);
@@ -86,15 +89,17 @@ export function FrameTimelineStrip({
         }}
       >
         <span style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}>
-          {frames.length} frames
           {total
-            ? ` · ${Math.floor(total / 60)}:${String(Math.round(total % 60)).padStart(2, "0")} running time`
-            : ""}
+            ? t("{count} frames · {time} running time", {
+                count: frames.length,
+                time: `${Math.floor(total / 60)}:${String(Math.round(total % 60)).padStart(2, "0")}`,
+              })
+            : t("{count} frames", { count: frames.length })}
         </span>
         {onReorder && idx >= 0 && (
           <div
             role="group"
-            aria-label={`Reorder frame ${frames[idx].number}`}
+            aria-label={t("Reorder frame {value}", { value: frames[idx].number })}
             style={{ display: "flex", gap: spacingTokens.xs, alignItems: "center" }}
           >
             <button
@@ -103,7 +108,7 @@ export function FrameTimelineStrip({
               disabled={idx === 0}
               onClick={() => reorder(idx - 1)}
             >
-              ← Earlier
+              ← {t("Earlier")}
             </button>
             <button
               type="button"
@@ -111,7 +116,7 @@ export function FrameTimelineStrip({
               disabled={idx === frames.length - 1}
               onClick={() => reorder(idx + 1)}
             >
-              Later →
+              {t("Later →")}
             </button>
             <label
               style={{
@@ -121,7 +126,7 @@ export function FrameTimelineStrip({
                 fontSize: typographyTokens.fontSize.sm,
               }}
             >
-              Position
+              {t("Position")}
               <select
                 value={idx + 1}
                 onChange={(e) => reorder(Number(e.target.value) - 1)}
@@ -228,7 +233,7 @@ export function FrameTimelineStrip({
                 font: "inherit",
               }}
             >
-              + Add frame
+              {t("+ Add frame")}
             </button>
           </li>
         )}

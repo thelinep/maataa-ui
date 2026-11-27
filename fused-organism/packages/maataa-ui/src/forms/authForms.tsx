@@ -3,6 +3,7 @@
  * Sign in, sign up, password reset request and confirmation
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Input } from "../primitives/Input";
 import { Button } from "../primitives/Button";
@@ -60,6 +61,7 @@ export function SignInForm({
   onCreateAccount,
   children,
 }: SignInFormProps) {
+  const t = useT();
   const id = useId();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -72,20 +74,20 @@ export function SignInForm({
     if (!EMAIL.test(email.trim()))
       errs.push({
         fieldId: `${id}-email`,
-        message: "Enter your email address, like name@example.com",
+        message: msg("Enter your email address, like name@example.com"),
       });
-    if (!password) errs.push({ fieldId: `${id}-password`, message: "Enter your password" });
+    if (!password) errs.push({ fieldId: `${id}-password`, message: msg("Enter your password") });
     setErrors(errs);
     if (!errs.length) onSubmit({ email: email.trim(), password, remember });
   };
   return (
-    <form noValidate onSubmit={submit} aria-label="Sign in" style={col}>
+    <form noValidate onSubmit={submit} aria-label={t("Sign in")} style={col}>
       <ErrorSummary
         errors={error ? [...errors, { fieldId: `${id}-email`, message: error }] : errors}
       />
       <Input
         id={`${id}-email`}
-        label="Email"
+        label={t("Email")}
         type="email"
         autoComplete="username"
         inputMode="email"
@@ -95,14 +97,14 @@ export function SignInForm({
       />
       <PasswordInput
         id={`${id}-password`}
-        label="Password"
+        label={t("Password")}
         value={password}
         onChange={setPassword}
         error={fieldErr(`${id}-password`)}
       />
       {onForgotPassword && (
         <button type="button" onClick={onForgotPassword} style={linkBtn}>
-          Forgot your password?
+          {t("Forgot your password?")}
         </button>
       )}
       <label style={{ display: "flex", gap: spacingTokens.sm, alignItems: "center" }}>
@@ -112,17 +114,17 @@ export function SignInForm({
           onChange={(e) => setRemember(e.target.checked)}
           style={{ accentColor: colorTokens.interactive.primary }}
         />
-        Keep me signed in on this device
+        {t("Keep me signed in on this device")}
       </label>
       <Button type="submit" disabled={busy} aria-busy={busy || undefined}>
-        {busy ? "Signing in…" : "Sign in"}
+        {busy ? t("Signing in…") : t("Sign in")}
       </Button>
       {children}
       {onCreateAccount && (
         <p style={{ margin: 0 }}>
-          New to maataa?{" "}
+          {t("New to maataa? ")}
           <button type="button" onClick={onCreateAccount} style={linkBtn}>
-            Create an account
+            {t("Create an account")}
           </button>
         </p>
       )}
@@ -160,6 +162,7 @@ export function SignUpForm({
   rules = defaultPasswordRules,
   onSignIn,
 }: SignUpFormProps) {
+  const t = useT();
   const id = useId();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -170,11 +173,11 @@ export function SignUpForm({
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const errs: FormError[] = [];
-    if (!name.trim()) errs.push({ fieldId: `${id}-name`, message: "Enter your name" });
+    if (!name.trim()) errs.push({ fieldId: `${id}-name`, message: msg("Enter your name") });
     if (!EMAIL.test(email.trim()))
       errs.push({
         fieldId: `${id}-email`,
-        message: "Enter your email address, like name@example.com",
+        message: msg("Enter your email address, like name@example.com"),
       });
     const failed = rules.filter((r) => !r.test(password));
     if (failed.length)
@@ -183,27 +186,27 @@ export function SignUpForm({
         message: `Password: ${failed.map((r) => r.label.toLowerCase()).join(", ")}`,
       });
     if (termsHref && !agreed)
-      errs.push({ fieldId: `${id}-terms`, message: "Agree to the terms to continue" });
+      errs.push({ fieldId: `${id}-terms`, message: msg("Agree to the terms to continue") });
     setErrors(errs);
     if (!errs.length) onSubmit({ name: name.trim(), email: email.trim(), password });
   };
   return (
-    <form noValidate onSubmit={submit} aria-label="Create an account" style={col}>
+    <form noValidate onSubmit={submit} aria-label={t("Create an account")} style={col}>
       <ErrorSummary
         errors={error ? [...errors, { fieldId: `${id}-email`, message: error }] : errors}
       />
       <Input
         id={`${id}-name`}
-        label="Full name"
+        label={t("Full name")}
         autoComplete="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         error={fieldErr(`${id}-name`)}
-        helperText="As you'd like it in credits"
+        helperText={t("As you'd like it in credits")}
       />
       <Input
         id={`${id}-email`}
-        label="Email"
+        label={t("Email")}
         type="email"
         autoComplete="email"
         inputMode="email"
@@ -213,7 +216,7 @@ export function SignUpForm({
       />
       <PasswordInput
         id={`${id}-password`}
-        label="Create a password"
+        label={t("Create a password")}
         value={password}
         onChange={setPassword}
         rules={rules}
@@ -231,16 +234,16 @@ export function SignUpForm({
             aria-invalid={fieldErr(`${id}-terms`) ? true : undefined}
           />
           <span>
-            I agree to the{" "}
+            {t("I agree to the ")}
             <a href={termsHref} style={{ color: colorTokens.interactive.primary }}>
-              terms of use
+              {t("terms of use")}
             </a>
             {privacyHref && (
               <>
                 {" "}
                 and{" "}
                 <a href={privacyHref} style={{ color: colorTokens.interactive.primary }}>
-                  privacy notice
+                  {t("privacy notice")}
                 </a>
               </>
             )}
@@ -248,13 +251,13 @@ export function SignUpForm({
         </label>
       )}
       <Button type="submit" disabled={busy} aria-busy={busy || undefined}>
-        {busy ? "Creating account…" : "Create account"}
+        {busy ? t("Creating account…") : t("Create account")}
       </Button>
       {onSignIn && (
         <p style={{ margin: 0 }}>
-          Already have an account?{" "}
+          {t("Already have an account? ")}
           <button type="button" onClick={onSignIn} style={linkBtn}>
-            Sign in
+            {t("Sign in")}
           </button>
         </p>
       )}
@@ -284,20 +287,25 @@ export function PasswordResetRequestForm({
   busy,
   onBack,
 }: PasswordResetRequestFormProps) {
+  const t = useT();
   const id = useId();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string>();
   if (sent) {
     return (
       <div role="status" style={col}>
-        <h2 style={{ margin: 0, fontSize: typographyTokens.fontSize.xl }}>Check your email</h2>
+        <h2 style={{ margin: 0, fontSize: typographyTokens.fontSize.xl }}>
+          {t("Check your email")}
+        </h2>
         <p style={{ margin: 0 }}>
-          If an account uses {email || "that address"}, we’ve sent a link to reset the password. It
-          works for 30 minutes.
+          {t(
+            "If an account uses {value}, we’ve sent a link to reset the password. It works for 30 minutes.",
+            { value: email || "that address" }
+          )}
         </p>
         {onBack && (
           <button type="button" onClick={onBack} style={linkBtn}>
-            Back to sign in
+            {t("Back to sign in")}
           </button>
         )}
       </div>
@@ -306,7 +314,7 @@ export function PasswordResetRequestForm({
   return (
     <form
       noValidate
-      aria-label="Reset your password"
+      aria-label={t("Reset your password")}
       style={col}
       onSubmit={(e) => {
         e.preventDefault();
@@ -317,11 +325,11 @@ export function PasswordResetRequestForm({
       }}
     >
       <p style={{ margin: 0 }}>
-        Enter the email you sign in with. We’ll send a link to choose a new password.
+        {t("Enter the email you sign in with. We’ll send a link to choose a new password.")}
       </p>
       <Input
         id={`${id}-email`}
-        label="Email"
+        label={t("Email")}
         type="email"
         autoComplete="username"
         value={email}
@@ -329,11 +337,11 @@ export function PasswordResetRequestForm({
         error={error}
       />
       <Button type="submit" disabled={busy}>
-        Send reset link
+        {t("Send reset link")}
       </Button>
       {onBack && (
         <button type="button" onClick={onBack} style={linkBtn}>
-          Back to sign in
+          {t("Back to sign in")}
         </button>
       )}
     </form>
@@ -360,6 +368,7 @@ export function PasswordResetConfirmForm({
   busy,
   rules = defaultPasswordRules,
 }: PasswordResetConfirmFormProps) {
+  const t = useT();
   const id = useId();
   const [pw, setPw] = useState("");
   const [again, setAgain] = useState("");
@@ -367,11 +376,11 @@ export function PasswordResetConfirmForm({
   if (expired) {
     return (
       <div role="alert" style={col}>
-        <strong>This reset link has expired</strong>
+        <strong>{t("This reset link has expired")}</strong>
         <p style={{ margin: 0 }}>
-          Links work once, for 30 minutes. Ask for a new one and use the latest email.
+          {t("Links work once, for 30 minutes. Ask for a new one and use the latest email.")}
         </p>
-        {onRequestNewLink && <Button onClick={onRequestNewLink}>Send a new link</Button>}
+        {onRequestNewLink && <Button onClick={onRequestNewLink}>{t("Send a new link")}</Button>}
       </div>
     );
   }
@@ -379,7 +388,7 @@ export function PasswordResetConfirmForm({
   return (
     <form
       noValidate
-      aria-label="Choose a new password"
+      aria-label={t("Choose a new password")}
       style={col}
       onSubmit={(e) => {
         e.preventDefault();
@@ -391,7 +400,7 @@ export function PasswordResetConfirmForm({
             message: `Password: ${failed.map((r) => r.label.toLowerCase()).join(", ")}`,
           });
         else if (pw !== again)
-          errs.push({ fieldId: `${id}-again`, message: "The two passwords don't match" });
+          errs.push({ fieldId: `${id}-again`, message: msg("The two passwords don't match") });
         setErrors(errs);
         if (!errs.length) onSubmit(pw);
       }}
@@ -399,7 +408,7 @@ export function PasswordResetConfirmForm({
       <ErrorSummary errors={errors} />
       <PasswordInput
         id={`${id}-pw`}
-        label="New password"
+        label={t("New password")}
         value={pw}
         onChange={setPw}
         rules={rules}
@@ -408,14 +417,14 @@ export function PasswordResetConfirmForm({
       />
       <PasswordInput
         id={`${id}-again`}
-        label="Type it again"
+        label={t("Type it again")}
         value={again}
         onChange={setAgain}
         autoComplete="new-password"
         error={fieldErr(`${id}-again`)}
       />
       <Button type="submit" disabled={busy}>
-        Save new password
+        {t("Save new password")}
       </Button>
     </form>
   );

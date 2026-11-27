@@ -4,6 +4,7 @@
  * VoiceCommandButton, LiveTranscript and VideoCallTile
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -54,11 +55,13 @@ export interface CameraPreviewProps {
  * refused — are written out; Stop releases the camera.
  */
 export function CameraPreview({
-  label = "Camera",
+  label: labelProp,
   onCapture,
   facingMode = "user",
   mirrored = facingMode === "user",
 }: CameraPreviewProps) {
+  const t = useT();
+  const label = labelProp ?? t("Camera");
   const video = useRef<HTMLVideoElement>(null);
   const stream = useRef<MediaStream | null>(null);
   const [state, setState] = useState<"off" | "asking" | "live" | "error">("off");
@@ -124,7 +127,7 @@ export function CameraPreview({
           autoPlay
           playsInline
           muted
-          aria-label={`${label} preview`}
+          aria-label={t("{label} preview", { label })}
           style={{
             width: "100%",
             height: "100%",
@@ -135,7 +138,7 @@ export function CameraPreview({
         />
         {state !== "live" && (
           <span aria-hidden="true" style={{ color: colorTokens.text.inverse, opacity: 0.8 }}>
-            {state === "asking" ? "Waiting for permission…" : "Camera off"}
+            {state === "asking" ? t("Waiting for permission…") : t("Camera off")}
           </span>
         )}
         {state === "live" && (
@@ -152,7 +155,7 @@ export function CameraPreview({
               fontWeight: 700,
             }}
           >
-            ● Live
+            ● {t("Live")}
           </span>
         )}
       </div>
@@ -161,16 +164,16 @@ export function CameraPreview({
           <>
             {onCapture && (
               <button type="button" style={btn(true)} onClick={capture}>
-                Take photo
+                {t("Take photo")}
               </button>
             )}
             <button type="button" style={btn()} onClick={stop}>
-              Turn camera off
+              {t("Turn camera off")}
             </button>
           </>
         ) : (
           <button type="button" style={btn(true)} onClick={start} disabled={state === "asking"}>
-            Turn camera on
+            {t("Turn camera on")}
           </button>
         )}
       </div>
@@ -203,6 +206,7 @@ export interface ScreenRecordingBarProps {
  * is spelled out, and the browser's own sharing indicator stays visible.
  */
 export function ScreenRecordingBar({ onRecorded, withMicrophone }: ScreenRecordingBarProps) {
+  const t = useT();
   const [state, setState] = useState<"idle" | "recording" | "paused">("idle");
   const [secs, setSecs] = useState(0);
   const [msg, setMsg] = useState("");
@@ -246,7 +250,7 @@ export function ScreenRecordingBar({ onRecorded, withMicrophone }: ScreenRecordi
   return (
     <div
       role="group"
-      aria-label="Screen recording"
+      aria-label={t("Screen recording")}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -260,7 +264,7 @@ export function ScreenRecordingBar({ onRecorded, withMicrophone }: ScreenRecordi
     >
       {state === "idle" ? (
         <button type="button" style={{ ...btn(false, true), borderRadius: 999 }} onClick={start}>
-          <span aria-hidden="true">●</span> Record screen
+          <span aria-hidden="true">●</span> {t("Record screen")}
         </button>
       ) : (
         <>
@@ -282,7 +286,7 @@ export function ScreenRecordingBar({ onRecorded, withMicrophone }: ScreenRecordi
                 background: state === "recording" ? "#F5B5A6" : "#F5D547",
               }}
             />
-            {state === "recording" ? "Recording" : "Paused"}
+            {state === "recording" ? t("Recording") : t("Paused")}
             <span style={{ fontFamily: "ui-monospace, Menlo, monospace" }}>{clock(secs)}</span>
           </span>
           <button
@@ -300,14 +304,14 @@ export function ScreenRecordingBar({ onRecorded, withMicrophone }: ScreenRecordi
               }
             }}
           >
-            {state === "recording" ? "Pause" : "Resume"}
+            {state === "recording" ? t("Pause") : t("Resume")}
           </button>
           <button
             type="button"
             style={{ ...btn(false, true), borderRadius: 999 }}
             onClick={() => rec.current?.stop()}
           >
-            <span aria-hidden="true">■</span> Stop
+            <span aria-hidden="true">■</span> {t("Stop")}
           </button>
         </>
       )}
@@ -330,11 +334,9 @@ export interface ScreenshotButtonProps {
  * Grabs a frame via your `capture` function, shows a small flash (not with
  * reduced motion), a thumbnail, and announces "Screenshot taken".
  */
-export function ScreenshotButton({
-  capture,
-  onCaptured,
-  label = "Take screenshot",
-}: ScreenshotButtonProps) {
+export function ScreenshotButton({ capture, onCaptured, label: labelProp }: ScreenshotButtonProps) {
+  const t = useT();
+  const label = labelProp ?? t("Take screenshot");
   const [busy, setBusy] = useState(false);
   const [thumb, setThumb] = useState<string | null>(null);
   const [msg, setMsg] = useState("");
@@ -370,7 +372,7 @@ export function ScreenshotButton({
       {thumb && (
         <img
           src={thumb}
-          alt="Latest screenshot"
+          alt={t("Latest screenshot")}
           style={{ height: 40, borderRadius: 4, border: `1px solid ${colorTokens.border.primary}` }}
         />
       )}
@@ -406,11 +408,9 @@ export interface AudioRecorderProps {
  * Record / Stop with elapsed time and a live level meter (role=meter), so
  * you can see the mic is working. Playback of the take follows.
  */
-export function AudioRecorder({
-  onRecorded,
-  label = "Voice note",
-  maxSeconds,
-}: AudioRecorderProps) {
+export function AudioRecorder({ onRecorded, label: labelProp, maxSeconds }: AudioRecorderProps) {
+  const t = useT();
+  const label = labelProp ?? t("Voice note");
   const [state, setState] = useState<"idle" | "recording">("idle");
   const [secs, setSecs] = useState(0);
   const [db, setDb] = useState(-60);
@@ -478,21 +478,26 @@ export function AudioRecorder({
       >
         {state === "idle" ? (
           <button type="button" style={btn(false, true)} onClick={start}>
-            <span aria-hidden="true">●</span> Record
+            <span aria-hidden="true">●</span> {t("Record")}
           </button>
         ) : (
           <button type="button" style={btn(true)} onClick={() => rec.current?.stop()}>
-            <span aria-hidden="true">■</span> Stop
+            <span aria-hidden="true">■</span> {t("Stop")}
           </button>
         )}
         <span style={{ fontFamily: "ui-monospace, Menlo, monospace", fontWeight: 700 }}>
           {clock(secs)}
           {maxSeconds ? ` / ${clock(maxSeconds)}` : ""}
         </span>
-        <VUMeter level={db} label="Microphone level" length={160} />
+        <VUMeter level={db} label={t("Microphone level")} length={160} />
       </div>
       {url && (
-        <audio controls src={url} aria-label={`${label} playback`} style={{ maxWidth: "100%" }} />
+        <audio
+          controls
+          src={url}
+          aria-label={t("{label} playback", { label })}
+          style={{ maxWidth: "100%" }}
+        />
       )}
       <VisuallyHidden role="status">{msg}</VisuallyHidden>
       {msg && !msg.startsWith("Rec") && (
@@ -543,8 +548,10 @@ export interface VoiceCommandButtonProps {
 export function VoiceCommandButton({
   onCommand,
   lang = "en-IN",
-  label = "Voice command",
+  label: labelProp,
 }: VoiceCommandButtonProps) {
+  const t = useT();
+  const label = labelProp ?? t("Voice command");
   const w =
     typeof window !== "undefined"
       ? (window as unknown as {
@@ -566,7 +573,7 @@ export function VoiceCommandButton({
           fontSize: typographyTokens.fontSize.sm,
         }}
       >
-        Voice commands aren’t available in this browser.
+        {t("Voice commands aren’t available in this browser.")}
       </p>
     );
   }
@@ -591,8 +598,8 @@ export function VoiceCommandButton({
     r.onerror = (e) =>
       setMsg(
         e.error === "not-allowed"
-          ? "Microphone permission was refused."
-          : "Didn’t catch that. Try again."
+          ? t("Microphone permission was refused.")
+          : t("Didn’t catch that. Try again.")
       );
     r.onend = () => setListening(false);
     rec.current = r;
@@ -660,10 +667,12 @@ export interface LiveTranscriptProps {
  */
 export function LiveTranscript({
   segments,
-  label = "Live transcript",
+  label: labelProp,
   announce = false,
   height = 220,
 }: LiveTranscriptProps) {
+  const t = useT();
+  const label = labelProp ?? t("Live transcript");
   const box = useRef<HTMLDivElement>(null);
   const [pinned, setPinned] = useState(true);
   useEffect(() => {
@@ -734,7 +743,7 @@ export function LiveTranscript({
             borderRadius: 999,
           }}
         >
-          Jump to latest
+          {t("Jump to latest")}
         </button>
       )}
     </section>

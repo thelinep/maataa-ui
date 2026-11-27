@@ -3,6 +3,7 @@
  * Multi-step flow: progress, step content, Back / Next / Skip / Save for later
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useId, useRef } from "react";
 import { StepIndicator, type Step } from "../status/StepIndicator";
 import { Button } from "../primitives/Button";
@@ -55,10 +56,12 @@ export function WizardShell({
   onNext,
   onSkip,
   onSaveForLater,
-  finishLabel = "Finish",
+  finishLabel: finishLabelProp,
   busy = false,
   children,
 }: WizardShellProps) {
+  const t = useT();
+  const finishLabel = finishLabelProp ?? t("Finish");
   const hid = useId();
   const heading = useRef<HTMLHeadingElement>(null);
   const first = useRef(true);
@@ -120,19 +123,19 @@ export function WizardShell({
         <div style={{ display: "flex", gap: spacingTokens.sm }}>
           {current > 0 && (
             <Button variant="secondary" onClick={onBack} disabled={busy}>
-              Back
+              {t("Back")}
             </Button>
           )}
           {onSaveForLater && (
             <Button variant="tertiary" onClick={onSaveForLater} disabled={busy}>
-              Save and finish later
+              {t("Save and finish later")}
             </Button>
           )}
         </div>
         <div style={{ display: "flex", gap: spacingTokens.sm }}>
           {step?.optional && onSkip && !last && (
             <Button variant="tertiary" onClick={onSkip} disabled={busy}>
-              Skip this step
+              {t("Skip this step")}
             </Button>
           )}
           <Button onClick={onNext} disabled={busy} aria-busy={busy || undefined}>

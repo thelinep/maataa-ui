@@ -3,6 +3,7 @@
  * Large selectable cards: single (radio) or multiple (checkbox)
  */
 
+import { msg, useT } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 
@@ -49,6 +50,7 @@ export type ChoiceCardsProps = ChoiceCardsSingleProps | ChoiceCardsMultiProps;
  * ```
  */
 export function ChoiceCards(props: ChoiceCardsProps) {
+  const t = useT();
   const { legend, options, minWidth = 180, error, hint } = props;
   const id = useId();
   const isOn = (v: string) => (props.multiple ? props.value.includes(v) : props.value === v);
@@ -123,7 +125,7 @@ export function ChoiceCards(props: ChoiceCardsProps) {
                 <span
                   style={{ display: "block", fontWeight: 600, color: colorTokens.text.primary }}
                 >
-                  {o.label}
+                  {t(o.label)}
                 </span>
                 {o.description && (
                   <span
@@ -133,7 +135,7 @@ export function ChoiceCards(props: ChoiceCardsProps) {
                       color: colorTokens.text.secondary,
                     }}
                   >
-                    {o.description}
+                    {t(o.description)}
                   </span>
                 )}
               </span>
@@ -163,36 +165,41 @@ ChoiceCards.displayName = "ChoiceCards";
 export const accountTypeOptions: ChoiceCardOption[] = [
   {
     value: "individual",
-    label: "Individual",
-    description: "Freelancer, crew member or artist",
+    label: msg("Individual"),
+    description: msg("Freelancer, crew member or artist"),
     icon: "🎭",
   },
-  { value: "company", label: "Company", description: "Production house or studio", icon: "🏢" },
+  {
+    value: "company",
+    label: msg("Company"),
+    description: msg("Production house or studio"),
+    icon: "🏢",
+  },
   {
     value: "organization",
-    label: "Organization",
-    description: "Non-profit, school or collective",
+    label: msg("Organization"),
+    description: msg("Non-profit, school or collective"),
     icon: "🤝",
   },
   {
     value: "government",
-    label: "Government",
-    description: "Film commission or public body",
+    label: msg("Government"),
+    description: msg("Film commission or public body"),
     icon: "🏛️",
   },
 ];
 
 /** Common production roles for the role grid */
 export const productionRoleOptions: ChoiceCardOption[] = [
-  { value: "producer", label: "Producer", icon: "🎬" },
-  { value: "director", label: "Director", icon: "🎥" },
-  { value: "writer", label: "Writer", icon: "✍️" },
-  { value: "dop", label: "Cinematographer", icon: "📷" },
-  { value: "editor", label: "Editor", icon: "✂️" },
-  { value: "sound", label: "Sound", icon: "🎧" },
-  { value: "actor", label: "Actor", icon: "🎭" },
-  { value: "music", label: "Music", icon: "🎼" },
-  { value: "production", label: "Production team", icon: "📋" },
+  { value: "producer", label: msg("Producer"), icon: "🎬" },
+  { value: "director", label: msg("Director"), icon: "🎥" },
+  { value: "writer", label: msg("Writer"), icon: "✍️" },
+  { value: "dop", label: msg("Cinematographer"), icon: "📷" },
+  { value: "editor", label: msg("Editor"), icon: "✂️" },
+  { value: "sound", label: msg("Sound"), icon: "🎧" },
+  { value: "actor", label: msg("Actor"), icon: "🎭" },
+  { value: "music", label: msg("Music"), icon: "🎼" },
+  { value: "production", label: msg("Production team"), icon: "📋" },
 ];
 
 export type AccountTypeSelectorProps = Omit<

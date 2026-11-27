@@ -3,6 +3,7 @@
  * Pending invitations with resend and revoke
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { ScrollTable } from "./ScrollTable";
@@ -48,12 +49,15 @@ export function InvitationList({
   invitations,
   onResend,
   onRevoke,
-  locale = "en-IN",
+  locale: localeProp,
   now = new Date(),
-  title = "Pending invitations",
+  title: titleProp,
 }: InvitationListProps) {
+  const t = useT();
+  const title = titleProp ?? t("Pending invitations");
+  const locale = useLocale(localeProp);
   if (invitations.length === 0)
-    return <p style={{ color: colorTokens.text.secondary }}>No pending invitations.</p>;
+    return <p style={{ color: colorTokens.text.secondary }}>{t("No pending invitations.")}</p>;
   const date = (d: Date) => d.toLocaleDateString(locale, { day: "numeric", month: "short" });
   const th: React.CSSProperties = {
     textAlign: "left",
@@ -75,16 +79,16 @@ export function InvitationList({
         <thead>
           <tr>
             <th scope="col" style={th}>
-              Email
+              {t("Email")}
             </th>
             <th scope="col" style={th}>
-              Role
+              {t("Role")}
             </th>
             <th scope="col" style={th}>
-              Sent
+              {t("Sent")}
             </th>
             <th scope="col" style={th}>
-              Status
+              {t("Status")}
             </th>
             <th scope="col" style={th}>
               <span
@@ -96,7 +100,7 @@ export function InvitationList({
                   clip: "rect(0 0 0 0)",
                 }}
               >
-                Actions
+                {t("Actions")}
               </span>
             </th>
           </tr>
@@ -118,9 +122,11 @@ export function InvitationList({
                 </td>
                 <td style={td}>
                   {expired ? (
-                    <Badge variant="error">Expired</Badge>
+                    <Badge variant="error">{t("Expired")}</Badge>
                   ) : (
-                    <Badge variant="warning">Waiting · until {date(i.expiresAt)}</Badge>
+                    <Badge variant="warning">
+                      {t("Waiting · until {value}", { value: date(i.expiresAt) })}
+                    </Badge>
                   )}
                 </td>
                 <td style={{ ...td, whiteSpace: "nowrap" }}>
@@ -128,18 +134,18 @@ export function InvitationList({
                     type="button"
                     style={linkBtn}
                     onClick={() => onResend(i.id)}
-                    aria-label={`Resend invitation to ${i.email}`}
+                    aria-label={t("Resend invitation to {email}", { email: i.email })}
                   >
-                    Resend
+                    {t("Resend")}
                   </button>{" "}
                   ·{" "}
                   <button
                     type="button"
                     style={{ ...linkBtn, color: colorTokens.interactive.error }}
                     onClick={() => onRevoke(i.id)}
-                    aria-label={`Revoke invitation to ${i.email}`}
+                    aria-label={t("Revoke invitation to {email}", { email: i.email })}
                   >
-                    Revoke
+                    {t("Revoke")}
                   </button>
                 </td>
               </tr>

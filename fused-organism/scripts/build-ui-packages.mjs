@@ -73,7 +73,7 @@ for (const packageDirectory of packages) {
     // These categories contain hooks, browser APIs, or event-driven controls.
     // Keep static categories, registry data, tokens, and ThemeStyle server-safe.
     const clientCategories = new Set([
-      "./actions", "./ai", "./data", "./forms", "./maps", "./navigation",
+      "./actions", "./ai", "./data", "./forms", "./i18n", "./maps", "./navigation",
       "./status", "./surfaces", "./themes", "./trust", "./whiteboard",
     ]);
     for (const [name, entry] of Object.entries(manifest.exports)) {

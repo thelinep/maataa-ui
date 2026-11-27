@@ -3,6 +3,7 @@
  * Sound or music cues with timecode in/out and status
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React from "react";
 import { Badge } from "../primitives/Badge";
 import { ScrollTable } from "./ScrollTable";
@@ -22,17 +23,17 @@ export interface Cue {
 }
 
 const kindText = {
-  music: "Music",
-  dialogue: "Dialogue",
-  sfx: "Sound effect",
-  foley: "Foley",
-  ambience: "Ambience",
+  music: msg("Music"),
+  dialogue: msg("Dialogue"),
+  sfx: msg("Sound effect"),
+  foley: msg("Foley"),
+  ambience: msg("Ambience"),
 };
 const statusText = {
-  spotted: "Spotted",
-  inProgress: "In progress",
-  delivered: "Delivered",
-  approved: "Approved",
+  spotted: msg("Spotted"),
+  inProgress: msg("In progress"),
+  delivered: msg("Delivered"),
+  approved: msg("Approved"),
 };
 const statusTone = {
   spotted: "default",
@@ -62,6 +63,7 @@ export interface CueListProps {
 
 /** CueList: timecodes are buttons that seek; uncleared music is flagged in words. */
 export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
+  const t = useT();
   const td: React.CSSProperties = {
     padding: spacingTokens.xs,
     borderBottom: `1px solid ${colorTokens.border.primary}`,
@@ -87,19 +89,19 @@ export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
         <thead>
           <tr style={{ textAlign: "left", color: colorTokens.text.secondary }}>
             <th scope="col" style={td}>
-              Cue
+              {t("Cue")}
             </th>
             <th scope="col" style={td}>
-              In
+              {t("In")}
             </th>
             <th scope="col" style={td}>
-              Length
+              {t("Length")}
             </th>
             <th scope="col" style={td}>
-              Description
+              {t("Description")}
             </th>
             <th scope="col" style={td}>
-              Status
+              {t("Status")}
             </th>
           </tr>
         </thead>
@@ -116,7 +118,7 @@ export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
                     color: colorTokens.text.secondary,
                   }}
                 >
-                  {kindText[c.kind]}
+                  {t(kindText[c.kind])}
                 </span>
               </th>
               <td style={td}>
@@ -124,7 +126,7 @@ export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
                   <button
                     type="button"
                     onClick={() => onSeek(c.in)}
-                    aria-label={`Go to ${c.code} at ${c.in}`}
+                    aria-label={t("Go to {code} at {in}", { code: c.code, in: c.in })}
                     style={{
                       ...tc,
                       padding: "0 4px",
@@ -142,7 +144,7 @@ export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
               </td>
               <td style={{ ...td, ...tc }}>{cueLength(c.in, c.out)}</td>
               <td style={td}>
-                {c.description}
+                {t(c.description)}
                 {c.kind === "music" && !c.cleared && (
                   <span
                     style={{
@@ -152,12 +154,12 @@ export function CueList({ cues, onSeek, caption = "Cue list" }: CueListProps) {
                       fontSize: typographyTokens.fontSize.xs,
                     }}
                   >
-                    Rights not cleared
+                    {t("Rights not cleared")}
                   </span>
                 )}
               </td>
               <td style={td}>
-                <Badge variant={statusTone[c.status]}>{statusText[c.status]}</Badge>
+                <Badge variant={statusTone[c.status]}>{t(statusText[c.status])}</Badge>
               </td>
             </tr>
           ))}

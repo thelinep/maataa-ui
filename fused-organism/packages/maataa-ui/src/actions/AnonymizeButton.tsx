@@ -3,6 +3,7 @@
  * Irreversibly remove personal details from a record (DPDP / GDPR erasure)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { Button, type ButtonProps } from "../primitives/Button";
 import { TypedConfirmDialog } from "../surfaces/TypedConfirmDialog";
@@ -26,21 +27,22 @@ export interface AnonymizeButtonProps extends Omit<ButtonProps, "onClick" | "chi
  */
 export const AnonymizeButton = React.forwardRef<HTMLButtonElement, AnonymizeButtonProps>(
   ({ personName, retainedNote, onAnonymize, variant = "danger", ...props }, ref) => {
+    const t = useT();
     const [open, setOpen] = useState(false);
     return (
       <>
         <Button
           ref={ref}
           variant={variant}
-          aria-label={`Anonymize ${personName}`}
+          aria-label={t("Anonymize {personName}", { personName })}
           onClick={() => setOpen(true)}
           {...props}
         >
-          Anonymize
+          {t("Anonymize")}
         </Button>
         <TypedConfirmDialog
           isOpen={open}
-          title={`Anonymize ${personName}?`}
+          title={t("Anonymize {personName}?", { personName })}
           message={
             <>
               <p style={{ marginTop: 0 }}>
@@ -51,7 +53,7 @@ export const AnonymizeButton = React.forwardRef<HTMLButtonElement, AnonymizeButt
             </>
           }
           confirmationText={personName}
-          confirmLabel="Anonymize"
+          confirmLabel={t("Anonymize")}
           onCancel={() => setOpen(false)}
           onConfirm={() => {
             setOpen(false);

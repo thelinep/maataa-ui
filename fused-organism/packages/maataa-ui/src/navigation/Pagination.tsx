@@ -3,6 +3,7 @@
  * Page navigation component for tables and lists
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { Stack } from "../primitives/Stack";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -61,11 +62,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
       maxPages = 5,
       disabled = false,
       showNavButtons = true,
-      ariaLabel = "Pagination",
+      ariaLabel: ariaLabelProp,
       ...props
     },
     ref
   ) => {
+    const t = useT();
+    const ariaLabel = ariaLabelProp ?? t("Pagination");
     // Calculate visible page range
     const getPageNumbers = () => {
       const pages: (number | string)[] = [];
@@ -109,7 +112,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1 || disabled}
-              aria-label="Previous page"
+              aria-label={t("Previous page")}
               style={{
                 padding: `${spacingTokens.sm} ${spacingTokens.md}`,
                 border: `1px solid ${colorTokens.border.primary}`,
@@ -121,7 +124,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
                 transition: "all 0.2s ease",
               }}
             >
-              ← Previous
+              ← {t("Previous")}
             </button>
           )}
 
@@ -148,7 +151,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
                       onClick={() => handlePageChange(page as number)}
                       disabled={disabled}
                       aria-current={isActive ? "page" : undefined}
-                      aria-label={`Go to page ${page}`}
+                      aria-label={t("Go to page {page}", { page })}
                       style={{
                         width: "36px",
                         height: "36px",
@@ -178,7 +181,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages || disabled}
-              aria-label="Next page"
+              aria-label={t("Next page")}
               style={{
                 padding: `${spacingTokens.sm} ${spacingTokens.md}`,
                 border: `1px solid ${colorTokens.border.primary}`,
@@ -190,13 +193,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
                 transition: "all 0.2s ease",
               }}
             >
-              Next →
+              {t("Next →")}
             </button>
           )}
 
           {/* Info text */}
           <VisuallyHidden>
-            Page {currentPage} of {totalPages}
+            {t("Page {currentPage} of {totalPages}", { currentPage, totalPages })}
           </VisuallyHidden>
         </Stack>
       </nav>

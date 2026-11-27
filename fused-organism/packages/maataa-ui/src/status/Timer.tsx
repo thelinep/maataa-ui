@@ -3,6 +3,7 @@
  * Start / stop timer for a timed activity (a take, a filming block)
  */
 
+import { useT } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -60,6 +61,7 @@ export function spokenDuration(ms: number): string {
  */
 export const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
   ({ label, onStart, onStop, now = Date.now, style, ...props }, ref) => {
+    const t = useT();
     const [startedAt, setStartedAt] = useState<number | null>(null);
     const [elapsed, setElapsed] = useState(0);
     const [message, setMessage] = useState("");
@@ -116,10 +118,10 @@ export const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
         </span>
         {running ? (
           <Button variant="danger" onClick={stop}>
-            Stop
+            {t("Stop")}
           </Button>
         ) : (
-          <Button onClick={start}>Start</Button>
+          <Button onClick={start}>{t("Start")}</Button>
         )}
         <span
           role="status"

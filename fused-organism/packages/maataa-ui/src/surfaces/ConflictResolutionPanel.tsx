@@ -3,6 +3,7 @@
  * Two versions of a record changed offline: choose per field
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -43,8 +44,10 @@ export function ConflictResolutionPanel({
   theirTime,
   fields,
   onResolve,
-  locale = "en-IN",
+  locale: localeProp,
 }: ConflictResolutionPanelProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const id = useId();
   const [choice, setChoice] = useState<Record<string, "mine" | "theirs">>(() =>
     Object.fromEntries(fields.map((f) => [f.key, "mine"]))
@@ -67,22 +70,34 @@ export function ConflictResolutionPanel({
     >
       <div>
         <h2 id={`${id}-t`} style={{ margin: 0, fontSize: typographyTokens.fontSize.xl }}>
-          Two versions of {recordName}
+          {t("Two versions of {recordName}", { recordName })}
         </h2>
         <p style={{ margin: `${spacingTokens.xs} 0 0`, color: colorTokens.text.secondary }}>
-          {theirAuthor} changed this while you were offline
           {theirTime
-            ? ` (${theirTime.toLocaleString(locale, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })})`
-            : ""}
-          . Choose which value to keep for each field.
+            ? t(
+                "{theirAuthor} changed this while you were offline ({when}). Choose which value to keep for each field.",
+                {
+                  theirAuthor,
+                  when: theirTime.toLocaleString(locale, {
+                    day: "numeric",
+                    month: "short",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  }),
+                }
+              )
+            : t(
+                "{theirAuthor} changed this while you were offline. Choose which value to keep for each field.",
+                { theirAuthor }
+              )}
         </p>
       </div>
       <div style={{ display: "flex", gap: spacingTokens.sm }}>
         <Button variant="secondary" onClick={() => all("mine")}>
-          Keep all mine
+          {t("Keep all mine")}
         </Button>
         <Button variant="secondary" onClick={() => all("theirs")}>
-          Keep all {theirAuthor}’s
+          {t("Keep all {theirAuthor}’s", { theirAuthor })}
         </Button>
       </div>
       {fields.map((f) => (
@@ -135,7 +150,7 @@ export function ConflictResolutionPanel({
             )
           }
         >
-          Save chosen values
+          {t("Save chosen values")}
         </Button>
       </div>
     </section>

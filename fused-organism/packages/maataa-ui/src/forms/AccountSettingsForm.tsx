@@ -3,6 +3,7 @@
  * Name, contact, language, time zone and notification preferences
  */
 
+import { useT, msg } from "../i18n/LocaleProvider";
 import React, { useId, useState } from "react";
 import { Input } from "../primitives/Input";
 import { Button } from "../primitives/Button";
@@ -50,6 +51,7 @@ export function AccountSettingsForm({
     "Asia/Singapore",
   ],
 }: AccountSettingsFormProps) {
+  const t = useT();
   const id = useId();
   const [v, setV] = useState(initial);
   const [errors, setErrors] = useState<FormError[]>([]);
@@ -79,13 +81,16 @@ export function AccountSettingsForm({
   return (
     <form
       noValidate
-      aria-label="Account settings"
+      aria-label={t("Account settings")}
       onSubmit={(e) => {
         e.preventDefault();
         const errs: FormError[] = [];
-        if (!v.name.trim()) errs.push({ fieldId: `${id}-name`, message: "Enter your name" });
+        if (!v.name.trim()) errs.push({ fieldId: `${id}-name`, message: msg("Enter your name") });
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email.trim()))
-          errs.push({ fieldId: `${id}-email`, message: "Enter an email like name@example.com" });
+          errs.push({
+            fieldId: `${id}-email`,
+            message: msg("Enter an email like name@example.com"),
+          });
         setErrors(errs);
         if (!errs.length) onSave(v);
       }}
@@ -93,10 +98,10 @@ export function AccountSettingsForm({
     >
       <ErrorSummary errors={errors} />
       <fieldset style={box}>
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>You</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>{t("You")}</legend>
         <Input
           id={`${id}-name`}
-          label="Name"
+          label={t("Name")}
           autoComplete="name"
           value={v.name}
           onChange={(e) => setV({ ...v, name: e.target.value })}
@@ -104,17 +109,19 @@ export function AccountSettingsForm({
         />
         <Input
           id={`${id}-credit`}
-          label="Name in credits"
+          label={t("Name in credits")}
           value={v.creditName}
           onChange={(e) => setV({ ...v, creditName: e.target.value })}
-          helperText="e.g. Pandit Hemant Kumar Dixit (PHKD)"
+          helperText={t("e.g. Pandit Hemant Kumar Dixit (PHKD)")}
         />
       </fieldset>
       <fieldset style={box}>
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Contact</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {t("Contact")}
+        </legend>
         <Input
           id={`${id}-email`}
-          label="Email"
+          label={t("Email")}
           type="email"
           autoComplete="email"
           value={v.email}
@@ -128,7 +135,7 @@ export function AccountSettingsForm({
         />
         <Input
           id={`${id}-phone`}
-          label="Phone"
+          label={t("Phone")}
           type="tel"
           autoComplete="tel"
           value={v.phone}
@@ -137,15 +144,15 @@ export function AccountSettingsForm({
       </fieldset>
       <fieldset style={box}>
         <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
-          Language and time
+          {t("Language and time")}
         </legend>
         <LanguageSelector
           value={v.language}
           onChange={(language) => setV({ ...v, language })}
-          label="App language"
+          label={t("App language")}
         />
         <label style={{ display: "flex", flexDirection: "column", gap: 4, fontWeight: 500 }}>
-          Time zone
+          {t("Time zone")}
           <select
             value={v.timeZone}
             onChange={(e) => setV({ ...v, timeZone: e.target.value })}
@@ -167,12 +174,14 @@ export function AccountSettingsForm({
         </label>
       </fieldset>
       <fieldset style={box}>
-        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>Notifications</legend>
+        <legend style={{ fontWeight: 700, padding: `0 ${spacingTokens.xs}` }}>
+          {t("Notifications")}
+        </legend>
         {chk("email", "Email notifications")}
         {chk("sms", "SMS notifications (call sheets and urgent changes only)")}
         {chk("whatsapp", "WhatsApp notifications")}
         <label style={{ display: "flex", flexDirection: "column", gap: 4, fontWeight: 500 }}>
-          Summary email
+          {t("Summary email")}
           <select
             value={v.notify.digest}
             onChange={(e) =>
@@ -194,19 +203,19 @@ export function AccountSettingsForm({
               maxWidth: 200,
             }}
           >
-            <option value="off">Off</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
+            <option value="off">{t("Off")}</option>
+            <option value="daily">{t("Daily")}</option>
+            <option value="weekly">{t("Weekly")}</option>
           </select>
         </label>
       </fieldset>
       <div style={{ display: "flex", gap: spacingTokens.sm, alignItems: "center" }}>
         <Button type="submit" disabled={!dirty || busy}>
-          {busy ? "Saving…" : "Save changes"}
+          {busy ? t("Saving…") : t("Save changes")}
         </Button>
         {dirty && (
           <Button variant="secondary" onClick={() => setV(initial)}>
-            Undo changes
+            {t("Undo changes")}
           </Button>
         )}
         <span

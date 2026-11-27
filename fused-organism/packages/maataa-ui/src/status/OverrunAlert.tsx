@@ -3,6 +3,7 @@
  * Warns when spending passes (or nears) the budget
  */
 
+import { useLocale, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 
@@ -32,9 +33,11 @@ export function OverrunAlert({
   actual,
   warnAt = 0.9,
   currency = "INR",
-  locale = "en-IN",
+  locale: localeProp,
   action,
 }: OverrunAlertProps) {
+  const t = useT();
+  const locale = useLocale(localeProp);
   const money = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -65,8 +68,17 @@ export function OverrunAlert({
           {over ? `${subject} is over budget` : `${subject} is close to its budget`}
         </strong>
         <br />
-        {money.format(actual)} spent of {money.format(budget)}
-        {over ? ` (${money.format(actual - budget)} over)` : ` (${Math.round(ratio * 100)}%)`}.
+        {over
+          ? t("{actual} spent of {budget} ({overBy} over).", {
+              actual: money.format(actual),
+              budget: money.format(budget),
+              overBy: money.format(actual - budget),
+            })
+          : t("{actual} spent of {budget} ({pct}%).", {
+              actual: money.format(actual),
+              budget: money.format(budget),
+              pct: Math.round(ratio * 100),
+            })}
       </span>
       {action}
     </div>
