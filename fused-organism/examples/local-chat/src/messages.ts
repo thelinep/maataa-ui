@@ -2,6 +2,7 @@
 // translated by @maataa/ui's built-in catalog; these entries are merged over it
 // through LocaleProvider's `messages` prop.
 export const appMessagesHi: Record<string, string> = {
+  "Open the older Workstation console": "Workstation का पुराना console खोलें",
   "Checking the model server…": "मॉडल सर्वर जाँचा जा रहा है…",
   "Connected, but no models are installed. For Ollama, run: ollama pull llama3.2":
     "जुड़ गया, पर कोई मॉडल इंस्टॉल नहीं है। Ollama के लिए चलाएँ: ollama pull llama3.2",

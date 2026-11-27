@@ -8,7 +8,7 @@ let threeSource: Promise<string> | null = null;
 
 /** three.js as one script (built by scripts/build-three-vendor.mjs). */
 export function loadThree(): Promise<string> {
-  threeSource ??= fetch("/vendor/three-scene.js").then((r) => {
+  threeSource ??= fetch(`${import.meta.env.BASE_URL}vendor/three-scene.js`).then((r) => {
     if (!r.ok) throw new Error(`three.js is missing (HTTP ${r.status}). Run npm run chat:local:build.`);
     return r.text();
   });

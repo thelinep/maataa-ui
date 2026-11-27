@@ -517,7 +517,7 @@ function Main({
   // ---- context and prompt -------------------------------------------------
   const [docs, setDocs] = useState<DocChunk[] | null>(null);
   useEffect(() => {
-    fetch("/maataa-docs.json")
+    fetch(`${import.meta.env.BASE_URL}maataa-docs.json`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((json: { chunks: DocChunk[] }) => setDocs(json.chunks))
       .catch(() => setDocs([]));
