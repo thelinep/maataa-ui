@@ -33,13 +33,14 @@ export function Waveform({
   height = 72,
   clipAt = 0.98,
 }: WaveformProps) {
+  const t = useT();
   const n = peaks.length || 1;
   const clips = peaks.filter((p) => p >= clipAt).length;
   const mid = height / 2;
   return (
     <svg
       role="img"
-      aria-label={`${label}. ${clips ? `${clips} clipping ${clips === 1 ? "peak" : "peaks"}.` : "No clipping."}`}
+      aria-label={`${label}. ${clips ? t.plural(clips, "{count} clipping peak.", "{count} clipping peaks.") : t("No clipping.")}`}
       viewBox={`0 0 ${n * 3} ${height}`}
       preserveAspectRatio="none"
       width="100%"

@@ -64,7 +64,15 @@ export function ShareLinkDisplay({
       >
         {audience ?? "Anyone with the link can view"}
         {expiresAt
-          ? ` · works until ${expiresAt.toLocaleString(locale, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}`
+          ? " · " +
+            t("works until {date}", {
+              date: expiresAt.toLocaleString(locale, {
+                day: "numeric",
+                month: "short",
+                hour: "numeric",
+                minute: "2-digit",
+              }),
+            })
           : ""}
       </div>
       {onRevoke && (

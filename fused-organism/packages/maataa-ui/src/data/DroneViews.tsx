@@ -216,10 +216,10 @@ export function AltitudeDisplay({ metres, ceilingM = 120, marginM = 10 }: Altitu
         </div>
         <div role={state === "over" ? "alert" : "status"} style={{ fontWeight: 600, color }}>
           {state === "over"
-            ? `Above the ${ceilingM} m limit. Descend now.`
+            ? tx("Above the {ceilingM} m limit. Descend now.", { ceilingM })
             : state === "near"
-              ? `Close to the ${ceilingM} m limit`
-              : `${Math.round(metres)} m, within limit`}
+              ? tx("Close to the {ceilingM} m limit", { ceilingM })
+              : tx("{metres} m, within limit", { metres: Math.round(metres) })}
         </div>
       </div>
     </div>
@@ -280,7 +280,13 @@ export function OperatorSelector({
         const ok = valid(o);
         const reason = !o.rpc
           ? "No remote pilot certificate"
-          : `Certificate expired ${o.rpcExpires?.toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}`;
+          : tx("Certificate expired {date}", {
+              date: o.rpcExpires?.toLocaleDateString(locale, {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              }),
+            });
         return (
           <label
             key={o.id}

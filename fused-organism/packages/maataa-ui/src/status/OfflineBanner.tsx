@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from "react";
+import { useT } from "../i18n/LocaleProvider";
 import { colorTokens, spacingTokens } from "../tokens";
 
 export interface OfflineBannerProps {
@@ -48,6 +49,7 @@ export function OfflineBanner({
   pendingCount = 0,
   showReconnected = true,
 }: OfflineBannerProps) {
+  const t = useT();
   const auto = useOnlineStatus();
   const isOnline = online ?? auto;
   const [justReconnected, setJustReconnected] = useState(false);
@@ -68,12 +70,18 @@ export function OfflineBanner({
 
   const pending =
     pendingCount > 0
-      ? ` ${pendingCount} ${pendingCount === 1 ? "change is" : "changes are"} waiting to sync.`
+      ? " " +
+        t.plural(
+          pendingCount,
+          "{count} change is waiting to sync.",
+          "{count} changes are waiting to sync."
+        )
       : "";
   const text = !isOnline
-    ? `You're offline. Your work is saved on this device and will sync when you reconnect.${pending}`
+    ? t("You're offline. Your work is saved on this device and will sync when you reconnect.") +
+      pending
     : justReconnected
-      ? "Back online. Syncing your changes."
+      ? t("Back online. Syncing your changes.")
       : "";
   return (
     <div

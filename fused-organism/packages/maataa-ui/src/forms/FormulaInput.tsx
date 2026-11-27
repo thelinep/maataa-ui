@@ -4,7 +4,7 @@
  * safe parser (no eval) and the result or error in words
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { englishT, useT, type TranslateFn } from "../i18n/LocaleProvider";
 import React, { useRef } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { FieldFrame, controlStyle, smallButtonStyle } from "./fieldKit";
@@ -25,9 +25,13 @@ const FUNCS: Record<string, (...a: number[]) => number> = {
  * Evaluate + - * / ^ %, parentheses, numbers, variables and the functions
  * min, max, round, floor, ceil, abs, sqrt.
  */
-export function evaluateFormula(expr: string, vars: Record<string, number>): FormulaResult {
+export function evaluateFormula(
+  expr: string,
+  vars: Record<string, number>,
+  t: TranslateFn = englishT
+): FormulaResult {
   const src = expr.trim();
-  if (!src) return { ok: false, error: "The formula is empty." };
+  if (!src) return { ok: false, error: t("The formula is empty.") };
   let i = 0;
   const peek = () => {
     while (src[i] === " ") i++;
@@ -41,7 +45,7 @@ export function evaluateFormula(expr: string, vars: Record<string, number>): For
     if (c === "(") {
       i++;
       const v = add();
-      if (peek() !== ")") fail("A bracket is not closed.");
+      if (peek() !== ")") fail(t("A bracket is not closed."));
       i++;
       return v;
     }
@@ -64,7 +68,7 @@ export function evaluateFormula(expr: string, vars: Record<string, number>): For
       const n = name[0];
       if (peek() === "(") {
         const fn = FUNCS[n.toLowerCase()];
-        if (!fn) fail(`There is no function called ${n}.`);
+        if (!fn) fail(t("There is no function called {name}.", { name: n }));
         i++;
         const args: number[] = [];
         if (peek() !== ")") {
@@ -74,15 +78,15 @@ export function evaluateFormula(expr: string, vars: Record<string, number>): For
             args.push(add());
           }
         }
-        if (peek() !== ")") fail(`The bracket after ${n} is not closed.`);
+        if (peek() !== ")") fail(t("The bracket after {name} is not closed.", { name: n }));
         i++;
         return fn!(...args);
       }
-      if (!(n in vars)) fail(`Unknown value “${n}”.`);
+      if (!(n in vars)) fail(t("Unknown value “{name}”.", { name: n }));
       return vars[n]!;
     }
-    if (c === undefined) fail("The formula ends too early.");
-    return fail(`Unexpected “${c}” at position ${i + 1}.`);
+    if (c === undefined) fail(t("The formula ends too early."));
+    return fail(t("Unexpected “{char}” at position {position}.", { char: c, position: i + 1 }));
   };
   const power = (): number => {
     const b = primary();
@@ -99,7 +103,7 @@ export function evaluateFormula(expr: string, vars: Record<string, number>): For
       if (c === "*" || c === "/" || c === "%") {
         i++;
         const r = power();
-        if (c === "/" && r === 0) fail("Division by zero.");
+        if (c === "/" && r === 0) fail(t("Division by zero."));
         v = c === "*" ? v * r : c === "/" ? v / r : v % r;
       } else return v;
     }
@@ -117,8 +121,9 @@ export function evaluateFormula(expr: string, vars: Record<string, number>): For
   };
   try {
     const v = add();
-    if (peek() !== undefined) fail(`Unexpected “${src[i]}” at position ${i + 1}.`);
-    if (!Number.isFinite(v)) fail("The result is not a finite number.");
+    if (peek() !== undefined)
+      fail(t("Unexpected “{char}” at position {position}.", { char: src[i], position: i + 1 }));
+    if (!Number.isFinite(v)) fail(t("The result is not a finite number."));
     return { ok: true, value: v };
   } catch (e) {
     return { ok: false, error: (e as Error).message };
@@ -158,7 +163,7 @@ export function FormulaInput({
   const t = useT();
   const ref = useRef<HTMLInputElement>(null);
   const vars = Object.fromEntries(variables.map((v) => [v.name, v.value]));
-  const result = value.trim() ? evaluateFormula(value, vars) : null;
+  const result = value.trim() ? evaluateFormula(value, vars, t) : null;
   const err = result && !result.ok ? result.error : undefined;
 
   const insert = (text: string) => {
@@ -166,7 +171,7 @@ export function FormulaInput({
     const s = el?.selectionStart ?? value.length;
     const e = el?.selectionEnd ?? value.length;
     const next = value.slice(0, s) + text + value.slice(e);
-    onChange(next, evaluateFormula(next, vars));
+    onChange(next, evaluateFormula(next, vars, t));
     requestAnimationFrame(() => {
       el?.focus();
       el?.setSelectionRange(s + text.length, s + text.length);
@@ -187,7 +192,7 @@ export function FormulaInput({
             value={value}
             spellCheck={false}
             autoCapitalize="off"
-            onChange={(e) => onChange(e.target.value, evaluateFormula(e.target.value, vars))}
+            onChange={(e) => onChange(e.target.value, evaluateFormula(e.target.value, vars, t))}
             aria-invalid={err ? true : undefined}
             aria-describedby={ids.describedBy}
             style={{ ...controlStyle(!!err), fontFamily: "ui-monospace, Menlo, monospace" }}

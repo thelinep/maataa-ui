@@ -4,7 +4,7 @@
  * path and expand/collapse all
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { useT, type Translator } from "../i18n/LocaleProvider";
 import React, { useMemo, useRef, useState } from "react";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
 import { VisuallyHidden } from "../primitives/VisuallyHidden";
@@ -36,13 +36,13 @@ function build(v: Json, key: string, path: string, depth: number): Node {
   return { path, key, value: v, depth, kids };
 }
 
-const typeWord = (v: Json) =>
+const typeWord = (v: Json, t: Translator) =>
   v === null
     ? "null"
     : Array.isArray(v)
-      ? `array, ${v.length} items`
+      ? t.plural(v.length, "array, {count} item", "array, {count} items")
       : typeof v === "object"
-        ? `object, ${Object.keys(v).length} keys`
+        ? t.plural(Object.keys(v).length, "object, {count} key", "object, {count} keys")
         : typeof v;
 
 function preview(v: Json): string {
@@ -159,10 +159,10 @@ export function JsonExplorer({ data, label: labelProp, initialDepth = 1 }: JsonE
   const copy = (p: string) => {
     if (navigator.clipboard?.writeText)
       navigator.clipboard.writeText(p).then(
-        () => setMsg(`Copied path ${p}`),
-        () => setMsg(`Path is ${p}`)
+        () => setMsg(t("Copied path {p}", { p })),
+        () => setMsg(t("Path is {p}", { p }))
       );
-    else setMsg(`Path is ${p}`);
+    else setMsg(t("Path is {p}", { p }));
   };
 
   const render = (n: Node): React.ReactNode => {
@@ -223,14 +223,14 @@ export function JsonExplorer({ data, label: labelProp, initialDepth = 1 }: JsonE
           <span style={{ color: colorTokens.text.tertiary }}>:</span>{" "}
           {isBranch ? (
             <>
-              <VisuallyHidden>{typeWord(n.value)}</VisuallyHidden>
+              <VisuallyHidden>{typeWord(n.value, t)}</VisuallyHidden>
               <span aria-hidden="true" style={{ color: valueColor }}>
                 {preview(n.value)}
               </span>
             </>
           ) : (
             <>
-              <VisuallyHidden>{`${typeWord(n.value)},`}</VisuallyHidden>{" "}
+              <VisuallyHidden>{`${typeWord(n.value, t)},`}</VisuallyHidden>{" "}
               <span style={{ color: valueColor }}>{preview(n.value)}</span>
             </>
           )}

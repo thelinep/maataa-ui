@@ -321,12 +321,15 @@ export function BackgroundSyncToast({
   const t = useT();
   const text =
     state === "offline"
-      ? `${pending} ${noun} saved on this device. They’ll upload when you’re back online.`
+      ? t("{count} {noun} saved on this device. They’ll upload when you’re back online.", {
+          count: pending,
+          noun,
+        })
       : state === "syncing"
-        ? `Uploading ${pending} ${noun}…`
+        ? t("Uploading {count} {noun}…", { count: pending, noun })
         : state === "synced"
-          ? `All ${noun} uploaded.`
-          : `${pending} ${noun} couldn’t upload.`;
+          ? t("All {noun} uploaded.", { noun })
+          : t("{count} {noun} couldn’t upload.", { count: pending, noun });
   const [bg, fg, sym] =
     state === "failed"
       ? [colorTokens.semantic.error.bg, colorTokens.semantic.error.text, "!"]
@@ -533,13 +536,12 @@ export function BiometricUnlock({
   const [fails, setFails] = useState(0);
   const [msg, setMsg] = useState("");
   const max = 3;
-  const word = method === "face" ? "face" : "fingerprint";
   const run = async () => {
     setBusy(true);
-    setMsg(`Checking your ${word}…`);
+    setMsg(method === "face" ? t("Checking your face…") : t("Checking your fingerprint…"));
     try {
       if (await verify()) {
-        setMsg("Unlocked.");
+        setMsg(t("Unlocked."));
         onUnlocked();
       } else throw new Error("no");
     } catch {
@@ -547,8 +549,14 @@ export function BiometricUnlock({
       setFails(n);
       setMsg(
         n >= max
-          ? `${word[0]!.toUpperCase()}${word.slice(1)} unlock is paused. Use your passcode.`
-          : `Didn’t match. ${max - n} ${max - n === 1 ? "try" : "tries"} left.`
+          ? method === "face"
+            ? t("Face unlock is paused. Use your passcode.")
+            : t("Fingerprint unlock is paused. Use your passcode.")
+          : t.plural(
+              max - n,
+              "Didn’t match. {count} try left.",
+              "Didn’t match. {count} tries left."
+            )
       );
     } finally {
       setBusy(false);
@@ -598,7 +606,11 @@ export function BiometricUnlock({
           opacity: fails >= max ? 0.5 : 1,
         }}
       >
-        {busy ? "Checking…" : `Unlock with ${word}`}
+        {busy
+          ? t("Checking…")
+          : method === "face"
+            ? t("Unlock with face")
+            : t("Unlock with fingerprint")}
       </button>
       <button
         type="button"

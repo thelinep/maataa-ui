@@ -46,7 +46,7 @@ export interface BaseEntity {
   type: EntityType;
   name: string;
   description?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
   updatedAt: Date;
   tags?: string[];

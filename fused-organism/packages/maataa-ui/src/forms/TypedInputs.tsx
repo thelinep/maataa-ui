@@ -4,7 +4,7 @@
  * validation in words
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { englishT, useT, type TranslateFn } from "../i18n/LocaleProvider";
 import React, { useState } from "react";
 import { colorTokens, spacingTokens } from "../tokens";
 import { FieldFrame, controlStyle } from "./fieldKit";
@@ -21,20 +21,26 @@ type BaseProps = Omit<
 };
 
 /** Returns an error message, or null when the URL is acceptable */
-export function validateUrl(value: string, schemes: string[] = ["https", "http"]): string | null {
+export function validateUrl(
+  value: string,
+  schemes: string[] = ["https", "http"],
+  t: TranslateFn = englishT
+): string | null {
   if (!value.trim()) return null;
   let u: URL;
   try {
     u = new URL(value.trim());
   } catch {
-    return "Enter a full web address, starting with https://";
+    return t("Enter a full web address, starting with https://");
   }
   const scheme = u.protocol.replace(":", "");
   if (!schemes.includes(scheme)) {
-    return `Addresses must start with ${schemes.map((s) => `${s}://`).join(" or ")}`;
+    return t("Addresses must start with {schemes}", {
+      schemes: schemes.map((s) => `${s}://`).join(" / "),
+    });
   }
   if (!u.hostname.includes(".") && u.hostname !== "localhost") {
-    return "That address has no domain, like example.com";
+    return t("That address has no domain, like example.com");
   }
   return null;
 }
@@ -60,8 +66,9 @@ export function UrlInput({
   id,
   ...props
 }: UrlInputProps) {
+  const t = useT();
   const [touched, setTouched] = useState(false);
-  const own = touched ? validateUrl(value, schemes) : null;
+  const own = touched ? validateUrl(value, schemes, t) : null;
   const msg = error ?? own ?? undefined;
   return (
     <FieldFrame label={label} hint={hint} error={msg} id={id}>
@@ -144,7 +151,11 @@ export function TelInput({
   const digits = normalizeTel(value.number);
   const own =
     touched && expectedDigits && digits.length > 0 && digits.length !== expectedDigits
-      ? `Enter ${expectedDigits} digits after ${value.dialCode} (you have ${digits.length})`
+      ? t("Enter {expected} digits after {dialCode} (you have {count})", {
+          expected: expectedDigits,
+          dialCode: value.dialCode,
+          count: digits.length,
+        })
       : null;
   const msg = error ?? own ?? undefined;
   return (
@@ -211,11 +222,12 @@ export function PercentageInput({
   id,
   ...props
 }: PercentageInputProps) {
+  const t = useT();
   const [text, setText] = useState(value == null ? "" : String(value));
   const [own, setOwn] = useState<string | null>(null);
   const msg = error ?? own ?? undefined;
-  const commit = (t: string) => {
-    const s = t.replace(/%/g, "").replace(/,/g, ".").trim();
+  const commit = (raw: string) => {
+    const s = raw.replace(/%/g, "").replace(/,/g, ".").trim();
     if (s === "") {
       setOwn(null);
       onChange(null);
@@ -223,11 +235,11 @@ export function PercentageInput({
     }
     const n = Number(s);
     if (!Number.isFinite(n)) {
-      setOwn("Enter a number, like 12.5");
+      setOwn(t("Enter a number, like 12.5"));
       return;
     }
     if (n < min || n > max) {
-      setOwn(`Enter a percentage from ${min} to ${max}`);
+      setOwn(t("Enter a percentage from {min} to {max}", { min, max }));
       return;
     }
     const f = 10 ** decimals;

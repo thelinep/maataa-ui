@@ -78,9 +78,13 @@ export function AssumptionEditor({ title, assumptions, onChange }: AssumptionEdi
                   color: out ? colorTokens.interactive.error : colorTokens.text.secondary,
                 }}
               >
-                {a.min !== undefined && a.max !== undefined ? `Usually ${a.min}–${a.max}` : ""}
-                {out ? " · outside the usual range" : ""}
-                {a.source ? `${a.min !== undefined ? " · " : ""}Source: ${a.source}` : ""}
+                {a.min !== undefined && a.max !== undefined
+                  ? t("Usually {min}–{max}", { min: a.min, max: a.max })
+                  : ""}
+                {out ? " · " + t("outside the usual range") : ""}
+                {a.source
+                  ? `${a.min !== undefined ? " · " : ""}${t("Source: {source}", { source: a.source })}`
+                  : ""}
               </span>
             </label>
             <input

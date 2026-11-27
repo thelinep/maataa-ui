@@ -49,7 +49,13 @@ export function ConsentToggle({
   const id = useId();
   const when =
     granted && consentedAt
-      ? `Given on ${consentedAt.toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}`
+      ? t("Given on {date}", {
+          date: consentedAt.toLocaleDateString(locale, {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }),
+        })
       : granted
         ? t("Given")
         : t("Not given");

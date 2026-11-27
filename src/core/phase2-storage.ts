@@ -9,8 +9,9 @@ import { Relationship } from './phase2-relationship-manager';
 import { Fact } from './phase2-knowledge-base';
 
 export interface StorageBackend {
-  save(key: string, data: any): Promise<void>;
-  load(key: string): Promise<any>;
+  save(key: string, data: unknown): Promise<void>;
+  /** Returns what was saved under `key` (parsed JSON), or null/undefined if nothing was. */
+  load<T = unknown>(key: string): Promise<T | null | undefined>;
   delete(key: string): Promise<void>;
   clear(): Promise<void>;
   getAllKeys(): Promise<string[]>;
@@ -20,14 +21,14 @@ export interface StorageBackend {
  * In-memory storage backend
  */
 export class MemoryStorage implements StorageBackend {
-  private store: Map<string, any> = new Map();
+  private store: Map<string, unknown> = new Map();
 
-  async save(key: string, data: any): Promise<void> {
+  async save(key: string, data: unknown): Promise<void> {
     this.store.set(key, JSON.parse(JSON.stringify(data)));
   }
 
-  async load(key: string): Promise<any> {
-    return this.store.get(key);
+  async load<T = unknown>(key: string): Promise<T | undefined> {
+    return this.store.get(key) as T | undefined;
   }
 
   async delete(key: string): Promise<void> {
@@ -49,7 +50,7 @@ export class MemoryStorage implements StorageBackend {
 export class LocalStorageBackend implements StorageBackend {
   private prefix = 'maataa:';
 
-  async save(key: string, data: any): Promise<void> {
+  async save(key: string, data: unknown): Promise<void> {
     try {
       localStorage.setItem(this.prefix + key, JSON.stringify(data));
     } catch (error) {
@@ -58,10 +59,10 @@ export class LocalStorageBackend implements StorageBackend {
     }
   }
 
-  async load(key: string): Promise<any> {
+  async load<T = unknown>(key: string): Promise<T | null> {
     try {
       const item = localStorage.getItem(this.prefix + key);
-      return item ? JSON.parse(item) : null;
+      return item ? (JSON.parse(item) as T) : null;
     } catch (error) {
       console.error('Failed to load from localStorage:', error);
       throw error;
@@ -151,7 +152,7 @@ export class DataPersistence {
    * Load entities
    */
   async loadEntities(): Promise<Entity[]> {
-    const entities = await this.backend.load('entities');
+    const entities = await this.backend.load<Entity[]>('entities');
     return entities || [];
   }
 
@@ -167,7 +168,7 @@ export class DataPersistence {
    * Load relationships
    */
   async loadRelationships(): Promise<Relationship[]> {
-    const relationships = await this.backend.load('relationships');
+    const relationships = await this.backend.load<Relationship[]>('relationships');
     return relationships || [];
   }
 
@@ -183,7 +184,7 @@ export class DataPersistence {
    * Load facts
    */
   async loadFacts(): Promise<Fact[]> {
-    const facts = await this.backend.load('facts');
+    const facts = await this.backend.load<Fact[]>('facts');
     return facts || [];
   }
 
@@ -194,7 +195,7 @@ export class DataPersistence {
     entities: Entity[];
     relationships: Relationship[];
     facts: Fact[];
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }): Promise<void> {
     await this.backend.save('snapshot', {
       ...data,
@@ -206,7 +207,7 @@ export class DataPersistence {
   /**
    * Load snapshot
    */
-  async loadSnapshot(): Promise<any> {
+  async loadSnapshot(): Promise<unknown> {
     return await this.backend.load('snapshot');
   }
 
@@ -214,9 +215,9 @@ export class DataPersistence {
    * Create backup
    */
   async createBackup(name: string = 'backup'): Promise<void> {
-    const entities = await this.backend.load('entities');
-    const relationships = await this.backend.load('relationships');
-    const facts = await this.backend.load('facts');
+    const entities = await this.backend.load<Entity[]>('entities');
+    const relationships = await this.backend.load<Relationship[]>('relationships');
+    const facts = await this.backend.load<Fact[]>('facts');
 
     const backup = {
       timestamp: new Date().toISOString(),
@@ -233,7 +234,7 @@ export class DataPersistence {
    * Restore from backup
    */
   async restoreBackup(backupName: string): Promise<void> {
-    const backup = await this.backend.load(backupName);
+    const backup = await this.backend.load<{ entities: Entity[]; relationships: Relationship[]; facts: Fact[] }>(backupName);
     if (!backup) throw new Error(`Backup ${backupName} not found`);
 
     await this.backend.save('entities', backup.entities);
@@ -254,9 +255,9 @@ export class DataPersistence {
    * Export data as JSON
    */
   async exportJSON(): Promise<string> {
-    const entities = await this.backend.load('entities');
-    const relationships = await this.backend.load('relationships');
-    const facts = await this.backend.load('facts');
+    const entities = await this.backend.load<Entity[]>('entities');
+    const relationships = await this.backend.load<Relationship[]>('relationships');
+    const facts = await this.backend.load<Fact[]>('facts');
 
     return JSON.stringify(
       {
@@ -307,9 +308,9 @@ export class DataPersistence {
    * Get storage stats
    */
   async getStats(): Promise<Record<string, number>> {
-    const entities = await this.backend.load('entities') || [];
-    const relationships = await this.backend.load('relationships') || [];
-    const facts = await this.backend.load('facts') || [];
+    const entities = await this.backend.load<Entity[]>('entities') || [];
+    const relationships = await this.backend.load<Relationship[]>('relationships') || [];
+    const facts = await this.backend.load<Fact[]>('facts') || [];
 
     return {
       entities: entities.length,

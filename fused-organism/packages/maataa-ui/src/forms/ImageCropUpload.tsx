@@ -77,11 +77,17 @@ export function ImageCropUpload({
   const STEP = 0.05;
 
   const pct = (n: number) => `${Math.round(n * 100)}%`;
-  const description = `Zoom ${area.zoom.toFixed(1)} times; ${
+  const zoom = area.zoom.toFixed(1);
+  const description =
     area.x === 0 && area.y === 0
-      ? "centred"
-      : `moved ${pct(Math.abs(area.x))} ${area.x < 0 ? "left" : "right"}, ${pct(Math.abs(area.y))} ${area.y < 0 ? "up" : "down"}`
-  }.`;
+      ? t("Zoom {zoom} times; centred.", { zoom })
+      : t("Zoom {zoom} times; moved {x} {horizontal}, {y} {vertical}.", {
+          zoom,
+          x: pct(Math.abs(area.x)),
+          horizontal: area.x < 0 ? t("left") : t("right"),
+          y: pct(Math.abs(area.y)),
+          vertical: area.y < 0 ? t("up") : t("down"),
+        });
 
   const save = () => {
     const img = imgRef.current;
@@ -132,7 +138,7 @@ export function ImageCropUpload({
           if (src) URL.revokeObjectURL(src);
           setSrc(URL.createObjectURL(f));
           setArea({ zoom: 1, x: 0, y: 0 });
-          setMsg(`${f.name} loaded. Adjust the crop, then choose Use this crop.`);
+          setMsg(t("{name} loaded. Adjust the crop, then choose Use this crop.", { name: f.name }));
         }}
         style={{ font: "inherit", accentColor: colorTokens.interactive.primary }}
       />

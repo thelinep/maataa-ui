@@ -111,9 +111,13 @@ export function ColorPaletteStrip({ title, colors }: ColorPaletteStripProps) {
                 {c.usage && <span style={{ color: colorTokens.text.secondary }}>{c.usage}</span>}
                 <span>
                   {ink === "#FFFFFF" ? t("White") : t("Black")} text {best.toFixed(1)}:1
-                  {best < 4.5 ? " (large titles only)" : ""}
+                  {best < 4.5 ? t(" (large titles only)") : ""}
                 </span>
-                <CopyButton value={c.hex.toUpperCase()} what={`${c.name} hex code`} size="sm" />
+                <CopyButton
+                  value={c.hex.toUpperCase()}
+                  what={t("{name} hex code", { name: c.name })}
+                  size="sm"
+                />
               </div>
             </li>
           );

@@ -22,7 +22,7 @@ export interface UseFormState<T> {
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  setFieldValue: (field: string, value: any) => void;
+  setFieldValue: (field: string, value: unknown) => void;
   setFieldError: (field: string, error: string) => void;
   resetForm: () => void;
 }
@@ -31,7 +31,7 @@ export interface UseFormState<T> {
  * useForm Hook
  * Manage form state, validation, and submission
  */
-export function useForm<T extends Record<string, any>>(
+export function useForm<T extends Record<string, unknown>>(
   options: UseFormOptions<T>
 ): UseFormState<T> {
   const [values, setValues] = useState(options.initialValues);
@@ -65,7 +65,7 @@ export function useForm<T extends Record<string, any>>(
     []
   );
 
-  const setFieldValue = useCallback((field: string, value: any) => {
+  const setFieldValue = useCallback((field: string, value: unknown) => {
     setValues(prev => ({
       ...prev,
       [field]: value,

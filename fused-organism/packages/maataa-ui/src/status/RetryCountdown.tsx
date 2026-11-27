@@ -52,7 +52,7 @@ export function RetryCountdown({ seconds, onRetry, message, paused = false }: Re
         aria-hidden="true"
         style={{ color: colorTokens.text.secondary, fontVariantNumeric: "tabular-nums" }}
       >
-        {paused ? "Paused" : left > 0 ? `Retrying in ${left} s` : "Retrying…"}
+        {paused ? t("Paused") : left > 0 ? t("Retrying in {left} s", { left }) : t("Retrying…")}
       </span>
       <Button
         variant="secondary"

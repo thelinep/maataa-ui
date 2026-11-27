@@ -10,10 +10,10 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 export interface UseFetchOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   headers?: Record<string, string>;
-  body?: any;
+  body?: unknown;
   skip?: boolean;
   refetchInterval?: number;
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: unknown) => void;
   onError?: (error: Error) => void;
 }
 
@@ -28,7 +28,7 @@ export interface UseFetchState<T> {
  * useFetch Hook
  * Fetch data from API endpoint with automatic state management
  */
-export function useFetch<T = any>(
+export function useFetch<T = unknown>(
   url: string | null,
   options?: UseFetchOptions
 ): UseFetchState<T> {
@@ -50,7 +50,7 @@ export function useFetch<T = any>(
           'Content-Type': 'application/json',
           ...options?.headers,
         },
-        ...(options?.body && { body: JSON.stringify(options.body) }),
+        ...(options?.body !== undefined ? { body: JSON.stringify(options.body) } : {}),
       });
 
       if (!response.ok) {

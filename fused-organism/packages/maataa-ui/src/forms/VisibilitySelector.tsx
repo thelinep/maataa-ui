@@ -40,7 +40,7 @@ export function VisibilitySelector({
           value: "private",
           label: msg("Private"),
           icon: "🔒",
-          description: `Only your team sees ${subject}.`,
+          description: t("Only your team sees {subject}.", { subject }),
         },
         {
           value: "unlisted",

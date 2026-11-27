@@ -26,7 +26,7 @@ describe("JsonExplorer", () => {
     await user.keyboard("{ArrowDown}");
     expect(screen.getByRole("treeitem", { name: 'project: string, "Monsoon"' })).toHaveFocus();
     await user.keyboard("{ArrowDown}{ArrowRight}");
-    expect(screen.getByRole("treeitem", { name: "crew: array, 1 items" })).toHaveAttribute(
+    expect(screen.getByRole("treeitem", { name: "crew: array, 1 item" })).toHaveAttribute(
       "aria-expanded",
       "true"
     );

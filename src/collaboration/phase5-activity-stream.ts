@@ -41,9 +41,9 @@ export interface Activity {
   entityName?: string;
   entityType?: string;
   relationshipId?: string;
-  changes?: Record<string, { before: any; after: any }>;
+  changes?: Record<string, { before: unknown; after: unknown }>;
   description?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   timestamp: number;
   visibility: 'private' | 'team' | 'organization' | 'public';
   relatedActivities?: string[];
@@ -300,7 +300,7 @@ export class ActivityStreamManager extends EventEmitter {
   /**
    * Get activities with full user details
    */
-  public getEnrichedActivities(filter: ActivityFilter, userCache?: Map<string, any>): Array<Activity & { userDetails?: any }> {
+  public getEnrichedActivities(filter: ActivityFilter, userCache?: Map<string, unknown>): Array<Activity & { userDetails?: unknown }> {
     const activities = this.queryActivities(filter);
 
     return activities.map((activity) => ({

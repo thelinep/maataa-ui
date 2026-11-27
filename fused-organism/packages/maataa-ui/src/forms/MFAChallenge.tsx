@@ -40,7 +40,7 @@ export function MFAChallenge({ onSubmit, error, busy, length = 6, onCancel }: MF
     e.preventDefault();
     const clean = code.replace(/[\s-]/g, "");
     if (kind === "totp" && !new RegExp(`^\\d{${length}}$`).test(clean))
-      return setLocal(`Enter the ${length}-digit code from your authenticator app`);
+      return setLocal(t("Enter the {length}-digit code from your authenticator app", { length }));
     if (kind === "recovery" && clean.length < 8)
       return setLocal("Enter one of your recovery codes");
     setLocal(undefined);

@@ -68,7 +68,7 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
 }) => {
   const [settings, setSettings] = useState(initialSettings);
 
-  const handleChange = (id: string, value: any) => {
+  const handleChange = (id: string, value: SystemSetting['value']) => {
     setSettings(settings.map(s => s.id === id ? { ...s, value } : s));
   };
 

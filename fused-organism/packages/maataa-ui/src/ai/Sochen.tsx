@@ -98,7 +98,8 @@ export function ThoughtInput({
             color: disabledReason ? colorTokens.interactive.warning : colorTokens.text.secondary,
           }}
         >
-          {disabledReason ?? `${text.length} / ${maxLength} · Ctrl+Enter to send`}
+          {disabledReason ??
+            tx("{length} / {maxLength} · Ctrl+Enter to send", { length: text.length, maxLength })}
         </span>
         <Button
           type="submit"

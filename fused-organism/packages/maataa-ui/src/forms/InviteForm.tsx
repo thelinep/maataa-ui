@@ -57,11 +57,11 @@ export function InviteForm({ roles, onInvite, existing = [], busy, max = 20 }: I
         if (!emails.length) p.push("Enter at least one email address");
         emails
           .filter((x) => !EMAIL.test(x))
-          .forEach((x) => p.push(`${x} isn't a valid email address`));
+          .forEach((x) => p.push(t("{email} isn't a valid email address", { email: x })));
         emails
           .filter((x) => have.includes(x))
-          .forEach((x) => p.push(`${x} is already on the team or invited`));
-        if (emails.length > max) p.push(`Invite up to ${max} people at a time`);
+          .forEach((x) => p.push(t("{email} is already on the team or invited", { email: x })));
+        if (emails.length > max) p.push(t("Invite up to {max} people at a time", { max }));
         setProblems(p);
         if (!p.length) {
           onInvite(emails, role, note.trim());

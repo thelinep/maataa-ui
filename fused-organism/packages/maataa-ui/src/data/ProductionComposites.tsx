@@ -84,7 +84,17 @@ export function ScriptAnalysisChart({
   return (
     <ChartFigure
       title={title}
-      summary={`${scenes.length} scenes, ${pagesFromEighths(total)} pages. ${night}% night, ${ext}% exterior. Longest: scene ${longest.scene} (${pagesFromEighths(longest.eighths)} pages).`}
+      summary={t(
+        "{count} scenes, {pages} pages. {night}% night, {ext}% exterior. Longest: scene {scene} ({longestPages} pages).",
+        {
+          count: scenes.length,
+          pages: pagesFromEighths(total),
+          night,
+          ext,
+          scene: longest.scene,
+          longestPages: pagesFromEighths(longest.eighths),
+        }
+      )}
       table={{
         columns: ["Scene", "Pages", "INT/EXT", "Time"],
         rows: scenes.map((s) => [s.scene, pagesFromEighths(s.eighths), s.intExt, s.time]),
@@ -720,8 +730,8 @@ export function WaiverSignatureBlock({
   const submit = () => {
     const e: string[] = [];
     if (!agreed) e.push("Tick “I have read and agree”.");
-    if (!value) e.push(`${signerName} needs to sign.`);
-    if (guardianRequired && !guardianValue) e.push("A parent or guardian needs to sign.");
+    if (!value) e.push(t("{name} needs to sign.", { name: signerName }));
+    if (guardianRequired && !guardianValue) e.push(t("A parent or guardian needs to sign."));
     setErrors(e);
     if (!e.length) onSubmit();
     else requestAnimationFrame(() => document.getElementById(`${id}-err`)?.focus());
@@ -1003,7 +1013,7 @@ export function ApprovalFrameMarker({
       }}
     >
       <VisuallyHidden>
-        {`Frame ${at}, ${t(s.label)}${reviewer ? ` by ${reviewer}` : ""}${note ? `: ${note}` : ""}`}
+        {`${reviewer ? t("Frame {at}, {state} by {reviewer}", { at, state: t(s.label), reviewer }) : t("Frame {at}, {state}", { at, state: t(s.label) })}${note ? `: ${note}` : ""}`}
       </VisuallyHidden>
       <span aria-hidden="true">{body}</span>
     </button>

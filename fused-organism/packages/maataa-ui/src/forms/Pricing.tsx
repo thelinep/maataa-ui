@@ -115,7 +115,7 @@ export function PricingSourceTable({
                     month: "short",
                     year: "numeric",
                   })}
-                  {stale ? ` · ${age} days old, recheck` : ""}
+                  {stale ? " · " + t("{age} days old, recheck", { age }) : ""}
                 </td>
               </tr>
             );

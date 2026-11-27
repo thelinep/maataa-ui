@@ -94,7 +94,7 @@ export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
           {state === "copied"
             ? `${what[0].toUpperCase()}${what.slice(1)} copied`
             : state === "failed"
-              ? `Couldn't copy. Select the ${what} and copy it by hand.`
+              ? t("Couldn't copy. Select the {what} and copy it by hand.", { what })
               : ""}
         </VisuallyHidden>
       </>

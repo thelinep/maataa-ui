@@ -65,7 +65,9 @@ export function OverrunAlert({
     >
       <span>
         <strong style={{ color: tone }}>
-          {over ? `${subject} is over budget` : `${subject} is close to its budget`}
+          {over
+            ? t("{subject} is over budget", { subject })
+            : t("{subject} is close to its budget", { subject })}
         </strong>
         <br />
         {over

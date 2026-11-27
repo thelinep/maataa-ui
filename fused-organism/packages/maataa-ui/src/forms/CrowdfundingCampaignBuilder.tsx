@@ -3,7 +3,7 @@
  * Goal, dates, story and reward tiers for a crowdfunding campaign
  */
 
-import { useLocale, useT } from "../i18n/LocaleProvider";
+import { englishT, useLocale, useT, type TranslateFn } from "../i18n/LocaleProvider";
 import React, { useId } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -31,20 +31,21 @@ export interface CampaignDraft {
 }
 
 /** Problems that block submitting for review */
-export function campaignProblems(c: CampaignDraft): string[] {
+export function campaignProblems(c: CampaignDraft, tx: TranslateFn = englishT): string[] {
   const p: string[] = [];
-  if (!c.title.trim()) p.push("Add a title");
-  if (!(c.goal > 0)) p.push("Set a funding goal");
+  if (!c.title.trim()) p.push(tx("Add a title"));
+  if (!(c.goal > 0)) p.push(tx("Set a funding goal"));
   if (c.start && c.end) {
     const days = (new Date(c.end).getTime() - new Date(c.start).getTime()) / 86_400_000;
-    if (days < 7) p.push("Run the campaign for at least 7 days");
-    if (days > 60) p.push("Keep the campaign to 60 days or fewer");
-  } else p.push("Set start and end dates");
-  if (c.story.trim().length < 200) p.push("Tell the story in at least 200 characters");
-  if (!c.useOfFunds.trim()) p.push("Say how the money will be used");
-  if (c.tiers.length === 0) p.push("Add at least one reward tier");
+    if (days < 7) p.push(tx("Run the campaign for at least 7 days"));
+    if (days > 60) p.push(tx("Keep the campaign to 60 days or fewer"));
+  } else p.push(tx("Set start and end dates"));
+  if (c.story.trim().length < 200) p.push(tx("Tell the story in at least 200 characters"));
+  if (!c.useOfFunds.trim()) p.push(tx("Say how the money will be used"));
+  if (c.tiers.length === 0) p.push(tx("Add at least one reward tier"));
   c.tiers.forEach((t, i) => {
-    if (!t.title.trim() || !(t.amount > 0)) p.push(`Tier ${i + 1} needs a title and an amount`);
+    if (!t.title.trim() || !(t.amount > 0))
+      p.push(tx("Tier {number} needs a title and an amount", { number: i + 1 }));
   });
   return p;
 }
@@ -81,7 +82,7 @@ export function CrowdfundingCampaignBuilder({
     currency,
     maximumFractionDigits: 0,
   });
-  const problems = campaignProblems(c);
+  const problems = campaignProblems(c, tx);
   const set = <K extends keyof CampaignDraft>(k: K, v: CampaignDraft[K]) =>
     onChange({ ...c, [k]: v });
   const setTier = (tid: string, p: Partial<RewardTier>) =>
@@ -292,8 +293,12 @@ export function CrowdfundingCampaignBuilder({
       >
         <div role="status" style={{ fontWeight: 600 }}>
           {problems.length
-            ? `${problems.length} thing${problems.length === 1 ? "" : "s"} to do before review`
-            : "Ready to send for review"}
+            ? tx.plural(
+                problems.length,
+                "{count} thing to do before review",
+                "{count} things to do before review"
+              )
+            : tx("Ready to send for review")}
         </div>
         {problems.length > 0 && (
           <ul

@@ -19,8 +19,8 @@ export interface Operation {
   entityId: string;
   type: 'insert' | 'delete' | 'update';
   path: string;
-  value?: any;
-  oldValue?: any;
+  value?: unknown;
+  oldValue?: unknown;
   timestamp: number;
   version: number;
   clientVersion: number;
@@ -37,7 +37,7 @@ export interface ConflictInfo {
   otherOp: Operation;
   type: 'insert-insert' | 'insert-delete' | 'delete-delete' | 'update-update' | 'update-delete';
   resolution: 'local-wins' | 'remote-wins' | 'merged';
-  details: Record<string, any>;
+  details: Record<string, unknown>;
 }
 
 export interface OperationHistory {
@@ -49,7 +49,7 @@ export interface OperationHistory {
 
 export interface EntityState {
   id: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   version: number;
   lastModified: number;
   lastModifiedBy: string;
@@ -319,8 +319,8 @@ export class OperationalTransformEngine {
     return {
       ...op1,
       value: {
-        ...op1.value,
-        ...op2.value,
+        ...asRecord(op1.value),
+        ...asRecord(op2.value),
       },
     };
   }
@@ -489,7 +489,7 @@ export class OperationalTransformEngine {
   /**
    * Set nested property in object
    */
-  private setNestedProperty(obj: any, path: string, value: any): void {
+  private setNestedProperty(obj: Record<string, unknown>, path: string, value: unknown): void {
     const keys = path.split('.');
     let current = obj;
 
@@ -498,7 +498,7 @@ export class OperationalTransformEngine {
       if (!current[key] || typeof current[key] !== 'object') {
         current[key] = {};
       }
-      current = current[key];
+      current = current[key] as Record<string, unknown>;
     }
 
     current[keys[keys.length - 1]] = value;
@@ -507,14 +507,14 @@ export class OperationalTransformEngine {
   /**
    * Delete nested property from object
    */
-  private deleteNestedProperty(obj: any, path: string): void {
+  private deleteNestedProperty(obj: Record<string, unknown>, path: string): void {
     const keys = path.split('.');
     let current = obj;
 
     for (let i = 0; i < keys.length - 1; i++) {
       const key = keys[i];
-      if (!current[key]) return;
-      current = current[key];
+      if (!current[key] || typeof current[key] !== 'object') return;
+      current = current[key] as Record<string, unknown>;
     }
 
     delete current[keys[keys.length - 1]];
@@ -522,3 +522,7 @@ export class OperationalTransformEngine {
 }
 
 export default OperationalTransformEngine;
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value !== null && typeof value === 'object' ? (value as Record<string, unknown>) : {};
+}

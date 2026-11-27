@@ -545,7 +545,15 @@ export function VehicleCapacityCard({
         aria-valuemin={0}
         aria-valuemax={seats}
         aria-valuenow={assigned.length}
-        aria-valuetext={`${assigned.length} of ${seats} seats${over ? `, ${assigned.length - seats} over` : ""}`}
+        aria-valuetext={
+          over
+            ? t("{assigned} of {seats} seats, {over} over", {
+                assigned: assigned.length,
+                seats,
+                over: assigned.length - seats,
+              })
+            : t("{assigned} of {seats} seats", { assigned: assigned.length, seats })
+        }
         style={{
           height: 8,
           borderRadius: 999,
@@ -570,7 +578,7 @@ export function VehicleCapacityCard({
         }}
       >
         {assigned.length} of {seats} seats
-        {over ? ` — ${assigned.length - seats} over capacity` : ""}
+        {over ? " — " + t("{over} over capacity", { over: assigned.length - seats }) : ""}
       </div>
       {driver && (
         <div style={{ fontSize: 12, color: colorTokens.text.secondary }}>

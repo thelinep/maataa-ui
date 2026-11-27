@@ -51,7 +51,9 @@ export function AppliedFilterChips({
           <span
             style={{ fontSize: typographyTokens.fontSize.sm, color: colorTokens.text.secondary }}
           >
-            {resultCount != null ? `${resultCount} ${noun}, filtered by:` : "Filtered by:"}
+            {resultCount != null
+              ? t("{count} {noun}, filtered by:", { count: resultCount, noun })
+              : t("Filtered by:")}
           </span>
           <ul
             aria-label={t("Active filters")}
@@ -73,7 +75,9 @@ export function AppliedFilterChips({
                   type="button"
                   onClick={() => {
                     onRemove(f.id);
-                    setMsg(`Removed filter ${f.field}: ${f.value}.`);
+                    setMsg(
+                      t("Removed filter {field}: {value}.", { field: f.field, value: f.value })
+                    );
                     requestAnimationFrame(() =>
                       (refs.current[i] ?? refs.current[i - 1] ?? clearRef.current)?.focus()
                     );

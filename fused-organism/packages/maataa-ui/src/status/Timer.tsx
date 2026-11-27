@@ -3,7 +3,7 @@
  * Start / stop timer for a timed activity (a take, a filming block)
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { msg, useT, type Translator } from "../i18n/LocaleProvider";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../primitives/Button";
 import { colorTokens, spacingTokens, typographyTokens } from "../tokens";
@@ -36,15 +36,17 @@ export function formatDuration(ms: number): string {
 }
 
 /** Spoken form, e.g. "1 hour 2 minutes 5 seconds". */
-export function spokenDuration(ms: number): string {
+export function spokenDuration(ms: number, t: Translator | null = null): string {
   const total = Math.max(0, Math.floor(ms / 1000));
   const parts: string[] = [];
   const h = Math.floor(total / 3600);
   const m = Math.floor((total % 3600) / 60);
   const s = total % 60;
-  if (h) parts.push(`${h} hour${h === 1 ? "" : "s"}`);
-  if (m) parts.push(`${m} minute${m === 1 ? "" : "s"}`);
-  if (s || parts.length === 0) parts.push(`${s} second${s === 1 ? "" : "s"}`);
+  const unit = (n: number, one: string, other: string) =>
+    t ? t.plural(n, one, other) : (n === 1 ? one : other).replace("{count}", String(n));
+  if (h) parts.push(unit(h, msg("{count} hour"), msg("{count} hours")));
+  if (m) parts.push(unit(m, msg("{count} minute"), msg("{count} minutes")));
+  if (s || parts.length === 0) parts.push(unit(s, msg("{count} second"), msg("{count} seconds")));
   return parts.join(" ");
 }
 
@@ -91,7 +93,9 @@ export const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
       const durationMs = end - startedAt;
       setElapsed(durationMs);
       setStartedAt(null);
-      setMessage(`${label} stopped after ${spokenDuration(durationMs)}`);
+      setMessage(
+        t("{label} stopped after {duration}", { label, duration: spokenDuration(durationMs, t) })
+      );
       onStop?.({ startedAt: new Date(startedAt), endedAt: new Date(end), durationMs });
     };
 

@@ -77,7 +77,7 @@ const RoleCard = styled.div`
   gap: ${spacing.sm};
   padding: ${spacing.md};
   background: ${colorTokens.background.primary};
-  border: 2px solid ${(props: any) => props.color};
+  border: 2px solid ${({ color }: { color?: string }) => color};
   border-radius: ${borderRadius.md};
   flex: 1;
   position: relative;
@@ -90,7 +90,7 @@ const RoleCard = styled.div`
     transform: translateX(-50%);
     width: 16px;
     height: 16px;
-    background: ${(props: any) => props.color};
+    background: ${({ color }: { color?: string }) => color};
     border-radius: 50%;
     border: 3px solid ${colorTokens.background.primary};
   }
@@ -131,8 +131,8 @@ const PermissionsList = styled.div`
 const PermissionTag = styled.span`
   display: inline-block;
   padding: 2px 8px;
-  background: ${(props: any) => `${props.color}20`};
-  color: ${(props: any) => props.color};
+  background: ${({ color }: { color?: string }) => `${color}20`};
+  color: ${({ color }: { color?: string }) => color};
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;

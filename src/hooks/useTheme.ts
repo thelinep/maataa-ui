@@ -31,19 +31,19 @@ export function getColorFromPath(theme: Theme, colorPath: string): string {
   const shade = rest.join('.');
 
   if (category === 'primary') {
-    return (theme.colors.primary as any)[shade] || '';
+    return (theme.colors.primary as Record<string, string | undefined>)[shade] || '';
   }
   if (category === 'neutral') {
-    return (theme.colors.neutral as any)[shade] || '';
+    return (theme.colors.neutral as Record<string, string | undefined>)[shade] || '';
   }
   if (category === 'semantic') {
-    return (theme.colors.semantic as any)[shade] || '';
+    return (theme.colors.semantic as Record<string, string | undefined>)[shade] || '';
   }
   if (category === 'surface') {
-    return (theme.colors.surface as any)[shade] || '';
+    return (theme.colors.surface as Record<string, string | undefined>)[shade] || '';
   }
   if (category === 'text') {
-    return (theme.colors.text as any)[shade] || '';
+    return (theme.colors.text as Record<string, string | undefined>)[shade] || '';
   }
 
   return '';

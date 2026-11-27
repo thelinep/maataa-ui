@@ -39,7 +39,11 @@ export const SignOutButton = React.forwardRef<HTMLButtonElement, SignOutButtonPr
         <ConfirmDialog
           isOpen={open}
           title={t("Sign out with unsynced changes?")}
-          message={`${unsyncedCount} ${unsyncedCount === 1 ? "change hasn't" : "changes haven't"} reached the server yet. If you sign out now, ${unsyncedCount === 1 ? "it stays" : "they stay"} on this device and sync next time you sign in here.`}
+          message={t.plural(
+            unsyncedCount,
+            "{count} change hasn't reached the server yet. If you sign out now, it stays on this device and syncs next time you sign in here.",
+            "{count} changes haven't reached the server yet. If you sign out now, they stay on this device and sync next time you sign in here."
+          )}
           confirmLabel={t("Sign out anyway")}
           destructive
           onCancel={() => setOpen(false)}

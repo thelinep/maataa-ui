@@ -105,7 +105,7 @@ describe("MoreCharts", () => {
       screen.getByRole("img", { name: /strongest on Story, weakest on Market/ })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("img", { name: /Budget and Actual compared across 1 categories/ })
+      screen.getByRole("img", { name: /Budget and Actual compared across 1 category/ })
     ).toBeInTheDocument();
     expect(screen.getByRole("img", { name: /Highest: Mon, PM/ })).toBeInTheDocument();
   });

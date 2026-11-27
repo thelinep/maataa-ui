@@ -132,6 +132,15 @@ export function translate(messages: Messages, source: string, values?: MessageVa
   );
 }
 
+/** A `t()`-shaped function: English source text in, display text out. */
+export type TranslateFn = (source: string, values?: MessageValues) => string;
+
+/**
+ * Fills `{name}` placeholders without translating. The default for helpers
+ * that take an optional `t` and are called outside a LocaleProvider.
+ */
+export const englishT: TranslateFn = (source, values) => translate({}, source, values);
+
 /**
  * Marks English text for translation without translating it yet, e.g. in a
  * module-level map. Pass the value through `t()` when rendering.

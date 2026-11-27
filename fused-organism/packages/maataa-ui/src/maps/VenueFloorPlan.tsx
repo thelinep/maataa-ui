@@ -218,7 +218,9 @@ export const VenueFloorPlan = React.forwardRef<SVGSVGElement, VenueFloorPlanProp
                 role: isBlocked ? "img" : "button",
                 tabIndex: isBlocked ? undefined : 0,
                 "aria-pressed": isBlocked ? undefined : isSelected,
-                "aria-label": isBlocked ? `${zone.label}, unavailable` : zone.label,
+                "aria-label": isBlocked
+                  ? t("{zone}, unavailable", { zone: zone.label })
+                  : zone.label,
                 onClick: () => handleSelect(zone),
                 onKeyDown: (e: React.KeyboardEvent) => handleKeyDown(e, zone),
                 onMouseEnter: () => setHoveredId(zone.id),

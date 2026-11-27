@@ -159,8 +159,12 @@ export function ProductionListingGrid({
         title={t("No public productions match")}
         description={
           hiddenCount > 0
-            ? `${hiddenCount} production${hiddenCount === 1 ? " is" : "s are"} set to private or unlisted, so ${hiddenCount === 1 ? "it isn't" : "they aren't"} shown here. Try fewer filters.`
-            : "Try fewer filters, or check back soon."
+            ? t.plural(
+                hiddenCount,
+                "{count} production is set to private or unlisted, so it isn't shown here. Try fewer filters.",
+                "{count} productions are set to private or unlisted, so they aren't shown here. Try fewer filters."
+              )
+            : t("Try fewer filters, or check back soon.")
         }
         action={
           onClearFilters ? (
