@@ -169,6 +169,10 @@
           "stability": "beta"
         },
         {
+          "name": "BeingAvatar",
+          "stability": "beta"
+        },
+        {
           "name": "BiometricUnlock",
           "stability": "beta"
         },
@@ -222,6 +226,10 @@
         },
         {
           "name": "CHART_COLORS",
+          "stability": "beta"
+        },
+        {
+          "name": "CadPlanViewer",
           "stability": "beta"
         },
         {
@@ -409,8 +417,16 @@
           "stability": "experimental"
         },
         {
+          "name": "CrewIdCard",
+          "stability": "beta"
+        },
+        {
           "name": "CrewPositionRow",
           "stability": "experimental"
+        },
+        {
+          "name": "CrewProfile",
+          "stability": "beta"
         },
         {
           "name": "CrowdfundingCampaignBuilder",
@@ -921,6 +937,10 @@
           "stability": "beta"
         },
         {
+          "name": "LocationSite",
+          "stability": "beta"
+        },
+        {
           "name": "LocationThumbnailCard",
           "stability": "beta"
         },
@@ -1105,6 +1125,10 @@
           "stability": "beta"
         },
         {
+          "name": "PRODUCTION_DEPARTMENTS",
+          "stability": "beta"
+        },
+        {
           "name": "PackageSummaryBar",
           "stability": "experimental"
         },
@@ -1281,6 +1305,10 @@
           "stability": "beta"
         },
         {
+          "name": "QrCode",
+          "stability": "beta"
+        },
+        {
           "name": "QuadtreeGrid",
           "stability": "beta"
         },
@@ -1398,6 +1426,10 @@
         },
         {
           "name": "RoutePolyline",
+          "stability": "beta"
+        },
+        {
+          "name": "SPECIES",
           "stability": "beta"
         },
         {
@@ -1666,6 +1698,10 @@
         },
         {
           "name": "StackedProgressBar",
+          "stability": "beta"
+        },
+        {
+          "name": "StarRating",
           "stability": "beta"
         },
         {
@@ -2169,6 +2205,10 @@
           "stability": "beta"
         },
         {
+          "name": "departmentColor",
+          "stability": "beta"
+        },
+        {
           "name": "detectDevice",
           "stability": "beta"
         },
@@ -2185,6 +2225,10 @@
           "stability": "beta"
         },
         {
+          "name": "distanceMetres",
+          "stability": "beta"
+        },
+        {
           "name": "drawingToolLabels",
           "stability": "beta"
         },
@@ -2194,6 +2238,10 @@
         },
         {
           "name": "elongation",
+          "stability": "beta"
+        },
+        {
+          "name": "encodeQr",
           "stability": "beta"
         },
         {
@@ -2262,6 +2310,10 @@
         },
         {
           "name": "formatWeekValue",
+          "stability": "beta"
+        },
+        {
+          "name": "georeference",
           "stability": "beta"
         },
         {
@@ -2353,6 +2405,10 @@
           "stability": "beta"
         },
         {
+          "name": "metresPerUnit",
+          "stability": "beta"
+        },
+        {
           "name": "moonIllumination",
           "stability": "beta"
         },
@@ -2406,6 +2462,10 @@
         },
         {
           "name": "paperTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "parseDxf",
           "stability": "beta"
         },
         {
@@ -3948,6 +4008,10 @@
           "stability": "experimental"
         },
         {
+          "name": "CadPlanViewer",
+          "stability": "experimental"
+        },
+        {
           "name": "CameraAngleAnnotation",
           "stability": "experimental"
         },
@@ -3973,6 +4037,10 @@
         },
         {
           "name": "Graticule",
+          "stability": "experimental"
+        },
+        {
+          "name": "LocationSite",
           "stability": "experimental"
         },
         {
@@ -4076,11 +4144,23 @@
           "stability": "experimental"
         },
         {
+          "name": "distanceMetres",
+          "stability": "experimental"
+        },
+        {
+          "name": "georeference",
+          "stability": "experimental"
+        },
+        {
           "name": "haversineKm",
           "stability": "experimental"
         },
         {
           "name": "mapsComponents",
+          "stability": "experimental"
+        },
+        {
+          "name": "metresPerUnit",
           "stability": "experimental"
         },
         {
@@ -4101,6 +4181,10 @@
         },
         {
           "name": "orbitGroundTrack",
+          "stability": "experimental"
+        },
+        {
+          "name": "parseDxf",
           "stability": "experimental"
         },
         {
@@ -4194,6 +4278,10 @@
           "stability": "beta"
         },
         {
+          "name": "BeingAvatar",
+          "stability": "beta"
+        },
+        {
           "name": "CHAKRAS",
           "stability": "experimental"
         },
@@ -4258,8 +4346,16 @@
           "stability": "experimental"
         },
         {
+          "name": "CrewIdCard",
+          "stability": "beta"
+        },
+        {
           "name": "CrewPositionRow",
           "stability": "experimental"
+        },
+        {
+          "name": "CrewProfile",
+          "stability": "beta"
         },
         {
           "name": "CrowdfundingProgressBar",
@@ -4462,6 +4558,10 @@
           "stability": "beta"
         },
         {
+          "name": "PRODUCTION_DEPARTMENTS",
+          "stability": "beta"
+        },
+        {
           "name": "PackageSummaryBar",
           "stability": "experimental"
         },
@@ -4530,6 +4630,10 @@
           "stability": "beta"
         },
         {
+          "name": "QrCode",
+          "stability": "beta"
+        },
+        {
           "name": "QuarantinePanel",
           "stability": "beta"
         },
@@ -4563,6 +4667,10 @@
         },
         {
           "name": "RoleBreakdownCard",
+          "stability": "beta"
+        },
+        {
+          "name": "SPECIES",
           "stability": "beta"
         },
         {
@@ -4639,6 +4747,10 @@
         },
         {
           "name": "StackedProgressBar",
+          "stability": "beta"
+        },
+        {
+          "name": "StarRating",
           "stability": "beta"
         },
         {
@@ -4774,11 +4886,19 @@
           "stability": "experimental"
         },
         {
+          "name": "departmentColor",
+          "stability": "beta"
+        },
+        {
           "name": "detectDevice",
           "stability": "beta"
         },
         {
           "name": "diffLines",
+          "stability": "beta"
+        },
+        {
+          "name": "encodeQr",
           "stability": "beta"
         },
         {

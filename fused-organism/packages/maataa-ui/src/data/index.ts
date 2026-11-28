@@ -13,6 +13,38 @@ export { BarChart, type BarChartProps } from "./BarChart";
 export { AreaChart, type AreaChartProps } from "./AreaChart";
 export { DonutChart, type DonutChartProps, type DonutSlice } from "./DonutChart";
 export { DataTable, type DataTableProps, type DataTableColumn } from "./DataTable";
+export { encodeQr, type QrMatrix, type QrErrorLevel } from "./qr";
+export { QrCode, type QrCodeProps } from "./QrCode";
+export { StarRating, type StarRatingProps } from "./StarRating";
+export { PRODUCTION_DEPARTMENTS, type ProductionDepartment } from "./departments";
+export {
+  BeingAvatar,
+  SPECIES,
+  type BeingAvatarProps,
+  type BeingAvatarVariant,
+  type Species,
+  type SpeciesKind,
+  type HealthMark,
+  type HealthState,
+} from "./BeingAvatar";
+export {
+  CrewIdCard,
+  departmentColor,
+  type CrewIdCardProps,
+  type CrewPerson,
+  type EmergencyContact,
+} from "./CrewIdCard";
+export {
+  CrewProfile,
+  type CrewProfileProps,
+  type CrewCredit,
+  type CrewTool,
+  type CrewUtil,
+  type CrewReview,
+  type CrewRate,
+  type CrewCallSheet,
+  type CrewDocument,
+} from "./CrewProfile";
 
 // Core people, record and history components
 export {
@@ -497,5 +529,42 @@ export const dataComponents = [
     component: "DataTable",
     category: "Data",
     description: "A sortable table — also the table view backing any chart's raw data",
+  },
+  {
+    id: "being-avatar",
+    name: "BeingAvatar",
+    component: "BeingAvatar",
+    category: "Data",
+    description:
+      "An avatar for people, animal actors and story characters, with species and permission-gated health",
+  },
+  {
+    id: "crew-id-card",
+    name: "CrewIdCard",
+    component: "CrewIdCard",
+    category: "Data",
+    description: "A printable CR80 crew identity card with QR code and emergency contact",
+  },
+  {
+    id: "crew-profile",
+    name: "CrewProfile",
+    component: "CrewProfile",
+    category: "Data",
+    description:
+      "A crew profile with work, tools, utils, rating, pricing, call sheets, availability, documents, emergency contact, health and iCard tabs",
+  },
+  {
+    id: "qr-code",
+    name: "QrCode",
+    component: "QrCode",
+    category: "Data",
+    description: "A dependency-free SVG QR code",
+  },
+  {
+    id: "star-rating",
+    name: "StarRating",
+    component: "StarRating",
+    category: "Data",
+    description: "A read-only rating out of five, with half stars",
   },
 ];

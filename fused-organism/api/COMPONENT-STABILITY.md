@@ -26,7 +26,7 @@ Generated from package exports and the component registry. Only the stable set b
 ## Classification counts
 
 - @maataa/ui stable: 36 entry exports
-- @maataa/ui beta: 1177 entry exports
-- @maataa/ui experimental: 125 entry exports
+- @maataa/ui beta: 1201 entry exports
+- @maataa/ui experimental: 131 entry exports
 
 Experimental domain areas include maps, Web3, finance, logistics, and culture composites. All 90 kernel registry records are beta until individually promoted.
