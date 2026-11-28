@@ -11,6 +11,8 @@ export {
   useT,
   translate,
   msg,
+  withNumerals,
+  englishT,
   languageOf,
   directionOf,
   DEFAULT_LOCALE,
@@ -18,5 +20,22 @@ export {
   type LocaleContextValue,
   type MessageValues,
   type Translator,
+  type TranslateFn,
+  type Numerals,
 } from "./LocaleProvider";
+export { IndianDate, type IndianDateProps } from "./IndianDate";
+export {
+  vikramDate,
+  sunLongitude,
+  moonLongitude,
+  lahiriAyanamsa,
+  sunSign,
+  elongation,
+  VIKRAM_MONTHS,
+  TITHIS,
+  RITUS,
+  type VikramDate,
+  type VikramDateOptions,
+  type MonthSystem,
+} from "./indianCalendar";
 export { builtInMessages, hi as hiMessages, type Messages } from "./messages";

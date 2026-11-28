@@ -6,6 +6,7 @@ import {
   builtInThemes,
   darkTheme,
   highContrastTheme,
+  hemantTheme,
   paperTheme,
   themeToCssVariables,
   themesToCss,
@@ -81,6 +82,41 @@ describe("highContrastTheme", () => {
   });
 });
 
+describe("hemantTheme", () => {
+  const c = hemantTheme.colors;
+  const backgrounds = Object.values(c.background).filter((v) => v !== c.background.inverse);
+
+  it("meets WCAG AA for text, accents and control borders on every background", () => {
+    for (const bg of backgrounds) {
+      for (const fg of [
+        c.text.primary,
+        c.text.secondary,
+        c.text.tertiary,
+        c.interactive.primary,
+        c.interactive.success,
+        c.interactive.warning,
+        c.interactive.error,
+        c.interactive.info,
+      ]) {
+        expect(contrast(fg, bg)).toBeGreaterThanOrEqual(4.5);
+      }
+      expect(contrast(c.border.control, bg)).toBeGreaterThanOrEqual(3);
+    }
+    expect(contrast(c.text.inverse, c.interactive.primary)).toBeGreaterThanOrEqual(4.5);
+    for (const pair of Object.values(c.semantic)) {
+      expect(contrast(pair.text, pair.bg)).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it("themes every color variable the default theme does", () => {
+    const colorNames = (t: typeof paperTheme) =>
+      Object.keys(themeToCssVariables(t))
+        .filter((n) => n.startsWith("--maataa-color-"))
+        .sort();
+    expect(colorNames(hemantTheme)).toEqual(colorNames(paperTheme));
+  });
+});
+
 describe("themesToCss", () => {
   it("puts the default on :root, each theme on its attribute, and dark on a dark system", () => {
     const css = themesToCss(builtInThemes);
@@ -136,7 +172,7 @@ describe("ThemePicker", () => {
     render(<ThemePicker />);
     const select = screen.getByRole("combobox", { name: "Theme" });
     const options = Array.from((select as HTMLSelectElement).options).map((o) => o.text);
-    expect(options).toEqual(["System", "Light", "Dark", "TLPS v2", "High contrast"]);
+    expect(options).toEqual(["System", "Light", "Dark", "TLPS v2", "High contrast", "Hemant"]);
     expect(select).toHaveValue("system");
   });
 
@@ -193,6 +229,7 @@ describe("ThemePicker", () => {
       "गहरी",
       "TLPS v2",
       "उच्च कंट्रास्ट",
+      "हेमंत",
     ]);
   });
 

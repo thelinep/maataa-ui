@@ -200,6 +200,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ImageCropUpload — beta
 - IncidentForm — beta
 - IndeterminateProgress — beta
+- IndianDate — beta
 - InfiniteList — beta
 - InlineEditGrid — beta
 - Input — stable
@@ -266,6 +267,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - NotificationDetail — beta
 - NotificationPanel — beta
 - NumberStepper — beta
+- NumeralsSelector — beta
 - OfferLetterPreview — beta
 - OfflineBanner — beta
 - OnboardingCompleteScreen — beta
@@ -324,6 +326,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - QuarantinePanel — beta
 - QuickActionPanel — beta
 - RBACEngine — beta
+- RITUS — beta
 - RadarChart — beta
 - Radio — beta
 - RadioGroup — beta
@@ -430,6 +433,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - SyncStatus — beta
 - THEME_ATTRIBUTE — beta
 - THEME_CHOICE_ATTRIBUTE — beta
+- TITHIS — beta
 - TLPClassificationCard — experimental
 - Tabs — beta
 - TagInput — beta
@@ -473,6 +477,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - UrlInput — beta
 - UserChip — beta
 - VERSION — beta
+- VIKRAM_MONTHS — beta
 - VUMeter — beta
 - ValidationMessage — beta
 - VarianceBars — beta
@@ -545,6 +550,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - displayName — beta
 - drawingToolLabels — beta
 - elementLabels — beta
+- elongation — beta
+- englishT — beta
 - eqBandsHz — beta
 - evaluateFormula — beta
 - eventsOn — beta
@@ -564,6 +571,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - getPrimitiveRegistryCoverage — beta
 - hapticPatterns — beta
 - haversineKm — beta
+- hemantTheme — beta
 - hiMessages — beta
 - highContrastTheme — beta
 - hoursWorked — beta
@@ -573,6 +581,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - inrShort — experimental
 - isoWeek — beta
 - isoWeekStart — beta
+- lahiriAyanamsa — beta
 - languageOf — beta
 - leavesOf — beta
 - levelZone — beta
@@ -582,6 +591,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - masterPrimitiveRegistryItemCount — beta
 - mentionedIn — beta
 - moonIllumination — beta
+- moonLongitude — beta
 - moonPhaseName — beta
 - moonPosition — beta
 - moveItem — beta
@@ -624,7 +634,9 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - spokenDuration — beta
 - storyboardSwatches — beta
 - streamChat — beta
+- sunLongitude — beta
 - sunPosition — beta
+- sunSign — beta
 - sunTimes — beta
 - surfaceComponents — beta
 - templateFields — beta
@@ -651,9 +663,11 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - validateReviewers — beta
 - validateUrl — beta
 - vibrate — beta
+- vikramDate — beta
 - weatherLayers — beta
 - weeksInYear — beta
 - windowConflicts — beta
+- withNumerals — beta
 - zoneAbbr — beta
 
 ## ./master-registry
@@ -751,6 +765,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - MonthPicker — beta
 - NewsletterSignup — beta
 - NumberStepper — beta
+- NumeralsSelector — beta
 - OtpInput — beta
 - OvertimeIndicator — beta
 - PasswordInput — beta
@@ -1371,6 +1386,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ThemeToggle — beta
 - builtInThemes — beta
 - darkTheme — beta
+- hemantTheme — beta
 - highContrastTheme — beta
 - paperTheme — beta
 - resolveThemeChoice — beta
@@ -1387,16 +1403,28 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 ## ./i18n
 
 - DEFAULT_LOCALE — beta
+- IndianDate — beta
 - LocaleProvider — beta
+- RITUS — beta
+- TITHIS — beta
+- VIKRAM_MONTHS — beta
 - builtInMessages — beta
 - directionOf — beta
+- elongation — beta
+- englishT — beta
 - hiMessages — beta
+- lahiriAyanamsa — beta
 - languageOf — beta
+- moonLongitude — beta
 - msg — beta
+- sunLongitude — beta
+- sunSign — beta
 - translate — beta
 - useLocale — beta
 - useLocaleContext — beta
 - useT — beta
+- vikramDate — beta
+- withNumerals — beta
 
 ## ./theme-style
 
@@ -1404,6 +1432,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ThemeStyle — beta
 - builtInThemes — beta
 - darkTheme — beta
+- hemantTheme — beta
 - highContrastTheme — beta
 - paperTheme — beta
 - themeInitScript — beta

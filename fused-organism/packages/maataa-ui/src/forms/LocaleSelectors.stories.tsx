@@ -4,6 +4,7 @@ import {
   CountrySelector,
   RegionSelector,
   CurrencySelector,
+  NumeralsSelector,
 } from "./LocaleSelectors";
 
 const meta = {
@@ -33,4 +34,8 @@ export const Region: Story = {
 export const Currency: Story = {
   args: Default.args,
   render: () => <CurrencySelector value="INR" onChange={() => {}} />,
+};
+export const Numerals: Story = {
+  args: Default.args,
+  render: () => <NumeralsSelector value="deva" onChange={() => {}} locale="hi-IN" />,
 };

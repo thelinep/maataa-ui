@@ -3,7 +3,7 @@
  * Language, country, state/district and currency pickers
  */
 
-import { useLocale, useT } from "../i18n/LocaleProvider";
+import { msg, useLocale, useT } from "../i18n/LocaleProvider";
 import React, { useMemo } from "react";
 import { Select, type SelectOption } from "./Select";
 import {
@@ -211,3 +211,56 @@ export function CurrencySelector({
   );
 }
 CurrencySelector.displayName = "CurrencySelector";
+
+const NUMERAL_NAMES: Record<string, string> = {
+  latn: msg("International (0–9)"),
+  deva: msg("Devanagari"),
+  brah: msg("Brahmi"),
+};
+
+/**
+ * NumeralsSelector
+ * Picks the digits numbers and dates are shown in. Each option previews the
+ * digits ("Brahmi · 𑁧𑁨𑁩"); pass the value to LocaleProvider's `numerals`.
+ */
+export function NumeralsSelector({
+  value,
+  onChange,
+  label: labelProp,
+  locale: localeProp,
+  systems = ["latn", "deva", "brah"],
+  ...p
+}: Common & { systems?: string[] }) {
+  const t = useT();
+  const label = labelProp ?? t("Digits");
+  const locale = useLocale(localeProp);
+  const options = useMemo<SelectOption[]>(
+    () =>
+      systems.map((s) => {
+        let preview = "";
+        try {
+          preview = new Intl.NumberFormat(
+            new Intl.Locale(locale, { numberingSystem: s }).toString(),
+            {
+              useGrouping: false,
+            }
+          ).format(123);
+        } catch {
+          /* unknown numbering system */
+        }
+        const name = NUMERAL_NAMES[s] ? t(NUMERAL_NAMES[s]) : s;
+        return { value: s, label: preview ? `${name} · ${preview}` : name };
+      }),
+    [systems, locale, t]
+  );
+  return (
+    <Select
+      label={label}
+      value={value}
+      onChange={(v) => onChange(one(v))}
+      options={options}
+      {...p}
+    />
+  );
+}
+NumeralsSelector.displayName = "NumeralsSelector";

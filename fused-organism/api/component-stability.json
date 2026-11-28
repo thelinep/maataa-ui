@@ -879,6 +879,10 @@
           "stability": "beta"
         },
         {
+          "name": "hemantTheme",
+          "stability": "beta"
+        },
+        {
           "name": "highContrastTheme",
           "stability": "beta"
         },
@@ -1741,6 +1745,10 @@
           "stability": "beta"
         },
         {
+          "name": "IndianDate",
+          "stability": "beta"
+        },
+        {
           "name": "InfiniteList",
           "stability": "beta"
         },
@@ -2005,6 +2013,10 @@
           "stability": "beta"
         },
         {
+          "name": "NumeralsSelector",
+          "stability": "beta"
+        },
+        {
           "name": "OfferLetterPreview",
           "stability": "beta"
         },
@@ -2234,6 +2246,10 @@
         },
         {
           "name": "RBACEngine",
+          "stability": "beta"
+        },
+        {
+          "name": "RITUS",
           "stability": "beta"
         },
         {
@@ -2661,6 +2677,10 @@
           "stability": "beta"
         },
         {
+          "name": "TITHIS",
+          "stability": "beta"
+        },
+        {
           "name": "TLPClassificationCard",
           "stability": "experimental"
         },
@@ -2830,6 +2850,10 @@
         },
         {
           "name": "VERSION",
+          "stability": "beta"
+        },
+        {
+          "name": "VIKRAM_MONTHS",
           "stability": "beta"
         },
         {
@@ -3121,6 +3145,14 @@
           "stability": "beta"
         },
         {
+          "name": "elongation",
+          "stability": "beta"
+        },
+        {
+          "name": "englishT",
+          "stability": "beta"
+        },
+        {
           "name": "eqBandsHz",
           "stability": "beta"
         },
@@ -3197,6 +3229,10 @@
           "stability": "beta"
         },
         {
+          "name": "hemantTheme",
+          "stability": "beta"
+        },
+        {
           "name": "hiMessages",
           "stability": "beta"
         },
@@ -3233,6 +3269,10 @@
           "stability": "beta"
         },
         {
+          "name": "lahiriAyanamsa",
+          "stability": "beta"
+        },
+        {
           "name": "languageOf",
           "stability": "beta"
         },
@@ -3266,6 +3306,10 @@
         },
         {
           "name": "moonIllumination",
+          "stability": "beta"
+        },
+        {
+          "name": "moonLongitude",
           "stability": "beta"
         },
         {
@@ -3437,7 +3481,15 @@
           "stability": "beta"
         },
         {
+          "name": "sunLongitude",
+          "stability": "beta"
+        },
+        {
           "name": "sunPosition",
+          "stability": "beta"
+        },
+        {
+          "name": "sunSign",
           "stability": "beta"
         },
         {
@@ -3545,6 +3597,10 @@
           "stability": "beta"
         },
         {
+          "name": "vikramDate",
+          "stability": "beta"
+        },
+        {
           "name": "weatherLayers",
           "stability": "beta"
         },
@@ -3554,6 +3610,10 @@
         },
         {
           "name": "windowConflicts",
+          "stability": "beta"
+        },
+        {
+          "name": "withNumerals",
           "stability": "beta"
         },
         {
@@ -3913,6 +3973,10 @@
         },
         {
           "name": "NumberStepper",
+          "stability": "beta"
+        },
+        {
+          "name": "NumeralsSelector",
           "stability": "beta"
         },
         {
@@ -6204,6 +6268,10 @@
           "stability": "beta"
         },
         {
+          "name": "hemantTheme",
+          "stability": "beta"
+        },
+        {
           "name": "highContrastTheme",
           "stability": "beta"
         },
@@ -6262,7 +6330,23 @@
           "stability": "beta"
         },
         {
+          "name": "IndianDate",
+          "stability": "beta"
+        },
+        {
           "name": "LocaleProvider",
+          "stability": "beta"
+        },
+        {
+          "name": "RITUS",
+          "stability": "beta"
+        },
+        {
+          "name": "TITHIS",
+          "stability": "beta"
+        },
+        {
+          "name": "VIKRAM_MONTHS",
           "stability": "beta"
         },
         {
@@ -6274,7 +6358,19 @@
           "stability": "beta"
         },
         {
+          "name": "elongation",
+          "stability": "beta"
+        },
+        {
+          "name": "englishT",
+          "stability": "beta"
+        },
+        {
           "name": "hiMessages",
+          "stability": "beta"
+        },
+        {
+          "name": "lahiriAyanamsa",
           "stability": "beta"
         },
         {
@@ -6282,7 +6378,19 @@
           "stability": "beta"
         },
         {
+          "name": "moonLongitude",
+          "stability": "beta"
+        },
+        {
           "name": "msg",
+          "stability": "beta"
+        },
+        {
+          "name": "sunLongitude",
+          "stability": "beta"
+        },
+        {
+          "name": "sunSign",
           "stability": "beta"
         },
         {
@@ -6299,6 +6407,14 @@
         },
         {
           "name": "useT",
+          "stability": "beta"
+        },
+        {
+          "name": "vikramDate",
+          "stability": "beta"
+        },
+        {
+          "name": "withNumerals",
           "stability": "beta"
         }
       ]
@@ -6321,6 +6437,10 @@
         },
         {
           "name": "darkTheme",
+          "stability": "beta"
+        },
+        {
+          "name": "hemantTheme",
           "stability": "beta"
         },
         {

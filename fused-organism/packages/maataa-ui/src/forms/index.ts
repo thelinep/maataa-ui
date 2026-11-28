@@ -122,6 +122,7 @@ export {
   CountrySelector,
   RegionSelector,
   CurrencySelector,
+  NumeralsSelector,
   type RegionValue,
   type RegionSelectorProps,
 } from "./LocaleSelectors";

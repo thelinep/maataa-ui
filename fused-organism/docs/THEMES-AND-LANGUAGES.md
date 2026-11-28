@@ -2,7 +2,7 @@
 
 ## Themes
 
-MAATAA ships four themes: **Light** (`paperTheme`, the default), **Dark** (`darkTheme`), **TLPS v2** (`tlpsV2Theme`) and **High contrast** (`highContrastTheme`, at least 7:1 for all text). `builtInThemes` lists all four in picker order.
+MAATAA ships five themes: **Light** (`paperTheme`, the default), **Dark** (`darkTheme`), **TLPS v2** (`tlpsV2Theme`), **High contrast** (`highContrastTheme`, at least 7:1 for all text) and **Hemant** (`hemantTheme`, a warm early-winter light theme: misty ivory, mustard cream, marigold and sindoor accents; WCAG AA, tested). `builtInThemes` lists all five in picker order.
 
 ### Let people choose
 
@@ -33,7 +33,7 @@ import { LocaleProvider } from "@maataa/ui";
 
 <LocaleProvider locale="hi-IN">
   <App />
-</LocaleProvider>
+</LocaleProvider>;
 ```
 
 `LocaleProvider` sets the locale for every component inside it:
@@ -67,3 +67,9 @@ For a label map defined outside a component, mark each value with `msg("…")` a
 ### Not translated yet
 
 About 190 English strings are still built in code with template literals, in about 80 files. They are mostly screen-reader announcements, chart summaries and messages assembled in helper functions, for example a timer's spoken "2 minutes 5 seconds". Each needs converting to `t()` or `t.plural()` by hand. Until then they appear in English inside a Hindi interface.
+
+## Digits and the Indian calendar
+
+`LocaleProvider` takes `numerals`: `"latn"` (0–9), `"deva"` (०–९), `"brah"` (Brahmi 𑁦–𑁯) or any Unicode numbering-system id. It is added to the locale every component formats with (`hi-IN` becomes `hi-IN-u-nu-brah`), so every number, date, count and amount below follows, while `lang` stays `hi-IN`. An id the browser doesn't know is ignored. Brahmi needs a font that has it, such as Noto Sans Brahmi; without one, the digits show as boxes. `NumeralsSelector` (in `@maataa/ui/forms`) lets people choose, with a preview of each set.
+
+`IndianDate` shows a date as Vikram Samvat, for example "मार्गशीर्ष कृष्ण प्रतिपदा · विक्रम संवत् २०८३ · हेमंत ऋतु". `vikramDate(date, options)` returns the parts: samvat and Shaka year, lunar month (with adhik months), paksha, tithi and ritu. The tithi is the one running at local sunrise (New Delhi by default; pass `lat` and `lng`), months are purnimanta by default (`system: "amanta"` for Gujarat, Maharashtra and the south), and the ritu follows the sun's sidereal sign (Lahiri ayanamsa). It is computed from the sun and moon positions, with no lookup tables, so it works for any year. Tests check it against panchang dates for Holi, Raksha Bandhan, Janmashtami, Diwali, Gudi Padwa and the 2026 adhik Jyeshtha. A tithi that changes within minutes of sunrise, and the rare kshaya month, can differ from a printed panchang; use a panchang for religious timings.

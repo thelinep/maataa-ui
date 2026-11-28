@@ -15,6 +15,7 @@ export {
   darkTheme,
   tlpsV2Theme,
   highContrastTheme,
+  hemantTheme,
   builtInThemes,
   themesToCss,
   type MaataaTheme,

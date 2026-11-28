@@ -36,6 +36,7 @@ export {
   darkTheme,
   tlpsV2Theme,
   highContrastTheme,
+  hemantTheme,
   builtInThemes,
   themeToCss,
   themeToCssVariables,
