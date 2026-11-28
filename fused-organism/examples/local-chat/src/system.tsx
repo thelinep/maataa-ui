@@ -139,6 +139,11 @@ export function SystemStatus() {
       <p aria-live="polite" className="muted small studio-status">
         {status}
       </p>
+      {window.location.pathname.startsWith("/chat/") && (
+        <p className="muted small">
+          <a href="/console">{t("Open the older Workstation console")}</a>
+        </p>
+      )}
       {error && (
         <p role="alert" className="tone-error">
           {error}

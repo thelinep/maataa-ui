@@ -53,6 +53,74 @@ async function asDataUrl(url: string): Promise<string> {
   });
 }
 
+/** First-frame pictures for videos, made in the browser: the video is loaded
+ *  muted, moved to half a second in (or its middle, if shorter), and drawn on
+ *  a small canvas. A few at a time; a video that can't be read just keeps the
+ *  film icon. Same-origin files only, so the canvas can be read back. */
+function useVideoThumbs(urls: string[]): Record<string, string> {
+  const [thumbs, setThumbs] = useState<Record<string, string>>({});
+  const tried = useRef(new Set<string>());
+  useEffect(() => {
+    let cancelled = false;
+    const todo = urls.filter((u) => !tried.current.has(u));
+    todo.forEach((u) => tried.current.add(u));
+    const grab = (url: string) =>
+      new Promise<string | null>((resolve) => {
+        const v = document.createElement("video");
+        let done = false;
+        const finish = (out: string | null) => {
+          if (done) return;
+          done = true;
+          v.removeAttribute("src");
+          v.load();
+          resolve(out);
+        };
+        const timer = window.setTimeout(() => finish(null), 15000);
+        v.muted = true;
+        v.preload = "metadata";
+        v.playsInline = true;
+        v.onloadedmetadata = () => {
+          v.currentTime = Math.min(0.5, (v.duration || 1) / 2);
+        };
+        v.onseeked = () => {
+          try {
+            const w = 320;
+            const h = Math.max(1, Math.round((w * (v.videoHeight || 180)) / (v.videoWidth || 320)));
+            const c = document.createElement("canvas");
+            c.width = w;
+            c.height = h;
+            c.getContext("2d")?.drawImage(v, 0, 0, w, h);
+            window.clearTimeout(timer);
+            finish(c.toDataURL("image/jpeg", 0.7));
+          } catch {
+            window.clearTimeout(timer);
+            finish(null);
+          }
+        };
+        v.onerror = () => {
+          window.clearTimeout(timer);
+          finish(null);
+        };
+        v.src = url;
+      });
+    (async () => {
+      const queue = [...todo];
+      const worker = async () => {
+        while (queue.length && !cancelled) {
+          const url = queue.shift()!;
+          const pic = await grab(url);
+          if (pic && !cancelled) setThumbs((old) => ({ ...old, [url]: pic }));
+        }
+      };
+      await Promise.all([worker(), worker(), worker()]);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [urls.join("\n")]); // eslint-disable-line react-hooks/exhaustive-deps
+  return thumbs;
+}
+
 export function MediaStudio({ onCompare }: { onCompare: (source: CompareSource) => void }) {
   const t = useT();
   const ids = { kind: useId(), prompt: useId(), seconds: useId(), mine: useId() };
@@ -117,6 +185,11 @@ export function MediaStudio({ onCompare }: { onCompare: (source: CompareSource) 
       ),
     [media, filter, onlyMade],
   );
+  const videoUrls = useMemo(
+    () => list.slice(0, shown).filter((m) => m.kind === "video").map((m) => mediaUrl(m.id)),
+    [list, shown],
+  );
+  const videoThumbs = useVideoThumbs(videoUrls);
   const assets: Asset[] = list.slice(0, shown).map((m) => {
     const words = promptOf(m);
     return {
@@ -124,7 +197,7 @@ export function MediaStudio({ onCompare }: { onCompare: (source: CompareSource) 
       name: words ? words.slice(0, 60) : m.originalName,
       kind: m.kind,
       url: mediaUrl(m.id),
-      thumbnailUrl: m.kind === "image" ? mediaUrl(m.id) : undefined,
+      thumbnailUrl: m.kind === "image" ? mediaUrl(m.id) : m.kind === "video" ? videoThumbs[mediaUrl(m.id)] : undefined,
       alt: m.kind === "image" ? words || m.originalName : undefined,
       size: m.bytes,
     };
@@ -340,6 +413,7 @@ export function MediaStudio({ onCompare }: { onCompare: (source: CompareSource) 
                 name: open.originalName,
                 kind: open.kind,
                 url: mediaUrl(open.id),
+                thumbnailUrl: open.kind === "video" ? videoThumbs[mediaUrl(open.id)] : undefined,
                 alt: open.kind === "image" ? promptOf(open) || open.originalName : undefined,
                 size: open.bytes,
                 meta: when(open.createdAt),
