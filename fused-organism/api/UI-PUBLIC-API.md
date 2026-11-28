@@ -398,6 +398,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ShareMenu — beta
 - SharePermissions — beta
 - Sheet — beta
+- ShotList — beta
 - ShotTypeSelector — beta
 - Sidebar — beta
 - SidesViewer — beta
@@ -514,6 +515,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - WindLayer — beta
 - WindowEditor — beta
 - WizardShell — beta
+- WorkstationOutputs — beta
 - WrapForm — beta
 - WrapSummary — beta
 - YesNoButtons — beta
@@ -567,6 +569,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - eqBandsHz — beta
 - evaluateFormula — beta
 - eventsOn — beta
+- fetchNovaOutputs — beta
 - fileMatchesAccept — beta
 - filterCommands — beta
 - findPrimitiveRegistryItem — beta
@@ -580,6 +583,8 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - formatMonthValue — beta
 - formatTimecode — beta
 - formatWeekValue — beta
+- fromNovaCallSheet — beta
+- fromNovaShotList — beta
 - georeference — beta
 - getPrimitiveRegistryCoverage — beta
 - hapticPatterns — beta
@@ -622,6 +627,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - parseEmails — beta
 - parseLatLng — beta
 - parseMonth — beta
+- parseSceneHeading — beta
 - parseTimecode — beta
 - parseWeek — beta
 - pathLengthKm — beta
@@ -632,6 +638,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - productionRoleOptions — beta
 - publicationStates — beta
 - qcStates — beta
+- readNovaOutput — beta
 - readingFontStacks — beta
 - relativeDue — beta
 - rememberReturnTo — beta
@@ -641,6 +648,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - safeReturnTo — beta
 - savedAgo — beta
 - scanStatusLabel — beta
+- sceneRowsFromShotList — beta
 - scenesOf — beta
 - shortAddress — experimental
 - shotTypes — beta
@@ -1195,6 +1203,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - ScriptAnalysisChart — beta
 - ScrollTable — beta
 - ShareLinkDisplay — beta
+- ShotList — beta
 - SidesViewer — beta
 - SignatureStatusList — beta
 - SkillMeter — experimental
@@ -1233,6 +1242,7 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - WaterfallChart — beta
 - Waveform — beta
 - WeatherWidget — experimental
+- WorkstationOutputs — beta
 - chartColor — beta
 - clock — beta
 - cueLength — beta
@@ -1243,14 +1253,20 @@ Generated from every @maataa/ui package export. The 1.0 semver promise covers on
 - diffLines — beta
 - encodeQr — beta
 - eventsOn — beta
+- fetchNovaOutputs — beta
 - formatTimecode — beta
+- fromNovaCallSheet — beta
+- fromNovaShotList — beta
 - initialsOf — beta
 - inrShort — experimental
 - levelZone — beta
 - pagesFromEighths — beta
+- parseSceneHeading — beta
 - parseTimecode — beta
 - peaksFrom — beta
+- readNovaOutput — beta
 - relativeDue — beta
+- sceneRowsFromShotList — beta
 - shortAddress — experimental
 - spectrumBandHz — beta
 - templateFields — beta

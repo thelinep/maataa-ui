@@ -2537,6 +2537,10 @@
           "stability": "beta"
         },
         {
+          "name": "ShotList",
+          "stability": "beta"
+        },
+        {
           "name": "ShotTypeSelector",
           "stability": "beta"
         },
@@ -3001,6 +3005,10 @@
           "stability": "beta"
         },
         {
+          "name": "WorkstationOutputs",
+          "stability": "beta"
+        },
+        {
           "name": "WrapForm",
           "stability": "beta"
         },
@@ -3213,6 +3221,10 @@
           "stability": "beta"
         },
         {
+          "name": "fetchNovaOutputs",
+          "stability": "beta"
+        },
+        {
           "name": "fileMatchesAccept",
           "stability": "beta"
         },
@@ -3262,6 +3274,14 @@
         },
         {
           "name": "formatWeekValue",
+          "stability": "beta"
+        },
+        {
+          "name": "fromNovaCallSheet",
+          "stability": "beta"
+        },
+        {
+          "name": "fromNovaShotList",
           "stability": "beta"
         },
         {
@@ -3433,6 +3453,10 @@
           "stability": "beta"
         },
         {
+          "name": "parseSceneHeading",
+          "stability": "beta"
+        },
+        {
           "name": "parseTimecode",
           "stability": "beta"
         },
@@ -3473,6 +3497,10 @@
           "stability": "beta"
         },
         {
+          "name": "readNovaOutput",
+          "stability": "beta"
+        },
+        {
           "name": "readingFontStacks",
           "stability": "beta"
         },
@@ -3506,6 +3534,10 @@
         },
         {
           "name": "scanStatusLabel",
+          "stability": "beta"
+        },
+        {
+          "name": "sceneRowsFromShotList",
           "stability": "beta"
         },
         {
@@ -5666,6 +5698,10 @@
           "stability": "beta"
         },
         {
+          "name": "ShotList",
+          "stability": "beta"
+        },
+        {
           "name": "SidesViewer",
           "stability": "beta"
         },
@@ -5818,6 +5854,10 @@
           "stability": "experimental"
         },
         {
+          "name": "WorkstationOutputs",
+          "stability": "beta"
+        },
+        {
           "name": "chartColor",
           "stability": "beta"
         },
@@ -5858,7 +5898,19 @@
           "stability": "beta"
         },
         {
+          "name": "fetchNovaOutputs",
+          "stability": "beta"
+        },
+        {
           "name": "formatTimecode",
+          "stability": "beta"
+        },
+        {
+          "name": "fromNovaCallSheet",
+          "stability": "beta"
+        },
+        {
+          "name": "fromNovaShotList",
           "stability": "beta"
         },
         {
@@ -5878,6 +5930,10 @@
           "stability": "beta"
         },
         {
+          "name": "parseSceneHeading",
+          "stability": "beta"
+        },
+        {
           "name": "parseTimecode",
           "stability": "beta"
         },
@@ -5886,7 +5942,15 @@
           "stability": "beta"
         },
         {
+          "name": "readNovaOutput",
+          "stability": "beta"
+        },
+        {
           "name": "relativeDue",
+          "stability": "beta"
+        },
+        {
+          "name": "sceneRowsFromShotList",
           "stability": "beta"
         },
         {

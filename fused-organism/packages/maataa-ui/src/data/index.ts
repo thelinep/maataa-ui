@@ -15,6 +15,19 @@ export { DonutChart, type DonutChartProps, type DonutSlice } from "./DonutChart"
 export { DataTable, type DataTableProps, type DataTableColumn } from "./DataTable";
 export { encodeQr, type QrMatrix, type QrErrorLevel } from "./qr";
 export { QrCode, type QrCodeProps } from "./QrCode";
+export { ShotList, type ShotListProps, type ShotListScene, type ShotListShot } from "./ShotList";
+export {
+  readNovaOutput,
+  fromNovaCallSheet,
+  fromNovaShotList,
+  sceneRowsFromShotList,
+  parseSceneHeading,
+  fetchNovaOutputs,
+  type NovaOutput,
+  type NovaCallSheet,
+  type NovaShotList,
+} from "./nova";
+export { WorkstationOutputs, type WorkstationOutputsProps } from "./WorkstationOutputs";
 export { StarRating, type StarRatingProps } from "./StarRating";
 export { PRODUCTION_DEPARTMENTS, type ProductionDepartment } from "./departments";
 export {
@@ -566,5 +579,20 @@ export const dataComponents = [
     component: "StarRating",
     category: "Data",
     description: "A read-only rating out of five, with half stars",
+  },
+  {
+    id: "shot-list",
+    name: "ShotList",
+    component: "ShotList",
+    category: "Data",
+    description: "A shot list by scene with sizes spelled out, durations and totals; prints on A4",
+  },
+  {
+    id: "workstation-outputs",
+    name: "WorkstationOutputs",
+    component: "WorkstationOutputs",
+    category: "Data",
+    description:
+      "Opens Maataa Workstation shot lists and call sheets and starts a call sheet from a shot list",
   },
 ];

@@ -3,7 +3,7 @@
  * Print-ready call sheet (A4), black on white, with real headings and tables
  */
 
-import { useT } from "../i18n/LocaleProvider";
+import { msg, useT } from "../i18n/LocaleProvider";
 import React from "react";
 import type { CallSheetDay, SceneRow } from "../forms/CallSheetEditor";
 
@@ -30,7 +30,7 @@ const css = `@media print { @page { size: A4; margin: 12mm } .cs-print { box-sha
 .cs-print thead th { background: #eee }
 .cs-print h1 { font-size: 18pt; margin: 0 } .cs-print h2 { font-size: 12pt; margin: 10px 0 2px; text-transform: uppercase; letter-spacing: .04em }`;
 
-const dn = { D: "Day", N: "Night", M: "Morning", E: "Evening" };
+const dn = { D: msg("Day"), N: msg("Night"), M: msg("Morning"), E: msg("Evening") };
 
 /**
  * CallSheetPrintView
@@ -47,6 +47,7 @@ export function CallSheetPrintView({
   version,
 }: CallSheetPrintViewProps) {
   const t = useT();
+  const withNotes = scenes.some((s) => s.notes);
   const people = (title: string, list: CallContact[]) =>
     list.length > 0 && (
       <>
@@ -156,6 +157,7 @@ export function CallSheetPrintView({
             <th scope="col">{t("Pages")}</th>
             <th scope="col">{t("Cast")}</th>
             <th scope="col">{t("Location")}</th>
+            {withNotes && <th scope="col">{t("Notes")}</th>}
           </tr>
         </thead>
         <tbody>
@@ -163,10 +165,11 @@ export function CallSheetPrintView({
             <tr key={s.id}>
               <th scope="row">{s.scene}</th>
               <td>{s.set}</td>
-              <td>{dn[s.dayNight]}</td>
+              <td>{t(dn[s.dayNight])}</td>
               <td>{s.pages}</td>
               <td>{s.cast}</td>
               <td>{s.location}</td>
+              {withNotes && <td>{s.notes}</td>}
             </tr>
           ))}
         </tbody>
