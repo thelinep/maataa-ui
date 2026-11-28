@@ -561,6 +561,67 @@ export const hemantTheme: MaataaTheme = {
   colorScheme: "light",
 };
 
+/**
+ * Lime: clean white and cool grey surfaces with a fresh lime accent. A crisp,
+ * modern light theme. Lime itself is too pale for text on white, so buttons
+ * and links use a deep lime (#3F6212); the bright lime (#D9F99D) is for
+ * selected and secondary fills, and #65A30D for single-series charts.
+ *
+ * Contrast (WCAG 2.2 AA), measured on all three backgrounds (#FFFFFF,
+ * #F6F7F6, #ECEEEC): text.primary 14.2:1 or more, secondary 7.7:1 or more,
+ * tertiary 5.2:1 or more; border.control 3.3:1 or more (WCAG 1.4.11);
+ * interactive.primary 6.0:1 or more, with white text on it 7.0:1;
+ * success, warning, error and info 5.4:1 or more; every semantic
+ * text-on-fill pair 6.6:1 or more. Checked by `limeTheme` tests in @maataa/ui.
+ */
+export const limeTheme: MaataaTheme = {
+  name: "lime",
+  label: "Lime",
+  colors: {
+    text: {
+      primary: "#1C1F1C",
+      secondary: "#454A45",
+      tertiary: "#5E645E",
+      inverse: "#FFFFFF",
+      disabled: "#9AA09A",
+    },
+    background: {
+      primary: "#FFFFFF",
+      secondary: "#F6F7F6",
+      tertiary: "#ECEEEC",
+      inverse: "#1C1F1C",
+    },
+    border: {
+      primary: "#D4D8D4",
+      secondary: "#E2E5E2",
+      tertiary: "#EDEFED",
+      control: "#7C827C",
+    },
+    interactive: {
+      primary: "#3F6212",
+      secondary: "#D9F99D",
+      success: "#2F6B2F",
+      warning: "#8A5300",
+      error: "#B42318",
+      info: "#2B5A8C",
+    },
+    semantic: {
+      success: { bg: "#ECFCCB", text: "#365314" },
+      warning: { bg: "#FEF3C7", text: "#7A4A00" },
+      error: { bg: "#FEE4E2", text: "#9F1A12" },
+      info: { bg: "#E0ECF8", text: "#24507E" },
+    },
+    shadow: {
+      sm: "0 1px 2px rgba(28, 31, 28, 0.06)",
+      md: "0 6px 20px rgba(28, 31, 28, 0.08)",
+      lg: "0 14px 40px rgba(28, 31, 28, 0.12)",
+      xl: "0 22px 60px rgba(28, 31, 28, 0.16)",
+    },
+  },
+  chartSingle: "#65A30D",
+  colorScheme: "light",
+};
+
 /** Every theme that ships with MAATAA, in picker order. */
 export const builtInThemes: readonly MaataaTheme[] = [
   paperTheme,
@@ -568,6 +629,7 @@ export const builtInThemes: readonly MaataaTheme[] = [
   tlpsV2Theme,
   highContrastTheme,
   hemantTheme,
+  limeTheme,
 ];
 
 /** The CSS custom properties for a theme, as a `{ "--maataa-…": value }` map. */

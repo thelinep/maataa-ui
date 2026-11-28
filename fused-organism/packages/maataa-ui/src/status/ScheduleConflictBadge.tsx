@@ -36,14 +36,14 @@ export function ScheduleConflictBadge({ conflicts, subject }: ScheduleConflictBa
         {t("✓ No conflicts")}
       </span>
     );
-  const label = `${conflicts.length} conflict${conflicts.length === 1 ? "" : "s"}`;
+  const label = t.plural(conflicts.length, "{count} conflict", "{count} conflicts");
   return (
     <span style={{ display: "inline-flex", flexDirection: "column", gap: spacingTokens.xs }}>
       <button
         type="button"
         aria-expanded={open}
         aria-controls={`${id}-list`}
-        aria-label={subject ? `${label} on ${subject}` : label}
+        aria-label={subject ? t("{conflicts} on {subject}", { conflicts: label, subject }) : label}
         onClick={() => setOpen((o) => !o)}
         style={{
           alignSelf: "flex-start",

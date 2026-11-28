@@ -2,7 +2,7 @@
 
 ## Themes
 
-MAATAA ships five themes: **Light** (`paperTheme`, the default), **Dark** (`darkTheme`), **TLPS v2** (`tlpsV2Theme`), **High contrast** (`highContrastTheme`, at least 7:1 for all text) and **Hemant** (`hemantTheme`, a warm early-winter light theme: misty ivory, mustard cream, marigold and sindoor accents; WCAG AA, tested). `builtInThemes` lists all five in picker order.
+MAATAA ships six themes: **Light** (`paperTheme`, the default), **Dark** (`darkTheme`), **TLPS v2** (`tlpsV2Theme`), **High contrast** (`highContrastTheme`, at least 7:1 for all text) and **Hemant** (`hemantTheme`, a warm early-winter light theme: misty ivory, mustard cream, marigold and sindoor accents; WCAG AA, tested) and **Lime** (`limeTheme`, white and cool grey with a lime accent; buttons and links use deep lime #3F6212 so text stays readable, bright lime #D9F99D marks selected fills; WCAG AA, tested). `builtInThemes` lists all six in picker order.
 
 ### Let people choose
 

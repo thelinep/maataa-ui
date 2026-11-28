@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@maataa/ui": ["../../packages/maataa-ui/src/index.ts"],
+      "@maataa/ui/*": ["../../packages/maataa-ui/src/*"],
+      "@maataa/tokens": ["../../packages/tokens/src/index.ts"]
+    }
+  },
+  "include": ["src", "../../packages/maataa-ui/src/kernel-modules.d.ts"]
+}

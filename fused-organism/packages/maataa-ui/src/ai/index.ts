@@ -48,6 +48,8 @@ export {
   type LocalChatMessage,
   type ChatTransport,
   type ChatContext,
+  type ChatCommand,
+  type ChatTransportEvent,
 } from "./LocalChat";
 export {
   streamChat,
@@ -67,3 +69,34 @@ export {
   type DocChunk,
   type DocHit,
 } from "./docsSearch";
+
+// Rich replies
+export {
+  ChatMarkdown,
+  CodeBlock,
+  parseMarkdown,
+  parseFenceInfo,
+  findFencedBlocks,
+  renderInline,
+  renderInlineWithMath,
+  type ChatMarkdownProps,
+  type MathRenderer,
+  type FencedBlock,
+} from "./ChatMarkdown";
+export {
+  ChatChart,
+  ChatChoices,
+  ChatMap,
+  renderChatBlock,
+  repairShotList,
+  findArtifacts,
+  findTasks,
+  CHAT_BLOCKS_PROMPT,
+  CHAT_DIAGRAM_PROMPT,
+  CHAT_3D_PROMPT,
+  CHAT_MEDIA_PROMPT,
+  CHAT_BLOCK_KINDS,
+  type ChatArtifact,
+  type ChatBlockOptions,
+} from "./ChatBlocks";
+export { useSpeech, speakableText } from "./speech";

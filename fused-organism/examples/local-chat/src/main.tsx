@@ -9,7 +9,11 @@ style.textContent =
   themePreferenceCss() +
   "\nbody{background:var(--maataa-color-background-secondary);color:var(--maataa-color-text-primary);font-family:var(--maataa-font-base);}";
 document.head.appendChild(style);
-new Function(themeInitScript())();
+// Run as a script element, not new Function(): the desktop app's security
+// policy doesn't allow eval.
+const init = document.createElement("script");
+init.textContent = themeInitScript();
+document.head.appendChild(init);
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

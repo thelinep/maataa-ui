@@ -19,6 +19,8 @@ export interface AIChatBubbleProps {
   actions?: React.ReactNode;
   /** The answer was cut off or failed */
   error?: string;
+  /** Let the bubble use the full width, e.g. for tables and call sheets. */
+  wide?: boolean;
 }
 
 /**
@@ -34,6 +36,7 @@ export function AIChatBubble({
   sources,
   actions,
   error,
+  wide = false,
 }: AIChatBubbleProps) {
   const t = useT();
   const mine = from === "user";
@@ -56,7 +59,9 @@ export function AIChatBubble({
       </span>
       <div
         style={{
-          maxWidth: "min(560px, 90%)",
+          maxWidth: wide ? "100%" : "min(560px, 90%)",
+          minWidth: 0,
+          boxSizing: "border-box",
           padding: "10px 14px",
           borderRadius: mine ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
           background: mine ? colorTokens.interactive.primary : colorTokens.background.secondary,
@@ -81,7 +86,16 @@ export function AIChatBubble({
       </div>
       {sources && sources.length > 0 && (
         <details style={{ fontSize: 12 }}>
-          <summary style={{ cursor: "pointer", color: colorTokens.interactive.primary }}>
+          <summary
+            className="mc-t"
+            style={{
+              cursor: "pointer",
+              color: colorTokens.interactive.primary,
+              minHeight: 24,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             {t.plural(sources.length, "{count} source", "{count} sources")}
           </summary>
           <ol style={{ margin: "4px 0 0", paddingLeft: 18 }}>
@@ -99,7 +113,7 @@ export function AIChatBubble({
           </ol>
         </details>
       )}
-      {actions && <div style={{ display: "flex", gap: 4 }}>{actions}</div>}
+      {actions && <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{actions}</div>}
     </article>
   );
 }

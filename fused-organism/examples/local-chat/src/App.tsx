@@ -1,31 +1,108 @@
-import { useCallback, useEffect, useId, useMemo, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
+  CHAT_BLOCKS_PROMPT,
+  CHAT_BLOCK_KINDS,
+  CHAT_3D_PROMPT,
+  CHAT_DIAGRAM_PROMPT,
+  CHAT_MEDIA_PROMPT,
   LocalChat,
   LocaleProvider,
-  SegmentedTabs,
   ThemePicker,
-  ThumbMenu,
   builtInThemes,
-  useThemePreference,
-  type ChatCommand,
   createKeywordRetriever,
+  findArtifacts,
+  findTasks,
   formatContext,
   listLocalModels,
   useT,
+  useThemePreference,
+  type ChatArtifact,
+  type ChatCommand,
   type ChatContext,
+  type FencedBlock,
   type DocChunk,
   type LocalChatMessage,
   type LocalModelOptions,
 } from "@maataa/ui";
 import { appMessagesHi } from "./messages";
+import { ArtifactsPanel, ProjectPanel, TasksPanel } from "./panels";
+import {
+  fileChunks,
+  hashText,
+  loadAll,
+  newId,
+  now,
+  put,
+  remove,
+  titleFrom,
+  type Artifact,
+  type Conversation,
+  type Data,
+  type Project,
+  type Task,
+} from "./store";
+import { archiveTask, novaAvailable, pushTask, setTaskDone } from "./nova";
+import { APP_CSS } from "./styles";
+import { ComparePanel, type CompareSource } from "./compare";
+import { SkillsPanel } from "./skills";
+import { MediaStudio } from "./media";
+import { isCloudModel } from "./ws-api";
+import { TaskBoard } from "./board";
+import { PreProduction } from "./preprod";
+import { Knowledge } from "./knowledge";
+import { AgentsStudio, countApprovals } from "./agents";
+import { CodingStudio } from "./coding";
+import { SystemStatus } from "./system";
+import {
+  deleteSession,
+  listSessions,
+  saveSession,
+  toConversation,
+  workstationTransport,
+  type WorkstationSession,
+} from "./workstation";
+import { LivePreview, MediaBlock, MermaidDiagram, RUNNABLE, isMediaBlock, renderMath } from "./rich";
 
 type ServerKind = "ollama" | "lmstudio" | "custom";
+type PanelTab = "artifacts" | "tasks" | "skills" | "project" | "compare";
+/** What fills the middle: the chat, or one of the studio screens. */
+type View = "chat" | "media" | "board" | "preprod" | "knowledge" | "agents" | "coding" | "system";
+const VIEWS: View[] = ["chat", "media", "board", "preprod", "knowledge", "agents", "coding", "system"];
+const VIEW_NAMES: Record<Exclude<View, "chat">, string> = {
+  media: "Media studio",
+  board: "Task board",
+  preprod: "Pre-production",
+  knowledge: "Knowledge",
+  agents: "Agents and automations",
+  coding: "Coding studio",
+  system: "System",
+};
+const VIEW_ICONS: Record<View, string> = {
+  chat: "💬",
+  media: "🎞",
+  board: "🗂",
+  preprod: "📋",
+  knowledge: "📚",
+  agents: "🤖",
+  coding: "⌨",
+  system: "🩺",
+};
 
 interface Settings {
   server: ServerKind;
   customUrl: string;
   model: string;
   language: "en-IN" | "hi-IN";
+  projectId: string;
+  syncTasks: boolean;
+  /** Make pictures, sound and video as soon as a reply asks, without a tap. */
+  autoMedia: boolean;
+  /** "workstation": replies come from Maataa Workstation's smart chat when it runs. */
+  backend: "workstation" | "direct";
+  /** Keep chats in Workstation's sessions too, shared with its own screen. */
+  syncSessions: boolean;
+  /** Let thinking models reason before answering. */
+  think: boolean;
 }
 
 const STORAGE_KEY = "maataa-local-chat";
@@ -34,6 +111,12 @@ const DEFAULTS: Settings = {
   customUrl: "http://localhost:8080",
   model: "",
   language: "en-IN",
+  projectId: "general",
+  syncTasks: false,
+  autoMedia: false,
+  backend: "workstation",
+  syncSessions: true,
+  think: false,
 };
 
 function loadSettings(): Settings {
@@ -49,6 +132,8 @@ function connection(settings: Settings): Omit<LocalModelOptions, "model"> {
   if (settings.server === "lmstudio") return { baseUrl: "/lmstudio", api: "openai" };
   return { baseUrl: settings.customUrl, api: "openai" };
 }
+
+const wide = () => typeof window !== "undefined" && window.matchMedia("(min-width: 861px)").matches;
 
 export function App() {
   const [settings, setSettings] = useState<Settings>(loadSettings);
@@ -67,6 +152,7 @@ export function App() {
       messages={settings.language === "hi-IN" ? appMessagesHi : undefined}
       wrap={false}
     >
+      <style>{APP_CSS}</style>
       <Main settings={settings} setSettings={setSettings} />
     </LocaleProvider>
   );
@@ -80,21 +166,26 @@ function Main({
   setSettings: (update: (s: Settings) => Settings) => void;
 }) {
   const t = useT();
-  const ids = { server: useId(), url: useId(), model: useId(), language: useId() };
-  const [tab, setTab] = useState("chat");
+  const ids = {
+    server: useId(),
+    url: useId(),
+    model: useId(),
+    language: useId(),
+    sync: useId(),
+    media: useId(),
+    backend: useId(),
+    sessions: useId(),
+  };
+  const theme = useThemePreference();
+  const set = <K extends keyof Settings>(key: K, value: Settings[K]) =>
+    setSettings((s) => ({ ...s, [key]: value }));
+
+  // ---- model server -------------------------------------------------------
   const [models, setModels] = useState<string[]>([]);
   const [status, setStatus] = useState<{ tone: "ok" | "error" | "busy"; text: string }>({
     tone: "busy",
     text: "",
   });
-  const [chatLog, setChatLog] = useState<LocalChatMessage[]>([]);
-  const [docsLog, setDocsLog] = useState<LocalChatMessage[]>([]);
-  const [docs, setDocs] = useState<DocChunk[] | null>(null);
-  const [resetCount, setResetCount] = useState(0);
-  const theme = useThemePreference();
-  const set = <K extends keyof Settings>(key: K, value: Settings[K]) =>
-    setSettings((s) => ({ ...s, [key]: value }));
-
   const conn = connection(settings);
   const checkServer = useCallback(async () => {
     setStatus({ tone: "busy", text: t("Checking the model server…") });
@@ -112,7 +203,10 @@ function Main({
         tone: "ok",
         text: t.plural(names.length, "Connected · {count} model", "Connected · {count} models"),
       });
-      setSettings((s) => (names.includes(s.model) ? s : { ...s, model: names[0] }));
+      // A new user starts on a model on this computer; cloud models (name:cloud) stay a choice.
+      setSettings((s) =>
+        names.includes(s.model) ? s : { ...s, model: names.find((n) => !isCloudModel(n)) ?? names[0]! },
+      );
     } catch {
       setModels([]);
       setStatus({
@@ -122,52 +216,414 @@ function Main({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conn.baseUrl, conn.api, t]);
-
   useEffect(() => {
     void checkServer();
   }, [checkServer]);
 
+  // ---- Maataa Workstation (nova) ------------------------------------------
+  const [nova, setNova] = useState<"unknown" | "on" | "off">("unknown");
+  const [novaNote, setNovaNote] = useState("");
+  const checkNova = useCallback(async () => setNova((await novaAvailable()) ? "on" : "off"), []);
+  // Requests waiting for a person (commands, tools, workflow sign-offs), shown on the menu.
+  useEffect(() => {
+    if (nova !== "on") return;
+    const check = () => void countApprovals().then(setWaiting, () => setWaiting(0));
+    check();
+    const timer = window.setInterval(check, 15_000);
+    return () => window.clearInterval(timer);
+  }, [nova]);
+  useEffect(() => {
+    void checkNova();
+  }, [checkNova]);
+
+  // ---- saved data ---------------------------------------------------------
+  const [data, setData] = useState<Data | null>(null);
+  useEffect(() => {
+    void loadAll().then(setData);
+  }, []);
+  // Workstation's saved sessions: brought in once it answers, newer copy wins.
+  const remoteSessions = useRef(new Map<string, WorkstationSession>());
+  const sessionsLoaded = useRef(false);
+  useEffect(() => {
+    if (!data || nova !== "on" || !settings.syncSessions || sessionsLoaded.current) return;
+    sessionsLoaded.current = true;
+    void listSessions()
+      .then((list) => {
+        for (const s of list) remoteSessions.current.set(s.id, s);
+        setData((d) => {
+          if (!d) return d;
+          const byId = new Map(d.conversations.map((c) => [c.id, c]));
+          for (const s of list) {
+            const local = byId.get(s.id);
+            const conv = toConversation(s, local?.projectId ?? "general");
+            if (!local || conv.updatedAt > local.updatedAt) {
+              // Keep pictures the local copy has; Workstation keeps only words.
+              const merged = local
+                ? {
+                    ...conv,
+                    messages: conv.messages.map((m) => ({
+                      ...m,
+                      ...(local.messages.find((x) => x.id === m.id)?.images
+                        ? { images: local.messages.find((x) => x.id === m.id)!.images }
+                        : {}),
+                    })),
+                  }
+                : conv;
+              byId.set(s.id, merged);
+              void put("conversations", merged);
+            }
+          }
+          return {
+            ...d,
+            conversations: [...byId.values()].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
+          };
+        });
+      })
+      .catch(() => {
+        sessionsLoaded.current = false;
+      });
+  }, [data, nova, settings.syncSessions]);
+  const pushSession = (c: Conversation) => {
+    if (nova !== "on" || !settings.syncSessions) return;
+    void saveSession(c, settings.model, remoteSessions.current.get(c.id))
+      .then((saved) => remoteSessions.current.set(saved.id, saved))
+      .catch(() => undefined);
+  };
+  const project = data?.projects.find((p) => p.id === settings.projectId) ?? data?.projects[0] ?? null;
+  const [convId, setConvId] = useState(() => newId("c"));
+  const conversation = data?.conversations.find((c) => c.id === convId) ?? null;
+  const chats = data?.conversations.filter((c) => c.projectId === project?.id) ?? [];
+  const artifacts = (data?.artifacts ?? [])
+    .filter((a) => a.projectId === project?.id)
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  const tasks = (data?.tasks ?? []).filter((x) => x.projectId === project?.id);
+  const openTasks = tasks.filter((x) => !x.done).length;
+
+  const upsert = <K extends keyof Data>(kind: K, record: Data[K][number]) => {
+    setData((d) => {
+      if (!d) return d;
+      const list = d[kind] as Data[K][number][];
+      const i = list.findIndex((x) => x.id === record.id);
+      const next = i >= 0 ? list.map((x, j) => (j === i ? record : x)) : [record, ...list];
+      return { ...d, [kind]: next };
+    });
+    void put(kind, record);
+  };
+  const drop = (kind: keyof Data, id: string) => {
+    setData((d) => (d ? { ...d, [kind]: (d[kind] as { id: string }[]).filter((x) => x.id !== id) } : d));
+    void remove(kind, id);
+    if (kind === "conversations" && remoteSessions.current.has(id) && nova === "on") {
+      remoteSessions.current.delete(id);
+      void deleteSession(id).catch(() => undefined);
+    }
+  };
+
+  // ---- layout -------------------------------------------------------------
+  const [sideOpen, setSideOpen] = useState(false);
+  const [panel, setPanel] = useState<PanelTab | null>(null);
+  const [view, setView] = useState<View>("chat");
+  const [waiting, setWaiting] = useState(0);
+  const openView = (v: View) => {
+    setView(v);
+    setSideOpen(false);
+  };
+  const [openArtifact, setOpenArtifact] = useState<string | null>(null);
+  const [compareSource, setCompareSource] = useState<CompareSource | null>(null);
+  /** The picture and words of the user message just before `reply`, if it had a picture. */
+  const pictureBefore = (reply: LocalChatMessage | null): CompareSource | null => {
+    const msgs = latest.current?.id === convId ? latest.current.messages : (conversation?.messages ?? []);
+    const at = reply ? msgs.findIndex((x) => x.id === reply.id) : msgs.length;
+    for (let i = at - 1; i >= 0; i--) {
+      const m = msgs[i]!;
+      if (m.role === "user" && m.images?.length) return { image: m.images[0]!, prompt: m.content };
+      if (reply && m.role === "user") return null;
+    }
+    return null;
+  };
+  const openCompare = (source: CompareSource) => {
+    setCompareSource(source);
+    setPanel("compare");
+  };
+  const settingsRef = useRef<HTMLDialogElement>(null);
+  const openSettings = () => settingsRef.current?.showModal();
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSideOpen(false);
+        if (!wide()) setPanel(null);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const newChat = () => {
+    setConvId(newId("c"));
+    setView("chat");
+    setSideOpen(false);
+  };
+  const openChat = (c: Conversation) => {
+    setConvId(c.id);
+    setView("chat");
+    setSideOpen(false);
+  };
+  const chooseProject = (id: string) => {
+    set("projectId", id);
+    setConvId(newId("c"));
+    setOpenArtifact(null);
+    setSideOpen(false);
+  };
+  const createProject = () => {
+    const p: Project = {
+      id: newId("p"),
+      name: t("New project"),
+      instructions: "",
+      files: [],
+      createdAt: now(),
+    };
+    upsert("projects", p);
+    chooseProject(p.id);
+    setPanel("project");
+  };
+  const deleteProject = (p: Project) => {
+    if (!data) return;
+    data.conversations.filter((c) => c.projectId === p.id).forEach((c) => drop("conversations", c.id));
+    data.artifacts.filter((a) => a.projectId === p.id).forEach((a) => drop("artifacts", a.id));
+    data.tasks.filter((x) => x.projectId === p.id).forEach((x) => drop("tasks", x.id));
+    drop("projects", p.id);
+    chooseProject("general");
+    setPanel(null);
+  };
+
+  // ---- conversation saving (debounced while a reply streams in) ----------
+  const saveTimer = useRef<number | undefined>(undefined);
+  const latest = useRef<Conversation | null>(null);
+  const onMessagesChange = (messages: LocalChatMessage[]) => {
+    if (!project) return;
+    if (!messages.length) {
+      if (conversation) drop("conversations", conversation.id);
+      return;
+    }
+    const conv: Conversation = {
+      id: convId,
+      projectId: project.id,
+      title: conversation?.title || titleFrom(messages, t("New chat")),
+      messages,
+      updatedAt: now(),
+    };
+    latest.current = conv;
+    setData((d) => {
+      if (!d) return d;
+      const rest = d.conversations.filter((c) => c.id !== conv.id);
+      return { ...d, conversations: [conv, ...rest] };
+    });
+    window.clearTimeout(saveTimer.current);
+    saveTimer.current = window.setTimeout(() => {
+      if (latest.current) void put("conversations", latest.current);
+    }, 400);
+  };
+
+  // ---- artifacts ----------------------------------------------------------
+  const saveArtifact = (f: ChatArtifact): Artifact | null => {
+    if (!project || !data) return null;
+    const existing = data.artifacts.find(
+      (a) => a.projectId === project.id && a.conversationId === convId && a.title === f.title,
+    );
+    const last = existing?.versions[existing.versions.length - 1];
+    if (existing && last?.content === f.content) return existing;
+    const record: Artifact = existing
+      ? {
+          ...existing,
+          type: f.type,
+          versions: [...existing.versions, { content: f.content, at: now() }],
+          updatedAt: now(),
+        }
+      : {
+          id: newId("a"),
+          projectId: project.id,
+          conversationId: convId,
+          title: f.title,
+          type: f.type,
+          versions: [{ content: f.content, at: now() }],
+          updatedAt: now(),
+        };
+    upsert("artifacts", record);
+    return record;
+  };
+  const saveArtifacts = (reply: LocalChatMessage): Artifact[] =>
+    findArtifacts(reply.content)
+      .map(saveArtifact)
+      .filter((a): a is Artifact => !!a);
+  const showArtifact = (id: string) => {
+    setOpenArtifact(id);
+    setPanel("artifacts");
+  };
+  const flushSave = () => {
+    window.clearTimeout(saveTimer.current);
+    if (latest.current) {
+      void put("conversations", latest.current);
+      pushSession(latest.current);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("pagehide", flushSave);
+    return () => window.removeEventListener("pagehide", flushSave);
+  }, []);
+  const onReplyDone = (reply: LocalChatMessage) => {
+    window.setTimeout(flushSave, 50);
+    const saved = saveArtifacts(reply);
+    if (saved.length && wide()) showArtifact(saved[saved.length - 1]!.id);
+  };
+
+  // ---- tasks --------------------------------------------------------------
+  const syncTask = async (task: Task) => {
+    if (!settings.syncTasks || nova !== "on" || !project) return;
+    try {
+      const novaId = task.novaId ?? (await pushTask(task, project.name));
+      if (task.done) await setTaskDone(novaId, true);
+      if (novaId !== task.novaId) upsert("tasks", { ...task, novaId });
+      setNovaNote("");
+    } catch (e) {
+      setNovaNote(
+        t("Maataa Workstation didn’t take the change: {message}", { message: (e as Error).message }),
+      );
+    }
+  };
+  const addTasks = (titles: string[]) => {
+    if (!project) return 0;
+    const have = new Set(tasks.map((x) => x.title.toLowerCase()));
+    const fresh = titles.filter((title) => !have.has(title.toLowerCase()));
+    for (const title of fresh) {
+      const task: Task = { id: newId("t"), projectId: project.id, title, done: false, createdAt: now() };
+      upsert("tasks", task);
+      void syncTask(task);
+    }
+    return fresh.length;
+  };
+  const toggleTask = (task: Task) => {
+    const next = { ...task, done: !task.done };
+    upsert("tasks", next);
+    if (settings.syncTasks && nova === "on" && next.novaId)
+      void setTaskDone(next.novaId, next.done).catch((e: Error) =>
+        setNovaNote(t("Maataa Workstation didn’t take the change: {message}", { message: e.message })),
+      );
+  };
+  const deleteTask = (task: Task) => {
+    drop("tasks", task.id);
+    if (settings.syncTasks && nova === "on" && task.novaId)
+      void archiveTask(task.novaId).catch(() => undefined);
+  };
+
+  // ---- context and prompt -------------------------------------------------
+  const [docs, setDocs] = useState<DocChunk[] | null>(null);
   useEffect(() => {
     fetch("/maataa-docs.json")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((json: { chunks: DocChunk[] }) => setDocs(json.chunks))
       .catch(() => setDocs([]));
   }, []);
-
-  const search = useMemo(() => (docs ? createKeywordRetriever(docs) : null), [docs]);
-  const getContext = useCallback(
-    (question: string): ChatContext => {
-      const hits = search ? search(question, 6) : [];
-      if (!hits.length) return { text: "Passages from the MAATAA UI docs: none matched this question." };
-      return {
-        text: "Passages from the MAATAA UI docs:\n\n" + formatContext(hits, 7000),
-        sources: hits.map((h) => ({ title: h.chunk.title })),
-      };
-    },
-    [search],
+  const docsSearch = useMemo(() => (docs ? createKeywordRetriever(docs) : null), [docs]);
+  const filesKey = project?.files.map((f) => f.name + f.text.length).join("|") ?? "";
+  const fileSearch = useMemo(
+    () => (project && project.files.length ? createKeywordRetriever(fileChunks(project)) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [project?.id, filesKey],
   );
+  const getContext = useMemo(() => {
+    if (project?.kind === "docs")
+      return (question: string): ChatContext => {
+        const hits = docsSearch ? docsSearch(question, 6) : [];
+        if (!hits.length) return { text: "Passages from the MAATAA UI docs: none matched this question." };
+        return {
+          text: "Passages from the MAATAA UI docs:\n\n" + formatContext(hits, 7000),
+          sources: hits.map((h) => ({ title: h.chunk.title })),
+        };
+      };
+    if (fileSearch)
+      return (question: string): ChatContext => {
+        const hits = fileSearch(question, 5);
+        if (!hits.length) return { text: "" };
+        return {
+          text: "Passages from the project's files:\n\n" + formatContext(hits, 6000),
+          sources: [...new Set(hits.map((h) => h.chunk.title))].map((title) => ({ title })),
+        };
+      };
+    return undefined;
+  }, [project?.kind, docsSearch, fileSearch]);
 
   const languageLine =
     settings.language === "hi-IN"
-      ? "Reply in Hindi (Devanagari script). Keep code, component names, props and commands in English."
+      ? "Reply in Hindi (Devanagari script). Keep code, component names, props, JSON keys and commands in English."
       : "Reply in English.";
+  const systemPrompt =
+    project?.kind === "docs"
+      ? `You are the MAATAA UI docs helper. MAATAA UI is a React component library (packages @maataa/ui, @maataa/tokens). Answer using only the numbered passages you are given and cite them like [1]. If they do not cover the question, say so plainly. When useful, show the import line and a short TSX example using the documented props. ${languageLine}`
+      : [
+          `You are a helpful assistant running locally on the user's own computer, working with a film and event production team in India. Be clear and concise. ${languageLine}`,
+          CHAT_BLOCKS_PROMPT,
+          CHAT_DIAGRAM_PROMPT,
+          CHAT_3D_PROMPT,
+          "To show a working page, write a complete HTML page in a ```html block; it runs live in the chat.",
+          nova === "on" ? CHAT_MEDIA_PROMPT : "",
+          project?.instructions.trim()
+            ? `Project "${project.name}" instructions:\n${project.instructions.trim()}`
+            : "",
+          project?.files.length
+            ? "When passages from the project's files are given, use them and say which file you used."
+            : "",
+        ]
+          .filter(Boolean)
+          .join("\n\n");
+
+  const useWorkstation = settings.backend === "workstation" && nova === "on";
   const model: LocalModelOptions | undefined = settings.model
     ? { ...conn, model: settings.model }
     : undefined;
+  const unavailable =
+    status.tone === "error" || (status.tone === "ok" && !model) ? (
+      <div className="offline" role="group" aria-label={t("Model not available")}>
+        <p style={{ margin: 0, fontWeight: 600 }}>{t("The model isn’t available yet")}</p>
+        <p style={{ margin: 0 }}>{status.text}</p>
+        <div className="inline" style={{ justifyContent: "center" }}>
+          <button type="button" onClick={() => void checkServer()}>
+            {t("Check again")}
+          </button>
+          <button type="button" onClick={openSettings}>
+            {t("Model settings")}
+          </button>
+        </div>
+      </div>
+    ) : status.tone === "busy" ? (
+      <p style={{ margin: 0 }}>{t("Checking the model server…")}</p>
+    ) : undefined;
 
-  const newConversation = () => {
-    if (tab === "chat") setChatLog([]);
-    else setDocsLog([]);
-    setResetCount((n) => n + 1);
-  };
-  const toggleLanguage = () => set("language", settings.language === "hi-IN" ? "en-IN" : "hi-IN");
+  // ---- commands -----------------------------------------------------------
   const themeNames = ["system", ...builtInThemes.map((th) => th.name)];
-  const nextTheme = () =>
-    theme.setChoice(themeNames[(themeNames.indexOf(theme.choice) + 1) % themeNames.length]!);
-
   const commands: ChatCommand[] = [
-    { name: "chat", description: t("Switch to free chat"), run: () => setTab("chat") },
-    { name: "docs", description: t("Switch to MAATAA UI docs"), run: () => setTab("docs") },
+    { name: "new", description: t("Start a new chat"), run: () => newChat() },
+    {
+      name: "project",
+      args: "<name>",
+      description: t("Switch project"),
+      run: (name) => {
+        const list = data?.projects ?? [];
+        if (!name) return t("Projects: {list}", { list: list.map((p) => t(p.name)).join(", ") });
+        const found = list.find((p) => t(p.name).toLowerCase().startsWith(name.toLowerCase()));
+        if (!found) return t("No project is called {name}.", { name });
+        chooseProject(found.id);
+      },
+    },
+    { name: "docs", description: t("Switch to MAATAA UI docs"), run: () => chooseProject("docs") },
+    {
+      name: "task",
+      args: "<text>",
+      description: t("Add a task to this project"),
+      run: (text) => {
+        if (!text) return t("Write the task after /task");
+        addTasks([text]);
+        return t("Task added: {title}", { title: text });
+      },
+    },
     {
       name: "model",
       args: "<name>",
@@ -203,77 +659,487 @@ function Main({
       },
     },
     { name: "check", description: t("Check the model server again"), run: () => void checkServer() },
+    {
+      name: "compare",
+      args: "<what to change>",
+      description: t("Compare image models on the last picture"),
+      run: (text) => {
+        const picture = pictureBefore(null);
+        if (!picture) return t("Attach a picture first, then type /compare and what should change.");
+        openCompare({ image: picture.image, prompt: text || picture.prompt });
+      },
+    },
   ];
 
-  const label = { fontSize: 13, fontWeight: 600 } as const;
-  const control = {
-    minHeight: 36,
-    padding: "4px 8px",
-    borderRadius: 6,
-    border: "1px solid var(--maataa-color-border-control, #9C7C66)",
-    background: "var(--maataa-color-background-primary, #FFFAF0)",
-    color: "inherit",
-    font: "inherit",
-  } as const;
-  const statusColor =
-    status.tone === "ok"
-      ? "var(--maataa-color-interactive-success, #2D6A3E)"
-      : status.tone === "error"
-        ? "var(--maataa-color-interactive-error, #8B3A2B)"
-        : "var(--maataa-color-text-secondary, #6B5546)";
+  const messageActions = (m: LocalChatMessage) => {
+    const picture = pictureBefore(m);
+    const compare = picture && (
+      <button type="button" className="chip" onClick={() => openCompare(picture)}>
+        <span aria-hidden="true">▦ </span>
+        {t("Compare image models")}
+      </button>
+    );
+    const list = findTasks(m.content).filter((x) => !x.done);
+    if (!list.length) return compare || null;
+    const have = new Set(tasks.map((x) => x.title.toLowerCase()));
+    const fresh = list.filter((x) => !have.has(x.title.toLowerCase()));
+    const taskButton = (
+      <button
+        type="button"
+        className="chip"
+        disabled={!fresh.length}
+        onClick={() => {
+          addTasks(fresh.map((x) => x.title));
+          setPanel("tasks");
+        }}
+      >
+        <span aria-hidden="true">☐ </span>
+        {fresh.length ? t.plural(fresh.length, "Add {count} task", "Add {count} tasks") : t("Tasks added")}
+      </button>
+    );
+    return compare ? (
+      <>
+        {compare}
+        {taskButton}
+      </>
+    ) : (
+      taskButton
+    );
+  };
+
+  // Artifacts show in the reply as a card; the full content opens in the panel.
+  const renderBlock = (block: FencedBlock) => {
+    if ((CHAT_BLOCK_KINDS as readonly string[]).includes(block.lang)) return undefined;
+    if (block.lang === "mermaid") return <MermaidDiagram code={block.code} closed={block.closed} />;
+    if (isMediaBlock(block.lang))
+      return (
+        <MediaBlock
+          block={block as FencedBlock & { lang: typeof block.lang }}
+          nova={nova}
+          autoStart={settings.autoMedia}
+          saved={data?.media.find((r) => r.id === hashText(`${block.lang}:${block.code}`))}
+          onSaved={(r) =>
+            setData((d) => (d ? { ...d, media: [r, ...d.media.filter((x) => x.id !== r.id)] } : d))
+          }
+        />
+      );
+    const isPage = RUNNABLE.includes(block.lang);
+    if (!isPage && !block.meta.title && block.code.split("\n").length < 40) return undefined;
+    const artifact: ChatArtifact = {
+      title:
+        block.meta.title ||
+        (block.lang === "html" ? /<title>([^<]+)<\/title>/i.exec(block.code)?.[1]?.trim() : undefined) ||
+        (block.lang === "threejs" ? t("3D scene") : isPage ? t("Page") : block.lang || "text"),
+      type: block.lang === "md" ? "markdown" : block.lang || "text",
+      content: block.code,
+    };
+    const open = () => {
+      const saved = saveArtifact(artifact);
+      if (saved) showArtifact(saved.id);
+    };
+    if (isPage) return <LivePreview block={block} title={artifact.title} onOpen={open} />;
+    return (
+      <div className="artifact-card">
+        <span className="artifact-icon" aria-hidden="true">
+          ◧
+        </span>
+        <span className="artifact-card-text">
+          <strong>{artifact.title}</strong>
+          <span className="muted small">
+            {block.closed
+              ? t.plural(block.code.split("\n").length, "{type} · {count} line", "{type} · {count} lines", {
+                  type: block.lang || "text",
+                })
+              : t("Writing…")}
+          </span>
+        </span>
+        {block.closed && (
+          <button type="button" onClick={open}>
+            {t("Open")}
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  const statusDot = status.tone === "ok" && model ? "ok" : status.tone === "busy" ? "busy" : "error";
+  const projectName = project ? t(project.name) : "";
+  const starters =
+    project?.kind === "docs"
+      ? [
+          t("How do I add a theme picker?"),
+          t("Which props does DatePicker take?"),
+          t("How do I show the app in Hindi?"),
+        ]
+      : [
+          t("Write a call sheet for a 6 am shoot at a haveli"),
+          t("Make a shot list for a kitchen scene"),
+          t("Make a one-page shoot plan as a document"),
+          t("Compare crew hours this week as a chart"),
+        ];
 
   return (
-    <div style={{ maxWidth: 920, margin: "0 auto", padding: 16, display: "grid", gap: 12 }}>
-      <header style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
-        <h1 style={{ margin: 0, fontSize: 22, flex: 1 }}>{t("MAATAA local chat")}</h1>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-          <label htmlFor={ids.language} style={label}>
-            {t("Language")}
-          </label>
-          <select
-            id={ids.language}
-            value={settings.language}
-            onChange={(e) => set("language", e.target.value as Settings["language"])}
-            style={control}
+    <div className={`app${panel ? " with-panel" : ""}`}>
+      <header className="top">
+        <button
+          type="button"
+          className="ghost icon only-narrow"
+          aria-label={t("Projects and chats")}
+          aria-expanded={sideOpen}
+          aria-controls="side"
+          onClick={() => setSideOpen((o) => !o)}
+        >
+          ☰
+        </button>
+        <h1 className="top-title">
+          <span className="muted">{view === "chat" ? projectName : t("Studio")}</span>
+          {view !== "chat" ? (
+            <span className="crumb"> › {t(VIEW_NAMES[view])}</span>
+          ) : (
+            conversation && <span className="crumb"> › {conversation.title}</span>
+          )}
+        </h1>
+        <button
+          type="button"
+          className="chip model-chip"
+          onClick={openSettings}
+          aria-label={t("Model settings: {model}, {status}", {
+            model: settings.model || t("none"),
+            status: status.text,
+          })}
+        >
+          <span className={`dot ${statusDot}`} aria-hidden="true" />
+          <span className="lbl">{settings.model || t("No model")}</span>
+        </button>
+        {useWorkstation && (
+          <button
+            type="button"
+            className="chip"
+            aria-pressed={settings.think}
+            title={t("Let thinking models reason before answering (slower)")}
+            onClick={() => set("think", !settings.think)}
           >
-            <option value="en-IN">English</option>
-            <option value="hi-IN" lang="hi">
-              हिन्दी
-            </option>
-          </select>
-        </span>
-        <ThemePicker />
+            <span aria-hidden="true">✦</span>
+            <span className="lbl"> {t("Think")}</span>
+          </button>
+        )}
+        <button
+          type="button"
+          className="chip"
+          aria-pressed={panel === "artifacts"}
+          aria-label={t("Artifacts ({count})", { count: artifacts.length })}
+          onClick={() => setPanel((p) => (p === "artifacts" ? null : "artifacts"))}
+        >
+          <span aria-hidden="true">◧</span>
+          <span className="lbl"> {t("Artifacts")}</span>
+          {artifacts.length > 0 && <span className="count">{artifacts.length}</span>}
+        </button>
+        <button
+          type="button"
+          className="chip"
+          aria-pressed={panel === "tasks"}
+          aria-label={t("Tasks ({count} open)", { count: openTasks })}
+          onClick={() => setPanel((p) => (p === "tasks" ? null : "tasks"))}
+        >
+          <span aria-hidden="true">☐</span>
+          <span className="lbl"> {t("Tasks")}</span>
+          {openTasks > 0 && <span className="count">{openTasks}</span>}
+        </button>
+        <button type="button" className="primary" onClick={newChat} aria-label={t("New chat")}>
+          <span aria-hidden="true">＋</span>
+          <span className="lbl"> {t("New chat")}</span>
+        </button>
       </header>
 
-      <main style={{ display: "grid", gap: 12 }}>
-        <details
-          style={{
-            border: "1px solid var(--maataa-color-border-primary, #D4AF9F)",
-            borderRadius: 8,
-            padding: 12,
-          }}
-        >
-          <summary style={{ cursor: "pointer", fontWeight: 600 }}>
-            {t("Model")}: {settings.model || t("none")} ·{" "}
-            <span style={{ color: statusColor }}>{status.text}</span>
-          </summary>
-          <div
-            style={{
-              display: "grid",
-              gap: 12,
-              marginTop: 12,
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+      {sideOpen && <div className="scrim only-narrow" onClick={() => setSideOpen(false)} />}
+      <nav id="side" className={`side${sideOpen ? " open" : ""}`} aria-label={t("Projects and chats")}>
+        <h2 className="side-h">{t("Studio")}</h2>
+        <ul className="plain-list">
+          {VIEWS.map((v) => (
+            <li key={v}>
+              <button
+                type="button"
+                className="row-button row-inline"
+                aria-current={view === v ? "page" : undefined}
+                onClick={() => openView(v)}
+              >
+                <span aria-hidden="true">{VIEW_ICONS[v]} </span>
+                <span className="row-title">{v === "chat" ? t("Chat") : t(VIEW_NAMES[v])}</span>
+                {v === "agents" && waiting > 0 && (
+                  <span className="badge" aria-label={t("{count} waiting for you", { count: waiting })}>
+                    {waiting}
+                  </span>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <h2 className="side-h">{t("Projects")}</h2>
+        <ul className="plain-list">
+          {data?.projects.map((p) => (
+            <li key={p.id}>
+              <button
+                type="button"
+                className="row-button row-inline"
+                aria-current={p.id === project?.id ? "true" : undefined}
+                onClick={() => chooseProject(p.id)}
+              >
+                <span aria-hidden="true">{p.kind === "docs" ? "📘" : "📁"} </span>
+                <span className="row-title">{t(p.name)}</span>
+              </button>
+            </li>
+          ))}
+          <li>
+            <button type="button" className="row-button muted" onClick={createProject}>
+              ＋ {t("New project")}
+            </button>
+          </li>
+        </ul>
+        <div className="side-head">
+          <h2 className="side-h">{t("Chats in {project}", { project: projectName })}</h2>
+          <button
+            type="button"
+            className="ghost icon"
+            aria-label={t("Project settings")}
+            title={t("Project settings")}
+            onClick={() => {
+              setPanel("project");
+              setSideOpen(false);
             }}
           >
-            <div style={{ display: "grid", gap: 4 }}>
-              <label htmlFor={ids.server} style={label}>
-                {t("Model server")}
-              </label>
+            ⚙
+          </button>
+        </div>
+        {chats.length === 0 ? (
+          <p className="muted small" style={{ margin: "0 8px" }}>
+            {t("No chats yet.")}
+          </p>
+        ) : (
+          <ul className="plain-list">
+            {chats.map((c) => (
+              <li key={c.id} className="chat-row">
+                <button
+                  type="button"
+                  className="row-button"
+                  aria-current={c.id === convId ? "true" : undefined}
+                  onClick={() => openChat(c)}
+                >
+                  <span className="row-title">{c.title}</span>
+                </button>
+                <button
+                  type="button"
+                  className="ghost icon"
+                  aria-label={t("Delete chat {title}", { title: c.title })}
+                  onClick={() => {
+                    drop("conversations", c.id);
+                    if (c.id === convId) newChat();
+                  }}
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="side-foot">
+          <button type="button" className="row-button" onClick={openSettings}>
+            ⚙ {t("Settings")}
+          </button>
+        </div>
+      </nav>
+
+      <main className="main">
+        {view !== "chat" && (
+          <div className="studio-view">
+            {nova !== "on" ? (
+              <div className="offline">
+                <strong>{t("Maataa Workstation isn’t running")}</strong>
+                <span>
+                  {nova === "unknown"
+                    ? t("Checking for Maataa Workstation…")
+                    : t(
+                        "The studio shows what Workstation has made and planned. Start Workstation, then come back here.",
+                      )}
+                </span>
+              </div>
+            ) : view === "media" ? (
+              <MediaStudio onCompare={openCompare} />
+            ) : view === "board" ? (
+              <TaskBoard projectName={projectName} />
+            ) : view === "knowledge" ? (
+              <Knowledge />
+            ) : view === "agents" ? (
+              <AgentsStudio />
+            ) : view === "coding" ? (
+              <CodingStudio />
+            ) : view === "system" ? (
+              <SystemStatus />
+            ) : (
+              <PreProduction
+                onNewWithSkill={() => setPanel("skills")}
+                onKeep={(title, markdown) => {
+                  const saved = saveArtifact({ title, type: "markdown", content: markdown });
+                  if (saved) showArtifact(saved.id);
+                }}
+              />
+            )}
+          </div>
+        )}
+        <div className="chat-wrap" hidden={view !== "chat"}>
+          {data && project ? (
+            <LocalChat
+              key={`${convId}-${settings.language}`}
+              fill
+              bare
+              hideTitle
+              hideNewConversation
+              allowImages
+              voice
+              title={conversation?.title ?? t("New chat")}
+              assistantName={project.kind === "docs" ? t("Docs helper") : undefined}
+              commands={commands}
+              model={model}
+              send={
+                useWorkstation && settings.model
+                  ? workstationTransport({ model: settings.model, sessionId: convId, think: settings.think })
+                  : undefined
+              }
+              unavailable={unavailable}
+              systemPrompt={systemPrompt}
+              getContext={getContext}
+              initialMessages={conversation?.messages}
+              onMessagesChange={onMessagesChange}
+              onReplyDone={onReplyDone}
+              messageActions={messageActions}
+              renderBlock={renderBlock}
+              renderMath={renderMath}
+              placeholder={t("Ask anything…")}
+              starterQuestions={starters}
+              style={{ maxWidth: 860, width: "100%", margin: "0 auto" }}
+            />
+          ) : (
+            <p className="muted pad">{t("Loading your projects…")}</p>
+          )}
+        </div>
+      </main>
+
+      {panel && project && (
+        <aside className="panel" aria-label={t("Side panel")}>
+          <div className="panel-head">
+            <div role="tablist" aria-label={t("Side panel")} className="inline">
+              {(["artifacts", "tasks", "skills", "project", "compare"] as PanelTab[]).map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  role="tab"
+                  aria-selected={panel === tab}
+                  className="tab"
+                  onClick={() => setPanel(tab)}
+                >
+                  {tab === "artifacts"
+                    ? t("Artifacts")
+                    : tab === "tasks"
+                      ? t("Tasks")
+                      : tab === "project"
+                        ? t("Project")
+                        : tab === "skills"
+                          ? t("Skills")
+                          : t("Compare")}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="ghost icon"
+              aria-label={t("Close panel")}
+              onClick={() => setPanel(null)}
+            >
+              ×
+            </button>
+          </div>
+          <div role="tabpanel" className="panel-body">
+            {panel === "artifacts" && (
+              <ArtifactsPanel
+                artifacts={artifacts}
+                openId={openArtifact}
+                onOpen={setOpenArtifact}
+                onDelete={(id) => {
+                  drop("artifacts", id);
+                  setOpenArtifact(null);
+                }}
+              />
+            )}
+            {panel === "tasks" && (
+              <TasksPanel
+                tasks={tasks}
+                onAdd={(title) => addTasks([title])}
+                onToggle={toggleTask}
+                onDelete={deleteTask}
+                novaNote={
+                  novaNote ||
+                  (settings.syncTasks
+                    ? nova === "on"
+                      ? t("New tasks are copied to the Radheya board in Maataa Workstation.")
+                      : t("Maataa Workstation isn’t running, so tasks stay in this browser for now.")
+                    : "")
+                }
+              />
+            )}
+            {panel === "compare" && <ComparePanel source={compareSource} nova={nova} />}
+            {panel === "skills" && (
+              <SkillsPanel
+                nova={nova}
+                model={settings.model}
+                sessionId={convId}
+                lastReply={
+                  [...(conversation?.messages ?? [])].reverse().find((m) => m.role === "assistant")
+                    ?.content ?? ""
+                }
+                onKeep={(title, markdown) => {
+                  const saved = saveArtifact({ title, type: "markdown", content: markdown });
+                  if (saved) showArtifact(saved.id);
+                }}
+              />
+            )}
+            {panel === "project" && (
+              <ProjectPanel
+                project={project}
+                onChange={(p) => upsert("projects", p)}
+                onDelete={() => deleteProject(project)}
+              />
+            )}
+          </div>
+        </aside>
+      )}
+
+      <dialog ref={settingsRef} className="settings" aria-labelledby={`${ids.server}-h`}>
+        <form method="dialog" className="stack">
+          <h2 id={`${ids.server}-h`} style={{ margin: 0 }}>
+            {t("Settings")}
+          </h2>
+          <div className="grid2">
+            <div className="field">
+              <label htmlFor={ids.language}>{t("Language")}</label>
+              <select
+                id={ids.language}
+                value={settings.language}
+                onChange={(e) => set("language", e.target.value as Settings["language"])}
+              >
+                <option value="en-IN">English</option>
+                <option value="hi-IN" lang="hi">
+                  हिन्दी
+                </option>
+              </select>
+            </div>
+            <div className="field">
+              <ThemePicker />
+            </div>
+            <div className="field">
+              <label htmlFor={ids.server}>{t("Model server")}</label>
               <select
                 id={ids.server}
                 value={settings.server}
                 onChange={(e) => set("server", e.target.value as ServerKind)}
-                style={control}
               >
                 <option value="ollama">{t("Ollama on this computer")}</option>
                 <option value="lmstudio">{t("LM Studio on this computer")}</option>
@@ -281,28 +1147,22 @@ function Main({
               </select>
             </div>
             {settings.server === "custom" && (
-              <div style={{ display: "grid", gap: 4 }}>
-                <label htmlFor={ids.url} style={label}>
-                  {t("Server address")}
-                </label>
+              <div className="field">
+                <label htmlFor={ids.url}>{t("Server address")}</label>
                 <input
                   id={ids.url}
                   value={settings.customUrl}
                   onChange={(e) => set("customUrl", e.target.value)}
-                  style={control}
                 />
               </div>
             )}
-            <div style={{ display: "grid", gap: 4 }}>
-              <label htmlFor={ids.model} style={label}>
-                {t("Model")}
-              </label>
+            <div className="field">
+              <label htmlFor={ids.model}>{t("Model")}</label>
               <select
                 id={ids.model}
                 value={settings.model}
                 disabled={!models.length}
                 onChange={(e) => set("model", e.target.value)}
-                style={control}
               >
                 {!models.length && <option value="">{t("none")}</option>}
                 {models.map((m) => (
@@ -312,100 +1172,79 @@ function Main({
                 ))}
               </select>
             </div>
-            <div style={{ display: "flex", alignItems: "flex-end" }}>
-              <button
-                type="button"
-                onClick={() => void checkServer()}
-                style={{ ...control, cursor: "pointer" }}
-              >
-                {t("Check again")}
-              </button>
-            </div>
           </div>
-          <p role="status" style={{ margin: "8px 0 0", color: statusColor, fontSize: 13 }}>
-            {status.text}
+          <p className="muted small" style={{ margin: 0 }}>
+            {t("To ask about pictures, pick a model that can see, e.g. gemma3, llava or qwen2.5vl.")}
           </p>
-        </details>
-
-        <SegmentedTabs
-          label={t("Chat mode")}
-          value={tab}
-          onChange={setTab}
-          tabs={[
-            {
-              id: "chat",
-              label: t("Chat"),
-              content: (
-                <LocalChat
-                  key={`chat-${settings.language}-${resetCount}`}
-                  commands={commands}
-                  title={t("Chat with your local model")}
-                  hideTitle
-                  model={model}
-                  systemPrompt={`You are a helpful assistant running locally on the user's own computer. Be clear and concise. ${languageLine}`}
-                  initialMessages={chatLog}
-                  onMessagesChange={setChatLog}
-                  starterQuestions={[
-                    t("Write a call sheet note for a 6 am shoot"),
-                    t("Explain golden hour in two lines"),
-                  ]}
-                  height="max(360px, calc(100vh - 360px))"
-                />
-              ),
-            },
-            {
-              id: "docs",
-              label: t("MAATAA UI docs"),
-              content: (
-                <LocalChat
-                  key={`docs-${settings.language}-${resetCount}`}
-                  commands={commands}
-                  title={t("Ask about MAATAA UI")}
-                  hideTitle
-                  assistantName={t("Docs helper")}
-                  model={model}
-                  getContext={getContext}
-                  systemPrompt={`You are the MAATAA UI docs helper. MAATAA UI is a React component library (packages @maataa/ui, @maataa/tokens). Answer using only the numbered passages you are given and cite them like [1]. If they do not cover the question, say so plainly. When useful, show the import line and a short TSX example using the documented props. ${languageLine}`}
-                  initialMessages={docsLog}
-                  onMessagesChange={setDocsLog}
-                  starterQuestions={[
-                    t("How do I add a theme picker?"),
-                    t("Which props does DatePicker take?"),
-                    t("How do I show the app in Hindi?"),
-                  ]}
-                  height="max(360px, calc(100vh - 360px))"
-                />
-              ),
-            },
-          ]}
-        />
-        {docs && docs.length === 0 && tab === "docs" && (
-          <p style={{ margin: 0, color: statusColor }}>
-            {t("The docs index is missing. Start the app with npm run chat:local to build it.")}
-          </p>
-        )}
-        <ThumbMenu
-          label={t("Quick actions")}
-          haptics
-          items={[
-            { id: "new", label: t("New conversation"), icon: "＋", onSelect: newConversation },
-            {
-              id: "mode",
-              label: tab === "chat" ? t("MAATAA UI docs") : t("Chat"),
-              icon: tab === "chat" ? "📘" : "💬",
-              onSelect: () => setTab(tab === "chat" ? "docs" : "chat"),
-            },
-            {
-              id: "lang",
-              label: settings.language === "hi-IN" ? "English" : "हिन्दी",
-              icon: "अ",
-              onSelect: toggleLanguage,
-            },
-            { id: "theme", label: t("Next theme"), icon: "◐", onSelect: nextTheme },
-            { id: "check", label: t("Check again"), icon: "↻", onSelect: () => void checkServer() },
-          ]}
-        />
-      </main>
+          <div className="inline">
+            <button type="button" onClick={() => void checkServer()}>
+              {t("Check again")}
+            </button>
+            <span role="status" className={`small tone-${status.tone}`}>
+              {status.text}
+            </span>
+          </div>
+          <fieldset className="stack">
+            <legend>{t("Maataa Workstation")}</legend>
+            <div className="inline">
+              <input
+                type="checkbox"
+                id={ids.sync}
+                checked={settings.syncTasks}
+                onChange={(e) => set("syncTasks", e.target.checked)}
+              />
+              <label htmlFor={ids.sync}>{t("Copy tasks to its Radheya board")}</label>
+            </div>
+            <div className="inline">
+              <input
+                type="checkbox"
+                id={ids.backend}
+                checked={settings.backend === "workstation"}
+                onChange={(e) => set("backend", e.target.checked ? "workstation" : "direct")}
+              />
+              <label htmlFor={ids.backend}>
+                {t("Reply through Maataa Workstation (its memory, knowledge and sources)")}
+              </label>
+            </div>
+            <div className="inline">
+              <input
+                type="checkbox"
+                id={ids.sessions}
+                checked={settings.syncSessions}
+                onChange={(e) => set("syncSessions", e.target.checked)}
+              />
+              <label htmlFor={ids.sessions}>{t("Keep chats in Workstation’s sessions too")}</label>
+            </div>
+            <div className="inline">
+              <input
+                type="checkbox"
+                id={ids.media}
+                checked={settings.autoMedia}
+                onChange={(e) => set("autoMedia", e.target.checked)}
+              />
+              <label htmlFor={ids.media}>
+                {t("Make pictures, sound and video as soon as a reply asks (otherwise press Make)")}
+              </label>
+            </div>
+            <p className="muted small" style={{ margin: 0 }}>
+              {nova === "on"
+                ? t("Connected to Maataa Workstation.")
+                : nova === "off"
+                  ? t("Not running. Start it (port 8787) and press Check.")
+                  : t("Checking…")}{" "}
+              {t(
+                "Projects and artifacts stay in this browser; chats are also kept as Workstation sessions when that is on.",
+              )}
+            </p>
+            <button type="button" onClick={() => void checkNova()} style={{ justifySelf: "start" }}>
+              {t("Check")}
+            </button>
+          </fieldset>
+          <button type="submit" className="primary" style={{ justifySelf: "end" }}>
+            {t("Done")}
+          </button>
+        </form>
+      </dialog>
     </div>
   );
 }
