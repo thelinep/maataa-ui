@@ -526,7 +526,7 @@ export function ChatMap({ title, places }: { title?: string; places: MapPlace[] 
               href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(p.name)}`}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={t("Find {name} by name", { name: p.name })}
+              aria-label={t("find by name: {name}", { name: p.name })}
               style={{ color: colorTokens.interactive.primary }}
             >
               {t("find by name")}

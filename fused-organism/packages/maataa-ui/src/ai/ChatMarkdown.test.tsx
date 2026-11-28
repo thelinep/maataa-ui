@@ -319,7 +319,7 @@ describe("maths, raw HTML and maps", () => {
       expect.stringContaining("openstreetmap.org/?mlat=28.6386&mlon=77.2385")
     );
     expect(screen.getByText("The model sent a map that couldn’t be read.")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Find LNJP Hospital by name" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "find by name: LNJP Hospital" })).toHaveAttribute(
       "href",
       "https://www.openstreetmap.org/search?query=LNJP%20Hospital"
     );
